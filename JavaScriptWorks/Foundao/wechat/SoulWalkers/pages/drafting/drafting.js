@@ -1,7 +1,12 @@
 // pages/drafting/drafting.js
-var batten = wx.createSelectorQuery().select('.controls')
-let oldBox, newBox = { x: 0, y: 0 }, mouse = {}, box = { width: 200, height: 100, x: 0, y: 0, backgroundColor: 'yellow'}
-let lock = false
+let oldBox , newBox = { x: 0, y: 0 }, mouse = {}, box = { width: 200, height: 100, x: 10, y: 0, backgroundColor: 'yellow' }
+let lock = false,device
+// wx.setEnableDebug({
+//   enableDebug: true,
+//   success: function (res) { },
+//   fail: function (res) { },
+//   complete: function (res) { },
+// })
 Page({
   tapName: function (event) {
     console.log(event)
@@ -18,43 +23,44 @@ Page({
   data: {
     box: box
   },
+  GetDistance(loc1x,loc1y,loc2x,loc2y) {
+    loc1x = Math.abs(loc1x - loc2x)
+    loc1y = Math.abs(loc1y - loc2y)
+    return Math.hypot(loc1x * loc1x + loc1y * loc1y)
+  },
   battenTap(e) {
     console.log('mousedown')
-    oldBox = e.currentTarget
+    oldBox = box
     mouse.x = e.changedTouches[0].pageX
+    console.log(e)
     mouse.y = e.changedTouches[0].pageY
-    console.log(mouse)
     lock = true;
   },
   battenMove(e) {
-    console.log(e.changedTouches[0])
     if (lock) {
       console.log('mousemove')
-      newBox.x = e.changedTouches[0].pageX - mouse.x + oldBox.offsetLeft
-      newBox.y = e.changedTouches[0].pageY - mouse.y + oldBox.offsetTop
-      this.setData({
-        box: { x: newBox.x, y: newBox.y, width: box.width, height: box.height, backgroundColor:box.backgroundColor}
-      })
-      console.log(newBox)
+      newBox.x = e.changedTouches[0].pageX - mouse.x + oldBox.x
+      newBox.y = e.changedTouches[0].pageY - mouse.y + oldBox.y
+      //if (this.GetDistance(newBox.x, newBox.y, e.currentTarget.offsetLeft, e.currentTarget.offsetTop) > 10) {
+        console.log(this.GetDistance(newBox.x, newBox.y, e.currentTarget.offsetLeft, e.currentTarget.offsetTop))
+        this.setData({
+          box: { x: newBox.x, y: newBox.y, width: box.width, height: box.height, backgroundColor: box.backgroundColor }
+        })
+      //}
     }
   },
-  battenEnd() {
+  battenEnd(e) {
     lock = false;
     console.log('mouseup')
-    oldBox.offsetLeft = newBox.x
-    oldBox.offsetTop = newBox.y
-
-    console.log('newBox')
-    console.log(newBox)
-    console.log('oldBox')
-    console.log(oldBox)
+    oldBox.x = newBox.x
+    oldBox.y = newBox.y
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

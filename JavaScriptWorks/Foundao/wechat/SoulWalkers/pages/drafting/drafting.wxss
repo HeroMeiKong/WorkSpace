@@ -24,9 +24,9 @@
 .controls1 {
   position: relative;
   top: 50%;
-  height: 50px;
+  height: 50rpx;
   width: 80px;
-  margin-top: -25px;
+  margin-top: -25rpx;
   display: flex;
   background-color: white;
 }
