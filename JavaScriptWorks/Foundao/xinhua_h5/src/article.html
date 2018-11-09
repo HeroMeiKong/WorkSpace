@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>文章</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/article.css">
+
+</head>
+<body>
+<div class="wrapper">
+    <!--loading-->
+    <div class="page loading">
+        <div class="loading_content">
+            <img src="images/loading.gif" alt="">
+            <span>加载中...</span>
+        </div>
+    </div>
+    <div class="page article">
+        <h1 class="article_title">
+
+        </h1>
+        <div class="article_from">
+            <span class="article_from_name"></span> ·
+            <span class="article_from_view"><span></span>人浏览</span> ·
+            <span class="article_from_time"></span>
+        </div>
+        <div class="article_desc">
+
+        </div>
+        <div class="article_content limit">
+            <div class="article_word">
+            </div>
+            <div class="article_limit">
+                <div class="limit_inner">
+                    <div class="see_more_text">查看全部</div>
+                    <div class="see_more_icon"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="article_comment">
+            <h3>相关评论</h3>
+            <div class="comment_list">
+            </div>
+            <div class="more_comment">
+                打开新华网APP,查看更多精彩评论
+            </div>
+        </div>
+        <!--打开app-->
+        <div class="open_app">
+            <div class="open_app_inner">
+                <div class="app_icon"></div>
+
+                <button class="btn_open_app">立即打开</button>
+                <div class="open_disc">
+                    <div class="app_name">新华网APP</div>
+                    <div class="app_desc">不止于所见</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="utils/jquery.min.js"></script>
+<script src="utils/jweixin-1.2.0.js"></script>
+<script src="utils/screeninit.js"></script>
+
+<script src="js/tools.js"></script>
+<script src="js/config.js"></script>
+<script src="utils/wx_config.js"></script>
+<script src="utils/moment.min.js"></script>
+
+<script src="js/article.js"></script>
+<script src="./utils/vconsole.min.js"></script>
+<script>
+  if (_isDevelopment) {
+    //vConsole = new VConsole();
+  }
+</script>
+
+</body>
+</html>

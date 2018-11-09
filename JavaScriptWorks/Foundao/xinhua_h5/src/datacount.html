@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>数聚</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/datacount.css">
+</head>
+<body>
+<div class="wrapper">
+    <!--loading-->
+    <div class="page loading">
+        <div class="loading_content">
+            <img src="images/loading.gif" alt="">
+            <span>加载中...</span>
+        </div>
+    </div>
+    <div class="page article">
+        <!--首部-->
+        <div class="article_head">
+            <div class="head_filter"></div>
+            <div class="head_content">
+                <h1 class="article_title">数据告诉你，中国经济稳着呢！</h1>
+                <p class="article_desc limit-line2">中国经济前三季度同比增长6.7%，经济继续保持稳定增长的动力增强，民生福祉持续增进。</p>
+            </div>
+        </div>
+
+        <!--banner-->
+        <div class="banner">
+            <div class="banner_inner">
+                <!-- Swiper -->
+                <div class="swiper-container swiper-banner">
+                    <div class="swiper-wrapper">
+                        <!--<div class="swiper-slide">-->
+                            <!--<div class="banner_image"></div>-->
+                            <!--<div class="banner_title">刘鹤就当前经济金融热点问题接受采访</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+
+
+                <!--<p class="banner_title">数据亮点：经济稳中有进 百姓腰包鼓了</p>-->
+            </div>
+        </div>
+
+        <!-- 观点滑动模块-->
+        <div class="swiper_box">
+            <!-- Swiper -->
+            <div class="swiper-container swiper-container1">
+                <div class="swiper-wrapper">
+                    <!--<div class="view_image"></div>-->
+                    <!--<div class="view_title limit-line3"></div>-->
+                </div>
+            </div>
+        </div>
+
+        <!--热词模块-->
+        <div class="hot_word">
+            <!--热词图-->
+            <div class="hot_word_inner">
+                <img src="" alt="">
+            </div>
+            <!--信息量-->
+            <div class="hot_word_info">
+                <div class="hot_info_item">
+                    <!--分割线-->
+                    <div class="split_line"></div>
+                    <div class="count_item">
+                        <div class="count_icon"></div>
+                        <div class="count_text"><span id="message_num">23568</span>条 <br/>信息总量</div>
+                    </div>
+                    <div class="count_item">
+                        <div class="count_icon media_icon"></div>
+                        <div class="count_text"><span id="media_num">23568</span>家 <br/>媒体报道</div>
+                    </div>
+                </div>
+
+                <div class="hot_info_item">
+                    <!--分割线-->
+                    <div class="split_line"></div>
+                    <div class="count_item">
+                        <div class="count_icon message_icon"></div>
+                        <div class="count_text"><span id="netizen_num">23568</span>位 <br/>网民参与讨论</div>
+                    </div>
+                    <div class="count_item">
+                        <div class="address_img"><img src="" alt=""></div>
+                        <div class="count_text">网民最关注</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--精选/聊吧-->
+        <div class="article_bottom">
+            <!--导航-->
+            <div class="nav">
+                <div class="nav_item left active"><span>精选</span></div>
+                <div class="nav_item right"><span>聊吧</span></div>
+            </div>
+            <!--轮播内容-->
+            <!-- Swiper -->
+            <div class="swiper-container swiper-container2">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <!--精选-->
+                        <div class="fine_box">
+                            <div class="fine_list">
+                                <!--<div class="fine_item">-->
+                                    <!--<div class="fine_icon"></div>-->
+                                    <!--<div class="fine_info">-->
+                                        <!--<div class="fine_nickname">国资小新</div>-->
+                                        <!--<div class="fine_time">1小时前</div>-->
+                                        <!--<div class="fine_content">美国这一举动不仅对小商家有影响，对不少涉及跨境业务的上市公司也有所影响。</div>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;一根线&ndash;&gt;-->
+                                    <!--<div class="fine_line"></div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <!--聊吧-->
+                        <div class="liaoba_box">
+                            <!--情绪感知-->
+                            <div class="emoji_block">
+                                <div class="emoji_title">情绪感知</div>
+                                <div class="emoji_image"></div>
+                            </div>
+                            <!--评论-->
+                            <div class="article_comment">
+                                <!--<h3>相关评论</h3>-->
+                                <div class="comment_list">
+                                    <!--<div class="comment_item">-->
+                                        <!--<div class="comment_avatar"></div>-->
+                                        <!--<div class="comment_info">-->
+                                            <!--<div class="nickname">白创峻</div>-->
+                                            <!--<div class="comment_time">1小时前</div>-->
+                                            <!--<div class="comment_content">美国这一举动不仅对小商家有影响，对不少涉及跨境业务的上市公司也有所影响。</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                </div>
+                                <div class="more_comment">
+                                    打开新华网APP,查看更多精彩评论
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--打开app-->
+        <div class="open_app">
+            <div class="open_app_inner">
+                <div class="app_icon"></div>
+
+                <button class="btn_open_app">立即打开</button>
+                <div class="open_disc">
+                    <div class="app_name">新华网APP</div>
+                    <div class="app_desc">不止于所见</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="utils/jquery.min.js"></script>
+<script src="utils/jweixin-1.2.0.js"></script>
+<script src="utils/screeninit.js"></script>
+
+<script src="js/tools.js"></script>
+<script src="js/config.js"></script>
+<script src="utils/wx_config.js"></script>
+<script src="utils/swiper.min.js"></script>
+<script src="utils/moment.min.js"></script>
+
+<script src="js/datacount.js"></script>
+<script src="./utils/vconsole.min.js"></script>
+<script>
+  if (_isDevelopment) {
+//    vConsole = new VConsole();
+  }
+</script>
+</body>
+</html>

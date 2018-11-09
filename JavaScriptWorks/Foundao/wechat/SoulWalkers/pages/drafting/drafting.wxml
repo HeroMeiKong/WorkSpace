@@ -1,0 +1,41 @@
+<!--pages/drafting/drafting.wxml-->
+
+<!-- <view class="wrapper">
+    <view class="video">
+      <video src="../../video/002SuvMjlx07p0NXKzNe01040207tGJl0k060.mp4"></video>
+    </view>
+    <view class="batten">
+      <view class="batteninner horizontal">
+        <view class="image"><image src='../../img/img1.png'></image></view>
+        <view class="text">text</view>
+      </view>
+    </view>
+    <canvas class='cover'></canvas>
+  </view>
+  <video id="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls="{{false}}" event-model="bubble">
+  <cover-view class="controls">
+    <cover-view class="play" bindtap="play">
+      <cover-image class="img" src="/path/to/icon_play" />
+    </cover-view>
+    <cover-view class="pause" bindtap="pause">
+      <cover-image class="img" src="/path/to/icon_pause" />
+    </cover-view>
+    <cover-view class="time">00:00</cover-view>
+  </cover-view>
+</video> -->
+<view class="wrapper">
+<video id="myVideo" src="https://fus.cdn.krcom.cn/002SuvMjlx07p0NXKzNe01040207tGJl0k060.mp4?label=mp4_1080p&template=1920x1080.20.0&Expires=1541734041&ssig=o4Tdpkgyss&KID=unistore,video" controls="{{false}}" event-model="bubble">
+  <cover-view class="controls" style='width:{{box.width}}px;height:{{box.height}}px;top:{{box.y}}px;left:{{box.x}}px;' bindtap='tapName' bindtouchstart='battenTap' bindtouchmove='battenMove' bindtouchend='battenEnd'>
+    <cover-view class="play horizontal" bindtap="play" style='background-color:{{box.backgroundColor}}'>
+      <cover-image class="img" src="../../img/img1.png" />
+      <cover-view class='text'>play</cover-view>
+    </cover-view>
+  </cover-view>
+  <!-- <cover-view class="controls1">
+    <cover-view class="pause" bindtap="pause">
+      <cover-image class="img" src="../../img/img1.png" />
+      <cover-view>pusae</cover-view>
+    </cover-view>
+  </cover-view> -->
+</video>
+</view>

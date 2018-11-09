@@ -1,0 +1,84 @@
+.article-box .live-video{
+  height:4.16rem;
+}
+.article-box .live-video video{
+  width: 100%;
+  height: 100%;
+}
+.article-box h1{
+  font-size: .34rem;
+  color: #414141;
+  font-weight: 400;
+  padding: .2rem .4rem .25rem;
+}
+.comment-box{
+  padding: .2rem .4rem .2rem;
+  background-color: #f8f8f8;
+}
+.comment-item{
+  overflow: hidden;
+  font-size: 0;
+  margin-top: .2rem;
+}
+.comment-item .comment-img{
+  width: .64rem;
+  height: .64rem;
+  background-color: wheat;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+}
+.comment-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.comment-item .comment-content{
+  display: inline-block;
+  vertical-align: top;
+  width: 5.82rem;
+  box-sizing: border-box;
+  margin-left: .24rem;
+  padding:.1rem .2rem .2rem;
+  background-color: white;
+  position: relative;
+  border-radius: .02rem;
+}
+.comment-item .comment-content:before{
+  position: absolute;
+  content: '';
+  top: -.04rem;
+  left: -.17rem;
+  border-left: .25rem solid white;
+  border-top: .12rem solid white;
+  transform: rotateZ(45deg);
+}
+.comment-item .comment-content h3{
+  font-size: .28rem;
+  font-weight:normal;
+  color:rgba(65,65,65,1);
+  line-height:.36rem;
+  margin-bottom: .06rem;
+}
+.comment-item .comment-content p{
+  font-size:.3rem;
+  font-weight:normal;
+  color:rgba(117,117,117,1);
+  line-height:.36rem;
+}
+.seemore-btn{
+  display: block;
+  width:6.70rem;
+  height:.80rem;
+  background:rgba(255,255,255,1);
+  border-radius:8px;
+  border:.02rem solid rgba(23,136,215,1);
+  font-size:.28rem;
+  font-weight:normal;
+  color:rgba(23,136,215,1);
+  line-height:.8rem;
+  text-decoration: none;
+  text-align: center;
+  margin: .2rem auto 1.4rem;
+}

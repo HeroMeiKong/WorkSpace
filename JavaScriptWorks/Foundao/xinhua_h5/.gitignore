@@ -1,0 +1,15 @@
+.idea/
+node_modules/
+dist/
+docs/
+build/
+test/
+*.iml
+
+JavaScriptWorks/Foundao/xinhua_h5/.idea/
+JavaScriptWorks/Foundao/xinhua_h5/node_modules/
+JavaScriptWorks/Foundao/xinhua_h5/dist/
+JavaScriptWorks/Foundao/xinhua_h5/docs/
+JavaScriptWorks/Foundao/xinhua_h5/build/
+JavaScriptWorks/Foundao/xinhua_h5/test/
+JavaScriptWorks/Foundao/xinhua_h5/*.iml

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>新华网-直播</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/livenews.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <!--loading-->
+    <div class="page loading">
+        <div class="loading_content">
+            <img src="images/loading.gif" alt="">
+            <span>加载中...</span>
+        </div>
+
+    </div>
+    <div class="page article">
+        <div class="article-box">
+            <div class="live-video">
+                <video controls="controls"
+                       src=""
+                       webkit-playsinline="true"
+                       preload
+                       playsinline
+                       x-webkit-airplay="true"
+                       x5-playsinline="x5-playsinline"
+                >你的浏览器不支持video播放器</video>
+            </div>
+            <h1 class="live-title"></h1>
+        </div>
+        <ul class="comment-box">
+
+        </ul>
+        <a href="javascript:void(0);" class="seemore-btn">打开新华网APP,查看更多精彩评论</a>
+        <!--打开app-->
+        <div class="open_app">
+            <div class="open_app_inner">
+                <div class="app_icon"></div>
+                <button class="btn_open_app">立即打开</button>
+                <div class="open_disc">
+                    <div class="app_name">新华网APP</div>
+                    <div class="app_desc">不止于所见</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="utils/jquery.min.js"></script>
+<script src="utils/jweixin-1.2.0.js"></script>
+<script src="utils/screeninit.js"></script>
+<script src="js/config.js"></script>
+<script src="utils/wx_config.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/config.js"></script>
+<script src="js/livenews.js"></script>
+
+<script src="./utils/vconsole.min.js"></script>
+</body>
+</html>

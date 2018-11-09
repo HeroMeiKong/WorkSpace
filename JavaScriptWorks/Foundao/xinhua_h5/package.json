@@ -1,0 +1,28 @@
+{
+  "name": "xinhua_h5",
+  "version": "1.0.0",
+  "description": "新华网h5",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "gulp",
+    "build": "gulp build"
+  },
+  "author": "zhaosheng",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.24.7",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-flatten": "^0.4.0",
+    "gulp-if": "^2.0.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-uglify": "^3.0.1",
+    "gulp-useref": "^3.1.5",
+    "run-sequence": "^2.2.1"
+  },
+  "keywords": [
+    "h5",
+    "xinhua"
+  ]
+}
