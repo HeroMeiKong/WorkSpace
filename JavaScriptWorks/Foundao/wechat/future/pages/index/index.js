@@ -1,0 +1,1267 @@
+const promisify = require('../../utils/promisify');
+import httpRequest from '../../utils/httpRequest';
+
+
+import api from './../../config/api';
+import Tool from './../../utils/util';
+
+const app = getApp();
+
+
+Page({
+
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        hasInit: false,//是否初始化
+        playing: false,//视频播放状态
+        animationData: {},//动画
+        win_height: 0,//屏幕高度
+        touchDotX: 0,
+        touchDotY: 0,
+        interval: null,//触发定时器
+        touchTime: 0,//触摸时间
+        showVideo: false,//隐藏视频
+        progress: 0,//时间进度
+        btnStatus: false,//弹出框状态
+        hideDiyTabBar: true,//隐藏自定义tabbar
+        loading_num: 0,//loading
+        show_share: false,
+        show_select: false,
+        show_poster: false,
+        ctx: null,
+        userInfo: {},
+        qr_code_url: '',
+        first_uuid: '',
+
+        //精选
+        special_page: 1,
+        special_index: 0,
+        special_more: true,
+        special_list: [],
+
+        cur_video: {
+            // is_follow: 1,
+            // video_url: 'https://www.newscctv.net/dw/resource/future/s.mp4',
+        },
+
+        //当前播放视频
+        cur_type: 0,//0为精选，其余为分类
+
+        //分类
+        type_list: [],
+        type_data: {
+            // '0': {
+            //     page: 1,
+            //     list: [],
+            //     index: 0,
+            //     more: true,
+            // }
+        },
+
+
+        isIpx: false
+    },
+
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        console.log('index onLoad')
+        if (options.video_uuid) {
+            this.data.first_uuid = options.video_uuid
+            this.data.first_id = options.id
+        }
+        wx.getSystemInfo({
+            success: (res) => {
+                if (res.model.indexOf("iPhone X") > -1) {
+                    this.setData({
+                        isIpx: true
+                    })
+                }
+            }
+        });
+
+    },
+
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function () {
+        console.log('index onReady')
+        this.videoContext = wx.createVideoContext('video', this)
+        // 初始化canvas
+        this.createCanvas();
+
+        wx.getSystemInfo({
+            success: (res) => {
+                // console.log(res.windowHeight)
+                this.setData({
+                    win_height: res.windowHeight
+                })
+            }
+        })
+
+        var animation = wx.createAnimation({
+            timingFunction: 'ease',
+        })
+
+        this.animation = animation
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
+        // console.log('onShow')
+        this.hideTabBar()
+        app.isAuth(() => {
+            //统计
+            const option = {
+                op: 'pv',
+                wz: 'home_page',
+            }
+            app.statistics_pv(option)
+            if (!this.data.hasInit) {
+                console.log('未初始化')
+                this.data.hasInit = true
+                wx.getUserInfo({
+                    success: (res) => {
+                        this.data.userInfo = res.userInfo
+                        // var nickName = userInfo.nickName
+                        // var avatarUrl = userInfo.avatarUrl
+                        // var gender = userInfo.gender //性别 0：未知、1：男、2：女
+                        // var province = userInfo.province
+                        // var city = userInfo.city
+                        // var country = userInfo.country
+                    }
+                })
+                this.getTypes();
+                if (this.data.first_uuid) {
+                    //如果是分享入口
+                    this.getVideoData(this.data.first_uuid, this.data.first_id, () => {
+                        this.getSpecialVideoList(() => {
+                            this.switchVideo(this.data.special_list[0])
+                        });
+                    })
+                } else {
+                    this.getSpecialVideoList(() => {
+                        this.switchVideo(this.data.special_list[0])
+                    });
+                }
+
+                // setTimeout(() => {
+                //获取二维码
+                this.get_erCode()
+                // }, 2000)
+            } else {
+                console.log('已初始化')
+            }
+
+        })
+    },
+
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function () {
+        this.pauseVideo();
+    },
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function () {
+
+    },
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function () {
+
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function () {
+
+    },
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function (res) {
+        const options = {
+            op: 'share',
+            wz: 'home_page',
+        }
+        app.statistics_pv(options)
+        if (res.from === 'button') {
+            // 来自页面内转发按钮
+            return {
+                title: this.data.cur_video.video_desc,
+                path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+                imageUrl: this.data.cur_video.pic,
+            }
+        } else if (res.from === 'menu') {
+            return {
+                title: this.data.cur_video.video_desc,
+                path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+                imageUrl: this.data.cur_video.pic,
+            }
+        }
+    },
+
+    //获取视频数据
+    getVideoData(video_uuid, id, fun) {
+        wx.showLoading()
+        this.data.loading_num++;
+
+        wx.request({
+            url: api.video_topic,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                video_uuid: video_uuid,
+                id: id,
+            },
+            success: (resp) => {
+                const {data} = resp;
+                if (parseInt(data.code) === 0) {
+                    this.data.special_list.push(data.data);
+                    fun && fun()
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+    },
+
+    // 获取二维码
+    get_erCode() {
+        const loginSessionKey = wx.getStorageSync('loginSessionKey');
+        const wxRequest = promisify(wx.request);
+
+        wxRequest({
+            url: api.poster_qrcode,
+            method: 'POST',
+            header: {
+                "auth-token": loginSessionKey
+            },
+            data: {
+                // material_id: this.data.cur_video.video_uuid,
+                material_id: '1',
+                path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+                // path: 'pages/dubbing/dubbing',
+                // path: 'pages/index/index',
+                width: 188,           // 二维码的宽度
+                auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+                line_color: {"r": "0", "g": "0", "b": "0"},
+                is_hyaline: true,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+            },
+        }).then(resp => {
+            const {code, data, msg} = resp.data;
+            if (code === 0) {
+                console.log('二维码地址：' + data.file_path)
+                this.data.qr_code_url = data.file_path.replace('http://', 'https://');
+            } else {
+                wx.showToast({
+                    title: msg,
+                    icon: 'none'
+                })
+            }
+        })
+    },
+
+    // 监控视频播放
+    bindplay() {
+        // console.log('play')
+        this.setData({
+            playing: true
+        })
+    },
+
+    // 监控视频暂停
+    bindpause() {
+        // console.log('pause')
+        this.setData({
+            playing: false
+        })
+    },
+
+    // 监控视频播放进度
+    bindtimeupdate(e) {
+        var p = e.detail.currentTime / e.detail.duration
+        this.setData({
+            progress: p
+        })
+    },
+
+    // 播放视频
+    playVideo() {
+        console.log("playVideo")
+        this.hideBtn()
+        this.videoContext.play()
+    },
+
+    // 暂停视频
+    pauseVideo() {
+        console.log("pauseVideo")
+        this.videoContext.pause()
+    },
+
+    // 停止视频
+    stopVideo() {
+        console.log("stopVideo")
+        this.videoContext.stop()
+    },
+
+    // 点击视频
+    videoClick() {
+        // console.log('video click')
+        if (this.data.playing) {
+            this.pauseVideo()
+        } else {
+            this.playVideo()
+        }
+    },
+
+    // 隐藏原生tabbar，并显示自定义tabbar
+    hideTabBar() {
+        wx.hideTabBar();
+        setTimeout(() => {
+            this.showDiyTabBar();
+        }, 1000)
+    },
+
+    // 显示自定义tabbar
+    showDiyTabBar() {
+        this.setData({
+            hideDiyTabBar: false
+        })
+    },
+
+    // 隐藏自定义tabbar
+    hideDiyTabBar() {
+        this.setData({
+            hideDiyTabBar: true
+        })
+    },
+
+    // 下滑
+    moveDown() {
+        const {cur_type, special_index, special_list, type_data} = this.data;
+        //判断下滑是否还有数据
+        if (parseInt(cur_type) === 0) {
+            //精选
+            if (special_index === 0) {
+                //到顶
+                console.log('到顶')
+                return
+            } else {
+                //下滑动画
+                this.moveDown_ani(() => {
+                    //播放下一个
+                    this.switchVideo(special_list[special_index - 1])
+                    this.data.special_index--
+                })
+            }
+        } else {
+            //分类
+            var temp_cur_data = type_data[cur_type]
+            if (temp_cur_data.index === 0) {
+                //到顶
+                console.log('到顶')
+                return
+            } else {
+                //下滑动画
+                this.moveDown_ani(() => {
+                    //播放下一个
+                    this.switchVideo(temp_cur_data.list[temp_cur_data.index - 1])
+                    type_data[cur_type].index--
+                })
+
+            }
+        }
+    },
+
+    // 下滑动画
+    moveDown_ani(fun) {
+        var time = 500
+        // 先隐藏video，显示出背景色
+        this.setData({
+            showVideo: true
+        }, () => {
+            this.animation.translateY(this.data.win_height * 1.2).step({duration: time})
+            this.setData({
+                animationData: this.animation.export()
+            })
+            setTimeout(() => {
+                this.reset(fun)
+            }, time)
+        })
+
+    },
+
+    // 上滑
+    moveUp() {
+        const {cur_type, special_index, special_list, type_data} = this.data;
+        //判断下滑是否还有数据
+        if (parseInt(cur_type) === 0) {
+            //精选
+            if (special_index === special_list.length - 1) {
+                //到底
+                console.log('到底')
+                return
+            } else {
+                //下滑动画
+                this.moveUp_ani(() => {
+                    //播放下一个
+                    this.switchVideo(special_list[special_index + 1])
+                    this.data.special_index++
+                })
+            }
+            //判断是否加载更多
+            if (special_index > special_list.length - 10) {
+                this.getSpecialVideoList()
+            }
+        } else {
+            //分类
+            var temp_cur_data = type_data[cur_type]
+            if (temp_cur_data.index === temp_cur_data.list.length - 1) {
+                //到底
+                console.log('到底')
+                return
+            } else {
+                //下滑动画
+                this.moveUp_ani(() => {
+                    //播放下一个
+                    this.switchVideo(temp_cur_data.list[temp_cur_data.index + 1])
+                    type_data[cur_type].index++
+                })
+            }
+            //判断是否加载更多
+            if (temp_cur_data.index > temp_cur_data.list.length - 10) {
+                this.getTypeVideoList(cur_type)
+            }
+        }
+    },
+
+    // 上滑动画
+    moveUp_ani(fun) {
+        var time = 500
+        // 先隐藏video，显示出背景色
+        this.setData({
+            showVideo: true
+        }, () => {
+            //再移动整个框体
+            this.animation.translateY(-this.data.win_height * 1.2).step({duration: time})
+            this.setData({
+                animationData: this.animation.export()
+            })
+            setTimeout(() => {
+                this.reset(fun)
+            }, time)
+        })
+
+    },
+
+    // 恢复到初始状态（目前只是显示视频）
+    reset(fun) {
+        this.setData({
+            showVideo: false
+        }, () => {
+            fun()
+        })
+        // this.animation.translateY(0).step({duration: 0})
+        // this.setData({
+        //     animationData: this.animation.export()
+        // })
+    },
+
+    // 触摸开始事件
+    touchStart: function (e) {
+        this.data.touchDotX = e.touches[0].pageX; // 获取触摸时的原点
+        this.data.touchDotY = e.touches[0].pageY;
+        // 使用js计时器记录时间
+        this.data.interval = setInterval(() => {
+            this.data.touchTime++;
+        }, 100);
+    },
+
+    // 触摸结束事件
+    touchEnd: function (e) {
+        let touchMoveX = e.changedTouches[0].pageX;
+        let touchMoveY = e.changedTouches[0].pageY;
+        let tmX = touchMoveX - this.data.touchDotX;
+        let tmY = touchMoveY - this.data.touchDotY;
+        if (this.data.touchTime < 20) {
+            let absX = Math.abs(tmX);
+            let absY = Math.abs(tmY);
+            if (absX > 2 * absY) {
+                if (tmX < -10) {
+                    console.log("左滑")
+                    this.switchToRecordList()
+                } else if (tmX > 10) {
+                    console.log("右滑")
+                }
+            }
+            if (absY > absX * 2) {
+                if (tmY < -10) {
+                    console.log("上滑")
+                    this.moveUp()
+                } else if (tmY > 10) {
+                    console.log("下滑")
+                    this.moveDown()
+                }
+
+            }
+        }
+        clearInterval(this.data.interval); // 清除setInterval
+        this.data.interval = null;
+        this.data.touchTime = 0;
+    },
+
+    // 切换到录音页
+    switchToDubbing() {
+        // wx.navigateTo({
+        //   url: '/pages/recordList/recordList'
+        // })
+    },
+
+    // 切换到选择功能页
+    switchToRecordList() {
+        this.pauseVideo()
+        wx.switchTab({
+            url: '/pages/recordList/recordList'
+        })
+    },
+
+    // 切换到个人主页
+    switchToUser() {
+        this.pauseVideo()
+        wx.switchTab({
+            url: '/pages/user/user'
+        })
+    },
+
+    // 打开关闭按钮
+    toggleBtn() {
+        if (this.data.btnStatus) {
+            this.hideBtn()
+        } else {
+            this.showBtn()
+        }
+    },
+
+    // 收起按钮
+    hideBtn() {
+        this.setData({
+            btnStatus: false
+        })
+    },
+
+    // 收起按钮
+    showBtn() {
+        this.setData({
+            btnStatus: true
+        })
+    },
+
+    // 获取精选视频
+    getSpecialVideoList(fun) {
+        if (!this.data.special_more) {
+            return
+        }
+
+        wx.showLoading()
+        this.data.loading_num++;
+
+        wx.request({
+            url: api.home_page_selection,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                page: this.data.special_page,
+                small_selection: this.data.small_selection,
+                small_ordinary: this.data.small_ordinary,
+            },
+            success: (res) => {
+                const {data} = res;
+                if (parseInt(data.code) === 0) {
+                    //判断是否有数据
+                    if (data.data.length === 0) {
+                        this.setData({
+                            special_more: false
+                        })
+                        return
+                    }
+                    if (this.data.first_uuid) {
+                        //排重
+                        for (var i = 0; i < data.data.length; i++) {
+                            if (data.data[i].video_uuid == this.data.first_uuid) {
+                                data.data.splice(i, 1)
+                                break
+                            }
+                        }
+                    }
+                    //设置视频数组
+                    this.setData({
+                        special_list: this.data.special_list.concat(data.data),
+                        special_page: ++this.data.special_page,
+                    }, () => {
+                        //第一次回调，播放视频
+                        fun && fun();
+                        //计算最小id
+                        for (var i = this.data.special_list.length - 1; i >= 0; i--) {
+                            var temp = this.data.special_list[i]
+                            if (parseInt(temp.quality) === 2) {
+                                //普通id
+                                this.data.small_selection = temp.id
+                                break
+                            }
+                        }
+                        for (var i = this.data.special_list.length - 1; i >= 0; i--) {
+                            var temp = this.data.special_list[i]
+                            if (parseInt(temp.quality) === 1) {
+                                //普通id
+                                this.data.small_ordinary = temp.id
+                                break
+                            }
+                        }
+                    })
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+    },
+
+    // 获取分类列表
+    getTypeVideoList(type_id) {
+        const {type_data} = this.data
+
+        //判断是否有数据
+        if (type_data.hasOwnProperty(type_id) && !type_data[type_id].more) {
+            return
+        }
+
+        //如果没有该分类需要创建对象
+        var isFirst = false
+        if (!type_data.hasOwnProperty(type_id)) {
+            isFirst = true
+            type_data[type_id] = {
+                page: 1,
+                list: [],
+                index: 0,
+                more: true,
+            }
+        }
+
+        var temp_data = type_data[type_id]
+
+        wx.showLoading()
+        this.data.loading_num++;
+
+        wx.request({
+            url: api.type_video,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                'page': temp_data.page,
+                'type_id': type_id,
+            },
+            success: (res) => {
+                // console.log(this)
+                const {data} = res;
+                if (parseInt(data.code) === 0) {
+                    //判断是否有数据
+                    if (data.data.length === 0) {
+                        temp_data.more = false
+                        return
+                    }
+                    //设置视频数组
+                    temp_data.list = temp_data.list.concat(data.data);
+                    temp_data.page++;
+
+                    //如果是第一次，播放视频
+                    if (isFirst) {
+                        this.switchVideo(temp_data.list[0])
+                    }
+
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+    },
+
+    // 分类查询
+    getTypes() {
+        wx.showLoading()
+        this.data.loading_num++;
+
+        wx.request({
+            url: api.types,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {},
+            success: (resp) => {
+                const {data} = resp;
+                if (parseInt(data.code) === 0) {
+                    this.setData({
+                        type_list: data.data.splice(0, 3)
+                    })
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+    },
+
+    // 切换类型
+    switchType(event) {
+        const {cur_type, type_data} = this.data
+        var data = event.currentTarget.dataset.data
+        if (data.id == cur_type) {
+            return
+        } else {
+            this.setData({
+                cur_type: data.id
+            })
+        }
+        //判断视频数据是否存在
+        if (type_data.hasOwnProperty(data.id)) {
+            //如果有切换视频
+            var index = type_data[data.id].index
+            var video_data = type_data[data.id].list[index]
+            this.switchVideo(video_data)
+        } else {
+            //如果没有则需要去取
+            this.getTypeVideoList(data.id)
+        }
+    },
+
+    // 切换到精选
+    switchSpecial() {
+        const {special_index, special_list} = this.data
+        this.setData({
+            cur_type: 0
+        })
+        this.switchVideo(special_list[special_index])
+    },
+
+    // 切换视频
+    switchVideo(data) {
+        this.setData({
+            cur_video: data
+        }, () => {
+            this.animation.translateY(0).step({duration: 0})
+            this.setData({
+                animationData: this.animation.export()
+            })
+        })
+    },
+
+    // 关注
+    fabulous() {
+        wx.showLoading()
+        this.data.loading_num++;
+
+        const {cur_video} = this.data;
+        wx.request({
+            url: api.fabulous,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                type: 1,
+                uuid: cur_video.uuid,               //用户uuid
+                video_uuid: cur_video.video_uuid,
+                select_id: cur_video.id,            //自增id
+            },
+            success: (resp) => {
+                const {data} = resp;
+                if (parseInt(data.code) === 0) {
+                    this.data.cur_video.is_follow = 2
+                    this.setData({
+                        cur_video: this.data.cur_video
+                    })
+                    this.refreshStatus(cur_video.uuid, 2)
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+    },
+
+    // 取消关注
+    del_fabulous() {
+        wx.showLoading()
+        this.data.loading_num++;
+
+        const {cur_video} = this.data;
+        wx.request({
+            url: api.del_fabulous,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                type: 1,
+                uuid: cur_video.uuid,               //用户uuid
+                video_uuid: cur_video.video_uuid,
+                select_id: cur_video.id,            //自增id
+            },
+            success: (resp) => {
+                const {data} = resp;
+                if (parseInt(data.code) === 0) {
+                    this.data.cur_video.is_follow = 1
+                    this.setData({
+                        cur_video: this.data.cur_video
+                    })
+                    this.refreshStatus(cur_video.uuid, 1)
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+    },
+
+    // 喜欢
+    like() {
+        wx.showLoading()
+        this.data.loading_num++;
+
+        const {cur_video} = this.data;
+        wx.request({
+            url: api.fabulous,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                type: 0,
+                uuid: cur_video.uuid,               //用户uuid
+                video_uuid: cur_video.video_uuid,
+                select_id: cur_video.id,            //自增id
+            },
+            success: (resp) => {
+                const {data} = resp;
+                if (parseInt(data.code) === 0) {
+                    this.data.cur_video.is_zan = 2
+                    this.setData({
+                        cur_video: this.data.cur_video
+                    })
+                    this.refreshVideo(cur_video.video_uuid, 2)
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+    },
+
+    // 不喜欢
+    dislike() {
+        wx.showLoading()
+        this.data.loading_num++;
+
+        const {cur_video} = this.data;
+        wx.request({
+            url: api.del_fabulous,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                type: 0,
+                uuid: cur_video.uuid,               //用户uuid
+                video_uuid: cur_video.video_uuid,
+                select_id: cur_video.id,            //自增id
+            },
+            success: (resp) => {
+                const {data} = resp;
+                if (parseInt(data.code) === 0) {
+                    this.data.cur_video.is_zan = 1
+                    this.setData({
+                        cur_video: this.data.cur_video
+                    })
+                    this.refreshVideo(cur_video.video_uuid, 1)
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+    },
+
+    // 分享
+    share() {
+        this.setData({
+            show_share: true,
+            show_select: true,
+            show_poster: false,
+        })
+    },
+
+    // 关闭海报浮层
+    close_poster_layer() {
+        this.setData({
+            show_share: false,
+            show_poster: false,
+        });
+    },
+
+    // 创建画布对象
+    createCanvas() {
+        this.data.ctx = wx.createCanvasContext('canvas_poster');
+    },
+
+    // 生成海报
+    create_poster() {
+        const canvas_width = 750;
+        const canvas_height = 1238;
+        const {userInfo, cur_video} = this.data;
+
+        wx.showLoading({
+            title: '海报生成中'
+        });
+
+        const getImage = promisify(wx.getImageInfo);
+        const getImage2 = promisify(wx.getImageInfo);
+        const getImage3 = promisify(wx.getImageInfo);
+
+        var ctx = this.data.ctx;
+        ctx.setFillStyle('#ffffff');
+        ctx.fillRect(0, 0, 750, 1238);
+        getImage({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
+            // 绘制背景图
+            const bg_img = resp.path;  // 背景图片
+            const bg_width = resp.width;
+            const bg_height = resp.height;
+            var dx = 0;
+            var dy = 0;
+            var dWidth = 0;
+            var dHeight = 0;
+            if (bg_width > bg_height) {
+                dy = 0
+                dx = (bg_width - bg_height) / 2
+                dHeight = bg_height;
+                dWidth = bg_height
+            } else {
+                dx = 0
+                dy = (bg_height - bg_width) / 2
+                dHeight = bg_width;
+                dWidth = bg_width;
+            }
+
+            getImage2({src: this.data.qr_code_url}).then(res => {
+                // console.log(res);
+                const qr_img = res.path; // 二维码
+
+                getImage3({src: cur_video.nick_pic.replace('http://', 'https://')}).then(re => {
+                    const user_img = re.path; // 二维码
+
+                    // 绘制背景图
+                    ctx.drawImage(bg_img, dx, dy, dWidth, dHeight, 0, 0, 750, 750);
+
+                    // 绘制头像
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(30 + 64, 686 + 64, 64, 0, Math.PI * 2, false);
+                    ctx.clip();
+                    ctx.drawImage(user_img, 30, 686, 128, 128);
+                    ctx.restore();
+
+                    // 绘制名称
+                    ctx.setFillStyle('#333333');
+                    ctx.setFontSize(34);
+                    ctx.setTextBaseline('top')
+                    ctx.fillText(cur_video.nick_name, 185, 766);
+
+                    // 绘制描述
+                    const stringArr = Tool.stringToArr(cur_video.video_desc, 18);
+                    ctx.setFillStyle('#333333');
+                    ctx.setFontSize(30);
+                    ctx.setTextBaseline('top')
+                    stringArr.forEach((item, index) => {
+                        ctx.fillText(item, 185, 818 + (index * 50));
+                    });
+                    // ctx.fillText(cur_video.video_desc, 185, 818);
+
+                    // 绘制二维码
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(124, 990, 188, 188);
+                    ctx.clip();
+                    // qr_img
+                    ctx.drawImage(qr_img, 124, 990, 188, 188);
+                    ctx.restore();
+
+                    // 绘制底部文字
+                    // ctx.setTextAlign('center');
+                    ctx.setFillStyle('#999999');
+                    ctx.setFontSize(28);
+                    ctx.setTextBaseline('top')
+                    ctx.fillText('长按小程序查看详情', 358, 1048);
+                    ctx.fillText('和我一起「挑战主持人」', 358, 1092);
+
+
+                    ctx.draw(false, this.create_poster_image);
+                })
+
+            }).catch(err => {
+                console.log(err)
+            });
+        });
+
+    },
+
+    // 生成海报图片
+    create_poster_image() {
+        console.log('生成海报图片');
+        const canvasToTempFilePath = promisify(wx.canvasToTempFilePath);
+        canvasToTempFilePath({
+            canvasId: 'canvas_poster',
+            fileType: 'png',
+            quality: 1.0,
+            destWidth: 750 * 2,
+            destHeight: 1238 * 2,
+        }, this).then(resp => {
+            // console.log(resp.tempFilePath);
+            this.setData({
+                canvas_poster_url: resp.tempFilePath,
+                show_poster: true,
+                show_select: false,
+            });
+            wx.hideLoading();
+        }).catch(err => {
+            console.log('err:', err)
+            // canvas_poster_url
+        });
+    },
+
+    // 保存海报
+    save_poster() {
+        const getSetting = promisify(wx.getSetting);
+        // 判断用户是否有保存文件的权限
+        getSetting().then(resp => {
+            if (!resp.authSetting['scope.writePhotosAlbum']) {
+                wx.authorize({
+                    scope: 'scope.writePhotosAlbum',
+                    success: () => {
+                        // 用户已经同意小程序使用录音功能，后续调用 接口不会弹窗询问
+                        this.save_photo_sure();
+                        console.log('用户同意保存');
+                    },
+                    fail: () => {
+                        console.log('用户不同意保存');
+                        wx.openSetting({
+                            success(res) {
+                                console.log(res)
+                            },
+                            fail(res) {
+                                console.log(res)
+                            }
+                        })
+                        // this.showAuthorize('scope.writePhotosAlbum');
+                    }
+                })
+            } else {
+                // 直接保存
+                this.save_photo_sure();
+            }
+        })
+
+    },
+
+    // 保存海报动作
+    save_photo_sure() {
+        const {canvas_poster_url} = this.data;
+        wx.saveImageToPhotosAlbum({
+            filePath: canvas_poster_url,
+            success(res) {
+                wx.showToast({
+                    title: '保存成功'
+                })
+            }
+        })
+    },
+
+    // 前往配音页
+    challenge() {
+        wx.navigateTo({
+            url: '/pages/dubbing/dubbing?video_uuid=' + this.data.cur_video.video_uuid
+        })
+    },
+
+    // 前往用户页
+    goUser() {
+        if (this.data.cur_video.is_user == 1) {
+            this.switchToUser()
+        } else {
+            wx.navigateTo({
+                url: '/pages/otherUser/otherUser?user_uuid=' + this.data.cur_video.uuid
+            })
+        }
+    },
+
+    // 前往话题页
+    goSubject() {
+        wx.navigateTo({
+            url: '/pages/subjectIndex/subjectIndex'
+        })
+    },
+
+    // 更新其他视频里的关注状态
+    refreshStatus(user_uuid, status) {
+        for (var i = 0; i < this.data.special_list.length; i++) {
+            var temp = this.data.special_list[i]
+            if (user_uuid == temp.uuid) {
+                temp.is_follow = status
+            }
+        }
+        for (var name in this.data.type_data) {
+            var type_data_temp = this.data.type_data[name];
+            for (var i = 0; i < type_data_temp.length; i++) {
+                var temp = type_data_temp[i]
+                if (user_uuid == temp.uuid) {
+                    temp.is_follow = status
+                }
+            }
+        }
+    },
+
+    // 更新其他视频里的点赞状态
+    refreshVideo(video_uuid, status) {
+        for (var i = 0; i < this.data.special_list.length; i++) {
+            var temp = this.data.special_list[i]
+            if (video_uuid == temp.video_uuid) {
+                temp.is_zan = status
+            }
+        }
+        for (var name in this.data.type_data) {
+            var type_data_temp = this.data.type_data[name];
+            for (var i = 0; i < type_data_temp.length; i++) {
+                var temp = type_data_temp[i]
+                if (video_uuid == temp.video_uuid) {
+                    temp.is_zan = status
+                }
+            }
+        }
+    },
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

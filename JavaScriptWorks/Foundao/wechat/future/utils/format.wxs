@@ -1,0 +1,14 @@
+var format = {
+  numberToFix: function (value) {
+    return value.toFixed(1)
+  },
+  milSecToSecond: function (Millisecond) {
+    var second = Millisecond / 1000;
+    return second.toFixed(1);
+  }
+
+};
+module.exports = {
+  numberToFix: format.numberToFix,
+  milSecToSecond: format.milSecToSecond,
+};

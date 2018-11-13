@@ -1,0 +1,54 @@
+<!--pages/recordList/recordList.wxml-->
+<view class="recordList-page {{isIpx?'iphoneX':''}}">
+    <!--title-->
+    <!--<view class="head-title  {{isIpx?'iphoneX-head-title':''}}">选择话题</view>-->
+    <backTitle noBack="{{true}}" title="选择话题"></backTitle>
+    <view class="header">
+        <scroll-view class="scroll-kind" scroll-x>
+            <view class="scroll-kind-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选</view>
+            <block wx:for="{{type_list}}">
+                <view class="scroll-kind-item {{cur_type==item.id?'selected':''}}" data-data="{{item}}"
+                      catchtap="switchType">{{item.sub_title}}
+                </view>
+            </block>
+        </scroll-view>
+        <view class="open-btn" bindtap="openType"></view>
+    </view>
+    <!--展开选择-->
+    <view class="open-box" wx:if="{{open}}">
+        <view class="close-btn" catchtap="closeType"></view>
+        <view class="open-list">
+            <view class="open-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选</view>
+            <block wx:for="{{type_list}}">
+                <view class="open-item {{cur_type==item.id?'selected':''}}" catchtap="switchType" data-data="{{item}}">{{item.sub_title}}</view>
+            </block>
+        </view>
+    </view>
+    <view class="record-list">
+        <scroll-view class="scroll-list"
+                     scroll-y
+                     bindscrolltolower="uploadData"
+                     scroll-top="{{scrollTop}}"
+                     bindscroll="scroll">
+            <block wx:for="{{cur_list}}" wx:for-item="dub">
+                <!--配音单元-->
+                <view class="dub-item" style="background-image: url({{dub.video_small_pic}})">
+                    <view class="name" hidden="{{cur_type!=0}}">{{dub.sub_title}}</view>
+                    <view class="go-btn" bindtap="goDub" data-data="{{dub}}">开始配音</view>
+                </view>
+            </block>
+        </scroll-view>
+        <!--<block wx:for="{{type_list}}" scroll-y>-->
+        <!--&lt;!&ndash;滑动容器&ndash;&gt;-->
+        <!--<scroll-view class="scroll-list {{cur_type==item.id?'':'hide'}}">-->
+        <!--<block wx:for="{{item.list}}" wx:for-item="dub">-->
+        <!--&lt;!&ndash;配音单元&ndash;&gt;-->
+        <!--<view class="dub-item" style="background-image: url({{dub.video_small_pic}})">-->
+        <!--<view class="name"></view>-->
+        <!--<view class="go-btn" bindtap="goDub" data-data="dub">开始配音</view>-->
+        <!--</view>-->
+        <!--</block>-->
+        <!--</scroll-view>-->
+        <!--</block>-->
+    </view>
+</view>

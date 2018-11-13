@@ -1,0 +1,224 @@
+@import "./../../public.wxss";
+
+.recordList-page{
+    width: 100%;
+    height:100%;
+    box-sizing: border-box;
+    padding-top: 122rpx;
+    position: relative;
+}
+
+.head-title{
+    position: absolute;
+    top:55rpx;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 38rpx;
+    line-height: 40rpx;
+    color: #000000;
+}
+
+.iphoneX-head-title{
+    top:115rpx!important;
+}
+
+.back-btn{
+    position: absolute;
+    top:55rpx;
+    left:30rpx;
+    width: 25rpx;
+    height: 40rpx;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("https://www.newscctv.net/dw/resource/future/1return5.png");
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.header{
+    width: 100%;
+    height: 60rpx;
+    position: relative;
+}
+
+.scroll-kind {
+    /*margin-left: 30rpx;*/
+    width:650rpx;
+    height: 100%;
+    white-space: nowrap;
+}
+.scroll-kind-item:first-child{
+    margin-left: 30rpx;
+}
+.scroll-kind-item {
+    margin-left: 47rpx;
+    height: 100%;
+    display: inline-block;
+    line-height: 60rpx;
+    color: #333333;
+    position: relative;
+}
+.scroll-kind-item.selected{
+    color: #F83450;
+    font-weight: bold;
+    position: relative;
+}
+
+.scroll-kind-item.selected:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40rpx;
+    height: 4rpx;
+    background-color: #F83450;
+}
+
+.open-btn {
+    width: 70rpx;
+    height: 40rpx;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 30rpx;
+    background-image: url("https://www.newscctv.net/dw/resource/future/3gengduo1@2x.png");
+    background-size: cover;
+}
+
+
+/*展开*/
+.open-box{
+    position: fixed;
+    z-index: 9;
+    top:122rpx;
+    left: 0;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 80rpx 30rpx 120rpx 30rpx;
+    background-color: #ffffff;
+}
+
+.open-box .close-btn{
+    position: absolute;
+    top:8rpx;
+    right: 30rpx;
+    width: 40rpx;
+    height: 40rpx;
+    background-size: cover;
+    background-image: url("https://www.newscctv.net/dw/resource/future/3close2@2x.png");
+}
+
+.open-item{
+    display: inline-block;
+    margin-bottom: 17rpx;
+    margin-right: 17rpx;
+    width:160rpx;
+    height:80rpx;
+    background:rgba(238,238,238,1);
+    border-radius:4rpx;
+    text-align: center;
+    line-height: 80rpx;
+    font-size:30rpx;
+    color: #333333;
+    overflow: hidden;
+}
+.open-item:nth-child(4n){
+    margin-right: 0;
+}
+
+.open-item.selected{
+    color: #f83450;
+}
+
+
+
+
+/*列表*/
+.record-list{
+    margin-top: 10rpx;
+    width: 100%;
+    /*height: 100%;*/
+    height:calc(100% - 70rpx);
+
+}
+
+.scroll-list{
+    width: 100%;
+    height: 100%;
+}
+.scroll-list.hide{
+    height: 0;
+}
+
+
+.dub-item{
+    display: inline-block;
+    width:374rpx;
+    height:498rpx;
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    margin-bottom: 2rpx;
+}
+
+.dub-item:nth-child(2n){
+    margin-left: 2rpx;
+}
+
+.dub-item:after{
+    content: '';
+    position: absolute;
+    top:0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.4);
+}
+
+.dub-item .name{
+    position: absolute;
+    z-index: 3;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    color: #ffffff;
+    font-size: 34rpx;
+    font-weight: bold;
+    width:100%;
+    text-align:center;
+}
+
+.dub-item .name:before{
+    content: '#';
+}
+
+
+.dub-item .go-btn{
+    position: absolute;
+    z-index: 3;
+    bottom: 40rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    width:240rpx;
+    height:68rpx;
+    background:rgba(248,52,80,1);
+    border-radius:34rpx;
+    line-height: 68rpx;
+    text-align: center;
+    font-size: 34rpx;
+    color: #ffffff;
+}
+
+
+
+
+
+
+
+
+

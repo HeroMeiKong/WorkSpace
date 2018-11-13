@@ -1,0 +1,379 @@
+/* pages/dubbing/dubbing.wxss */
+@import "./../../public.wxss";
+
+.dub-videoBox {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    /* background-image: url({{video_detail.video_small_pic}});
+    background: black; */
+}
+
+#video {
+    width: 100%;
+    height: 100%;
+}
+
+/*覆盖框*/
+.cover-box {
+    position: absolute;
+    z-index:2;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.back-btn{
+    position: absolute;
+    z-index: 999;
+    top:50rpx;
+    left:30rpx;
+    width: 24rpx;
+    height: 42rpx;
+}
+
+.status-box {
+    position: absolute;
+    padding-top: 50rpx;
+    z-index: 5;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: visible !important;
+}
+
+.over-item{
+    position: relative;
+    /*z-index: 8;*/
+    padding-bottom: 28rpx;
+}
+
+.over-item .middle-btn{
+    width:132rpx;
+    height:132rpx;
+    border-radius:50%;
+    margin-bottom: 18rpx;
+    margin-left: 102rpx;
+    margin-right: 102rpx;
+}
+
+.over-item .small-btn{
+    width:98rpx;
+    height:98rpx;
+    border-radius:50%;
+    margin-bottom: 34rpx;
+}
+
+.over-item .text{
+    /*margin-top: 17rpx;*/
+    font-size:26rpx;
+    color: #fefefe;
+    text-align: center;
+    min-width: 1rpx;
+    line-height: 28rpx;
+    height: 28rpx;
+}
+
+/*剩余时间*/
+.dub-time{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0rpx;
+    left:50%;
+    transform: translate(-50%,0);
+    font-size:34rpx;
+    font-weight:bold;
+    color: #ffffff;
+}
+
+
+
+/*浮层*/
+.compose_layer{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left:0;
+    z-index: 100;
+    background:rgba(0,0,0,0.9);
+}
+
+.composeing,.compose_success,.compose_error{
+    width: 548rpx;
+    height: 633rpx;
+    position: absolute;
+    top: 300rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius:14px;
+    background-color: #ffffff;
+}
+
+.compose_success,.compose_error{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.compose_img{
+    margin-top: 61rpx;
+    width: 330rpx;
+    height: 274rpx;
+}
+
+.compose_success_text{
+    margin-top: 26rpx;
+    font-size: 38rpx;
+    color: #666666;
+}
+
+.compose_success_info{
+    margin-top: 16rpx;
+    font-size: 26rpx;
+    color: #999999;
+}
+
+.compose_success_footer,.compose_error_footer{
+    border-top: 1rpx solid #eeeeee;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 88rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.compose_success_footer{
+    border-top: 1rpx solid #eeeeee;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 88rpx;
+}
+
+.btn_wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_wrapper .btn{
+    width: 32rpx;
+    height: 32rpx;
+}
+
+.btn_wrapper_text{
+    margin-left: 8rpx;
+    font-size: 30rpx;
+    color: #F83450;
+}
+
+
+
+.compose_success_footer .line{
+    width: 2rpx;
+    height: 32rpx;
+    background-color: #eeeeee;
+    margin: 0 59rpx;
+}
+
+.compose_error_footer{
+    text-align: center;
+    line-height: 88rpx;
+    color: #F83450;
+    font-size: 34rpx;
+}
+
+
+/*邀请配音*/
+.open-canvas-btn{
+    position: absolute;
+    z-index: 3;
+    top:132rpx;
+    right:30rpx;
+    width: 148rpx;
+    height:56rpx;
+    background:rgba(0,0,0,.2);
+    border-radius:28rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.open-canvas-btn-img{
+    width: 26rpx;
+    height: 28rpx;
+    margin-left: 16rpx;
+}
+
+.open-canvas-btn-text{
+    margin-left: 6rpx;
+    font-size: 22rpx;
+    color: #ffffff;
+}
+
+
+
+
+
+.canvas_poster{
+    position: fixed;
+    left:0;
+    top: -10000rpx;
+    width: 750px;
+    height: 1238px;
+}
+
+.poster_layer{
+    position: absolute;
+    z-index: 3;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.6);
+}
+
+.poster_layer .save_poster{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    height: 1028rpx;
+    background:rgba(255,255,255,1);
+    border-radius:14rpx 14rpx 0rpx 0rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.poster_layer .save_poster .poster{
+    margin-top: 80rpx;
+    width: 400rpx;
+    height: 660rpx;
+    box-shadow:0rpx 4rpx 16rpx 0rpx rgba(0, 0, 0, 0.14);
+    border-radius:14rpx;
+}
+
+.poster_layer .save_poster .text{
+    margin-top: 72rpx;
+    font-size:26rpx;
+    color:rgba(51,51,51,1);
+    width:100%;
+    text-align:center;
+}
+
+.btn_save_img{
+    margin-top: 35rpx;
+    width:360rpx;
+    height:88rpx;
+    background:rgba(248,52,80,1);
+    border-radius:44rpx;
+    text-align: center;
+    line-height: 88rpx;
+    font-size:34rpx;
+    font-weight:bold;
+    color: #ffffff;
+}
+
+
+/*字幕*/
+.lyric-bg{
+    position: absolute;
+    z-index:2;
+    width: 100%;
+    height: 537rpx;
+    bottom: 0;
+    left: 0;
+}
+.lyric-box{
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    height: 537rpx;
+    padding-top: 44rpx;
+    box-sizing: border-box;
+    bottom: 0;
+    left: 0;
+}
+
+.lyric-box .icon-box{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+    top:115rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lyric-box .icon-box .icon{
+    width: 248rpx;
+    height: 18rpx;
+}
+
+.lyric-box .line{
+    position: relative;
+    height: 36rpx;
+    line-height: 36rpx;
+    z-index: 3;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 25rpx;
+    font-size: 30rpx;
+    color: #efefef;
+}
+
+.lyric-box .cur-line{
+    color: #fefefe;
+    font-size: 34rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

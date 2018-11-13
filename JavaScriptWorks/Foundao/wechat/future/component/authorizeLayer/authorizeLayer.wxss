@@ -1,0 +1,67 @@
+/* component/authorizeLayer/authorizeLayer.wxss */
+.authorize-layer {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.authorize-box{
+    width:620rpx;
+    background:rgba(255,255,255,1);
+    box-shadow:0rpx 2rpx 4rpx 0rpx rgba(0,0,0,0.5);
+    border-radius:10rpx;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.authorize-box .title{
+    width:100%;
+    height:100rpx;
+    border-bottom:1rpx solid rgba(238,238,238,1);
+    font-size:36rpx;
+    font-family:PingFangSC-Medium;
+    color:rgba(0,0,0,1);
+    line-height: 100rpx;
+    text-align: center;
+}
+
+.authorize-box .logo{
+    margin-top: 34rpx;
+    width: 126rpx;
+    height: 126rpx;
+    border-radius: 50%;
+    background-position: center center;
+    background-size: cover;
+}
+
+.authorize-box .text{
+    font-size:24rpx;
+    font-family:PingFangSC-Regular;
+    color:rgba(0,0,0,1);
+    line-height:33rpx;
+    margin-top: 46rpx;
+}
+
+.authorize-box .btn{
+    margin-top: 58rpx;
+    width:100%;
+    height:100rpx;
+    border-top:1rpx solid rgba(238,238,238,1);
+    font-size:30rpx;
+    font-family:PingFangSC-Medium;
+    color:#00C500;
+    line-height: 100rpx;
+    text-align: center;
+    background-color: #ffffff;
+}

@@ -1,0 +1,46 @@
+<!--pages/user/user.wxml-->
+<view class="user-page {{isIpx?'iphoneX':''}}">
+
+    <backTitle title="用户详情"></backTitle>
+
+    <view class="top-box">
+        <!--底部背景-->
+        <view class="bg" style="background-image: url({{other_userInfo.nick_pic}})">
+            <view class="bg-color"></view>
+        </view>
+        <!--用户信息-->
+        <view class="userInfo-box">
+            <view class="user-head" style="background-image: url({{other_userInfo.nick_pic}})"></view>
+            <view class="user-otherInfo">
+                <view class="user-name">{{other_userInfo.nick_name}}</view>
+                <!--已关注-->
+                <view class="already-attention" wx:if="{{other_userInfo.guanzhu==2||other_userInfo.guanzhu==3}}"
+                      bindtap="del_fabulous">
+                </view>
+                <!--未关注-->
+                <view class="attention" wx:if="{{other_userInfo.guanzhu==1}}" bindtap="fabulous">+关注</view>
+            </view>
+        </view>
+        <!--个人简介-->
+        <view class="user-intro">{{other_userInfo.test_user_autograph?other_userInfo.test_user_autograph:'暂无个人简介'}}</view>
+        <!--tab-->
+        <view class="tab-box">
+            <view class="tab-item selected">
+                <span class="tab-name">作品</span>
+                <span class="tab-num">{{other_userInfo.count_material}}</span>
+            </view>
+        </view>
+        <!--列表-->
+        <view class="list-box">
+            <block wx:for="{{product_list}}">
+                <view class="video-item"
+                      bindtap="goVideo"
+                      data-data="{{item}}" style="background-image: url({{item.pic}})">
+                </view>
+            </block>
+            <!--暂无任何作品-->
+            <view class="no-product"
+                  wx:if="{{product_list.length==0}}"></view>
+        </view>
+    </view>
+</view>

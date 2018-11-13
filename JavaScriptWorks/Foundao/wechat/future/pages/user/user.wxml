@@ -1,0 +1,68 @@
+<!--pages/user/user.wxml-->
+<view class="user-page {{isIpx?'iphoneX':''}}">
+    <backTitle noBack="{{true}}" title="我的"></backTitle>
+
+    <view class="top-box">
+        <!--<view style="width: 100%;text-align: center">我的</view>-->
+        <!--底部背景-->
+        <view class="bg" style="background-image: url({{userInfo.nick_pic}})">
+            <view class="bg-color"></view>
+        </view>
+        <!--用户信息-->
+        <view class="userInfo-box">
+            <view class="user-head" style="background-image: url({{userInfo.nick_pic}})"></view>
+            <view class="user-otherInfo">
+                <view class="user-name">{{userInfo.nick_name}}</view>
+                <view class="user-fans-attention">
+                    <span class="user-num"  bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>
+                    <span bindtap="goAttention" data-select="2">粉丝</span>
+                    <view class="line"></view>
+                    <span class="user-num"  bindtap="goAttention" data-select="1">{{userInfo.follow}}</span>
+                    <span  bindtap="goAttention" data-select="1">关注</span>
+                </view>
+            </view>
+        </view>
+        <!--个人简介-->
+        <!--<view class="user-intro">{{userInfo.user_autograph}}</view>-->
+        <textarea class="user-intro" name="" id="" cols="30" rows="2" placeholder="点击此处修改个人简介"
+                  placeholder-style="color:rgba(255,255,255,.6)" bindblur="updateContent" bindinput="numLimit" value="{{userInfo.user_autograph}}">
+                <!--<text>{{userInfo.user_autograph}}</text>-->
+        </textarea>
+        <!--tab-->
+        <view class="tab-box">
+            <view class="tab-item {{select==1?'selected':''}}" bindtap="toggle" data-select="1">
+                <span class="tab-name">作品</span>
+                <span class="tab-num">{{userInfo.count_material}}</span>
+            </view>
+            <view class="tab-item  {{select==2?'selected':''}}" bindtap="toggle" data-select="2">
+                <span class="tab-name">喜欢</span>
+                <span class="tab-num">{{userInfo.count_love}}</span>
+            </view>
+        </view>
+    </view>
+    <!--列表-->
+    <view class="list-box">
+        <!--作品-->
+        <view class="product-list" hidden="{{select==2}}">
+            <block wx:for="{{product_list}}">
+                <view class="video-item"
+                      bindtap="goVideo" data-user="true"
+                      data-data="{{item}}" style="background-image: url({{item.pic}})">
+                    <view class="waiting-box" wx:if="{{item.examine==2}}">审核中</view>
+                    <view class="fail-box" wx:if="{{item.examine==1}}">该视频审核未通过</view>
+                </view>
+            </block>
+        </view>
+        <!--喜欢-->
+        <view class="like-list" hidden="{{select==1}}">
+            <block wx:for="{{like_list}}">
+                <view class="video-item" bindtap="goVideo"
+                      data-data="{{item}}" style="background-image: url({{item.pic}})">
+                </view>
+            </block>
+        </view>
+        <!--暂无任何作品-->
+        <view class="no-product"
+              wx:if="{{(select==1&&product_list.length==0)||(select==2&&like_list.length==0)}}"></view>
+    </view>
+</view>

@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/auth/auth",
+    "pages/logs/logs",
+    "pages/user/user",
+    "pages/attention/attention",
+    "pages/subject/subject",
+    "pages/subjectIndex/subjectIndex",
+    "pages/dubbing/dubbing",
+    "pages/recordList/recordList",
+    "pages/otherUser/otherUser",
+    "pages/video/video"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#F83450",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "assets/images/shouye2.png",
+        "selectedIconPath": "assets/images/shouye.png",
+        "text": "推荐"
+      },
+      {
+        "pagePath": "pages/recordList/recordList",
+        "iconPath": "assets/images/peiyin2.png",
+        "selectedIconPath": "assets/images/peiyin.png",
+        "text": "配音"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "assets/images/wode2.png",
+        "selectedIconPath": "assets/images/wode.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

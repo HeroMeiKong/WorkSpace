@@ -1,0 +1,28 @@
+/*公共库*/
+.shenglv-1{
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:1;
+}
+
+.shenglv-2{
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:2;
+}
+
+.iphoneX{
+    padding-top: 186rpx!important;
+    box-sizing: border-box;
+}
+
+.iphoneX-video{
+    padding-top: 64rpx!important;
+    box-sizing: border-box;
+}

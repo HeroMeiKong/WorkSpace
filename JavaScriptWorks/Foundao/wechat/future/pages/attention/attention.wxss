@@ -1,0 +1,173 @@
+/* pages/attention/attention.wxss */
+@import "./../../public.wxss";
+
+.attention-page{
+    width: 100%;
+    padding-top: 152rpx;
+}
+
+.head-title{
+    position: absolute;
+    top:55rpx;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 38rpx;
+    line-height: 40rpx;
+    color: #000000;
+}
+
+.back-btn{
+    position: absolute;
+    top:55rpx;
+    left:30rpx;
+    width: 25rpx;
+    height: 40rpx;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("https://www.newscctv.net/dw/resource/future/1return5.png");
+}
+
+/*tab*/
+.tab-box{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab-item{
+    font-size: 34rpx;
+    color: #999999;
+    line-height: 36rpx;
+}
+
+.tab-item:last-child{
+    margin-left: 135rpx;
+}
+
+.tab-item.selected{
+    color: #F83450;
+    font-weight: bold;
+    position: relative;
+}
+
+.tab-item.selected:after{
+    content: '';
+    position: absolute;
+    width:40rpx;
+    height:4rpx;
+    background:rgba(248,52,80,1);
+    left:50%;
+    transform: translateX(-50%);
+    bottom: -14rpx;
+}
+
+/*列表*/
+.user-lists{
+    margin-top: 50rpx;
+    width: 100%;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.user-item{
+    width: 100%;
+    margin-bottom: 52rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left{
+    display: flex;
+    flex-direction: row;
+}
+
+.user-head{
+    width: 98rpx;
+    height: 98rpx;
+    background-size: cover;
+    border-radius: 50%;
+    background-color: #F83450;
+}
+
+.user-info{
+    margin-left: 30rpx;
+}
+
+.user-name{
+    margin-top: 11rpx;
+    font-size: 30rpx;
+    color: #333333;
+    font-weight: bold;
+    line-height: 30rpx;
+}
+
+.user-content{
+    width: 400rpx;
+    overflow: hidden;
+    margin-top: 17rpx;
+    font-size: 26rpx;
+    color: #999999;
+    line-height: 30rpx;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:1;
+}
+
+.right{
+    width:108rpx;
+    height:56rpx;
+    border-radius:28rpx;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.attention .right{
+    background-size: 34rpx 34rpx;
+    background-color: #d1d1d1;
+    background-image: url("https://www.newscctv.net/dw/resource/future/2attention3@2x.png");
+}
+
+.both .right{
+    background-size: 34rpx 34rpx;
+    background-color: #d1d1d1;
+    background-image: url("https://www.newscctv.net/dw/resource/future/2attention2@2x.png");
+}
+
+.like .right{
+    background-size: 34rpx 34rpx;
+    background-color: #F83450;
+    background-image: url("https://www.newscctv.net/dw/resource/future/2attention1@2x.png");
+}
+
+.no-user{
+    position: absolute;
+    top:calc(521rpx - 50rpx);
+    left: 50%;
+    transform:translateX(-50%);
+    color: #999999;
+    line-height: 26rpx;
+    font-size: 26rpx;
+}
+.no-user:after{
+    content: '';
+    position: absolute;
+    width: 290rpx;
+    height: 290rpx;
+    text-align: center;
+    left: 50%;
+    transform:translateX(-50%);
+    top:-312rpx;
+    width: 240rpx;
+    height: 240rpx;
+    background-image: url("https://www.newscctv.net/dw/resource/future/2null@2x.png");
+    background-size: cover;
+}

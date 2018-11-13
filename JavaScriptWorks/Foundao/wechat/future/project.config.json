@@ -1,0 +1,104 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.3.0",
+	"appid": "wxa4c05d1367eee5db",
+	"projectname": "future",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 8,
+			"list": [
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/user/user",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "他人主页",
+					"pathName": "pages/otherUser/otherUser",
+					"query": "user_uuid=4A4643EA-CD79-E496-D16D-AE455453"
+				},
+				{
+					"id": 2,
+					"name": "视频详情页",
+					"pathName": "pages/video/video",
+					"query": "video_uuid=8130161633459221890289&id=17"
+				},
+				{
+					"id": -1,
+					"name": "关注粉丝页",
+					"pathName": "pages/attention/attention",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "配音列表页",
+					"pathName": "pages/recordList/recordList",
+					"query": ""
+				},
+				{
+					"id": 5,
+					"name": "话题详情页",
+					"pathName": "pages/subject/subject",
+					"query": "id=3"
+				},
+				{
+					"id": -1,
+					"name": "话题首页",
+					"pathName": "pages/subjectIndex/subjectIndex",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "授权页",
+					"pathName": "pages/auth/auth",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "首页",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": 9,
+					"name": "录音页",
+					"pathName": "pages/dubbing/dubbing",
+					"query": "video_uuid=14BE7EC9-5FB4-1B53-75B7-843E2B9C8316"
+				}
+			]
+		}
+	}
+}
