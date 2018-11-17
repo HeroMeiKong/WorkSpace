@@ -54,4 +54,6 @@ export default {
     // 待定
     topic_class: host + 'topic/topic_class.php',    //话题分类
     type_sub: host + 'topic/type_sub.php',      //话题
+    //本地上传
+    upload: host + 'uploads.php'
 }

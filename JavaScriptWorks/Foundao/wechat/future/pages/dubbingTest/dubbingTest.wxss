@@ -1,0 +1,53 @@
+/* pages/dubbingTest/dubbingTest.wxss */
+@import "./../../public.wxss";
+
+.user-page{
+    width: 100%;
+    min-height: 100%;
+    background-color: white;
+    padding-top: 122rpx;
+    box-sizing: border-box;
+}
+
+
+/*顶部*/
+.wrapper{
+    position: relative;
+    padding: 90rpx 30rpx 0;
+}
+.box{
+  padding: 40rpx 32rpx 40rpx 40rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  box-shadow:0px 2px 8px 0px rgba(0, 0, 0, 0.16);
+  border-radius:4px;
+}
+.left,.right{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.left{
+  width: 70%;
+  padding: 28rpx 0 48rpx 0;
+}
+.right{
+  width: 30%;
+  padding: 10rpx 0;
+  align-items: center;
+}
+.right image{
+  width: 160rpx;
+  height: 160rpx;
+  border: 1px dashed black;
+}
+.textTitle{
+  font-size: 46rpx;
+  font-weight: bold;
+  color:rgba(51,51,51,1);
+}
+.textSuggest{
+  font-size: 26rpx;
+  font-weight:500;
+  color:rgba(153,153,153,1);
+}

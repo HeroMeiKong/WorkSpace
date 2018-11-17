@@ -10,7 +10,9 @@
     "pages/dubbing/dubbing",
     "pages/recordList/recordList",
     "pages/otherUser/otherUser",
-    "pages/video/video"
+    "pages/video/video",
+    "pages/dubbingTest/dubbingTest",
+    "pages/uploadLocalVideo/uploadLocalVideo"
   ],
   "window": {
     "backgroundTextStyle": "light",

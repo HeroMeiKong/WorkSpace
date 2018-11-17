@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -97,6 +97,17 @@
 					"name": "录音页",
 					"pathName": "pages/dubbing/dubbing",
 					"query": "video_uuid=14BE7EC9-5FB4-1B53-75B7-843E2B9C8316"
+				},
+				{
+					"id": -1,
+					"name": "配音测试",
+					"pathName": "pages/dubbingTest/dubbingTest",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "本地上传",
+					"pathName": "pages/uploadLocalVideo/uploadLocalVideo"
 				}
 			]
 		}
