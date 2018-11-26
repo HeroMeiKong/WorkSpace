@@ -55,9 +55,20 @@
         </view>
         <!--喜欢-->
         <view class="like-list" hidden="{{select==1}}">
+            <!--<block wx:for="{{like_list}}">-->
+                <!--<view class="video-item" bindtap="goVideo"-->
+                      <!--data-data="{{item}}" style="background-image: url({{item.pic}})">-->
+                <!--</view>-->
+            <!--</block>-->
             <block wx:for="{{like_list}}">
-                <view class="video-item" bindtap="goVideo"
-                      data-data="{{item}}" style="background-image: url({{item.pic}})">
+                <view class="videoItem">
+                    <view class="videoItem-bg" style="background-image: url({{item.pic}})" bindtap="goVideo"
+                          data-data="{{item}}"></view>
+                    <view class="info">
+                        <view class="head" style="background-image: url({{item.nick_pic}})" bindtap="goUser"
+                              data-data="{{item}}"></view>
+                        <view class="video-des">{{item.video_desc}}</view>
+                    </view>
                 </view>
             </block>
         </view>

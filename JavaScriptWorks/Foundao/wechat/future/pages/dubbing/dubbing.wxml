@@ -1,6 +1,6 @@
 <wxs module="filters" src="./dubbing.wxs"></wxs>
 
-<view class="dub-videoBox {{isIpx?'iphoneX-video':''}}">
+<view class="dub-videoBox">
     <video controls="{{false}}"
            autoplay="{{true}}"
            hidden="{{!showVideo}}"
@@ -8,15 +8,16 @@
            poster="{{video_detail.video_small_pic}}"
            loop="{{true}}"
            id="video"
-
-           muted="{{muted}}">  bindplay="bindplay"
-        bindpause="bindpause"
-        bindended="bindended"
+           objectFit="{{fit?'cover':'contain'}}"
+           bindplay="bindplay"
+           bindpause="bindpause"
+           bindended="bindended"
+           muted="{{muted}}">
 
         <!--覆盖框-->
         <cover-view class="cover-box"></cover-view>
 
-        <cover-image class="back-btn" catchtap="goBack"
+        <cover-image class="back-btn {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack"
                      src="https://www.newscctv.net/dw/resource/future/1return4.png"></cover-image>
 
         <!--字幕及字幕背景-->
@@ -128,7 +129,7 @@
 
 
         <!--邀请配音-->
-        <cover-view class="open-canvas-btn" hidden="{{isDubbing}}" bindtap="create_poster">
+        <cover-view class="open-canvas-btn {{isIpx?'iphoneX-open-canvas-btn':''}}" hidden="{{isDubbing}}" bindtap="create_poster">
             <cover-image class="open-canvas-btn-img"
                          src="https://www.newscctv.net/dw/resource/future/2attention1@2x.png"></cover-image>
             <cover-view class="open-canvas-btn-text">邀请配音</cover-view>

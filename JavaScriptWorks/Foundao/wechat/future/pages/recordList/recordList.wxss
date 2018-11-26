@@ -22,6 +22,8 @@
     top:115rpx!important;
 }
 
+
+
 .back-btn{
     position: absolute;
     top:55rpx;
@@ -101,6 +103,10 @@
     box-sizing: border-box;
     padding: 80rpx 30rpx 120rpx 30rpx;
     background-color: #ffffff;
+}
+
+.iphoneX-open-box{
+    top: calc(122rpx + 64rpx);
 }
 
 .open-box .close-btn{

@@ -2,7 +2,7 @@
  * Created by DELL on 2018/8/9.
  */
 const host = 'https://a-js.sports.cctv.com/host/api/';
-// const host = 'https://web-happy.foundao.com/host/api/api/';
+ const hostTest = 'https://web-happy.foundao.com/host/api/api/';
 export default {
 
     //登录
@@ -54,6 +54,11 @@ export default {
     // 待定
     topic_class: host + 'topic/topic_class.php',    //话题分类
     type_sub: host + 'topic/type_sub.php',      //话题
-    //本地上传
-    upload: host + 'uploads.php'
+
+
+    //上传视频
+    upload_cover: host + 'upload_cover.php',          //上传视频
+    sticker_type: hostTest + 'video/sticker_type.php',//贴纸分类
+    sticker: hostTest + 'video/sticker.php',          //贴纸查询
+    upload_test: host + 'video/get_video_cover.php'//上传视频测试
 }

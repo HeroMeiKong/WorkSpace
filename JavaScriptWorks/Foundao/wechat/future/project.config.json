@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 10,
 			"list": [
 				{
 					"id": -1,
@@ -100,14 +100,8 @@
 				},
 				{
 					"id": -1,
-					"name": "配音测试",
-					"pathName": "pages/dubbingTest/dubbingTest",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "本地上传",
-					"pathName": "pages/uploadLocalVideo/uploadLocalVideo"
+					"name": "预览",
+					"pathName": "pages/preview/preview"
 				}
 			]
 		}

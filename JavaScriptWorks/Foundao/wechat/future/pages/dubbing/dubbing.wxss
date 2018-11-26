@@ -9,8 +9,6 @@
     background-size: cover;
     background-position: center center;
     position: relative;
-    /* background-image: url({{video_detail.video_small_pic}});
-    background: black; */
 }
 
 #video {
@@ -35,6 +33,10 @@
     left:30rpx;
     width: 24rpx;
     height: 42rpx;
+}
+
+.iphoneX-back-btn{
+    top:114rpx;
 }
 
 .status-box {
@@ -217,6 +219,10 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+}
+
+.iphoneX-open-canvas-btn{
+    top:196rpx;
 }
 
 .open-canvas-btn-img{

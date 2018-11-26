@@ -11,7 +11,7 @@ Page({
     data: {
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
 
-        isIpx:false,
+        isIpx: false,
     },
 
     /**
@@ -21,9 +21,9 @@ Page({
         console.log('auth onLoad')
         wx.getSystemInfo({
             success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1) {
+                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
-                        isIpx:true
+                        isIpx: true
                     })
                 }
             }
@@ -41,7 +41,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        wx.removeStorage({
+            key: 'loginSessionKey',
+        })
     },
 
     /**
@@ -81,48 +83,61 @@ Page({
 
     //获取用户信息，将相关用户信息传给后台，获取token，并存在storage中
     getUserInfo: function (e) {
-        console.log('用户点击授权：')
-        console.log(e)
+        // console.log('用户点击授权：')
+        // console.log(e)
         var _this = this
         app.globalData.userInfo = e.detail.userInfo
         wx.login({
             success: res => {
-                wx.showLoading()
-                wx.request({
-                    url: api.login_auth,
-                    method: 'POST',
-                    header: {
-                        "content-type": "application/x-www-form-urlencoded"
-                    },
-                    data: {
-                        wx_sign: e.detail.signature,
-                        raw_user_data: e.detail.rawData,
-                        code: res.code
-                    },
-                    success: (resp) => {
-                        console.log('login_auth:')
-                        console.log(resp)
-                        const {code, data, msg} = resp.data;
-                        if (code === 0) {
-                            console.log(data.token, 'data.token');
-                            wx.setStorageSync('loginSessionKey', data.token)
-                            //返回上一层页面
-                            wx.navigateBack();
-                        } else {
-                            wx.showToast({
-                                title: msg,
-                                icon: 'none'
-                            })
-                        }
-                    },
-                    fail(res){
-                        console.log('login_auth fail')
-                        console.log(res)
-                    },
-                    complete: () => {
-                        wx.hideLoading()
+                wx.showLoading({
+                    mask: true
+                })
+                console.log('code:')
+                console.log(res.code)
+                wx.getUserInfo({
+                    success: function (re) {
+                        wx.request({
+                            url: api.login_auth,
+                            method: 'POST',
+                            header: {
+                                "content-type": "application/x-www-form-urlencoded"
+                            },
+                            data: {
+                                wx_sign: re.signature,
+                                raw_user_data: re.rawData,
+                                code: res.code
+                            },
+                            success: (resp) => {
+                                console.log('login_auth:')
+                                console.log(resp)
+                                const {code, data, msg} = resp.data;
+                                if (code === 0) {
+                                    console.log(data.token, 'data.token');
+                                    wx.setStorageSync('loginSessionKey', data.token)
+                                    //返回上一层页面
+                                    wx.navigateBack();
+                                } else {
+                                    // wx.showToast({
+                                    //     title: msg,
+                                    //     icon: 'none'
+                                    // })
+                                    wx.removeStorage({
+                                        key: 'loginSessionKey',
+                                    })
+                                }
+                            },
+                            fail(res) {
+                                console.log('login_auth fail')
+                                console.log(res)
+                            },
+                            complete: () => {
+                                wx.hideLoading()
+                            }
+                        })
+
                     }
                 })
+
 
             }
         });

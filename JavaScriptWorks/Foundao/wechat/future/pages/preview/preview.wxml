@@ -1,0 +1,132 @@
+<!--pages/preview/preview.wxml-->
+<view class="user-page {{isIpx?'iphoneX':''}}">
+  <backTitle></backTitle>
+  <view class="wrappers">
+    <view class="preview">
+      <movable-area class="screenshot">
+        <block wx:for="{{movableviewNum}}" wx:key="*this">
+          <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all">
+            <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/share_normal.png"
+              catch:tap="cancelMovableView"></image>
+            <image id="pic{{item.id}}" src="{{previewpic}}" bind:tap="showMovableView" bind:touchstart="startMovableView"  bind:touchmove="moveMovableView"></image>
+            <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{item.display}}" src="../../assets/images/share_normal.png"
+              catch:touchstart="getStartLocation"  catch:touchmove="moveLocation" catch:touchend="endLocation"></image>
+          </movable-view>
+        </block>
+      </movable-area>
+      <view class="previewpic">
+        <image src="{{previewpic}}"></image>
+      </view>
+    </view>
+    <view class="bottom">
+      <view class="option" style="display:{{showoption}};">
+        <view class="next">下一步</view>
+        <view class="section" catch:tap="filter">
+          <image class="img" src="../../assets/images/1huati@2x.png"></image>
+          <text class="">滤镜</text>
+        </view>
+        <view class="section" catch:tap="paster">
+          <image class="img" src="../../assets/images/1huati@2x.png"></image>
+          <text class="">贴纸</text>
+        </view>
+        <view class="section" catch:tap="music">
+          <image class="img" src="../../assets/images/1huati@2x.png"></image>
+          <text class="">音乐</text>
+        </view>
+      </view>
+      <view class="filter" style="display:{{showfilter}};">
+        <swiper display-multiple-items='5'>
+          <block wx:for="{{filters}}" wx:key="*this">
+            <swiper-item>
+              <view class="{{item.filterdiv}}" catch:tap="choseFilter">
+                <image class="filterimage" src="{{item.pic}}"></image>
+                <text class="filtertext">{{item.name}}</text>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+      <view class="paster" style="display:{{showpaster}};">
+        <swiper display-multiple-items='5'>
+          <block wx:for="{{pasters}}" wx:key="*this">
+            <swiper-item>
+              <view class="pasterdiv">
+                <image id="{{item.id}}" class="pasterimage" src="{{item.icon}}"  catch:tap="chosePasterPic"></image>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+        <!-- 
+        <swiper display-multiple-items='5' style="display:{{showpasterinterest}};">
+          <block wx:for="{{pasters}}" wx:key="*this">
+            <swiper-item>
+              <view class="{{item.pasterdiv}}">
+                <image id="{{item.id}}" class="pasterimage" src="{{item.pic}}"  catch:tap="chosePasterPic"></image>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+        <swiper display-multiple-items='5' style="display:{{showpasterdoodle}};">
+          <block wx:for="{{pasters}}" wx:key="*this">
+            <swiper-item>
+              <view class="{{item.pasterdiv}}">
+                <image id="{{item.id}}" class="pasterimage" src="{{item.pic}}"  catch:tap="chosePasterPic"></image>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper> -->
+        <view class="paster_section">
+          <block wx:for="{{pasters_type}}" wx:key="*this">
+            <view id='pasters_type{{item.id}}' class="{{item.chosethispaster}}" catch:tap="chosePaster">
+              <text class="font">{{item.sticker_type_name}}</text>
+              <view class="line"></view>
+            </view>
+          </block>
+          <!-- <view id='pastertext' class="{{chosethispaster.text}}" catch:tap="chosePaster">
+            <text class="font">文字</text>
+            <view class="line"></view>
+          </view>
+          <view id='pasterinterest' class="{{chosethispaster.interest}}"  catch:tap="chosePaster">
+            <text class="font">趣味</text>
+            <view class="line"></view>
+          </view>
+          <view id='pasterdoodle' class="{{chosethispaster.doodle}}"  catch:tap="chosePaster">
+            <text class="font">涂鸦</text>
+            <view class="line"></view>
+          </view> -->
+        </view>
+      </view>
+      <view class="music" style="display:{{showmusic}};">
+        <view class="musiclist" style="display:{{showmusiclist}}">
+          <swiper display-multiple-items='5' vertical="true">
+            <block wx:for="{{showmusiclists}}" wx:key="*this">
+              <swiper-item>
+                <view id="{{item.id}}" class="musiclistdiv">
+                  <view class="musiclistleft">
+                    <image class="playmusic" src="{{musicimgs.playimg}}" bindtap="playmusic"></image>
+                  </view>
+                  <view class="musiclistcenter">
+                    <text class="musicname">{{item.name}}</text>
+                  </view>
+                  <view class="musiclistright">
+                    <image class="addmusic" src="{{musicimgs.addimg}}" bindtap="addmusic"></image>
+                  </view>
+                </view>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+        <swiper display-multiple-items='5'>
+          <block wx:for="{{musics}}" wx:key="*this">
+            <swiper-item>
+              <view id="{{item.id}}" class="{{item.musicdiv}}" catch:tap="choseMusic">
+                <image class="musicimage" src="{{item.pic}}"></image>
+                <text class="musictext">{{item.name}}</text>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+  </view>
+</view>

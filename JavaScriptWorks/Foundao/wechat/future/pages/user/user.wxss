@@ -245,6 +245,66 @@
 }
 
 
+/*喜欢*/
+.videoItem{
+    display: inline-block;
+    width:374rpx;
+    height:602rpx;
+    margin-bottom: 20rpx;
+    background-color: #ffffff;
+}
+
+.videoItem:nth-child(2n){
+    margin-left: 2rpx;
+}
+
+.videoItem-bg{
+    width:374rpx;
+    height:498rpx;
+    background-size: cover;
+    background-position: center center;
+}
+
+.videoItem .info{
+    width: 100%;
+    height: 104rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.videoItem .info .head{
+    margin-left: 20rpx;
+    width: 68rpx;
+    height: 68rpx;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 50%;
+}
+
+.videoItem .info .video-des{
+    margin-left: 17rpx;
+    width: 232rpx;
+    max-height: 60rpx;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    font-size: 26rpx;
+    line-height: 30rpx;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:2;
+    color: #333333;
+}
+
+
+
+
+
+
+
+
 
 
 

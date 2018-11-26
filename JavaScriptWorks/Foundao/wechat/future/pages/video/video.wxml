@@ -1,7 +1,6 @@
 <!--pages/video.wxml-->
-<view class="videoItem-videoBox {{isIpx?'iphoneX-video':''}}">
-    <view class="video-box" animation="{{animationData}}"
-          style="background-image: url({{cur_video.pic}});">
+<view class="videoItem-videoBox">
+    <view class="video-box" animation="{{animationData}}">
         <video controls="{{false}}"
                autoplay="{{true}}"
                hidden="{{showVideo}}"
@@ -9,6 +8,7 @@
                poster=""
                loop="{{true}}"
                id="video"
+               objectFit="{{fit?'cover':'contain'}}"
                bindplay="bindplay"
                bindpause="bindpause"
                bindtimeupdate="bindtimeupdate">
@@ -16,7 +16,8 @@
             <!--覆盖框-->
             <cover-view class="cover-box" bindtap="videoClick">
 
-                <cover-image class="back-btn" catchtap="goBack" src="https://www.newscctv.net/dw/resource/future/1return4.png"></cover-image>
+                <cover-image class="back-btn" catchtap="goBack"
+                             src="https://www.newscctv.net/dw/resource/future/1return4.png"></cover-image>
                 <!--话题-->
                 <!--<cover-view class="topic-box">-->
                 <!--&lt;!&ndash;话题icon&ndash;&gt;-->
@@ -54,7 +55,8 @@
                 <!--</cover-view>-->
                 <!--</cover-view>-->
                 <!--按钮-->
-                <cover-image class="play-btn" src="https://www.newscctv.net/dw/resource/future/1play.png" wx:if="{{!playing}}"></cover-image>
+                <cover-image class="play-btn" src="https://www.newscctv.net/dw/resource/future/1play.png"
+                             wx:if="{{!playing&&hasPlayed}}"></cover-image>
 
                 <cover-view class="button-box" hidden="{{is_user}}">
                     <!--挑战+喜欢+分享-->
@@ -86,7 +88,8 @@
                     <cover-view class="userinfo-box">
                         <cover-image class="user-head" src="{{cur_video.nick_pic}}" catchtap="goUser"></cover-image>
                         <cover-view class="user-name">{{cur_video.nick_name}}</cover-view>
-                        <cover-view class="attention-box" wx:if="{{cur_video.is_follow==1}}" catchtap="fabulous" hidden="{{cur_video.is_user==1}}">
+                        <cover-view class="attention-box" wx:if="{{cur_video.is_follow==1}}" catchtap="fabulous"
+                                    hidden="{{cur_video.is_user==1}}">
                             <cover-image class="attention-icon"
                                          src="https://www.newscctv.net/dw/resource/future/1gengduo@2x.png"></cover-image>
                             <cover-view class="attention-icon-text">关注</cover-view>

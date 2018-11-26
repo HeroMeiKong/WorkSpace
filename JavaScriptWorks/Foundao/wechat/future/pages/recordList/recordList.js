@@ -45,7 +45,7 @@ Page({
 
         wx.getSystemInfo({
             success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1) {
+                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
                         isIpx:true
                     })
@@ -136,7 +136,9 @@ Page({
 
     // 分类查询
     getTypes() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -154,10 +156,13 @@ Page({
                         type_list: data.data
                     })
                 } else {
-                    wx.showToast({
+                     wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -175,7 +180,9 @@ Page({
             return
         }
 
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -210,10 +217,13 @@ Page({
                         fun && fun();
                     })
                 } else {
-                    wx.showToast({
+                     wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -248,7 +258,9 @@ Page({
 
         var temp_data = type_data[type_id]
 
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -284,10 +296,13 @@ Page({
                         cur_list: temp_type_data[type_id].list,
                     })
                 } else {
-                    wx.showToast({
+                     wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {

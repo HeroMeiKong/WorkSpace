@@ -34,7 +34,8 @@ Page({
 
         wx.getSystemInfo({
             success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1) {
+                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
+                    console.log('use iphone X')
                     this.setData({
                         isIpx: true
                     })
@@ -130,7 +131,9 @@ Page({
 
     // 获取我的作品
     getMyInfo: function () {
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -152,6 +155,10 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -171,7 +178,9 @@ Page({
             return
         }
 
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -223,7 +232,9 @@ Page({
             return
         }
 
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -318,7 +329,9 @@ Page({
         if (value == this.data.userInfo.user_autograph) {
             return
         } else {
-            wx.showLoading()
+            wx.showLoading({
+                mask: true
+            })
             this.data.loading_num++;
 
             wx.request({

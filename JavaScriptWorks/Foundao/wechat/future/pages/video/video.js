@@ -11,6 +11,7 @@ Page({
      */
     data: {
         hasInit: false,//是否初始化
+        hasPlayed: false,
         playing: false,
         time: 0,
         showVideo: false,
@@ -30,7 +31,7 @@ Page({
         cur_video: {},
 
         isIpx: false,
-
+        fit: false,
     },
 
     /**
@@ -41,7 +42,7 @@ Page({
             this.data.video_uuid = options.video_uuid
             this.data.video_id = options.id
             this.setData({
-                is_user: options.user
+                is_user: options.user || 0
             })
             // this.data.user = options.user
         } else {
@@ -51,7 +52,7 @@ Page({
         }
         wx.getSystemInfo({
             success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1) {
+                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
                         isIpx: true
                     })
@@ -159,7 +160,8 @@ Page({
     bindplay() {
         // console.log('play')
         this.setData({
-            playing: true
+            playing: true,
+            hasPlayed: true,
         })
     },
 
@@ -268,7 +270,9 @@ Page({
 
     // 获取视频数据
     getVideoData(video_uuid, id) {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         var url = this.data.is_user == 1 ? api.video_topics : api.video_topic
@@ -288,14 +292,25 @@ Page({
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
+                    const {width2, height2} = data.data;
+                    var fit_temp = false;
+                    if (width2 / height2 < 0.6) {
+                        fit_temp = true
+                    } else {
+                        fit_temp = false
+                    }
                     this.setData({
-                        cur_video: data.data
+                        cur_video: data.data,
+                        fit: fit_temp,
                     })
                 } else {
                     wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -309,7 +324,9 @@ Page({
 
     // 关注
     fabulous() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;
@@ -338,6 +355,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -351,7 +371,9 @@ Page({
 
     // 取消关注
     del_fabulous() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;
@@ -380,6 +402,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -393,7 +418,9 @@ Page({
 
     // 喜欢
     like() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;
@@ -422,6 +449,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -435,7 +465,9 @@ Page({
 
     // 不喜欢
     dislike() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;
@@ -464,6 +496,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {

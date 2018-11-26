@@ -15,6 +15,7 @@ Page({
      */
     data: {
         hasInit: false,//是否初始化
+        hasPlayed: false,
         playing: false,//视频播放状态
         animationData: {},//动画
         win_height: 0,//屏幕高度
@@ -61,7 +62,8 @@ Page({
         },
 
 
-        isIpx: false
+        isIpx: false,
+        fit: false,
     },
 
     /**
@@ -75,7 +77,8 @@ Page({
         }
         wx.getSystemInfo({
             success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1) {
+                console.log(res.model)
+                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
                         isIpx: true
                     })
@@ -167,6 +170,7 @@ Page({
      */
     onHide: function () {
         this.pauseVideo();
+        this.stopVideo();
     },
 
     /**
@@ -217,7 +221,9 @@ Page({
 
     //获取视频数据
     getVideoData(video_uuid, id, fun) {
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -241,6 +247,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -292,7 +301,8 @@ Page({
     bindplay() {
         // console.log('play')
         this.setData({
-            playing: true
+            playing: true,
+            hasPlayed: true,
         })
     },
 
@@ -589,7 +599,9 @@ Page({
             return
         }
 
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -653,6 +665,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -687,7 +702,9 @@ Page({
 
         var temp_data = type_data[type_id]
 
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -724,6 +741,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -737,7 +757,9 @@ Page({
 
     // 分类查询
     getTypes() {
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -759,6 +781,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -804,19 +829,42 @@ Page({
 
     // 切换视频
     switchVideo(data) {
+        const {width2, height2} = data;
+        var fit_temp = false;
+        if (width2 / height2 < 0.6) {
+            fit_temp = true
+        } else {
+            fit_temp = false
+        }
         this.setData({
-            cur_video: data
+            fit: fit_temp
         }, () => {
-            this.animation.translateY(0).step({duration: 0})
             this.setData({
-                animationData: this.animation.export()
+                playing: true,
+                cur_video: data,
+                fit: fit_temp,
+            }, () => {
+                this.animation.translateY(0).step({duration: 0})
+                this.setData({
+                    animationData: this.animation.export()
+                })
+                // setTimeout(() => {
+                //     wx.showToast({
+                //         title: '' + fit_temp,
+                //     })
+                //     this.setData({
+                //         fit: fit_temp
+                //     })
+                // }, 5000)
             })
         })
     },
 
     // 关注
     fabulous() {
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;
@@ -846,6 +894,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -859,7 +910,9 @@ Page({
 
     // 取消关注
     del_fabulous() {
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;
@@ -889,6 +942,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -902,7 +958,9 @@ Page({
 
     // 喜欢
     like() {
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;
@@ -932,6 +990,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -945,7 +1006,9 @@ Page({
 
     // 不喜欢
     dislike() {
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;
@@ -975,6 +1038,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -1201,6 +1267,13 @@ Page({
     goSubject() {
         wx.navigateTo({
             url: '/pages/subjectIndex/subjectIndex'
+        })
+    },
+
+    // 前往话题详情页
+    goSubjectDetail() {
+        wx.navigateTo({
+            url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
         })
     },
 

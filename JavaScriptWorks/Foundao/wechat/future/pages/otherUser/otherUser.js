@@ -42,7 +42,7 @@ Page({
 
         wx.getSystemInfo({
             success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1) {
+                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
                         isIpx:true
                     })
@@ -124,7 +124,9 @@ Page({
 
     // 获取用户信息
     getUserInfo() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -164,7 +166,9 @@ Page({
     getUserProduct: function () {
         const {product_page, product_list, product_more} = this.data
 
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -210,7 +214,9 @@ Page({
 
     // 关注
     fabulous() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         const {other_userInfo} = this.data;
@@ -250,7 +256,9 @@ Page({
 
     // 取消关注
     del_fabulous() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         const {cur_video} = this.data;

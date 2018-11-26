@@ -15,7 +15,7 @@
         <view class="open-btn" bindtap="openType"></view>
     </view>
     <!--展开选择-->
-    <view class="open-box" wx:if="{{open}}">
+    <view class="open-box {{isIpx?'iphoneX-open-box':''}}" wx:if="{{open}}">
         <view class="close-btn" catchtap="closeType"></view>
         <view class="open-list">
             <view class="open-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选</view>

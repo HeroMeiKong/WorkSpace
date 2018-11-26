@@ -108,6 +108,14 @@ App({
     },
 
 
+    initAuth(){
+        wx.removeStorageSync('loginSessionKey');
+        wx.navigateTo({
+            url: '/pages/auth/auth'
+        })
+    },
+
+
     //获取用户信息到globalData
     getUserInfo: function (fun) {
         var _this = this

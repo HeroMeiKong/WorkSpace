@@ -88,6 +88,8 @@ Page({
         status: STATUS.READY,//0-未开始录音，1-开始录音计时，2-录音暂停，3-录音结束，4-合成中
 
         isIpx: false,
+        break_record: false,
+        fit: false,
     },
 
     /**
@@ -106,7 +108,7 @@ Page({
         }
         wx.getSystemInfo({
             success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1) {
+                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
                         isIpx: true
                     })
@@ -167,14 +169,19 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
+        if (this.data.isDubbing) {
+            this.reRecord();
+            this.breakRecord();
+        }
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        if (this.data.isDubbing) {
+            this.breakRecord();
+        }
     },
 
     /**
@@ -308,9 +315,16 @@ Page({
         this.stopInterval();
     },
 
+    breakRecord() {
+        this.data.break_record = true;
+        this.data.recorderManager.stop();
+    },
+
     // 获取视频数据
     getVideoData(video_uuid) {
-        wx.showLoading()
+        wx.showLoading({
+            mask: true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -333,10 +347,18 @@ Page({
                             lyric = lyric.concat(item);
                         });
                     }
+                    const {width, height} = data.data;
+                    var fit_temp = false;
+                    if (width / height < 0.6) {
+                        fit_temp = true
+                    } else {
+                        fit_temp = false
+                    }
                     this.setData({
                         video_detail: data.data,
                         total_time: total_time,
-                        lyric: lyric
+                        lyric: lyric,
+                        fit: fit_temp,
                     }, () => {
                         // // // 提前缓冲音频
                         // setTimeout(() => {
@@ -360,6 +382,9 @@ Page({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -419,6 +444,12 @@ Page({
         // 录音结束
         this.data.recorderManager.onStop((res) => {
             console.log('recorder stop');
+            if (this.data.break_record) {
+                this.data.break_record = false
+                this.videoContext.pause();
+                return
+            }
+            console.log(res)
             this.data.isDubbing_flag = false;
             setTimeout(() => {
                 const {tempFilePath} = res;

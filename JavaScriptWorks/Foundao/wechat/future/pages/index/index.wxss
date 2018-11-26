@@ -31,7 +31,12 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+    top:0;
+}
+
+.iphoneX-cover{
+    bottom: 68rpx;
 }
 
 .play-btn{
@@ -46,6 +51,7 @@
 .topic-box{
     position: absolute;
     top:132rpx;
+    z-index: 10;
     /*left:30rpx;*/
     display: flex;
     /*flex-direction: row;*/
@@ -56,6 +62,12 @@
     height: 52rpx;
     padding-left:30rpx;
     box-sizing: border-box;
+}
+
+
+
+.iphoneX-topic-box{
+    top:196rpx;
 }
 
 .topic-icon-box{
@@ -328,6 +340,13 @@
     white-space: normal;
 }
 
+.content-text{
+    display: inline-block;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
 .content-subject{
     display: inline-block;
     color: #ffffff;
@@ -423,6 +442,7 @@
 
 .tabbar-box{
     position: absolute;
+    z-index: 10;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -431,6 +451,10 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.iphoneX-tabbar{
+    bottom: 68rpx;
 }
 
 

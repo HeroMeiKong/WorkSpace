@@ -33,7 +33,7 @@ Page({
 
         wx.getSystemInfo({
             success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1) {
+                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
                         isIpx:true
                     })
@@ -119,7 +119,9 @@ Page({
 
     // 获取推荐信息
     getRecommend() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -137,10 +139,13 @@ Page({
                         recommend_list: data.data
                     })
                 } else {
-                    wx.showToast({
+                     wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
@@ -154,7 +159,9 @@ Page({
 
     // 获取展示列表
     getSubjectList() {
-        wx.showLoading()
+      wx.showLoading({
+            mask:true
+        })
         this.data.loading_num++;
 
         wx.request({
@@ -172,10 +179,13 @@ Page({
                         subject_list: data.data
                     })
                 } else {
-                    wx.showToast({
+                     wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
                 }
             },
             complete: () => {
