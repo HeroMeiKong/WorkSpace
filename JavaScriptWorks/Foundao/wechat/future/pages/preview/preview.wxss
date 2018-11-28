@@ -159,7 +159,7 @@ swiper-item {
   align-items: center;
 }
 .ischose{
-  padding: 0 20rpx;
+  padding: 10rpx 20rpx 0 20rpx;
 }
 
 /* filter */
@@ -281,7 +281,12 @@ swiper-item {
   height: 100%;
   display: flex;
 }
-
+.musiclistdiv .musiclistleftwrapper{
+  height: 100%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+}
 .musiclistdiv .musiclistleft,
 .musiclistdiv .musiclistright {
   height: 100%;
@@ -291,7 +296,7 @@ swiper-item {
 }
 
 .musiclistdiv .musiclistleft {
-  width: 10%;
+  width: 9%;
 }
 
 .musiclistdiv .musiclistcenter {

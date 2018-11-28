@@ -61,6 +61,8 @@ export default {
     sticker_type: hostTest + 'video/sticker_type.php',//贴纸分类
     sticker: hostTest + 'video/sticker.php',          //贴纸查询
     upload_test: host + 'video/get_video_cover.php',//上传视频测试
-    upload_submit: host + 'video/user_upload_submit.php',
-    get_submit: host + 'video/get_submit_job.php'
+    upload_submit: host + 'video/user_upload_submit.php',//提交视频待处理
+    get_submit: host + 'video/get_submit_job.php',  //轮询接口，查看视频处理进程
+    music_type: hostTest + 'video/music_type.php', //音效分类
+    music: hostTest + 'video/music.php',          //音效查询
 }

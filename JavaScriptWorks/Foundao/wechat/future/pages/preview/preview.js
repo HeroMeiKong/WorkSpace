@@ -13,6 +13,13 @@ var windowHeight = 0  //屏幕宽度
 var oldLocation = {x:0,y:0} //计算压条大小
 var pasterNum = 0 //压条个数
 var oldmusiclist = ''     //选中的音乐列表
+const musicpic = {playimg: '../../assets/images/4play.png',pauseimg: '../../assets/images/4ing.gif',addimg: '../../assets/images/4add.png',cancelimg: '../../assets/images/4cancel.png'}
+var playlock = false //音乐是否播放
+let whichone = {who: '',id: 0} //正在播放哪首歌
+let whichmusic = 0 //选择哪首歌
+let tempmusic = {type_id: 0,id: 0}
+const innerAudioContext = wx.createInnerAudioContext()
+innerAudioContext.autoplay = true
 Page({
   /**
    * 页面的初始数据
@@ -26,12 +33,18 @@ Page({
     oldVideoSize: {width: 0,height: 0},
     //videoSize: {width: 0,height: 0},
     previewpic: '../../assets/images/2null2@2x.png', //视频截图加载失败，默认图片
-    filters: [{filterdiv: 'chosefilterdiv',pic: '../../assets/images/2attention3@2x.png',name: '原画',id: 'filter1'},
-              {filterdiv: 'filterdiv',pic: '../../assets/images/share_normal.png',name: '秘语',id: 'filter2'},
-              {filterdiv: 'filterdiv',pic: '../../assets/images/share_normal.png',name: '绿光',id: 'filter3'},
-              {filterdiv: 'filterdiv',pic: '../../assets/images/share_normal.png',name: '消逝',id: 'filter4'},
-              {filterdiv: 'filterdiv',pic: '../../assets/images/share_normal.png',name: '暗淡',id: 'filter5'},
-              {filterdiv: 'filterdiv',pic: '../../assets/images/share_normal.png',name: '明亮',id: 'filter6'}],
+    filters: [{filterdiv: 'chosefilterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/images/2attention3@2x.png',name: '原画',id: 'none'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-1.png',chose: '../../assets/filter/4filter-1.png',name: '秘语',id: 'vintage'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-2.png',chose: '../../assets/filter/4filter-2.png',name: '绿光',id: 'strong_contrast'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-3.png',chose: '../../assets/filter/4filter-3.png',name: '消逝',id: 'medium_contrast'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-4.png',chose: '../../assets/filter/4filter-4.png',name: '暗淡',id: 'linear_contrast'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-5.png',chose: '../../assets/filter/4filter-5.png',name: '明亮',id: 'lighter'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-6.png',chose: '../../assets/filter/4filter-6.png',name: '原画1',id: 'increase_contrast'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-7.png',chose: '../../assets/filter/4filter-7.png',name: '秘语1',id: 'darker'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-8.png',chose: '../../assets/filter/4filter-8.png',name: '绿光1',id: 'cross_process'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-9.png',chose: '../../assets/filter/4filter-9.png',name: '消逝1',id: 'color_negative'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/filter/4filter-0.png',name: '暗淡1',id: 'boxblur'},
+              {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/filter/4filter-0.png',name: '明亮1',id: 'black_white'}],
     pasters_type: [],
     pasters: [],
     pasterId: [],
@@ -41,24 +54,26 @@ Page({
     //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster4'},
     //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster5'},
     //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster6'}],
-    musics: [{musicdiv: 'musicdiv',pic: '../../assets/images/2attention3@2x.png',id: 'music0',name: '秘语'},
-              {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music1',name: '秘语'},
-              {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music3',name: '秘语'},
-              {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music4',name: '秘语'},
-              {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music5',name: '秘语'},
-              {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music6',name: '秘语'}],
-    musiclists: [[{id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-                 {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 's'},
-                 {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-                 {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 'f'},
-                 {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-                 {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'}],
-                 [{id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-                 {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 'h'},
-                 {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-                 {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-                 {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 't'},
-                 {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'}]],
+    musics: [],
+    // musics: [{musicdiv: 'musicdiv',pic: '../../assets/images/2attention3@2x.png',id: 'music0',name: '秘语'},
+    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music1',name: '秘语'},
+    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music3',name: '秘语'},
+    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music4',name: '秘语'},
+    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music5',name: '秘语'},
+    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music6',name: '秘语'}],
+    musiclists: [],
+    // musiclists: [[{id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
+    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 's'},
+    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
+    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 'f'},
+    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
+    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'}],
+    //              [{id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
+    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 'h'},
+    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
+    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
+    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 't'},
+    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'}]],
     showVideo: {isvideo:'none',notvidoe:'flex'},  //值为flex或者none
     showmusiclists: [],
     showoption: {father: 'flex',son: 'none'},
@@ -67,9 +82,9 @@ Page({
     showpaster: 'none',
     //chosethispaster: {text: 'chosethispaster',interest: 'none',doodle: 'none'}, //值为chosethispaster或者none
     showmusic: 'none',
-    musicimgs: {playimg: '../../assets/images/4ing.gif',addimg: '../../assets/images/4add.png'},
+    musicimgs: {playimg: '../../assets/images/4ing.gif',pause: '',addimg: '../../assets/images/4add.png',cancel: '',palyorpause: '',},
     showmusiclist: 'none',
-    uploadContent: {video_url: '',filter: '',video_desc: '',join_sub_id: 0,
+    uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: 0,
                     join_sub: 0,audio_url: '',audio_id: '',tiezhi: 'http://cdn-live.foundao.com/host/image/2018/11/19/15426166456712.jpg',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
   },
@@ -92,80 +107,80 @@ Page({
       }
     })
     console.log(windowHeight)
-    wx.chooseVideo({
-      sourceType: ['album'],
-      maxDuration: 60,
-      camera: 'back',
-      success: function (res) {
-        console.log('选取视频')
-        console.log(res)
-        that.data.oldVideoSize.height = res.height
-        that.data.oldVideoSize.width = res.width
-        wx.showToast({
-          title: res.tempFilePath,
-          icon: 'success',
-          duration: 2000
-        })
-        that.setData({
-          tempFilePath: res.tempFilePath,
-          duration: res.duration,
-          oldVideoSize: that.data.oldVideoSize,
-          size: (res.size / (1024 * 1024)).toFixed(2),
-          //display: 'flex',
-        })
-        console.log(that.data.oldVideoSize)
-        wx.showLoading({
-          title: '视频处理中',
-          duration: 2000
-        })
-        if (that.data.size > 100) {
-          wx.showToast({
-            title: '视频大小超过100M,请重新选择视频！',
-            duration: 1500,
-            // success: (result)=>{
+    // wx.chooseVideo({
+    //   sourceType: ['album'],
+    //   maxDuration: 60,
+    //   camera: 'back',
+    //   success: function (res) {
+    //     console.log('选取视频')
+    //     console.log(res)
+    //     that.data.oldVideoSize.height = res.height
+    //     that.data.oldVideoSize.width = res.width
+    //     wx.showToast({
+    //       title: res.tempFilePath,
+    //       icon: 'success',
+    //       duration: 2000
+    //     })
+    //     that.setData({
+    //       tempFilePath: res.tempFilePath,
+    //       duration: res.duration,
+    //       oldVideoSize: that.data.oldVideoSize,
+    //       size: (res.size / (1024 * 1024)).toFixed(2),
+    //       //display: 'flex',
+    //     })
+    //     console.log(that.data.oldVideoSize)
+    //     wx.showLoading({
+    //       title: '视频处理中',
+    //       duration: 2000
+    //     })
+    //     if (that.data.size > 100) {
+    //       wx.showToast({
+    //         title: '视频大小超过100M,请重新选择视频！',
+    //         duration: 1500,
+    //         // success: (result)=>{
 
-            // }
-          })
-        } else {
-          if (that.data.duration > 30) {
-            wx.showToast({
-              title: '视频长度为' + res.duration + ',视频长度超过30s,请重新选择视频！',
-              duration: 1500,
-              // success: (result)=>{
+    //         // }
+    //       })
+    //     } else {
+    //       if (that.data.duration > 30) {
+    //         wx.showToast({
+    //           title: '视频长度为' + res.duration + ',视频长度超过30s,请重新选择视频！',
+    //           duration: 1500,
+    //           // success: (result)=>{
 
-              // }
-            })
-          } else {
-            //上传视频， 取得视频服务器地址
-            wx.uploadFile({
-              url: api.upload_cover,
-              filePath: that.data.tempFilePath,
-              name: 'filename',
-              header: {
-                'content-type': 'multipart/form-data',
-                "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
-              },
-              formData: {
-                upload_type: 'tmp1',
-                filename: that.data.tempFilePath,
-              },
-              success(res) {
-                const data = JSON.parse(res.data)
-                console.log(res.data)
-                console.log(data)
-                that.setData({
-                  previewpic: data.data.savehttp,
-                  tempFilePath: data.data.file_path
-                })
-              }
-            })
-          }
-        }
-      },
-      fail: function (e) {
-        console.log(e)
-      }
-    })
+    //           // }
+    //         })
+    //       } else {
+    //         //上传视频， 取得视频服务器地址
+    //         wx.uploadFile({
+    //           url: api.upload_cover,
+    //           filePath: that.data.tempFilePath,
+    //           name: 'filename',
+    //           header: {
+    //             'content-type': 'multipart/form-data',
+    //             "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+    //           },
+    //           formData: {
+    //             upload_type: 'tmp1',
+    //             filename: that.data.tempFilePath,
+    //           },
+    //           success(res) {
+    //             const data = JSON.parse(res.data)
+    //             console.log(res.data)
+    //             console.log(data)
+    //             that.setData({
+    //               previewpic: data.data.savehttp,
+    //               tempFilePath: data.data.file_path
+    //             })
+    //           }
+    //         })
+    //       }
+    //     }
+    //   },
+    //   fail: function (e) {
+    //     console.log(e)
+    //   }
+    // })
   },
 
   /**
@@ -295,7 +310,25 @@ Page({
   },
   choseFilter (e) {
     console.log('choseFilter')
-    console.log(e)
+    let filterlength = this.data.filters.length
+    for(let i=0;i<filterlength;i++){
+      if(e.target.id === this.data.filters[i].id){
+        if(this.data.filters[i].filterdiv !== 'chosefilterdiv'){
+          this.data.filters[i].filterdiv = 'chosefilterdiv'
+          this.data.filters[i].chose = this.data.filters[i].ispic
+          this.data.uploadContent.filter = this.data.filters[i].id
+        }
+      } else {
+        if(this.data.filters[i].filterdiv === 'chosefilterdiv'){
+          this.data.filters[i].filterdiv = 'filterdiv'
+          this.data.filters[i].chose = this.data.filters[i].nopic
+        }
+      }
+    }
+    this.setData({
+      filters: this.data.filters,
+      uploadContent: this.data.uploadContent
+    })
   },
   paster (e) {
     console.log('paster')
@@ -340,6 +373,24 @@ Page({
     this.setData({
       showoption: {father: 'none',son: 'flex'},
       showmusic: 'flex'
+    })
+    wx.request({
+      url: api.music_type,
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+      },
+      success: (res) => {
+        console.log(res)
+        this.data.musics = res.data.data
+        this.setData({
+          musics: this.data.musics
+        })
+      },
+      complete: () => {
+        console.log('查询音效分类！')
+      }
     })
   },
   //选中具体压条
@@ -407,39 +458,131 @@ Page({
   },
   playmusic(e){
     console.log('playmusic')
-  },
-  addmusic(e){
-    console.log('addmusic')
-  },
-  choseMusic(e){
-    console.log('choseMusic')
     console.log(e)
-    //开关歌曲列表
-    if(oldmusiclist === e.currentTarget.id){
-      this.setData({
-        showmusiclist: 'none'
-      })
+    const length = this.data.showmusiclists.length
+    if(!playlock){
+      for(let i=0;i<length;i++){
+        if(e.currentTarget.id === 'left'+this.data.showmusiclists[i].id){
+          innerAudioContext.src = this.data.showmusiclists[i].music_url
+          this.data.showmusiclists[i].leftimg = musicpic.pauseimg
+          whichone.who = e.currentTarget.id
+          whichone.id = i
+        }
+      }
+      innerAudioContext.play()
+      playlock = true
     } else {
-      this.setData({
-        showmusiclist: 'flex'
-      })
+      if(e.currentTarget.id === whichone.who){
+        this.data.showmusiclists[whichone.id].leftimg = musicpic.playimg
+        innerAudioContext.pause()
+        playlock = false
+      } else {
+        for(let i=0;i<length;i++){
+          if(e.currentTarget.id === 'left'+this.data.showmusiclists[i].id){
+            innerAudioContext.src = this.data.showmusiclists[i].music_url
+            this.data.showmusiclists[i].leftimg = musicpic.pauseimg
+            whichone.who = e.currentTarget.id
+            whichone.id = i
+            innerAudioContext.play()
+          } else {
+            this.data.showmusiclists[i].leftimg = musicpic.playimg
+          }
+        }
+      }
     }
-    oldmusiclist = e.currentTarget.id
-    //切换歌曲列表
-    const length = this.data.musiclists.length
-    var str = e.currentTarget.id
-    var musicnum = str.substring(str.length-1)
-    this.data.showmusiclists = this.data.musiclists[musicnum]
-    console.log(this.data.showmusiclists)
     this.setData({
       showmusiclists: this.data.showmusiclists
     })
+  },
+  addmusic(e){
+    console.log('addmusic')
+    let str = e.currentTarget.id
+    const length = this.data.showmusiclists.length
+    for(let i=0;i<length;i++){
+      if(e.currentTarget.id === 'right'+this.data.showmusiclists[i].id){
+        this.data.uploadContent.audio_url = this.data.showmusiclists[i].music_url
+        this.data.uploadContent.audio_id = this.data.showmusiclists[i].id
+        this.data.showmusiclists[whichmusic].rightimg = musicpic.addimg
+        this.data.showmusiclists[i].rightimg = musicpic.cancelimg
+        whichmusic = i
+        tempmusic.id = str.substring(5)
+      }
+    }
+    console.log(this.data.showmusiclists)
+    console.log(this.data.uploadContent)
+    this.setData({
+      uploadContent: this.data.uploadContent,
+      showmusiclists: this.data.showmusiclists
+    })
+  },
+  choseMusic(e){
+    console.log('choseMusic')
+    playlock = false
+    innerAudioContext.pause()
+    tempmusic.type_id = e.currentTarget.id
+    //开关歌曲列表
+    if(oldmusiclist === e.currentTarget.id){
+      console.log('111111')
+      if(this.data.showmusiclist === 'none'){
+        this.data.showmusiclist = 'flex'
+      } else {
+        this.data.showmusiclist = 'none'
+      }
+    } else {
+      console.log('22222')
+      this.data.showmusiclist = 'flex'
+    }
+    oldmusiclist = e.currentTarget.id
+    //请求歌曲列表
+      wx.request({
+        url: api.music,
+        method: 'POST',
+        header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+        },
+        data: {
+          music_id: e.currentTarget.id,
+          page: 1
+        },
+        success: (res) => {
+          console.log(res)
+          if(res.data.data.length === 0){
+            wx.showToast({
+              title: '没有该类型的音乐',
+              duration: 2000
+            })
+            this.data.showmusiclists = []
+            //this.data.showmusiclist = 'none'
+          } else {
+            this.data.musiclists.push(res.data.data)
+            const length = this.data.musiclists.length
+            for(let i=0;i<length;i++){
+              if(e.currentTarget.id === this.data.musiclists[i][0].music_type_id){
+                this.data.showmusiclists = this.data.musiclists[i]
+              }
+            }
+            const musiclistslength = this.data.showmusiclists.length
+            for(let i=0;i<musiclistslength;i++){
+              this.data.showmusiclists[i].leftimg = musicpic.playimg
+              this.data.showmusiclists[i].rightimg = musicpic.addimg
+            }
+            this.setData({
+              showmusiclists: this.data.showmusiclists,
+              showmusiclist: this.data.showmusiclist,
+              musiclists: this.data.musiclists
+            })
+          }
+        },
+        complete: () => {
+          console.log('查询音效！')
+        }
+      })
   },
   uploadContent (e) {
     let heightValue = this.data.oldVideoSize.height / windowHeight
     let widthValue = this.data.oldVideoSize.width / windowWidth
     this.data.uploadContent.video_url = this.data.tempFilePath
-    this.data.uploadContent.filter = 'none'
     this.data.uploadContent.join_sub_id = 4
     this.data.uploadContent.join_sub = 5
     this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * heightValue

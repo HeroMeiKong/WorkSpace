@@ -50,7 +50,7 @@
           <block wx:for="{{filters}}" wx:key="*this">
             <swiper-item>
               <view class="{{item.filterdiv}}" catch:tap="choseFilter">
-                <image class="filterimage" src="{{item.pic}}"></image>
+                <image id="{{item.id}}" class="filterimage" src="{{item.chose}}"></image>
                 <text class="filtertext">{{item.name}}</text>
               </view>
             </swiper-item>
@@ -109,30 +109,32 @@
       </view>
       <view class="music" style="display:{{showmusic}};">
         <view class="musiclist" style="display:{{showmusiclist}}">
-          <swiper display-multiple-items='5' vertical="true">
+          <swiper display-multiple-items='3' vertical="true">
             <block wx:for="{{showmusiclists}}" wx:key="*this">
               <swiper-item>
                 <view id="{{item.id}}" class="musiclistdiv">
-                  <view class="musiclistleft">
-                    <image class="playmusic" src="{{musicimgs.playimg}}" bindtap="playmusic"></image>
-                  </view>
-                  <view class="musiclistcenter">
-                    <text class="musicname">{{item.name}}</text>
+                  <view id="left{{item.id}}" class="musiclistleftwrapper" bindtap="playmusic">
+                    <view class="musiclistleft">
+                      <image class="playmusic" src="{{item.leftimg}}"></image>
+                    </view>
+                    <view class="musiclistcenter">
+                      <text class="musicname">{{item.music_name}}</text>
+                    </view>
                   </view>
                   <view class="musiclistright">
-                    <image class="addmusic" src="{{musicimgs.addimg}}" bindtap="addmusic"></image>
+                    <image id="right{{item.id}}" class="addmusic" src="{{item.rightimg}}" bindtap="addmusic"></image>
                   </view>
                 </view>
               </swiper-item>
             </block>
           </swiper>
         </view>
-        <swiper display-multiple-items='5'>
+        <swiper display-multiple-items='3'>
           <block wx:for="{{musics}}" wx:key="*this">
             <swiper-item>
-              <view id="{{item.id}}" class="{{item.musicdiv}}" catch:tap="choseMusic">
-                <image class="musicimage" src="{{item.pic}}"></image>
-                <text class="musictext">{{item.name}}</text>
+              <view id="{{item.id}}" class="musicdiv" catch:tap="choseMusic">
+                <image class="musicimage" src="{{item.music_type_icon}}"></image>
+                <text class="musictext">{{item.music_type_name}}</text>
               </view>
             </swiper-item>
           </block>
