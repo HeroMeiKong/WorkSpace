@@ -3,7 +3,9 @@
 @import "./weui.wxss";
 
 view,
-image {
+image,
+video,
+cover-image {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -34,21 +36,28 @@ image {
   align-items: center;
   position: relative;
 }
+.coverimagewrapper{
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.coverimage{
+  position: absolute;
+}
 /* screenshot */
-.screenshot{
+.screenshot {
   width: 100%;
   height: 100%;
   z-index: 1;
   position: relative;
 }
-movable-view {
-  border: 1px solid red;
-}
-.screenshot image{
+
+.screenshot image {
   width: 100%;
   height: 100%;
 }
-.screenshot .flextoppic{
+
+.screenshot .flextoppic {
   position: absolute;
   width: 30rpx;
   height: 30rpx;
@@ -56,7 +65,8 @@ movable-view {
   left: -15rpx;
   border-radius: 50%;
 }
-.screenshot .flexbottompic{
+
+.screenshot .flexbottompic {
   position: absolute;
   width: 30rpx;
   height: 30rpx;
@@ -64,13 +74,18 @@ movable-view {
   right: -15rpx;
   border-radius: 50%;
 }
-.previewpic{
+
+.previewpic {
   position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.previewpic image{
+  width: 100%;
+  height: 100%;
 }
 
 /* bottom */
@@ -79,6 +94,7 @@ movable-view {
   width: 100%;
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   background-color: #1f1f1f;
 }
@@ -89,11 +105,17 @@ movable-view {
   top: 10rpx;
   color: #fff;
   font-size: 30rpx;
+  display: flex;
+  align-items: center;
+}
+.next image{
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .option {
   width: 100%;
-  height: 80%;
+  height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -126,12 +148,24 @@ swiper-item {
   justify-content: space-around;
   align-items: center;
 }
-
+/* ischosewrapper */
+.ischosewrapper{
+  height: 20%;
+  width: 100%;
+  color: #5e5e5e;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ischose{
+  padding: 0 20rpx;
+}
 
 /* filter */
 
 .filter {
-  height: 100%;
+  height: 80%;
   width: 100%;
 }
 
@@ -177,7 +211,7 @@ swiper-item {
 
 /* paster */
 .paster {
-  height: 100%;
+  height: 80%;
   width: 100%;
   background-color: #1f1f1f;
   display: flex;
@@ -228,11 +262,12 @@ swiper-item {
 
 /* music */
 .music {
-  height: 100%;
+  height: 80%;
   width: 100%;
   position: relative;
 }
-.musiclist{
+
+.musiclist {
   position: absolute;
   width: 100%;
   height: 500rpx;
@@ -240,42 +275,51 @@ swiper-item {
   z-index: 2;
   background-color: #1f1f1f;
 }
-.musiclistdiv{
+
+.musiclistdiv {
   width: 100%;
   height: 100%;
   display: flex;
 }
+
 .musiclistdiv .musiclistleft,
-.musiclistdiv .musiclistright{
+.musiclistdiv .musiclistright {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.musiclistdiv .musiclistleft{
+
+.musiclistdiv .musiclistleft {
   width: 10%;
 }
-.musiclistdiv .musiclistcenter{
+
+.musiclistdiv .musiclistcenter {
   width: 80%;
   display: flex;
   justify-content: left;
   align-items: center;
 }
-.musiclistdiv .musiclistright{
+
+.musiclistdiv .musiclistright {
   width: 10%;
 }
-.musiclist .playmusic{
+
+.musiclist .playmusic {
   width: 40rpx;
   height: 40rpx;
 }
-.musiclist .musicname{
+
+.musiclist .musicname {
   font-size: 30rpx;
   color: #fff;
 }
-.musiclist .addmusic{
+
+.musiclist .addmusic {
   width: 40rpx;
   height: 40rpx;
 }
+
 .musicdiv {
   width: 120rpx;
   margin: 0 10rpx;

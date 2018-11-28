@@ -3,36 +3,47 @@
   <backTitle></backTitle>
   <view class="wrappers">
     <view class="preview">
-      <movable-area class="screenshot">
+      <movable-area class="screenshot" style="display:{{showVideo.notvideo}}">
         <block wx:for="{{movableviewNum}}" wx:key="*this">
-          <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all">
+          <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView">
             <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/share_normal.png"
               catch:tap="cancelMovableView"></image>
-            <image id="pic{{item.id}}" src="{{previewpic}}" bind:tap="showMovableView" bind:touchstart="startMovableView"  bind:touchmove="moveMovableView"></image>
+            <image id="pic{{item.id}}" src="{{item.pic}}" bind:tap="showMovableView"></image>
             <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{item.display}}" src="../../assets/images/share_normal.png"
               catch:touchstart="getStartLocation"  catch:touchmove="moveLocation" catch:touchend="endLocation"></image>
           </movable-view>
         </block>
       </movable-area>
-      <view class="previewpic">
+      <view class="previewpic" style="display:{{showVideo.notvideo}}">
         <image src="{{previewpic}}"></image>
       </view>
+      <video objectFit="fill" class="coverimagewrapper" src="{{tempFilePath}}" style="display:{{showVideo.isvideo}}">
+        <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
+        style="width:{{movableviewNum[0].width}}px;height:{{movableviewNum[0].height}}px;left:{{movableviewNum[0].x}}px;top:{{movableviewNum[0].y}}px"></cover-image>
+      </video>
     </view>
     <view class="bottom">
-      <view class="option" style="display:{{showoption}};">
-        <view class="next">下一步</view>
+      <view class="option" style="display:{{showoption.father}};">
+        <view class="next">下一步
+          <image src="../../assets/images/4jt5.png" bind:tap="nextStep"></image>
+          <image src="../../assets/images/4jt5.png" bind:tap="uploadContent"></image>
+        </view>
         <view class="section" catch:tap="filter">
-          <image class="img" src="../../assets/images/1huati@2x.png"></image>
+          <image class="img" src="../../assets/images/4filter.png"></image>
           <text class="">滤镜</text>
         </view>
         <view class="section" catch:tap="paster">
-          <image class="img" src="../../assets/images/1huati@2x.png"></image>
+          <image class="img" src="../../assets/images/4graph.png"></image>
           <text class="">贴纸</text>
         </view>
         <view class="section" catch:tap="music">
-          <image class="img" src="../../assets/images/1huati@2x.png"></image>
+          <image class="img" src="../../assets/images/4music.png"></image>
           <text class="">音乐</text>
         </view>
+      </view>
+      <view class="ischosewrapper" style="display:{{showoption.son}};">
+        <view class="ischose" catch:tap="backHome">取消</view>
+        <view class="ischose" catch:tap="goHome">确定</view>
       </view>
       <view class="filter" style="display:{{showfilter}};">
         <swiper display-multiple-items='5'>
