@@ -12,12 +12,16 @@ var windowWidth = 0  //屏幕宽度
 var windowHeight = 0  //屏幕宽度
 var oldLocation = {x:0,y:0} //计算压条大小
 var pasterNum = 0 //压条个数
-var oldmusiclist = ''     //选中的音乐列表
+var oldmusiclist = {id: 0}     //选中的音乐列表
+var musiclistcontent = []      //{id: 0,content: ''}音乐的内容
 const musicpic = {playimg: '../../assets/images/4play.png',pauseimg: '../../assets/images/4ing.gif',addimg: '../../assets/images/4add.png',cancelimg: '../../assets/images/4cancel.png'}
 var playlock = false //音乐是否播放
 let whichone = {who: '',id: 0} //正在播放哪首歌
-let whichmusic = 0 //选择哪首歌
-let tempmusic = {type_id: 0,id: 0}
+let tempmusic = {new: {type_id: 0,id: 0}, old: {type_id: 0,id: 0}}
+let addmusiclock = false
+let samesong = false //是不是同一首歌
+let tempmusictype = -1 //选中的音乐类型
+let temparray = [] //歌词分类请求列表
 const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.autoplay = true
 Page({
@@ -46,6 +50,7 @@ Page({
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/filter/4filter-0.png',name: '暗淡1',id: 'boxblur'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/filter/4filter-0.png',name: '明亮1',id: 'black_white'}],
     pasters_type: [],
+    pasterbegin: 0,
     pasters: [],
     pasterId: [],
     // pasters: [{pasterdiv: 'pasterdiv',pic: '../../assets/images/2attention3@2x.png',id: 'paster1'},
@@ -55,6 +60,7 @@ Page({
     //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster5'},
     //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster6'}],
     musics: [],
+    musicbegin: 0,
     // musics: [{musicdiv: 'musicdiv',pic: '../../assets/images/2attention3@2x.png',id: 'music0',name: '秘语'},
     //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music1',name: '秘语'},
     //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music3',name: '秘语'},
@@ -85,7 +91,7 @@ Page({
     musicimgs: {playimg: '../../assets/images/4ing.gif',pause: '',addimg: '../../assets/images/4add.png',cancel: '',palyorpause: '',},
     showmusiclist: 'none',
     uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: 0,
-                    join_sub: 0,audio_url: '',audio_id: '',tiezhi: 'http://cdn-live.foundao.com/host/image/2018/11/19/15426166456712.jpg',tiezhi_x: 0,
+                    join_sub: 0,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
   },
 
@@ -107,87 +113,87 @@ Page({
       }
     })
     console.log(windowHeight)
-    // wx.chooseVideo({
-    //   sourceType: ['album'],
-    //   maxDuration: 60,
-    //   camera: 'back',
-    //   success: function (res) {
-    //     console.log('选取视频')
-    //     console.log(res)
-    //     that.data.oldVideoSize.height = res.height
-    //     that.data.oldVideoSize.width = res.width
-    //     wx.showToast({
-    //       title: res.tempFilePath,
-    //       icon: 'success',
-    //       duration: 2000
-    //     })
-    //     that.setData({
-    //       tempFilePath: res.tempFilePath,
-    //       duration: res.duration,
-    //       oldVideoSize: that.data.oldVideoSize,
-    //       size: (res.size / (1024 * 1024)).toFixed(2),
-    //       //display: 'flex',
-    //     })
-    //     console.log(that.data.oldVideoSize)
-    //     wx.showLoading({
-    //       title: '视频处理中',
-    //       duration: 2000
-    //     })
-    //     if (that.data.size > 100) {
-    //       wx.showToast({
-    //         title: '视频大小超过100M,请重新选择视频！',
-    //         duration: 1500,
-    //         // success: (result)=>{
+    wx.chooseVideo({
+      sourceType: ['album'],
+      maxDuration: 60,
+      camera: 'back',
+      success: function (res) {
+        console.log('选取视频')
+        console.log(res)
+        that.data.oldVideoSize.height = res.height
+        that.data.oldVideoSize.width = res.width
+        wx.showToast({
+          title: res.tempFilePath,
+          icon: 'success',
+          duration: 2000
+        })
+        that.setData({
+          tempFilePath: res.tempFilePath,
+          duration: res.duration,
+          oldVideoSize: that.data.oldVideoSize,
+          size: (res.size / (1024 * 1024)).toFixed(2),
+          //display: 'flex',
+        })
+        console.log(that.data.oldVideoSize)
+        wx.showLoading({
+          title: '视频处理中',
+          duration: 2000
+        })
+        if (that.data.size > 100) {
+          wx.showToast({
+            title: '视频大小超过100M,请重新选择视频！',
+            duration: 1500,
+            // success: (result)=>{
 
-    //         // }
-    //       })
-    //     } else {
-    //       if (that.data.duration > 30) {
-    //         wx.showToast({
-    //           title: '视频长度为' + res.duration + ',视频长度超过30s,请重新选择视频！',
-    //           duration: 1500,
-    //           // success: (result)=>{
+            // }
+          })
+        } else {
+          if (that.data.duration > 30) {
+            wx.showToast({
+              title: '视频长度为' + res.duration + ',视频长度超过30s,请重新选择视频！',
+              duration: 1500,
+              // success: (result)=>{
 
-    //           // }
-    //         })
-    //       } else {
-    //         //上传视频， 取得视频服务器地址
-    //         wx.uploadFile({
-    //           url: api.upload_cover,
-    //           filePath: that.data.tempFilePath,
-    //           name: 'filename',
-    //           header: {
-    //             'content-type': 'multipart/form-data',
-    //             "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
-    //           },
-    //           formData: {
-    //             upload_type: 'tmp1',
-    //             filename: that.data.tempFilePath,
-    //           },
-    //           success(res) {
-    //             const data = JSON.parse(res.data)
-    //             console.log(res.data)
-    //             console.log(data)
-    //             that.setData({
-    //               previewpic: data.data.savehttp,
-    //               tempFilePath: data.data.file_path
-    //             })
-    //           }
-    //         })
-    //       }
-    //     }
-    //   },
-    //   fail: function (e) {
-    //     console.log(e)
-    //   }
-    // })
+              // }
+            })
+          } else {
+            //上传视频， 取得视频服务器地址
+            wx.uploadFile({
+              url: api.upload_cover,
+              filePath: that.data.tempFilePath,
+              name: 'filename',
+              header: {
+                'content-type': 'multipart/form-data',
+                "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+              },
+              formData: {
+                upload_type: 'tmp1',
+                filename: that.data.tempFilePath,
+              },
+              success(res) {
+                const data = JSON.parse(res.data)
+                console.log(res.data)
+                console.log(data)
+                that.setData({
+                  previewpic: data.data.savehttp,
+                  tempFilePath: data.data.file_path
+                })
+              }
+            })
+          }
+        }
+      },
+      fail: function (e) {
+        console.log(e)
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.videoContext = wx.createVideoContext('myVideo')
   },
 
   /**
@@ -294,6 +300,8 @@ Page({
     console.log(this.data.movableviewNum)
   },
   nextStep (e) {
+    this.videoContext.play()
+    this.videoContext.pause()
     this.setData({
       showVideo: {isvideo:'flex',notvideo:'none'}
     })
@@ -453,7 +461,8 @@ Page({
     }
     this.setData({
       pasters_type: this.data.pasters_type,
-      pasters: this.data.pasters
+      pasters: this.data.pasters,
+      pasterbegin: 0
     })
   },
   playmusic(e){
@@ -498,42 +507,97 @@ Page({
     console.log('addmusic')
     let str = e.currentTarget.id
     const length = this.data.showmusiclists.length
-    for(let i=0;i<length;i++){
-      if(e.currentTarget.id === 'right'+this.data.showmusiclists[i].id){
-        this.data.uploadContent.audio_url = this.data.showmusiclists[i].music_url
-        this.data.uploadContent.audio_id = this.data.showmusiclists[i].id
-        this.data.showmusiclists[whichmusic].rightimg = musicpic.addimg
-        this.data.showmusiclists[i].rightimg = musicpic.cancelimg
-        whichmusic = i
-        tempmusic.id = str.substring(5)
+    const musiclistslength = this.data.musiclists.length
+    if(!addmusiclock){
+      //从未添加音乐
+      for(let i=0;i<length;i++){
+        if(e.currentTarget.id === 'right'+this.data.showmusiclists[i].id){
+          console.log('选他')
+          this.data.uploadContent.audio_url = this.data.showmusiclists[i].music_url
+          this.data.uploadContent.audio_id = this.data.showmusiclists[i].id
+          this.data.showmusiclists[i].rightimg = musicpic.cancelimg
+          for(let j=0;j<musiclistslength;j++){
+            if(this.data.musiclists[j][0].music_type_id === tempmusic.new.type_id){
+              this.data.musiclists[j][i].rightimg = musicpic.cancelimg
+            }
+          }
+        } else {
+          console.log('我的兄弟')
+        }
+      }
+      tempmusic.new.id = e.currentTarget.id
+      tempmusictype = tempmusic.new.type_id
+      addmusiclock = true
+    } else {
+      //已经添加音乐
+      for(let i=0;i<length;i++){
+        if(this.data.showmusiclists[i].id === e.currentTarget.id && this.data.showmusiclists[i].rightimg === musicpic.cancelimg){
+          samesong = true
+        } else {
+          samesong = false
+        }
+      }
+      let ooo = e.currentTarget.id
+      for(let j=0;j<musiclistslength;j++){
+        console.log('111')
+        console.log(this.data.musiclists[j])
+        console.log(ooo.substring(5))
+        if(this.data.musiclists[j][0].music_type_id === tempmusictype){
+          for(let r=0;r<length;r++){
+            if(this.data.musiclists[j][r].rightimg === musicpic.cancelimg){
+              this.data.musiclists[j][r].rightimg = musicpic.addimg
+            }
+          }
+        }
+      }
+      if(samesong){
+        //是同一首歌
+        addmusiclock = false
+        tempmusictype = -1
+      } else {
+        //不是同一首歌
+        for(let k=0;k<length;k++){
+          if(e.currentTarget.id === 'right'+this.data.showmusiclists[k].id){
+            console.log('选他1')
+            this.data.uploadContent.audio_url = this.data.showmusiclists[k].music_url
+            this.data.uploadContent.audio_id = this.data.showmusiclists[k].id
+            this.data.showmusiclists[k].rightimg = musicpic.cancelimg
+            for(let l=0;l<musiclistslength;l++){
+              if(this.data.musiclists[l][0].music_type_id === tempmusic.new.type_id){
+                this.data.musiclists[l][k].rightimg = musicpic.cancelimg
+              }
+            }
+          } else {
+            console.log('我的兄弟1')
+          }
+        }
+        tempmusic.new.id = e.currentTarget.id
+        tempmusictype = tempmusic.new.type_id
+        addmusiclock = true
       }
     }
+    console.log(tempmusic)
     console.log(this.data.showmusiclists)
+    console.log(this.data.musiclists)
     console.log(this.data.uploadContent)
     this.setData({
       uploadContent: this.data.uploadContent,
-      showmusiclists: this.data.showmusiclists
+      showmusiclists: this.data.showmusiclists,
+      musiclists: this.data.musiclists
     })
   },
   choseMusic(e){
     console.log('choseMusic')
     playlock = false
     innerAudioContext.pause()
-    tempmusic.type_id = e.currentTarget.id
-    //开关歌曲列表
-    if(oldmusiclist === e.currentTarget.id){
-      console.log('111111')
-      if(this.data.showmusiclist === 'none'){
-        this.data.showmusiclist = 'flex'
-      } else {
-        this.data.showmusiclist = 'none'
-      }
-    } else {
-      console.log('22222')
-      this.data.showmusiclist = 'flex'
-    }
-    oldmusiclist = e.currentTarget.id
-    //请求歌曲列表
+    tempmusic.old = tempmusic.new
+    let newtempmusic = {type_id: 0,id: 0}
+    newtempmusic.type_id = e.currentTarget.id
+    tempmusic.new = newtempmusic
+    let tempmusiclist = {id: 0,content: ''}
+    if(temparray.indexOf(e.currentTarget.id)<0){
+      temparray.push(e.currentTarget.id)
+      //请求歌曲列表
       wx.request({
         url: api.music,
         method: 'POST',
@@ -552,8 +616,10 @@ Page({
               title: '没有该类型的音乐',
               duration: 2000
             })
-            this.data.showmusiclists = []
-            //this.data.showmusiclist = 'none'
+            //this.data.showmusiclists = []
+            this.data.musiclists.push([])
+            this.data.showmusiclist = 'none'
+            tempmusiclist.content = 'no'
           } else {
             this.data.musiclists.push(res.data.data)
             const length = this.data.musiclists.length
@@ -567,17 +633,60 @@ Page({
               this.data.showmusiclists[i].leftimg = musicpic.playimg
               this.data.showmusiclists[i].rightimg = musicpic.addimg
             }
+            this.data.showmusiclist = 'flex'
+            tempmusiclist.content = 'yes'
             this.setData({
               showmusiclists: this.data.showmusiclists,
               showmusiclist: this.data.showmusiclist,
-              musiclists: this.data.musiclists
+              musiclists: this.data.musiclists,
+              musicbegin: 0
             })
           }
+          oldmusiclist.id = e.currentTarget.id
+          tempmusiclist.id = e.currentTarget.id
+          musiclistcontent.push(tempmusiclist)
+          console.log(musiclistcontent)
         },
         complete: () => {
           console.log('查询音效！')
         }
       })
+    } else {
+      console.log('已存在')
+      //开关歌曲列表
+      const musiclistcontentlength = musiclistcontent.length
+      for(let i=0;i<musiclistcontentlength;i++){
+        if(e.currentTarget.id === musiclistcontent[i].id){
+          if(musiclistcontent[i].content === 'yes'){
+            if(oldmusiclist.id === e.currentTarget.id){
+              if(this.data.showmusiclist === 'none'){
+                console.log('111')
+                this.data.showmusiclist = 'flex'
+                this.data.showmusiclists = this.data.musiclists[i]
+                console.log(musiclistcontent)
+              } else {
+                console.log('222')
+                this.data.showmusiclist = 'none'
+                console.log(musiclistcontent)
+              }
+            } else {
+              console.log('555')
+              this.data.showmusiclists = this.data.musiclists[i]
+              this.data.showmusiclist = 'flex'
+            }
+          } else {
+            this.data.showmusiclist = 'none'
+          }
+        }
+      }
+      oldmusiclist.id = e.currentTarget.id
+      this.setData({
+        showmusiclists: this.data.showmusiclists,
+        showmusiclist: this.data.showmusiclist,
+        musiclists: this.data.musiclists,
+        musicbegin: 0
+      })
+    }
   },
   uploadContent (e) {
     let heightValue = this.data.oldVideoSize.height / windowHeight
@@ -585,10 +694,10 @@ Page({
     this.data.uploadContent.video_url = this.data.tempFilePath
     this.data.uploadContent.join_sub_id = 4
     this.data.uploadContent.join_sub = 5
-    this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * heightValue
-    this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * widthValue
-    this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * heightValue
-    this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
+    // this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * heightValue
+    // this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * widthValue
+    // this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * heightValue
+    // this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
     console.log(this.data.uploadContent.tiezhi_width)
     console.log(this.data.uploadContent.video_url)
     wx.request({

@@ -346,3 +346,32 @@ swiper-item {
   color: #969696;
   padding: 10rpx;
 }
+.publish{
+  border: 1px solid red;
+  padding: 10rpx 20rpx;
+}
+.publish video{
+  width: 100%;
+  height: 60%;
+  border: 1px solid red;
+}
+.textcontent{
+  width: 100%;
+  height: 30%;
+  border: 1px solid red;
+}
+.textcontent .topic{
+  width: 100%;
+  height: 20%;
+  border: 1px solid red;
+}
+.textcontent .introduce{
+  width: 100%;
+  height: 80%;
+  border: 1px solid red;
+}
+.sure{
+  width: 100%;
+  height: 10%;
+  border: 1px solid red;
+}
