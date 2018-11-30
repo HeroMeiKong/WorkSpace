@@ -65,4 +65,5 @@ export default {
     get_submit: host + 'video/get_submit_job.php',  //轮询接口，查看视频处理进程
     music_type: hostTest + 'video/music_type.php', //音效分类
     music: hostTest + 'video/music.php',          //音效查询
+    topic_sub: hostTest + 'video/type_sub.php'    //话题选择
 }

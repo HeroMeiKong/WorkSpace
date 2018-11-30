@@ -9,7 +9,7 @@ import Tool from './../../utils/util';
 const app = getApp();
 var pasterlength = 0
 var windowWidth = 0  //屏幕宽度
-var windowHeight = 0  //屏幕宽度
+var windowHeight = 0  //屏幕高度
 var oldLocation = {x:0,y:0} //计算压条大小
 var pasterNum = 0 //压条个数
 var oldmusiclist = {id: 0}     //选中的音乐列表
@@ -22,6 +22,9 @@ let addmusiclock = false
 let samesong = false //是不是同一首歌
 let tempmusictype = -1 //选中的音乐类型
 let temparray = [] //歌词分类请求列表
+let videolock = false //视频是否播放
+let topiclock = false  //话题是否选择
+const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.autoplay = true
 Page({
@@ -82,6 +85,7 @@ Page({
     //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'}]],
     showVideo: {isvideo:'none',notvidoe:'flex'},  //值为flex或者none
     showmusiclists: [],
+    showwrappers: 'block',   //值为block或者none
     showoption: {father: 'flex',son: 'none'},
     ischosewrapper: 'none',
     showfilter: 'none',
@@ -90,8 +94,17 @@ Page({
     showmusic: 'none',
     musicimgs: {playimg: '../../assets/images/4ing.gif',pause: '',addimg: '../../assets/images/4add.png',cancel: '',palyorpause: '',},
     showmusiclist: 'none',
-    uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: 0,
-                    join_sub: 0,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+    showpublish: 'none',
+    showpause: 'flex',
+    showVideos: 'flex',
+    showtextcontent: 'block', //值为block或者none
+    showtopictype: 'none',
+    showsure: 'flex',
+    topic: '请选择话题！',
+    topics: [],
+    publish: {width: 0,height: 0,x: 0,y: 0},
+    uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
+                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
   },
 
@@ -194,6 +207,7 @@ Page({
    */
   onReady: function () {
     this.videoContext = wx.createVideoContext('myVideo')
+    this.videoContext1 = wx.createVideoContext('myVideo1')
   },
 
   /**
@@ -300,12 +314,29 @@ Page({
     console.log(this.data.movableviewNum)
   },
   nextStep (e) {
-    this.videoContext.play()
-    this.videoContext.pause()
+    this.videoContext1.play()
+    this.videoContext1.pause()
+    if(this.data.movableviewNum.length > 0){
+      let heightValues = this.data.oldVideoSize.height / (16*windowWidth/15)
+      let widthValues = this.data.oldVideoSize.width / (72*windowWidth/75)
+      this.data.publish.height = this.data.uploadContent.tiezhi_height / heightValues
+      this.data.publish.width = this.data.uploadContent.tiezhi_width / widthValues
+      this.data.publish.y = this.data.uploadContent.tiezhi_y / heightValues
+      this.data.publish.x = this.data.uploadContent.tiezhi_x / widthValues
+    }
+    console.log(this.data.publish)
     this.setData({
-      showVideo: {isvideo:'flex',notvideo:'none'}
+      showwrappers: 'none',
+      showpublish: 'flex',
+      uploadContent: this.data.uploadContent,
+      publish: this.data.publish
     })
-    console.log(this.data.showVideo)
+    // this.videoContext.play()
+    // this.videoContext.pause()
+    // this.setData({
+    //   showVideo: {isvideo:'flex',notvideo:'none'}
+    // })
+    // console.log(this.data.showVideo)
   },
   //各个选项的显示与隐藏
   filter (e) {
@@ -689,60 +720,160 @@ Page({
     }
   },
   uploadContent (e) {
-    let heightValue = this.data.oldVideoSize.height / windowHeight
-    let widthValue = this.data.oldVideoSize.width / windowWidth
-    this.data.uploadContent.video_url = this.data.tempFilePath
-    this.data.uploadContent.join_sub_id = 4
-    this.data.uploadContent.join_sub = 5
-    // this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * heightValue
-    // this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * widthValue
-    // this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * heightValue
-    // this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
-    console.log(this.data.uploadContent.tiezhi_width)
-    console.log(this.data.uploadContent.video_url)
-    wx.request({
-      url: api.upload_submit,
-      method: 'POST',
-      header: {
-          'content-type': 'application/x-www-form-urlencoded',
-          "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
-      },
-      data: this.data.uploadContent,
-      success: (resp) => {
-        console.log('resp')
-        console.log(resp)
-        var timer = setInterval(()=>{
-          wx.request({
-            url: api.get_submit,
-            method: 'POST',
-            header: {
-                'content-type': 'application/x-www-form-urlencoded',
-                "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
-            },
-            data: {
-              job_id: resp.data.data.job_id,
-              move_name: resp.data.data.move_name,
-              video_url: resp.data.data.video_url
-            },
-            success: (res) => {
-              console.log(res)
-                if(res.data.code === 0){
-                  console.log(res)
-                  clearInterval(timer)
-                }
-            },
-            complete: () => {
-              console.log('我又发了一次')
-            }
-          })
-        },5000)
-      },
-      complete: () => {
-          this.data.loading_num--;
-          if (this.data.loading_num == 0) {
-              wx.hideLoading()
-          }
+    if(this.data.uploadContent.join_sub === -1 || this.data.uploadContent.join_sub_id === -1){
+      wx.showToast({
+        title: '未选择话题！',
+        duration: 1000
+      })
+    } else {
+      if(this.data.movableviewNum.length > 0){
+        let heightValue = this.data.oldVideoSize.height / windowHeight
+        let widthValue = this.data.oldVideoSize.width / windowWidth
+        this.data.uploadContent.video_url = this.data.tempFilePath
+        this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * heightValue
+        this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * widthValue
+        this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * heightValue
+        this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
+        this.setData({
+          uploadContent: this.data.uploadContent
+        })
       }
+      wx.request({
+        url: api.upload_submit,
+        method: 'POST',
+        header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+        },
+        data: this.data.uploadContent,
+        success: (resp) => {
+          console.log('resp')
+          console.log(resp)
+          var timer = setInterval(()=>{
+            wx.request({
+              url: api.get_submit,
+              method: 'POST',
+              header: {
+                  'content-type': 'application/x-www-form-urlencoded',
+                  "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+              },
+              data: {
+                job_id: resp.data.data.job_id,
+                move_name: resp.data.data.move_name,
+                video_url: resp.data.data.video_url
+              },
+              success: (res) => {
+                console.log(res)
+                  if(res.data.code === 0){
+                    console.log(res)
+                    clearInterval(timer)
+                  }
+              },
+              complete: () => {
+                console.log('我又发了一次')
+              }
+            })
+          },5000)
+        },
+        complete: () => {
+            this.data.loading_num--;
+            if (this.data.loading_num == 0) {
+                wx.hideLoading()
+            }
+        }
+      })
+    }
+  },
+  pauseThis (e) {
+    console.log('showPlayOrPause')
+    if(videolock){
+      this.videoContext1.pause()
+      this.setData({
+        showpause: 'flex'
+      })
+      videolock = false
+    } else {
+      console.log('还没有播放！')
+    }
+  },
+  playThis (e) {
+    console.log('playOrPause')
+    this.videoContext1.play()
+    videolock = true
+    this.setData({
+      showpause: 'none'
     })
-  }
+  },
+  choseTopic (e) {
+    console.log('choseTopic')
+    if(this.data.topics.length === 0){
+      wx.request({
+        url: api.topic_sub,
+        method: 'POST',
+        header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+        },
+        success: (res) => {
+          console.log(res)
+          const length = res.data.data.length
+          for(let i=0;i<length;i++){
+            res.data.data[i].pic = topicpic.no
+          }
+          this.setData({
+            topics: res.data.data
+          })
+          console.log(this.data.topics)
+        },
+        complete: () => {
+          console.log('查询音效分类！')
+        }
+      })
+    }
+    this.setData({
+      showVideos: 'none',
+      showtextcontent: 'none',
+      showtopictype: 'flex',
+      showsure: 'none'
+    })
+  },
+  choseThisTopic (e) {
+    console.log('choseThisTopic')
+    console.log(e)
+    const length = this.data.topics.length
+    for(let i=0;i<length;i++){
+      console.log('q')
+      if(topiclock){
+        if(this.data.topics[i].pic === topicpic.yes){
+          this.data.topics[i].pic = topicpic.no
+          break
+        }
+      }
+    }
+    for(let i=0;i<length;i++){
+      if(e.currentTarget.id === this.data.topics[i].id){
+        this.data.topics[i].pic = topicpic.yes
+        this.data.topic = this.data.topics[i].sub_title
+        this.data.uploadContent.join_sub_id = this.data.topics[i].sub_type
+        this.data.uploadContent.join_sub = this.data.topics[i].id
+        topiclock = true
+        break
+      }
+    }
+    this.setData({
+      topic: this.data.topic,
+      topics: this.data.topics,
+      showVideos: 'flex',
+      showtextcontent: 'block',
+      showtopictype: 'none',
+      showsure: 'flex'
+    })
+  },
+  bindTextAreaBlur: function(e) {
+    console.log('bindTextAreaBlur')
+    this.data.uploadContent.video_desc = e.detail.value
+    this.setData({
+      uploadContent: this.data.uploadContent
+    })
+  },
 })

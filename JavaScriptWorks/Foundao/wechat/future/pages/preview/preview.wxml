@@ -1,15 +1,15 @@
 <!--pages/preview/preview.wxml-->
 <view class="user-page {{isIpx?'iphoneX':''}}">
   <backTitle></backTitle>
-  <view class="wrappers">
-    <!-- <view class="preview">
+  <view class="wrappers" style="display:{{showwrappers}}">
+    <view class="preview">
       <movable-area class="screenshot" style="display:{{showVideo.notvideo}}">
         <block wx:for="{{movableviewNum}}" wx:key="*this">
           <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView">
-            <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/share_normal.png"
+            <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/4del.png"
               catch:tap="cancelMovableView"></image>
             <image id="pic{{item.id}}" src="{{item.pic}}" bind:tap="showMovableView"></image>
-            <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{item.display}}" src="../../assets/images/share_normal.png"
+            <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{item.display}}" src="../../assets/images/4stretch.png"
               catch:touchstart="getStartLocation"  catch:touchmove="moveLocation" catch:touchend="endLocation"></image>
           </movable-view>
         </block>
@@ -26,7 +26,6 @@
       <view class="option" style="display:{{showoption.father}};">
         <view class="next">下一步
           <image src="../../assets/images/4jt5.png" bind:tap="nextStep"></image>
-          <image src="../../assets/images/4jt5.png" bind:tap="uploadContent"></image>
         </view>
         <view class="section" catch:tap="filter">
           <image class="img" src="../../assets/images/4filter.png"></image>
@@ -109,18 +108,38 @@
           </block>
         </swiper>
       </view>
-    </view> -->
-    <view class="publish">
-      <video src="">
-        <cover-image class="" src=""></cover-image>
-      </video>
-      <view class="textcontent">
-        <view class="topic">  
-        </view>
-        <view class="introduce">  
-        </view>
-      </view>
-      <view class="sure">确认发布</view>
     </view>
   </view>
+  <view class="publish" style="display:{{showpublish}}">
+      <video id="myVideo1" objectFit="fill" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}}">
+        <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
+          style="width:{{publish.width}}px;height:{{publish.height}}px;left:{{publish.x}}px;top:{{publish.y}}px">
+        </cover-image>
+        <cover-view class="playimg" catch:tap="pauseThis">
+          <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
+        </cover-view>
+      </video>
+      <view class="textcontent" style="display:{{showtextcontent}}">
+        <view class="topic" catch:tap="choseTopic">话题：{{topic}}</view>
+        <textarea bindblur="bindTextAreaBlur" class="introduce" placeholder="请输入简介...(选填,最多30字！)" maxlength="30"></textarea>
+      </view>
+      <view class="topictype" style="display:{{showtopictype}}">
+        <view class="topictype_top">
+          <cover-view class="topictype_line"></cover-view>
+        </view>
+        <view class="topictype_bottom">
+          <swiper display-multiple-items='10' vertical="true">
+            <block wx:for="{{topics}}" wx:key="*this">
+              <swiper-item>
+                <view class="topictype_box" id="{{item.id}}" catch:tap="choseThisTopic">
+                  <image class="topictype_pic" src="{{item.pic}}"></image>
+                  <view class="topictype_text">{{item.sub_title}}</view>
+                </view>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+      </view>
+      <view class="sure" style="display:{{showsure}}"  catch:tap="uploadContent">确认发布</view>
+    </view>
 </view>
