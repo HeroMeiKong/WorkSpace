@@ -15,17 +15,18 @@
         </block>
       </movable-area>
       <view class="previewpic" style="display:{{showVideo.notvideo}}">
-        <image src="{{previewpic}}"></image>
+        <image mode="aspectFit" src="{{previewpic}}"></image>
       </view>
       <video id="myVideo" objectFit="fill" controls="{{false}}" class="coverimagewrapper" src="{{tempFilePath}}" style="display:{{showVideo.isvideo}}">
         <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
         style="width:{{movableviewNum[0].width}}px;height:{{movableviewNum[0].height}}px;left:{{movableviewNum[0].x}}px;top:{{movableviewNum[0].y}}px"></cover-image>
       </video>
+      <view class="cover" style="display:{{showcover}}" catch:tap="sss"></view>
     </view>
     <view class="bottom">
-      <view class="option" style="display:{{showoption.father}};">
-        <view class="next">下一步
-          <image src="../../assets/images/4jt5.png" bind:tap="nextStep"></image>
+      <view class="option" style="display:{{showoption}};">
+        <view class="next" catch:tap="nextStep">下一步
+          <image src="../../assets/images/4jt5.png"></image>
         </view>
         <view class="section" catch:tap="filter">
           <image class="img" src="../../assets/images/4filter.png"></image>
@@ -40,78 +41,92 @@
           <text class="">音乐</text>
         </view>
       </view>
-      <view class="ischosewrapper" style="display:{{showoption.son}};">
-        <view class="ischose" catch:tap="backHome">取消</view>
-        <view class="ischose" catch:tap="goHome">确定</view>
-      </view>
       <view class="filter" style="display:{{showfilter}};">
-        <swiper display-multiple-items='5'>
-          <block wx:for="{{filters}}" wx:key="*this">
-            <swiper-item>
-              <view class="{{item.filterdiv}}" catch:tap="choseFilter">
-                <image id="{{item.id}}" class="filterimage" src="{{item.chose}}"></image>
-                <text class="filtertext">{{item.name}}</text>
-              </view>
-            </swiper-item>
-          </block>
-        </swiper>
-      </view>
-      <view class="paster" style="display:{{showpaster}};">
-        <swiper display-multiple-items='5' current="{{pasterbegin}}">
-          <block wx:for="{{pasters}}" wx:key="*this">
-            <swiper-item>
-              <view class="pasterdiv">
-                <image id="{{item.id}}" class="pasterimage" src="{{item.icon}}"  catch:tap="chosePasterPic"></image>
-              </view>
-            </swiper-item>
-          </block>
-        </swiper>
-        <view class="paster_section">
-          <block wx:for="{{pasters_type}}" wx:key="*this">
-            <view id='pasters_type{{item.id}}' class="{{item.chosethispaster}}" catch:tap="chosePaster">
-              <text class="font">{{item.sticker_type_name}}</text>
-              <view class="line"></view>
-            </view>
-          </block>
+        <view class="ischosewrapper">
+          <view class="ischose" catch:tap="cancelFilter">取消</view>
+          <view class="ischose" catch:tap="goHome">确定</view>
         </view>
-      </view>
-      <view class="music" style="display:{{showmusic}};">
-        <view class="musiclist" style="display:{{showmusiclist}}">
-          <swiper display-multiple-items='3' vertical="true" current="{{musicbegin}}">
-            <block wx:for="{{showmusiclists}}" wx:key="*this">
+        <view class="choseinner">
+          <swiper display-multiple-items='5'>
+            <block wx:for="{{filters}}" wx:key="*this">
               <swiper-item>
-                <view id="{{item.id}}" class="musiclistdiv">
-                  <view id="left{{item.id}}" class="musiclistleftwrapper" bindtap="playmusic">
-                    <view class="musiclistleft">
-                      <image class="playmusic" src="{{item.leftimg}}"></image>
-                    </view>
-                    <view class="musiclistcenter">
-                      <text class="musicname">{{item.music_name}}</text>
-                    </view>
-                  </view>
-                  <view class="musiclistright">
-                    <image id="right{{item.id}}" class="addmusic" src="{{item.rightimg}}" bindtap="addmusic"></image>
-                  </view>
+                <view class="{{item.filterdiv}}" catch:tap="choseFilter">
+                  <image id="{{item.id}}" class="filterimage" src="{{item.chose}}"></image>
+                  <text class="filtertext">{{item.name}}</text>
                 </view>
               </swiper-item>
             </block>
           </swiper>
         </view>
-        <swiper display-multiple-items='5'>
-          <block wx:for="{{musics}}" wx:key="*this">
-            <swiper-item>
-              <view id="{{item.id}}" class="musicdiv" catch:tap="choseMusic">
-                <image class="musicimage" src="{{item.music_type_icon}}"></image>
-                <text class="musictext">{{item.music_type_name}}</text>
+      </view>
+      <view class="paster" style="display:{{showpaster}};">
+        <view class="ischosewrapper">
+          <view class="ischose" catch:tap="cancelPaster">取消</view>
+          <view class="ischose" catch:tap="goHome">确定</view>
+        </view>
+        <view class="choseinner">
+          <swiper display-multiple-items='5' current="{{pasterbegin}}">
+            <block wx:for="{{pasters}}" wx:key="*this">
+              <swiper-item>
+                <view class="pasterdiv">
+                  <image id="{{item.id}}" class="pasterimage" src="{{item.icon}}"  catch:tap="chosePasterPic"></image>
+                </view>
+              </swiper-item>
+            </block>
+          </swiper>
+          <view class="paster_section">
+            <block wx:for="{{pasters_type}}" wx:key="*this">
+              <view id='pasters_type{{item.id}}' class="{{item.chosethispaster}}" catch:tap="chosePaster">
+                <text class="font">{{item.sticker_type_name}}</text>
+                <view class="line"></view>
               </view>
-            </swiper-item>
-          </block>
-        </swiper>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view class="music" style="display:{{showmusic}};">
+        <view class="ischosewrapper">
+          <view class="ischose" catch:tap="cancelMusic">取消</view>
+          <view class="ischose" catch:tap="goHome">确定</view>
+        </view>
+        <view class="choseinner">
+          <view class="musiclist" style="display:{{showmusiclist}}">
+            <swiper display-multiple-items='3' vertical="true" current="{{musicbegin}}">
+              <block wx:for="{{showmusiclists}}" wx:key="*this">
+                <swiper-item>
+                  <view id="{{item.id}}" class="musiclistdiv">
+                    <view id="left{{item.id}}" class="musiclistleftwrapper" bindtap="playmusic">
+                      <view class="musiclistleft">
+                        <image class="playmusic" src="{{item.leftimg}}"></image>
+                      </view>
+                      <view class="musiclistcenter">
+                        <text class="musicname">{{item.music_name}}</text>
+                      </view>
+                    </view>
+                    <view class="musiclistright">
+                      <image id="right{{item.id}}" class="addmusic" src="{{item.rightimg}}" bindtap="addmusic"></image>
+                    </view>
+                  </view>
+                </swiper-item>
+              </block>
+            </swiper>
+          </view>
+          <swiper display-multiple-items='5'>
+            <block wx:for="{{musics}}" wx:key="*this">
+              <swiper-item>
+                <view id="{{item.id}}" class="musicdiv" catch:tap="choseMusic">
+                  <image class="musicimage" src="{{item.pic}}"></image>
+                  <text class="musictext">{{item.music_type_name}}</text>
+                </view>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
       </view>
     </view>
   </view>
   <view class="publish" style="display:{{showpublish}}">
-      <video id="myVideo1" objectFit="fill" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}}">
+      <video id="myVideo1" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}}" muted="{{true}}">
         <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
           style="width:{{publish.width}}px;height:{{publish.height}}px;left:{{publish.x}}px;top:{{publish.y}}px">
         </cover-image>

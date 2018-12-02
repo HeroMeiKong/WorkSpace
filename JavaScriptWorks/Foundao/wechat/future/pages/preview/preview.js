@@ -9,7 +9,7 @@ import Tool from './../../utils/util';
 const app = getApp();
 var pasterlength = 0
 var windowWidth = 0  //屏幕宽度
-var windowHeight = 0  //屏幕高度
+var windowHeight = 0  //视频屏幕高度
 var oldLocation = {x:0,y:0} //计算压条大小
 var pasterNum = 0 //压条个数
 var oldmusiclist = {id: 0}     //选中的音乐列表
@@ -27,6 +27,7 @@ let topiclock = false  //话题是否选择
 const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.autoplay = true
+innerAudioContext.loop = true
 Page({
   /**
    * 页面的初始数据
@@ -38,8 +39,7 @@ Page({
     movableviewNum: [], //压条个数
     oldCoordinatey: 0,
     oldVideoSize: {width: 0,height: 0},
-    //videoSize: {width: 0,height: 0},
-    previewpic: '../../assets/images/2null2@2x.png', //视频截图加载失败，默认图片
+    previewpic: 'https://s-js.sports.cctv.com/host/tmp1/2018/11/30/7763154701009050971.jpg',//'../../assets/images/2null2@2x.png', //视频截图加载失败，默认图片
     filters: [{filterdiv: 'chosefilterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/images/2attention3@2x.png',name: '原画',id: 'none'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-1.png',chose: '../../assets/filter/4filter-1.png',name: '秘语',id: 'vintage'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-2.png',chose: '../../assets/filter/4filter-2.png',name: '绿光',id: 'strong_contrast'},
@@ -56,41 +56,16 @@ Page({
     pasterbegin: 0,
     pasters: [],
     pasterId: [],
-    // pasters: [{pasterdiv: 'pasterdiv',pic: '../../assets/images/2attention3@2x.png',id: 'paster1'},
-    //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster2'},
-    //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster3'},
-    //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster4'},
-    //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster5'},
-    //           {pasterdiv: 'pasterdiv',pic: '../../assets/images/share_normal.png',id: 'paster6'}],
     musics: [],
     musicbegin: 0,
-    // musics: [{musicdiv: 'musicdiv',pic: '../../assets/images/2attention3@2x.png',id: 'music0',name: '秘语'},
-    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music1',name: '秘语'},
-    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music3',name: '秘语'},
-    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music4',name: '秘语'},
-    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music5',name: '秘语'},
-    //           {musicdiv: 'musicdiv',pic: '../../assets/images/share_normal.png',id: 'music6',name: '秘语'}],
     musiclists: [],
-    // musiclists: [[{id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 's'},
-    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 'f'},
-    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-    //              {id: '0',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'}],
-    //              [{id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 'h'},
-    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'},
-    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: 't'},
-    //              {id: '1',pic: '../../assets/images/2attention3@2x.png',music_type_id: '3',name: '秘语'}]],
     showVideo: {isvideo:'none',notvidoe:'flex'},  //值为flex或者none
     showmusiclists: [],
     showwrappers: 'block',   //值为block或者none
-    showoption: {father: 'flex',son: 'none'},
-    ischosewrapper: 'none',
+    showcover: 'flex',
+    showoption: 'flex',
     showfilter: 'none',
     showpaster: 'none',
-    //chosethispaster: {text: 'chosethispaster',interest: 'none',doodle: 'none'}, //值为chosethispaster或者none
     showmusic: 'none',
     musicimgs: {playimg: '../../assets/images/4ing.gif',pause: '',addimg: '../../assets/images/4add.png',cancel: '',palyorpause: '',},
     showmusiclist: 'none',
@@ -145,7 +120,6 @@ Page({
           duration: res.duration,
           oldVideoSize: that.data.oldVideoSize,
           size: (res.size / (1024 * 1024)).toFixed(2),
-          //display: 'flex',
         })
         console.log(that.data.oldVideoSize)
         wx.showLoading({
@@ -154,20 +128,14 @@ Page({
         })
         if (that.data.size > 100) {
           wx.showToast({
-            title: '视频大小超过100M,请重新选择视频！',
+            title: '视频超过100M！',
             duration: 1500,
-            // success: (result)=>{
-
-            // }
           })
         } else {
           if (that.data.duration > 30) {
             wx.showToast({
-              title: '视频长度为' + res.duration + ',视频长度超过30s,请重新选择视频！',
+              title: '视频超过30s！',
               duration: 1500,
-              // success: (result)=>{
-
-              // }
             })
           } else {
             //上传视频， 取得视频服务器地址
@@ -185,11 +153,13 @@ Page({
               },
               success(res) {
                 const data = JSON.parse(res.data)
+                that.data.uploadContent.video_url = data.data.file_path
                 console.log(res.data)
                 console.log(data)
                 that.setData({
                   previewpic: data.data.savehttp,
-                  tempFilePath: data.data.file_path
+                  tempFilePath: data.data.file_path,
+                  uploadContent: that.data.uploadContent
                 })
               }
             })
@@ -216,24 +186,64 @@ Page({
   onShow: function () {
 
   },
-  backHome: function (e) {
-    console.log('backHome')
+  cancelFilter (e) {
+    console.log('cancelFilter')
+    this.data.uploadContent.filter = 'none'
     this.setData({
-      showoption: {father: 'flex',son: 'none'},
-      ischosewrapper: 'none',
+      showoption: 'flex',
       showfilter: 'none',
+      showcover: 'flex',
+      uploadContent: this.data.uploadContent
+    })
+  },
+  cancelPaster (e) {
+    console.log('cancelPaster')
+    this.data.uploadContent.tiezhi = ''
+    this.data.uploadContent.tiezhi_x = 0
+    this.data.uploadContent.tiezhi_y = 0
+    this.data.uploadContent.tiezhi_height = 0
+    this.data.uploadContent.tiezhi_width = 0
+    this.setData({
+      showoption: 'flex',
       showpaster: 'none',
-      showmusic: 'none'
+      showcover: 'flex',
+      uploadContent: this.data.uploadContent
+    })
+  },
+  cancelMusic (e) {
+    console.log('cancelMusic')
+    this.data.uploadContent.audio_id = ''
+    this.data.uploadContent.audio_url = ''
+    this.setData({
+      showoption: 'flex',
+      showmusic: 'none',
+      showcover: 'flex',
+      uploadContent: this.data.uploadContent
     })
   },
   goHome: function (e) {
     console.log('goHome')
+    innerAudioContext.stop()
+    if(this.data.movableviewNum.length > 0){
+      this.data.movableviewNum[0].display = 'none'
+      this.data.uploadContent.tiezhi = this.data.movableviewNum[0].pic
+    }
+    // if(this.data.movableviewNum.length > 0){
+    //   // let heightValue = this.data.oldVideoSize.height / windowHeight
+    //   // let widthValue = this.data.oldVideoSize.width / windowWidth
+    //   this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * heightValue
+    //   this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * widthValue
+    //   this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * heightValue
+    //   this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
+    // }
     this.setData({
-      showoption: {father: 'flex',son: 'none'},
-      ischosewrapper: 'none',
+      showoption: 'flex',
       showfilter: 'none',
       showpaster: 'none',
-      showmusic: 'none'
+      showmusic: 'none',
+      showcover: 'flex',
+      movableviewNum: this.data.movableviewNum,
+      uploadContent: this.data.uploadContent
     })
   },
   //删除压条
@@ -316,13 +326,20 @@ Page({
   nextStep (e) {
     this.videoContext1.play()
     this.videoContext1.pause()
+    innerAudioContext.stop()
     if(this.data.movableviewNum.length > 0){
-      let heightValues = this.data.oldVideoSize.height / (16*windowWidth/15)
-      let widthValues = this.data.oldVideoSize.width / (72*windowWidth/75)
-      this.data.publish.height = this.data.uploadContent.tiezhi_height / heightValues
-      this.data.publish.width = this.data.uploadContent.tiezhi_width / widthValues
-      this.data.publish.y = this.data.uploadContent.tiezhi_y / heightValues
-      this.data.publish.x = this.data.uploadContent.tiezhi_x / widthValues
+      //预览页贴纸位置
+      let publishValues = (75*windowHeight)/(69*windowWidth)
+      this.data.publish.height = this.data.movableviewNum[0].height / publishValues
+      this.data.publish.width = this.data.movableviewNum[0].width / publishValues
+      this.data.publish.y = this.data.movableviewNum[0].y / publishValues
+      this.data.publish.x = (this.data.movableviewNum[0].x - (windowWidth-9*windowHeight/16)/2) / publishValues + 483*windowWidth/2400
+      //上传视频贴纸位置
+      let videoValues = this.data.oldVideoSize.height / windowHeight
+      this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * videoValues
+      this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * videoValues
+      this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * videoValues
+      this.data.uploadContent.tiezhi_x = (this.data.movableviewNum[0].x - (windowWidth-9*windowHeight/16)/2) * videoValues
     }
     console.log(this.data.publish)
     this.setData({
@@ -342,8 +359,7 @@ Page({
   filter (e) {
     console.log('filter')
     this.setData({
-      showoption: {father: 'none',son: 'flex'},
-      ischosewrapper: 'flex',
+      showoption: 'none',
       showfilter: 'flex'
     })
   },
@@ -373,8 +389,9 @@ Page({
     console.log('paster')
     var that = this
     this.setData({
-      showoption: {father: 'none',son: 'flex'},
-      showpaster: 'flex'
+      showoption: 'none',
+      showpaster: 'flex',
+      showcover: 'none'
     })
     wx.request({
       url: api.sticker_type,
@@ -410,7 +427,7 @@ Page({
   music (e) {
     console.log('music')
     this.setData({
-      showoption: {father: 'none',son: 'flex'},
+      showoption: 'none',
       showmusic: 'flex'
     })
     wx.request({
@@ -422,6 +439,10 @@ Page({
       },
       success: (res) => {
         console.log(res)
+        const length = res.data.data.length
+        for(let i=0;i<length;i++){
+          res.data.data[i].pic = res.data.data[i].no_music_type_icon
+        }
         this.data.musics = res.data.data
         this.setData({
           musics: this.data.musics
@@ -568,17 +589,13 @@ Page({
           samesong = false
         }
       }
-      let ooo = e.currentTarget.id
       for(let j=0;j<musiclistslength;j++){
-        console.log('111')
-        console.log(this.data.musiclists[j])
-        console.log(ooo.substring(5))
         if(this.data.musiclists[j][0].music_type_id === tempmusictype){
-          for(let r=0;r<length;r++){
-            if(this.data.musiclists[j][r].rightimg === musicpic.cancelimg){
-              this.data.musiclists[j][r].rightimg = musicpic.addimg
+          this.data.musiclists[j].forEach((element)=>{
+            if(element.rightimg === musicpic.cancelimg){
+              element.rightimg = musicpic.addimg
             }
-          }
+          })
         }
       }
       if(samesong){
@@ -620,7 +637,8 @@ Page({
   choseMusic(e){
     console.log('choseMusic')
     playlock = false
-    innerAudioContext.pause()
+    innerAudioContext.stop()
+    const lengths = this.data.musiclists.length
     tempmusic.old = tempmusic.new
     let newtempmusic = {type_id: 0,id: 0}
     newtempmusic.type_id = e.currentTarget.id
@@ -710,6 +728,13 @@ Page({
           }
         }
       }
+      for(let l=0;l<lengths;l++){
+        this.data.musiclists[l].forEach(element => {
+          if(element.leftimg === musicpic.pauseimg){
+            element.leftimg = musicpic.playimg
+          }
+        });
+      }
       oldmusiclist.id = e.currentTarget.id
       this.setData({
         showmusiclists: this.data.showmusiclists,
@@ -726,18 +751,6 @@ Page({
         duration: 1000
       })
     } else {
-      if(this.data.movableviewNum.length > 0){
-        let heightValue = this.data.oldVideoSize.height / windowHeight
-        let widthValue = this.data.oldVideoSize.width / windowWidth
-        this.data.uploadContent.video_url = this.data.tempFilePath
-        this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * heightValue
-        this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * widthValue
-        this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * heightValue
-        this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
-        this.setData({
-          uploadContent: this.data.uploadContent
-        })
-      }
       wx.request({
         url: api.upload_submit,
         method: 'POST',
@@ -785,9 +798,10 @@ Page({
     }
   },
   pauseThis (e) {
-    console.log('showPlayOrPause')
+    console.log('pauseThis')
     if(videolock){
       this.videoContext1.pause()
+      innerAudioContext.pause()
       this.setData({
         showpause: 'flex'
       })
@@ -797,8 +811,9 @@ Page({
     }
   },
   playThis (e) {
-    console.log('playOrPause')
+    console.log('playThis')
     this.videoContext1.play()
+    innerAudioContext.play()
     videolock = true
     this.setData({
       showpause: 'none'
@@ -875,5 +890,13 @@ Page({
     this.setData({
       uploadContent: this.data.uploadContent
     })
+  },
+  videoend (e) {
+    console.log('videoend')
+    innerAudioContext.stop()
+      videolock = false
+      this.setData({
+        showpause: 'flex'
+      })
   },
 })
