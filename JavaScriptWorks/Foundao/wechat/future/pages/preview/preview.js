@@ -33,13 +33,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ssss: 'visible',
     tempFilePath: '',
     size: 0,
     duration: 0,
     movableviewNum: [], //压条个数
     oldCoordinatey: 0,
     oldVideoSize: {width: 0,height: 0},
-    previewpic: 'https://s-js.sports.cctv.com/host/tmp1/2018/11/30/7763154701009050971.jpg',//'../../assets/images/2null2@2x.png', //视频截图加载失败，默认图片
+    previewpic: '../../assets/images/2null2@2x.png', //视频截图加载失败，默认图片
     filters: [{filterdiv: 'chosefilterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/images/2attention3@2x.png',name: '原画',id: 'none'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-1.png',chose: '../../assets/filter/4filter-1.png',name: '秘语',id: 'vintage'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-2.png',chose: '../../assets/filter/4filter-2.png',name: '绿光',id: 'strong_contrast'},
@@ -75,7 +76,7 @@ Page({
     showtextcontent: 'block', //值为block或者none
     showtopictype: 'none',
     showsure: 'flex',
-    topic: '请选择话题！',
+    topic: '话题',
     topics: [],
     publish: {width: 0,height: 0,x: 0,y: 0},
     uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
@@ -343,7 +344,8 @@ Page({
     }
     console.log(this.data.publish)
     this.setData({
-      showwrappers: 'none',
+      //showwrappers: 'none',
+      ssss: 'hidden',
       showpublish: 'flex',
       uploadContent: this.data.uploadContent,
       publish: this.data.publish
@@ -899,4 +901,14 @@ Page({
         showpause: 'flex'
       })
   },
+  cancelUploadContent (e) {
+    console.log('cancelUploadContent')
+    this.videoContext1.stop()
+    innerAudioContext.stop()
+    this.setData({
+      //showwrappers: 'block',
+      ssss: 'visible',
+      showpublish: 'none',
+    })
+  }
 })

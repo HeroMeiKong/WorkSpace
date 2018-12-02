@@ -1,7 +1,7 @@
 <!--pages/preview/preview.wxml-->
 <view class="user-page {{isIpx?'iphoneX':''}}">
   <backTitle></backTitle>
-  <view class="wrappers" style="display:{{showwrappers}}">
+  <view class="wrappers" style="visibility:{{ssss}}">
     <view class="preview">
       <movable-area class="screenshot" style="display:{{showVideo.notvideo}}">
         <block wx:for="{{movableviewNum}}" wx:key="*this">
@@ -135,7 +135,9 @@
         </cover-view>
       </video>
       <view class="textcontent" style="display:{{showtextcontent}}">
-        <view class="topic" catch:tap="choseTopic">话题：{{topic}}</view>
+        <view class="topic" catch:tap="choseTopic">
+          <view class="topicinner"><image class="topicinnerpic" src="../../assets/images/1huati@2x.png" /><font>{{topic}}</font></view>
+        </view>
         <textarea bindblur="bindTextAreaBlur" class="introduce" placeholder="请输入简介...(选填,最多30字！)" maxlength="30"></textarea>
       </view>
       <view class="topictype" style="display:{{showtopictype}}">
@@ -155,6 +157,9 @@
           </swiper>
         </view>
       </view>
-      <view class="sure" style="display:{{showsure}}"  catch:tap="uploadContent">确认发布</view>
+      <view class="bottom_option"  style="display:{{showsure}}">
+        <view class="back" catch:tap="cancelUploadContent">返回上一步</view>
+        <view class="sure" catch:tap="uploadContent">确认发布</view>
+      </view>
     </view>
 </view>

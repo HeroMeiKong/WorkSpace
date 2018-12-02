@@ -16,7 +16,8 @@ cover-image {
   min-height: 100%;
   height: 100%;
   background-color: white;
-  padding-top: 122rpx; /* 莫乱改，与后面计算贴纸位置有关 */
+  padding-top: 122rpx;
+  /* 莫乱改，与后面计算贴纸位置有关 */
   box-sizing: border-box;
 }
 
@@ -36,14 +37,17 @@ cover-image {
   align-items: center;
   position: relative;
 }
-.coverimagewrapper{
+
+.coverimagewrapper {
   position: relative;
   height: 100%;
   width: 100%;
 }
-.coverimage{
+
+.coverimage {
   position: absolute;
 }
+
 /* screenshot */
 .screenshot {
   width: 100%;
@@ -83,16 +87,19 @@ cover-image {
   justify-content: center;
   align-items: center;
 }
-.previewpic image{
+
+.previewpic image {
   width: 100%;
   height: 100%;
 }
-.cover{
+
+.cover {
   width: 100%;
   height: 100%;
   position: absolute;
   z-index: 1;
 }
+
 /* bottom */
 .bottom {
   height: 20%;
@@ -113,7 +120,8 @@ cover-image {
   display: flex;
   align-items: center;
 }
-.next image{
+
+.next image {
   width: 40rpx;
   height: 40rpx;
 }
@@ -153,8 +161,9 @@ swiper-item {
   justify-content: space-around;
   align-items: center;
 }
+
 /* ischosewrapper */
-.ischosewrapper{
+.ischosewrapper {
   height: 20%;
   width: 100%;
   color: #5e5e5e;
@@ -163,7 +172,8 @@ swiper-item {
   justify-content: space-between;
   align-items: center;
 }
-.ischose{
+
+.ischose {
   padding: 10rpx 20rpx 0 20rpx;
 }
 
@@ -175,7 +185,8 @@ swiper-item {
   display: flex;
   flex-direction: column;
 }
-.choseinner{
+
+.choseinner {
   height: 80%;
   width: 100%;
 }
@@ -294,12 +305,14 @@ swiper-item {
   height: 100%;
   display: flex;
 }
-.musiclistdiv .musiclistleftwrapper{
+
+.musiclistdiv .musiclistleftwrapper {
   height: 100%;
   width: 90%;
   display: flex;
   flex-direction: row;
 }
+
 .musiclistdiv .musiclistleft,
 .musiclistdiv .musiclistright {
   height: 100%;
@@ -359,24 +372,33 @@ swiper-item {
   color: #969696;
   padding: 10rpx;
 }
-.publish{
-  position: relative;
+
+.publish {
+  position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #2e2e2e;
+  background-color: rgba(46,46,46,.8);
+  /* background-color: rgba(0, 0, 0, 1); */
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
-  padding: 10rpx 0;
+  padding-top: 122rpx;
+  /* padding: 10rpx 0; */
+  top: 0;
+  left: 0;
 }
-#myVideo1{
-  width: 690rpx;/* 莫乱改，与后面计算贴纸位置有关 */
-  height: 690rpx;/* 莫乱改，与后面计算贴纸位置有关 */
+
+#myVideo1 {
+  width: 690rpx;
+  /* 莫乱改，与后面计算贴纸位置有关 */
+  height: 690rpx;
+  /* 莫乱改，与后面计算贴纸位置有关 */
   border-radius: 14rpx;
   position: relative;
 }
-#myVideo1 .playimg{
+
+#myVideo1 .playimg {
   width: 100%;
   height: 100%;
   display: flex;
@@ -384,16 +406,20 @@ swiper-item {
   align-items: center;
   position: absolute;
 }
-#myVideo1 .playimg cover-image{
+
+#myVideo1 .playimg cover-image {
   width: 120rpx;
   height: 120rpx;
 }
-.textcontent{
-  width: 720rpx;
-  height: 304rpx;
+
+.textcontent {
+  width: 690rpx;
+  height: 369rpx;
+  padding-top: 20rpx;
 }
-.textcontent .topic{
-  width: 100%;
+
+.textcontent .topic {
+  width: 690rpx;
   height: 20%;
   color: #fff;
   font-size: 26rpx;
@@ -401,61 +427,92 @@ swiper-item {
   justify-content: left;
   align-items: center;
 }
-.textcontent .introduce{
+
+.topicinner {
+  height: 40rpx;
+  border-radius: 20rpx;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 10rpx 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topicinnerpic {
+  height: 24rpx;
+  width: 24rpx;
+  margin-right: 10rpx;
+}
+
+.topicinner font {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, .6);
+}
+
+.textcontent .introduce {
   width: 100%;
   height: 80%;
   color: #fff;
   font-size: 30rpx;
   border-top: 1px solid #fff;
-  opacity:0.3;
+  opacity: 0.3;
+  padding-top: 10rpx;
 }
-.topictype{
+
+.topictype {
   position: absolute;
   width: 90%;
   height: 90%;
   background-color: #000;
-  opacity:.5;
-  border-radius:14px;
+  opacity: .5;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.topictype_top{
+
+.topictype_top {
   width: 100%;
   height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.topictype_line{
-  width:80rpx;
-  height:8rpx;
-  background:rgba(255,255,255,1);
-  opacity:0.6;
-  border-radius:4rpx;
+
+.topictype_line {
+  width: 80rpx;
+  height: 8rpx;
+  background: rgba(255, 255, 255, 1);
+  opacity: 0.6;
+  border-radius: 4rpx;
 }
-.topictype_bottom{
+
+.topictype_bottom {
   width: 90%;
   height: 90%;
   display: flex;
   flex-direction: column;
 }
-.topictype_box{
+
+.topictype_box {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-bottom: 1rpx solid rgba(255,255,255,.2);
+  border-bottom: 1rpx solid rgba(255, 255, 255, .2);
   padding: 20rpx 0;
 }
-.topictype_pic{
+
+.topictype_pic {
   width: 24rpx;
   height: 24rpx;
   display: flex;
   justify-content: center;
 }
-.topictype_text{
+
+.topictype_text {
   width: 90%;
   display: flex;
   justify-content: left;
@@ -463,8 +520,30 @@ swiper-item {
   color: #fff;
   padding: 0 20rpx;
 }
-.sure{
+
+.bottom_option {
   width: 720rpx;
+  height: 154rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.back {
+  width: 330rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 34rpx;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sure {
+  width: 330rpx;
   height: 88rpx;
   border-radius: 44rpx;
   display: flex;
