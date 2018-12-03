@@ -11,7 +11,8 @@
     "pages/recordList/recordList",
     "pages/otherUser/otherUser",
     "pages/video/video",
-    "pages/preview/preview"
+    "pages/preview/preview",
+    "pages/dubbingUpload/dubbingUpload"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -101,7 +101,13 @@
 				{
 					"id": -1,
 					"name": "预览",
-					"pathName": "pages/preview/preview"
+					"pathName": "pages/preview/preview",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "配音及上传视频",
+					"pathName": "pages/dubbingUpload/dubbingUpload"
 				}
 			]
 		}

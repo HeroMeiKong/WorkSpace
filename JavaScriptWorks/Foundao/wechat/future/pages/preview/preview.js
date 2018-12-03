@@ -7,6 +7,7 @@ import api from './../../config/api';
 import Tool from './../../utils/util';
 
 const app = getApp();
+let usermethod = 'album'
 var pasterlength = 0
 var windowWidth = 0  //屏幕宽度
 var windowHeight = 0  //视频屏幕高度
@@ -26,6 +27,7 @@ let videolock = false //视频是否播放
 let topiclock = false  //话题是否选择
 const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()
+innerAudioContext.obeyMuteSwitch = false
 innerAudioContext.autoplay = true
 innerAudioContext.loop = true
 Page({
@@ -89,6 +91,8 @@ Page({
    */
   onLoad: function (options) {
     console.log('onLoad')
+    console.log(options.usermethod)
+    usermethod = options.usermethod
     wx.setEnableDebug({
       enableDebug: true,
     })
@@ -102,17 +106,29 @@ Page({
       }
     })
     console.log(windowHeight)
+    
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    this.videoContext = wx.createVideoContext('myVideo')
+    this.videoContext1 = wx.createVideoContext('myVideo1')
+    console.log('onReady')
+    console.log('选取本地视频')
+    let that = this
     wx.chooseVideo({
-      sourceType: ['album'],
-      maxDuration: 60,
+      sourceType: [usermethod],
+      maxDuration: 30,
       camera: 'back',
       success: function (res) {
         console.log('选取视频')
-        console.log(res)
         that.data.oldVideoSize.height = res.height
         that.data.oldVideoSize.width = res.width
         wx.showToast({
-          title: res.tempFilePath,
+          title: '选取视频成功',
           icon: 'success',
           duration: 2000
         })
@@ -125,8 +141,21 @@ Page({
         console.log(that.data.oldVideoSize)
         wx.showLoading({
           title: '视频处理中',
-          duration: 2000
+          duration: 2000,
+          mask: true
         })
+        if(usermethod === 'camera'){
+          console.log('拍摄视频')
+          wx.saveVideoToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              console.log(res)
+            },
+            fail(res) {
+              console.log(res.errMsg)
+            }
+          })
+        }
         if (that.data.size > 100) {
           wx.showToast({
             title: '视频超过100M！',
@@ -159,7 +188,6 @@ Page({
                 console.log(data)
                 that.setData({
                   previewpic: data.data.savehttp,
-                  tempFilePath: data.data.file_path,
                   uploadContent: that.data.uploadContent
                 })
               }
@@ -169,23 +197,18 @@ Page({
       },
       fail: function (e) {
         console.log(e)
+        wx.navigateBack({
+          delta: 1
+        });
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    this.videoContext = wx.createVideoContext('myVideo')
-    this.videoContext1 = wx.createVideoContext('myVideo1')
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log('onShow')
   },
   cancelFilter (e) {
     console.log('cancelFilter')
@@ -237,12 +260,20 @@ Page({
     //   this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * heightValue
     //   this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
     // }
+    const length = this.data.showmusiclists.length
+    console.log(this.data.showmusiclists)
+    for(let i=0;i<length;i++){
+      if(this.data.showmusiclists[i].leftimg === musicpic.pauseimg){
+        this.data.showmusiclists[i].leftimg = musicpic.playimg
+      }
+    }
     this.setData({
       showoption: 'flex',
       showfilter: 'none',
       showpaster: 'none',
       showmusic: 'none',
       showcover: 'flex',
+      showmusiclists: this.data.showmusiclists,
       movableviewNum: this.data.movableviewNum,
       uploadContent: this.data.uploadContent
     })
@@ -250,22 +281,29 @@ Page({
   //删除压条
   cancelMovableView (e) {
     console.log('cancelMovableView')
-    var str = e.target.id
-    var pasternumid = this.data.movableviewNum.length
-    console.log(str)
-    for(let i=0;i<pasternumid;i++){
-      if(str === 'top'+this.data.movableviewNum[i].id){
-        this.data.movableviewNum[i].show = 'none'
-        console.log(this.data.movableviewNum[i].display)
-        this.setData({
-          movableviewNum: this.data.movableviewNum
-        })
-        console.log('删除')
-        console.log(this.data.movableviewNum[i].id)
-        pasterNum--
-        console.log(pasterNum)
-      }
-    } 
+    if(this.data.movableviewNum.length > 0){
+      pasterNum--
+    }
+    this.data.movableviewNum.pop()
+    this.setData({
+      movableviewNum: this.data.movableviewNum
+    })
+    // var str = e.target.id
+    // var pasternumid = this.data.movableviewNum.length
+    // console.log(str)
+    // for(let i=0;i<pasternumid;i++){
+    //   if(str === 'top'+this.data.movableviewNum[i].id){
+    //     this.data.movableviewNum[i].show = 'none'
+    //     console.log(this.data.movableviewNum[i].display)
+    //     this.setData({
+    //       movableviewNum: this.data.movableviewNum
+    //     })
+    //     console.log('删除')
+    //     console.log(this.data.movableviewNum[i].id)
+    //     pasterNum--
+    //     console.log(pasterNum)
+    //   }
+    // }
   },
   //显示改变压条按钮
   showMovableView (e) {
@@ -567,7 +605,9 @@ Page({
       for(let i=0;i<length;i++){
         if(e.currentTarget.id === 'right'+this.data.showmusiclists[i].id){
           console.log('选他')
+          //innerAudioContext.src = this.data.showmusiclists[i].music_url
           this.data.uploadContent.audio_url = this.data.showmusiclists[i].music_url
+          //innerAudioContext.pause()
           this.data.uploadContent.audio_id = this.data.showmusiclists[i].id
           this.data.showmusiclists[i].rightimg = musicpic.cancelimg
           for(let j=0;j<musiclistslength;j++){
@@ -609,7 +649,9 @@ Page({
         for(let k=0;k<length;k++){
           if(e.currentTarget.id === 'right'+this.data.showmusiclists[k].id){
             console.log('选他1')
+            //innerAudioContext.src = this.data.showmusiclists[k].music_url
             this.data.uploadContent.audio_url = this.data.showmusiclists[k].music_url
+            //innerAudioContext.pause()
             this.data.uploadContent.audio_id = this.data.showmusiclists[k].id
             this.data.showmusiclists[k].rightimg = musicpic.cancelimg
             for(let l=0;l<musiclistslength;l++){
@@ -753,6 +795,12 @@ Page({
         duration: 1000
       })
     } else {
+      wx.showToast({
+        title: '视频上传中……',
+        icon: 'loading',
+        duration: 5000,
+        mask: true,
+      });
       wx.request({
         url: api.upload_submit,
         method: 'POST',
@@ -765,6 +813,12 @@ Page({
           console.log('resp')
           console.log(resp)
           var timer = setInterval(()=>{
+            wx.showToast({
+              title: '视频处理中……',
+              icon: 'loading',
+              duration: 5000,
+              mask: true,
+            });
             wx.request({
               url: api.get_submit,
               method: 'POST',
@@ -779,10 +833,24 @@ Page({
               },
               success: (res) => {
                 console.log(res)
-                  if(res.data.code === 0){
-                    console.log(res)
-                    clearInterval(timer)
-                  }
+                if(res.data.code === 0){
+                  console.log(res)
+                  clearInterval(timer)
+                  wx.showToast({
+                    title: '视频上传成功！',
+                    icon: 'success',
+                    duration: 1500,
+                    mask: true,
+                    success: (result)=>{
+                      const timers = setTimeout(()=>{
+                        wx.navigateBack({
+                          delta: 1
+                        });
+                        clearInterval(timers)
+                      },1500)
+                    },
+                  });
+                }
               },
               complete: () => {
                 console.log('我又发了一次')
@@ -903,11 +971,12 @@ Page({
   },
   cancelUploadContent (e) {
     console.log('cancelUploadContent')
-    this.videoContext1.stop()
+    this.videoContext1.seek(0)
     innerAudioContext.stop()
     this.setData({
       //showwrappers: 'block',
       ssss: 'visible',
+      showpause: 'flex',
       showpublish: 'none',
     })
   }

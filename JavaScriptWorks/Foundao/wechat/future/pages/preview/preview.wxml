@@ -126,7 +126,7 @@
     </view>
   </view>
   <view class="publish" style="display:{{showpublish}}">
-      <video id="myVideo1" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}}" muted="{{true}}">
+      <video id="myVideo1" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}}" muted="{{true}}">
         <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
           style="width:{{publish.width}}px;height:{{publish.height}}px;left:{{publish.x}}px;top:{{publish.y}}px">
         </cover-image>
