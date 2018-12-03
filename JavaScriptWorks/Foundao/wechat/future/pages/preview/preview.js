@@ -210,6 +210,10 @@ Page({
   onShow: function () {
     console.log('onShow')
   },
+  onHide (e) {
+    console.log('onHide')
+    pasterNum = 0
+  },
   cancelFilter (e) {
     console.log('cancelFilter')
     this.data.uploadContent.filter = 'none'
