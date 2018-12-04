@@ -32,7 +32,7 @@
         "pagePath": "pages/index/index",
         "iconPath": "assets/images/shouye2.png",
         "selectedIconPath": "assets/images/shouye.png",
-        "text": "推荐"
+        "text": "首页"
       },
       {
         "pagePath": "pages/recordList/recordList",

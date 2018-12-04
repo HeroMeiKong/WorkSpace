@@ -4,6 +4,8 @@
 .attention-page{
     width: 100%;
     padding-top: 152rpx;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .head-title{
@@ -150,13 +152,15 @@
 
 .no-user{
     position: absolute;
-    top:calc(521rpx - 50rpx);
+    top:calc(521rpx - 50rpx + 150rpx);
     left: 50%;
     transform:translateX(-50%);
     color: #999999;
     line-height: 26rpx;
     font-size: 26rpx;
 }
+
+
 .no-user:after{
     content: '';
     position: absolute;

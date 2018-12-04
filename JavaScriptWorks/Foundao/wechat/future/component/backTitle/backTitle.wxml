@@ -3,5 +3,5 @@
 <view class="head-title {{isIpx?'iphoneX-title':''}}">{{title}}</view>
 <!--返回按钮-->
 <view class="back-btn {{isIpx?'iphoneX-title':''}}" bindtap="goBack" hidden="{{noBack}}">
-    <image src="https://www.newscctv.net/dw/resource/future/1return5.png"></image>
+    <view class="image"></view>
 </view>

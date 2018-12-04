@@ -72,6 +72,13 @@
     line-height: 38rpx;
     color: #ffffff;
     font-weight: bold;
+    width: 500rpx;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:1;
 }
 
 .attention{

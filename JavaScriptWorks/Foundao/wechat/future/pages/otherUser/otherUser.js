@@ -220,6 +220,7 @@ Page({
         this.data.loading_num++;
 
         const {other_userInfo} = this.data;
+
         wx.request({
             url: api.fabulous,
             method: 'POST',
@@ -238,6 +239,7 @@ Page({
                     this.setData({
                         other_userInfo: this.data.other_userInfo
                     })
+                    this.refreshStatus(this.data.other_userInfo.uuid,2)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -280,6 +282,7 @@ Page({
                     this.setData({
                         other_userInfo: this.data.other_userInfo
                     })
+                    this.refreshStatus(this.data.other_userInfo.uuid,1)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -306,7 +309,7 @@ Page({
 
     // 返回
     goBack(e) {
-        console.log(getCurrentPages())
+        // console.log(getCurrentPages())
         if (getCurrentPages().length === 1) {
             wx.navigateTo({
                 url: '/pages/index/index',
@@ -316,6 +319,18 @@ Page({
                 delta: 1
             })
         }
-
     },
+
+    //更新主页的关注数据
+    refreshStatus(user_uuid,status){
+        var pages = getCurrentPages();
+        for(var i=0;i<pages.length;i++){
+            var page_temp = pages[i]
+            if(page_temp.route == 'pages/index/index'){
+                page_temp.refreshStatus(user_uuid,status)
+                return
+            }
+        }
+    },
+
 })

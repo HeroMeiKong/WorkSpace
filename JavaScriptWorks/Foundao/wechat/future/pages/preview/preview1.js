@@ -8,11 +8,9 @@ import Tool from './../../utils/util';
 
 const app = getApp();
 let usermethod = 'album'
-let computeMethod = 'height' //视频比例计算方式
 var pasterlength = 0
 var windowWidth = 0  //屏幕宽度
 var windowHeight = 0  //视频屏幕高度
-let previewbox = 0
 var oldLocation = {x:0,y:0} //计算压条大小
 var pasterNum = 0 //压条个数
 var oldmusiclist = {id: 0}     //选中的音乐列表
@@ -28,21 +26,16 @@ let temparray = [] //歌词分类请求列表
 let videolock = false //视频是否播放
 let topiclock = false  //话题是否选择
 const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
-const innerAudioContext = wx.createInnerAudioContext()//试听歌曲
+const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.obeyMuteSwitch = false
 innerAudioContext.autoplay = true
 innerAudioContext.loop = true
-const preInnerAudioContext = wx.createInnerAudioContext()//预览歌曲
-preInnerAudioContext.obeyMuteSwitch = false
-preInnerAudioContext.loop =false
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    showwrappers: 'visible',
-    picsize: {height: 0,width: 0}, //图片的大小
-    previewsize: {height: 0,width: 0},//预览视频的大小
+    ssss: 'visible',
     tempFilePath: '',
     size: 0,
     duration: 0,
@@ -71,8 +64,8 @@ Page({
     musiclists: [],
     showVideo: {isvideo:'none',notvidoe:'flex'},  //值为flex或者none
     showmusiclists: [],
-    //showwrappers: 'block',   //值为block或者none
-    //showcover: 'flex',//遮罩层
+    showwrappers: 'block',   //值为block或者none
+    showcover: 'flex',
     showoption: 'flex',
     showfilter: 'none',
     showpaster: 'none',
@@ -110,10 +103,11 @@ Page({
         windowWidth = res.windowWidth
         windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.8
         that.data.oldCoordinatey = 122 * windowWidth / 750
-        previewbox = 69*windowWidth/75
       }
     })
     console.log(windowHeight)
+    
+    
   },
 
   /**
@@ -131,22 +125,8 @@ Page({
       camera: 'back',
       success: function (res) {
         console.log('选取视频')
-        console.log(res)
         that.data.oldVideoSize.height = res.height
         that.data.oldVideoSize.width = res.width
-        res.height > res.width ? computeMethod = 'height': computeMethod = 'width'
-        let value = res.height/res.width
-        if(computeMethod === 'height'){
-          that.data.picsize.height = windowHeight
-          that.data.picsize.width = windowHeight/value
-          that.data.previewsize.height = previewbox
-          that.data.previewsize.width = previewbox/value
-        } else {
-          that.data.picsize.width = windowWidth
-          that.data.picsize.height = windowWidth*value
-          that.data.previewsize.width = previewbox
-          that.data.previewsize.height = previewbox*value
-        }
         wx.showToast({
           title: '选取视频成功',
           icon: 'success',
@@ -157,8 +137,6 @@ Page({
           duration: res.duration,
           oldVideoSize: that.data.oldVideoSize,
           size: (res.size / (1024 * 1024)).toFixed(2),
-          picsize: that.data.picsize,
-          previewsize: that.data.previewsize
         })
         console.log(that.data.oldVideoSize)
         wx.showLoading({
@@ -236,17 +214,13 @@ Page({
     console.log('onHide')
     pasterNum = 0
   },
-  onUnload (e) {
-    console.log('onUnload')
-    innerAudioContext.pause()
-  },
   cancelFilter (e) {
     console.log('cancelFilter')
     this.data.uploadContent.filter = 'none'
     this.setData({
       showoption: 'flex',
       showfilter: 'none',
-      //showcover: 'flex',
+      showcover: 'flex',
       uploadContent: this.data.uploadContent
     })
   },
@@ -260,7 +234,7 @@ Page({
     this.setData({
       showoption: 'flex',
       showpaster: 'none',
-      //showcover: 'flex',
+      showcover: 'flex',
       uploadContent: this.data.uploadContent
     })
   },
@@ -271,7 +245,7 @@ Page({
     this.setData({
       showoption: 'flex',
       showmusic: 'none',
-      //showcover: 'flex',
+      showcover: 'flex',
       uploadContent: this.data.uploadContent
     })
   },
@@ -279,7 +253,7 @@ Page({
     console.log('goHome')
     innerAudioContext.stop()
     if(this.data.movableviewNum.length > 0){
-      //this.data.movableviewNum[0].display = 'none'
+      this.data.movableviewNum[0].display = 'none'
       this.data.uploadContent.tiezhi = this.data.movableviewNum[0].pic
     }
     // if(this.data.movableviewNum.length > 0){
@@ -302,7 +276,7 @@ Page({
       showfilter: 'none',
       showpaster: 'none',
       showmusic: 'none',
-      //showcover: 'flex',
+      showcover: 'flex',
       showmusiclists: this.data.showmusiclists,
       movableviewNum: this.data.movableviewNum,
       uploadContent: this.data.uploadContent
@@ -338,20 +312,20 @@ Page({
   //显示改变压条按钮
   showMovableView (e) {
     console.log('showMovableView')
-    // var str = e.target.id
-    // var pasternumid = this.data.movableviewNum.length
-    // for(let i=0;i<pasternumid;i++){
-    //   if(str === 'pic'+this.data.movableviewNum[i].id){
-    //     if(this.data.movableviewNum[i].display === 'flex'){
-    //       this.data.movableviewNum[i].display = 'none'
-    //     } else {
-    //       this.data.movableviewNum[i].display = 'flex'
-    //     }
-    //   }
-    // }
-    // this.setData({
-    //   movableviewNum: this.data.movableviewNum
-    // })
+    var str = e.target.id
+    var pasternumid = this.data.movableviewNum.length
+    for(let i=0;i<pasternumid;i++){
+      if(str === 'pic'+this.data.movableviewNum[i].id){
+        if(this.data.movableviewNum[i].display === 'flex'){
+          this.data.movableviewNum[i].display = 'none'
+        } else {
+          this.data.movableviewNum[i].display = 'flex'
+        }
+      }
+    }
+    this.setData({
+      movableviewNum: this.data.movableviewNum
+    })
   },
   moveMovableView (e) {
     console.log('moveMovableView')
@@ -390,35 +364,30 @@ Page({
   },
   endLocation (e) {
     console.log('endLocation')
+    console.log(this.data.movableviewNum)
   },
   nextStep (e) {
-    wx.showToast({
-      title: '滤镜效果需视频合成后可见',
-      mask: true,
-      icon: 'none',
-      duration: 3000
-    })
     this.videoContext1.play()
     this.videoContext1.pause()
     innerAudioContext.stop()
     if(this.data.movableviewNum.length > 0){
       //预览页贴纸位置
-      let publishValues = this.data.previewsize.height/this.data.picsize.height
-      this.data.publish.height = this.data.movableviewNum[0].height * publishValues
-      this.data.publish.width = this.data.movableviewNum[0].width * publishValues
-      this.data.publish.y = this.data.movableviewNum[0].y * publishValues
-      this.data.publish.x = this.data.movableviewNum[0].x * publishValues//- (windowWidth-9*windowHeight/16)/2) / publishValues + 483*windowWidth/2400
+      let publishValues = (75*windowHeight)/(69*windowWidth)
+      this.data.publish.height = this.data.movableviewNum[0].height / publishValues
+      this.data.publish.width = this.data.movableviewNum[0].width / publishValues
+      this.data.publish.y = this.data.movableviewNum[0].y / publishValues
+      this.data.publish.x = (this.data.movableviewNum[0].x - (windowWidth-9*windowHeight/16)/2) / publishValues + 483*windowWidth/2400
       //上传视频贴纸位置
-      let videoValues = this.data.oldVideoSize.height / this.data.picsize.height
+      let videoValues = this.data.oldVideoSize.height / windowHeight
       this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * videoValues
       this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * videoValues
       this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * videoValues
-      this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * videoValues// - (windowWidth-9*windowHeight/16)/2) * videoValues
+      this.data.uploadContent.tiezhi_x = (this.data.movableviewNum[0].x - (windowWidth-9*windowHeight/16)/2) * videoValues
     }
     console.log(this.data.publish)
     this.setData({
       //showwrappers: 'none',
-      showwrappers: 'hidden',
+      ssss: 'hidden',
       showpublish: 'flex',
       uploadContent: this.data.uploadContent,
       publish: this.data.publish
@@ -466,7 +435,7 @@ Page({
     this.setData({
       showoption: 'none',
       showpaster: 'flex',
-      //showcover: 'none'
+      showcover: 'none'
     })
     wx.request({
       url: api.sticker_type,
@@ -541,19 +510,19 @@ Page({
       }
     }
     //删除隐藏的压条
-    // for(let i=pasternumid-1;i>=0;i--){
-    //   //console.log(this.data.movableviewNum[i].show)
-    //   if(this.data.movableviewNum[i].show === 'none'){
-    //     this.data.movableviewNum.splice(i,1)
-    //     console.log(this.data.movableviewNum)
-    //   }
-    // }
+    for(let i=pasternumid-1;i>=0;i--){
+      //console.log(this.data.movableviewNum[i].show)
+      if(this.data.movableviewNum[i].show === 'none'){
+        this.data.movableviewNum.splice(i,1)
+        console.log(this.data.movableviewNum)
+      }
+    }
     var newpaster = {
       id:'movableview'+pasternumid,
       width: 80,
       height: 80,
-      //display: 'none',//左上角和右下角图标
-      //show: 'flex',//显示和隐藏贴纸
+      display: 'none',
+      show: 'flex',
       x: 0,
       y: 0,
       pic: pic}
@@ -640,7 +609,7 @@ Page({
       for(let i=0;i<length;i++){
         if(e.currentTarget.id === 'right'+this.data.showmusiclists[i].id){
           console.log('选他')
-          preInnerAudioContext.src = this.data.showmusiclists[i].music_url
+          //innerAudioContext.src = this.data.showmusiclists[i].music_url
           this.data.uploadContent.audio_url = this.data.showmusiclists[i].music_url
           //innerAudioContext.pause()
           this.data.uploadContent.audio_id = this.data.showmusiclists[i].id
@@ -684,7 +653,7 @@ Page({
         for(let k=0;k<length;k++){
           if(e.currentTarget.id === 'right'+this.data.showmusiclists[k].id){
             console.log('选他1')
-            preInnerAudioContext.src = this.data.showmusiclists[k].music_url
+            //innerAudioContext.src = this.data.showmusiclists[k].music_url
             this.data.uploadContent.audio_url = this.data.showmusiclists[k].music_url
             //innerAudioContext.pause()
             this.data.uploadContent.audio_id = this.data.showmusiclists[k].id
@@ -906,8 +875,7 @@ Page({
     console.log('pauseThis')
     if(videolock){
       this.videoContext1.pause()
-      //innerAudioContext.pause()
-      preInnerAudioContext.pause()
+      innerAudioContext.pause()
       this.setData({
         showpause: 'flex'
       })
@@ -919,8 +887,7 @@ Page({
   playThis (e) {
     console.log('playThis')
     this.videoContext1.play()
-    //innerAudioContext.play()
-    preInnerAudioContext.play()
+    innerAudioContext.play()
     videolock = true
     this.setData({
       showpause: 'none'
@@ -1000,8 +967,7 @@ Page({
   },
   videoend (e) {
     console.log('videoend')
-    //innerAudioContext.stop()
-    preInnerAudioContext.stop()
+    innerAudioContext.stop()
       videolock = false
       this.setData({
         showpause: 'flex'
@@ -1010,11 +976,10 @@ Page({
   cancelUploadContent (e) {
     console.log('cancelUploadContent')
     this.videoContext1.seek(0)
-    //innerAudioContext.stop()
-    preInnerAudioContext.stop()
+    innerAudioContext.stop()
     this.setData({
       //showwrappers: 'block',
-      showwrappers: 'visible',
+      ssss: 'visible',
       showpause: 'flex',
       showpublish: 'none',
     })

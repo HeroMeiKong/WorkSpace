@@ -10,9 +10,9 @@
         </view>
         <!--用户信息-->
         <view class="userInfo-box">
-            <view class="user-head" style="background-image: url({{userInfo.nick_pic}})"></view>
+            <view class="user-head" style="background-image: url({{real_userInfo.avatarUrl}})"></view>
             <view class="user-otherInfo">
-                <view class="user-name">{{userInfo.nick_name}}</view>
+                <view class="user-name">{{real_userInfo.nickName}}</view>
                 <view class="user-fans-attention">
                     <span class="user-num"  bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>
                     <span bindtap="goAttention" data-select="2">粉丝</span>
@@ -74,6 +74,8 @@
         </view>
         <!--暂无任何作品-->
         <view class="no-product"
-              wx:if="{{(select==1&&product_list.length==0)||(select==2&&like_list.length==0)}}"></view>
+              wx:if="{{(select==1&&product_none)||(select==2&&like_none)}}"></view>
     </view>
+    <!--提示-->
+    <view class="tips" hidden="{{hideTips}}">不能超过30字</view>
 </view>

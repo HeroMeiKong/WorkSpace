@@ -22,7 +22,7 @@ Page({
         video_more: true,
         video_list: [],
 
-        isIpx:false,
+        isIpx: false,
     },
 
     /**
@@ -40,7 +40,7 @@ Page({
             success: (res) => {
                 if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
-                        isIpx:true
+                        isIpx: true
                     })
                 }
             }
@@ -102,7 +102,7 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-        // this.getVideoList()
+        this.getVideoList()
     },
 
     /**
@@ -145,7 +145,7 @@ Page({
                         top_info: data.data
                     })
                 } else {
-                     wx.showToast({
+                    wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
@@ -180,7 +180,8 @@ Page({
                 "auth-token": wx.getStorageSync('loginSessionKey'),
             },
             data: {
-                topic_id: this.data.id
+                topic_id: this.data.id,
+                page: this.data.video_page,
             },
             success: (res) => {
                 const {data} = res;
@@ -203,7 +204,7 @@ Page({
                         fun && fun();
                     })
                 } else {
-                     wx.showToast({
+                    wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })

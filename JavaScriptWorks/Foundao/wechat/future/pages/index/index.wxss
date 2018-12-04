@@ -502,7 +502,7 @@
 
 .poster_layer{
     position: absolute;
-    z-index: 9;
+    z-index: 19;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,.6);
@@ -597,8 +597,27 @@
 }
 
 
+.swiper-box{
+    width: 100%;
+    height: 100%;
+}
 
+.swiper-image{
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
 
+video{
+    /*display: none;*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+}
 
 
 

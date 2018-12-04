@@ -17,13 +17,15 @@ Page({
         attention_page: 1,
         attention_more: true,
         attention_list: [],
+        attention_none: false,
 
         //粉丝喜欢
         fans_page: 1,
         fans_more: true,
         fans_list: [],
+        fans_none: false,
 
-        isIpx:false,
+        isIpx: false,
     },
 
     /**
@@ -67,11 +69,23 @@ Page({
             if (!this.data.hasInit) {
                 console.log('未初始化')
                 this.data.hasInit = true
-                this.getMyAttention()
-                this.getMyFans()
             } else {
                 console.log('已初始化')
             }
+
+            this.setData({
+                attention_page: 1,
+                attention_more: true,
+                attention_list: [],
+                attention_none: false,
+                fans_page: 1,
+                fans_more: true,
+                fans_list: [],
+                fans_none: false,
+            })
+
+            this.getMyAttention()
+            this.getMyFans()
         })
 
     },
@@ -148,8 +162,8 @@ Page({
             return
         }
 
-    wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -170,6 +184,16 @@ Page({
                     //判断是否有数据
                     if (data.data.length === 0) {
                         this.data.attention_more = false
+                        //判断第一页有无数据
+                        if (attention_page === 1) {
+                            this.setData({
+                                attention_none: true
+                            })
+                        } else {
+                            this.setData({
+                                attention_none: false
+                            })
+                        }
                         return
                     }
                     //设置作品数组
@@ -201,8 +225,8 @@ Page({
             return
         }
 
-    wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -223,6 +247,16 @@ Page({
                     //判断是否有数据
                     if (data.data.length === 0) {
                         this.data.fans_more = false
+                        //判断第一页有无数据
+                        if (fans_page === 1) {
+                            this.setData({
+                                fans_none: true
+                            })
+                        } else {
+                            this.setData({
+                                fans_none: false
+                            })
+                        }
                         return
                     }
                     //设置作品数组
@@ -247,13 +281,13 @@ Page({
     },
 
     //取消关注
-    cancel(e) {
+    cancel(e, my_uuid) {
         var other_data = e.currentTarget.dataset.data;
 
-    wx.showLoading({
-            mask:true
-        })
-        this.data.loading_num++;
+        // wx.showLoading({
+        //     mask: true
+        // })
+        // this.data.loading_num++;
 
         wx.request({
             url: api.del_fabulous,
@@ -264,31 +298,54 @@ Page({
             },
             data: {
                 type: 1,
-                uuid: other_data.other_uuid,               //用户uuid
+                uuid: my_uuid || other_data.other_uuid,               //用户uuid
                 // video_uuid: cur_video.video_uuid,
                 // select_id: cur_video.id,            //自增id
             },
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
+                    app.pubSub.emit('refreshStatus', my_uuid || other_data.other_uuid, 1)
                     //更新数据
-                    var temp_data = Tool.copyObj(this.data.attention_list)
-                    for (var i = 0; i < temp_data.length; i++) {
-                        if (temp_data[i].other_uuid == other_data.other_uuid) {
-                            temp_data.splice(i, 1)
-                            break
+                    if (my_uuid) {        //粉丝列表
+                        var temp_data = Tool.copyObj(this.data.fans_list)
+                        for (var i = 0; i < temp_data.length; i++) {
+                            if (temp_data[i].my_uuid == my_uuid) {
+                                temp_data[i].guanzhu = 2
+                                break
+                            }
                         }
+                        this.setData({
+                            fans_list: temp_data
+                        })
+                        //刷新关注列表
+                        setTimeout(() => {
+                            this.data.attention_page = 1;
+                            this.data.attention_list = [];
+                            this.data.attention_more = true;
+                            this.getMyAttention();
+                        }, 2000)
+                    } else {         //关注列表
+                        var temp_data = Tool.copyObj(this.data.attention_list)
+                        for (var i = 0; i < temp_data.length; i++) {
+                            if (temp_data[i].other_uuid == other_data.other_uuid) {
+                                temp_data.splice(i, 1)
+                                break
+                            }
+                        }
+                        this.setData({
+                            attention_list: temp_data
+                        })
+                        //刷新关注列表
+                        setTimeout(() => {
+                            this.data.fans_page = 1;
+                            this.data.fans_list = [];
+                            this.data.fans_more = true;
+                            this.getMyFans();
+                        }, 2000)
                     }
-                    this.setData({
-                        attention_list: temp_data
-                    })
-                    //刷新关注列表
-                    setTimeout(() => {
-                        this.data.fans_page = 1;
-                        this.data.fans_list = [];
-                        this.data.fans_more = true;
-                        this.getMyFans();
-                    }, 1000)
+
+
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -297,22 +354,23 @@ Page({
                 }
             },
             complete: () => {
-                this.data.loading_num--;
-                if (this.data.loading_num == 0) {
-                    wx.hideLoading()
-                }
+                // this.data.loading_num--;
+                // if (this.data.loading_num == 0) {
+                //     wx.hideLoading()
+                // }
             }
         })
     },
 
-    //关注
+    //关注（关注粉丝）
     attention(e) {
         var other_data = e.currentTarget.dataset.data;
 
-    wx.showLoading({
-            mask:true
-        })
-        this.data.loading_num++;
+        // wx.showLoading({
+        //     mask: true
+        // })
+        // this.data.loading_num++;
+
 
         wx.request({
             url: api.fabulous,
@@ -330,6 +388,7 @@ Page({
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
+                    app.pubSub.emit('refreshStatus', other_data.my_uuid, 2)
                     //更新数据
                     var temp_data = Tool.copyObj(this.data.fans_list)
                     for (var i = 0; i < temp_data.length; i++) {
@@ -356,12 +415,23 @@ Page({
                 }
             },
             complete: () => {
-                this.data.loading_num--;
-                if (this.data.loading_num == 0) {
-                    wx.hideLoading()
-                }
+                // this.data.loading_num--;
+                // if (this.data.loading_num == 0) {
+                //     wx.hideLoading()
+                // }
             }
         })
+    },
+
+    // 粉丝关注或取关
+    fans_click(e) {
+        var other_data = e.currentTarget.dataset.data;
+
+        if (other_data.guanzhu == 3) {      //取关
+            this.cancel(e, other_data.my_uuid)
+        } else {             //关注
+            this.attention(e)
+        }
     },
 
     //前往其他用户页

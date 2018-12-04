@@ -14,10 +14,13 @@
                bindtimeupdate="bindtimeupdate">
 
             <!--覆盖框-->
-            <cover-view class="cover-box" bindtap="videoClick">
+            <cover-view class="cover-box" bindtap="videoClick" wx:if="loaded">
 
-                <cover-image class="back-btn" catchtap="goBack"
-                             src="https://www.newscctv.net/dw/resource/future/1return4.png"></cover-image>
+                <cover-view class="back-btn  {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack">
+                    <cover-image class="back-btn-img"
+                                 src="https://www.newscctv.net/dw/resource/future/1return4.png"></cover-image>
+                </cover-view>
+
                 <!--话题-->
                 <!--<cover-view class="topic-box">-->
                 <!--&lt;!&ndash;话题icon&ndash;&gt;-->
@@ -73,7 +76,7 @@
                         <cover-image class="button-item-icon"
                                      catchtap="dislike"
                                      src="https://www.newscctv.net/dw/resource/future/1xihuan2@2x.png"
-                                     wx:else></cover-image>
+                                     wx:if="{{cur_video.is_zan!==1}}"></cover-image>
                         <cover-view class="button-item-text">喜欢</cover-view>
                     </cover-view>
                     <cover-view class="button-item share" catchtap="share">

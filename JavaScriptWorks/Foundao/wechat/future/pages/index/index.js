@@ -23,7 +23,7 @@ Page({
         touchDotY: 0,
         interval: null,//触发定时器
         touchTime: 0,//触摸时间
-        showVideo: false,//隐藏视频
+        hideVideo: false,//隐藏视频
         progress: 0,//时间进度
         btnStatus: false,//弹出框状态
         hideDiyTabBar: true,//隐藏自定义tabbar
@@ -64,6 +64,11 @@ Page({
 
         isIpx: false,
         fit: false,
+
+        switch_time: 600,
+        swiper_list: [],
+        swiper_current: 0,
+
     },
 
     /**
@@ -71,6 +76,12 @@ Page({
      */
     onLoad: function (options) {
         console.log('index onLoad')
+        app.pubSub.on('refreshStatus', (user_uuid, status) => {
+            this.refreshStatus(user_uuid, status);
+        });
+        app.pubSub.on('refreshVideo', (video_uuid, status) => {
+            this.refreshVideo(video_uuid, status);
+        });
         if (options.video_uuid) {
             this.data.first_uuid = options.video_uuid
             this.data.first_id = options.id
@@ -145,12 +156,14 @@ Page({
                     //如果是分享入口
                     this.getVideoData(this.data.first_uuid, this.data.first_id, () => {
                         this.getSpecialVideoList(() => {
-                            this.switchVideo(this.data.special_list[0])
+                            this.refreshSwiper(this.data.special_list)
+                            this.switchVideo(this.data.special_list[0], 0, true)
                         });
                     })
                 } else {
                     this.getSpecialVideoList(() => {
-                        this.switchVideo(this.data.special_list[0])
+                        this.refreshSwiper(this.data.special_list)
+                        this.switchVideo(this.data.special_list[0], 0, true)
                     });
                 }
 
@@ -160,6 +173,7 @@ Page({
                 // }, 2000)
             } else {
                 console.log('已初始化')
+                this.playVideo();
             }
 
         })
@@ -170,7 +184,7 @@ Page({
      */
     onHide: function () {
         this.pauseVideo();
-        this.stopVideo();
+        // this.stopVideo();
     },
 
     /**
@@ -309,9 +323,9 @@ Page({
     // 监控视频暂停
     bindpause() {
         // console.log('pause')
-        this.setData({
-            playing: false
-        })
+        // this.setData({
+        //     playing: false
+        // })
     },
 
     // 监控视频播放进度
@@ -346,6 +360,9 @@ Page({
         // console.log('video click')
         if (this.data.playing) {
             this.pauseVideo()
+            this.setData({
+                playing: false
+            })
         } else {
             this.playVideo()
         }
@@ -373,179 +390,6 @@ Page({
         })
     },
 
-    // 下滑
-    moveDown() {
-        const {cur_type, special_index, special_list, type_data} = this.data;
-        //判断下滑是否还有数据
-        if (parseInt(cur_type) === 0) {
-            //精选
-            if (special_index === 0) {
-                //到顶
-                console.log('到顶')
-                return
-            } else {
-                //下滑动画
-                this.moveDown_ani(() => {
-                    //播放下一个
-                    this.switchVideo(special_list[special_index - 1])
-                    this.data.special_index--
-                })
-            }
-        } else {
-            //分类
-            var temp_cur_data = type_data[cur_type]
-            if (temp_cur_data.index === 0) {
-                //到顶
-                console.log('到顶')
-                return
-            } else {
-                //下滑动画
-                this.moveDown_ani(() => {
-                    //播放下一个
-                    this.switchVideo(temp_cur_data.list[temp_cur_data.index - 1])
-                    type_data[cur_type].index--
-                })
-
-            }
-        }
-    },
-
-    // 下滑动画
-    moveDown_ani(fun) {
-        var time = 500
-        // 先隐藏video，显示出背景色
-        this.setData({
-            showVideo: true
-        }, () => {
-            this.animation.translateY(this.data.win_height * 1.2).step({duration: time})
-            this.setData({
-                animationData: this.animation.export()
-            })
-            setTimeout(() => {
-                this.reset(fun)
-            }, time)
-        })
-
-    },
-
-    // 上滑
-    moveUp() {
-        const {cur_type, special_index, special_list, type_data} = this.data;
-        //判断下滑是否还有数据
-        if (parseInt(cur_type) === 0) {
-            //精选
-            if (special_index === special_list.length - 1) {
-                //到底
-                console.log('到底')
-                return
-            } else {
-                //下滑动画
-                this.moveUp_ani(() => {
-                    //播放下一个
-                    this.switchVideo(special_list[special_index + 1])
-                    this.data.special_index++
-                })
-            }
-            //判断是否加载更多
-            if (special_index > special_list.length - 10) {
-                this.getSpecialVideoList()
-            }
-        } else {
-            //分类
-            var temp_cur_data = type_data[cur_type]
-            if (temp_cur_data.index === temp_cur_data.list.length - 1) {
-                //到底
-                console.log('到底')
-                return
-            } else {
-                //下滑动画
-                this.moveUp_ani(() => {
-                    //播放下一个
-                    this.switchVideo(temp_cur_data.list[temp_cur_data.index + 1])
-                    type_data[cur_type].index++
-                })
-            }
-            //判断是否加载更多
-            if (temp_cur_data.index > temp_cur_data.list.length - 10) {
-                this.getTypeVideoList(cur_type)
-            }
-        }
-    },
-
-    // 上滑动画
-    moveUp_ani(fun) {
-        var time = 500
-        // 先隐藏video，显示出背景色
-        this.setData({
-            showVideo: true
-        }, () => {
-            //再移动整个框体
-            this.animation.translateY(-this.data.win_height * 1.2).step({duration: time})
-            this.setData({
-                animationData: this.animation.export()
-            })
-            setTimeout(() => {
-                this.reset(fun)
-            }, time)
-        })
-
-    },
-
-    // 恢复到初始状态（目前只是显示视频）
-    reset(fun) {
-        this.setData({
-            showVideo: false
-        }, () => {
-            fun()
-        })
-        // this.animation.translateY(0).step({duration: 0})
-        // this.setData({
-        //     animationData: this.animation.export()
-        // })
-    },
-
-    // 触摸开始事件
-    touchStart: function (e) {
-        this.data.touchDotX = e.touches[0].pageX; // 获取触摸时的原点
-        this.data.touchDotY = e.touches[0].pageY;
-        // 使用js计时器记录时间
-        this.data.interval = setInterval(() => {
-            this.data.touchTime++;
-        }, 100);
-    },
-
-    // 触摸结束事件
-    touchEnd: function (e) {
-        let touchMoveX = e.changedTouches[0].pageX;
-        let touchMoveY = e.changedTouches[0].pageY;
-        let tmX = touchMoveX - this.data.touchDotX;
-        let tmY = touchMoveY - this.data.touchDotY;
-        if (this.data.touchTime < 20) {
-            let absX = Math.abs(tmX);
-            let absY = Math.abs(tmY);
-            if (absX > 2 * absY) {
-                if (tmX < -10) {
-                    console.log("左滑")
-                    this.switchToRecordList()
-                } else if (tmX > 10) {
-                    console.log("右滑")
-                }
-            }
-            if (absY > absX * 2) {
-                if (tmY < -10) {
-                    console.log("上滑")
-                    this.moveUp()
-                } else if (tmY > 10) {
-                    console.log("下滑")
-                    this.moveDown()
-                }
-
-            }
-        }
-        clearInterval(this.data.interval); // 清除setInterval
-        this.data.interval = null;
-        this.data.touchTime = 0;
-    },
 
     // 切换到录音页
     switchToDubbing() {
@@ -733,7 +577,8 @@ Page({
 
                     //如果是第一次，播放视频
                     if (isFirst) {
-                        this.switchVideo(temp_data.list[0])
+                        this.refreshSwiper(temp_data.list, 0)
+                        this.switchVideo(temp_data.list[0], 0)
                     }
 
                 } else {
@@ -811,7 +656,8 @@ Page({
             //如果有切换视频
             var index = type_data[data.id].index
             var video_data = type_data[data.id].list[index]
-            this.switchVideo(video_data)
+            this.refreshSwiper(type_data[data.id].list, index)
+            this.switchVideo(video_data, index)
         } else {
             //如果没有则需要去取
             this.getTypeVideoList(data.id)
@@ -824,41 +670,10 @@ Page({
         this.setData({
             cur_type: 0
         })
-        this.switchVideo(special_list[special_index])
+        this.refreshSwiper(special_list, special_index)
+        this.switchVideo(special_list[special_index], special_index)
     },
 
-    // 切换视频
-    switchVideo(data) {
-        const {width2, height2} = data;
-        var fit_temp = false;
-        if (width2 / height2 < 0.6) {
-            fit_temp = true
-        } else {
-            fit_temp = false
-        }
-        this.setData({
-            fit: fit_temp
-        }, () => {
-            this.setData({
-                playing: true,
-                cur_video: data,
-                fit: fit_temp,
-            }, () => {
-                this.animation.translateY(0).step({duration: 0})
-                this.setData({
-                    animationData: this.animation.export()
-                })
-                // setTimeout(() => {
-                //     wx.showToast({
-                //         title: '' + fit_temp,
-                //     })
-                //     this.setData({
-                //         fit: fit_temp
-                //     })
-                // }, 5000)
-            })
-        })
-    },
 
     // 关注
     fabulous() {
@@ -1279,6 +1094,12 @@ Page({
 
     // 更新其他视频里的关注状态
     refreshStatus(user_uuid, status) {
+        if (user_uuid == this.data.cur_video.uuid) {//就是当前该视频
+            this.data.cur_video.is_follow = status
+            this.setData({
+                cur_video: this.data.cur_video
+            })
+        }
         for (var i = 0; i < this.data.special_list.length; i++) {
             var temp = this.data.special_list[i]
             if (user_uuid == temp.uuid) {
@@ -1298,6 +1119,12 @@ Page({
 
     // 更新其他视频里的点赞状态
     refreshVideo(video_uuid, status) {
+        if (video_uuid == this.data.cur_video.video_uuid) { //就是当前该视频
+            this.data.cur_video.is_zan = status
+            this.setData({
+                cur_video: this.data.cur_video
+            })
+        }
         for (var i = 0; i < this.data.special_list.length; i++) {
             var temp = this.data.special_list[i]
             if (video_uuid == temp.video_uuid) {
@@ -1313,6 +1140,169 @@ Page({
                 }
             }
         }
+    },
+
+
+    ///////////////////////滑动相关///////////////////////
+    // 切换视频
+    switchVideo(data, index, isfirst) {
+        const {width2, height2} = data;
+        var fit_temp = false;   //播放器适配方式
+        if (width2 / height2 < 0.6) {
+            fit_temp = true
+        } else {
+            fit_temp = false
+        }
+        this.setData({
+            fit: fit_temp
+        }, () => {
+            if (isfirst) {
+                //第一次初始化
+                this.setData({
+                    // playing: true,
+                    cur_video: data,
+                    fit: fit_temp,
+                })
+            } else {
+                //隐藏视频，重置视频源，并滑动swiper;滑动结束后，显示视频
+                this.setData({
+                    // playing: true,
+                    cur_video: data,
+                    fit: fit_temp,
+                    hideVideo: true,
+                    swiper_current: index || 0
+                }, () => {
+                    // 显示视频
+                    setTimeout(() => {
+                        this.setData({
+                            hideVideo: false
+                        }, () => {
+                            this.playVideo()
+                        })
+                    }, this.data.switch_time)
+                })
+            }
+
+        })
+    },
+
+    // 下滑
+    moveDown() {
+        const {cur_type, special_index, special_list, type_data} = this.data;
+        //判断下滑是否还有数据
+        if (parseInt(cur_type) === 0) {
+            //精选
+            if (special_index === 0) {
+                //到顶
+                console.log('到顶')
+                return
+            } else {
+                this.switchVideo(special_list[special_index - 1], special_index - 1)
+                this.data.special_index--
+            }
+        } else {
+            //分类
+            var temp_cur_data = type_data[cur_type]
+            if (temp_cur_data.index === 0) {
+                //到顶
+                console.log('到顶')
+                return
+            } else {
+                this.switchVideo(temp_cur_data.list[temp_cur_data.index - 1], temp_cur_data.index - 1)
+                type_data[cur_type].index--
+            }
+        }
+    },
+
+    // 上滑
+    moveUp() {
+        const {cur_type, special_index, special_list, type_data} = this.data;
+        //判断下滑是否还有数据
+        if (parseInt(cur_type) === 0) {
+            //精选
+            if (special_index === special_list.length - 1) {
+                //到底
+                console.log('到底')
+                return
+            } else {
+                this.switchVideo(special_list[special_index + 1], special_index + 1)
+                this.data.special_index++
+            }
+            //判断是否加载更多
+            if (special_index > special_list.length - 10) {
+                this.getSpecialVideoList()
+            }
+        } else {
+            //分类
+            var temp_cur_data = type_data[cur_type]
+            if (temp_cur_data.index === temp_cur_data.list.length - 1) {
+                //到底
+                console.log('到底')
+                return
+            } else {
+                this.switchVideo(temp_cur_data.list[temp_cur_data.index + 1], temp_cur_data.index + 1)
+                type_data[cur_type].index++
+            }
+            //判断是否加载更多
+            if (temp_cur_data.index > temp_cur_data.list.length - 10) {
+                this.getTypeVideoList(cur_type)
+            }
+        }
+    },
+
+    // 触摸开始事件
+    touchStart: function (e) {
+        this.data.touchDotX = e.touches[0].pageX; // 获取触摸时的原点
+        this.data.touchDotY = e.touches[0].pageY;
+        // 使用js计时器记录时间
+        this.data.interval = setInterval(() => {
+            this.data.touchTime++;
+        }, 100);
+    },
+
+    // 触摸结束事件
+    touchEnd: function (e) {
+        let touchMoveX = e.changedTouches[0].pageX;
+        let touchMoveY = e.changedTouches[0].pageY;
+        let tmX = touchMoveX - this.data.touchDotX;
+        let tmY = touchMoveY - this.data.touchDotY;
+        if (this.data.touchTime < 20) {
+            let absX = Math.abs(tmX);
+            let absY = Math.abs(tmY);
+            if (absX > 1 * absY) {
+                if (tmX < -10) {
+                    console.log("左滑")
+                    this.switchToRecordList()
+                } else if (tmX > 10) {
+                    console.log("右滑")
+                }
+            }
+            if (absY > absX * 1) {
+                if (tmY < -1) {
+                    console.log("上滑")
+                    this.moveUp()
+                } else if (tmY > 1) {
+                    console.log("下滑")
+                    this.moveDown()
+                }
+
+            }
+        }
+        clearInterval(this.data.interval); // 清除setInterval
+        this.data.interval = null;
+        this.data.touchTime = 0;
+    },
+
+    // 刷新swiper
+    refreshSwiper(list, index) {
+        var pic_list = []
+        for (var i = 0; i < list.length; i++) {
+            pic_list.push(list[i].pic)
+        }
+        this.setData({
+            swiper_list: pic_list,
+            swiper_current: index || 0
+        })
     },
 })
 

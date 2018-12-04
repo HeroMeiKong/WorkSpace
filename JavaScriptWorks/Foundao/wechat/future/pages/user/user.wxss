@@ -73,6 +73,13 @@
     line-height: 38rpx;
     color: #ffffff;
     font-weight: bold;
+    width: 500rpx;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:1;
 }
 
 .user-fans-attention{
@@ -298,7 +305,18 @@
     color: #333333;
 }
 
-
+.tips{
+    position:absolute;
+    top:350rpx;
+    left:50%;
+    transform:translateX(-50%);
+    padding:20rpx;
+    font-size:26rpx;
+    color:#FFFFFF;
+    border-radius:6rpx;
+    background-color:rgba(0,0,0,.2);
+    z-index:99;
+}
 
 
 

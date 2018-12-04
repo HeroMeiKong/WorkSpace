@@ -1,6 +1,7 @@
 const promisify = require('../../utils/promisify');
 import httpRequest from '../../utils/httpRequest';
 import api from './../../config/api';
+import Tool from './../../utils/util';
 
 const app = getApp()
 
@@ -25,13 +26,18 @@ Page({
         userInfo: {},
         qr_code_url: '',
         is_user: 0,
+        examine: 1,
 
         video_uuid: '',
 
-        cur_video: {},
+        cur_video: {
+            is_zan: 1
+        },
 
         isIpx: false,
         fit: false,
+
+        loaded:false
     },
 
     /**
@@ -42,7 +48,8 @@ Page({
             this.data.video_uuid = options.video_uuid
             this.data.video_id = options.id
             this.setData({
-                is_user: options.user || 0
+                is_user: options.user || 0,
+                examine: options.examine || 1
             })
             // this.data.user = options.user
         } else {
@@ -133,7 +140,7 @@ Page({
             uniqueid: this.data.video_uuid
         }
         app.statistics_pv(options)
-        if (this.data.is_user) {
+        if (this.data.is_user && this.data.examine == 1) {
             return {
                 title: '我在PK解说员里玩配音拍视频，现在邀你来玩哦~',
                 path: '/pages/index/index',
@@ -147,7 +154,7 @@ Page({
                 path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
                 imageUrl: this.data.cur_video.pic,
             }
-        } else if (res.from === 'menu') {
+        } else {
             return {
                 title: this.data.cur_video.video_desc,
                 path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
@@ -270,8 +277,8 @@ Page({
 
     // 获取视频数据
     getVideoData(video_uuid, id) {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -302,6 +309,10 @@ Page({
                     this.setData({
                         cur_video: data.data,
                         fit: fit_temp,
+                    },()=>{
+                        this.setData({
+                            loaded:true
+                        })
                     })
                 } else {
                     wx.showToast({
@@ -324,8 +335,8 @@ Page({
 
     // 关注
     fabulous() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -371,8 +382,8 @@ Page({
 
     // 取消关注
     del_fabulous() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -418,8 +429,8 @@ Page({
 
     // 喜欢
     like() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -444,6 +455,7 @@ Page({
                     this.setData({
                         cur_video: this.data.cur_video
                     })
+                    this.refreshVideo(cur_video.video_uuid,2)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -465,8 +477,8 @@ Page({
 
     // 不喜欢
     dislike() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -491,6 +503,7 @@ Page({
                     this.setData({
                         cur_video: this.data.cur_video
                     })
+                    this.refreshVideo(cur_video.video_uuid,1)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -741,4 +754,16 @@ Page({
             url: '/pages/user/user'
         })
     },
+
+    //更新主页的点赞数据
+    refreshVideo(video_uuid,status){
+        var pages = getCurrentPages();
+        for(var i=0;i<pages.length;i++){
+            var page_temp = pages[i]
+            if(page_temp.route == 'pages/index/index'){
+                page_temp.refreshVideo(video_uuid,status)
+                return
+            }
+        }
+    }
 })

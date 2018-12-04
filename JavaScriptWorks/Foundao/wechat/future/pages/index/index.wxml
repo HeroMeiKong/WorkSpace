@@ -1,12 +1,22 @@
 <!--pages/video.wxml-->
 <view class="videoItem-videoBox">
-    <view class="video-box" animation="{{animationData}}"
-          style="background-image: url({{cur_video.pic}});">
-        <video controls="{{false}}"
+    <swiper class="swiper-box" duration="{{switch_time}}" vertical="true" current="{{swiper_current}}">
+        <block wx:for="{{swiper_list}}">
+            <swiper-item>
+                <view class="swiper-image" style="background-image: url({{item}})"/>
+            </swiper-item>
+        </block>
+    </swiper>
+    <!--滑动区域-->
+    <!--<view class="video-box" animation="{{animationData}}"-->
+          <!--style="background-image: url({{cur_video.pic}});">-->
+        <!--视频区域-->
+        <video show-center-play-btn="{{false}}"
+               controls="{{false}}"
                autoplay="{{true}}"
-               hidden="{{showVideo}}"
+               hidden="{{hideVideo}}"
                src="{{cur_video.video_url}}"
-               poster=""
+               poster="{{cur_video.pic}}"
                loop="{{true}}"
                id="video"
                objectFit="{{fit?'cover':'contain'}}"
@@ -36,7 +46,7 @@
                 <!--</cover-view>-->
                 <!--按钮-->
                 <cover-image class="play-btn" src="https://www.newscctv.net/dw/resource/future/1play.png"
-                             wx:if="{{!playing&&hasPlayed}}"></cover-image>
+                             hidden="{{!(!playing&&hasPlayed)}}"></cover-image>
                 <!--按钮组-->
                 <cover-view class="button-box">
                     <!--挑战+喜欢+分享-->
@@ -81,7 +91,7 @@
                     </cover-view>
                     <!--简介-->
                     <cover-view class="content" catchtap="goSubjectDetail">
-                        #{{cur_video.sub_title}}  {{cur_video.video_desc}}
+                        #{{cur_video.sub_title}} {{cur_video.video_desc}}
                         <!--<cover-view class="content-text">#{{cur_video.sub_title}}</cover-view>-->
                         <!--<cover-view class="content-text">{{cur_video.video_desc}}</cover-view>-->
                     </cover-view>
@@ -135,7 +145,7 @@
             </cover-view>
 
             <!--分享浮层-->
-            <cover-view class="poster_layer" wx:if="{{show_share}}" bindtap="close_poster_layer">
+            <cover-view class="poster_layer" hidden="{{!show_share}}" bindtap="close_poster_layer">
                 <!--选项-->
                 <cover-view class="select-box" wx:if="{{show_select}}">
                     <!--<cover-view class="select-text">分享到</cover-view>-->
@@ -155,6 +165,6 @@
 
         <!--canvas-->
         <canvas class="canvas_poster" canvas-id="canvas_poster"></canvas>
-    </view>
+    <!--</view>-->
 </view>
 <!--https://s-js.sports.cctv.com/yyh/material/2018/08/29/7c24bf26afb3d50624af6d6bf391ed7e.mp4-->

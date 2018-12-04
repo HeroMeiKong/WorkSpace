@@ -90,6 +90,8 @@ Page({
         isIpx: false,
         break_record: false,
         fit: false,
+
+        record_shake: false,
     },
 
     /**
@@ -315,6 +317,7 @@ Page({
         this.stopInterval();
     },
 
+    // 停止录音
     breakRecord() {
         this.data.break_record = true;
         this.data.recorderManager.stop();
@@ -444,8 +447,8 @@ Page({
         // 录音结束
         this.data.recorderManager.onStop((res) => {
             console.log('recorder stop');
-            if (this.data.break_record) {
-                this.data.break_record = false
+            if (this.data.break_record) {       //主动停止
+                this.data.break_record = false;
                 this.videoContext.pause();
                 return
             }
@@ -565,6 +568,12 @@ Page({
         this.data.innerAudioContext.src = src;
     },
 
+    //重新开始
+    reStart(){
+        this.breakRecord();
+        this.reRecord();
+    },
+
     // 重新录制
     reRecord() {
         wx.hideLoading();
@@ -594,6 +603,8 @@ Page({
             // lyric_animationData: this.animation.export()
         })
     },
+
+
 
     // 合成
     compose() {
@@ -829,6 +840,15 @@ Page({
 
     // 开始录音
     startRecord() {
+        if (this.data.record_shake) {
+            return
+        } else {
+            this.data.record_shake = true
+            setTimeout(() => {
+                this.data.record_shake = false
+            }, 2000)
+        }
+
         const getSetting = promisify(wx.getSetting);
         // 判断用户是否有录音权限
         getSetting().then(resp => {

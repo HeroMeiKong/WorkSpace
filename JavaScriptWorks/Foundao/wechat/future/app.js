@@ -1,10 +1,16 @@
 //app.js
 import api from './config/api';
+import PubSub from "./utils/pubSub";
 
 const promisify = require('./utils/promisify');
+const ald = require('./utils/ald-stat');
+const pubSub = require('./utils/pubSub');
 const wxRequest = promisify(wx.request);
 
+
+
 App({
+    pubSub: new PubSub(),
     onLaunch: function (options) {
         //渠道码
         this.globalData.pt = options.query.pt || '';

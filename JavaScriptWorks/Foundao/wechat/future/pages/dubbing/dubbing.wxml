@@ -17,11 +17,13 @@
         <!--覆盖框-->
         <cover-view class="cover-box"></cover-view>
 
-        <cover-image class="back-btn {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack"
-                     src="https://www.newscctv.net/dw/resource/future/1return4.png"></cover-image>
+        <cover-view class="back-btn {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack">
+            <cover-image class="back-btn-img"
+                         src="https://www.newscctv.net/dw/resource/future/1return4.png"></cover-image>
+        </cover-view>
 
         <!--字幕及字幕背景-->
-        <cover-view class="lyric-box" wx:if="{{!is_dubEnd && isDubbing}}">
+        <cover-view class="lyric-box" hidden="{{!(!is_dubEnd && isDubbing)}}">
             <cover-view class="icon-box">
                 <cover-image class="left icon"
                              src="https://www.newscctv.net/dw/resource/future/3pointerl@2x.png"></cover-image>
@@ -34,10 +36,10 @@
             <!--<cover-view class="line">{{lyric_3}}</cover-view>-->
         </cover-view>
         <cover-image class="lyric-bg" src="https://www.newscctv.net/dw/resource/future/3mengban@2x.png"
-                     wx:if="{{!is_dubEnd && isDubbing}}"></cover-image>
+                     hidden="{{!(!is_dubEnd && isDubbing)}}"></cover-image>
 
         <!--开始录音-->
-        <cover-view class="ready-status status-box" wx:if="{{!is_dubEnd && !isDubbing}}">
+        <cover-view class="ready-status status-box" hidden="{{!(!is_dubEnd && !isDubbing)}}">
             <cover-view class="over-item">
                 <cover-image src="https://www.newscctv.net/dw/resource/future/1peiyin1@2x.png"
                              class="middle-btn"
@@ -46,7 +48,7 @@
             </cover-view>
         </cover-view>
         <!--暂停录音-->
-        <cover-view class="recording-status status-box" wx:if="{{!is_dubEnd && isDubbing && !isPaused}}">
+        <cover-view class="recording-status status-box" hidden="{{!(!is_dubEnd && isDubbing && !isPaused)}}">
             <cover-view class="dub-time">{{filters.toFix((total_time - current_time)/1000)}}</cover-view>
             <cover-view class="over-item">
                 <cover-image src="https://www.newscctv.net/dw/resource/future/3pause@2x.png"
@@ -54,9 +56,16 @@
                              bindtap="pauseRecord"></cover-image>
                 <cover-view class="text"></cover-view>
             </cover-view>
+            <!--重新开始-->
+            <cover-view class="over-item restart-btn">
+                <cover-image src="https://www.newscctv.net/dw/resource/future/3again@2x.png"
+                             class="small-btn"
+                             bindtap="reStart"></cover-image>
+                <cover-view class="text"></cover-view>
+            </cover-view>
         </cover-view>
         <!--继续录音-->
-        <cover-view class="pause-status status-box" wx:if="{{!is_dubEnd && isDubbing && isPaused}}">
+        <cover-view class="pause-status status-box" hidden="{{!(!is_dubEnd && isDubbing && isPaused)}}">
             <cover-view class="dub-time">{{filters.toFix((total_time - current_time)/1000)}}</cover-view>
             <cover-view class="over-item">
                 <cover-image src="https://www.newscctv.net/dw/resource/future/3goon@2x.png"
@@ -64,9 +73,16 @@
                              bindtap="continueRecord"></cover-image>
                 <cover-view class="text"></cover-view>
             </cover-view>
+            <!--重新开始-->
+            <cover-view class="over-item restart-btn">
+                <cover-image src="https://www.newscctv.net/dw/resource/future/3again@2x.png"
+                             class="small-btn"
+                             bindtap="reStart"></cover-image>
+                <cover-view class="text"></cover-view>
+            </cover-view>
         </cover-view>
         <!--录音结束-->
-        <cover-view class="over-status status-box" wx:if="{{is_dubEnd}}">
+        <cover-view class="over-status status-box" hidden="{{!is_dubEnd}}">
             <cover-view class="over-item">
                 <cover-image src="https://www.newscctv.net/dw/resource/future/3again@2x.png"
                              class="small-btn"
@@ -89,7 +105,7 @@
 
 
         <!-- 合成浮层-->
-        <cover-view class="compose_layer" wx:if="{{show_compose_layer}}">
+        <cover-view class="compose_layer" hidden="{{!show_compose_layer}}">
             <!--合成中-->
             <cover-view class="composeing" wx:if="{{is_composeing}}">
                 <!--<cover-view class="composeing_icon"></cover-view>-->
@@ -129,14 +145,15 @@
 
 
         <!--邀请配音-->
-        <cover-view class="open-canvas-btn {{isIpx?'iphoneX-open-canvas-btn':''}}" hidden="{{isDubbing}}" bindtap="create_poster">
+        <cover-view class="open-canvas-btn {{isIpx?'iphoneX-open-canvas-btn':''}}" hidden="{{isDubbing}}"
+                    bindtap="create_poster">
             <cover-image class="open-canvas-btn-img"
                          src="https://www.newscctv.net/dw/resource/future/2attention1@2x.png"></cover-image>
             <cover-view class="open-canvas-btn-text">邀请配音</cover-view>
         </cover-view>
 
         <!--海报浮层-->
-        <cover-view class="poster_layer" wx:if="{{show_poster}}" bindtap="close_poster_layer">
+        <cover-view class="poster_layer" hidden="{{!show_poster}}" bindtap="close_poster_layer">
             <cover-view class="save_poster">
                 <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
                 <cover-view class="text">保存图片，分享给你的小伙伴吧</cover-view>

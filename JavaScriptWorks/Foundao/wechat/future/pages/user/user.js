@@ -10,6 +10,7 @@ Page({
      */
     data: {
         userInfo: {},
+        real_userInfo: {},
         hasInit: false,//是否初始化
         loading_num: 0,
         select: 1,//1-作品，2-喜欢
@@ -18,13 +19,17 @@ Page({
         product_page: 1,
         product_more: true,
         product_list: [],
+        product_none: false,
 
         //喜欢
         like_page: 1,
         like_more: true,
         like_list: [],
+        like_none: false,
 
         isIpx: false,
+
+        hideTips: true
     },
 
     /**
@@ -136,6 +141,14 @@ Page({
         })
         this.data.loading_num++;
 
+        wx.getUserInfo({
+            success: (res) => {
+                this.setData({
+                    real_userInfo: res.userInfo
+                })
+            }
+        })
+
         wx.request({
             url: api.my_home,
             method: 'POST',
@@ -201,6 +214,16 @@ Page({
                     //判断是否有数据
                     if (data.data.length === 0) {
                         this.data.product_more = false
+                        //判断第一页有无数据
+                        if (product_page === 1) {
+                            this.setData({
+                                product_none: true
+                            })
+                        } else {
+                            this.setData({
+                                product_none: false
+                            })
+                        }
                         return
                     }
                     //设置作品数组
@@ -255,6 +278,16 @@ Page({
                     //判断是否有数据
                     if (data.data.length === 0) {
                         this.data.like_more = false
+                        //判断第一页有无数据
+                        if (like_page === 1) {
+                            this.setData({
+                                like_none: true
+                            })
+                        } else {
+                            this.setData({
+                                like_none: false
+                            })
+                        }
                         return
                     }
                     //设置作品数组
@@ -301,8 +334,9 @@ Page({
         // if (data.hasOwnProperty('examine') && data.examine != 3) {
         //     return
         // }
+        var examine = data.examine || 1;
         wx.navigateTo({
-            url: '/pages/video/video?video_uuid=' + data.video_uuid + '&id=' + data.id + (user ? '&user=1' : ''),
+            url: '/pages/video/video?video_uuid=' + data.video_uuid + '&id=' + data.id + (user ? ('&user=1&examine=' + examine) : ''),
         })
 
     },
@@ -312,12 +346,13 @@ Page({
         var value = e.detail.value
 
         if (value.length > 30) {
-            wx.showToast({
-                title: '不能超过30字'
-            })
+            // wx.showToast({
+            //     title: '不能超过30字'
+            // })
             this.data.userInfo.user_autograph = value.slice(0, 30)
             this.setData({
-                userInfo: this.data.userInfo
+                userInfo: this.data.userInfo,
+                hideTips: false,
             })
         }
     },

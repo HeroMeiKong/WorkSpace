@@ -50,8 +50,8 @@ cover-image {
 
 /* screenshot */
 .screenshot {
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
   z-index: 1;
   position: relative;
 }
@@ -388,12 +388,17 @@ swiper-item {
   top: 0;
   left: 0;
 }
-
-#myVideo1 {
+.videowrapper{
   width: 690rpx;
   /* 莫乱改，与后面计算贴纸位置有关 */
   height: 690rpx;
   /* 莫乱改，与后面计算贴纸位置有关 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#myVideo1 {
   border-radius: 14rpx;
   position: relative;
 }
