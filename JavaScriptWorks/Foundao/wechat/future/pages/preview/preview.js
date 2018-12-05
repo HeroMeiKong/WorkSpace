@@ -40,6 +40,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isIpx: false,
     showwrappers: 'visible',
     picsize: {height: 0,width: 0}, //图片的大小
     previewsize: {height: 0,width: 0},//预览视频的大小
@@ -69,7 +70,7 @@ Page({
     musics: [],
     musicbegin: 0,
     musiclists: [],
-    showVideo: {isvideo:'none',notvidoe:'flex'},  //值为flex或者none
+    //showVideo: {isvideo:'none',notvidoe:'flex'},  //值为flex或者none
     showmusiclists: [],
     //showwrappers: 'block',   //值为block或者none
     //showcover: 'flex',//遮罩层
@@ -107,10 +108,20 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         console.log(res)
-        windowWidth = res.windowWidth
-        windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.8
-        that.data.oldCoordinatey = 122 * windowWidth / 750
-        previewbox = 69*windowWidth/75
+        if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
+          windowWidth = res.windowWidth
+          windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.8
+          that.data.oldCoordinatey = 186 * windowWidth / 750
+          previewbox = 69*windowWidth/75
+          that.setData({
+              isIpx: true
+          })
+        } else {
+          windowWidth = res.windowWidth
+          windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.8
+          that.data.oldCoordinatey = 122 * windowWidth / 750
+          previewbox = 69*windowWidth/75
+        }
       }
     })
     console.log(windowHeight)
@@ -120,7 +131,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.videoContext = wx.createVideoContext('myVideo')
     this.videoContext1 = wx.createVideoContext('myVideo1')
     console.log('onReady')
     console.log('选取本地视频')
@@ -182,13 +192,39 @@ Page({
           wx.showToast({
             title: '视频超过100M！',
             duration: 1500,
+            mask: true
           })
+          const timers = setTimeout(()=>{
+            wx.navigateBack({
+              delta: 1
+            });
+            clearInterval(timers)
+          },1500)
         } else {
           if (that.data.duration > 30) {
             wx.showToast({
               title: '视频超过30s！',
               duration: 1500,
+              mask: true
             })
+            const timers = setTimeout(()=>{
+              wx.navigateBack({
+                delta: 1
+              });
+              clearInterval(timers)
+            },1500)
+          } else if (that.data.duration < 10) {
+            wx.showToast({
+              title: '视频时间太短！',
+              duration: 1500,
+              mask: true
+            })
+            const timers = setTimeout(()=>{
+              wx.navigateBack({
+                delta: 1
+              });
+              clearInterval(timers)
+            },1500)
           } else {
             //上传视频， 取得视频服务器地址
             wx.uploadFile({
@@ -235,11 +271,40 @@ Page({
   onHide (e) {
     console.log('onHide')
     pasterNum = 0
+    temparray = []
+    musiclistcontent = []
+    const length = this.data.musiclists.length
+    for(let i=0;i<length;i++){
+      this.data.musiclists[i].forEach(element => {
+        element.leftimg = musicpic.playimg
+        element.rightimg = musicpic.addimg
+      });
+    }
+    this.data.showmusiclists = []
+    this.setData({
+      musiclists: this.data.musiclists,
+      showmusiclists: this.data.showmusiclists
+    })
   },
   onUnload (e) {
     console.log('onUnload')
     pasterNum = 0
+    temparray = []
+    musiclistcontent = []
     innerAudioContext.pause()
+    preInnerAudioContext.pause()
+    const length = this.data.musiclists.length
+    for(let i=0;i<length;i++){
+      this.data.musiclists[i].forEach(element => {
+        element.leftimg = musicpic.playimg
+        element.rightimg = musicpic.addimg
+      });
+    }
+    this.data.showmusiclists = []
+    this.setData({
+      musiclists: this.data.musiclists,
+      showmusiclists: this.data.showmusiclists
+    })
   },
   cancelFilter (e) {
     console.log('cancelFilter')
@@ -392,6 +457,7 @@ Page({
     console.log('endLocation')
   },
   nextStep (e) {
+    console.log('nextStep')
     wx.showToast({
       title: '滤镜效果需视频合成后可见',
       mask: true,
@@ -660,11 +726,15 @@ Page({
     } else {
       //已经添加音乐
       for(let i=0;i<length;i++){
-        if(this.data.showmusiclists[i].id === e.currentTarget.id && this.data.showmusiclists[i].rightimg === musicpic.cancelimg){
+        if('right'+this.data.showmusiclists[i].id === e.currentTarget.id && this.data.showmusiclists[i].rightimg === musicpic.cancelimg){
           samesong = true
+          break
         } else {
           samesong = false
         }
+        console.log(this.data.showmusiclists[i].id)
+        console.log(e.currentTarget.id)
+        console.log(samesong)
       }
       for(let j=0;j<musiclistslength;j++){
         if(this.data.musiclists[j][0].music_type_id === tempmusictype){
@@ -679,6 +749,12 @@ Page({
         //是同一首歌
         addmusiclock = false
         tempmusictype = -1
+        preInnerAudioContext.src = ''
+        this.data.uploadContent.audio_id = ''
+        this.data.uploadContent.audio_url = ''
+        this.setData({
+          uploadContent: this.data.uploadContent
+        })
       } else {
         //不是同一首歌
         for(let k=0;k<length;k++){
@@ -791,6 +867,7 @@ Page({
                 console.log('111')
                 this.data.showmusiclist = 'flex'
                 this.data.showmusiclists = this.data.musiclists[i]
+                console.log(this.data.musiclists[i])
                 console.log(musiclistcontent)
               } else {
                 console.log('222')
@@ -815,6 +892,7 @@ Page({
         });
       }
       oldmusiclist.id = e.currentTarget.id
+      console.log(this.data.showmusiclists)
       this.setData({
         showmusiclists: this.data.showmusiclists,
         showmusiclist: this.data.showmusiclist,
@@ -824,6 +902,7 @@ Page({
     }
   },
   uploadContent (e) {
+    console.log('uploadContent')
     let that = this
     this.videoContext1.pause()
     preInnerAudioContext.pause()

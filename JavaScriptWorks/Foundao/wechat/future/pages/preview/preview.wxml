@@ -14,13 +14,9 @@
           </movable-view>
         </block>
       </movable-area>
-      <view class="previewpic" style="display:{{showVideo.notvideo}}">
+      <view class="previewpic">
         <image style="width:{{picsize.width}}px;height:{{picsize.height}}px;" src="{{previewpic}}"></image>
       </view>
-      <video id="myVideo" objectFit="fill" controls="{{false}}" class="coverimagewrapper" src="{{tempFilePath}}" style="display:{{showVideo.isvideo}}">
-        <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
-        style="width:{{movableviewNum[0].width}}px;height:{{movableviewNum[0].height}}px;left:{{movableviewNum[0].x}}px;top:{{movableviewNum[0].y}}px"></cover-image>
-      </video>
       <!-- <view class="cover" style="display:{{showcover}}"></view>遮罩层 -->
     </view>
     <view class="bottom">
@@ -125,7 +121,7 @@
       </view>
     </view>
   </view>
-  <view class="publish" style="display:{{showpublish}}">
+  <view class="{{isIpx?'iphoneXpublish':'publish'}}" style="display:{{showpublish}}">
     <view class="videowrapper">
       <video id="myVideo1" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{true}}">
         <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
