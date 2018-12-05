@@ -238,6 +238,7 @@ Page({
   },
   onUnload (e) {
     console.log('onUnload')
+    pasterNum = 0
     innerAudioContext.pause()
   },
   cancelFilter (e) {
@@ -291,7 +292,6 @@ Page({
     //   this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
     // }
     const length = this.data.showmusiclists.length
-    console.log(this.data.showmusiclists)
     for(let i=0;i<length;i++){
       if(this.data.showmusiclists[i].leftimg === musicpic.pauseimg){
         this.data.showmusiclists[i].leftimg = musicpic.playimg
@@ -473,7 +473,7 @@ Page({
       method: 'POST',
       header: {
           'content-type': 'application/x-www-form-urlencoded',
-          "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+          "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
       },
       success: (resp) => {
           const {data} = resp;
@@ -510,7 +510,7 @@ Page({
       method: 'POST',
       header: {
           'content-type': 'application/x-www-form-urlencoded',
-          "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+          "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
       },
       success: (res) => {
         console.log(res)
@@ -731,7 +731,7 @@ Page({
         method: 'POST',
         header: {
             'content-type': 'application/x-www-form-urlencoded',
-            "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+            "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
         },
         data: {
           music_id: e.currentTarget.id,
@@ -824,6 +824,9 @@ Page({
     }
   },
   uploadContent (e) {
+    let that = this
+    this.videoContext1.pause()
+    preInnerAudioContext.pause()
     if(this.data.uploadContent.join_sub === -1 || this.data.uploadContent.join_sub_id === -1){
       wx.showToast({
         title: '未选择话题！',
@@ -841,7 +844,7 @@ Page({
         method: 'POST',
         header: {
             'content-type': 'application/x-www-form-urlencoded',
-            "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+            "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
         },
         data: this.data.uploadContent,
         success: (resp) => {
@@ -854,43 +857,69 @@ Page({
               duration: 5000,
               mask: true,
             });
-            wx.request({
-              url: api.get_submit,
-              method: 'POST',
-              header: {
-                  'content-type': 'application/x-www-form-urlencoded',
-                  "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
-              },
-              data: {
-                job_id: resp.data.data.job_id,
-                move_name: resp.data.data.move_name,
-                video_url: resp.data.data.video_url
-              },
-              success: (res) => {
-                console.log(res)
-                if(res.data.code === 0){
+            if(resp.data){
+              console.log('sss')
+              clearInterval(timer)
+              wx.showToast({
+                title: '视频上传成功！',
+                icon: 'success',
+                duration: 1500,
+                mask: true,
+                success: (result)=>{
+                  const timers = setTimeout(()=>{
+                    wx.navigateBack({
+                      delta: 1
+                    });
+                    clearInterval(timers)
+                  },1500)
+                },
+              });
+            } else {
+              wx.request({
+                url: api.get_submit,
+                method: 'POST',
+                header: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
+                },
+                data: {
+                  job_id: resp.data.data.job_id,
+                  move_name: resp.data.data.move_name,
+                  video_url: resp.data.data.video_url
+                },
+                success: (res) => {
                   console.log(res)
-                  clearInterval(timer)
-                  wx.showToast({
-                    title: '视频上传成功！',
-                    icon: 'success',
-                    duration: 1500,
-                    mask: true,
-                    success: (result)=>{
-                      const timers = setTimeout(()=>{
-                        wx.navigateBack({
-                          delta: 1
-                        });
-                        clearInterval(timers)
-                      },1500)
-                    },
-                  });
+                  if(res.data.code === 0){
+                    console.log(res)
+                    clearInterval(timer)
+                    that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
+                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+                    preInnerAudioContext.src = ''
+                    that.setData({
+                      uploadContent: that.data.uploadContent
+                    })
+                    wx.showToast({
+                      title: '视频上传成功！',
+                      icon: 'success',
+                      duration: 1500,
+                      mask: true,
+                      success: (result)=>{
+                        const timers = setTimeout(()=>{
+                          wx.navigateBack({
+                            delta: 1
+                          });
+                          clearInterval(timers)
+                        },1500)
+                      },
+                    });
+                  }
+                },
+                complete: () => {
+                  console.log('我又发了一次')
                 }
-              },
-              complete: () => {
-                console.log('我又发了一次')
-              }
-            })
+              })
+            }
           },5000)
         },
         complete: () => {
@@ -934,7 +963,7 @@ Page({
         method: 'POST',
         header: {
             'content-type': 'application/x-www-form-urlencoded',
-            "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+            "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
         },
         success: (res) => {
           console.log(res)
@@ -1001,11 +1030,9 @@ Page({
   videoend (e) {
     console.log('videoend')
     //innerAudioContext.stop()
+    this.videoContext1.play()
     preInnerAudioContext.stop()
-      videolock = false
-      this.setData({
-        showpause: 'flex'
-      })
+    preInnerAudioContext.play()
   },
   cancelUploadContent (e) {
     console.log('cancelUploadContent')
