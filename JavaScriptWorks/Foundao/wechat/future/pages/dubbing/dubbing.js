@@ -92,6 +92,8 @@ Page({
         fit: false,
 
         record_shake: false,
+        stop_record_shake:false,
+        continue_record_shake:false,
     },
 
     /**
@@ -841,12 +843,13 @@ Page({
     // 开始录音
     startRecord() {
         if (this.data.record_shake) {
+          console.log('record_shake')
             return
         } else {
             this.data.record_shake = true
             setTimeout(() => {
                 this.data.record_shake = false
-            }, 2000)
+            }, 1000)
         }
 
         const getSetting = promisify(wx.getSetting);
@@ -894,6 +897,15 @@ Page({
 
     // 暂停录音
     pauseRecord() {
+      if (this.data.stop_record_shake) {
+        console.log('stop_record_shake')
+        return
+      } else {
+        this.data.stop_record_shake = true
+        setTimeout(() => {
+          this.data.stop_record_shake = false
+        }, 1000)
+      }
         this.setData({
             isPaused: true
         });
@@ -903,6 +915,15 @@ Page({
 
     // 继续录音
     continueRecord() {
+      if (this.data.continue_record_shake) {
+        console.log('continue_record_shake')
+        return
+      } else {
+        this.data.continue_record_shake = true
+        setTimeout(() => {
+          this.data.continue_record_shake = false
+        }, 1000)
+      }
         console.log('继续录音');
         this.setData({
             isPaused: false

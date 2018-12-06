@@ -26,14 +26,16 @@ let samesong = false //是不是同一首歌
 let tempmusictype = -1 //选中的音乐类型
 let temparray = [] //歌词分类请求列表
 let videolock = false //视频是否播放
+let autovideolock = true //兼容有些手机视频自动播放
 let topiclock = false  //话题是否选择
 const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()//试听歌曲
 innerAudioContext.obeyMuteSwitch = false
-innerAudioContext.autoplay = true
+innerAudioContext.autoplay = false
 innerAudioContext.loop = true
 const preInnerAudioContext = wx.createInnerAudioContext()//预览歌曲
 preInnerAudioContext.obeyMuteSwitch = false
+preInnerAudioContext.autoplay = false
 preInnerAudioContext.loop =false
 Page({
   /**
@@ -103,9 +105,9 @@ Page({
     console.log('onLoad')
     console.log(options.usermethod)
     usermethod = options.usermethod
-    wx.setEnableDebug({
-      enableDebug: true,
-    })
+    // wx.setEnableDebug({
+    //   enableDebug: true,
+    // })
     var that = this
     wx.getSystemInfo({
       success: function (res) {
@@ -251,7 +253,7 @@ Page({
               name: 'filename',
               header: {
                 'content-type': 'multipart/form-data',
-                "auth-token": 'M5j8c7z9N6V4l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeExUQTNJREUzT2pBMU9qTTVJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MTU4MTUzOTAyN19jZTdkNGZiZjE3MzA3NzFkMWMwN2I5MGMwMGI5OTMyOF9fMTk4NTljODE5YzMwZDg4YTMzNjZhYjMyZDhlOGYwOTIO0O0O',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
               },
               formData: {
                 upload_type: 'tmp1',
@@ -285,27 +287,29 @@ Page({
    */
   onShow: function () {
     console.log('onShow')
+    app.isAuth(() => {
+      if (!this.data.hasInit) {
+          console.log('未初始化')
+          this.data.hasInit = true
+          wx.getUserInfo({
+              success: (res) => {
+                  this.data.userInfo = res.userInfo
+                  // var nickName = userInfo.nickName
+                  // var avatarUrl = userInfo.avatarUrl
+                  // var gender = userInfo.gender //性别 0：未知、1：男、2：女
+                  // var province = userInfo.province
+                  // var city = userInfo.city
+                  // var country = userInfo.country
+              }
+          })
+      } else {
+          console.log('已初始化')
+      }
+    })
   },
   onHide (e) {
     console.log('onHide')
-    pasterNum = 0
-    temparray = []
-    musiclistcontent = []
-    const length = this.data.musiclists.length
-    for(let i=0;i<length;i++){
-      this.data.musiclists[i].forEach(element => {
-        element.leftimg = musicpic.playimg
-        element.rightimg = musicpic.addimg
-      });
-    }
-    this.data.showmusiclists = []
-    this.setData({
-      musiclists: this.data.musiclists,
-      showmusiclists: this.data.showmusiclists
-    })
-  },
-  onUnload (e) {
-    console.log('onUnload')
+    autovideolock = true
     pasterNum = 0
     temparray = []
     musiclistcontent = []
@@ -318,10 +322,47 @@ Page({
         element.rightimg = musicpic.addimg
       });
     }
+    this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
+                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+    preInnerAudioContext.src = 'none'
+    innerAudioContext.src = 'none'
+    console.log(innerAudioContext.src)
+    console.log(preInnerAudioContext.src)
     this.data.showmusiclists = []
     this.setData({
       musiclists: this.data.musiclists,
-      showmusiclists: this.data.showmusiclists
+      showmusiclists: this.data.showmusiclists,
+      uploadContent: this.data.uploadContent
+    })
+  },
+  onUnload (e) {
+    console.log('onUnload')
+    autovideolock = true
+    pasterNum = 0
+    temparray = []
+    musiclistcontent = []
+    innerAudioContext.pause()
+    preInnerAudioContext.pause()
+    this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
+                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+    preInnerAudioContext.src = 'none'
+    innerAudioContext.src = 'none'
+    console.log(innerAudioContext.src)
+    console.log(preInnerAudioContext.src)
+    const length = this.data.musiclists.length
+    for(let i=0;i<length;i++){
+      this.data.musiclists[i].forEach(element => {
+        element.leftimg = musicpic.playimg
+        element.rightimg = musicpic.addimg
+      });
+    }
+    this.data.showmusiclists = []
+    this.setData({
+      musiclists: this.data.musiclists,
+      showmusiclists: this.data.showmusiclists,
+      uploadContent: this.data.uploadContent
     })
   },
   cancelFilter (e) {
@@ -557,7 +598,7 @@ Page({
       method: 'POST',
       header: {
           'content-type': 'application/x-www-form-urlencoded',
-          "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
+          "auth-token": wx.getStorageSync('loginSessionKey'),
       },
       success: (resp) => {
           const {data} = resp;
@@ -594,7 +635,7 @@ Page({
       method: 'POST',
       header: {
           'content-type': 'application/x-www-form-urlencoded',
-          "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
+          "auth-token": wx.getStorageSync('loginSessionKey'),
       },
       success: (res) => {
         console.log(res)
@@ -767,7 +808,7 @@ Page({
         //是同一首歌
         addmusiclock = false
         tempmusictype = -1
-        preInnerAudioContext.src = ''
+        preInnerAudioContext.src = 'none'
         this.data.uploadContent.audio_id = ''
         this.data.uploadContent.audio_url = ''
         this.setData({
@@ -825,7 +866,7 @@ Page({
         method: 'POST',
         header: {
             'content-type': 'application/x-www-form-urlencoded',
-            "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
+            "auth-token": wx.getStorageSync('loginSessionKey'),
         },
         data: {
           music_id: e.currentTarget.id,
@@ -941,12 +982,13 @@ Page({
         method: 'POST',
         header: {
             'content-type': 'application/x-www-form-urlencoded',
-            "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
+            "auth-token": wx.getStorageSync('loginSessionKey'),
         },
         data: this.data.uploadContent,
         success: (resp) => {
           console.log('resp')
           console.log(resp)
+          console.log(wx.getStorageSync('loginSessionKey'))
           var timer = setInterval(()=>{
             wx.showToast({
               title: '视频处理中……',
@@ -954,7 +996,7 @@ Page({
               duration: 5000,
               mask: true,
             });
-            if(resp.data){
+            if(!resp.data.data){
               console.log('sss')
               clearInterval(timer)
               wx.showToast({
@@ -977,7 +1019,7 @@ Page({
                 method: 'POST',
                 header: {
                     'content-type': 'application/x-www-form-urlencoded',
-                    "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
+                    "auth-token": wx.getStorageSync('loginSessionKey'),
                 },
                 data: {
                   job_id: resp.data.data.job_id,
@@ -986,16 +1028,10 @@ Page({
                 },
                 success: (res) => {
                   console.log(res)
+                  console.log(wx.getStorageSync('loginSessionKey'))
                   if(res.data.code === 0){
                     console.log(res)
                     clearInterval(timer)
-                    that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
-                    preInnerAudioContext.src = ''
-                    that.setData({
-                      uploadContent: that.data.uploadContent
-                    })
                     wx.showToast({
                       title: '视频上传成功！',
                       icon: 'success',
@@ -1017,6 +1053,16 @@ Page({
                 }
               })
             }
+            that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
+                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+            preInnerAudioContext.src = 'none'
+            innerAudioContext.src = 'none'
+            console.log(innerAudioContext.src)
+            console.log(preInnerAudioContext.src)
+            that.setData({
+              uploadContent: that.data.uploadContent
+            })
           },5000)
         },
         complete: () => {
@@ -1030,6 +1076,7 @@ Page({
   },
   pauseThis (e) {
     console.log('pauseThis')
+    autovideolock = true
     if(videolock){
       this.videoContext1.pause()
       //innerAudioContext.pause()
@@ -1044,9 +1091,12 @@ Page({
   },
   playThis (e) {
     console.log('playThis')
+    console.log(innerAudioContext.src)
+    console.log(preInnerAudioContext.src)
     this.videoContext1.play()
     //innerAudioContext.play()
     preInnerAudioContext.play()
+    autovideolock = false
     videolock = true
     this.setData({
       showpause: 'none'
@@ -1060,7 +1110,7 @@ Page({
         method: 'POST',
         header: {
             'content-type': 'application/x-www-form-urlencoded',
-            "auth-token": 'M5z8I709N614l3U2b13pPbnR6T2pFd09pSnNiMmRwYmw5MGFXMWxJanR6T2pFNU9pSXlNREU0TFRFeUxUQTBJREU0T2pFME9qUTNJanR6T2pRNkluVjFhV1FpTzNNNk16WTZJakl5UmtRNFJFVTNMVVJEUWpJdE9FRXlRaTAyTVRRNUxUSkJRakkyTXpjMk56TTBRU0k3Y3pveE16b2lkRzlyWlc1ZmRtVnljMmx2YmlJN2N6b3pPaUl4TGpBaU8zMD1fMTU0MzkxODQ4NzQ1Nl81YjRjODcxMzk5NTEwZWE3NzQyYTU5ZjE2YTcwNWI0Zl9fYWYwMjAzMDM3NTlkYjYxYWUyMWRlOTExMTJlMzE3NTYO0O0O',
+            "auth-token": wx.getStorageSync('loginSessionKey'),
         },
         success: (res) => {
           console.log(res)
@@ -1133,6 +1183,9 @@ Page({
   },
   cancelUploadContent (e) {
     console.log('cancelUploadContent')
+    console.log(innerAudioContext.src)
+    console.log(preInnerAudioContext.src)
+    autovideolock = true
     this.videoContext1.seek(0)
     //innerAudioContext.stop()
     preInnerAudioContext.stop()
@@ -1142,5 +1195,9 @@ Page({
       showpause: 'flex',
       showpublish: 'none',
     })
-  }
+  },
+  videoAutoPlay (e) {
+    console.log('videoAutoPlay')
+    autovideolock ? this.videoContext1.pause():this.videoContext1.play()
+  },
 })

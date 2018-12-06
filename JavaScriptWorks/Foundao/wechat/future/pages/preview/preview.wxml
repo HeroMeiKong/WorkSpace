@@ -123,7 +123,7 @@
   </view>
   <view class="publish {{models}}" style="display:{{showpublish}}">
     <view class="videowrapper">
-      <video id="myVideo1" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{true}}">
+      <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{true}}" autoplay="{{false}}">
         <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
           style="width:{{publish.width}}px;height:{{publish.height}}px;left:{{publish.x}}px;top:{{publish.y}}px">
         </cover-image>

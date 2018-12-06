@@ -16,12 +16,13 @@
                autoplay="{{true}}"
                hidden="{{hideVideo}}"
                src="{{cur_video.video_url}}"
-               poster="{{cur_video.pic}}"
+               poster="{{cur_video.first_pic3||cur_video.pic}}"
                loop="{{true}}"
                id="video"
                objectFit="{{fit?'cover':'contain'}}"
                bindplay="bindplay"
                bindpause="bindpause"
+               bindwaiting="bindwaiting"
                bindtimeupdate="bindtimeupdate">
 
 
@@ -150,8 +151,8 @@
                 <cover-view class="select-box" wx:if="{{show_select}}">
                     <!--<cover-view class="select-text">分享到</cover-view>-->
                     <cover-view class="select-content">
-                        <button class="select-item" catchtap="create_poster">分享到朋友圈</button>
-                        <button class="select-item" open-type="share">分享到微信</button>
+                        <button class="select-item" catchtap="create_poster">生成海报</button>
+                        <button class="select-item" open-type="share">分享给好友</button>
                     </cover-view>
                 </cover-view>
                 <!--海报-->

@@ -35,7 +35,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/recordList/recordList",
+        "pagePath": "pages/dubbingUpload/dubbingUpload",
         "iconPath": "assets/images/peiyin2.png",
         "selectedIconPath": "assets/images/peiyin.png",
         "text": "配音"

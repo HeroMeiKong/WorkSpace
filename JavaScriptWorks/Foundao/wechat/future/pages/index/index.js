@@ -323,9 +323,15 @@ Page({
     // 监控视频暂停
     bindpause() {
         // console.log('pause')
-        // this.setData({
-        //     playing: false
-        // })
+        this.setData({
+            playing: false
+        })
+    },
+
+    bindwaiting() {
+        this.setData({
+            playing: true
+        })
     },
 
     // 监控视频播放进度
@@ -360,9 +366,6 @@ Page({
         // console.log('video click')
         if (this.data.playing) {
             this.pauseVideo()
-            this.setData({
-                playing: false
-            })
         } else {
             this.playVideo()
         }
@@ -402,7 +405,7 @@ Page({
     switchToRecordList() {
         this.pauseVideo()
         wx.switchTab({
-            url: '/pages/recordList/recordList'
+            url: '/pages/dubbingUpload/dubbingUpload'
         })
     },
 
@@ -1297,7 +1300,7 @@ Page({
     refreshSwiper(list, index) {
         var pic_list = []
         for (var i = 0; i < list.length; i++) {
-            pic_list.push(list[i].pic)
+            pic_list.push(list[i].first_pic3 || list[i].pic)
         }
         this.setData({
             swiper_list: pic_list,
