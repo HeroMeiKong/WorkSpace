@@ -33,6 +33,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    wx.showTabBar();
     app.isAuth(() => {
       if (!this.data.hasInit) {
           console.log('未初始化')
