@@ -40,7 +40,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isIpx: false,
+    //isIpx: false,
+    whichmodel: true,
+    models: 'defaultmodel',
     showwrappers: 'visible',
     picsize: {height: 0,width: 0}, //图片的大小
     previewsize: {height: 0,width: 0},//预览视频的大小
@@ -107,21 +109,37 @@ Page({
     var that = this
     wx.getSystemInfo({
       success: function (res) {
+        console.log('看我看我看我')
         console.log(res)
+        console.log(res.model)
+        windowWidth = res.windowWidth
         if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
-          windowWidth = res.windowWidth
+          //iPhoneX
           windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.8
           that.data.oldCoordinatey = 186 * windowWidth / 750
-          previewbox = 69*windowWidth/75
-          that.setData({
-              isIpx: true
-          })
+          that.data.models = 'iPhonex'
+        } else if (res.model.indexOf("BLA-AL00") > -1) {
+          //huaweimate10plus
+          windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.8
+          that.data.oldCoordinatey = 142 * windowWidth / 750
+          that.data.models = 'huaweimate10plus'
+        } else if (res.model.indexOf("ONEPLUS A5010") > -1) {
+          //OnePlus5T
+          windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.8
+          that.data.oldCoordinatey = 142 * windowWidth / 750
+          that.data.models = 'oneplus5t'
         } else {
-          windowWidth = res.windowWidth
+          //其他机型
           windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.8
           that.data.oldCoordinatey = 122 * windowWidth / 750
-          previewbox = 69*windowWidth/75
+          that.setData({
+            whichmodel: false,
+          })
         }
+        previewbox = 69*windowWidth/75
+        that.setData({
+          models: that.data.models
+        })
       }
     })
     console.log(windowHeight)

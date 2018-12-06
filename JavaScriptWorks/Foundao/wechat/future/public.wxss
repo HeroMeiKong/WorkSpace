@@ -17,8 +17,20 @@
     -webkit-line-clamp:2;
 }
 
-.iphoneX{
+.iphonex{
     padding-top: 186rpx!important;
+    box-sizing: border-box;
+}
+.huaweimate10plus{
+    padding-top: 142rpx!important;
+    box-sizing: border-box;
+}
+.xiaomi8{
+    padding-top: 142rpx!important;
+    box-sizing: border-box;
+}
+.oneplus5t{
+    padding-top: 142rpx!important;
     box-sizing: border-box;
 }
 

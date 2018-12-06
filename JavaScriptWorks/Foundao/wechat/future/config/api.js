@@ -3,6 +3,7 @@
  */
 const host = 'https://a-js.sports.cctv.com/host/api/';
 const hostTest = 'https://web-happy.foundao.com/host/api/api/';
+const prehostTest = 'https://a-js.sports.cctv.com/test_host/api/';
 export default {
 
     //登录

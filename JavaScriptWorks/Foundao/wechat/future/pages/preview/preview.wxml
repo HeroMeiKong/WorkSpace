@@ -1,5 +1,5 @@
 <!--pages/preview/preview.wxml-->
-<view class="user-page {{isIpx?'iphoneX':''}}">
+<view class="user-page {{models}}">
   <backTitle></backTitle>
   <view class="wrappers" style="visibility:{{showwrappers}}">
     <view class="preview">
@@ -121,7 +121,7 @@
       </view>
     </view>
   </view>
-  <view class="{{isIpx?'iphoneXpublish':'publish'}}" style="display:{{showpublish}}">
+  <view class="publish {{models}}" style="display:{{showpublish}}">
     <view class="videowrapper">
       <video id="myVideo1" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{true}}">
         <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
