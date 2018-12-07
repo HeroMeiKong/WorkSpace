@@ -17,7 +17,7 @@
     -webkit-line-clamp:2;
 }
 
-.iphonex{
+.iphoneX{
     padding-top: 186rpx!important;
     box-sizing: border-box;
 }

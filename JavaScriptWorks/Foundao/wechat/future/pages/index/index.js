@@ -142,7 +142,7 @@ Page({
                 this.data.hasInit = true
                 wx.getUserInfo({
                     success: (res) => {
-                        this.data.userInfo = res.userInfo
+                        this.data.userInfo = res.userInfo       //用微信返回的用户信息（最新），不用后台给的
                         // var nickName = userInfo.nickName
                         // var avatarUrl = userInfo.avatarUrl
                         // var gender = userInfo.gender //性别 0：未知、1：男、2：女
@@ -262,6 +262,7 @@ Page({
                         icon: 'none'
                     })
                     if (data.code == -1001) {
+                        this.data.hasInit = false
                         app.initAuth()
                     }
                 }

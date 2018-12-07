@@ -116,10 +116,10 @@ Page({
         console.log(res.model)
         windowWidth = res.windowWidth
         if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
-          //iPhoneX
+          //iphoneX
           windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.8
           that.data.oldCoordinatey = 186 * windowWidth / 750
-          that.data.models = 'iPhonex'
+          that.data.models = 'iphoneX'
         } else if (res.model.indexOf("BLA-AL00") > -1) {
           //huaweimate10plus
           windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.8
