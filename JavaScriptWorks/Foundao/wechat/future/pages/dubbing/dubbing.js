@@ -8,6 +8,7 @@ const app = getApp()
 
 const record_text = '为了提供更好的服务，请先开启录音功能';
 const writePhotoAlbum_text = '为了提供更好的服务，请先开启保存到相册功能';
+let action = false
 
 const STATUS = {
     READY: 'READY',
@@ -497,15 +498,17 @@ Page({
 
     // 计时
     timeAdd() {
-        const {total_time} = this.data;
-        const step = 100;
-        const {current_time} = this.data;
-        const now_time = current_time + step;
-        if (now_time <= total_time) {
-            this.check_lyric_position(now_time);
-            this.setData({
-                current_time: now_time
-            })
+        if(action){
+            const {total_time} = this.data;
+            const step = 100;
+            const {current_time} = this.data;
+            const now_time = current_time + step;
+            if (now_time <= total_time) {
+                this.check_lyric_position(now_time);
+                this.setData({
+                    current_time: now_time
+                })
+            }
         }
     },
 
@@ -1206,4 +1209,12 @@ Page({
             })
         }
     },
+    bindwaiting(e){
+        console.log('bindwaiting')
+        action = false
+    },
+    bindprogress(e){
+        console.log('bindprogress')
+        action = true
+    }
 })

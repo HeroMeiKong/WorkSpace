@@ -2,7 +2,7 @@
 <view class="recordList-page {{isIpx?'iphoneX':''}}">
     <!--title-->
     <!--<view class="head-title  {{isIpx?'iphoneX-head-title':''}}">选择话题</view>-->
-    <backTitle noBack="{{false}}" title="选择话题"></backTitle>
+    <backTitle noBack="{{false}}" title="选择配音"></backTitle>
     <view class="header">
         <scroll-view class="scroll-kind" scroll-x>
             <view class="scroll-kind-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选</view>

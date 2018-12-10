@@ -358,6 +358,12 @@ Page({
             this.setData({
                 userInfo: this.data.userInfo,
                 hideTips: false,
+            }, () => {
+                setTimeout(() => {
+                    this.setData({
+                        hideTips: true,
+                    })
+                }, 2000)
             })
         }
     },
@@ -366,46 +372,46 @@ Page({
     updateContent(e) {
         var value = e.detail.value
 
-        if (value == this.data.userInfo.user_autograph) {
-            return
-        } else {
-            wx.showLoading({
-                mask: true
-            })
-            this.data.loading_num++;
+        // if (value == this.data.userInfo.user_autograph) {
+        //     return
+        // } else {
+        wx.showLoading({
+            mask: true
+        })
+        this.data.loading_num++;
 
-            wx.request({
-                url: api.update_autograph,
-                method: 'POST',
-                header: {
-                    'content-type': 'application/x-www-form-urlencoded',
-                    "auth-token": wx.getStorageSync('loginSessionKey'),
-                },
-                data: {
-                    autograph: value
-                },
-                success: (resp) => {
-                    const {data} = resp;
-                    if (parseInt(data.code) === 0) {
-                        var userInfo = util.copyObj(this.data.userInfo) //深度复制
-                        userInfo.user_autograph = value
-                        this.setData({
-                            userInfo: userInfo
-                        })
-                    } else {
-                        wx.showToast({
-                            title: data.msg,
-                            icon: 'none'
-                        })
-                    }
-                },
-                complete: () => {
-                    this.data.loading_num--;
-                    if (this.data.loading_num == 0) {
-                        wx.hideLoading()
-                    }
+        wx.request({
+            url: api.update_autograph,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                autograph: value
+            },
+            success: (resp) => {
+                const {data} = resp;
+                if (parseInt(data.code) === 0) {
+                    var userInfo = util.copyObj(this.data.userInfo) //深度复制
+                    userInfo.user_autograph = value
+                    this.setData({
+                        userInfo: userInfo
+                    })
+                } else {
+                    // wx.showToast({
+                    //     title: data.msg,
+                    //     icon: 'none'
+                    // })
                 }
-            })
-        }
+            },
+            complete: () => {
+                this.data.loading_num--;
+                if (this.data.loading_num == 0) {
+                    wx.hideLoading()
+                }
+            }
+        })
+        // }
     }
 })

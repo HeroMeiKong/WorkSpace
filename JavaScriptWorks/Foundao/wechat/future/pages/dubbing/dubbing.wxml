@@ -12,6 +12,8 @@
            bindplay="bindplay"
            bindpause="bindpause"
            bindended="bindended"
+           bindwaiting="bindwaiting"
+           bindprogress="bindprogress"
            muted="{{muted}}">
 
         <!--覆盖框-->
