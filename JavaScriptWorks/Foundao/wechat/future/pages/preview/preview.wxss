@@ -2,14 +2,7 @@
 @import "./../../public.wxss";
 @import "./weui.wxss";
 
-view,
-image,
-video,
-cover-image {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+
 .defaultmodel{
   padding-top: 122rpx;
 }

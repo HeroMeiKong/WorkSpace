@@ -29,7 +29,10 @@ Page({
 
         isIpx: false,
 
-        hideTips: true
+        hideTips: true,
+
+        product_no_more: false,
+        like_no_more: false,
     },
 
     /**
@@ -221,7 +224,8 @@ Page({
                             })
                         } else {
                             this.setData({
-                                product_none: false
+                                product_none: false,
+                                product_no_more: true,
                             })
                         }
                         return
@@ -285,7 +289,8 @@ Page({
                             })
                         } else {
                             this.setData({
-                                like_none: false
+                                like_none: false,
+                                like_no_more: true,
                             })
                         }
                         return
@@ -334,7 +339,7 @@ Page({
         // if (data.hasOwnProperty('examine') && data.examine != 3) {
         //     return
         // }
-        var examine = data.examine || 1;
+        var examine = data.examine || 1; //3为通过，2为待审核，1为弃用
         wx.navigateTo({
             url: '/pages/video/video?video_uuid=' + data.video_uuid + '&id=' + data.id + (user ? ('&user=1&examine=' + examine) : ''),
         })

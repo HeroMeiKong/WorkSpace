@@ -111,7 +111,7 @@ Page({
         }
         app.statistics_pv(options)
         return {
-            title: '我在PK解说员里玩配音拍视频，现在邀你来玩哦~',
+            title: app.globalData.shareText,
             path: '/pages/subjectIndex/subjectIndex',
             imageUrl: app.globalData.shareImg,
         }

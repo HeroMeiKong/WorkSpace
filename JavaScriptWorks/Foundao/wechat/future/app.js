@@ -184,6 +184,7 @@ App({
     globalData: {
         userInfo: null,
         pt: '',
-        shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png'
+        shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png',
+        shareText:'我在逗牛短视频里玩配音拍视频，现在邀你来玩哦~'
     }
 })

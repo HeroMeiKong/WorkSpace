@@ -37,7 +37,7 @@ Page({
         isIpx: false,
         fit: false,
 
-        loaded:false
+        loaded: false
     },
 
     /**
@@ -93,7 +93,7 @@ Page({
                 console.log('未初始化')
                 this.data.hasInit = true
                 this.getVideoData(this.data.video_uuid, this.data.video_id);
-                this.get_erCode()
+                // this.get_erCode()
             } else {
                 console.log('已初始化')
             }
@@ -142,7 +142,7 @@ Page({
         app.statistics_pv(options)
         if (this.data.is_user && this.data.examine == 1) {
             return {
-                title: '我在PK解说员里玩配音拍视频，现在邀你来玩哦~',
+                title: app.globalData.shareText,
                 path: '/pages/index/index',
                 imageUrl: app.globalData.shareImg,
             }
@@ -241,7 +241,7 @@ Page({
     },
 
     // 获取二维码
-    get_erCode() {
+    get_erCode(fun) {
         const loginSessionKey = wx.getStorageSync('loginSessionKey');
         const wxRequest = promisify(wx.request);
 
@@ -266,6 +266,7 @@ Page({
             if (code === 0) {
                 console.log('二维码地址：' + data.file_path)
                 this.data.qr_code_url = data.file_path.replace('http://', 'https://');
+                fun && fun()
             } else {
                 wx.showToast({
                     title: msg,
@@ -309,9 +310,9 @@ Page({
                     this.setData({
                         cur_video: data.data,
                         fit: fit_temp,
-                    },()=>{
+                    }, () => {
                         this.setData({
-                            loaded:true
+                            loaded: true
                         })
                     })
                 } else {
@@ -455,7 +456,7 @@ Page({
                     this.setData({
                         cur_video: this.data.cur_video
                     })
-                    this.refreshVideo(cur_video.video_uuid,2)
+                    this.refreshVideo(cur_video.video_uuid, 2)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -503,7 +504,7 @@ Page({
                     this.setData({
                         cur_video: this.data.cur_video
                     })
-                    this.refreshVideo(cur_video.video_uuid,1)
+                    this.refreshVideo(cur_video.video_uuid, 1)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -554,93 +555,95 @@ Page({
         wx.showLoading({
             title: '海报生成中'
         });
+        this.get_erCode(() => {
+            const getImage = promisify(wx.getImageInfo);
+            const getImage2 = promisify(wx.getImageInfo);
+            const getImage3 = promisify(wx.getImageInfo);
 
-        const getImage = promisify(wx.getImageInfo);
-        const getImage2 = promisify(wx.getImageInfo);
-        const getImage3 = promisify(wx.getImageInfo);
+            var ctx = this.data.ctx;
+            ctx.setFillStyle('#ffffff');
+            ctx.fillRect(0, 0, 750, 1238);
+            getImage({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
+                // 绘制背景图
+                const bg_img = resp.path;  // 背景图片
+                const bg_width = resp.width;
+                const bg_height = resp.height;
+                var dx = 0;
+                var dy = 0;
+                var dWidth = 0;
+                var dHeight = 0;
+                if (bg_width > bg_height) {
+                    dy = 0
+                    dx = (bg_width - bg_height) / 2
+                    dHeight = bg_height;
+                    dWidth = bg_height
+                } else {
+                    dx = 0
+                    dy = (bg_height - bg_width) / 2
+                    dHeight = bg_width;
+                    dWidth = bg_width;
+                }
 
-        var ctx = this.data.ctx;
-        ctx.setFillStyle('#ffffff');
-        ctx.fillRect(0, 0, 750, 1238);
-        getImage({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
-            // 绘制背景图
-            const bg_img = resp.path;  // 背景图片
-            const bg_width = resp.width;
-            const bg_height = resp.height;
-            var dx = 0;
-            var dy = 0;
-            var dWidth = 0;
-            var dHeight = 0;
-            if (bg_width > bg_height) {
-                dy = 0
-                dx = (bg_width - bg_height) / 2
-                dHeight = bg_height;
-                dWidth = bg_height
-            } else {
-                dx = 0
-                dy = (bg_height - bg_width) / 2
-                dHeight = bg_width;
-                dWidth = bg_width;
-            }
+                getImage2({src: this.data.qr_code_url}).then(res => {
+                    // console.log(res);
+                    const qr_img = res.path; // 二维码
 
-            getImage2({src: this.data.qr_code_url}).then(res => {
-                // console.log(res);
-                const qr_img = res.path; // 二维码
+                    getImage3({src: cur_video.nick_pic.replace('http://', 'https://')}).then(re => {
+                        const user_img = re.path; // 二维码
 
-                getImage3({src: cur_video.nick_pic.replace('http://', 'https://')}).then(re => {
-                    const user_img = re.path; // 二维码
+                        // 绘制背景图
+                        ctx.drawImage(bg_img, dx, dy, dWidth, dHeight, 0, 0, 750, 750);
 
-                    // 绘制背景图
-                    ctx.drawImage(bg_img, dx, dy, dWidth, dHeight, 0, 0, 750, 750);
+                        // 绘制头像
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.arc(30 + 64, 686 + 64, 64, 0, Math.PI * 2, false);
+                        ctx.clip();
+                        ctx.drawImage(user_img, 30, 686, 128, 128);
+                        ctx.restore();
 
-                    // 绘制头像
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(30 + 64, 686 + 64, 64, 0, Math.PI * 2, false);
-                    ctx.clip();
-                    ctx.drawImage(user_img, 30, 686, 128, 128);
-                    ctx.restore();
+                        // 绘制名称
+                        ctx.setFillStyle('#333333');
+                        ctx.setFontSize(34);
+                        ctx.setTextBaseline('top')
+                        ctx.fillText(cur_video.nick_name, 185, 766);
 
-                    // 绘制名称
-                    ctx.setFillStyle('#333333');
-                    ctx.setFontSize(34);
-                    ctx.setTextBaseline('top')
-                    ctx.fillText(cur_video.nick_name, 185, 766);
+                        // 绘制描述
+                        const stringArr = Tool.stringToArr(cur_video.video_desc, 18);
+                        ctx.setFillStyle('#333333');
+                        ctx.setFontSize(30);
+                        ctx.setTextBaseline('top')
+                        stringArr.forEach((item, index) => {
+                            ctx.fillText(item, 185, 818 + (index * 50));
+                        });
 
-                    // 绘制描述
-                    const stringArr = Tool.stringToArr(cur_video.video_desc, 18);
-                    ctx.setFillStyle('#333333');
-                    ctx.setFontSize(30);
-                    ctx.setTextBaseline('top')
-                    stringArr.forEach((item, index) => {
-                        ctx.fillText(item, 185, 818 + (index * 50));
-                    });
+                        // 绘制二维码
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.rect(124, 990, 188, 188);
+                        ctx.clip();
+                        // qr_img
+                        ctx.drawImage(qr_img, 124, 990, 188, 188);
+                        ctx.restore();
 
-                    // 绘制二维码
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.rect(124, 990, 188, 188);
-                    ctx.clip();
-                    // qr_img
-                    ctx.drawImage(qr_img, 124, 990, 188, 188);
-                    ctx.restore();
-
-                    // 绘制底部文字
-                    // ctx.setTextAlign('center');
-                    ctx.setFillStyle('#999999');
-                    ctx.setFontSize(28);
-                    ctx.setTextBaseline('top')
-                    ctx.fillText('长按小程序查看详情', 358, 1048);
-                    ctx.fillText('和我一起「挑战主持人」', 358, 1092);
+                        // 绘制底部文字
+                        // ctx.setTextAlign('center');
+                        ctx.setFillStyle('#999999');
+                        ctx.setFontSize(28);
+                        ctx.setTextBaseline('top')
+                        ctx.fillText('长按小程序查看详情', 358, 1048);
+                        ctx.fillText('和我一起玩「逗牛短视频」', 358, 1092);
 
 
-                    ctx.draw(false, this.create_poster_image);
-                })
+                        ctx.draw(false, this.create_poster_image);
+                    })
 
-            }).catch(err => {
-                console.log(err)
+                }).catch(err => {
+                    console.log(err)
+                });
             });
-        });
+        })
+
 
     },
 
@@ -756,12 +759,12 @@ Page({
     },
 
     //更新主页的点赞数据
-    refreshVideo(video_uuid,status){
+    refreshVideo(video_uuid, status) {
         var pages = getCurrentPages();
-        for(var i=0;i<pages.length;i++){
+        for (var i = 0; i < pages.length; i++) {
             var page_temp = pages[i]
-            if(page_temp.route == 'pages/index/index'){
-                page_temp.refreshVideo(video_uuid,status)
+            if (page_temp.route == 'pages/index/index') {
+                page_temp.refreshVideo(video_uuid, status)
                 return
             }
         }

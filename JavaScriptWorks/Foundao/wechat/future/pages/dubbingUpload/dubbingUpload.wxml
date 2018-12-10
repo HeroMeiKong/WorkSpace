@@ -9,7 +9,7 @@
         <text class='textSuggest'>海量模板 轻松上手</text>
       </view>
       <view class='right'>
-        <image src='../../assets/images/1peiyin2.png'></image>
+        <image src='../../assets/images/1peiyin2@2x.png'></image>
       </view>
     </view>
     <!-- 拍摄 -->
@@ -19,7 +19,7 @@
         <text class='textSuggest'>建议30秒以内</text>
       </view>
       <view class='right'>
-        <image src='../../assets/images/1luxiang2.png'></image>
+        <image src='../../assets/images/1luxiang2@2x.png'></image>
       </view>
     </view>
     <!-- 本地上传 -->
@@ -29,7 +29,7 @@
         <text class='textSuggest'>不超过100M</text>
       </view>
       <view class='right'>
-        <image src='../../assets/images/3bendi2.png'></image>
+        <image src='../../assets/images/3bendi2@2x.png'></image>
       </view>
     </view>
   </view>

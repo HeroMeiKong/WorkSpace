@@ -162,115 +162,134 @@ Page({
       success: function (res) {
         console.log('选取视频')
         console.log(res)
-        that.data.oldVideoSize.height = res.height
-        that.data.oldVideoSize.width = res.width
-        res.height > res.width ? computeMethod = 'height': computeMethod = 'width'
-        let value = res.height/res.width
-        if(computeMethod === 'height'){
-          that.data.picsize.height = windowHeight
-          that.data.picsize.width = windowHeight/value
-          that.data.previewsize.height = previewbox
-          that.data.previewsize.width = previewbox/value
-        } else {
-          that.data.picsize.width = windowWidth
-          that.data.picsize.height = windowWidth*value
-          that.data.previewsize.width = previewbox
-          that.data.previewsize.height = previewbox*value
-        }
-        wx.showToast({
-          title: '选取视频成功',
-          icon: 'success',
-          duration: 2000
-        })
-        that.setData({
-          tempFilePath: res.tempFilePath,
-          duration: res.duration,
-          oldVideoSize: that.data.oldVideoSize,
-          size: (res.size / (1024 * 1024)).toFixed(2),
-          picsize: that.data.picsize,
-          previewsize: that.data.previewsize
-        })
-        console.log(that.data.oldVideoSize)
-        wx.showLoading({
-          title: '视频处理中',
-          duration: 2000,
-          mask: true
-        })
-        if(usermethod === 'camera'){
-          console.log('拍摄视频')
-          wx.saveVideoToPhotosAlbum({
-            filePath: res.tempFilePath,
-            success(res) {
-              console.log(res)
-            },
-            fail(res) {
-              console.log(res.errMsg)
-            }
-          })
-        }
-        if (that.data.size > 100) {
+        const videoType = res.tempFilePath
+        if(videoType.substring(videoType.length-3) === 'mp4' || videoType.substring(videoType.length-3) === 'mov' || videoType.substring(videoType.length-3) === 'avi'){
+          console.log(videoType.substring(videoType.length-3))
+          that.data.oldVideoSize.height = res.height
+          that.data.oldVideoSize.width = res.width
+          res.height > res.width ? computeMethod = 'height': computeMethod = 'width'
+          let value = res.height/res.width
+          if(computeMethod === 'height'){
+            that.data.picsize.height = windowHeight
+            that.data.picsize.width = windowHeight/value
+            that.data.previewsize.height = previewbox
+            that.data.previewsize.width = previewbox/value
+          } else {
+            that.data.picsize.width = windowWidth
+            that.data.picsize.height = windowWidth*value
+            that.data.previewsize.width = previewbox
+            that.data.previewsize.height = previewbox*value
+          }
           wx.showToast({
-            title: '视频超过100M！',
-            duration: 1500,
+            title: '选取视频成功',
+            icon: 'success',
+            duration: 2000
+          })
+          that.setData({
+            tempFilePath: res.tempFilePath,
+            duration: res.duration,
+            oldVideoSize: that.data.oldVideoSize,
+            size: (res.size / (1024 * 1024)).toFixed(2),
+            picsize: that.data.picsize,
+            previewsize: that.data.previewsize
+          })
+          console.log(that.data.oldVideoSize)
+          wx.showLoading({
+            title: '视频处理中',
+            duration: 2000,
             mask: true
           })
-          const timers = setTimeout(()=>{
-            wx.navigateBack({
-              delta: 1
-            });
-            clearInterval(timers)
-          },1500)
-        } else {
-          if (that.data.duration > 30) {
-            wx.showToast({
-              title: '视频超过30s！',
-              duration: 1500,
-              mask: true
-            })
-            const timers = setTimeout(()=>{
-              wx.navigateBack({
-                delta: 1
-              });
-              clearInterval(timers)
-            },1500)
-          } else if (that.data.duration < 10) {
-            wx.showToast({
-              title: '视频时间太短！',
-              duration: 1500,
-              mask: true
-            })
-            const timers = setTimeout(()=>{
-              wx.navigateBack({
-                delta: 1
-              });
-              clearInterval(timers)
-            },1500)
-          } else {
-            //上传视频， 取得视频服务器地址
-            wx.uploadFile({
-              url: api.upload_cover,
-              filePath: that.data.tempFilePath,
-              name: 'filename',
-              header: {
-                'content-type': 'multipart/form-data',
-                "auth-token": wx.getStorageSync('loginSessionKey'),
-              },
-              formData: {
-                upload_type: 'tmp1',
-                filename: that.data.tempFilePath,
-              },
+          if(usermethod === 'camera'){
+            console.log('拍摄视频')
+            wx.saveVideoToPhotosAlbum({
+              filePath: res.tempFilePath,
               success(res) {
-                const data = JSON.parse(res.data)
-                that.data.uploadContent.video_url = data.data.file_path
-                console.log(res.data)
-                console.log(data)
-                that.setData({
-                  previewpic: data.data.savehttp,
-                  uploadContent: that.data.uploadContent
-                })
+                console.log(res)
+              },
+              fail(res) {
+                console.log(res.errMsg)
               }
             })
           }
+          if (that.data.size > 100) {
+            wx.showToast({
+              title: '视频超过100M！',
+              duration: 1500,
+              mask: true
+            })
+            const timers = setTimeout(()=>{
+              wx.navigateBack({
+                delta: 1
+              });
+              clearTimeout(timers)
+            },1500)
+          } else {
+            if (that.data.duration > 30) {
+              wx.showToast({
+                title: '视频超过30s！',
+                duration: 1500,
+                mask: true
+              })
+              const timers = setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1
+                });
+                clearTimeout(timers)
+              },1500)
+            } else if (that.data.duration < 10) {
+              wx.showToast({
+                title: '视频时间太短！',
+                duration: 1500,
+                mask: true
+              })
+              const timers = setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1
+                });
+                clearTimeout(timers)
+              },1500)
+            } else {
+              //上传视频， 取得视频服务器地址
+              wx.uploadFile({
+                url: api.upload_cover,
+                filePath: that.data.tempFilePath,
+                name: 'filename',
+                header: {
+                  'content-type': 'multipart/form-data',
+                  "auth-token": wx.getStorageSync('loginSessionKey'),
+                },
+                formData: {
+                  upload_type: 'tmp1',
+                  filename: that.data.tempFilePath,
+                },
+                success(res) {
+                  const data = JSON.parse(res.data)
+                  that.data.uploadContent.video_url = data.data.file_path
+                  console.log(res.data)
+                  console.log(data)
+                  that.setData({
+                    previewpic: data.data.savehttp,
+                    uploadContent: that.data.uploadContent
+                  })
+                }
+              })
+            }
+          }
+        } else {
+          wx.showToast({
+            title: '视频只支持mp4,aiv和mov格式！',
+            icon: 'none',
+            duration: 1500,
+            mask: true,
+            success: (result)=>{
+              const time = setTimeout(()=>{
+                clearTimeout(time)
+                wx.navigateBack({
+                  delta: 1
+                });
+              },1500)
+            },
+          });
         }
       },
       fail: function (e) {
@@ -1009,7 +1028,7 @@ Page({
                     wx.navigateBack({
                       delta: 1
                     });
-                    clearInterval(timers)
+                    clearTimeout(timers)
                   },1500)
                 },
               });
@@ -1042,7 +1061,7 @@ Page({
                           wx.navigateBack({
                             delta: 1
                           });
-                          clearInterval(timers)
+                          clearTimeout(timers)
                         },1500)
                       },
                     });

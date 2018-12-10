@@ -4,7 +4,7 @@
     <video controls="{{false}}"
            autoplay="{{true}}"
            hidden="{{!showVideo}}"
-           src="{{video_detail.transcode_video_url}}"
+           src="{{whichVideo}}"
            poster="{{video_detail.video_small_pic}}"
            loop="{{true}}"
            id="video"

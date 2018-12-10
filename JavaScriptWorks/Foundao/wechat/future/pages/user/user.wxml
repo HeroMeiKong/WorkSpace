@@ -14,18 +14,19 @@
             <view class="user-otherInfo">
                 <view class="user-name">{{real_userInfo.nickName}}</view>
                 <view class="user-fans-attention">
-                    <span class="user-num"  bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>
+                    <span class="user-num" bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>
                     <span bindtap="goAttention" data-select="2">粉丝</span>
                     <view class="line"></view>
-                    <span class="user-num"  bindtap="goAttention" data-select="1">{{userInfo.follow}}</span>
-                    <span  bindtap="goAttention" data-select="1">关注</span>
+                    <span class="user-num" bindtap="goAttention" data-select="1">{{userInfo.follow}}</span>
+                    <span bindtap="goAttention" data-select="1">关注</span>
                 </view>
             </view>
         </view>
         <!--个人简介-->
         <!--<view class="user-intro">{{userInfo.user_autograph}}</view>-->
         <textarea class="user-intro" name="" id="" cols="30" rows="2" placeholder="点击此处修改个人简介"
-                  placeholder-style="color:rgba(255,255,255,.6)" bindblur="updateContent" bindinput="numLimit" value="{{userInfo.user_autograph}}">
+                  placeholder-style="color:rgba(255,255,255,.6)" bindblur="updateContent" bindinput="numLimit"
+                  value="{{userInfo.user_autograph}}">
                 <!--<text>{{userInfo.user_autograph}}</text>-->
         </textarea>
         <!--tab-->
@@ -56,9 +57,9 @@
         <!--喜欢-->
         <view class="like-list" hidden="{{select==1}}">
             <!--<block wx:for="{{like_list}}">-->
-                <!--<view class="video-item" bindtap="goVideo"-->
-                      <!--data-data="{{item}}" style="background-image: url({{item.pic}})">-->
-                <!--</view>-->
+            <!--<view class="video-item" bindtap="goVideo"-->
+            <!--data-data="{{item}}" style="background-image: url({{item.pic}})">-->
+            <!--</view>-->
             <!--</block>-->
             <block wx:for="{{like_list}}">
                 <view class="videoItem">
@@ -72,6 +73,8 @@
                 </view>
             </block>
         </view>
+        <!--无更多作品提示-->
+        <view class="no-more" wx:if="{{(select==1&&product_no_more)||(select==2&&like_no_more)}}">暂无更多内容</view>
         <!--暂无任何作品-->
         <view class="no-product"
               wx:if="{{(select==1&&product_none)||(select==2&&like_none)}}"></view>

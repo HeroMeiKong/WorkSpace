@@ -20,7 +20,9 @@
         <view class="open-list">
             <view class="open-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选</view>
             <block wx:for="{{type_list}}">
-                <view class="open-item {{cur_type==item.id?'selected':''}}" catchtap="switchType" data-data="{{item}}">{{item.sub_title}}</view>
+                <view class="open-item {{cur_type==item.id?'selected':''}}" catchtap="switchType" data-data="{{item}}">
+                    {{item.sub_title}}
+                </view>
             </block>
         </view>
     </view>
@@ -32,7 +34,8 @@
                      bindscroll="scroll">
             <block wx:for="{{cur_list}}" wx:for-item="dub">
                 <!--配音单元-->
-                <view class="dub-item" style="background-image: url({{dub.video_small_pic}})"  bindtap="goDub" data-data="{{dub}}">
+                <view class="dub-item" style="background-image: url({{dub.video_small_pic}})" bindtap="goDub"
+                      data-data="{{dub}}">
                     <view class="name" hidden="{{cur_type!=0}}">{{dub.sub_title}}</view>
                     <view class="go-btn">开始配音</view>
                 </view>
@@ -51,4 +54,6 @@
         <!--</scroll-view>-->
         <!--</block>-->
     </view>
+    <!--无更多作品提示-->
+    <!--<view class="no-more" wx:if="{{no_more}}">暂无更多内容</view>-->
 </view>
