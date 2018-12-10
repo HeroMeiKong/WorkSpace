@@ -9,6 +9,8 @@ const app = getApp()
 const record_text = '为了提供更好的服务，请先开启录音功能';
 const writePhotoAlbum_text = '为了提供更好的服务，请先开启保存到相册功能';
 let action = false
+let restartvideo = false
+let videotimeupdate = false
 
 const STATUS = {
     READY: 'READY',
@@ -141,6 +143,10 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        console.log('onShow')
+        restartvideo = false
+        videotimeupdate = false
+        console.log(restartvideo)
         app.isAuth(() => {
             if (!this.data.hasInit) {
                 console.log('未初始化')
@@ -175,6 +181,7 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
+        console.log('onHide')
         if (this.data.isDubbing) {
             this.reRecord();
             this.breakRecord();
@@ -185,6 +192,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
+        console.log('onUnload')
         if (this.data.isDubbing) {
             this.breakRecord();
         }
@@ -280,10 +288,12 @@ Page({
 
     // 视频时间进度事件
     bindtimeupdate(e) {
-        var p = e.detail.currentTime / e.detail.duration
-        this.setData({
-            progress: p
-        })
+        console.log('bindtimeupdate')
+        videotimeupdate = true
+        // var p = e.detail.currentTime / e.detail.duration
+        // this.setData({
+        //     progress: p
+        // })
     },
 
     // 播放视频
@@ -452,6 +462,7 @@ Page({
         // 录音结束
         this.data.recorderManager.onStop((res) => {
             console.log('recorder stop');
+            restartvideo = true
             if (this.data.break_record) {       //主动停止
                 this.data.break_record = false;
                 this.videoContext.pause();
@@ -489,6 +500,9 @@ Page({
             clearInterval(this.data.timer);
         }
         this.data.timer = setInterval(this.timeAdd, 100);
+        console.log(action)
+        console.log(videotimeupdate)
+        console.log(restartvideo)
     },
 
     // 停止轮询
@@ -498,7 +512,7 @@ Page({
 
     // 计时
     timeAdd() {
-        if(action){
+        if(action && videotimeupdate){
             const {total_time} = this.data;
             const step = 100;
             const {current_time} = this.data;
@@ -847,6 +861,7 @@ Page({
 
     // 开始录音
     startRecord() {
+        this.videoContext.stop()
         if (this.data.record_shake) {
           console.log('record_shake')
             return
@@ -1211,7 +1226,11 @@ Page({
     },
     bindwaiting(e){
         console.log('bindwaiting')
-        action = false
+        if(restartvideo){
+            action = true
+        } else {
+            action = false
+        }
     },
     bindprogress(e){
         console.log('bindprogress')

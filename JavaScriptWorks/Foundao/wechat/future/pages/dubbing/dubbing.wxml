@@ -12,6 +12,7 @@
            bindplay="bindplay"
            bindpause="bindpause"
            bindended="bindended"
+           bindtimeupdate="bindtimeupdate"
            bindwaiting="bindwaiting"
            bindprogress="bindprogress"
            muted="{{muted}}">
