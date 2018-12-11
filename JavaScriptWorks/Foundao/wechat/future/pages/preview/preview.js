@@ -681,7 +681,7 @@ Page({
     var pasterpiclength = this.data.pasters.length
     for(let i=0;i<pasterpiclength;i++){
       if(this.data.pasters[i].id === pasterpicid){
-        pic = this.data.pasters[i].icon
+        pic = this.data.pasters[i].pics
       }
     }
     //删除隐藏的压条
