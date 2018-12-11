@@ -402,6 +402,7 @@ Page({
 
     //前往录音页
     goDub(e) {
+        app.aldstat.sendEvent('进入配音', '录音列表进入')
         var data = e.currentTarget.dataset.data;
         wx.navigateTo({
             url: '/pages/dubbing/dubbing?video_uuid=' + data.video_uuid

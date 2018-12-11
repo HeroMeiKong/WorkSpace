@@ -362,6 +362,7 @@ Page({
                     this.setData({
                         cur_video: this.data.cur_video
                     })
+                    this.refreshStatus(this.data.cur_video.uuid,2)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -409,6 +410,7 @@ Page({
                     this.setData({
                         cur_video: this.data.cur_video
                     })
+                    this.refreshStatus(this.data.cur_video.uuid,1)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -720,6 +722,7 @@ Page({
 
     // 前往录音页
     challenge() {
+        app.aldstat.sendEvent('进入配音', '视频页进入')
         wx.navigateTo({
             url: '/pages/dubbing/dubbing?video_uuid=' + this.data.cur_video.video_uuid
         })
@@ -768,5 +771,17 @@ Page({
                 return
             }
         }
-    }
+    },
+
+    //更新主页的关注数据
+    refreshStatus(user_uuid,status){
+        var pages = getCurrentPages();
+        for(var i=0;i<pages.length;i++){
+            var page_temp = pages[i]
+            if(page_temp.route == 'pages/index/index'){
+                page_temp.refreshStatus(user_uuid,status)
+                return
+            }
+        }
+    },
 })

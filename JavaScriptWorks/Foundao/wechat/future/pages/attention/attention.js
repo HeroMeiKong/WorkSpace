@@ -334,7 +334,8 @@ Page({
                             }
                         }
                         this.setData({
-                            attention_list: temp_data
+                            attention_list: temp_data,
+                            attention_none: temp_data.length > 0 ? false : true,
                         })
                         //刷新关注列表
                         setTimeout(() => {

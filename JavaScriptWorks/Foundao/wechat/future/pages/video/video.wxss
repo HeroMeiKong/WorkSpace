@@ -527,7 +527,18 @@
     align-items: center;
 }
 
+.poster_layer .save_poster .poster-shandow{
+    position: absolute;
+    top: 71rpx;
+    width: 426rpx;
+    height: 686rpx;
+    left:50%;
+    transform: translateX(-50%);
+}
+
 .poster_layer .save_poster .poster{
+    position: relative;
+    z-index: 9;
     margin-top: 80rpx;
     width: 400rpx;
     height: 660rpx;

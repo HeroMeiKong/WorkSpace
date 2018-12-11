@@ -15,6 +15,9 @@
 .oneplus5t{
   padding-top: 142rpx;
 }
+.xiaomi8{
+  padding-top: 162rpx；
+}
 .user-page {
   width: 100%;
   min-height: 100%;
@@ -224,8 +227,8 @@ swiper-item {
 }
 
 .chosefilterdiv .filterimage {
-  width: 20rpx;
-  height: 20rpx;
+  width: 34rpx;
+  height: 23rpx;
   margin: 50rpx;
 }
 

@@ -298,7 +298,8 @@ Page({
                     //设置作品数组
                     this.data.like_page++;
                     this.setData({
-                        like_list: like_list.concat(data.data)
+                        like_list: like_list.concat(data.data),
+                        like_none: false,
                     })
                 } else {
                     wx.showToast({

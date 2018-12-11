@@ -61,7 +61,6 @@ Page({
             // }
         },
 
-
         isIpx: false,
         fit: false,
 
@@ -1078,6 +1077,7 @@ Page({
 
     // 前往配音页
     challenge() {
+        app.aldstat.sendEvent('进入配音', '首页进入')
         wx.navigateTo({
             url: '/pages/dubbing/dubbing?video_uuid=' + this.data.cur_video.video_uuid
         })

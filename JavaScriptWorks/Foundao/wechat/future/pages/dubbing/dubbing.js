@@ -96,8 +96,8 @@ Page({
         fit: false,
 
         record_shake: false,
-        stop_record_shake:false,
-        continue_record_shake:false,
+        stop_record_shake: false,
+        continue_record_shake: false,
     },
 
     /**
@@ -590,7 +590,7 @@ Page({
     },
 
     //重新开始
-    reStart(){
+    reStart() {
         this.breakRecord();
         this.reRecord();
     },
@@ -622,13 +622,17 @@ Page({
             lyric_3: '',
             // active_lyric: 0,
             // lyric_animationData: this.animation.export()
+        }, () => {
+            setTimeout(() => {
+                this.playVideo()
+            }, 500)
         })
     },
 
 
-
     // 合成
     compose() {
+        app.aldstat.sendEvent('开始合成', '点击开始合成按钮')
         this.data.innerAudioContext.pause();
         this.videoContext.pause();
         this.uploadFile();
@@ -788,6 +792,7 @@ Page({
     // 查看进度
     toDetail() {
         // 跳转到视频详情页
+        this.pauseVideo();
         wx.switchTab({
             url: '/pages/user/user'
         })
@@ -861,9 +866,10 @@ Page({
 
     // 开始录音
     startRecord() {
+        app.aldstat.sendEvent('开始配音', '点击配音按钮')
         this.videoContext.stop()
         if (this.data.record_shake) {
-          console.log('record_shake')
+            console.log('record_shake')
             return
         } else {
             this.data.record_shake = true
@@ -918,15 +924,15 @@ Page({
 
     // 暂停录音
     pauseRecord() {
-      if (this.data.stop_record_shake) {
-        console.log('stop_record_shake')
-        return
-      } else {
-        this.data.stop_record_shake = true
-        setTimeout(() => {
-          this.data.stop_record_shake = false
-        }, 1000)
-      }
+        if (this.data.stop_record_shake) {
+            console.log('stop_record_shake')
+            return
+        } else {
+            this.data.stop_record_shake = true
+            setTimeout(() => {
+                this.data.stop_record_shake = false
+            }, 1000)
+        }
         this.setData({
             isPaused: true
         });
@@ -936,15 +942,15 @@ Page({
 
     // 继续录音
     continueRecord() {
-      if (this.data.continue_record_shake) {
-        console.log('continue_record_shake')
-        return
-      } else {
-        this.data.continue_record_shake = true
-        setTimeout(() => {
-          this.data.continue_record_shake = false
-        }, 1000)
-      }
+        if (this.data.continue_record_shake) {
+            console.log('continue_record_shake')
+            return
+        } else {
+            this.data.continue_record_shake = true
+            setTimeout(() => {
+                this.data.continue_record_shake = false
+            }, 1000)
+        }
         console.log('继续录音');
         this.setData({
             isPaused: false
@@ -1041,7 +1047,7 @@ Page({
             title: '海报生成中'
         });
 
-        this.get_erCode(()=>{
+        this.get_erCode(() => {
             const getImage = promisify(wx.getImageInfo);
             const getImage2 = promisify(wx.getImageInfo);
             const getImage3 = promisify(wx.getImageInfo);
@@ -1128,7 +1134,6 @@ Page({
                 });
             });
         });
-
 
 
     },

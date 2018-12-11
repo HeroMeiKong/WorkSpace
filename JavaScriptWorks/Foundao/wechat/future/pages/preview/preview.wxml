@@ -43,7 +43,7 @@
           <view class="ischose" catch:tap="goHome">确定</view>
         </view>
         <view class="choseinner">
-          <swiper display-multiple-items='5'>
+          <swiper display-multiple-items='5' duration="1000">
             <block wx:for="{{filters}}" wx:key="*this">
               <swiper-item>
                 <view class="{{item.filterdiv}}" catch:tap="choseFilter">
@@ -61,7 +61,7 @@
           <view class="ischose" catch:tap="goHome">确定</view>
         </view>
         <view class="choseinner">
-          <swiper display-multiple-items='5' current="{{pasterbegin}}">
+          <swiper display-multiple-items='5' current="{{pasterbegin}}" duration="1000">
             <block wx:for="{{pasters}}" wx:key="*this">
               <swiper-item>
                 <view class="pasterdiv">
@@ -87,7 +87,7 @@
         </view>
         <view class="choseinner">
           <view class="musiclist" style="display:{{showmusiclist}}">
-            <swiper display-multiple-items='3' vertical="true" current="{{musicbegin}}">
+            <swiper display-multiple-items='3' vertical="true" current="{{musicbegin}}"  duration="1000">
               <block wx:for="{{showmusiclists}}" wx:key="*this">
                 <swiper-item>
                   <view id="{{item.id}}" class="musiclistdiv">
@@ -107,7 +107,7 @@
               </block>
             </swiper>
           </view>
-          <swiper display-multiple-items='5'>
+          <swiper display-multiple-items='5'  duration="1000">
             <block wx:for="{{musics}}" wx:key="*this">
               <swiper-item>
                 <view id="{{item.id}}" class="musicdiv" catch:tap="choseMusic">
@@ -136,14 +136,14 @@
       <view class="topic" catch:tap="choseTopic">
         <view class="topicinner"><image class="topicinnerpic" src="../../assets/images/1huati@2x.png" /><font>{{topic}}</font></view>
       </view>
-      <textarea bindblur="bindTextAreaBlur" class="introduce" placeholder="请输入简介...(选填,最多30字！)" maxlength="30"></textarea>
+      <textarea bindblur="bindTextAreaBlur" class="introduce" placeholder="请输入简介...(选填,最多30字！)" maxlength="30" bindinput="bindTextAreaInput"></textarea>
     </view>
     <view class="topictype" style="display:{{showtopictype}}">
       <view class="topictype_top">
         <cover-view class="topictype_line"></cover-view>
       </view>
       <view class="topictype_bottom">
-        <swiper display-multiple-items='5' vertical="true">
+        <swiper display-multiple-items='5' vertical="true"  duration="1000">
           <block wx:for="{{topics}}" wx:key="*this">
             <swiper-item>
               <view class="topictype_box" id="{{item.id}}" catch:tap="choseThisTopic">

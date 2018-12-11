@@ -4,6 +4,7 @@ import PubSub from "./utils/pubSub";
 
 const promisify = require('./utils/promisify');
 const ald = require('./utils/ald-stat');
+const aldstat = require('./utils/ald-stat');
 const pubSub = require('./utils/pubSub');
 const wxRequest = promisify(wx.request);
 

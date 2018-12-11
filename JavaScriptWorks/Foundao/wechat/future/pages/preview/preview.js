@@ -28,6 +28,7 @@ let temparray = [] //歌词分类请求列表
 let videolock = false //视频是否播放
 let autovideolock = true //兼容有些手机视频自动播放
 let topiclock = false  //话题是否选择
+let nowmusicname = '' //当前音乐名称
 const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()//试听歌曲
 innerAudioContext.obeyMuteSwitch = false
@@ -130,6 +131,11 @@ Page({
           windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.8
           that.data.oldCoordinatey = 142 * windowWidth / 750
           that.data.models = 'oneplus5t'
+        } else if (res.model.indexOf("MI 8") > -1) {
+          //xiaomi8
+          windowHeight = (res.windowHeight - 162 * windowWidth / 750)*0.8
+          that.data.oldCoordinatey = 162 * windowWidth / 750
+          that.data.models = 'xiaomi8'
         } else {
           //其他机型
           windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.8
@@ -250,6 +256,7 @@ Page({
               },1500)
             } else {
               //上传视频， 取得视频服务器地址
+              console.log('发送上传视频请求')
               wx.uploadFile({
                 url: api.upload_cover,
                 filePath: that.data.tempFilePath,
@@ -352,7 +359,8 @@ Page({
     this.setData({
       musiclists: this.data.musiclists,
       showmusiclists: this.data.showmusiclists,
-      uploadContent: this.data.uploadContent
+      uploadContent: this.data.uploadContent,
+      showmusiclist: 'none'
     })
   },
   onUnload (e) {
@@ -422,6 +430,14 @@ Page({
   goHome: function (e) {
     console.log('goHome')
     innerAudioContext.stop()
+    if(preInnerAudioContext.src !== 'none'){
+      wx.showToast({
+        title: '已选择'+nowmusicname,
+        icon: 'none',
+        duration: 1500,
+        mask: false,
+      });
+    }
     if(this.data.movableviewNum.length > 0){
       //this.data.movableviewNum[0].display = 'none'
       this.data.uploadContent.tiezhi = this.data.movableviewNum[0].pic
@@ -785,6 +801,7 @@ Page({
         if(e.currentTarget.id === 'right'+this.data.showmusiclists[i].id){
           console.log('选他')
           preInnerAudioContext.src = this.data.showmusiclists[i].music_url
+          nowmusicname = this.data.showmusiclists[i].music_name
           this.data.uploadContent.audio_url = this.data.showmusiclists[i].music_url
           //innerAudioContext.pause()
           this.data.uploadContent.audio_id = this.data.showmusiclists[i].id
@@ -828,6 +845,7 @@ Page({
         addmusiclock = false
         tempmusictype = -1
         preInnerAudioContext.src = 'none'
+        nowmusicname = ''
         this.data.uploadContent.audio_id = ''
         this.data.uploadContent.audio_url = ''
         this.setData({
@@ -839,6 +857,7 @@ Page({
           if(e.currentTarget.id === 'right'+this.data.showmusiclists[k].id){
             console.log('选他1')
             preInnerAudioContext.src = this.data.showmusiclists[k].music_url
+            nowmusicname = this.data.showmusiclists[k].music_name
             this.data.uploadContent.audio_url = this.data.showmusiclists[k].music_url
             //innerAudioContext.pause()
             this.data.uploadContent.audio_id = this.data.showmusiclists[k].id
@@ -1192,6 +1211,17 @@ Page({
     this.setData({
       uploadContent: this.data.uploadContent
     })
+  },
+  bindTextAreaInput(e){
+    console.log('bindTextAreaInput')
+    if(e.detail.cursor === 30){
+      wx.showToast({
+        title: '最多输入30个字!',
+        icon: 'none',
+        duration: 1500,
+        mask: true,
+      });
+    }
   },
   videoend (e) {
     console.log('videoend')

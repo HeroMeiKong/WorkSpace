@@ -135,6 +135,9 @@ Page({
                             }
                         })
 
+                    },
+                    complete:function (re) {
+                        wx.hideLoading()
                     }
                 })
 
