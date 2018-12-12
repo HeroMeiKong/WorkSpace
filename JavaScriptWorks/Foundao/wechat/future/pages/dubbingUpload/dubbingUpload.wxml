@@ -26,7 +26,7 @@
     <view id='upload' class='box' catch:tap="uploadLocalVideo">
       <view class='left'>
         <text class='textTitle'>本地上传</text>
-        <text class='textSuggest'>不超过100M，30秒以内</text>
+        <text class='textSuggest'>不超过100M，10～30秒以内</text>
       </view>
       <view class='right'>
         <image src='../../assets/images/3bendi2@2x.png'></image>

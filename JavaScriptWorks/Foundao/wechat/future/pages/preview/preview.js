@@ -203,6 +203,7 @@ Page({
           console.log(that.data.oldVideoSize)
           wx.showLoading({
             title: '视频处理中',
+            icon: 'loading',
             duration: 2000,
             mask: true
           })
@@ -220,7 +221,8 @@ Page({
           }
           if (that.data.size > 100) {
             wx.showToast({
-              title: '视频超过100M！',
+              title: '上传的视频大小不能超过100M！',
+              icon: 'none',
               duration: 1500,
               mask: true
             })
@@ -238,7 +240,8 @@ Page({
           } else {
             if (that.data.duration > 30) {
               wx.showToast({
-                title: '视频超过30s！',
+                title: '上传的视频拍摄时间不能大于30秒！',
+                icon: 'none',
                 duration: 1500,
                 mask: true
               })
@@ -255,7 +258,8 @@ Page({
               },1500)
             } else if (that.data.duration < 10) {
               wx.showToast({
-                title: '视频时间太短！',
+                title: '上传的视频拍摄时间不能低于10秒！',
+                icon: 'none',
                 duration: 1500,
                 mask: true
               })
@@ -317,6 +321,7 @@ Page({
       },
       fail: function (e) {
         console.log(e)
+        app.shootsuccess = false
         wx.navigateBack({
           delta: 1
         });
@@ -376,7 +381,8 @@ Page({
       musiclists: this.data.musiclists,
       showmusiclists: this.data.showmusiclists,
       uploadContent: this.data.uploadContent,
-      showmusiclist: 'none'
+      showmusiclist: 'none',
+      showpause: 'flex'
     })
   },
   onUnload (e) {
@@ -753,7 +759,7 @@ Page({
       pic: pic}
     if(pasterNum > 0){
       wx.showToast({
-        title: '只能添加一个压条',
+        title: '只能添加一个贴纸',
         duration: 1000
       })
     } else {
@@ -1128,8 +1134,24 @@ Page({
                     console.log(res)
                     clearInterval(timer)
                     wx.showToast({
-                      title: '视频上传成功！',
+                      title: '视频合成成功！',
                       icon: 'success',
+                      duration: 1500,
+                      mask: true,
+                      success: (result)=>{
+                        const timers = setTimeout(()=>{
+                          wx.navigateBack({
+                            delta: 1
+                          });
+                          clearTimeout(timers)
+                        },1500)
+                      },
+                    });
+                  } else if (res.data.code === -2){
+                    clearInterval(timer)
+                    wx.showToast({
+                      title: '视频合成失败！请重新上传！',
+                      icon: 'none',
                       duration: 1500,
                       mask: true,
                       success: (result)=>{
