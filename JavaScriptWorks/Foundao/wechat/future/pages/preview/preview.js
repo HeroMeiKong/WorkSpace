@@ -224,6 +224,11 @@ Page({
               mask: true
             })
             const timers = setTimeout(()=>{
+              if(usermethod === 'camera'){
+                app.shootsuccess = true
+              } else {
+                app.shootsuccess = false
+              }
               wx.navigateBack({
                 delta: 1
               });
@@ -237,6 +242,11 @@ Page({
                 mask: true
               })
               const timers = setTimeout(()=>{
+                if(usermethod === 'camera'){
+                  app.shootsuccess = true
+                } else {
+                  app.shootsuccess = false
+                }
                 wx.navigateBack({
                   delta: 1
                 });
@@ -249,6 +259,11 @@ Page({
                 mask: true
               })
               const timers = setTimeout(()=>{
+                if(usermethod === 'camera'){
+                  app.shootsuccess = true
+                } else {
+                  app.shootsuccess = false
+                }
                 wx.navigateBack({
                   delta: 1
                 });

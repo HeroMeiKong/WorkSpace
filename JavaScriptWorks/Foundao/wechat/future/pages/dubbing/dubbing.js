@@ -512,7 +512,7 @@ Page({
 
     // 计时
     timeAdd() {
-        if(action && videotimeupdate){
+        if (action && videotimeupdate) {
             const {total_time} = this.data;
             const step = 100;
             const {current_time} = this.data;
@@ -1041,7 +1041,7 @@ Page({
     create_poster() {
         const canvas_width = 750;
         const canvas_height = 1238;
-        const {video_name, video_small_pic, sub_title} = this.data.video_detail;
+        const {video_name, video_small_pic, sub_title, first_pic3} = this.data.video_detail;
 
         wx.showLoading({
             title: '海报生成中'
@@ -1100,7 +1100,7 @@ Page({
                         ctx.fillText(this.data.userInfo.nickName, 185, 766);
 
                         // 绘制描述
-                        const stringArr = Tool.stringToArr('我在为话题#' + sub_title + '配音，邀你来玩~', 18);
+                        const stringArr = Tool.stringToArr('我在为话题#' + sub_title + ' 配音，快来加入吧！', 18);
                         ctx.setFillStyle('#333333');
                         ctx.setFontSize(30);
                         ctx.setTextBaseline('top')
@@ -1122,8 +1122,9 @@ Page({
                         ctx.setFillStyle('#999999');
                         ctx.setFontSize(28);
                         ctx.setTextBaseline('top')
-                        ctx.fillText('长按小程序查看详情', 358, 1048);
-                        ctx.fillText('和我一起玩「逗牛短视频」', 358, 1092);
+                        ctx.fillText('长按小程序', 358, 1048);
+                        ctx.fillText('一起来「逗牛短视频」', 358, 1092);
+                        ctx.fillText('挑战大咖吧！', 358, 1136);
 
 
                         ctx.draw(false, this.create_poster_image);
@@ -1229,15 +1230,15 @@ Page({
             })
         }
     },
-    bindwaiting(e){
+    bindwaiting(e) {
         console.log('bindwaiting')
-        if(restartvideo){
+        if (restartvideo) {
             action = true
         } else {
             action = false
         }
     },
-    bindprogress(e){
+    bindprogress(e) {
         console.log('bindprogress')
         action = true
     }

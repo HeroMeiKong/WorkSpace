@@ -116,7 +116,7 @@ Page({
         }
         app.statistics_pv(options)
         return {
-            title: '我在逗牛短视频中看' + this.data.top_info.sub_title + '，现在邀你来玩哦~',
+            title: '玩转#' + this.data.top_info.sub_title + '，我在逗牛短视频等你！',
             path: '/pages/subject/subject?id=' + this.data.id,
             imageUrl: this.data.top_info.sub_pic,
         }

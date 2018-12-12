@@ -127,7 +127,7 @@
                 <cover-view class="save_poster" wx:if="{{show_poster}}">
                     <cover-image src="https://www.newscctv.net/dw/resource/future/1shandow@2x.png" class="poster-shandow"></cover-image>
                     <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
-                    <cover-view class="text">保存图片，分享给你的小伙伴吧</cover-view>
+                    <cover-view class="text">独乐不如众乐，保存图片分享给盆友吧！</cover-view>
                     <cover-view class="btn_save_img" catchtap="save_poster">保存</cover-view>
                 </cover-view>
             </cover-view>

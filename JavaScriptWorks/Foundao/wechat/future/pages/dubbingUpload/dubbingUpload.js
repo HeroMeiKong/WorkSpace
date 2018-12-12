@@ -15,6 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('onLoad')
     //wx.showTabBar();
     // this.ctx = wx.createCameraContext()
     // wx.setEnableDebug({
@@ -33,6 +34,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log('onShow')
     wx.showTabBar();
     app.isAuth(() => {
       if (!this.data.hasInit) {
@@ -53,6 +55,13 @@ Page({
           console.log('已初始化')
       }
     })
+    console.log(shootsuccess)
+    const shootsuccess = app.shootsuccess
+    if(shootsuccess){
+      wx.navigateTo({
+        url: '/pages/preview/preview?usermethod=camera'
+      })
+    }
   },
 
   /**

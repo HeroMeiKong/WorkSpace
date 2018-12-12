@@ -23,7 +23,7 @@ Page({
         // 话题列表
         subject_list: [],
 
-        isIpx:false,
+        isIpx: false,
     },
 
     /**
@@ -35,7 +35,7 @@ Page({
             success: (res) => {
                 if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
-                        isIpx:true
+                        isIpx: true
                     })
                 }
             }
@@ -111,7 +111,7 @@ Page({
         }
         app.statistics_pv(options)
         return {
-            title: app.globalData.shareText,
+            title: 'Show配音玩视频，热门话题任你选！',
             path: '/pages/subjectIndex/subjectIndex',
             imageUrl: app.globalData.shareImg,
         }
@@ -119,8 +119,8 @@ Page({
 
     // 获取推荐信息
     getRecommend() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -139,7 +139,7 @@ Page({
                         recommend_list: data.data
                     })
                 } else {
-                     wx.showToast({
+                    wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
@@ -159,8 +159,8 @@ Page({
 
     // 获取展示列表
     getSubjectList() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -179,7 +179,7 @@ Page({
                         subject_list: data.data
                     })
                 } else {
-                     wx.showToast({
+                    wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
