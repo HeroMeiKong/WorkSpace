@@ -24,10 +24,10 @@
         <view class="next" catch:tap="nextStep">下一步
           <image src="../../assets/images/4jt5.png"></image>
         </view>
-        <view class="section" catch:tap="filter">
+        <!-- <view class="section" catch:tap="filter">
           <image class="img" src="../../assets/images/4filter.png"></image>
           <text class="">滤镜</text>
-        </view>
+        </view> -->
         <view class="section" catch:tap="paster">
           <image class="img" src="../../assets/images/4graph.png"></image>
           <text class="">贴纸</text>
@@ -37,10 +37,10 @@
           <text class="">音乐</text>
         </view>
       </view>
-      <view class="filter" style="display:{{showfilter}};">
+      <!-- <view class="filter" style="display:{{showfilter}};">
         <view class="ischosewrapper">
           <view class="ischose" catch:tap="cancelFilter">取消</view>
-          <view class="ischose" catch:tap="goHome">确定</view>
+          <view class="ischose" catch:tap="goHomeFilter">确定</view>
         </view>
         <view class="choseinner">
           <swiper display-multiple-items='5' duration="1000">
@@ -54,11 +54,11 @@
             </block>
           </swiper>
         </view>
-      </view>
+      </view> -->
       <view class="paster" style="display:{{showpaster}};">
         <view class="ischosewrapper">
           <view class="ischose" catch:tap="cancelPaster">取消</view>
-          <view class="ischose" catch:tap="goHome">确定</view>
+          <view class="ischose" catch:tap="goHomePaster">确定</view>
         </view>
         <view class="choseinner">
           <swiper display-multiple-items='5' current="{{pasterbegin}}" duration="1000">
@@ -83,7 +83,7 @@
       <view class="music" style="display:{{showmusic}};">
         <view class="ischosewrapper">
           <view class="ischose" catch:tap="cancelMusic">取消</view>
-          <view class="ischose" catch:tap="goHome">确定</view>
+          <view class="ischose" catch:tap="goHomeMusic">确定</view>
         </view>
         <view class="choseinner">
           <view class="musiclist" style="display:{{showmusiclist}}">

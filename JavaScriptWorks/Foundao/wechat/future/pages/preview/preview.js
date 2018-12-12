@@ -56,7 +56,7 @@ Page({
     movableviewNum: [], //压条个数
     oldCoordinatey: 0,
     oldVideoSize: {width: 0,height: 0},
-    previewpic: '../../assets/images/2null2@2x.png', //视频截图加载失败，默认图片
+    previewpic: '', //视频截图加载失败，默认图片
     filters: [{filterdiv: 'chosefilterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/images/2attention3@2x.png',name: '原画',id: 'none'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-1.png',chose: '../../assets/filter/4filter-1.png',name: '秘语',id: 'vintage'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-2.png',chose: '../../assets/filter/4filter-2.png',name: '绿光',id: 'strong_contrast'},
@@ -458,17 +458,8 @@ Page({
       uploadContent: this.data.uploadContent
     })
   },
-  goHome: function (e) {
-    console.log('goHome')
-    innerAudioContext.stop()
-    if(preInnerAudioContext.src !== 'none' && preInnerAudioContext.src !== ''){
-      wx.showToast({
-        title: '已选择'+nowmusicname,
-        icon: 'none',
-        duration: 1500,
-        mask: false,
-      });
-    }
+  goHomeFilter: function (e) {
+    console.log('goHomeFilter')
     if(nowfiltername !== ''){
       wx.showToast({
         title: '已选择'+nowfiltername,
@@ -477,6 +468,27 @@ Page({
         mask: false,
       });
     }
+    this.goHome()
+  },
+  goHomePaster: function (e) {
+    console.log('goHomePaster')
+    this.goHome()
+  },
+  goHomeMusic: function (e) {
+    console.log('goHomeMusic')
+    if(preInnerAudioContext.src !== 'none' && preInnerAudioContext.src !== ''){
+      wx.showToast({
+        title: '已选择'+nowmusicname,
+        icon: 'none',
+        duration: 1500,
+        mask: false,
+      });
+    }
+    this.goHome()
+  },
+  goHome: function (e) {
+    console.log('goHome')
+    innerAudioContext.stop()
     if(this.data.movableviewNum.length > 0){
       //this.data.movableviewNum[0].display = 'none'
       this.data.uploadContent.tiezhi = this.data.movableviewNum[0].pic
