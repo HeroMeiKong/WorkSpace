@@ -578,8 +578,30 @@ Page({
     var str = e.target.id
     for(let i=0;i<pasterNum;i++){
       if(str === 'bottom'+this.data.movableviewNum[i].id){
-        this.data.movableviewNum[i].width = e.changedTouches[0].pageX - oldLocation.x
-        this.data.movableviewNum[i].height = e.changedTouches[0].pageY - oldLocation.y
+        if(this.data.movableviewNum[i].width <= this.data.picsize.width && this.data.movableviewNum[i].height <= this.data.picsize.height){
+          console.log('不行不行不行1')
+            this.data.movableviewNum[i].width = e.changedTouches[0].pageX - oldLocation.x
+            this.data.movableviewNum[i].height = e.changedTouches[0].pageY - oldLocation.y
+          } else if(this.data.movableviewNum[i].width === this.data.picsize.width 
+            && this.data.movableviewNum[i].height === this.data.picsize.height
+            && e.changedTouches[0].pageX < oldLocation.x
+            && e.changedTouches[0].pageY < oldLocation.y){
+              console.log('不行不行不行2')
+              this.data.movableviewNum[i].width = e.changedTouches[0].pageX - oldLocation.x
+              this.data.movableviewNum[i].height = e.changedTouches[0].pageY - oldLocation.y
+          } else if(this.data.movableviewNum[i].width > this.data.picsize.width){
+            console.log('不行不行不行3')
+            this.data.movableviewNum[i].width = this.data.picsize.width
+            this.data.movableviewNum[i].height = e.changedTouches[0].pageY - oldLocation.y
+          } else if(this.data.movableviewNum[i].height > this.data.picsize.height){
+            console.log('不行不行不行4')
+            this.data.movableviewNum[i].width = e.changedTouches[0].pageX - oldLocation.x
+            this.data.movableviewNum[i].height = this.data.picsize.height
+          } else if(this.data.movableviewNum[i].width > this.data.picsize.width && this.data.movableviewNum[i].height > this.data.picsize.height){
+            console.log('不行不行不行5')
+            this.data.movableviewNum[i].width = this.data.picsize.width
+            this.data.movableviewNum[i].height = this.data.picsize.height
+          }
       }
     }
     this.setData({
@@ -588,6 +610,19 @@ Page({
   },
   endLocation (e) {
     console.log('endLocation')
+    var str = e.target.id
+    for(let i=0;i<pasterNum;i++){
+      if(str === 'bottom'+this.data.movableviewNum[i].id){
+        if(this.data.movableviewNum[i].width > this.data.picsize.width){
+          this.data.movableviewNum[i].width = this.data.picsize.width
+        } else if(this.data.movableviewNum[i].height > this.data.picsize.height){
+          this.data.movableviewNum[i].height = this.data.picsize.height
+        }
+      }
+    }
+    this.setData({
+      movableviewNum: this.data.movableviewNum
+    })
   },
   nextStep (e) {
     console.log('nextStep')

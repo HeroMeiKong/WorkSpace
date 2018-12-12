@@ -4,7 +4,7 @@
     <video controls="{{false}}"
            autoplay="{{true}}"
            hidden="{{!showVideo}}"
-           src="{{whichVideo}}"
+           src="{{video_detail.transcode_video_url}}"
            poster="{{video_detail.video_small_pic}}"
            loop="{{true}}"
            id="video"
@@ -12,9 +12,6 @@
            bindplay="bindplay"
            bindpause="bindpause"
            bindended="bindended"
-           bindtimeupdate="bindtimeupdate"
-           bindwaiting="bindwaiting"
-           bindprogress="bindprogress"
            muted="{{muted}}">
 
         <!--覆盖框-->

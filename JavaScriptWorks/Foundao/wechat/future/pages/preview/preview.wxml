@@ -5,7 +5,7 @@
     <view class="preview">
       <movable-area class="screenshot" style="display:{{showVideo.notvideo}};width:{{picsize.width}}px;height:{{picsize.height}}px;">
         <block wx:for="{{movableviewNum}}" wx:key="*this">
-          <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView">
+          <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView" damping="200">
             <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/4del.png"
               catch:tap="cancelMovableView"></image>
             <image id="pic{{item.id}}" src="{{item.pic}}" bind:tap="showMovableView"></image>

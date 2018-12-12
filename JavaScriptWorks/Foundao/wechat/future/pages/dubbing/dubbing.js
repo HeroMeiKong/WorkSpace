@@ -8,9 +8,9 @@ const app = getApp()
 
 const record_text = '为了提供更好的服务，请先开启录音功能';
 const writePhotoAlbum_text = '为了提供更好的服务，请先开启保存到相册功能';
-let action = false
-let restartvideo = false
-let videotimeupdate = false
+//let action = false
+//let restartvideo = false
+//let videotimeupdate = false
 
 const STATUS = {
     READY: 'READY',
@@ -85,7 +85,7 @@ Page({
         playing: false,
         progress: 0,
         video_detail: {},
-        whichVideo: '',
+        //whichVideo: '',
         playing: false,
         showVideo: true,
 
@@ -144,9 +144,9 @@ Page({
      */
     onShow: function () {
         console.log('onShow')
-        restartvideo = false
-        videotimeupdate = false
-        console.log(restartvideo)
+        // restartvideo = false
+        // videotimeupdate = false
+        // console.log(restartvideo)
         app.isAuth(() => {
             if (!this.data.hasInit) {
                 console.log('未初始化')
@@ -289,11 +289,11 @@ Page({
     // 视频时间进度事件
     bindtimeupdate(e) {
         console.log('bindtimeupdate')
-        videotimeupdate = true
-        // var p = e.detail.currentTime / e.detail.duration
-        // this.setData({
-        //     progress: p
-        // })
+        //videotimeupdate = true
+        var p = e.detail.currentTime / e.detail.duration
+        this.setData({
+            progress: p
+        })
     },
 
     // 播放视频
@@ -373,7 +373,7 @@ Page({
                     }
                     this.setData({
                         video_detail: data.data,
-                        whichVideo: data.data.transcode_video_url,
+                        //whichVideo: data.data.transcode_video_url,
                         total_time: total_time,
                         lyric: lyric,
                         fit: fit_temp,
@@ -462,7 +462,7 @@ Page({
         // 录音结束
         this.data.recorderManager.onStop((res) => {
             console.log('recorder stop');
-            restartvideo = true
+            //restartvideo = true
             if (this.data.break_record) {       //主动停止
                 this.data.break_record = false;
                 this.videoContext.pause();
@@ -500,9 +500,9 @@ Page({
             clearInterval(this.data.timer);
         }
         this.data.timer = setInterval(this.timeAdd, 100);
-        console.log(action)
-        console.log(videotimeupdate)
-        console.log(restartvideo)
+        // console.log(action)
+        // console.log(videotimeupdate)
+        // console.log(restartvideo)
     },
 
     // 停止轮询
@@ -512,7 +512,7 @@ Page({
 
     // 计时
     timeAdd() {
-        if (action && videotimeupdate) {
+        //if (action && videotimeupdate) {
             const {total_time} = this.data;
             const step = 100;
             const {current_time} = this.data;
@@ -523,7 +523,7 @@ Page({
                     current_time: now_time
                 })
             }
-        }
+        //}
     },
 
     // 设置字幕
@@ -867,7 +867,7 @@ Page({
     // 开始录音
     startRecord() {
         app.aldstat.sendEvent('开始配音', '点击配音按钮')
-        this.videoContext.stop()
+        //this.videoContext.stop()
         if (this.data.record_shake) {
             console.log('record_shake')
             return
@@ -911,7 +911,7 @@ Page({
     // 开始真正的录音
     start_record_real() {
         this.setData({
-            whichVideo: this.data.video_detail.transcode_no_music_zimu_video,
+            //whichVideo: this.data.video_detail.transcode_no_music_zimu_video,
             muted: true,
             isDubbing: true
         });
@@ -1230,16 +1230,16 @@ Page({
             })
         }
     },
-    bindwaiting(e) {
-        console.log('bindwaiting')
-        if (restartvideo) {
-            action = true
-        } else {
-            action = false
-        }
-    },
-    bindprogress(e) {
-        console.log('bindprogress')
-        action = true
-    }
+    // bindwaiting(e) {
+    //     console.log('bindwaiting')
+    //     if (restartvideo) {
+    //         action = true
+    //     } else {
+    //         action = false
+    //     }
+    // },
+    // bindprogress(e) {
+    //     console.log('bindprogress')
+    //     action = true
+    // }
 })
