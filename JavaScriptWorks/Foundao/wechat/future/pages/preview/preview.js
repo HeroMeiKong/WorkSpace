@@ -29,6 +29,7 @@ let videolock = false //视频是否播放
 let autovideolock = true //兼容有些手机视频自动播放
 let topiclock = false  //话题是否选择
 let nowmusicname = '' //当前音乐名称
+let nowfiltername = '' //当前滤镜名称
 const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()//试听歌曲
 innerAudioContext.obeyMuteSwitch = false
@@ -409,11 +410,20 @@ Page({
   },
   cancelFilter (e) {
     console.log('cancelFilter')
+    let filterlength = this.data.filters.length
+    nowfiltername = ''
+    this.data.filters[0].filterdiv = 'chosefilterdiv'
+    this.data.filters[0].chose = this.data.filters[0].ispic
+    for(let i=1;i<filterlength;i++){
+      this.data.filters[i].filterdiv = 'filterdiv'
+      this.data.filters[i].chose = this.data.filters[i].nopic
+    }
     this.data.uploadContent.filter = 'none'
     this.setData({
       showoption: 'flex',
       showfilter: 'none',
       //showcover: 'flex',
+      filters: this.data.filters,
       uploadContent: this.data.uploadContent
     })
   },
@@ -445,9 +455,17 @@ Page({
   goHome: function (e) {
     console.log('goHome')
     innerAudioContext.stop()
-    if(preInnerAudioContext.src !== 'none'){
+    if(preInnerAudioContext.src !== 'none' && preInnerAudioContext.src !== ''){
       wx.showToast({
         title: '已选择'+nowmusicname,
+        icon: 'none',
+        duration: 1500,
+        mask: false,
+      });
+    }
+    if(nowfiltername !== ''){
+      wx.showToast({
+        title: '已选择'+nowfiltername,
         icon: 'none',
         duration: 1500,
         mask: false,
@@ -620,6 +638,7 @@ Page({
       if(e.target.id === this.data.filters[i].id){
         if(this.data.filters[i].filterdiv !== 'chosefilterdiv'){
           this.data.filters[i].filterdiv = 'chosefilterdiv'
+          nowfiltername = this.data.filters[i].name
           this.data.filters[i].chose = this.data.filters[i].ispic
           this.data.uploadContent.filter = this.data.filters[i].id
         }
@@ -903,6 +922,7 @@ Page({
   },
   choseMusic(e){
     console.log('choseMusic')
+    console.log(e.currentTarget.id)
     playlock = false
     innerAudioContext.stop()
     const lengths = this.data.musiclists.length
@@ -949,12 +969,21 @@ Page({
               this.data.showmusiclists[i].leftimg = musicpic.playimg
               this.data.showmusiclists[i].rightimg = musicpic.addimg
             }
+            const muisiclength = this.data.musics.length
+            for(let j=0;j<muisiclength;j++){
+              if(e.currentTarget.id === this.data.musics[j].id){
+                this.data.musics[j].pic = this.data.musics[j].music_type_icon
+              } else {
+                this.data.musics[j].pic = this.data.musics[j].no_music_type_icon
+              }
+            }
             this.data.showmusiclist = 'flex'
             tempmusiclist.content = 'yes'
             this.setData({
               showmusiclists: this.data.showmusiclists,
               showmusiclist: this.data.showmusiclist,
               musiclists: this.data.musiclists,
+              musics: this.data.musics,
               musicbegin: 0
             })
           }
@@ -996,6 +1025,18 @@ Page({
           }
         }
       }
+      const musiclength = this.data.musics.length
+      for(let r=0;r<musiclength;r++){
+        if(e.currentTarget.id === this.data.musics[r].id){
+          if(this.data.showmusiclist === 'flex'){
+            this.data.musics[r].pic = this.data.musics[r].music_type_icon
+          } else {
+            this.data.musics[r].pic = this.data.musics[r].no_music_type_icon
+          }
+        } else {
+          this.data.musics[r].pic = this.data.musics[r].no_music_type_icon
+        }
+      }
       for(let l=0;l<lengths;l++){
         this.data.musiclists[l].forEach(element => {
           if(element.leftimg === musicpic.pauseimg){
@@ -1009,6 +1050,7 @@ Page({
         showmusiclists: this.data.showmusiclists,
         showmusiclist: this.data.showmusiclist,
         musiclists: this.data.musiclists,
+        musics: this.data.musics,
         musicbegin: 0
       })
     }
