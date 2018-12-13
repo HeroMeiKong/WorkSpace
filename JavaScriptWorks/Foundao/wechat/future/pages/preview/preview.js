@@ -97,7 +97,9 @@ Page({
     publish: {width: 0,height: 0,x: 0,y: 0},
     uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0},
+    showovercover: 'none',
+    videomuted: false //是否静音视频
   },
 
   /**
@@ -119,27 +121,27 @@ Page({
         windowWidth = res.windowWidth
         if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
           //iphoneX
-          windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.8
+          windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.73
           that.data.oldCoordinatey = 186 * windowWidth / 750
           that.data.models = 'iphoneX'
         } else if (res.model.indexOf("BLA-AL00") > -1) {
           //huaweimate10plus
-          windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.8
+          windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
           that.data.oldCoordinatey = 142 * windowWidth / 750
           that.data.models = 'huaweimate10plus'
         } else if (res.model.indexOf("ONEPLUS A5010") > -1) {
           //OnePlus5T
-          windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.8
+          windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
           that.data.oldCoordinatey = 142 * windowWidth / 750
           that.data.models = 'oneplus5t'
         } else if (res.model.indexOf("MI 8") > -1) {
           //xiaomi8
-          windowHeight = (res.windowHeight - 162 * windowWidth / 750)*0.8
+          windowHeight = (res.windowHeight - 162 * windowWidth / 750)*0.73
           that.data.oldCoordinatey = 162 * windowWidth / 750
           that.data.models = 'xiaomi8'
         } else {
           //其他机型
-          windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.8
+          windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.73
           that.data.oldCoordinatey = 122 * windowWidth / 750
           that.setData({
             whichmodel: false,
@@ -353,6 +355,10 @@ Page({
           console.log('已初始化')
       }
     })
+    this.setData({
+      showovercover: 'none',
+      videomuted: false
+    })
   },
   onHide (e) {
     console.log('onHide')
@@ -372,8 +378,8 @@ Page({
     this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
-    preInnerAudioContext.src = 'none'
-    innerAudioContext.src = 'none'
+    preInnerAudioContext.src = 'https://nomusic.mp3/'
+    innerAudioContext.src = 'https://nomusic.mp3/'
     console.log(innerAudioContext.src)
     console.log(preInnerAudioContext.src)
     this.data.showmusiclists = []
@@ -396,8 +402,8 @@ Page({
     this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
-    preInnerAudioContext.src = 'none'
-    innerAudioContext.src = 'none'
+    preInnerAudioContext.src = 'https://nomusic.mp3/'
+    innerAudioContext.src = 'https://nomusic.mp3/'
     console.log(innerAudioContext.src)
     console.log(preInnerAudioContext.src)
     const length = this.data.musiclists.length
@@ -476,7 +482,7 @@ Page({
   },
   goHomeMusic: function (e) {
     console.log('goHomeMusic')
-    if(preInnerAudioContext.src !== 'none' && preInnerAudioContext.src !== ''){
+    if(preInnerAudioContext.src !== 'https://nomusic.mp3/' && preInnerAudioContext.src !== ''){
       wx.showToast({
         title: '已选择'+nowmusicname,
         icon: 'none',
@@ -638,12 +644,13 @@ Page({
   },
   nextStep (e) {
     console.log('nextStep')
-    wx.showToast({
-      title: '滤镜效果需视频合成后可见',
-      mask: true,
-      icon: 'none',
-      duration: 3000
-    })
+    console.log(preInnerAudioContext.src)
+    // wx.showToast({
+    //   title: '滤镜效果需视频合成后可见',
+    //   mask: true,
+    //   icon: 'none',
+    //   duration: 3000
+    // })
     this.videoContext1.play()
     this.videoContext1.pause()
     innerAudioContext.stop()
@@ -662,12 +669,18 @@ Page({
       this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * videoValues// - (windowWidth-9*windowHeight/16)/2) * videoValues
     }
     console.log(this.data.publish)
+    if(preInnerAudioContext.src === 'https://nomusic.mp3/' || preInnerAudioContext.src === ''){
+      this.data.videomuted = false
+    } else {
+      this.data.videomuted = true
+    }
     this.setData({
       //showwrappers: 'none',
       showwrappers: 'hidden',
       showpublish: 'flex',
       uploadContent: this.data.uploadContent,
-      publish: this.data.publish
+      publish: this.data.publish,
+      videomuted: this.data.videomuted,
     })
     // this.videoContext.play()
     // this.videoContext.pause()
@@ -750,6 +763,7 @@ Page({
     console.log('music')
     this.setData({
       showoption: 'none',
+      showmusiclist: 'none',
       showmusic: 'flex'
     })
     wx.request({
@@ -929,9 +943,11 @@ Page({
       }
       if(samesong){
         //是同一首歌
+        console.log('是同一首歌')
         addmusiclock = false
         tempmusictype = -1
-        preInnerAudioContext.src = 'none'
+        preInnerAudioContext.src = 'https://nomusic.mp3'
+        console.log(preInnerAudioContext.src)
         nowmusicname = ''
         this.data.uploadContent.audio_id = ''
         this.data.uploadContent.audio_url = ''
@@ -940,6 +956,7 @@ Page({
         })
       } else {
         //不是同一首歌
+        console.log('不是同一首歌')
         for(let k=0;k<length;k++){
           if(e.currentTarget.id === 'right'+this.data.showmusiclists[k].id){
             console.log('选他1')
@@ -1119,10 +1136,11 @@ Page({
         duration: 1000
       })
     } else {
-      wx.showToast({
-        title: '视频上传中……',
-        icon: 'loading',
-        duration: 5000,
+      that.setData({
+        showovercover: 'flex',
+      })
+      wx.showLoading({
+        title: '视频上传中…',
         mask: true,
       });
       wx.request({
@@ -1134,21 +1152,18 @@ Page({
         },
         data: this.data.uploadContent,
         success: (resp) => {
-          console.log('resp')
-          console.log(resp)
-          console.log(wx.getStorageSync('loginSessionKey'))
+          wx.hideLoading()
+          wx.showLoading({
+            title: '视频处理中…',
+            mask: true,
+          });
           var timer = setInterval(()=>{
-            wx.showToast({
-              title: '视频处理中……',
-              icon: 'loading',
-              duration: 5000,
-              mask: true,
-            });
             if(!resp.data.data){
               console.log('sss')
+              wx.hideLoading()
               clearInterval(timer)
               wx.showToast({
-                title: '视频上传成功！',
+                title: '视频上传成功',
                 icon: 'success',
                 duration: 1500,
                 mask: true,
@@ -1220,12 +1235,12 @@ Page({
             that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
-            preInnerAudioContext.src = 'none'
-            innerAudioContext.src = 'none'
+            preInnerAudioContext.src = 'https://nomusic.mp3/'
+            innerAudioContext.src = 'https://nomusic.mp3/'
             console.log(innerAudioContext.src)
             console.log(preInnerAudioContext.src)
             that.setData({
-              uploadContent: that.data.uploadContent
+              uploadContent: that.data.uploadContent,
             })
           },5000)
         },

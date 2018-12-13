@@ -33,7 +33,7 @@
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    background-image: url("https://www.newscctv.net/dw/resource/future/1return5.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/1return5.png");
 }
 
 ::-webkit-scrollbar {
@@ -87,7 +87,7 @@
     top: 50%;
     transform: translateY(-50%);
     right: 30rpx;
-    background-image: url("https://www.newscctv.net/dw/resource/future/3gengduo1@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/3gengduo1@2x.png");
     background-size: cover;
 }
 
@@ -116,7 +116,7 @@
     width: 40rpx;
     height: 40rpx;
     background-size: cover;
-    background-image: url("https://www.newscctv.net/dw/resource/future/3close2@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/3close2@2x.png");
 }
 
 .open-item{

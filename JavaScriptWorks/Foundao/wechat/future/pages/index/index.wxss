@@ -419,20 +419,20 @@
 /*cover-image不支持背景*/
 
 /*.tabbar-item-icon.home{*/
-    /*background-image: url("https://www.newscctv.net/dw/resource/future/icon_normal_home.png");*/
+    /*background-image: url("https://s-js.sports.cctv.com/host/resource/future/icon_normal_home.png");*/
 /*}*/
 
 /*.tabbar-item-icon.upload{*/
-    /*background-image: url("https://www.newscctv.net/dw/resource/future/icon_normal_mic.png");*/
+    /*background-image: url("https://s-js.sports.cctv.com/host/resource/future/icon_normal_mic.png");*/
 /*}*/
 
 /*.tabbar-item-icon.user{*/
-    /*background-image: url("https://www.newscctv.net/dw/resource/future/icon_normal_person.png");*/
+    /*background-image: url("https://s-js.sports.cctv.com/host/resource/future/icon_normal_person.png");*/
 /*}*/
 
 
 /*.tabbar-item.selected .home{*/
-    /*background-image: url("https://www.newscctv.net/dw/resource/future/icon_ht_home.png");*/
+    /*background-image: url("https://s-js.sports.cctv.com/host/resource/future/icon_ht_home.png");*/
 /*}*/
 
 /*.tabbar-item.selected .tabbar-item-text{*/
@@ -546,7 +546,7 @@
 /*.select-item-share{*/
     /*width: 118rpx;*/
     /*height: 118rpx;*/
-    /*background-image: url("https://www.newscctv.net/dw/resource/future/1wxhy@2x.png");*/
+    /*background-image: url("https://s-js.sports.cctv.com/host/resource/future/1wxhy@2x.png");*/
     /*background-size: cover;*/
 /*}*/
 
@@ -608,6 +608,16 @@
 }
 
 
+.swiper-cover{
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+}
+
+
 .swiper-box{
     width: 100%;
     height: 100%;
@@ -624,12 +634,17 @@
 video{
     /*display: none;*/
     position: absolute;
+    z-index: 9;
     width: 100%;
     height: 100%;
     top:0;
     left:0;
+    background-color: #000000;
 }
 
+.trans-video{
+    transform: translateY(10000rpx);
+}
 
 
 

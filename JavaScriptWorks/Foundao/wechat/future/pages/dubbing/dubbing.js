@@ -513,16 +513,16 @@ Page({
     // 计时
     timeAdd() {
         //if (action && videotimeupdate) {
-            const {total_time} = this.data;
-            const step = 100;
-            const {current_time} = this.data;
-            const now_time = current_time + step;
-            if (now_time <= total_time) {
-                this.check_lyric_position(now_time);
-                this.setData({
-                    current_time: now_time
-                })
-            }
+        const {total_time} = this.data;
+        const step = 100;
+        const {current_time} = this.data;
+        const now_time = current_time + step;
+        if (now_time <= total_time) {
+            this.check_lyric_position(now_time);
+            this.setData({
+                current_time: now_time
+            })
+        }
         //}
     },
 

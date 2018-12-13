@@ -201,7 +201,7 @@
     background-color: rgba(0,0,0,.1);
     background-size: 20rpx 20rpx;
     background-position: 136rpx center;
-    background-image: url("https://www.newscctv.net/dw/resource/future/2shenhezhong@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2shenhezhong@2x.png");
     background-repeat: no-repeat;
     padding-left: 164rpx;
     box-sizing: border-box;
@@ -219,7 +219,7 @@
     background-color: #cccccc;
     background-size: 42rpx 42rpx;
     background-position: center 125rpx;
-    background-image: url("https://www.newscctv.net/dw/resource/future/2weitongguo@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2weitongguo@2x.png");
     background-repeat: no-repeat;
     padding-top: 184rpx;
     box-sizing: border-box;
@@ -235,7 +235,7 @@
     transform:translateX(-50%);
     width: 240rpx;
     height: 240rpx;
-    background-image: url("https://www.newscctv.net/dw/resource/future/2null@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2null@2x.png");
     background-size: cover;
 }
 .no-product:after{

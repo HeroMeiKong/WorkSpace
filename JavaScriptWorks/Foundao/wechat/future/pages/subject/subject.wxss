@@ -24,7 +24,7 @@
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    background-image: url("https://www.newscctv.net/dw/resource/future/1return5.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/1return5.png");
 }
 
 .cover-box .cover{

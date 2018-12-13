@@ -64,7 +64,7 @@ Page({
         isIpx: false,
         fit: false,
 
-        switch_time: 600,
+        switch_time: 800,
         swiper_list: [],
         swiper_current: 0,
 
@@ -314,7 +314,7 @@ Page({
 
     // 监控视频播放
     bindplay() {
-        // console.log('play')
+        console.log('bindplay')
         this.setData({
             playing: true,
             hasPlayed: true,
@@ -323,13 +323,14 @@ Page({
 
     // 监控视频暂停
     bindpause() {
-        // console.log('pause')
+        console.log('bindpause')
         this.setData({
             playing: false
         })
     },
 
     bindwaiting() {
+        console.log('bindwaiting')
         this.setData({
             playing: true
         })
@@ -354,6 +355,9 @@ Page({
     pauseVideo() {
         console.log("pauseVideo")
         this.videoContext.pause()
+        this.setData({
+            playing: false
+        })
     },
 
     // 停止视频
@@ -1193,7 +1197,10 @@ Page({
                         this.setData({
                             hideVideo: false
                         }, () => {
-                            this.playVideo()
+                            // this.playVideo()
+                            setTimeout(() => {
+                                this.playVideo()
+                            }, 500)
                         })
                     }, this.data.switch_time)
                 })
@@ -1320,6 +1327,11 @@ Page({
             swiper_current: index || 0
         })
     },
+
+    bindprogress() {
+        console.log('bindprogress')
+        // this.playVideo()
+    }
 })
 
 

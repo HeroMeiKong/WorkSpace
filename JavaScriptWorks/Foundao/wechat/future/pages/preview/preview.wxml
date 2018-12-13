@@ -22,7 +22,7 @@
     <view class="bottom">
       <view class="option" style="display:{{showoption}};">
         <view class="next" catch:tap="nextStep">下一步
-          <image src="../../assets/images/4jt5.png"></image>
+          <image src="../../assets/images/4jt5@2x.png"></image>
         </view>
         <!-- <view class="section" catch:tap="filter">
           <image class="img" src="../../assets/images/4filter.png"></image>
@@ -61,7 +61,7 @@
           <view class="ischose" catch:tap="goHomePaster">确定</view>
         </view>
         <view class="choseinner">
-          <swiper display-multiple-items='5' current="{{pasterbegin}}" duration="1000">
+          <swiper display-multiple-items='5' current="{{pasterbegin}}" duration="1000" skip-hidden-item-layout="{{true}}">
             <block wx:for="{{pasters}}" wx:key="*this">
               <swiper-item>
                 <view class="pasterdiv">
@@ -71,12 +71,16 @@
             </block>
           </swiper>
           <view class="paster_section">
-            <block wx:for="{{pasters_type}}" wx:key="*this">
-              <view id='pasters_type{{item.id}}' class="{{item.chosethispaster}}" catch:tap="chosePaster">
-                <text class="font">{{item.sticker_type_name}}</text>
-                <view class="line"></view>
-              </view>
-            </block>
+            <swiper display-multiple-items='5' duration="1000"  skip-hidden-item-layout="{{true}}">
+              <block wx:for="{{pasters_type}}" wx:key="*this">
+                <swiper-item>
+                  <view id='pasters_type{{item.id}}' class="{{item.chosethispaster}}" catch:tap="chosePaster">
+                    <text class="font">{{item.sticker_type_name}}</text>
+                    <view class="line"></view>
+                  </view>
+                </swiper-item>
+              </block>
+            </swiper>
           </view>
         </view>
       </view>
@@ -123,7 +127,7 @@
   </view>
   <view class="publish {{models}}" style="display:{{showpublish}}">
     <view class="videowrapper">
-      <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{true}}" autoplay="{{false}}">
+      <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
         <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" 
           style="width:{{publish.width}}px;height:{{publish.height}}px;left:{{publish.x}}px;top:{{publish.y}}px">
         </cover-image>
@@ -160,4 +164,5 @@
       <view class="sure" catch:tap="uploadContent">确认发布</view>
     </view>
   </view>
+  <cover-view class="overcover"  style="display:{{showovercover}}"></cover-view>
 </view>

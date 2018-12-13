@@ -24,7 +24,7 @@
     /*margin-top: 282rpx;*/
     width: 326rpx;
     height: 248rpx;
-    background-image: url("https://www.newscctv.net/dw/resource/future/pic@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/pic@2x.png");
     background-position: center center;
     background-size: cover;
 }

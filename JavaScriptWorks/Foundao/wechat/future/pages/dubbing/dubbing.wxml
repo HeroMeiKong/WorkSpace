@@ -19,29 +19,29 @@
 
         <cover-view class="back-btn {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack">
             <cover-image class="back-btn-img"
-                         src="https://www.newscctv.net/dw/resource/future/1return4.png"></cover-image>
+                         src="https://s-js.sports.cctv.com/host/resource/future/1return4.png"></cover-image>
         </cover-view>
 
         <!--&lt;!&ndash;字幕及字幕背景&ndash;&gt;-->
         <!--<cover-view class="lyric-box" hidden="{{!(!is_dubEnd && isDubbing)}}">-->
             <!--<cover-view class="icon-box">-->
                 <!--<cover-image class="left icon"-->
-                             <!--src="https://www.newscctv.net/dw/resource/future/3pointerl@2x.png"></cover-image>-->
+                             <!--src="https://s-js.sports.cctv.com/host/resource/future/3pointerl@2x.png"></cover-image>-->
                 <!--<cover-image class="right icon"-->
-                             <!--src="https://www.newscctv.net/dw/resource/future/3pointerr@2x.png"></cover-image>-->
+                             <!--src="https://s-js.sports.cctv.com/host/resource/future/3pointerr@2x.png"></cover-image>-->
             <!--</cover-view>-->
             <!--<cover-view class="line">{{lyric_0}}</cover-view>-->
             <!--<cover-view class="line cur-line">{{lyric_1}}</cover-view>-->
             <!--<cover-view class="line">{{lyric_2}}</cover-view>-->
             <!--&lt;!&ndash;<cover-view class="line">{{lyric_3}}</cover-view>&ndash;&gt;-->
         <!--</cover-view>-->
-        <!--<cover-image class="lyric-bg" src="https://www.newscctv.net/dw/resource/future/3mengban@2x.png"-->
+        <!--<cover-image class="lyric-bg" src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"-->
                      <!--hidden="{{!(!is_dubEnd && isDubbing)}}"></cover-image>-->
 
         <!--开始录音-->
         <cover-view class="ready-status status-box" hidden="{{!(!is_dubEnd && !isDubbing)}}">
             <cover-view class="over-item">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/1peiyin1@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1peiyin1@2x.png"
                              class="middle-btn"
                              bindtap="startRecord"></cover-image>
                 <cover-view class="text">开始录音</cover-view>
@@ -51,14 +51,14 @@
         <cover-view class="recording-status status-box" hidden="{{!(!is_dubEnd && isDubbing && !isPaused)}}">
             <cover-view class="dub-time">{{filters.toFix((total_time - current_time)/1000)}}</cover-view>
             <cover-view class="over-item">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3pause@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3pause@2x.png"
                              class="middle-btn"
                              bindtap="pauseRecord"></cover-image>
                 <cover-view class="text"></cover-view>
             </cover-view>
             <!--重新开始-->
             <cover-view class="over-item restart-btn">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3again@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3again@2x.png"
                              class="small-btn"
                              bindtap="reStart"></cover-image>
                 <cover-view class="text"></cover-view>
@@ -68,14 +68,14 @@
         <cover-view class="pause-status status-box" hidden="{{!(!is_dubEnd && isDubbing && isPaused)}}">
             <cover-view class="dub-time">{{filters.toFix((total_time - current_time)/1000)}}</cover-view>
             <cover-view class="over-item">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3goon@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3goon@2x.png"
                              class="middle-btn"
                              bindtap="continueRecord"></cover-image>
                 <cover-view class="text"></cover-view>
             </cover-view>
             <!--重新开始-->
             <cover-view class="over-item restart-btn">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3again@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3again@2x.png"
                              class="small-btn"
                              bindtap="reStart"></cover-image>
                 <cover-view class="text"></cover-view>
@@ -84,19 +84,19 @@
         <!--录音结束-->
         <cover-view class="over-status status-box" hidden="{{!is_dubEnd}}">
             <cover-view class="over-item">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3again@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3again@2x.png"
                              class="small-btn"
                              bindtap="reRecord"></cover-image>
                 <cover-view class="text">重新录制</cover-view>
             </cover-view>
             <cover-view class="over-item">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3synthesis@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3synthesis@2x.png"
                              class="middle-btn"
                              bindtap="compose"></cover-image>
                 <cover-view class="text">开始合成</cover-view>
             </cover-view>
             <cover-view class="over-item">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3play@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3play@2x.png"
                              class="small-btn"
                              bindtap="playVoice"></cover-image>
                 <cover-view class="text">预览</cover-view>
@@ -113,7 +113,7 @@
             </cover-view>
             <!--合成成功-->
             <cover-view class="compose_success" wx:if="{{compose_success}}">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3chenggong@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3chenggong@2x.png"
                              class="compose_img"></cover-image>
                 <cover-view class="compose_success_text">提交成功</cover-view>
                 <cover-view class="compose_success_info">您的配音视频已提交</cover-view>
@@ -121,21 +121,21 @@
                     <!--再玩一次-->
                     <cover-view class="btn_wrapper backhome_wrapper" bindtap="goBack">
                         <cover-image class="btn"
-                                     src="https://www.newscctv.net/dw/resource/future/3again2@2x.png"></cover-image>
+                                     src="https://s-js.sports.cctv.com/host/resource/future/3again2@2x.png"></cover-image>
                         <cover-view class="btn_wrapper_text">再玩一次</cover-view>
                     </cover-view>
                     <cover-view class="line"></cover-view>
                     <!--查看进度-->
                     <cover-view class="btn_wrapper" bindtap="toDetail">
                         <cover-image class="btn"
-                                     src="https://www.newscctv.net/dw/resource/future/3schedule@2x.png"></cover-image>
+                                     src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x.png"></cover-image>
                         <cover-view class="btn_wrapper_text">查看进度</cover-view>
                     </cover-view>
                 </cover-view>
             </cover-view>
             <!--合成失败-->
             <cover-view class="compose_error" wx:if="{{compose_error}}">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/3shibai@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3shibai@2x.png"
                              class="compose_img"></cover-image>
                 <cover-view class="compose_success_text">提交失败</cover-view>
                 <cover-view class="compose_success_info">提交失败，请重试</cover-view>
@@ -148,14 +148,14 @@
         <cover-view class="open-canvas-btn {{isIpx?'iphoneX-open-canvas-btn':''}}" hidden="{{isDubbing}}"
                     bindtap="create_poster">
             <cover-image class="open-canvas-btn-img"
-                         src="https://www.newscctv.net/dw/resource/future/2attention1@2x.png"></cover-image>
+                         src="https://s-js.sports.cctv.com/host/resource/future/2attention1@2x.png"></cover-image>
             <cover-view class="open-canvas-btn-text">邀请配音</cover-view>
         </cover-view>
 
         <!--海报浮层-->
         <cover-view class="poster_layer" hidden="{{!show_poster}}" bindtap="close_poster_layer">
             <cover-view class="save_poster">
-                <cover-image src="https://www.newscctv.net/dw/resource/future/1shandow@2x.png" class="poster-shandow"></cover-image>
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1shandow@2x.png" class="poster-shandow"></cover-image>
                 <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
                 <cover-view class="text">独乐不如众乐，保存图片分享给盆友吧！</cover-view>
                 <cover-view class="btn_save_img" catchtap="save_poster">保存</cover-view>

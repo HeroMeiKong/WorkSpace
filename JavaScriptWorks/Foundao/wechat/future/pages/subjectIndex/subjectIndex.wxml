@@ -2,6 +2,8 @@
 <view class="subject-page {{isIpx?'iphoneX':''}}">
     <backTitle title="话题"></backTitle>
     <swiper indicator-dots="{{true}}"
+            autoplay="{{true}}"
+            interval="{{10000}}"
             class="swiper-box"
             indicator-color="rgba(255,255,255,.4)"
             indicator-active-color="rgba(255,255,255,1)"

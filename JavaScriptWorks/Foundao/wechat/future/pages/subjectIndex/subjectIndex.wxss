@@ -29,7 +29,7 @@
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    background-image: url("https://www.newscctv.net/dw/resource/future/1return5.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/1return5.png");
 }
 
 .swiper-box{
@@ -61,7 +61,7 @@
     left: 30rpx;
     width: 38rpx;
     height: 38rpx;
-    background-image: url("https://www.newscctv.net/dw/resource/future/5remen@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/5remen@2x.png");
     background-size: cover;
 }
 
@@ -107,7 +107,7 @@
     position: absolute;
     width: 12rpx;
     height: 20rpx;
-    background-image: url("https://www.newscctv.net/dw/resource/future/5jt1@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/5jt1@2x.png");
     background-size: cover;
     top: 50%;
     transform: translateY(-50%);

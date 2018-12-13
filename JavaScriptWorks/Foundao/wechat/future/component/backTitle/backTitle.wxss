@@ -5,6 +5,7 @@
     left:50%;
     transform: translateX(-50%);
     font-size: 38rpx;
+    font-weight: bold;
     line-height: 40rpx;
     color: #000000;
 }
