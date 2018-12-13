@@ -99,7 +99,9 @@ Page({
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0},
     showovercover: 'none',
-    videomuted: false //是否静音视频
+    videomuted: false, //是否静音视频
+    compose_success: true,
+    showsubmission: 'none'
   },
 
   /**
@@ -357,6 +359,7 @@ Page({
     })
     this.setData({
       showovercover: 'none',
+      showsubmission: 'none',
       videomuted: false
     })
   },
@@ -1162,20 +1165,24 @@ Page({
               console.log('sss')
               wx.hideLoading()
               clearInterval(timer)
-              wx.showToast({
-                title: '视频上传成功',
-                icon: 'success',
-                duration: 1500,
-                mask: true,
-                success: (result)=>{
-                  const timers = setTimeout(()=>{
-                    wx.navigateBack({
-                      delta: 1
-                    });
-                    clearTimeout(timers)
-                  },1500)
-                },
-              });
+              // wx.showToast({
+              //   title: '视频上传成功',
+              //   icon: 'success',
+              //   duration: 1500,
+              //   mask: true,
+              //   success: (result)=>{
+              //     const timers = setTimeout(()=>{
+              //       wx.navigateBack({
+              //         delta: 1
+              //       });
+              //       clearTimeout(timers)
+              //     },1500)
+              //   },
+              // });
+              that.setData({
+                showsubmission: 'flex',
+                compose_success: true
+              })
             } else {
               wx.request({
                 url: api.get_submit,
@@ -1194,37 +1201,46 @@ Page({
                   console.log(wx.getStorageSync('loginSessionKey'))
                   if(res.data.code === 0){
                     console.log(res)
+                    wx.hideLoading()
                     clearInterval(timer)
-                    wx.showToast({
-                      title: '视频合成成功！',
-                      icon: 'success',
-                      duration: 1500,
-                      mask: true,
-                      success: (result)=>{
-                        const timers = setTimeout(()=>{
-                          wx.navigateBack({
-                            delta: 1
-                          });
-                          clearTimeout(timers)
-                        },1500)
-                      },
-                    });
+                    // wx.showToast({
+                    //   title: '视频合成成功！',
+                    //   icon: 'success',
+                    //   duration: 1500,
+                    //   mask: true,
+                    //   success: (result)=>{
+                    //     const timers = setTimeout(()=>{
+                    //       wx.navigateBack({
+                    //         delta: 1
+                    //       });
+                    //       clearTimeout(timers)
+                    //     },1500)
+                    //   },
+                    // });
+                    that.setData({
+                      showsubmission: 'flex',
+                      compose_success: true
+                    })
                   } else if (res.data.code === -2){
                     clearInterval(timer)
-                    wx.showToast({
-                      title: '视频合成失败！请重新上传！',
-                      icon: 'none',
-                      duration: 1500,
-                      mask: true,
-                      success: (result)=>{
-                        const timers = setTimeout(()=>{
-                          wx.navigateBack({
-                            delta: 1
-                          });
-                          clearTimeout(timers)
-                        },1500)
-                      },
-                    });
+                    // wx.showToast({
+                    //   title: '视频合成失败！请重新上传！',
+                    //   icon: 'none',
+                    //   duration: 1500,
+                    //   mask: true,
+                    //   success: (result)=>{
+                    //     const timers = setTimeout(()=>{
+                    //       wx.navigateBack({
+                    //         delta: 1
+                    //       });
+                    //       clearTimeout(timers)
+                    //     },1500)
+                    //   },
+                    // });
+                    that.setData({
+                      showsubmission: 'flex',
+                      compose_success: false
+                    })
                   }
                 },
                 complete: () => {
@@ -1390,4 +1406,24 @@ Page({
     console.log('videoAutoPlay')
     autovideolock ? this.videoContext1.pause():this.videoContext1.play()
   },
+  successBackHome (e) {
+    console.log('successBackHome')
+    wx.navigateBack({
+      delta: 1
+    });
+  },
+  checkProgress (e) {
+    console.log('checkProgress')
+    wx.navigateTo({
+      url: '/pages/user/user'
+    })
+  },
+  returnSubmit (e) {
+    console.log('returnSubmit')
+    this.setData({
+      showovercover: 'none',
+      compose_success: true,
+      showsubmission: 'none'
+    })
+  }
 })

@@ -587,3 +587,78 @@ swiper-item {
   top: 0;
   left: 0;
 }
+.submission{
+  width: 548rpx;
+  height: 628rpx;
+  position: absolute;
+  top: 300rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius:14px;
+  color: #fff;
+  background-color: #f53754;
+  z-index: 11;
+}
+.submission_fail_color{
+  background-color: #fff;
+}
+.submission_title_color{
+  color: #666666;
+}
+.submission_text_color{
+  color: #999999;
+}
+.submission_success,
+.submission_fail{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.compose_img{
+  width: 548rpx;
+  height: 596rpx;
+}
+.submission_title{
+  font-size: 38rpx;
+  padding-bottom: 16rpx;
+}
+.submission_text{
+  font-size: 26rpx;
+}
+.submission_bottom,
+.submission_top{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.submission_top{
+  flex-direction: column;
+}
+.submission_success,
+.submission_fail{
+  position: absolute;
+  height: 40%;
+  width: 100%;
+  bottom: 32rpx;
+}
+.submission_success .submission_button{
+  width: 218rpx;
+  height: 68rpx;
+}
+.submission_fail_top{
+  display: flex;
+  justify-content: center;
+}
+.compose_fail_img{
+  position: absolute;
+  width: 268rpx;
+  height: 240rpx;
+  top: 72rpx;
+}
+.submission_bottom_img{
+  width: 360rpx;
+  height: 68rpx;
+}
