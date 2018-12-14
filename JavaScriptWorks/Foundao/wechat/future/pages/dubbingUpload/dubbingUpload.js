@@ -80,13 +80,13 @@ Page({
   shotingVideo: function () {
     console.log('shotingVideo')
     wx.navigateTo({
-      url: '/pages/preview/preview?usermethod=camera'
+      url: '/pages/preview/preview?usermethod=camera&showTiems=true'
     })
   },
   uploadLocalVideo: function () {
     console.log('uploadLocalVideo')
     wx.navigateTo({
-      url: '/pages/preview/preview?usermethod=album'
+      url: '/pages/preview/preview?usermethod=album&showTiems=true'
     })
   },
   dubbing (e) {

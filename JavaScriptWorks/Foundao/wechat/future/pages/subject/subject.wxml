@@ -30,4 +30,23 @@
     </view>
     <!--无更多作品提示-->
     <view class="no-more" wx:if="{{!video_more}}">暂无更多内容</view>
+    <!--立即参与-->
+    <view class="rightNow" catchtap="rightNow">理解参与</view>
+    <!--选择浮层-->
+    <view class="choose-layer" hidden="{{!showChoose}}" catchtap="closeChoose">
+        <viwe class="choose-box">
+            <view class="choose-item" catchtap="switchToRecord">
+                <image src="https://s-js.sports.cctv.com/host/resource/future/5peiyin@2x.png"></image>
+                <view class="choose-text">配音</view>
+            </view>
+            <view class="choose-item" catchtap="switchToCamera">
+                <image src="https://s-js.sports.cctv.com/host/resource/future/5paishe@2x.png"></image>
+                <view class="choose-text">拍摄</view>
+            </view>
+            <view class="choose-item" catchtap="switchToUpload">
+                <image src="https://s-js.sports.cctv.com/host/resource/future/5shangchuan@2x.png"></image>
+                <view class="choose-text">上传</view>
+            </view>
+        </viwe>
+    </view>
 </view>

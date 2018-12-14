@@ -98,6 +98,8 @@ Page({
         record_shake: false,
         stop_record_shake: false,
         continue_record_shake: false,
+
+        countDown: -1,
     },
 
     /**
@@ -868,6 +870,7 @@ Page({
     startRecord() {
         app.aldstat.sendEvent('开始配音', '点击配音按钮')
         //this.videoContext.stop()
+        // 防止用户短时间内多次触发录音
         if (this.data.record_shake) {
             console.log('record_shake')
             return
@@ -908,18 +911,47 @@ Page({
         })
     },
 
+    //倒计时
+    countDown_fun(fun) {
+        // 显示计时
+        this.setData({
+            showCountDown: true,
+            countDown: 3
+        }, () => {
+            // 开启计时器
+            this.countDown_timer = setInterval(() => {
+                var temp_countDown = this.data.countDown - 1;
+                if (temp_countDown == -1) {         //结束计时
+                    this.setData({
+                        showCountDown: false
+                    })
+                    clearInterval(this.countDown_timer)
+                    fun && fun()
+                }
+                //刷新时间
+                this.setData({
+                    countDown: temp_countDown,
+                })
+            }, 1000)
+        })
+    },
+
     // 开始真正的录音
     start_record_real() {
-        this.setData({
-            //whichVideo: this.data.video_detail.transcode_no_music_zimu_video,
-            muted: true,
-            isDubbing: true
-        });
-        setTimeout(() => {
-            this.videoContext.seek(0);
-            this.data.recorderManager.start(this.data.options);
-        }, 0);
-
+        //回到期起点
+        this.videoContext.seek(0);
+        this.pauseVideo();
+        this.countDown_fun(()=>{
+            this.setData({
+                //whichVideo: this.data.video_detail.transcode_no_music_zimu_video,
+                muted: true,
+                isDubbing: true
+            });
+            setTimeout(() => {
+                // this.videoContext.seek(0);
+                this.data.recorderManager.start(this.data.options);
+            }, 0);
+        })
     },
 
     // 暂停录音

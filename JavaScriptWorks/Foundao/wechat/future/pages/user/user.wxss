@@ -210,6 +210,12 @@
     color: #ffffff;
 }
 
+.waiting-box.fail{
+    background-position: 96rpx center;
+    padding-left: 124rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2weitongguo.png");
+}
+
 .fail-box{
     position: absolute;
     left:0;
@@ -257,7 +263,7 @@
     display: inline-block;
     width:374rpx;
     height:602rpx;
-    margin-bottom: 20rpx;
+    margin-bottom: 10rpx;
     background-color: #ffffff;
 }
 

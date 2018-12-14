@@ -23,6 +23,8 @@ Page({
         video_list: [],
 
         isIpx: false,
+
+        showChoose:false,
     },
 
     /**
@@ -258,9 +260,44 @@ Page({
 
     // 切换到个人主页
     switchToUser() {
-        this.pauseVideo()
         wx.switchTab({
             url: '/pages/user/user'
+        })
+    },
+
+    switchToUpload(){
+        wx.switchTab({
+            url: '/pages/dubbingUpload/dubbingUpload'
+        })
+    },
+
+    rightNow(){
+        this.setData({
+            showChoose:true
+        })
+    },
+
+    closeChoose(){
+        this.setData({
+            showChoose:false
+        })
+    },
+
+    switchToRecord(){
+        wx.navigateTo({
+            url: '/pages/recordList/recordList',
+        })
+    },
+
+    switchToCamera(){
+        wx.navigateTo({
+            url: '/pages/preview/preview?usermethod=camera'
+        })
+    },
+
+    switchToUpload(){
+        wx.navigateTo({
+            url: '/pages/preview/preview?usermethod=album'
         })
     },
 })

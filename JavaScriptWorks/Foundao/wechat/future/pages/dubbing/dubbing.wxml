@@ -24,19 +24,19 @@
 
         <!--&lt;!&ndash;字幕及字幕背景&ndash;&gt;-->
         <!--<cover-view class="lyric-box" hidden="{{!(!is_dubEnd && isDubbing)}}">-->
-            <!--<cover-view class="icon-box">-->
-                <!--<cover-image class="left icon"-->
-                             <!--src="https://s-js.sports.cctv.com/host/resource/future/3pointerl@2x.png"></cover-image>-->
-                <!--<cover-image class="right icon"-->
-                             <!--src="https://s-js.sports.cctv.com/host/resource/future/3pointerr@2x.png"></cover-image>-->
-            <!--</cover-view>-->
-            <!--<cover-view class="line">{{lyric_0}}</cover-view>-->
-            <!--<cover-view class="line cur-line">{{lyric_1}}</cover-view>-->
-            <!--<cover-view class="line">{{lyric_2}}</cover-view>-->
-            <!--&lt;!&ndash;<cover-view class="line">{{lyric_3}}</cover-view>&ndash;&gt;-->
+        <!--<cover-view class="icon-box">-->
+        <!--<cover-image class="left icon"-->
+        <!--src="https://s-js.sports.cctv.com/host/resource/future/3pointerl@2x.png"></cover-image>-->
+        <!--<cover-image class="right icon"-->
+        <!--src="https://s-js.sports.cctv.com/host/resource/future/3pointerr@2x.png"></cover-image>-->
+        <!--</cover-view>-->
+        <!--<cover-view class="line">{{lyric_0}}</cover-view>-->
+        <!--<cover-view class="line cur-line">{{lyric_1}}</cover-view>-->
+        <!--<cover-view class="line">{{lyric_2}}</cover-view>-->
+        <!--&lt;!&ndash;<cover-view class="line">{{lyric_3}}</cover-view>&ndash;&gt;-->
         <!--</cover-view>-->
         <!--<cover-image class="lyric-bg" src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"-->
-                     <!--hidden="{{!(!is_dubEnd && isDubbing)}}"></cover-image>-->
+        <!--hidden="{{!(!is_dubEnd && isDubbing)}}"></cover-image>-->
 
         <!--开始录音-->
         <cover-view class="ready-status status-box" hidden="{{!(!is_dubEnd && !isDubbing)}}">
@@ -103,6 +103,10 @@
             </cover-view>
         </cover-view>
 
+        <!--倒计时-->
+        <cover-view class="countDown-layer" hidden="{{!showCountDown}}">
+            <cover-view class="countDown">{{countDown}}</cover-view>
+        </cover-view>
 
         <!-- 合成浮层-->
         <cover-view class="compose_layer" hidden="{{!show_compose_layer}}">
@@ -113,33 +117,26 @@
             </cover-view>
             <!--合成成功-->
             <cover-view class="compose_success" wx:if="{{compose_success}}">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3chenggong@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3success@2x.png"
                              class="compose_img"></cover-image>
-                <cover-view class="compose_success_text">提交成功</cover-view>
-                <cover-view class="compose_success_info">您的配音视频已提交</cover-view>
+                <cover-view class="compose_success_text">配音提交成功</cover-view>
+                <cover-view class="compose_success_info">请在个人中心查看审核进度</cover-view>
                 <cover-view class="compose_success_footer">
                     <!--再玩一次-->
-                    <cover-view class="btn_wrapper backhome_wrapper" bindtap="goBack">
-                        <cover-image class="btn"
-                                     src="https://s-js.sports.cctv.com/host/resource/future/3again2@2x.png"></cover-image>
-                        <cover-view class="btn_wrapper_text">再玩一次</cover-view>
-                    </cover-view>
-                    <cover-view class="line"></cover-view>
+                    <cover-image class="btn_wrapper backhome_wrapper" bindtap="goBack" src="https://s-js.sports.cctv.com/host/resource/future/3return@2x.png"></cover-image>
                     <!--查看进度-->
-                    <cover-view class="btn_wrapper" bindtap="toDetail">
-                        <cover-image class="btn"
-                                     src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x.png"></cover-image>
-                        <cover-view class="btn_wrapper_text">查看进度</cover-view>
-                    </cover-view>
+                    <cover-image class="btn_wrapper" bindtap="toDetail"  src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x.png"></cover-image>
                 </cover-view>
             </cover-view>
             <!--合成失败-->
             <cover-view class="compose_error" wx:if="{{compose_error}}">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3shibai@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3failure@2x.png"
                              class="compose_img"></cover-image>
-                <cover-view class="compose_success_text">提交失败</cover-view>
-                <cover-view class="compose_success_info">提交失败，请重试</cover-view>
-                <cover-view class="compose_error_footer" bindtap="closeCompose_layer">确 定</cover-view>
+                <cover-view class="compose_error_text">提交失败</cover-view>
+                <cover-view class="compose_error_info">网络原因提交失败，请重试</cover-view>
+                <cover-view class="compose_error_footer" bindtap="closeCompose_layer">
+                    <cover-image class="btn_wrapper backhome_wrapper" bindtap="closeCompose_layer" src="https://s-js.sports.cctv.com/host/resource/future/3determine@2x.png"></cover-image>
+                </cover-view>
             </cover-view>
         </cover-view>
 
@@ -155,7 +152,8 @@
         <!--海报浮层-->
         <cover-view class="poster_layer" hidden="{{!show_poster}}" bindtap="close_poster_layer">
             <cover-view class="save_poster">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1shandow@2x.png" class="poster-shandow"></cover-image>
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1shandow@2x.png"
+                             class="poster-shandow"></cover-image>
                 <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
                 <cover-view class="text">独乐不如众乐，保存图片分享给盆友吧！</cover-view>
                 <cover-view class="btn_save_img" catchtap="save_poster">保存</cover-view>

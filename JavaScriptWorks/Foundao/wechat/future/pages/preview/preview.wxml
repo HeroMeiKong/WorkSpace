@@ -165,7 +165,7 @@
     </view>
   </view>
   <cover-view class="overcover" style="display:{{showovercover}}"></cover-view>
-  <cover-view style="display:{{showsubmission}}">
+  <view class="ssssss" style="display:{{showsubmission}}">
     <cover-view class="submission" wx:if="{{compose_success}}">
       <cover-image src="../../assets/images/4success@2x.png" class="compose_img"></cover-image>
       <cover-view class="submission_success">
@@ -193,5 +193,5 @@
         </cover-view>
       </cover-view>
     </cover-view>
-  </cover-view>
+  </view>
 </view>

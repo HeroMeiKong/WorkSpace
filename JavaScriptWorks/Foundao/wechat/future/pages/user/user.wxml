@@ -50,7 +50,7 @@
                       bindtap="goVideo" data-user="true"
                       data-data="{{item}}" style="background-image: url({{item.pic}})">
                     <view class="waiting-box" wx:if="{{item.examine==2}}">审核中</view>
-                    <view class="fail-box" wx:if="{{item.examine==1}}">该视频审核未通过</view>
+                    <view class="waiting-box fail" wx:if="{{item.examine==1}}">审核未通过</view>
                 </view>
             </block>
         </view>

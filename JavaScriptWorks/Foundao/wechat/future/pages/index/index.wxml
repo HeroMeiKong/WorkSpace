@@ -29,9 +29,12 @@
 
 
         <!--覆盖框-->
-        <cover-view class="cover-box {{isIpx?'iphoneX-cover':''}}" bindtap="moveDown" bindtap="videoClick"
+        <cover-view class="cover-box {{isIpx?'iphoneX-cover':''}}"
+                    bindtap="moveDown"
+                    bindtap="videoClick"
                     bindtouchstart="touchStart"
-                    bindtouchend="touchEnd">
+                    bindtouchend="touchEnd"
+                    wx:if="{{first_init}}">
             <!--弹出框-->
             <!--<cover-view class="open-btn-box {{btnStatus?'openStatus':''}}">-->
             <!--&lt;!&ndash;其他按钮&ndash;&gt;-->
@@ -57,6 +60,11 @@
                     <cover-image class="button-item-icon chanllenge"
                                  src="https://s-js.sports.cctv.com/host/resource/future/1tiaozhan@2x.png"></cover-image>
                     <cover-view class="button-item-text">挑战ta</cover-view>
+                </cover-view>
+                <cover-view class="button-item" catchtap="switchToRecordList" hidden="{{cur_video.is_dub==2}}">
+                    <cover-image class="button-item-icon chanllenge"
+                                 src="https://s-js.sports.cctv.com/host/resource/future/1woyepai@2x.png"></cover-image>
+                    <cover-view class="button-item-text">我也拍</cover-view>
                 </cover-view>
                 <cover-view class="button-item">
                     <cover-image class="button-item-icon"
@@ -93,58 +101,58 @@
                     </cover-view>
                 </cover-view>
                 <!--简介-->
-                <cover-view class="content" catchtap="goSubjectDetail">
-                    #{{cur_video.sub_title}} {{cur_video.video_desc}}
-                    <!--<cover-view class="content-text">#{{cur_video.sub_title}}</cover-view>-->
-                    <!--<cover-view class="content-text">{{cur_video.video_desc}}</cover-view>-->
-                </cover-view>
+                <cover-view class="content-subject" catchtap="goSubjectDetail">#{{cur_video.sub_title}}</cover-view>
+                <cover-view class="content">{{cur_video.video_desc}}</cover-view>
             </cover-view>
             <!--进度条-->
             <cover-view class="progress-box">
                 <cover-view class="progress" style="width:{{progress*100}}%"></cover-view>
             </cover-view>
-        </cover-view>
-        <!--话题-->
-        <cover-view class="topic-box {{isIpx?'iphoneX-topic-box':''}}">
-            <!--话题icon-->
-            <cover-view class="topic-icon-box" catchtap="goSubject">
-                <cover-image class="topic-icon"
-                             src="https://s-js.sports.cctv.com/host/resource/future/1huati@2x.png"></cover-image>
-                <cover-view class="topic-text">话题</cover-view>
-            </cover-view>
-            <!--话题组-->
-            <cover-view class="topic-list">
-                <cover-view class="topic-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选
+
+
+            <!--话题-->
+            <cover-view class="topic-box {{isIpx?'iphoneX-topic-box':''}}">
+                <!--话题icon-->
+                <cover-view class="topic-icon-box" catchtap="goSubject">
+                    <cover-image class="topic-icon"
+                                 src="https://s-js.sports.cctv.com/host/resource/future/1huati@2x.png"></cover-image>
+                    <cover-view class="topic-text">话题</cover-view>
                 </cover-view>
-                <block wx:for="{{type_list}}">
-                    <cover-view class="topic-item {{cur_type==item.id?'selected':''}}" catchtap="switchType"
-                                data-data="{{item}}">{{item.name}}
+                <!--话题组-->
+                <cover-view class="topic-list">
+                    <cover-view class="topic-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选
                     </cover-view>
-                </block>
+                    <block wx:for="{{type_list}}">
+                        <cover-view class="topic-item {{cur_type==item.id?'selected':''}}" catchtap="switchType"
+                                    data-data="{{item}}">{{item.name}}
+                        </cover-view>
+                    </block>
+                </cover-view>
             </cover-view>
-        </cover-view>
-        <!--tabbar-->
-        <cover-view class="tabbar-box {{isIpx?'iphoneX-tabbar':''}}" hidden="{{hideDiyTabBar}}">
-            <!--<cover-view class="tabbar-item selected">-->
-            <!--<cover-image class="tabbar-item-icon home" src="https://s-js.sports.cctv.com/host/resource/future/icon_ht_home.png"></cover-image>-->
-            <!--&lt;!&ndash;<cover-view class="tabbar-item-icon home"></cover-view>&ndash;&gt;-->
-            <!--<cover-view class="tabbar-item-text">推荐</cover-view>-->
-            <!--</cover-view>-->
-            <!--<cover-view class="tabbar-item" catchtap="switchToUpload">-->
-            <!--<cover-image class="tabbar-item-icon upload" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_mic.png"></cover-image>-->
-            <!--<cover-view class="tabbar-item-text">配音</cover-view>-->
-            <!--</cover-view>-->
-            <!--<cover-view class="tabbar-item" catchtap="switchToUser">-->
-            <!--<cover-image class="tabbar-item-icon user" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_home.png"></cover-image>-->
-            <!--<cover-view class="tabbar-item-text">我的</cover-view>-->
-            <!--</cover-view>-->
-            <cover-view class="tabbar-item selected">
-                首页
-                <cover-view class="tabbar-item-border"></cover-view>
+            <!--tabbar-->
+            <cover-view class="tabbar-box {{isIpx?'iphoneX-tabbar':''}}" hidden="{{hideDiyTabBar}}">
+                <!--<cover-view class="tabbar-item selected">-->
+                <!--<cover-image class="tabbar-item-icon home" src="https://s-js.sports.cctv.com/host/resource/future/icon_ht_home.png"></cover-image>-->
+                <!--&lt;!&ndash;<cover-view class="tabbar-item-icon home"></cover-view>&ndash;&gt;-->
+                <!--<cover-view class="tabbar-item-text">推荐</cover-view>-->
+                <!--</cover-view>-->
+                <!--<cover-view class="tabbar-item" catchtap="switchToUpload">-->
+                <!--<cover-image class="tabbar-item-icon upload" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_mic.png"></cover-image>-->
+                <!--<cover-view class="tabbar-item-text">配音</cover-view>-->
+                <!--</cover-view>-->
+                <!--<cover-view class="tabbar-item" catchtap="switchToUser">-->
+                <!--<cover-image class="tabbar-item-icon user" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_home.png"></cover-image>-->
+                <!--<cover-view class="tabbar-item-text">我的</cover-view>-->
+                <!--</cover-view>-->
+                <cover-view class="tabbar-item selected">
+                    首页
+                    <cover-view class="tabbar-item-border"></cover-view>
+                </cover-view>
+                <cover-image class="tabbar-icon" src="https://s-js.sports.cctv.com/host/resource/future/1peiyin@2x.png"
+                             catchtap="switchToRecordList"></cover-image>
+                <cover-view class="tabbar-item" catchtap="switchToUser">我的</cover-view>
             </cover-view>
-            <cover-image class="tabbar-icon" src="https://s-js.sports.cctv.com/host/resource/future/1peiyin1@2x.png"
-                         catchtap="switchToRecordList"></cover-image>
-            <cover-view class="tabbar-item" catchtap="switchToUser">我的</cover-view>
+
         </cover-view>
 
         <!--分享浮层-->

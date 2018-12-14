@@ -34,10 +34,14 @@
                      bindscroll="scroll">
             <block wx:for="{{cur_list}}" wx:for-item="dub">
                 <!--配音单元-->
-                <view class="dub-item" style="background-image: url({{dub.video_small_pic}})" bindtap="goDub"
-                      data-data="{{dub}}">
-                    <view class="name" hidden="{{cur_type!=0}}">{{dub.sub_title}}</view>
-                    <view class="go-btn">开始配音</view>
+                <view class="dub-item" bindtap="goDub" data-data="{{dub}}">
+                    <view class="dub-item-bg" style="background-image: url({{dub.video_small_pic}})">
+                        <view class="dub-item-btn">开始配音</view>
+                    </view>
+                    <view class="info">
+                        <view class="info-subject"></view>
+                        <view class="info-title">{{dub.sub_title}}</view>
+                    </view>
                 </view>
             </block>
         </scroll-view>

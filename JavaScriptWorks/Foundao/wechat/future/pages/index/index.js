@@ -15,6 +15,7 @@ Page({
      */
     data: {
         hasInit: false,//是否初始化
+        first_init: false,//第一次加载数据
         hasPlayed: false,
         playing: false,//视频播放状态
         animationData: {},//动画
@@ -408,7 +409,7 @@ Page({
 
     // 切换到选择功能页
     switchToRecordList() {
-        this.pauseVideo()
+        this.pauseVideo();
         wx.switchTab({
             url: '/pages/dubbingUpload/dubbingUpload'
         })
@@ -416,7 +417,7 @@ Page({
 
     // 切换到个人主页
     switchToUser() {
-        this.pauseVideo()
+        this.pauseVideo();
         wx.switchTab({
             url: '/pages/user/user'
         })
@@ -1182,6 +1183,11 @@ Page({
                     // playing: true,
                     cur_video: data,
                     fit: fit_temp,
+                }, () => {
+                    //显示视频上的所有元素
+                    this.setData({
+                        first_init: true
+                    })
                 })
             } else {
                 //隐藏视频，重置视频源，并滑动swiper;滑动结束后，显示视频

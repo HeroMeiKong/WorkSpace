@@ -150,7 +150,7 @@
     width: 100%;
     /*height: 100%;*/
     height:calc(100% - 70rpx);
-
+    background-color: #eeeeee;
 }
 
 .scroll-list{
@@ -165,60 +165,95 @@
 .dub-item{
     display: inline-block;
     width:374rpx;
-    height:498rpx;
-    position: relative;
-    background-size: cover;
-    background-position: center center;
-    margin-bottom: 2rpx;
+    height:602rpx;
+    margin-bottom: 10rpx;
+    background-color: #ffffff;
 }
 
 .dub-item:nth-child(2n){
     margin-left: 2rpx;
 }
 
-.dub-item:after{
-    content: '';
-    position: absolute;
-    top:0;
-    left: 0;
-    width:100%;
-    height: 100%;
-    background-color: rgba(0,0,0,.4);
+.dub-item-bg{
+    position: relative;
+    width:374rpx;
+    height:498rpx;
+    background-size: cover;
+    background-position: center center;
 }
 
-.dub-item .name{
+.dub-item-btn{
     position: absolute;
-    z-index: 3;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    color: #ffffff;
-    font-size: 34rpx;
-    font-weight: bold;
-    width:100%;
-    text-align:center;
-}
-
-.dub-item .name:before{
-    content: '#';
-}
-
-
-.dub-item .go-btn{
-    position: absolute;
-    z-index: 3;
     bottom: 40rpx;
-    left: 50%;
+    left:50%;
     transform: translateX(-50%);
     width:240rpx;
     height:68rpx;
     background:rgba(248,52,80,1);
     border-radius:34rpx;
-    line-height: 68rpx;
     text-align: center;
-    font-size: 34rpx;
-    color: #ffffff;
+    font-size:34rpx;
+    font-weight:bold;
+    line-height: 68rpx;
+    color: #FFFFFF;
 }
+
+.dub-item .info{
+    width: 100%;
+    height: 104rpx;
+    padding: 23rpx 29rpx 0 36rpx;
+    box-sizing: border-box;
+    font-size: 26rpx;
+    color: #333333;
+}
+
+.info-subject{
+    font-weight: bold;
+}
+
+/*.dub-item:after{*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*top:0;*/
+    /*left: 0;*/
+    /*width:100%;*/
+    /*height: 100%;*/
+    /*background-color: rgba(0,0,0,.4);*/
+/*}*/
+
+/*.dub-item .name{*/
+    /*position: absolute;*/
+    /*z-index: 3;*/
+    /*top:50%;*/
+    /*left:50%;*/
+    /*transform: translate(-50%,-50%);*/
+    /*color: #ffffff;*/
+    /*font-size: 34rpx;*/
+    /*font-weight: bold;*/
+    /*width:100%;*/
+    /*text-align:center;*/
+/*}*/
+
+/*.dub-item .name:before{*/
+    /*content: '#';*/
+/*}*/
+
+
+/*.dub-item .go-btn{*/
+    /*position: absolute;*/
+    /*z-index: 3;*/
+    /*bottom: 40rpx;*/
+    /*left: 50%;*/
+    /*transform: translateX(-50%);*/
+    /*width:240rpx;*/
+    /*height:68rpx;*/
+    /*background:rgba(248,52,80,1);*/
+    /*border-radius:34rpx;*/
+    /*line-height: 68rpx;*/
+    /*text-align: center;*/
+    /*font-size: 34rpx;*/
+    /*color: #ffffff;*/
+/*}*/
 
 
 

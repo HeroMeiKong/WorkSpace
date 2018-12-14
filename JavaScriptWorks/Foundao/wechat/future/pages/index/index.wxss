@@ -328,8 +328,16 @@
 }
 
 /*简介*/
-.content{
+.content-subject{
     margin-top: 32rpx;
+    font-size: 30rpx;
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 40rpx;
+    height: 40rpx;
+}
+
+.content{
     font-size: 30rpx;
     color: rgba(255,255,255,.6);
     line-height: 40rpx;
@@ -339,24 +347,6 @@
     word-wrap: break-word;
     white-space: normal;
 }
-
-.content-text{
-    display: inline-block;
-    white-space: normal;
-    word-break: break-all;
-    word-wrap: break-word;
-}
-
-.content-subject{
-    display: inline-block;
-    color: #ffffff;
-    font-weight: bold;
-    line-height: 40rpx;
-    height: 40rpx;
-}
-
-
-
 
 
 /*进度条*/
@@ -539,8 +529,8 @@
 .select-item{
     width: 80%;
     margin-top: 30rpx;
-    color:#3ace5d;
-    border-color:#3ace5d;
+    color:#f83450;
+    border-color:#f83450;
 
 }
 /*.select-item-share{*/

@@ -114,9 +114,9 @@ Page({
     console.log('onLoad')
     console.log(options.usermethod)
     usermethod = options.usermethod
-    // wx.setEnableDebug({
-    //   enableDebug: true,
-    // })
+    wx.setEnableDebug({
+      enableDebug: true,
+    })
     var that = this
     wx.getSystemInfo({
       success: function (res) {
@@ -169,6 +169,7 @@ Page({
     console.log('onReady')
     console.log('选取本地视频')
     let that = this
+    let choosesuccess = false
     wx.chooseVideo({
       sourceType: [usermethod],
       maxDuration: 30,
@@ -176,6 +177,7 @@ Page({
       success: function (res) {
         console.log('选取视频')
         console.log(res)
+        choosesuccess = true
         const videoType = res.tempFilePath
         if(videoType.substring(videoType.length-3) === 'mp4' || videoType.substring(videoType.length-3) === 'mov' || videoType.substring(videoType.length-3) === 'avi'){
           console.log(videoType.substring(videoType.length-3))
@@ -332,6 +334,9 @@ Page({
         wx.navigateBack({
           delta: 1
         });
+      },
+      complete: function (e) {
+        console.log('我的错我的错我的错')
       }
     })
   },
@@ -1266,12 +1271,6 @@ Page({
             })
           },5000)
         },
-        complete: () => {
-            this.data.loading_num--;
-            if (this.data.loading_num == 0) {
-                wx.hideLoading()
-            }
-        }
       })
     }
   },
@@ -1399,6 +1398,7 @@ Page({
     console.log(preInnerAudioContext.src)
     autovideolock = true
     this.videoContext1.seek(0)
+    this.videoContext1.pause()
     //innerAudioContext.stop()
     preInnerAudioContext.stop()
     this.setData({
@@ -1420,7 +1420,7 @@ Page({
   },
   checkProgress (e) {
     console.log('checkProgress')
-    wx.navigateTo({
+    wx.switchTab({
       url: '/pages/user/user'
     })
   },

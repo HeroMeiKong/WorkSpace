@@ -36,9 +36,9 @@
       },
       {
         "pagePath": "pages/dubbingUpload/dubbingUpload",
-        "iconPath": "assets/images/peiyin2.png",
-        "selectedIconPath": "assets/images/peiyin.png",
-        "text": "配音"
+        "iconPath": "assets/images/1peiyin@2x.png",
+        "selectedIconPath": "assets/images/1peiyin@2x.png",
+        "text": ""
       },
       {
         "pagePath": "pages/user/user",
