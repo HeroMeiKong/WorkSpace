@@ -30,6 +30,7 @@ let autovideolock = true //兼容有些手机视频自动播放
 let topiclock = false  //话题是否选择
 let nowmusicname = '' //当前音乐名称
 let nowfiltername = '' //当前滤镜名称
+let pasterswipervalue = 0 //拖拉贴纸swiper的距离
 const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()//试听歌曲
 innerAudioContext.obeyMuteSwitch = false
@@ -73,6 +74,8 @@ Page({
     pasterbegin: 0,
     pasters: [],
     pasterId: [],
+    nowpasterId: 1,
+    pastersrequest: [],
     musics: [],
     musicbegin: 0,
     musiclists: [],
@@ -246,7 +249,7 @@ Page({
               wx.showToast({
                 title: '上传的视频拍摄时间不能大于30秒！',
                 icon: 'none',
-                duration: 1500,
+                duration: 3500,
                 mask: true
               })
               const timers = setTimeout(()=>{
@@ -264,7 +267,7 @@ Page({
               wx.showToast({
                 title: '上传的视频拍摄时间不能低于10秒！',
                 icon: 'none',
-                duration: 1500,
+                duration: 3500,
                 mask: true
               })
               const timers = setTimeout(()=>{
@@ -744,6 +747,7 @@ Page({
           for(let i=0;i<pasterlength;i++){
             if(i===0){
               data.data[i].chosethispaster = 'chosethispaster'
+              that.data.nowpasterId = data.data[i].id
             } else {
               data.data[i].chosethispaster = 'none'
             }
@@ -751,7 +755,8 @@ Page({
           }
           that.setData({
             pasters_type: data.data,
-            pasters: data.data[0].children
+            pasters: data.data[0].children,
+            nowpasterId: that.data.nowpasterId
           })
       },
       complete: () => {
@@ -853,6 +858,7 @@ Page({
     this.setData({
       pasters_type: this.data.pasters_type,
       pasters: this.data.pasters,
+      nowpasterId: pasterid,
       pasterbegin: 0
     })
   },
@@ -1425,5 +1431,72 @@ Page({
       compose_success: true,
       showsubmission: 'none'
     })
+  },
+  pasterSwiperStart (e) {
+    console.log('pasterSwiperStart')
+    pasterswipervalue = e.changedTouches[0].pageX
+  },
+  pasterSwiperEnd (e) {
+    console.log('pasterSwiperEnd')
+    console.log(e)
+    var that = this
+    wx.createSelectorQuery().select('#pasterId').fields({
+      properties: ['current'],
+    }, function (res) {
+      console.log(res)
+      if(e.changedTouches[0].pageX - pasterswipervalue < 100){
+        if(res.current === that.data.pasters.length-5 && that.data.pastersrequest.indexOf(that.data.nowpasterId+res.current)<0 && that.data.pasters.length%10 === 0){
+          wx.request({
+            url: api.sticker,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+              sticker_id: that.data.nowpasterId,
+              page: Math.floor((res.current+5)/10)+1,
+            },
+            success: (resp) => {
+              const {data} = resp;
+              console.log(data.data)
+              if(data.count > 0){
+                console.log(that.data.pasters_type)
+                console.log(that.data.nowpasterId)
+                const length = that.data.pasters_type.length
+                let wherei = 0
+                for(let i=0;i<length;i++){
+                  console.log(that.data.pasters_type[i].id)
+                  if(that.data.nowpasterId === that.data.pasters_type[i].id){
+                    wherei = i
+                    break
+                  }
+                }
+                for(let j=0;j<data.count;j++){
+                  that.data.pasters_type[wherei].children.push(data.data[j])
+                }
+                console.log(that.data.pasters_type[wherei].children)
+                that.data.pasters = that.data.pasters_type[wherei].children
+                that.setData({
+                  pasters_type: that.data.pasters_type,
+                  pasters: that.data.pasters
+                })
+              } else {
+                console.log('没有了')
+              }
+            },
+            complete: () => {
+              that.data.pastersrequest.push(that.data.nowpasterId+res.current)
+              that.setData({
+                pastersrequest: that.data.pastersrequest
+              })
+              console.log(that.data.pastersrequest)
+            }
+          })
+        }
+      }
+      console.log(e.changedTouches[0].pageX)
+      console.log(pasterswipervalue)
+    }).exec()
   }
 })

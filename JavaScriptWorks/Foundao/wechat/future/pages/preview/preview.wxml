@@ -60,7 +60,7 @@
           <view class="ischose" catch:tap="goHomePaster">确定</view>
         </view>
         <view class="choseinner">
-          <swiper display-multiple-items='5' current="{{pasterbegin}}" duration="1000" skip-hidden-item-layout="{{true}}">
+          <swiper id="pasterId" display-multiple-items='5' current="{{pasterbegin}}" duration="1000" skip-hidden-item-layout="{{true}}" bind:touchstart="pasterSwiperStart" bind:touchend="pasterSwiperEnd">
             <block wx:for="{{pasters}}" wx:key="*this">
               <swiper-item>
                 <view class="pasterdiv">
