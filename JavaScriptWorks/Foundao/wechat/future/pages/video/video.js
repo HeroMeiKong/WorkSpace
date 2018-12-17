@@ -784,4 +784,12 @@ Page({
             }
         }
     },
+
+    // 切换到选择功能页
+    switchToRecordList() {
+        this.pauseVideo();
+        wx.switchTab({
+            url: '/pages/dubbingUpload/dubbingUpload'
+        })
+    },
 })

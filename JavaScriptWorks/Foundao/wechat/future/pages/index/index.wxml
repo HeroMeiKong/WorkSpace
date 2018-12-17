@@ -153,27 +153,28 @@
                 <cover-view class="tabbar-item" catchtap="switchToUser">我的</cover-view>
             </cover-view>
 
-        </cover-view>
-
-        <!--分享浮层-->
-        <cover-view class="poster_layer" hidden="{{!show_share}}" bindtap="close_poster_layer">
-            <!--选项-->
-            <cover-view class="select-box" wx:if="{{show_select}}">
-                <!--<cover-view class="select-text">分享到</cover-view>-->
-                <cover-view class="select-content">
-                    <button class="select-item" catchtap="create_poster">生成海报</button>
-                    <button class="select-item" open-type="share">分享给好友</button>
+            <!--分享浮层-->
+            <cover-view class="poster_layer" hidden="{{!show_share}}" catchtap="close_poster_layer">
+                <!--选项-->
+                <cover-view class="select-box" wx:if="{{show_select}}">
+                    <!--<cover-view class="select-text">分享到</cover-view>-->
+                    <cover-view class="select-content">
+                        <button class="select-item" catchtap="create_poster">生成海报</button>
+                        <button class="select-item" open-type="share">分享给好友</button>
+                    </cover-view>
+                </cover-view>
+                <!--海报-->
+                <cover-view class="save_poster" wx:if="{{show_poster}}">
+                    <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1shandow@2x.png"
+                                 class="poster-shandow"></cover-image>
+                    <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
+                    <cover-view class="text">独乐不如众乐，保存图片分享给盆友吧！</cover-view>
+                    <cover-view class="btn_save_img" catchtap="save_poster">保存</cover-view>
                 </cover-view>
             </cover-view>
-            <!--海报-->
-            <cover-view class="save_poster" wx:if="{{show_poster}}">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1shandow@2x.png"
-                             class="poster-shandow"></cover-image>
-                <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
-                <cover-view class="text">独乐不如众乐，保存图片分享给盆友吧！</cover-view>
-                <cover-view class="btn_save_img" catchtap="save_poster">保存</cover-view>
-            </cover-view>
         </cover-view>
+
+
     </video>
 
     <!--canvas-->

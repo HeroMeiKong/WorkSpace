@@ -3,7 +3,7 @@
     <backTitle title="#{{top_info.sub_title}}"></backTitle>
     <view class="cover-box" wx:if="{{top_info.sub_pic}}">
         <view class="cover" style="background-image: url({{top_info.sub_pic}})"></view>
-        <view class="subjectItem-title">活动说明</view>
+        <!--<view class="subjectItem-title">活动说明</view>-->
         <view class="subjectItem-content">{{top_info.sub_desc}}</view>
     </view>
     <view class="text-box" wx:else>
@@ -11,7 +11,7 @@
         <view class="bg" style="background-image: url({{video_list[0].nick_pic}})">
             <view class="bg-color"></view>
         </view>
-        <view class="subjectItem-title">活动说明</view>
+        <!--<view class="subjectItem-title">活动说明</view>-->
         <view class="subjectItem-content">{{top_info.sub_desc}}</view>
     </view>
 
@@ -31,7 +31,7 @@
     <!--无更多作品提示-->
     <view class="no-more" wx:if="{{!video_more}}">暂无更多内容</view>
     <!--立即参与-->
-    <view class="rightNow" catchtap="rightNow">理解参与</view>
+    <view class="rightNow" catchtap="rightNow">立即参与</view>
     <!--选择浮层-->
     <view class="choose-layer" hidden="{{!showChoose}}" catchtap="closeChoose">
         <viwe class="choose-box">

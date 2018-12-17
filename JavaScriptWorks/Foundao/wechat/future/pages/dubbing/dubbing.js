@@ -918,6 +918,8 @@ Page({
             showCountDown: true,
             countDown: 3
         }, () => {
+            // 开启字幕
+            this.check_lyric_position(0);
             // 开启计时器
             this.countDown_timer = setInterval(() => {
                 var temp_countDown = this.data.countDown - 1;

@@ -114,9 +114,9 @@ Page({
     console.log('onLoad')
     console.log(options.usermethod)
     usermethod = options.usermethod
-    wx.setEnableDebug({
-      enableDebug: true,
-    })
+    // wx.setEnableDebug({
+    //   enableDebug: true,
+    // })
     var that = this
     wx.getSystemInfo({
       success: function (res) {
@@ -169,7 +169,6 @@ Page({
     console.log('onReady')
     console.log('选取本地视频')
     let that = this
-    let choosesuccess = false
     wx.chooseVideo({
       sourceType: [usermethod],
       maxDuration: 30,
@@ -177,7 +176,6 @@ Page({
       success: function (res) {
         console.log('选取视频')
         console.log(res)
-        choosesuccess = true
         const videoType = res.tempFilePath
         if(videoType.substring(videoType.length-3) === 'mp4' || videoType.substring(videoType.length-3) === 'mov' || videoType.substring(videoType.length-3) === 'avi'){
           console.log(videoType.substring(videoType.length-3))

@@ -499,8 +499,8 @@
 .select-item{
     width: 80%;
     margin-top: 30rpx;
-    color:#3ace5d;
-    border-color:#3ace5d;
+    color:#f83450;
+    border-color:#f83450;
 
 }
 /*.select-item-share{*/

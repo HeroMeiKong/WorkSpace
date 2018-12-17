@@ -48,7 +48,7 @@
 
 .cover-box .subjectItem-content{
     width: 100%;
-    padding:0 30rpx 15rpx 30rpx;
+    padding:15rpx 30rpx 15rpx 30rpx;
     box-sizing: border-box;
     line-height: 36rpx;
     font-size: 26rpx;

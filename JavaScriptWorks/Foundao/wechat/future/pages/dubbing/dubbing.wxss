@@ -423,8 +423,8 @@
 }
 
 .lyric-box .cur-line{
-    color: #fefefe;
-    font-size: 34rpx;
+    color: #FF2731;
+    font-size: 48rpx;
 }
 
 

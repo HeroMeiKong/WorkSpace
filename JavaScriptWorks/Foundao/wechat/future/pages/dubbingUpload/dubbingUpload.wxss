@@ -7,20 +7,28 @@
     background-color: white;
     padding-top: 122rpx;
     box-sizing: border-box;
+    height: 100%;/* 为了子元素高度 */
 }
 
 
 /*顶部*/
 .wrapper{
+    height: 100%;/* 背景颜色高度 */
     position: relative;
     padding: 90rpx 30rpx 0;
+    background-color: #9b2027;/* 背景颜色 */
+    background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 背景图片 */
+    background-size: 100%;
 }
 .box{
-  padding: 40rpx 32rpx 40rpx 40rpx;
+  padding: 20rpx 32rpx 40rpx 20rpx;
   margin-bottom: 30rpx;
   display: flex;
   box-shadow:0px 2px 8px 0px rgba(0, 0, 0, 0.16);
   border-radius:4px;
+  background: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450194149124.png') no-repeat;/* 背景图片 */
+  background-size: 100%;
+  background-color: #C10420;/* 背景颜色 */
 }
 .left,.right{
   display: flex;
@@ -44,10 +52,12 @@
 .textTitle{
   font-size: 46rpx;
   font-weight: bold;
-  color:rgba(51,51,51,1);
+  /* color:rgba(51,51,51,1); */
+  color: #fed796;/* 春节样式 */
 }
 .textSuggest{
   font-size: 26rpx;
   font-weight:500;
-  color:rgba(153,153,153,1);
+  /* color:rgba(153,153,153,1); */
+  color: rgba(255, 255, 255,.8);/* 春节样式 */
 }
