@@ -578,7 +578,7 @@ swiper-item {
   font-weight: bold;
 }
 .overcover,
-.ssssss{
+.submissionwrapper{
   width: 100%;
   height: 100%;
   z-index: 10;

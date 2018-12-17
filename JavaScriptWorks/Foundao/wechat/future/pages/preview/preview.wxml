@@ -90,7 +90,7 @@
         </view>
         <view class="choseinner">
           <view class="musiclist" style="display:{{showmusiclist}}">
-            <swiper display-multiple-items='3' vertical="true" current="{{musicbegin}}" duration="1000">
+            <swiper display-multiple-items='5' vertical="true" current="{{musicbegin}}" duration="1000">
               <block wx:for="{{showmusiclists}}" wx:key="*this">
                 <swiper-item>
                   <view id="{{item.id}}" class="musiclistdiv">
@@ -165,7 +165,7 @@
     </view>
   </view>
   <cover-view class="overcover" style="display:{{showovercover}}"></cover-view>
-  <view class="ssssss" style="display:{{showsubmission}}">
+  <view class="submissionwrapper" style="display:{{showsubmission}}">
     <cover-view class="submission" wx:if="{{compose_success}}">
       <cover-image src="../../assets/images/4success@2x.png" class="compose_img"></cover-image>
       <cover-view class="submission_success">

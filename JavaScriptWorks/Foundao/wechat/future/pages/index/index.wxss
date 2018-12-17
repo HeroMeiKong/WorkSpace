@@ -466,7 +466,7 @@
 }
 
 .iphoneX-tabbar{
-    bottom: 68rpx;
+    /*bottom: 68rpx;*/
 }
 
 

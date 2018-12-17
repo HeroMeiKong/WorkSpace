@@ -293,7 +293,7 @@
 .open-canvas-btn-text{
     margin-left: 6rpx;
     font-size: 22rpx;
-    color: #ffffff;
+    color: #ffd892;
 }
 
 

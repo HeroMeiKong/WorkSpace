@@ -203,16 +203,36 @@
 }
 
 .dub-item .info{
+    /*width: calc(100% - 29rpx - 36rpx);*/
     width: 100%;
     height: 104rpx;
-    padding: 23rpx 29rpx 0 36rpx;
+    line-height: 34rpx;
+    padding: 18rpx 29rpx 18rpx 36rpx;
     box-sizing: border-box;
     font-size: 26rpx;
     color: #333333;
+    /*box-sizing: content-box;*/
+}
+
+.info-inner{
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .info-subject{
+    /*display: inline-block;*/
     font-weight: bold;
+}
+
+.info-title{
+    /*display: inline-block;*/
 }
 
 /*.dub-item:after{*/

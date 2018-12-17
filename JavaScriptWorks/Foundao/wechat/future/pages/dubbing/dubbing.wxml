@@ -26,9 +26,9 @@
         <cover-view class="lyric-box" hidden="{{!( (!is_dubEnd && isDubbing) || showCountDown )}}">
             <cover-view class="icon-box">
                 <cover-image class="left icon"
-                             src="https://s-js.sports.cctv.com/host/resource/future/3pointerl@2x.png"></cover-image>
+                             src="https://s-js.sports.cctv.com/host/resource/future/3zhizhenl@2x.png"></cover-image>
                 <cover-image class="right icon"
-                             src="https://s-js.sports.cctv.com/host/resource/future/3pointerr@2x.png"></cover-image>
+                             src="https://s-js.sports.cctv.com/host/resource/future/3zhizhenr@2x.png"></cover-image>
             </cover-view>
             <cover-view class="line">{{lyric_0}}</cover-view>
             <cover-view class="line cur-line">{{lyric_1}}</cover-view>
@@ -41,7 +41,7 @@
         <!--开始录音-->
         <cover-view class="ready-status status-box" hidden="{{!(!is_dubEnd && !isDubbing)}}">
             <cover-view class="over-item">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1peiyin1@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3luyin@2x.png"
                              class="middle-btn"
                              bindtap="startRecord"></cover-image>
                 <cover-view class="text">开始录音</cover-view>
@@ -51,14 +51,14 @@
         <cover-view class="recording-status status-box" hidden="{{!(!is_dubEnd && isDubbing && !isPaused)}}">
             <cover-view class="dub-time">{{filters.toFix((total_time - current_time)/1000)}}</cover-view>
             <cover-view class="over-item">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3pause@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3zanting@2x.png"
                              class="middle-btn"
                              bindtap="pauseRecord"></cover-image>
                 <cover-view class="text"></cover-view>
             </cover-view>
             <!--重新开始-->
             <cover-view class="over-item restart-btn">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3again@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3cxluzhi@2x.png"
                              class="small-btn"
                              bindtap="reStart"></cover-image>
                 <cover-view class="text"></cover-view>
@@ -75,7 +75,7 @@
             </cover-view>
             <!--重新开始-->
             <cover-view class="over-item restart-btn">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3again@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3cxluzhi@2x.png"
                              class="small-btn"
                              bindtap="reStart"></cover-image>
                 <cover-view class="text"></cover-view>
@@ -84,19 +84,19 @@
         <!--录音结束-->
         <cover-view class="over-status status-box" hidden="{{!is_dubEnd}}">
             <cover-view class="over-item">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3again@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3cxluzhi@2x.png"
                              class="small-btn"
                              bindtap="reRecord"></cover-image>
                 <cover-view class="text">重新录制</cover-view>
             </cover-view>
             <cover-view class="over-item">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3synthesis@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3hecheng@2x.png"
                              class="middle-btn"
                              bindtap="compose"></cover-image>
                 <cover-view class="text">开始合成</cover-view>
             </cover-view>
             <cover-view class="over-item">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3play@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3yulan@2x.png"
                              class="small-btn"
                              bindtap="playVoice"></cover-image>
                 <cover-view class="text">预览</cover-view>
@@ -145,12 +145,12 @@
 
 
         <!--邀请配音-->
-        <cover-view class="open-canvas-btn {{isIpx?'iphoneX-open-canvas-btn':''}}" hidden="{{isDubbing}}"
-                    bindtap="create_poster">
-            <cover-image class="open-canvas-btn-img"
-                         src="https://s-js.sports.cctv.com/host/resource/future/2attention1@2x.png"></cover-image>
-            <cover-view class="open-canvas-btn-text">邀请配音</cover-view>
-        </cover-view>
+        <cover-image class="open-canvas-btn {{isIpx?'iphoneX-open-canvas-btn':''}}" hidden="{{isDubbing || showCountDown}}"
+                    bindtap="create_poster" src="https://s-js.sports.cctv.com/host/resource/future/3yaoqing.png">
+            <!--<cover-image class="open-canvas-btn-img"-->
+                         <!--src="https://s-js.sports.cctv.com/host/resource/future/2attention1@2x.png"></cover-image>-->
+            <!--<cover-view class="open-canvas-btn-text">邀请配音</cover-view>-->
+        </cover-image>
 
         <!--海报浮层-->
         <cover-view class="poster_layer" hidden="{{!show_poster}}" bindtap="close_poster_layer">
