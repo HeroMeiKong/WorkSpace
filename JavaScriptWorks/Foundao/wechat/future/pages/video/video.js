@@ -258,7 +258,7 @@ Page({
                 // path: 'pages/index/index',
                 width: 188,           // 二维码的宽度
                 auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
-                line_color: {"r": "0", "g": "0", "b": "0"},
+                line_color: {"r": "255", "g": "216", "b": "146"},
                 is_hyaline: true,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
             },
         }).then(resp => {
@@ -557,14 +557,18 @@ Page({
         wx.showLoading({
             title: '海报生成中'
         });
+
+        //获取二维码
         this.get_erCode(() => {
             const getImage = promisify(wx.getImageInfo);
             const getImage2 = promisify(wx.getImageInfo);
             const getImage3 = promisify(wx.getImageInfo);
 
             var ctx = this.data.ctx;
-            ctx.setFillStyle('#ffffff');
+            ctx.setFillStyle('#FFD892');
             ctx.fillRect(0, 0, 750, 1238);
+            ctx.setFillStyle('#931e23');
+            ctx.fillRect(10, 10, 730, 1218);
             getImage({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
                 // 绘制背景图
                 const bg_img = resp.path;  // 背景图片
@@ -594,7 +598,7 @@ Page({
                         const user_img = re.path; // 二维码
 
                         // 绘制背景图
-                        ctx.drawImage(bg_img, dx, dy, dWidth, dHeight, 0, 0, 750, 750);
+                        ctx.drawImage(bg_img, dx, dy, dWidth, dHeight, 10, 10, 730, 730);
 
                         // 绘制头像
                         ctx.save();
@@ -605,19 +609,20 @@ Page({
                         ctx.restore();
 
                         // 绘制名称
-                        ctx.setFillStyle('#333333');
+                        ctx.setFillStyle('#FFD892');
                         ctx.setFontSize(34);
                         ctx.setTextBaseline('top')
                         ctx.fillText(cur_video.nick_name, 185, 766);
 
                         // 绘制描述
                         const stringArr = Tool.stringToArr(cur_video.video_desc, 18);
-                        ctx.setFillStyle('#333333');
+                        ctx.setFillStyle('#FFD892');
                         ctx.setFontSize(30);
                         ctx.setTextBaseline('top')
                         stringArr.forEach((item, index) => {
                             ctx.fillText(item, 185, 818 + (index * 50));
                         });
+                        // ctx.fillText(cur_video.video_desc, 185, 818);
 
                         // 绘制二维码
                         ctx.save();
@@ -630,7 +635,7 @@ Page({
 
                         // 绘制底部文字
                         // ctx.setTextAlign('center');
-                        ctx.setFillStyle('#999999');
+                        ctx.setFillStyle('rgba(255,216,146,0.8)');
                         ctx.setFontSize(28);
                         ctx.setTextBaseline('top')
                         ctx.fillText('长按小程序查看详情', 358, 1048);
@@ -644,7 +649,7 @@ Page({
                     console.log(err)
                 });
             });
-        })
+        });
 
 
     },
@@ -790,6 +795,13 @@ Page({
         this.pauseVideo();
         wx.switchTab({
             url: '/pages/dubbingUpload/dubbingUpload'
+        })
+    },
+
+    // 前往话题详情页
+    goSubjectDetail() {
+        wx.navigateTo({
+            url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
         })
     },
 })

@@ -1087,8 +1087,10 @@ Page({
             const getImage3 = promisify(wx.getImageInfo);
 
             var ctx = this.data.ctx;
-            ctx.setFillStyle('#ffffff');
+            ctx.setFillStyle('#FFD892');
             ctx.fillRect(0, 0, 750, 1238);
+            ctx.setFillStyle('#931e23');
+            ctx.fillRect(10, 10, 730, 1218);
             getImage({src: video_small_pic.replace('http://', 'https://')}).then(resp => {
                 // 绘制背景图
                 const bg_img = resp.path;  // 背景图片
@@ -1117,7 +1119,7 @@ Page({
                         const user_img = res.path; // 二维码
 
                         // 绘制背景图
-                        ctx.drawImage(bg_img, dx, dy, dWidth, dHeight, 0, 0, 750, 750);
+                        ctx.drawImage(bg_img, dx, dy, dWidth, dHeight, 10, 10, 730, 730);
 
                         // 绘制头像
                         ctx.save();
@@ -1128,14 +1130,14 @@ Page({
                         ctx.restore();
 
                         // 绘制名称
-                        ctx.setFillStyle('#333333');
+                        ctx.setFillStyle('#FFD892');
                         ctx.setFontSize(34);
                         ctx.setTextBaseline('top')
                         ctx.fillText(this.data.userInfo.nickName, 185, 766);
 
                         // 绘制描述
                         const stringArr = Tool.stringToArr('我在为话题#' + sub_title + ' 配音，快来加入吧！', 18);
-                        ctx.setFillStyle('#333333');
+                        ctx.setFillStyle('#FFD892');
                         ctx.setFontSize(30);
                         ctx.setTextBaseline('top')
                         stringArr.forEach((item, index) => {
@@ -1153,7 +1155,7 @@ Page({
 
                         // 绘制底部文字
                         // ctx.setTextAlign('center');
-                        ctx.setFillStyle('#999999');
+                        ctx.setFillStyle('rgba(255,216,146,0.8)');
                         ctx.setFontSize(28);
                         ctx.setTextBaseline('top')
                         ctx.fillText('长按小程序', 358, 1048);

@@ -1,5 +1,5 @@
 <!--pages/dubbingUpload/dubbingUpload.wxml-->
-<view class="user-page {{isIpx?'iphoneX':''}}">
+<view class="user-page {{models}}">
   <backTitle noBack="{{true}}" title="配音"></backTitle>
   <view class="wrapper">
     <!-- 配音 -->

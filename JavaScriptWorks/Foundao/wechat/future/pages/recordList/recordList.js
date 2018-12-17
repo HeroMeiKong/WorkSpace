@@ -391,7 +391,7 @@ Page({
     scroll(event) {
         const {scrollLeft, scrollTop, scrollHeight, scrollWidth, deltaX, deltaY} = event.detail;
         const {cur_type, type_data} = this.data
-        console.log(scrollTop)
+        // console.log(scrollTop)
         //记录当前的scrollTop
         if (cur_type == 0) {
             this.data.special_scroll = scrollTop

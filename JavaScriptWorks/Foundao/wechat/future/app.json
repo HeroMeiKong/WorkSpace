@@ -22,28 +22,28 @@
     "navigationStyle": "custom"
   },
   "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#F83450",
-    "backgroundColor": "#fff",
-    "borderStyle": "black",
+    "color": "#f3ae7b",
+    "selectedColor": "#FFD892",
+    "backgroundColor": "#C10420",
+    "borderStyle": "#C10420",
     "position": "bottom",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "assets/images/shouye2.png",
-        "selectedIconPath": "assets/images/shouye.png",
+        "iconPath": "assets/images/1shouye1@2x.png",
+        "selectedIconPath": "assets/images/1shouye1@2x.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/dubbingUpload/dubbingUpload",
-        "iconPath": "assets/images/1peiyin@2x.png",
-        "selectedIconPath": "assets/images/1peiyin@2x.png",
-        "text": ""
+        "iconPath": "assets/images/1chuangzuo@2x.png",
+        "selectedIconPath": "assets/images/1chuangzuo@2x.png",
+        "text": "我要参与"
       },
       {
         "pagePath": "pages/user/user",
-        "iconPath": "assets/images/wode2.png",
-        "selectedIconPath": "assets/images/wode.png",
+        "iconPath": "assets/images/1wode1@2x.png",
+        "selectedIconPath": "assets/images/1wode1@2x.png",
         "text": "我的"
       }
     ]

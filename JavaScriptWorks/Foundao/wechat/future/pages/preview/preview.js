@@ -46,7 +46,7 @@ Page({
    */
   data: {
     //isIpx: false,
-    whichmodel: true,
+    //whichmodel: true,
     models: 'defaultmodel',
     showwrappers: 'visible',
     picsize: {height: 0,width: 0}, //图片的大小
@@ -148,9 +148,9 @@ Page({
           //其他机型
           windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.73
           that.data.oldCoordinatey = 122 * windowWidth / 750
-          that.setData({
-            whichmodel: false,
-          })
+          // that.setData({
+          //   whichmodel: false,
+          // })
         }
         previewbox = 69*windowWidth/75
         that.setData({
