@@ -98,7 +98,7 @@ Page({
     showtextcontent: 'block', //值为block或者none
     showtopictype: 'none',
     showsure: 'flex',
-    topic: '话题',
+    topic: '原创话题',
     topics: [],
     publish: [{pic: '',width: 0,height: 0,x: 0,y: 0},{pic: '',width: 0,height: 0,x: 0,y: 0},{pic: '',width: 0,height: 0,x: 0,y: 0}],
     uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
@@ -1181,8 +1181,43 @@ Page({
     preInnerAudioContext.pause()
     if(this.data.uploadContent.join_sub === -1 || this.data.uploadContent.join_sub_id === -1){
       wx.showToast({
-        title: '未选择话题！',
+        title: '默认选择原创话题！',
         duration: 1000
+      })
+      if(this.data.topics.length === 0){
+        wx.request({
+          url: api.topic_sub,
+          method: 'POST',
+          header: {
+              'content-type': 'application/x-www-form-urlencoded',
+              "auth-token": wx.getStorageSync('loginSessionKey'),
+          },
+          success: (res) => {
+            console.log(res)
+            const length = res.data.data.length
+            for(let i=0;i<length;i++){
+              if('原创话题' === res.data.data[i].sub_title){
+                this.data.topic = res.data.data[i].sub_title
+                this.data.uploadContent.join_sub_id = res.data.data[i].sub_type
+                this.data.uploadContent.join_sub = res.data.data[i].id
+                topiclock = true
+              } else {
+                res.data.data[i].pic = topicpic.no
+              }
+            }
+            this.setData({
+              topics: res.data.data
+            })
+            console.log(this.data.topics)
+          },
+          complete: () => {
+            console.log('查询音效分类！')
+          }
+        })
+      }
+      that.setData({
+        uploadContent: this.data.uploadContent,
+        topic: this.data.topic
       })
     } else {
       that.setData({
@@ -1207,7 +1242,7 @@ Page({
             mask: true,
           });
           var timer = setInterval(()=>{
-            if(!resp.data.data){
+            if(!resp.data.data && resp.code === 0){
               console.log('sss')
               wx.hideLoading()
               clearInterval(timer)
@@ -1229,7 +1264,7 @@ Page({
                 showsubmission: 'flex',
                 compose_success: true
               })
-            } else {
+            } else if(resp.data.data && resp.code === 0) {
               wx.request({
                 url: api.get_submit,
                 method: 'POST',
@@ -1293,6 +1328,14 @@ Page({
                   console.log('我又发了一次')
                 }
               })
+            } else {
+              console.log(resp.msg)
+              wx.hideLoading()
+              clearInterval(timer)
+              that.setData({
+                showsubmission: 'flex',
+                compose_success: false
+              })
             }
             that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
@@ -1339,6 +1382,7 @@ Page({
   },
   choseTopic (e) {
     console.log('choseTopic')
+    topiclock = true
     if(this.data.topics.length === 0){
       wx.request({
         url: api.topic_sub,
@@ -1351,7 +1395,11 @@ Page({
           console.log(res)
           const length = res.data.data.length
           for(let i=0;i<length;i++){
-            res.data.data[i].pic = topicpic.no
+            if('原创话题' === res.data.data[i].sub_title){
+              res.data.data[i].pic = topicpic.yes
+            } else {
+              res.data.data[i].pic = topicpic.no
+            }
           }
           this.setData({
             topics: res.data.data
