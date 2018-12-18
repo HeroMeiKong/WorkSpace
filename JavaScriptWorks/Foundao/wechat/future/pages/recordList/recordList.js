@@ -35,9 +35,9 @@ Page({
         cur_list: [],
         scrollTop: 0,
 
-        isIpx:false,
+        isIpx: false,
 
-        no_more:false,
+        no_more: false,
     },
 
     /**
@@ -49,7 +49,7 @@ Page({
             success: (res) => {
                 if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
                     this.setData({
-                        isIpx:true
+                        isIpx: true
                     })
                 }
             }
@@ -138,13 +138,13 @@ Page({
 
     // 分类查询
     getTypes() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
         wx.request({
-            url: api.dub_type,
+            url: api.dub_fenlie,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',
@@ -158,7 +158,7 @@ Page({
                         type_list: data.data
                     })
                 } else {
-                     wx.showToast({
+                    wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
@@ -182,8 +182,8 @@ Page({
             return
         }
 
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -219,7 +219,7 @@ Page({
                         fun && fun();
                     })
                 } else {
-                     wx.showToast({
+                    wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
@@ -260,13 +260,13 @@ Page({
 
         var temp_data = type_data[type_id]
 
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
         wx.request({
-            url: api.dub_type_list,
+            url: api.dub_fenlie_list,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',
@@ -274,7 +274,8 @@ Page({
             },
             data: {
                 'page': temp_data.page,
-                'type_sub': type_id,
+                // 'type_sub': type_id,
+                'fenlie_id': type_id
             },
             success: (res) => {
                 console.log(this)
@@ -298,7 +299,7 @@ Page({
                         cur_list: temp_type_data[type_id].list,
                     })
                 } else {
-                     wx.showToast({
+                    wx.showToast({
                         title: data.msg,
                         icon: 'none'
                     })
@@ -336,7 +337,7 @@ Page({
         var data = event.currentTarget.dataset.data
 
         //关闭展开列表
-       this.closeType()
+        this.closeType()
 
         if (data.id == cur_type) {
             return

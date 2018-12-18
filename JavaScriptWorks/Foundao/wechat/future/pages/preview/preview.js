@@ -14,10 +14,11 @@ var windowWidth = 0  //屏幕宽度
 var windowHeight = 0  //视频屏幕高度
 let previewbox = 0
 var oldLocation = {x:0,y:0} //计算压条大小
-var pasterNum = 0 //压条个数
+var pasterNum = 0 //压条显示个数
 var oldmusiclist = {id: 0}     //选中的音乐列表
 var musiclistcontent = []      //{id: 0,content: ''}音乐的内容
-const musicpic = {playimg: '../../assets/images/4play.png',pauseimg: '../../assets/images/4ing.gif',addimg: '../../assets/images/4add.png',cancelimg: '../../assets/images/4cancel.png'}
+// const musicpic = {playimg: '../../assets/images/4play.png',pauseimg: '../../assets/images/4ing.gif',addimg: '../../assets/images/4add.png',cancelimg: '../../assets/images/4cancel.png'}
+const musicpic = {playimg: '../../assets/images/4play@2x.png',pauseimg: '../../assets/images/bofang.gif',addimg: '../../assets/images/4tianjia@2x.png',cancelimg: '../../assets/images/4xuanze@2x.png'}//春节样式
 var playlock = false //音乐是否播放
 let whichone = {who: '',id: 0} //正在播放哪首歌
 let tempmusic = {new: {type_id: 0,id: 0}, old: {type_id: 0,id: 0}}
@@ -31,7 +32,7 @@ let topiclock = false  //话题是否选择
 let nowmusicname = '' //当前音乐名称
 let nowfiltername = '' //当前滤镜名称
 let pasterswipervalue = 0 //拖拉贴纸swiper的距离
-const topicpic = {yes: '../../assets/images/4duigou.png',no: '../../assets/images/1huati@2x.png'}
+const topicpic = {yes: '../../assets/images/4duigou@2x.png',no: '../../assets/images/1huati@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()//试听歌曲
 innerAudioContext.obeyMuteSwitch = false
 innerAudioContext.autoplay = false
@@ -54,7 +55,9 @@ Page({
     tempFilePath: '',
     size: 0,
     duration: 0,
-    movableviewNum: [], //压条个数
+    movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
+                     {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
+                     {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], //压条个数
     oldCoordinatey: 0,
     oldVideoSize: {width: 0,height: 0},
     previewpic: '', //视频截图加载失败，默认图片
@@ -87,7 +90,7 @@ Page({
     showfilter: 'none',
     showpaster: 'none',
     showmusic: 'none',
-    musicimgs: {playimg: '../../assets/images/4ing.gif',pause: '',addimg: '../../assets/images/4add.png',cancel: '',palyorpause: '',},
+    //musicimgs: {playimg: '../../assets/images/4ing.gif',pause: '',addimg: '../../assets/images/4add.png',cancel: '',palyorpause: '',},
     showmusiclist: 'none',
     showpublish: 'none',
     showpause: 'flex',
@@ -97,7 +100,7 @@ Page({
     showsure: 'flex',
     topic: '话题',
     topics: [],
-    publish: {width: 0,height: 0,x: 0,y: 0},
+    publish: [{pic: '',width: 0,height: 0,x: 0,y: 0},{pic: '',width: 0,height: 0,x: 0,y: 0},{pic: '',width: 0,height: 0,x: 0,y: 0}],
     uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0},
@@ -536,10 +539,27 @@ Page({
   //删除压条
   cancelMovableView (e) {
     console.log('cancelMovableView')
-    if(this.data.movableviewNum.length > 0){
+    console.log(e)
+    // console.log(this.data.movableviewNum)
+    // const arr = this.data.movableviewNum
+    // if(arr.length > 0){
+    //   pasterNum--
+    // }
+    // let str = e.target.id
+    // let strnum = str.substring(3)
+    // for(let i=0;i<arr.length;i++){
+    //   console.log(arr[i].id)
+    //   if(arr[i].id === strnum){
+    //     console.log(arr[i].id)
+    //     arr.splice(i-1,1)
+    //   }
+    // }
+    if(pasterNum > 0){
       pasterNum--
     }
-    this.data.movableviewNum.pop()
+    let str = e.target.id
+    let strnum = str.substring(str.length-1)
+    this.data.movableviewNum[strnum] = {id: str,width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}
     this.setData({
       movableviewNum: this.data.movableviewNum
     })
@@ -583,8 +603,11 @@ Page({
     // coordinate.x = e.detail.x
     // coordinate.y = e.detail.y
     // console.log(coordinate)
-    this.data.movableviewNum[0].x = e.detail.x
-    this.data.movableviewNum[0].y = e.detail.y
+    console.log(e)
+    const str = e.target.id
+    const strnum = str.substring(str.length-1)
+    this.data.movableviewNum[strnum].x = e.detail.x
+    this.data.movableviewNum[strnum].y = e.detail.y
     this.setData({
       movableviewNum: this.data.movableviewNum
     })
@@ -663,13 +686,18 @@ Page({
     this.videoContext1.play()
     this.videoContext1.pause()
     innerAudioContext.stop()
-    if(this.data.movableviewNum.length > 0){
+    if(pasterNum > 0){
       //预览页贴纸位置
       let publishValues = this.data.previewsize.height/this.data.picsize.height
-      this.data.publish.height = this.data.movableviewNum[0].height * publishValues
-      this.data.publish.width = this.data.movableviewNum[0].width * publishValues
-      this.data.publish.y = this.data.movableviewNum[0].y * publishValues
-      this.data.publish.x = this.data.movableviewNum[0].x * publishValues//- (windowWidth-9*windowHeight/16)/2) / publishValues + 483*windowWidth/2400
+      for(let i=0;i<3;i++){
+        if(this.data.movableviewNum[i].show === 'flex'){
+          this.data.publish[i].pic = this.data.movableviewNum[i].pic
+          this.data.publish[i].height = this.data.movableviewNum[i].height * publishValues
+          this.data.publish[i].width = this.data.movableviewNum[i].width * publishValues
+          this.data.publish[i].y = this.data.movableviewNum[i].y * publishValues
+          this.data.publish[i].x = this.data.movableviewNum[i].x * publishValues//- (windowWidth-9*windowHeight/16)/2) / publishValues + 483*windowWidth/2400
+        }
+      }
       //上传视频贴纸位置
       let videoValues = this.data.oldVideoSize.height / this.data.picsize.height
       this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * videoValues
@@ -803,7 +831,8 @@ Page({
   //选中具体压条
   chosePasterPic (e) {
     console.log('chosePasterPic')
-    var pasternumid = this.data.movableviewNum.length
+    console.log(this.data.movableviewNum)
+    //var pasternumid = this.data.movableviewNum.length
     var pic = '../../assets/images/2null2@2x.png' //默认图片
     var pasterpicid = e.currentTarget.id
     var pasterpiclength = this.data.pasters.length
@@ -820,25 +849,33 @@ Page({
     //     console.log(this.data.movableviewNum)
     //   }
     // }
-    var newpaster = {
-      id:'movableview'+pasternumid,
-      width: 80,
-      height: 80,
-      //display: 'none',//左上角和右下角图标
-      //show: 'flex',//显示和隐藏贴纸
-      x: 0,
-      y: 0,
-      pic: pic}
-    if(pasterNum > 0){
+    // var newpaster = {
+    //   id:'movableview'+pasternumid,
+    //   width: 80,
+    //   height: 80,
+    //   //display: 'none',//左上角和右下角图标
+    //   //show: 'flex',//显示和隐藏贴纸
+    //   x: 0,
+    //   y: 0,
+    //   pic: pic}
+    if(pasterNum > 2){
       wx.showToast({
-        title: '只能添加一个贴纸',
+        title: '只能添加三个贴纸',
         duration: 1000
       })
     } else {
       pasterNum++
       console.log(pasterNum)
       //添加压条
-      this.data.movableviewNum.push(newpaster)
+      for(let j=0;j<3;j++){
+        if(this.data.movableviewNum[j].show === 'none'){
+          console.log('我变了')
+          this.data.movableviewNum[j].show = 'flex'
+          this.data.movableviewNum[j].pic = pic
+          break
+        }
+        console.log('我执行了一次')
+      }
       this.setData({
         movableviewNum: this.data.movableviewNum
       })

@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
@@ -48,13 +48,13 @@
 					"id": 1,
 					"name": "他人主页",
 					"pathName": "pages/otherUser/otherUser",
-					"query": "user_uuid=4A4643EA-CD79-E496-D16D-AE455453"
+					"query": "user_uuid=B102D881-C89D-33C8-DE41-3626A2051165"
 				},
 				{
 					"id": 2,
 					"name": "视频详情页",
 					"pathName": "pages/video/video",
-					"query": "video_uuid=65011712674471922977821&id=133"
+					"query": "video_uuid=1121140603368636215400&id=112"
 				},
 				{
 					"id": -1,

@@ -82,13 +82,6 @@ Page({
      */
     onShow: function () {
         app.isAuth(() => {
-            // 统计
-            const options = {
-                op: 'pv',
-                wz: 'video_detail',
-                uniqueid: this.data.video_uuid
-            }
-            app.statistics_pv(options)
             if (!this.data.hasInit) {
                 console.log('未初始化')
                 this.data.hasInit = true
@@ -137,7 +130,9 @@ Page({
         const options = {
             op: 'share',
             wz: 'video_detail',
-            uniqueid: this.data.video_uuid
+            uniqueid: this.data.video_uuid,
+            id: this.data.cur_video.id,
+            source: 'ugc',
         }
         app.statistics_pv(options)
         if (this.data.is_user && this.data.examine == 1) {
@@ -314,6 +309,15 @@ Page({
                         this.setData({
                             loaded: true
                         })
+                        // 统计
+                        const options = {
+                            op: 'pv',
+                            wz: 'video_detail',
+                            uniqueid: this.data.video_uuid,
+                            id: this.data.cur_video.id,
+                            source: 'ugc'
+                        }
+                        app.statistics_pv(options)
                     })
                 } else {
                     wx.showToast({
@@ -362,7 +366,7 @@ Page({
                     this.setData({
                         cur_video: this.data.cur_video
                     })
-                    this.refreshStatus(this.data.cur_video.uuid,2)
+                    this.refreshStatus(this.data.cur_video.uuid, 2)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -410,7 +414,7 @@ Page({
                     this.setData({
                         cur_video: this.data.cur_video
                     })
-                    this.refreshStatus(this.data.cur_video.uuid,1)
+                    this.refreshStatus(this.data.cur_video.uuid, 1)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -454,7 +458,8 @@ Page({
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
-                    this.data.cur_video.is_zan = 2
+                    this.data.cur_video.is_zan = 2;
+                    this.data.cur_video.count_material_love++;
                     this.setData({
                         cur_video: this.data.cur_video
                     })
@@ -502,7 +507,8 @@ Page({
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
-                    this.data.cur_video.is_zan = 1
+                    this.data.cur_video.is_zan = 1;
+                    this.data.cur_video.count_material_love--;
                     this.setData({
                         cur_video: this.data.cur_video
                     })
@@ -779,12 +785,12 @@ Page({
     },
 
     //更新主页的关注数据
-    refreshStatus(user_uuid,status){
+    refreshStatus(user_uuid, status) {
         var pages = getCurrentPages();
-        for(var i=0;i<pages.length;i++){
+        for (var i = 0; i < pages.length; i++) {
             var page_temp = pages[i]
-            if(page_temp.route == 'pages/index/index'){
-                page_temp.refreshStatus(user_uuid,status)
+            if (page_temp.route == 'pages/index/index') {
+                page_temp.refreshStatus(user_uuid, status)
                 return
             }
         }

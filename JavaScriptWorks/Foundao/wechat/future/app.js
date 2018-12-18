@@ -9,7 +9,6 @@ const pubSub = require('./utils/pubSub');
 const wxRequest = promisify(wx.request);
 
 
-
 App({
     pubSub: new PubSub(),
     onLaunch: function (options) {
@@ -34,6 +33,8 @@ App({
                 uniqueid: options.uniqueid || '',
                 pt: this.globalData.pt || '',
                 vir_ID: vir_ID || '',
+                id: options.id || '',
+                source: options.source || ''
             },
         }).then(resp => {
             const {code, msg, data} = resp.data;
@@ -115,7 +116,7 @@ App({
     },
 
 
-    initAuth(){
+    initAuth() {
         wx.removeStorageSync('loginSessionKey');
         wx.navigateTo({
             url: '/pages/auth/auth'
@@ -186,6 +187,6 @@ App({
         userInfo: null,
         pt: '',
         shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png',
-        shareText:'我在逗牛短视频里玩配音拍视频，现在邀你来玩哦~'
+        shareText: '我在逗牛短视频里玩配音拍视频，现在邀你来玩哦~'
     }
 })

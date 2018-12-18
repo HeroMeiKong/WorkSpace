@@ -4,10 +4,6 @@
     <backTitle title="用户详情"></backTitle>
 
     <view class="top-box">
-        <!--底部背景-->
-        <view class="bg" style="background-image: url({{other_userInfo.nick_pic}})">
-            <view class="bg-color"></view>
-        </view>
         <!--用户信息-->
         <view class="userInfo-box">
             <view class="user-head" style="background-image: url({{other_userInfo.nick_pic}})"></view>
@@ -36,6 +32,10 @@
                 <view class="video-item"
                       bindtap="goVideo"
                       data-data="{{item}}" style="background-image: url({{item.pic}})">
+                    <view class="video-zan-box" wx:if="{{item.examine==3}}">
+                        <image src="https://s-js.sports.cctv.com/host/resource/future/2dianzanshu@2x.png"></image>
+                        <view class="video-zan">{{item.count_material_love}}</view>
+                    </view>
                 </view>
             </block>
             <!--暂无任何作品-->

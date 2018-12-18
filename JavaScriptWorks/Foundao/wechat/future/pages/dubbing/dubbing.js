@@ -222,7 +222,9 @@ Page({
         const options = {
             op: 'share',
             wz: 'dub_datail',
-            uniqueid: this.data.video_uuid
+            uniqueid: this.data.video_uuid,
+            id: this.data.cur_video.id,
+            source: 'material',
         }
         app.statistics_pv(options)
         if (res.from === 'button') {

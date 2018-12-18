@@ -81,6 +81,8 @@ export default {
     dub: host + 'dub/dub.php',
     dub_type: host + 'dub/dub_type.php',    //话题列表
     dub_type_list: host + 'dub/dub_type_list.php',    //话题配音列表
+    dub_fenlie: host + 'dub/dub_fenlie.php',
+    dub_fenlie_list: host + 'dub/dub_fenlie_list.php',
     dub_detail: host + 'dub/dub_detail.php',    //单个配音详情
     submit_exmaine: host + 'dub/submit_exmaine.php',    //录音提交接口
     query_video_status: host + 'dub/query_video_status.php',    //录音提交接口

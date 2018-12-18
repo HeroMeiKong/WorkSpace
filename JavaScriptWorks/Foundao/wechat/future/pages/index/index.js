@@ -132,11 +132,6 @@ Page({
         this.hideTabBar()
         app.isAuth(() => {
             //统计
-            const option = {
-                op: 'pv',
-                wz: 'home_page',
-            }
-            app.statistics_pv(option)
             if (!this.data.hasInit) {
                 console.log('未初始化')
                 this.data.hasInit = true
@@ -215,6 +210,8 @@ Page({
         const options = {
             op: 'share',
             wz: 'home_page',
+            id: this.data.cur_video.id,
+            source: 'ugc',
         }
         app.statistics_pv(options)
         if (res.from === 'button') {
@@ -809,7 +806,8 @@ Page({
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
-                    this.data.cur_video.is_zan = 2
+                    this.data.cur_video.is_zan = 2;
+                    this.data.cur_video.count_material_love++;
                     this.setData({
                         cur_video: this.data.cur_video
                     })
@@ -836,11 +834,13 @@ Page({
 
     // 不喜欢
     dislike() {
+        wx.showShareMenu({
+            withShareTicket: true
+        })
         wx.showLoading({
             mask: true
         })
         this.data.loading_num++;
-
         const {cur_video} = this.data;
         wx.request({
             url: api.del_fabulous,
@@ -859,6 +859,7 @@ Page({
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
                     this.data.cur_video.is_zan = 1
+                    this.data.cur_video.count_material_love--;
                     this.setData({
                         cur_video: this.data.cur_video
                     })
@@ -1186,6 +1187,15 @@ Page({
                     cur_video: data,
                     fit: fit_temp,
                 }, () => {
+                    // 统计
+                    const options = {
+                        op: 'pv',
+                        wz: 'home_page',
+                        uniqueid: this.data.cur_video.video_uuid,
+                        id: this.data.cur_video.id,
+                        source: 'ugc'
+                    }
+                    app.statistics_pv(options)
                     //显示视频上的所有元素
                     this.setData({
                         first_init: true
@@ -1200,6 +1210,15 @@ Page({
                     hideVideo: true,
                     swiper_current: index || 0
                 }, () => {
+                    // 统计
+                    const options = {
+                        op: 'pv',
+                        wz: 'home_page',
+                        uniqueid: this.data.cur_video.video_uuid,
+                        id: this.data.cur_video.id,
+                        source: 'ugc'
+                    }
+                    app.statistics_pv(options)
                     // 显示视频
                     setTimeout(() => {
                         this.setData({

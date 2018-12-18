@@ -3,32 +3,31 @@
     <backTitle noBack="{{true}}" title="我的"></backTitle>
 
     <view class="top-box">
-        <!--<view style="width: 100%;text-align: center">我的</view>-->
-        <!--底部背景-->
-        <view class="bg" style="background-image: url({{userInfo.nick_pic}})">
-            <view class="bg-color"></view>
-        </view>
         <!--用户信息-->
         <view class="userInfo-box">
             <view class="user-head" style="background-image: url({{real_userInfo.avatarUrl}})"></view>
             <view class="user-otherInfo">
                 <view class="user-name">{{real_userInfo.nickName}}</view>
-                <view class="user-fans-attention">
-                    <span class="user-num" bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>
-                    <span bindtap="goAttention" data-select="2">粉丝</span>
-                    <view class="line"></view>
-                    <span class="user-num" bindtap="goAttention" data-select="1">{{userInfo.follow}}</span>
-                    <span bindtap="goAttention" data-select="1">关注</span>
-                </view>
+                <!--个人简介-->
+                <textarea class="user-intro" name="" id="" cols="30" rows="2" placeholder="点击此处修改个人简介"
+                          placeholder-style="color:rgba(255,255,255,.6)" bindblur="updateContent" bindinput="numLimit"
+                          value="{{userInfo.user_autograph}}">
+        </textarea>
             </view>
         </view>
-        <!--个人简介-->
-        <!--<view class="user-intro">{{userInfo.user_autograph}}</view>-->
-        <textarea class="user-intro" name="" id="" cols="30" rows="2" placeholder="点击此处修改个人简介"
-                  placeholder-style="color:rgba(255,255,255,.6)" bindblur="updateContent" bindinput="numLimit"
-                  value="{{userInfo.user_autograph}}">
-                <!--<text>{{userInfo.user_autograph}}</text>-->
-        </textarea>
+
+        <view class="user-fans-attention">
+            <view class="user-fans-attention-inner">
+                <span class="user-num" bindtap="goAttention" data-select="2">{{userInfo.count_zan}}</span>
+                <span>获赞</span>
+                <view class="line"></view>
+                <span class="user-num" bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>
+                <span bindtap="goAttention" data-select="2">粉丝</span>
+                <view class="line"></view>
+                <span class="user-num" bindtap="goAttention" data-select="1">{{userInfo.follow}}</span>
+                <span bindtap="goAttention" data-select="1">关注</span>
+            </view>
+        </view>
         <!--tab-->
         <view class="tab-box">
             <view class="tab-item {{select==1?'selected':''}}" bindtap="toggle" data-select="1">
@@ -51,6 +50,10 @@
                       data-data="{{item}}" style="background-image: url({{item.pic}})">
                     <view class="waiting-box" wx:if="{{item.examine==2}}">审核中</view>
                     <view class="waiting-box fail" wx:if="{{item.examine==1}}">审核未通过</view>
+                    <view class="video-zan-box" wx:if="{{item.examine==3}}">
+                        <image src="https://s-js.sports.cctv.com/host/resource/future/2dianzanshu@2x.png"></image>
+                        <view class="video-zan">{{item.count_material_love}}</view>
+                    </view>
                 </view>
             </block>
         </view>

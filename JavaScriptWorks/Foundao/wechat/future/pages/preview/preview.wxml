@@ -6,9 +6,9 @@
       <movable-area class="screenshot" style="display:{{showVideo.notvideo}};width:{{picsize.width}}px;height:{{picsize.height}}px;">
         <block wx:for="{{movableviewNum}}" wx:key="*this">
           <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView" damping="200">
-            <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/4del.png" catch:tap="cancelMovableView"></image>
+            <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/4shanchu@2x.png" catch:tap="cancelMovableView"></image>
             <image id="pic{{item.id}}" src="{{item.pic}}" bind:tap="showMovableView"></image>
-            <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{item.display}}" src="../../assets/images/4stretch.png" catch:touchstart="getStartLocation" catch:touchmove="moveLocation" catch:touchend="endLocation"></image>
+            <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{item.display}}" src="../../assets/images/4lashen@2x.png" catch:touchstart="getStartLocation" catch:touchmove="moveLocation" catch:touchend="endLocation"></image>
           </movable-view>
         </block>
       </movable-area>
@@ -28,11 +28,11 @@
           <text class="">滤镜</text>
         </view> -->
         <view class="section" catch:tap="paster">
-          <image class="img" src="../../assets/images/4graph.png"></image>
+          <image class="img" src="../../assets/images/4tiezhi@2x.png"></image>
           <text class="">贴纸</text>
         </view>
         <view class="section" catch:tap="music">
-          <image class="img" src="../../assets/images/4music.png"></image>
+          <image class="img" src="../../assets/images/4yinyue@2x.png"></image>
           <text class="">音乐</text>
         </view>
       </view>
@@ -127,7 +127,9 @@
   <view class="publish {{models}}" style="display:{{showpublish}}">
     <view class="videowrapper">
       <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
-        <cover-image class="coverimage" src="{{movableviewNum[0].pic}}" style="width:{{publish.width}}px;height:{{publish.height}}px;left:{{publish.x}}px;top:{{publish.y}}px"></cover-image>
+        <block wx:for="{{publish}}">
+          <cover-image class="coverimage" src="{{item.pic}}" style="width:{{item.width}}px;height:{{item.height}}px;left:{{item.x}}px;top:{{item.y}}px"></cover-image>
+        </block>
         <cover-view class="playimg" catch:tap="pauseThis">
           <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
         </cover-view>
@@ -159,9 +161,14 @@
         </swiper>
       </view>
     </view>
-    <view class="bottom_option" style="display:{{showsure}}">
+    <!-- <view class="bottom_option" style="display:{{showsure}}">
       <view class="back" catch:tap="cancelUploadContent">返回上一步</view>
       <view class="sure" catch:tap="uploadContent">确认发布</view>
+    </view> -->
+    <!-- 春节样式 -->
+    <view class="bottom_option" style="display:{{showsure}}">
+      <view class="back" catch:tap="cancelUploadContent"><image src="../../assets/images/4fanhui@2x.png" />返回上一步</view>
+      <view class="sure" catch:tap="uploadContent"><image src="../../assets/images/4fabu@2x.png" />确认发布</view>
     </view>
   </view>
   <cover-view class="overcover" style="display:{{showovercover}}"></cover-view>

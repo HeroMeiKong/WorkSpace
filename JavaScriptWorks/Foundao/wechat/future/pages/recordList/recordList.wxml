@@ -8,7 +8,7 @@
             <view class="scroll-kind-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选</view>
             <block wx:for="{{type_list}}">
                 <view class="scroll-kind-item {{cur_type==item.id?'selected':''}}" data-data="{{item}}"
-                      catchtap="switchType">{{item.sub_title}}
+                      catchtap="switchType">{{item.name}}
                 </view>
             </block>
         </scroll-view>
@@ -21,7 +21,7 @@
             <view class="open-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选</view>
             <block wx:for="{{type_list}}">
                 <view class="open-item {{cur_type==item.id?'selected':''}}" catchtap="switchType" data-data="{{item}}">
-                    {{item.sub_title}}
+                    {{item.name}}
                 </view>
             </block>
         </view>
