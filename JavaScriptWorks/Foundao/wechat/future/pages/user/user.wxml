@@ -18,7 +18,7 @@
 
         <view class="user-fans-attention">
             <view class="user-fans-attention-inner">
-                <span class="user-num" bindtap="goAttention" data-select="2">{{userInfo.count_zan}}</span>
+                <span class="user-num" data-select="2">{{userInfo.count_zan}}</span>
                 <span>获赞</span>
                 <view class="line"></view>
                 <span class="user-num" bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>

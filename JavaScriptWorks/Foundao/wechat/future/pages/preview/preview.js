@@ -32,7 +32,7 @@ let topiclock = false  //话题是否选择
 let nowmusicname = '' //当前音乐名称
 let nowfiltername = '' //当前滤镜名称
 let pasterswipervalue = 0 //拖拉贴纸swiper的距离
-const topicpic = {yes: '../../assets/images/4duigou@2x.png',no: '../../assets/images/1huati@2x.png'}
+const topicpic = {yes: '../../assets/images/4duigou@2x.png',no: '../../assets/images/4huati2@2x.png'}
 const innerAudioContext = wx.createInnerAudioContext()//试听歌曲
 innerAudioContext.obeyMuteSwitch = false
 innerAudioContext.autoplay = false
@@ -48,6 +48,7 @@ Page({
   data: {
     //isIpx: false,
     //whichmodel: true,
+    chooseVideo: 0,//视频是否选取成功,0初始化，1成功，2失败
     models: 'defaultmodel',
     showwrappers: 'visible',
     picsize: {height: 0,width: 0}, //图片的大小
@@ -55,9 +56,10 @@ Page({
     tempFilePath: '',
     size: 0,
     duration: 0,
-    movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
-                     {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
-                     {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], //压条个数
+    movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], 
+    // movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
+    //                  {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
+    //                  {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], //压条个数
     oldCoordinatey: 0,
     oldVideoSize: {width: 0,height: 0},
     previewpic: '', //视频截图加载失败，默认图片
@@ -212,9 +214,7 @@ Page({
           })
           console.log(that.data.oldVideoSize)
           wx.showLoading({
-            title: '视频处理中',
-            icon: 'loading',
-            duration: 2000,
+            title: '视频上传中',
             mask: true
           })
           if(usermethod === 'camera'){
@@ -306,8 +306,13 @@ Page({
                   console.log(data)
                   that.setData({
                     previewpic: data.data.savehttp,
-                    uploadContent: that.data.uploadContent
+                    uploadContent: that.data.uploadContent,
+                    chooseVideo: 1
                   })
+                },
+                complete () {
+                  console.log('隐藏了哈')
+                  wx.hideLoading()
                 }
               })
             }
@@ -335,6 +340,9 @@ Page({
         wx.navigateBack({
           delta: 1
         });
+        that.setData({
+          chooseVideo: 2
+        })
       },
       complete: function (e) {
         console.log('我的错我的错我的错')
@@ -371,6 +379,11 @@ Page({
       showsubmission: 'none',
       videomuted: false
     })
+    if(this.data.chooseVideo === 2){
+      wx.switchTab({
+        url: '/pages/preview/preview'
+      })
+    }
   },
   onHide (e) {
     console.log('onHide')
@@ -400,7 +413,8 @@ Page({
       showmusiclists: this.data.showmusiclists,
       uploadContent: this.data.uploadContent,
       showmusiclist: 'none',
-      showpause: 'flex'
+      showpause: 'flex',
+      chooseVideo: 0
     })
   },
   onUnload (e) {
@@ -429,7 +443,8 @@ Page({
     this.setData({
       musiclists: this.data.musiclists,
       showmusiclists: this.data.showmusiclists,
-      uploadContent: this.data.uploadContent
+      uploadContent: this.data.uploadContent,
+      chooseVideo: 0
     })
   },
   cancelFilter (e) {
@@ -683,13 +698,54 @@ Page({
     //   icon: 'none',
     //   duration: 3000
     // })
+    //默认选择原创话题
+    wx.showToast({
+      title: '默认选择原创话题！',
+      icon: 'none',
+      duration: 3000
+    })
+    if(this.data.topics.length === 0){
+      wx.request({
+        url: api.topic_sub,
+        method: 'POST',
+        header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            "auth-token": wx.getStorageSync('loginSessionKey'),
+        },
+        success: (res) => {
+          console.log(res)
+          const length = res.data.data.length
+          for(let i=0;i<length;i++){
+            if('原创话题' === res.data.data[i].sub_title){
+              res.data.data[i].pic = topicpic.yes
+              this.data.topic = res.data.data[i].sub_title
+              this.data.uploadContent.join_sub_id = res.data.data[i].sub_type
+              this.data.uploadContent.join_sub = res.data.data[i].id
+              topiclock = true
+            } else {
+              res.data.data[i].pic = topicpic.no
+            }
+          }
+          this.setData({
+            topics: res.data.data
+          })
+          console.log(this.data.topics)
+        },
+        complete: () => {
+          console.log('设置默认话题！')
+        }
+      })
+    }
+
+
     this.videoContext1.play()
     this.videoContext1.pause()
     innerAudioContext.stop()
     if(pasterNum > 0){
       //预览页贴纸位置
       let publishValues = this.data.previewsize.height/this.data.picsize.height
-      for(let i=0;i<3;i++){
+      const movableviewNumLength = this.data.movableviewNum.length
+      for(let i=0;i<movableviewNumLength;i++){
         if(this.data.movableviewNum[i].show === 'flex'){
           this.data.publish[i].pic = this.data.movableviewNum[i].pic
           this.data.publish[i].height = this.data.movableviewNum[i].height * publishValues
@@ -718,6 +774,7 @@ Page({
       uploadContent: this.data.uploadContent,
       publish: this.data.publish,
       videomuted: this.data.videomuted,
+      topic: this.data.topic
     })
     // this.videoContext.play()
     // this.videoContext.pause()
@@ -858,16 +915,17 @@ Page({
     //   x: 0,
     //   y: 0,
     //   pic: pic}
-    if(pasterNum > 2){
+    if(pasterNum > 0){
       wx.showToast({
-        title: '只能添加三个贴纸',
+        title: '只能添加一个贴纸',
         duration: 1000
       })
     } else {
       pasterNum++
       console.log(pasterNum)
       //添加压条
-      for(let j=0;j<3;j++){
+      const movableviewNumLength = this.data.movableviewNum.length
+      for(let j=0;j<movableviewNumLength;j++){
         if(this.data.movableviewNum[j].show === 'none'){
           console.log('我变了')
           this.data.movableviewNum[j].show = 'flex'
@@ -1181,44 +1239,45 @@ Page({
     preInnerAudioContext.pause()
     if(this.data.uploadContent.join_sub === -1 || this.data.uploadContent.join_sub_id === -1){
       wx.showToast({
-        title: '默认选择原创话题！',
+        title: '未选择话题！',
+        icon: 'none',
         duration: 1000
       })
-      if(this.data.topics.length === 0){
-        wx.request({
-          url: api.topic_sub,
-          method: 'POST',
-          header: {
-              'content-type': 'application/x-www-form-urlencoded',
-              "auth-token": wx.getStorageSync('loginSessionKey'),
-          },
-          success: (res) => {
-            console.log(res)
-            const length = res.data.data.length
-            for(let i=0;i<length;i++){
-              if('原创话题' === res.data.data[i].sub_title){
-                this.data.topic = res.data.data[i].sub_title
-                this.data.uploadContent.join_sub_id = res.data.data[i].sub_type
-                this.data.uploadContent.join_sub = res.data.data[i].id
-                topiclock = true
-              } else {
-                res.data.data[i].pic = topicpic.no
-              }
-            }
-            this.setData({
-              topics: res.data.data
-            })
-            console.log(this.data.topics)
-          },
-          complete: () => {
-            console.log('查询音效分类！')
-          }
-        })
-      }
-      that.setData({
-        uploadContent: this.data.uploadContent,
-        topic: this.data.topic
-      })
+      // if(this.data.topics.length === 0){
+      //   wx.request({
+      //     url: api.topic_sub,
+      //     method: 'POST',
+      //     header: {
+      //         'content-type': 'application/x-www-form-urlencoded',
+      //         "auth-token": wx.getStorageSync('loginSessionKey'),
+      //     },
+      //     success: (res) => {
+      //       console.log(res)
+      //       const length = res.data.data.length
+      //       for(let i=0;i<length;i++){
+      //         if('原创话题' === res.data.data[i].sub_title){
+      //           this.data.topic = res.data.data[i].sub_title
+      //           this.data.uploadContent.join_sub_id = res.data.data[i].sub_type
+      //           this.data.uploadContent.join_sub = res.data.data[i].id
+      //           topiclock = true
+      //         } else {
+      //           res.data.data[i].pic = topicpic.no
+      //         }
+      //       }
+      //       this.setData({
+      //         topics: res.data.data
+      //       })
+      //       console.log(this.data.topics)
+      //     },
+      //     complete: () => {
+      //       console.log('查询音效分类！')
+      //     }
+      //   })
+      // }
+      // that.setData({
+      //   uploadContent: this.data.uploadContent,
+      //   topic: this.data.topic
+      // })
     } else {
       that.setData({
         showovercover: 'flex',
@@ -1238,11 +1297,14 @@ Page({
         success: (resp) => {
           wx.hideLoading()
           wx.showLoading({
-            title: '视频处理中…',
+            title: '视频上传合成中……',
             mask: true,
           });
           var timer = setInterval(()=>{
-            if(!resp.data.data && resp.code === 0){
+            const {data} = resp
+            console.log(data.data)
+            console.log(data.code)
+            if(!data.data && data.code === 0){
               console.log('sss')
               wx.hideLoading()
               clearInterval(timer)
@@ -1264,7 +1326,7 @@ Page({
                 showsubmission: 'flex',
                 compose_success: true
               })
-            } else if(resp.data.data && resp.code === 0) {
+            } else if(data.data && data.code === 0) {
               wx.request({
                 url: api.get_submit,
                 method: 'POST',
@@ -1383,34 +1445,34 @@ Page({
   choseTopic (e) {
     console.log('choseTopic')
     topiclock = true
-    if(this.data.topics.length === 0){
-      wx.request({
-        url: api.topic_sub,
-        method: 'POST',
-        header: {
-            'content-type': 'application/x-www-form-urlencoded',
-            "auth-token": wx.getStorageSync('loginSessionKey'),
-        },
-        success: (res) => {
-          console.log(res)
-          const length = res.data.data.length
-          for(let i=0;i<length;i++){
-            if('原创话题' === res.data.data[i].sub_title){
-              res.data.data[i].pic = topicpic.yes
-            } else {
-              res.data.data[i].pic = topicpic.no
-            }
-          }
-          this.setData({
-            topics: res.data.data
-          })
-          console.log(this.data.topics)
-        },
-        complete: () => {
-          console.log('查询音效分类！')
-        }
-      })
-    }
+    // if(this.data.topics.length === 0){
+    //   wx.request({
+    //     url: api.topic_sub,
+    //     method: 'POST',
+    //     header: {
+    //         'content-type': 'application/x-www-form-urlencoded',
+    //         "auth-token": wx.getStorageSync('loginSessionKey'),
+    //     },
+    //     success: (res) => {
+    //       console.log(res)
+    //       const length = res.data.data.length
+    //       for(let i=0;i<length;i++){
+    //         if('原创话题' === res.data.data[i].sub_title){
+    //           res.data.data[i].pic = topicpic.yes
+    //         } else {
+    //           res.data.data[i].pic = topicpic.no
+    //         }
+    //       }
+    //       this.setData({
+    //         topics: res.data.data
+    //       })
+    //       console.log(this.data.topics)
+    //     },
+    //     complete: () => {
+    //       console.log('查询音效分类！')
+    //     }
+    //   })
+    // }
     this.setData({
       showVideos: 'none',
       showtextcontent: 'none',
@@ -1512,7 +1574,8 @@ Page({
     this.setData({
       showovercover: 'none',
       compose_success: true,
-      showsubmission: 'none'
+      showsubmission: 'none',
+      showpause: 'flex'
     })
   },
   pasterSwiperStart (e) {

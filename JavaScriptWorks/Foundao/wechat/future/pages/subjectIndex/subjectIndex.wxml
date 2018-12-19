@@ -14,9 +14,19 @@
             </swiper-item>
         </block>
     </swiper>
-    <view class="hot-title">热门话题</view>
+    <view class="header">
+        <scroll-view class="scroll-kind" scroll-x>
+            <view class="scroll-kind-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">热门话题</view>
+            <block wx:for="{{type_list}}">
+                <view class="scroll-kind-item {{cur_type==item.id?'selected':''}}" data-data="{{item}}"
+                      catchtap="switchType">{{item.name}}
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+    <!--<view class="hot-title">热门话题</view>-->
     <view class="subject-list">
-        <block wx:for="{{subject_list}}">
+        <block wx:for="{{cur_list}}">
             <view class="subject-item">
                 <view class="subject-item-head">
                     <span class="subject-item-name">{{item.sub_title}}</span>

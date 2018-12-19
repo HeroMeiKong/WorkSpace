@@ -76,6 +76,8 @@ export default {
     topic_home: host + 'topic/topic_home.php',      //话题主页
     one_topic: host + 'topic/one_topic.php',            //话题
     topic_class: host + 'topic/topic_class.php',            //话题列表
+    topic_fenlie: host + 'topic/topic_fenlie.php',            //分类
+    topic_fenlie_list: host + 'topic/topic_fenlie_list.php',            //分类列表
 
     //配音列表
     dub: host + 'dub/dub.php',

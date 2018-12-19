@@ -189,8 +189,8 @@
     transform: translateX(-50%);
     /*width:240rpx;*/
     /*height:68rpx;*/
-    width: 266rpx;
-    height: 94rpx;
+    width: 86rpx;
+    height: 87rpx;
     background-image: url("https://s-js.sports.cctv.com/host/resource/future/1peiyin2@2x.png");
     background-size: cover;
     /*background:rgba(248,52,80,1);*/

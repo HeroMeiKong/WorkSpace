@@ -33,7 +33,9 @@
   width: 100%;
   height: 100%;
   /* background-color: #2e2e2e; */
-  background-color: #931E23;/* 春节样式 */
+  background-color: #9b2027;/* 春节样式 */
+  background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 春节样式 */
+  background-size: 100%;/* 春节样式 */
 }
 
 .preview {
@@ -66,6 +68,7 @@
 .screenshot image {
   width: 100%;
   height: 100%;
+  border-radius:6rpx;
   /* border: 2rpx solid #fff; */
   border: 2rpx solid #FE2C1D;/* 春节样式 */
 }
@@ -508,13 +511,13 @@ swiper-item {
 .textcontent .introduce {
   width: 100%;
   /* height: 80%; */
-  height: 60%;/* 春节样式 */
+  height: 30%;/* 春节样式 */
   /* color: #fff;
   opacity: 0.3; */
-  color: rgba(255,216,146,.3);/* 春节样式 */
+  color: rgba(255,216,146,1);/* 春节样式 */
   font-size: 30rpx;
   /* border-top: 1px solid #fff; */
-  border-top: 1px solid rgba(255,216,146,.6);/* 春节样式 */
+  border-bottom: 1px solid rgba(255,216,146,.6);/* 春节样式 */
   padding-top: 10rpx;
 }
 
@@ -616,7 +619,7 @@ swiper-item {
 /* 春节样式 */
 .bottom_option {
   width: 720rpx;
-  height: 154rpx;
+  height: 254rpx;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -139,7 +139,7 @@ Page({
             return {
                 title: app.globalData.shareText,
                 path: '/pages/index/index',
-                imageUrl: app.globalData.shareImg,
+                imageUrl: this.data.cur_video.share_pic || app.globalData.shareImg,
             }
         }
         if (res.from === 'button') {
@@ -147,7 +147,7 @@ Page({
             return {
                 title: this.data.cur_video.video_desc,
                 path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
-                imageUrl: this.data.cur_video.pic,
+                imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
             }
         } else {
             return {

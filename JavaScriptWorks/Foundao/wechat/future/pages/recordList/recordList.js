@@ -215,7 +215,7 @@ Page({
                         special_list: temp_special_list,
                         special_page: this.data.special_page + 1
                     }, () => {
-                        //第一次回调，播放视频
+                        //第一次回调
                         fun && fun();
                     })
                 } else {

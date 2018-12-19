@@ -232,13 +232,13 @@ Page({
             return {
                 title: this.data.cur_video.video_desc,
                 path: '/pages/dubbing/dubbing?video_uuid=' + this.data.video_uuid,
-                imageUrl: this.data.cur_video.video_small_pic,
+                imageUrl: this.data.cur_video.video_share_pic || this.data.cur_video.video_small_pic,
             }
         } else if (res.from === 'menu') {
             return {
                 title: this.data.cur_video.video_desc,
                 path: '/pages/dubbing/dubbing?video_uuid=' + this.data.video_uuid,
-                imageUrl: this.data.cur_video.video_small_pic,
+                imageUrl: this.data.cur_video.video_share_pic || this.data.cur_video.video_small_pic,
             }
         }
     },
@@ -945,7 +945,7 @@ Page({
         //回到期起点
         this.videoContext.seek(0);
         this.pauseVideo();
-        this.countDown_fun(()=>{
+        this.countDown_fun(() => {
             this.setData({
                 //whichVideo: this.data.video_detail.transcode_no_music_zimu_video,
                 muted: true,

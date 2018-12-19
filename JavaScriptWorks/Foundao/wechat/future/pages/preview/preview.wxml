@@ -138,7 +138,7 @@
     <view class="textcontent" style="display:{{showtextcontent}}">
       <view class="topic" catch:tap="choseTopic">
         <view class="topicinner">
-          <image class="topicinnerpic" src="../../assets/images/1huati@2x.png" />
+          <image class="topicinnerpic" src="../../assets/images/4huati2@2x.png" />
           <font>{{topic}}</font>
         </view>
       </view>
@@ -193,7 +193,7 @@
       <cover-view class="submission_fail">
         <cover-view class="submission_top">
           <cover-view class="submission_title submission_title_color">提交失败</cover-view>
-          <cover-view class="submission_text submission_text_color">由于不可控原因，请重试！</cover-view>
+          <cover-view class="submission_text submission_text_color">网络原因提交失败，请重试！</cover-view>
         </cover-view>
         <cover-view class="submission_bottom">
           <cover-view class="submission_button"><cover-image src="../../assets/images/3determine@2x.png" class="submission_bottom_img"  catch:tap="returnSubmit"></cover-image></cover-view>
