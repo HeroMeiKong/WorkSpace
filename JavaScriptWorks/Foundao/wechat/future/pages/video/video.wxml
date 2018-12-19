@@ -13,6 +13,9 @@
                bindpause="bindpause"
                bindtimeupdate="bindtimeupdate">
 
+            <!--底部阴影-->
+            <cover-image class="content-bg" src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"></cover-image>
+
             <!--覆盖框-->
             <cover-view class="cover-box" bindtap="videoClick" wx:if="loaded">
 
@@ -69,7 +72,7 @@
                                      src="https://s-js.sports.cctv.com/host/resource/future/1tiaozhan@2x.png"></cover-image>
                         <cover-view class="button-item-text">挑战ta</cover-view>
                     </cover-view>
-                    <cover-view class="button-item" catchtap="switchToRecordList"
+                    <cover-view class="button-item" catchtap="openDo"
                                 hidden="{{cur_video.is_dub==2 || is_user}}">
                         <cover-image class="button-item-icon chanllenge"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1woyepai@2x.png"></cover-image>
@@ -86,7 +89,7 @@
                                      wx:if="{{cur_video.is_zan!==1}}"></cover-image>
                         <cover-view class="button-item-text">{{cur_video.count_material_love}}</cover-view>
                     </cover-view>
-                    <cover-view class="button-item share" catchtap="share" hidden="{{is_user&&examine!==3}}">
+                    <cover-view class="button-item share" catchtap="share" hidden="{{is_user&&examine!=3}}">
                         <cover-image class="button-item-icon share"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1fenxiang@2x.png"></cover-image>
                         <cover-view class="button-item-text">{{cur_video.count_material_share}}</cover-view>
@@ -112,7 +115,7 @@
                     </cover-view>
                     <!--简介-->
                     <cover-view class="content-subject" catchtap="goSubjectDetail">#{{cur_video.sub_title}}</cover-view>
-                    <cover-view class="content">{{cur_video.video_desc}}</cover-view>
+                    <cover-view class="content">{{cur_video.video_desc||''}}</cover-view>
                 </cover-view>
                 <!--进度条-->
                 <cover-view class="progress-box">
@@ -142,7 +145,14 @@
                                      src="https://s-js.sports.cctv.com/host/resource/future/1baocun@2x.png"></cover-image>
                     </cover-view>
                 </cover-view>
+
+                <!--拍摄+本地上传浮层-->
+                <cover-view class="do-layer" hidden="{{!showDoLayer}}" catchtap="closeDo">
+                    <cover-image class="do-photo" catchtap="switchToCamera" src="https://s-js.sports.cctv.com/host/resource/future/1paishe3@2x.png"></cover-image>
+                    <cover-image class="do-upload" catchtap="switchToUpload" src="https://s-js.sports.cctv.com/host/resource/future/1shangchuan3@2x.png"></cover-image>
+                </cover-view>
             </cover-view>
+
 
         </video>
 

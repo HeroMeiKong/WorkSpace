@@ -37,7 +37,9 @@ Page({
         isIpx: false,
         fit: false,
 
-        loaded: false
+        loaded: false,
+
+        showDoLayer:false,
     },
 
     /**
@@ -808,6 +810,29 @@ Page({
     goSubjectDetail() {
         wx.navigateTo({
             url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
+        })
+    },
+
+    //关闭拍摄+本地上传浮层
+    openDo() {
+        this.setData({
+            showDoLayer: true
+        })
+    },
+    closeDo() {
+        this.setData({
+            showDoLayer: false
+        })
+    },
+    switchToCamera(){
+        wx.navigateTo({
+            url: '/pages/preview/preview?usermethod=camera'
+        })
+    },
+
+    switchToUpload(){
+        wx.navigateTo({
+            url: '/pages/preview/preview?usermethod=album'
         })
     },
 })

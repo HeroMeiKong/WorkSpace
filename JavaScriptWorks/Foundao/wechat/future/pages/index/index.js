@@ -69,6 +69,8 @@ Page({
         swiper_list: [],
         swiper_current: 0,
 
+        showDoLayer: false,
+
     },
 
     /**
@@ -211,6 +213,7 @@ Page({
             op: 'share',
             wz: 'home_page',
             id: this.data.cur_video.id,
+            uniqueid: this.data.cur_video.video_uuid,
             source: 'ugc',
         }
         app.statistics_pv(options)
@@ -292,7 +295,7 @@ Page({
                 // path: 'pages/index/index',
                 width: 188,           // 二维码的宽度
                 auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
-                line_color: {"r": "255", "g": "216", "b": "146"},
+                line_color: {"r": "255", "g": "255", "b": "255"},
                 // line_color: {"r": "0", "g": "0", "b": "1"},
                 is_hyaline: true,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
             },
@@ -926,7 +929,7 @@ Page({
             var ctx = this.data.ctx;
             ctx.setFillStyle('#FFD892');
             ctx.fillRect(0, 0, 750, 1238);
-            ctx.setFillStyle('#931e23');
+            ctx.setFillStyle('#9f2227');
             ctx.fillRect(10, 10, 730, 1218);
             getImage({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
                 // 绘制背景图
@@ -977,7 +980,7 @@ Page({
                         const stringArr = Tool.stringToArr(cur_video.video_desc, 18);
                         ctx.setFillStyle('#FFD892');
                         ctx.setFontSize(30);
-                        ctx.setTextBaseline('top')
+                        ctx.setTextBaseline('top');
                         stringArr.forEach((item, index) => {
                             ctx.fillText(item, 185, 818 + (index * 50));
                         });
@@ -986,10 +989,10 @@ Page({
                         // 绘制二维码
                         ctx.save();
                         ctx.beginPath();
-                        ctx.rect(124, 990, 188, 188);
+                        ctx.rect(124, 990, 200, 200);
                         ctx.clip();
                         // qr_img
-                        ctx.drawImage(qr_img, 124, 990, 188, 188);
+                        ctx.drawImage(qr_img, 124, 990, 200, 200);
                         ctx.restore();
 
                         // 绘制底部文字
@@ -1359,7 +1362,31 @@ Page({
     bindprogress() {
         console.log('bindprogress')
         // this.playVideo()
-    }
+    },
+
+
+    //关闭拍摄+本地上传浮层
+    openDo() {
+        this.setData({
+            showDoLayer: true
+        })
+    },
+    closeDo() {
+        this.setData({
+            showDoLayer: false
+        })
+    },
+    switchToCamera(){
+        wx.navigateTo({
+            url: '/pages/preview/preview?usermethod=camera'
+        })
+    },
+
+    switchToUpload(){
+        wx.navigateTo({
+            url: '/pages/preview/preview?usermethod=album'
+        })
+    },
 })
 
 

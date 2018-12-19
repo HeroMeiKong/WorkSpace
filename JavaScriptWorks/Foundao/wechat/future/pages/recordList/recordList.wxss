@@ -161,8 +161,14 @@
     height: 0;
 }
 
+.scroll-list-inner{
+    width: 100%;
+    height: auto;
+}
+
 
 .dub-item{
+    vertical-align:top;
     display: inline-block;
     width:374rpx;
     height:602rpx;
@@ -202,6 +208,7 @@
     color: #FFFFFF;
 }
 
+/*描述*/
 .dub-item .info{
     /*width: calc(100% - 29rpx - 36rpx);*/
     width: 100%;

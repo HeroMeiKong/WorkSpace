@@ -23,7 +23,7 @@
                 <view class="info">
                     <view class="head" style="background-image: url({{item.nick_pic}})" bindtap="goUser"
                           data-data="{{item}}"></view>
-                    <view class="video-des">{{item.video_desc}}</view>
+                    <view class="video-des">{{item.video_desc||''}}</view>
                 </view>
             </view>
         </block>

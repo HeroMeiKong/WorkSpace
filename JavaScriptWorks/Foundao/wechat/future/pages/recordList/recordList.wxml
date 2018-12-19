@@ -32,20 +32,22 @@
                      bindscrolltolower="uploadData"
                      scroll-top="{{scrollTop}}"
                      bindscroll="scroll">
-            <block wx:for="{{cur_list}}" wx:for-item="dub">
-                <!--配音单元-->
-                <view class="dub-item" bindtap="goDub" data-data="{{dub}}">
-                    <view class="dub-item-bg" style="background-image: url({{dub.video_small_pic}})">
-                        <view class="dub-item-btn"></view>
-                    </view>
-                    <view class="info">
-                        <view class="info-inner">
-                            <text class="info-subject">#{{dub.sub_title}}   </text>
-                            <text class="info-title">   {{dub.video_desc}}</text>
+            <view class="scroll-list-inner">
+                <block wx:for="{{cur_list}}" wx:for-item="dub">
+                    <!--配音单元-->
+                    <view class="dub-item" bindtap="goDub" data-data="{{dub}}">
+                        <view class="dub-item-bg" style="background-image: url({{dub.video_small_pic}})">
+                            <view class="dub-item-btn"></view>
+                        </view>
+                        <view class="info">
+                            <view class="info-inner">
+                                <text class="info-subject">#{{dub.sub_title}}   </text>
+                                <text class="info-title">   {{dub.video_desc||''}}</text>
+                            </view>
                         </view>
                     </view>
-                </view>
-            </block>
+                </block>
+            </view>
         </scroll-view>
         <!--<block wx:for="{{type_list}}" scroll-y>-->
         <!--&lt;!&ndash;滑动容器&ndash;&gt;-->
