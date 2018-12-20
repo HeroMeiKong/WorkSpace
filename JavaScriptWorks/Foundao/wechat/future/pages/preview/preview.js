@@ -1364,6 +1364,11 @@ Page({
                       showsubmission: 'flex',
                       compose_success: true
                     })
+                    that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
+                                               join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+                                               tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+                    preInnerAudioContext.src = 'https://nomusic.mp3'
+                    innerAudioContext.src = 'https://nomusic.mp3'
                   } else if (res.data.code === -2){
                     clearInterval(timer)
                     // wx.showToast({
@@ -1399,11 +1404,6 @@ Page({
                 compose_success: false
               })
             }
-            that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
-            preInnerAudioContext.src = 'https://nomusic.mp3'
-            innerAudioContext.src = 'https://nomusic.mp3'
             console.log(innerAudioContext.src)
             console.log(preInnerAudioContext.src)
             that.setData({

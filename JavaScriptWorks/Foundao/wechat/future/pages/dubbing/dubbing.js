@@ -1029,7 +1029,7 @@ Page({
                 width: 188,           // 二维码的宽度
                 auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
                 line_color: {"r": "0", "g": "0", "b": "0"},
-                is_hyaline: true,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+                is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
             },
         }).then(resp => {
             const {code, data, msg} = resp.data;
@@ -1280,4 +1280,7 @@ Page({
     //     console.log('bindprogress')
     //     action = true
     // }
+    noclose_poster(){
+
+    },
 })

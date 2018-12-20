@@ -187,6 +187,7 @@ Page({
                         //判断第一页有无数据
                         if (attention_page === 1) {
                             this.setData({
+                                attention_list: [],
                                 attention_none: true
                             })
                         } else {
@@ -199,7 +200,7 @@ Page({
                     //设置作品数组
                     this.data.attention_page++;
                     this.setData({
-                        attention_list: attention_list.concat(data.data)
+                        attention_list: this.data.attention_list.concat(data.data)
                     })
                 } else {
                     wx.showToast({
@@ -399,7 +400,8 @@ Page({
                         }
                     }
                     this.setData({
-                        fans_list: temp_data
+                        fans_list: temp_data,
+                        attention_none: false,
                     })
                     //刷新关注列表
                     setTimeout(() => {

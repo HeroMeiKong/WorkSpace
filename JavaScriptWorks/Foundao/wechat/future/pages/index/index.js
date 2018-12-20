@@ -216,6 +216,8 @@ Page({
             uniqueid: this.data.cur_video.video_uuid,
             source: 'ugc',
         }
+        console.log('分享统计：')
+        console.log(options)
         app.statistics_pv(options)
         if (res.from === 'button') {
             // 来自页面内转发按钮
@@ -297,7 +299,7 @@ Page({
                 auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
                 line_color: {"r": "255", "g": "255", "b": "255"},
                 // line_color: {"r": "0", "g": "0", "b": "1"},
-                is_hyaline: true,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+                is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
             },
         }).then(resp => {
             const {code, data, msg} = resp.data;
@@ -929,7 +931,8 @@ Page({
             var ctx = this.data.ctx;
             ctx.setFillStyle('#FFD892');
             ctx.fillRect(0, 0, 750, 1238);
-            ctx.setFillStyle('#9f2227');
+            ctx.setFillStyle('#a32b30');
+            // ctx.setFillStyle('#a32b30');
             ctx.fillRect(10, 10, 730, 1218);
             getImage({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
                 // 绘制背景图
@@ -1386,6 +1389,10 @@ Page({
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=album'
         })
+    },
+
+    noclose_poster(){
+
     },
 })
 

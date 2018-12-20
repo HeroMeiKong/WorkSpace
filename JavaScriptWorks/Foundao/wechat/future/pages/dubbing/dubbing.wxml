@@ -155,7 +155,7 @@
         <!--海报浮层-->
         <cover-view class="poster_layer" hidden="{{!show_poster}}" bindtap="close_poster_layer">
             <!--海报-->
-            <cover-view class="save_poster">
+            <cover-view class="save_poster" catchtap="noclose_poster">
                 <!--<cover-image src="https://s-js.sports.cctv.com/host/resource/future/1shandow@2x.png"-->
                 <!--class="poster-shandow"></cover-image>-->
                 <cover-image class="poster-bg"

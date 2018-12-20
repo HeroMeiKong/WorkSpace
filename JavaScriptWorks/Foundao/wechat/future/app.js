@@ -20,6 +20,8 @@ App({
     statistics_pv(options = {}) {
         const loginSessionKey = wx.getStorageSync('loginSessionKey');
         const vir_ID = wx.getStorageSync('vir_ID') || '';
+        console.log('vir_ID:')
+        console.log(vir_ID)
         wxRequest({
             url: api.statistics_pv,
             method: 'POST',
@@ -39,14 +41,14 @@ App({
         }).then(resp => {
             const {code, msg, data} = resp.data;
             if (code === 0) {
-                console.log('PV统计成功');
-                wx.setStorage({
-                    key: "vir_ID",
-                    data: data.vir_ID
-                });
+
             } else {
                 console.log('PV统计失败: ' + msg)
             }
+            wx.setStorage({
+                key: "vir_ID",
+                data: data.vir_ID
+            });
         }).catch(err => {
             console.log('PV统计接口错误');
         })
