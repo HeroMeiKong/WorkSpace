@@ -403,8 +403,8 @@ Page({
     this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
-    preInnerAudioContext.src = 'https://nomusic.mp3/'
-    innerAudioContext.src = 'https://nomusic.mp3/'
+    preInnerAudioContext.src = 'https://nomusic.mp3'
+    innerAudioContext.src = 'https://nomusic.mp3'
     console.log(innerAudioContext.src)
     console.log(preInnerAudioContext.src)
     this.data.showmusiclists = []
@@ -428,8 +428,8 @@ Page({
     this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
-    preInnerAudioContext.src = 'https://nomusic.mp3/'
-    innerAudioContext.src = 'https://nomusic.mp3/'
+    preInnerAudioContext.src = 'https://nomusic.mp3'
+    innerAudioContext.src = 'https://nomusic.mp3'
     console.log(innerAudioContext.src)
     console.log(preInnerAudioContext.src)
     const length = this.data.musiclists.length
@@ -509,7 +509,7 @@ Page({
   },
   goHomeMusic: function (e) {
     console.log('goHomeMusic')
-    if(preInnerAudioContext.src !== 'https://nomusic.mp3/' && preInnerAudioContext.src !== ''){
+    if(preInnerAudioContext.src !== 'https://nomusic.mp3' && preInnerAudioContext.src !== ''){
       wx.showToast({
         title: '已选择'+nowmusicname,
         icon: 'none',
@@ -762,7 +762,7 @@ Page({
       this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * videoValues// - (windowWidth-9*windowHeight/16)/2) * videoValues
     }
     console.log(this.data.publish)
-    if(preInnerAudioContext.src === 'https://nomusic.mp3/' || preInnerAudioContext.src === ''){
+    if(preInnerAudioContext.src === 'https://nomusic.mp3' || preInnerAudioContext.src === ''){
       this.data.videomuted = false
     } else {
       this.data.videomuted = true
@@ -1402,8 +1402,8 @@ Page({
             that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
-            preInnerAudioContext.src = 'https://nomusic.mp3/'
-            innerAudioContext.src = 'https://nomusic.mp3/'
+            preInnerAudioContext.src = 'https://nomusic.mp3'
+            innerAudioContext.src = 'https://nomusic.mp3'
             console.log(innerAudioContext.src)
             console.log(preInnerAudioContext.src)
             that.setData({
