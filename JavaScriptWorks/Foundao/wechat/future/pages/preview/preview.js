@@ -375,8 +375,8 @@ Page({
       }
     })
     this.setData({
-      showovercover: 'none',
-      showsubmission: 'none',
+      //showovercover: 'none',
+      //showsubmission: 'none',
       //videomuted: false
     })
     if(this.data.chooseVideo === 2){
@@ -1301,11 +1301,27 @@ Page({
             title: '视频上传合成中……',
             mask: true,
           });
+          let requestTimes = 1
           var timer = setInterval(()=>{
+            requestTimes++
             const {data} = resp
             console.log(data.data)
             console.log(data.code)
-            if(!data.data && data.code === 0){
+            if(requestTimes > 13){
+              wx.hideLoading()
+              clearInterval(timer)
+              wx.showToast({
+                title: '合成视频超时！',
+                icon: 'fail',
+                duration: 1500,
+                mask: true,
+              });
+              that.setData({
+                showsubmission: 'flex',
+                compose_success: false
+              })
+            }
+            else if(!data.data && data.code === 0){
               console.log('sss')
               wx.hideLoading()
               clearInterval(timer)
@@ -1560,12 +1576,20 @@ Page({
   },
   successBackHome (e) {
     console.log('successBackHome')
+    this.setData({
+      showovercover: 'none',
+      showsubmission: 'none',
+    })
     wx.navigateBack({
       delta: 1
     });
   },
   checkProgress (e) {
     console.log('checkProgress')
+    this.setData({
+      showovercover: 'none',
+      showsubmission: 'none',
+    })
     wx.switchTab({
       url: '/pages/user/user'
     })
