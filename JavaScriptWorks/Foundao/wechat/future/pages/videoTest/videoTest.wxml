@@ -1,0 +1,6 @@
+<!--pages/videoTest/videoTest.wxml-->
+
+<view class="video-box">
+    <video src="https://s-js.sports.cctv.com/test_host/video/2018/12/11/15445179743736.mp4" class="myVideo"></video>
+</view>
+

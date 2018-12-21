@@ -9,170 +9,172 @@
     </swiper>
     <!--视频区域-->
     <view class="video-box {{hideVideo?'trans-video':''}}">
+        <!--视频-->
         <video show-center-play-btn="{{false}}"
-           controls="{{false}}"
-           autoplay="{{true}}"
-           src="{{cur_video.video_url}}"
-           poster="{{cur_video.first_pic3||cur_video.pic}}"
-           loop="{{true}}"
-           id="video"
-           objectFit="{{fit?'cover':'contain'}}"
-           bindplay="bindplay"
-           bindpause="bindpause"
-           bindwaiting="bindwaiting"
-           bindprogress="bindprogress"
-           bindtimeupdate="bindtimeupdate">
+               controls="{{false}}"
+               autoplay="{{true}}"
+               src="{{cur_video.video_url}}"
+               poster="{{cur_video.first_pic3||cur_video.pic}}"
+               loop="{{true}}"
+               id="video"
+               objectFit="{{fit?'cover':'contain'}}"
+               bindplay="bindplay"
+               bindpause="bindpause"
+               bindwaiting="bindwaiting"
+               bindprogress="bindprogress"
+               bindtimeupdate="bindtimeupdate">
 
-        <!--底部阴影-->
-        <cover-image class="content-bg" src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"></cover-image>
+            <!--底部阴影-->
+            <cover-image class="content-bg"
+                         src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"></cover-image>
 
-        <!--分享浮层-->
-        <cover-view class="poster_layer" hidden="{{!show_share}}" catchtap="close_poster_layer">
-            <!--选项-->
-            <cover-view class="select-box" wx:if="{{show_select}}">
-                <!--<cover-view class="select-text">分享到</cover-view>-->
-                <cover-view class="select-content">
-                    <button class="select-item" catchtap="create_poster">生成海报</button>
-                    <button class="select-item" open-type="share">分享给好友</button>
-                </cover-view>
-            </cover-view>
-            <!--海报-->
-            <cover-view class="save_poster" wx:if="{{show_poster}}" catchtap="noclose_poster">
-                <!--<cover-image src="https://s-js.sports.cctv.com/host/resource/future/1shandow@2x.png"-->
-                <!--class="poster-shandow"></cover-image>-->
-                <cover-image class="poster-bg"
-                             src="https://s-js.sports.cctv.com/host/resource/future/1diban1.png"></cover-image>
-                <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
-                <cover-view class="text">独乐不如众乐，保存图片分享给盆友吧！</cover-view>
-                <!--<cover-view class="btn_save_img" catchtap="save_poster">保存</cover-view>-->
-                <cover-image class="btn_save_img" catchtap="save_poster"
-                             src="https://s-js.sports.cctv.com/host/resource/future/1baocun@2x.png"></cover-image>
-            </cover-view>
-        </cover-view>
-
-        <!--拍摄+本地上传浮层-->
-        <cover-view class="do-layer" hidden="{{!showDoLayer}}" catchtap="closeDo">
-            <cover-image class="do-photo" catchtap="switchToCamera" src="https://s-js.sports.cctv.com/host/resource/future/1paishe3@2x.png"></cover-image>
-            <cover-image class="do-upload" catchtap="switchToUpload" src="https://s-js.sports.cctv.com/host/resource/future/1shangchuan3@2x.png"></cover-image>
-        </cover-view>
-
-        <!--覆盖框-->
-        <cover-view class="cover-box {{isIpx?'iphoneX-cover':''}}"
-                    bindtap="moveDown"
-                    bindtap="videoClick"
-                    bindtouchstart="touchStart"
-                    bindtouchend="touchEnd"
-                    wx:if="{{first_init}}">
-
-            <!--播放按钮-->
-            <cover-image class="play-btn" src="https://s-js.sports.cctv.com/host/resource/future/1play.png"
-                         hidden="{{!(!playing&&hasPlayed)}}"></cover-image>
-            <!--按钮组-->
-            <cover-view class="button-box">
-                <!--挑战+喜欢+分享-->
-                <cover-view class="button-item" catchtap="challenge" hidden="{{cur_video.is_dub!=2}}">
-                    <cover-image class="button-item-icon chanllenge"
-                                 src="https://s-js.sports.cctv.com/host/resource/future/1tiaozhan@2x.png"></cover-image>
-                    <cover-view class="button-item-text">挑战ta</cover-view>
-                </cover-view>
-                <cover-view class="button-item" catchtap="openDo" hidden="{{cur_video.is_dub==2}}">
-                    <cover-image class="button-item-icon chanllenge"
-                                 src="https://s-js.sports.cctv.com/host/resource/future/1woyepai@2x.png"></cover-image>
-                    <cover-view class="button-item-text">我也拍</cover-view>
-                </cover-view>
-                <cover-view class="button-item">
-                    <cover-image class="button-item-icon"
-                                 src="https://s-js.sports.cctv.com/host/resource/future/1dianzan1@2x.png"
-                                 wx:if="{{cur_video.is_zan==1}}" catchtap="like"></cover-image>
-                    <cover-image class="button-item-icon"
-                                 src="https://s-js.sports.cctv.com/host/resource/future/1dianzan2@2x.png"
-                                 wx:if="{{cur_video.is_zan==2}}" catchtap="dislike"></cover-image>
-                    <cover-view class="button-item-text">{{cur_video.count_material_love}}</cover-view>
-                </cover-view>
-                <!--分享-->
-                <cover-view class="button-item share" catchtap="share">
-                    <cover-image class="button-item-icon share"
-                                 src="https://s-js.sports.cctv.com/host/resource/future/1fenxiang@2x.png"></cover-image>
-                    <cover-view class="button-item-text">{{cur_video.count_material_share}}</cover-view>
-                </cover-view>
-            </cover-view>
-
-            <!--底部信息-->
-            <cover-view class="bottom-box">
-                <!--用户信息-->
-                <cover-view class="userinfo-box">
-                    <cover-image class="user-head" src="{{cur_video.nick_pic}}" catchtap="goUser"></cover-image>
-                    <cover-view class="user-name">{{cur_video.nick_name}}</cover-view>
-                    <cover-view class="attention-box" wx:if="{{cur_video.is_follow==1}}" catchtap="fabulous"
-                                hidden="{{cur_video.is_user==1}}">
-                        <!--<cover-image class="attention-icon"-->
-                        <!--src="https://s-js.sports.cctv.com/host/resource/future/1gengduo@2x.png"></cover-image>-->
-                        <cover-view class="attention-icon-text">+ 关注</cover-view>
-                    </cover-view>
-                    <cover-view class="attention-already" wx:if="{{cur_video.is_follow==2}}"
-                                catchtap="del_fabulous" hidden="{{cur_video.is_user==1}}">
-                        <cover-image class="attention-already-icon"
-                                     src="https://s-js.sports.cctv.com/host/resource/future/1duigou@2x.png"></cover-image>
+            <!--分享浮层-->
+            <cover-view class="poster_layer" wx:if="{{show_share}}" catchtap="close_poster_layer">
+                <!--选项-->
+                <cover-view class="select-box" wx:if="{{show_select}}">
+                    <!--<cover-view class="select-text">分享到</cover-view>-->
+                    <cover-view class="select-content">
+                        <button class="select-item" catchtap="create_poster">生成海报</button>
+                        <button class="select-item" open-type="share">分享给好友</button>
                     </cover-view>
                 </cover-view>
-                <!--简介-->
-                <cover-view class="content-subject" catchtap="goSubjectDetail">#{{cur_video.sub_title}}</cover-view>
-                <cover-view class="content">{{cur_video.video_desc}}</cover-view>
+                <!--海报-->
+                <cover-view class="save_poster" wx:if="{{show_poster}}" catchtap="noclose_poster">
+                    <!--<cover-image src="https://s-js.sports.cctv.com/host/resource/future/1shandow@2x.png"-->
+                    <!--class="poster-shandow"></cover-image>-->
+                    <cover-image class="poster-bg"
+                                 src="https://s-js.sports.cctv.com/host/resource/future/1diban1.png"></cover-image>
+                    <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
+                    <cover-view class="text">独乐不如众乐，保存图片分享给盆友吧！</cover-view>
+                    <!--<cover-view class="btn_save_img" catchtap="save_poster">保存</cover-view>-->
+                    <cover-image class="btn_save_img" catchtap="save_poster"
+                                 src="https://s-js.sports.cctv.com/host/resource/future/1baocun@2x.png"></cover-image>
+                </cover-view>
             </cover-view>
 
-            <!--进度条-->
-            <cover-view class="progress-box">
-                <cover-view class="progress" style="width:{{progress*100}}%"></cover-view>
+            <!--拍摄+本地上传浮层-->
+            <cover-view class="do-layer" wx:if="{{showDoLayer}}" catchtap="closeDo">
+                <cover-image class="do-photo" catchtap="switchToCamera"
+                             src="https://s-js.sports.cctv.com/host/resource/future/1paishe3@2x.png"></cover-image>
+                <cover-image class="do-upload" catchtap="switchToUpload"
+                             src="https://s-js.sports.cctv.com/host/resource/future/1shangchuan3@2x.png"></cover-image>
             </cover-view>
 
-            <!--话题-->
-            <cover-view class="topic-box {{isIpx?'iphoneX-topic-box':''}}">
-                <!--话题icon-->
-                <cover-image class="topic-icon-box" catchtap="goSubject"
-                             src="https://s-js.sports.cctv.com/host/resource/future/1huati@2x.png"></cover-image>
-                <!--话题组-->
-                <cover-view class="topic-list">
-                    <cover-view class="topic-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选
+            <!--覆盖框-->
+            <cover-view class="cover-box {{isIpx?'iphoneX-cover':''}}"
+                        bindtap="moveDown"
+                        bindtap="videoClick"
+                        bindtouchstart="touchStart"
+                        bindtouchend="touchEnd"
+                        wx:if="{{first_init}}">
+
+                <!--播放按钮-->
+                <cover-image class="play-btn" src="https://s-js.sports.cctv.com/host/resource/future/1play.png"
+                             hidden="{{!(!playing&&hasPlayed)}}"></cover-image>
+                <!--按钮组-->
+                <cover-view class="button-box">
+                    <!--挑战+喜欢+分享-->
+                    <cover-view class="button-item" catchtap="challenge" hidden="{{cur_video.is_dub!=2}}">
+                        <cover-image class="button-item-icon chanllenge"
+                                     src="https://s-js.sports.cctv.com/host/resource/future/1tiaozhan@2x_0.png"></cover-image>
+                        <cover-view class="button-item-text">挑战ta</cover-view>
                     </cover-view>
-                    <block wx:for="{{type_list}}">
-                        <cover-view class="topic-item {{cur_type==item.id?'selected':''}}" catchtap="switchType"
-                                    data-data="{{item}}">{{item.name}}
+                    <cover-view class="button-item" catchtap="openDo" hidden="{{cur_video.is_dub==2}}">
+                        <cover-image class="button-item-icon chanllenge"
+                                     src="https://s-js.sports.cctv.com/host/resource/future/1woyepai@2x_0.png"></cover-image>
+                        <cover-view class="button-item-text">我也拍</cover-view>
+                    </cover-view>
+                    <cover-view class="button-item">
+                        <cover-image class="button-item-icon"
+                                     src="https://s-js.sports.cctv.com/host/resource/future/1dianzan1@2x.png"
+                                     wx:if="{{cur_video.is_zan==1}}" catchtap="like"></cover-image>
+                        <cover-image class="button-item-icon"
+                                     src="https://s-js.sports.cctv.com/host/resource/future/1dianzan2@2x.png"
+                                     wx:if="{{cur_video.is_zan==2}}" catchtap="dislike"></cover-image>
+                        <cover-view class="button-item-text">{{cur_video.count_material_love}}</cover-view>
+                    </cover-view>
+                    <!--分享-->
+                    <cover-view class="button-item share" catchtap="share">
+                        <cover-image class="button-item-icon share"
+                                     src="https://s-js.sports.cctv.com/host/resource/future/1fenxiang@2x_0.png"></cover-image>
+                        <cover-view class="button-item-text">{{cur_video.count_material_share}}</cover-view>
+                    </cover-view>
+                </cover-view>
+
+                <!--底部信息-->
+                <cover-view class="bottom-box">
+                    <!--用户信息-->
+                    <cover-view class="userinfo-box">
+                        <cover-image class="user-head" src="{{cur_video.nick_pic}}" catchtap="goUser"></cover-image>
+                        <cover-view class="user-name">{{cur_video.nick_name}}</cover-view>
+                        <cover-view class="attention-box" wx:if="{{cur_video.is_follow==1}}" catchtap="fabulous"
+                                    hidden="{{cur_video.is_user==1}}">
+                            <!--<cover-image class="attention-icon"-->
+                            <!--src="https://s-js.sports.cctv.com/host/resource/future/1gengduo@2x.png"></cover-image>-->
+                            <cover-view class="attention-icon-text">+ 关注</cover-view>
                         </cover-view>
-                    </block>
+                        <cover-view class="attention-already" wx:if="{{cur_video.is_follow==2}}"
+                                    catchtap="del_fabulous" hidden="{{cur_video.is_user==1}}">
+                            <cover-image class="attention-already-icon"
+                                         src="https://s-js.sports.cctv.com/host/resource/future/1duigou@2x.png"></cover-image>
+                        </cover-view>
+                    </cover-view>
+                    <!--简介-->
+                    <cover-view class="content-subject" catchtap="goSubjectDetail">#{{cur_video.sub_title}}</cover-view>
+                    <cover-view class="content">{{cur_video.video_desc}}</cover-view>
                 </cover-view>
+
+                <!--进度条-->
+                <cover-view class="progress-box">
+                    <cover-view class="progress" style="width:{{progress*100}}%"></cover-view>
+                </cover-view>
+
+                <!--话题-->
+                <cover-view class="topic-box {{isIpx?'iphoneX-topic-box':''}}">
+                    <!--话题icon-->
+                    <cover-image class="topic-icon-box" catchtap="goSubject"
+                                 src="https://s-js.sports.cctv.com/host/resource/future/1huati@2x_0.png"></cover-image>
+                    <!--话题组-->
+                    <cover-view class="topic-list">
+                        <cover-view class="topic-item {{cur_type==0?'selected':''}}" catchtap="switchSpecial">精选
+                        </cover-view>
+                        <block wx:for="{{type_list}}">
+                            <cover-view class="topic-item {{cur_type==item.id?'selected':''}}" catchtap="switchType"
+                                        data-data="{{item}}">{{item.name}}
+                            </cover-view>
+                        </block>
+                    </cover-view>
+                </cover-view>
+
+                <!--tabbar-->
+                <cover-view class="tabbar-box {{isIpx?'iphoneX-tabbar':''}}" hidden="{{hideDiyTabBar}}">
+                    <!--<cover-view class="tabbar-item selected">-->
+                    <!--<cover-image class="tabbar-item-icon home" src="https://s-js.sports.cctv.com/host/resource/future/icon_ht_home.png"></cover-image>-->
+                    <!--&lt;!&ndash;<cover-view class="tabbar-item-icon home"></cover-view>&ndash;&gt;-->
+                    <!--<cover-view class="tabbar-item-text">推荐</cover-view>-->
+                    <!--</cover-view>-->
+                    <!--<cover-view class="tabbar-item" catchtap="switchToUpload">-->
+                    <!--<cover-image class="tabbar-item-icon upload" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_mic.png"></cover-image>-->
+                    <!--<cover-view class="tabbar-item-text">配音</cover-view>-->
+                    <!--</cover-view>-->
+                    <!--<cover-view class="tabbar-item" catchtap="switchToUser">-->
+                    <!--<cover-image class="tabbar-item-icon user" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_home.png"></cover-image>-->
+                    <!--<cover-view class="tabbar-item-text">我的</cover-view>-->
+                    <!--</cover-view>-->
+                    <cover-view class="tabbar-item selected">
+                        首页
+                        <cover-view class="tabbar-item-border"></cover-view>
+                    </cover-view>
+                    <cover-image class="tabbar-icon"
+                                 src="https://s-js.sports.cctv.com/host/resource/future/1chuangzuo@2x.png"
+                                 catchtap="switchToRecordList"></cover-image>
+                    <cover-view class="tabbar-item" catchtap="switchToUser">我的</cover-view>
+                </cover-view>
+
             </cover-view>
 
-            <!--tabbar-->
-            <cover-view class="tabbar-box {{isIpx?'iphoneX-tabbar':''}}" hidden="{{hideDiyTabBar}}">
-                <!--<cover-view class="tabbar-item selected">-->
-                <!--<cover-image class="tabbar-item-icon home" src="https://s-js.sports.cctv.com/host/resource/future/icon_ht_home.png"></cover-image>-->
-                <!--&lt;!&ndash;<cover-view class="tabbar-item-icon home"></cover-view>&ndash;&gt;-->
-                <!--<cover-view class="tabbar-item-text">推荐</cover-view>-->
-                <!--</cover-view>-->
-                <!--<cover-view class="tabbar-item" catchtap="switchToUpload">-->
-                <!--<cover-image class="tabbar-item-icon upload" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_mic.png"></cover-image>-->
-                <!--<cover-view class="tabbar-item-text">配音</cover-view>-->
-                <!--</cover-view>-->
-                <!--<cover-view class="tabbar-item" catchtap="switchToUser">-->
-                <!--<cover-image class="tabbar-item-icon user" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_home.png"></cover-image>-->
-                <!--<cover-view class="tabbar-item-text">我的</cover-view>-->
-                <!--</cover-view>-->
-                <cover-view class="tabbar-item selected">
-                    首页
-                    <cover-view class="tabbar-item-border"></cover-view>
-                </cover-view>
-                <cover-image class="tabbar-icon"
-                             src="https://s-js.sports.cctv.com/host/resource/future/1chuangzuo@2x.png"
-                             catchtap="switchToRecordList"></cover-image>
-                <cover-view class="tabbar-item" catchtap="switchToUser">我的</cover-view>
-            </cover-view>
 
-        </cover-view>
-
-
-
-
-    </video>
+        </video>
     </view>
     <!--canvas-->
     <canvas class="canvas_poster" canvas-id="canvas_poster"></canvas>

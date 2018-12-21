@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 12,
 			"list": [
 				{
 					"id": -1,
@@ -109,6 +109,12 @@
 					"name": "配音及上传视频",
 					"pathName": "pages/dubbingUpload/dubbingUpload",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "视频测试页",
+					"pathName": "pages/videoTest/videoTest",
+					"query": "user_uuid=B102D881-C89D-33C8-DE41-3626A2051165"
 				}
 			]
 		}

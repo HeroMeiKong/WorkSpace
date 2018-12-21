@@ -824,6 +824,7 @@ Page({
             showDoLayer: false
         })
     },
+
     switchToCamera(){
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=camera'

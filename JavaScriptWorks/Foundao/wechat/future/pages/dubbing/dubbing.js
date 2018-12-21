@@ -165,13 +165,6 @@ Page({
                     }
                 })
                 this.getVideoData(this.data.video_uuid);
-                // 统计
-                const options = {
-                    op: 'pv',
-                    wz: 'dub_datail',
-                    uniqueid: this.data.video_uuid
-                }
-                app.statistics_pv(options)
             } else {
                 console.log('已初始化')
             }
@@ -223,7 +216,7 @@ Page({
             op: 'share',
             wz: 'dub_datail',
             uniqueid: this.data.video_uuid,
-            id: this.data.cur_video.id,
+            id: this.data.video_detail.video_id,
             source: 'material',
         }
         app.statistics_pv(options)
@@ -382,6 +375,15 @@ Page({
                         lyric: lyric,
                         fit: fit_temp,
                     }, () => {
+                        // 统计
+                        const options = {
+                            op: 'pv',
+                            wz: 'dub_datail',
+                            uniqueid: this.data.video_uuid,
+                            id: this.data.video_detail.video_id,
+                            source: 'material',
+                        }
+                        app.statistics_pv(options)
                         // // // 提前缓冲音频
                         // setTimeout(() => {
                         //     wx.showLoading({

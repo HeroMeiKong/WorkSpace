@@ -67,13 +67,24 @@
 
 .subject-list{
     width: 100%;
+    background-color: #EEEEEE;
 }
 
 .subject-item{
     width: 100%;
     padding-bottom: 40rpx;
     position: relative;
-    border-bottom: 1rpx solid #eeeeee;
+    /*border-bottom: 1rpx solid #dddddd;*/
+}
+
+.subject-item::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left:30rpx;
+    width: calc(100% - 30rpx);
+    height: 2rpx;
+    background-color: #dddddd;
 }
 
 .subject-item-head{

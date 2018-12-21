@@ -1,6 +1,7 @@
 <!--pages/video.wxml-->
 <view class="videoItem-videoBox">
-    <view class="video-box" animation="{{animationData}}">
+    <view class="video-box">
+        <!--视频-->
         <video controls="{{false}}"
                autoplay="{{true}}"
                hidden="{{showVideo}}"
@@ -17,7 +18,7 @@
             <cover-image class="content-bg" src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"></cover-image>
 
             <!--分享浮层-->
-            <cover-view class="poster_layer" hidden="{{!show_share}}" catchtap="close_poster_layer">
+            <cover-view class="poster_layer" wx:if="{{show_share}}" catchtap="close_poster_layer">
                 <!--选项-->
                 <cover-view class="select-box" wx:if="{{show_select}}">
                     <!--<cover-view class="select-text">分享到</cover-view>-->
@@ -41,7 +42,7 @@
             </cover-view>
 
             <!--拍摄+本地上传浮层-->
-            <cover-view class="do-layer" hidden="{{!showDoLayer}}" catchtap="closeDo">
+            <cover-view class="do-layer" wx:if="{{showDoLayer}}" catchtap="closeDo">
                 <cover-image class="do-photo" catchtap="switchToCamera" src="https://s-js.sports.cctv.com/host/resource/future/1paishe3@2x.png"></cover-image>
                 <cover-image class="do-upload" catchtap="switchToUpload" src="https://s-js.sports.cctv.com/host/resource/future/1shangchuan3@2x.png"></cover-image>
             </cover-view>
@@ -157,7 +158,6 @@
 
 
         </video>
-
         <!--canvas-->
         <canvas class="canvas_poster" canvas-id="canvas_poster"></canvas>
     </view>

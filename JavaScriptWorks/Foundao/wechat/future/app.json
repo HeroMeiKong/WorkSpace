@@ -12,7 +12,8 @@
     "pages/otherUser/otherUser",
     "pages/video/video",
     "pages/preview/preview",
-    "pages/dubbingUpload/dubbingUpload"
+    "pages/dubbingUpload/dubbingUpload",
+    "pages/videoTest/videoTest"
   ],
   "window": {
     "backgroundTextStyle": "light",

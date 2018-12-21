@@ -107,7 +107,7 @@ Page({
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0},
     showovercover: 'none',
-    videomuted: false, //是否静音视频
+    //videomuted: false, //是否静音视频
     compose_success: true,
     showsubmission: 'none'
   },
@@ -377,7 +377,7 @@ Page({
     this.setData({
       showovercover: 'none',
       showsubmission: 'none',
-      videomuted: false
+      //videomuted: false
     })
     if(this.data.chooseVideo === 2){
       wx.switchTab({
@@ -762,18 +762,19 @@ Page({
       this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * videoValues// - (windowWidth-9*windowHeight/16)/2) * videoValues
     }
     console.log(this.data.publish)
-    if(preInnerAudioContext.src === 'https://nomusic.mp3' || preInnerAudioContext.src === ''){
-      this.data.videomuted = false
-    } else {
-      this.data.videomuted = true
-    }
+    //消音
+    // if(preInnerAudioContext.src === 'https://nomusic.mp3' || preInnerAudioContext.src === ''){
+    //   this.data.videomuted = false
+    // } else {
+    //   this.data.videomuted = true
+    // }
     this.setData({
       //showwrappers: 'none',
       showwrappers: 'hidden',
       showpublish: 'flex',
       uploadContent: this.data.uploadContent,
       publish: this.data.publish,
-      videomuted: this.data.videomuted,
+      //videomuted: this.data.videomuted,
       topic: this.data.topic
     })
     // this.videoContext.play()
