@@ -42,6 +42,21 @@
 }
 
 
+/*用户协议*/
+.user-protocol{
+    position: absolute;
+    top:30rpx;
+    right: 30rpx;
+    width:160rpx;
+    height:40rpx;
+    background:rgba(0,0,0,.2);
+    border-radius:20rpx;
+    font-size:22rpx;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 40rpx;
+}
+
 
 /*用户信息*/
 .userInfo-box{
@@ -277,7 +292,7 @@
     transform:translateX(-50%);
     width: 240rpx;
     height: 240rpx;
-    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2null@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2null1@2x.png");
     background-size: cover;
 }
 .no-product:after{
@@ -368,6 +383,8 @@
     font-size: 26rpx;
     color: #999999;
 }
+
+
 
 
 

@@ -1,0 +1,55 @@
+/* component/tabbar/tabbar.wxss */
+.tabbar-box{
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 96rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,.2);
+}
+
+.iphoneX-tabbar{
+    padding-bottom: 68rpx;
+    box-sizing: content-box;
+}
+
+
+.tabbar-item{
+    position: relative;
+    height: 100%;
+    line-height: 96rpx;
+    box-sizing: border-box;
+    font-size: 30rpx;
+    font-weight: bold;
+    color: rgba(255,255,255,.5);
+}
+
+.tabbar-item.selected{
+    color: #ffffff;
+    position: relative;
+}
+
+.tabbar-item-border{
+    display: none;
+    position: absolute;
+    bottom: 2rpx;
+    left:0;
+    width: 100%;
+    height: 4rpx;
+    background-color: #ffffff;
+}
+
+.selected .tabbar-item-border{
+    display: block;
+}
+
+.tabbar-icon{
+    width: 72rpx;
+    height: 72rpx;
+    margin:0 158rpx;
+}

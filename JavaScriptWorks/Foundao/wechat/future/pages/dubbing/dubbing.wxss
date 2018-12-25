@@ -135,15 +135,15 @@
 
 .composeing,.compose_success,.compose_error{
     width: 548rpx;
-    /*height: 660rpx;*/
-    height: 628rpx;
+    height: 660rpx;
+    /*height: 628rpx;*/
     position: absolute;
     top: 300rpx;
     left: 50%;
     transform: translateX(-50%);
-    border-radius:14px;
+    /*border-radius:14px;*/
     /*background-color: #ffffff;*/
-    background-color: #F83450;
+    background-color: #9D1E23;
 }
 
 .compose_success,.compose_error{
@@ -153,11 +153,7 @@
     align-items: center;
 }
 
-.compose_error{
-    background-color: #ffffff;
-}
-
-.compose_success .compose_img{
+.compose_success .compose_img,.compose_error .compose_img{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -168,45 +164,39 @@
     /*height: 274rpx;*/
 }
 
-.compose_error .compose_img{
-    margin-top: 72rpx;
-    width: 268rpx;
-    height: 240rpx;
+.compose_success .compose_icon{
+    width: 360rpx;
+    height: 220rpx;
+    margin-top: 106rpx;
 }
 
-.compose_success_text{
+.compose_error .compose_icon{
+    width: 270rpx;
+    height: 240rpx;
+    margin-top: 70rpx;
+}
+
+.compose_success_text,.compose_error_text{
     position: relative;
     z-index: 3;
-    padding-top: 371rpx;
+    padding-top: 45rpx;
     font-size: 38rpx;
-    color: #FFFFFF;
+    color: #FFD892;
 }
 
-.compose_success_info{
+.compose_success_info,.compose_error_info{
     position: relative;
     z-index: 3;
     margin-top: 16rpx;
     font-size: 26rpx;
-    color: #FFFFFF;
-}
-
-.compose_error_text{
-    padding-top: 59rpx;
-    font-size: 38rpx;
-    color: #666666;
-}
-
-.compose_error_info{
-    margin-top: 17rpx;
-    font-size: 26rpx;
-    color: #999999;
+    color: #FFD892;
 }
 
 .compose_success_footer,.compose_error_footer{
     /*border-top: 1rpx solid #eeeeee;*/
     position: absolute;
     z-index: 3;
-    bottom:55rpx;
+    bottom:38rpx;
     left: 0;
     width: 100%;
     /*height: 88rpx;*/
@@ -218,21 +208,21 @@
 
 .compose_success_footer{
     /*border-top: 1rpx solid #eeeeee;*/
-    margin-top: 89rpx;
+    /*margin-top: 89rpx;*/
 }
 
 .compose_success_footer .btn_wrapper{
-    width: 218rpx;
-    height: 68rpx;
+    width: 244rpx;
+    height: 94rpx;
 }
 
 .compose_success_footer .btn_wrapper:last-child{
-    margin-left: 68rpx;
+    margin-left: 20rpx;
 }
 
 .compose_error_footer .btn_wrapper{
-    width: 360rpx;
-    height: 68rpx;
+    width: 386rpx;
+    height: 94rpx;
 }
 
 

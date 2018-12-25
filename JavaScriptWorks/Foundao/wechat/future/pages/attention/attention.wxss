@@ -172,6 +172,6 @@
     top:-312rpx;
     width: 240rpx;
     height: 240rpx;
-    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2null@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2null2@2x_0.png");
     background-size: cover;
 }

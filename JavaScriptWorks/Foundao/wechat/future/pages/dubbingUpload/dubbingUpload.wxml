@@ -33,6 +33,7 @@
       </view>
     </view>
   </view>
+  <tabbar select="1" show="{{showDiyTabBar}}"></tabbar>
 </view>
 
 

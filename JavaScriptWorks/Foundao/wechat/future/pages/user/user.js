@@ -33,13 +33,14 @@ Page({
 
         product_no_more: false,
         like_no_more: false,
+
+        showDiyTabBar:false,
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
         wx.getSystemInfo({
             success: (res) => {
                 if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
@@ -63,7 +64,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        wx.showTabBar();
+        // wx.showTabBar();
+        this.hideTabBar()
         app.isAuth(() => {
             const options = {
                 op: 'pv',
@@ -414,5 +416,27 @@ Page({
             }
         })
         // }
-    }
+    },
+
+    //前往协议页
+    goProtocol(){
+        wx.navigateTo({
+            url: '/pages/protocol/protocol'
+        })
+    },
+
+    // 隐藏原生tabbar，并显示自定义tabbar
+    hideTabBar() {
+        wx.hideTabBar();
+        setTimeout(() => {
+            this.showDiyTabBar();
+        }, 100)
+    },
+
+    // 显示自定义tabbar
+    showDiyTabBar() {
+        this.setData({
+            showDiyTabBar: true
+        })
+    },
 })

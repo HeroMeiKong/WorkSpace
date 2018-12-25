@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "backTitle": "/component/backTitle/backTitle"
+  }
+}

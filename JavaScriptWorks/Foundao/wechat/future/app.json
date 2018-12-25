@@ -13,7 +13,8 @@
     "pages/video/video",
     "pages/preview/preview",
     "pages/dubbingUpload/dubbingUpload",
-    "pages/videoTest/videoTest"
+    "pages/videoTest/videoTest",
+    "pages/protocol/protocol"
   ],
   "window": {
     "backgroundTextStyle": "light",

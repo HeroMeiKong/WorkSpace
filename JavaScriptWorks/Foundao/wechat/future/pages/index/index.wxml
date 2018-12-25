@@ -148,19 +148,6 @@
 
                 <!--tabbar-->
                 <cover-view class="tabbar-box {{isIpx?'iphoneX-tabbar':''}}" hidden="{{hideDiyTabBar}}">
-                    <!--<cover-view class="tabbar-item selected">-->
-                    <!--<cover-image class="tabbar-item-icon home" src="https://s-js.sports.cctv.com/host/resource/future/icon_ht_home.png"></cover-image>-->
-                    <!--&lt;!&ndash;<cover-view class="tabbar-item-icon home"></cover-view>&ndash;&gt;-->
-                    <!--<cover-view class="tabbar-item-text">推荐</cover-view>-->
-                    <!--</cover-view>-->
-                    <!--<cover-view class="tabbar-item" catchtap="switchToUpload">-->
-                    <!--<cover-image class="tabbar-item-icon upload" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_mic.png"></cover-image>-->
-                    <!--<cover-view class="tabbar-item-text">配音</cover-view>-->
-                    <!--</cover-view>-->
-                    <!--<cover-view class="tabbar-item" catchtap="switchToUser">-->
-                    <!--<cover-image class="tabbar-item-icon user" src="https://s-js.sports.cctv.com/host/resource/future/icon_normal_home.png"></cover-image>-->
-                    <!--<cover-view class="tabbar-item-text">我的</cover-view>-->
-                    <!--</cover-view>-->
                     <cover-view class="tabbar-item selected">
                         首页
                         <cover-view class="tabbar-item-border"></cover-view>

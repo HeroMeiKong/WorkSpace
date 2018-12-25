@@ -10,6 +10,7 @@ Page({
    */
   data: {
     models: 'defaultmodel',
+      showDiyTabBar:false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -59,7 +60,8 @@ Page({
    */
   onShow: function () {
     console.log('onShow')
-    wx.showTabBar();
+    // wx.showTabBar();
+      this.hideTabBar()
     app.isAuth(() => {
       if (!this.data.hasInit) {
           console.log('未初始化')
@@ -118,5 +120,20 @@ Page({
     wx.navigateTo({
       url: '/pages/recordList/recordList'
     })
-  }
+  },
+
+    // 隐藏原生tabbar，并显示自定义tabbar
+    hideTabBar() {
+        wx.hideTabBar();
+        setTimeout(() => {
+            this.showDiyTabBar();
+        }, 100)
+    },
+
+    // 显示自定义tabbar
+    showDiyTabBar() {
+        this.setData({
+            showDiyTabBar: true
+        })
+    },
 })

@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -115,6 +115,11 @@
 					"name": "视频测试页",
 					"pathName": "pages/videoTest/videoTest",
 					"query": "user_uuid=B102D881-C89D-33C8-DE41-3626A2051165"
+				},
+				{
+					"id": -1,
+					"name": "协议页",
+					"pathName": "pages/protocol/protocol"
 				}
 			]
 		}

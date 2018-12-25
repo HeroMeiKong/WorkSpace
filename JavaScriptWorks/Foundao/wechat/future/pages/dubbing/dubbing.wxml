@@ -117,28 +117,32 @@
             </cover-view>
             <!--合成成功-->
             <cover-view class="compose_success" wx:if="{{compose_success}}">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3success@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3kuang3@2x_0.png"
                              class="compose_img"></cover-image>
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3success@2x_0.png"
+                             class="compose_icon"></cover-image>
                 <cover-view class="compose_success_text">配音提交成功</cover-view>
                 <cover-view class="compose_success_info">请在个人中心查看审核进度</cover-view>
                 <cover-view class="compose_success_footer">
                     <!--再玩一次-->
                     <cover-image class="btn_wrapper backhome_wrapper" bindtap="goBack"
-                                 src="https://s-js.sports.cctv.com/host/resource/future/3return@2x.png"></cover-image>
+                                 src="https://s-js.sports.cctv.com/host/resource/future/3return@2x_0.png"></cover-image>
                     <!--查看进度-->
                     <cover-image class="btn_wrapper" bindtap="toDetail"
-                                 src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x.png"></cover-image>
+                                 src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x_0.png"></cover-image>
                 </cover-view>
             </cover-view>
             <!--合成失败-->
             <cover-view class="compose_error" wx:if="{{compose_error}}">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3failure@2x.png"
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3kuang3@2x_0.png"
                              class="compose_img"></cover-image>
+                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3failure@2x_0.png"
+                             class="compose_icon"></cover-image>
                 <cover-view class="compose_error_text">提交失败</cover-view>
                 <cover-view class="compose_error_info">网络原因提交失败，请重试</cover-view>
                 <cover-view class="compose_error_footer" bindtap="closeCompose_layer">
                     <cover-image class="btn_wrapper backhome_wrapper" bindtap="closeCompose_layer"
-                                 src="https://s-js.sports.cctv.com/host/resource/future/3determine@2x.png"></cover-image>
+                                 src="https://s-js.sports.cctv.com/host/resource/future/3determine@2x_0.png"></cover-image>
                 </cover-view>
             </cover-view>
         </cover-view>

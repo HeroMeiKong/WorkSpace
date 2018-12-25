@@ -8,3 +8,15 @@
     /*height: auto;*/
     height: 100%;
 }
+
+.swpier-box{
+    margin-top: 100rpx;
+    width: 50%;
+    background-color: #333333;
+    color: #FFFFFF;
+    overflow-y: scroll
+}
+.swperi-item{
+    display: inline-block;
+    width: 200rpx;
+}

@@ -15,7 +15,7 @@
         </textarea>
             </view>
         </view>
-
+        <!--关注粉丝数-->
         <view class="user-fans-attention">
             <view class="user-fans-attention-inner">
                 <span class="user-num" data-select="2">{{userInfo.count_zan}}</span>
@@ -39,6 +39,7 @@
                 <span class="tab-num">{{userInfo.count_love}}</span>
             </view>
         </view>
+        <view class="user-protocol" catchtap="goProtocol">用户协议</view>
     </view>
     <!--列表-->
     <view class="list-box">
@@ -84,4 +85,5 @@
     </view>
     <!--提示-->
     <view class="tips" hidden="{{hideTips}}">不能超过30字</view>
+    <tabbar select="2" show="{{showDiyTabBar}}"></tabbar>
 </view>

@@ -1,0 +1,13 @@
+<!--component/tabbar/tabbar.wxml-->
+<view class="tabbar-box {{isIpx?'iphoneX-tabbar':''}}" wx:if="{{show}}">
+    <view class="tabbar-item" catchtap="switchToIndex">
+        首页
+    </view>
+    <image class="tabbar-icon"
+           src="https://s-js.sports.cctv.com/host/resource/future/1chuangzuo@2x.png"
+           catchtap="switchToRecordList"></image>
+    <view class="tabbar-item {{select==2?'selected':''}}" catchtap="switchToUser">
+        我的
+        <view class="tabbar-item-border"></view>
+    </view>
+</view>
