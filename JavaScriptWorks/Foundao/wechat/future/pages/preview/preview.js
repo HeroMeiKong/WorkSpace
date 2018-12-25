@@ -56,10 +56,10 @@ Page({
     tempFilePath: '',
     size: 0,
     duration: 0,
-    movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], 
-    // movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
-    //                  {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
-    //                  {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], //压条个数
+    //movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], 
+    movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
+                     {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
+                     {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], //压条个数
     oldCoordinatey: 0,
     oldVideoSize: {width: 0,height: 0},
     previewpic: '', //视频截图加载失败，默认图片
@@ -105,7 +105,8 @@ Page({
     publish: [{pic: '',width: 0,height: 0,x: 0,y: 0},{pic: '',width: 0,height: 0,x: 0,y: 0},{pic: '',width: 0,height: 0,x: 0,y: 0}],
     uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0},
+                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
+                    tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}]},
     showovercover: 'none',
     //videomuted: false, //是否静音视频
     compose_success: true,
@@ -401,8 +402,9 @@ Page({
       });
     }
     this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+                               join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+                               tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
+                               tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}]}
     preInnerAudioContext.src = 'https://nomusic.mp3'
     innerAudioContext.src = 'https://nomusic.mp3'
     console.log(innerAudioContext.src)
@@ -522,10 +524,10 @@ Page({
   goHome: function (e) {
     console.log('goHome')
     innerAudioContext.stop()
-    if(this.data.movableviewNum.length > 0){
-      //this.data.movableviewNum[0].display = 'none'
-      this.data.uploadContent.tiezhi = this.data.movableviewNum[0].pic
-    }
+    // if(this.data.movableviewNum.length > 0){
+    //   //this.data.movableviewNum[0].display = 'none'
+    //   this.data.uploadContent.tiezhi = this.data.movableviewNum[0].pic
+    // }
     // if(this.data.movableviewNum.length > 0){
     //   // let heightValue = this.data.oldVideoSize.height / windowHeight
     //   // let widthValue = this.data.oldVideoSize.width / windowWidth
@@ -692,6 +694,7 @@ Page({
   nextStep (e) {
     console.log('nextStep')
     console.log(preInnerAudioContext.src)
+    console.log(this.data.uploadContent.tiezhi_arr)
     // wx.showToast({
     //   title: '滤镜效果需视频合成后可见',
     //   mask: true,
@@ -744,6 +747,7 @@ Page({
     if(pasterNum > 0){
       //预览页贴纸位置
       let publishValues = this.data.previewsize.height/this.data.picsize.height
+      let videoValues = this.data.oldVideoSize.height / this.data.picsize.height
       const movableviewNumLength = this.data.movableviewNum.length
       for(let i=0;i<movableviewNumLength;i++){
         if(this.data.movableviewNum[i].show === 'flex'){
@@ -752,14 +756,19 @@ Page({
           this.data.publish[i].width = this.data.movableviewNum[i].width * publishValues
           this.data.publish[i].y = this.data.movableviewNum[i].y * publishValues
           this.data.publish[i].x = this.data.movableviewNum[i].x * publishValues//- (windowWidth-9*windowHeight/16)/2) / publishValues + 483*windowWidth/2400
+          //上传视频贴纸位置
+          this.data.uploadContent.tiezhi_arr[i].img_url = this.data.movableviewNum[i].pic
+          this.data.uploadContent.tiezhi_arr[i].height = this.data.movableviewNum[i].height * videoValues
+          this.data.uploadContent.tiezhi_arr[i].width = this.data.movableviewNum[i].width * videoValues
+          this.data.uploadContent.tiezhi_arr[i].y = this.data.movableviewNum[i].y * videoValues
+          this.data.uploadContent.tiezhi_arr[i].x = this.data.movableviewNum[i].x * videoValues
         }
       }
       //上传视频贴纸位置
-      let videoValues = this.data.oldVideoSize.height / this.data.picsize.height
-      this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * videoValues
-      this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * videoValues
-      this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * videoValues
-      this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * videoValues// - (windowWidth-9*windowHeight/16)/2) * videoValues
+      // this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * videoValues
+      // this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * videoValues
+      // this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * videoValues
+      // this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * videoValues// - (windowWidth-9*windowHeight/16)/2) * videoValues
     }
     console.log(this.data.publish)
     //消音
@@ -768,6 +777,13 @@ Page({
     // } else {
     //   this.data.videomuted = true
     // }
+    //数字转为字符串
+    // for(let l=0;l<3;l++){
+    //   this.data.uploadContent.tiezhi_arr[l] = JSON.stringify(this.data.uploadContent.tiezhi_arr[l])
+    // }
+    //console.log(this.data.uploadContent.tiezhi_arr)
+    this.data.uploadContent.tiezhi_arr = JSON.stringify(this.data.uploadContent.tiezhi_arr)
+    console.log(this.data.uploadContent.tiezhi_arr)
     this.setData({
       //showwrappers: 'none',
       showwrappers: 'hidden',
@@ -916,9 +932,9 @@ Page({
     //   x: 0,
     //   y: 0,
     //   pic: pic}
-    if(pasterNum > 0){
+    if(pasterNum > 2){
       wx.showToast({
-        title: '只能添加一个贴纸',
+        title: '只能添加三个贴纸',
         duration: 1000
       })
     } else {
@@ -1280,6 +1296,8 @@ Page({
       //   topic: this.data.topic
       // })
     } else {
+      console.log('that.data.uploadContent')
+      console.log(that.data.uploadContent)
       that.setData({
         showovercover: 'flex',
       })
@@ -1383,7 +1401,8 @@ Page({
                     })
                     that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                                                join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                                               tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+                                               tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
+                                               tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}]}
                     preInnerAudioContext.src = 'https://nomusic.mp3'
                     innerAudioContext.src = 'https://nomusic.mp3'
                   } else if (res.data.code === -2){
