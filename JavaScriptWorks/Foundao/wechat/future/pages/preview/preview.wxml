@@ -93,8 +93,9 @@
             <swiper display-multiple-items='5' vertical="true" current="{{musicbegin}}" duration="1000">
               <block wx:for="{{showmusiclists}}" wx:key="*this">
                 <swiper-item>
-                  <view id="{{item.id}}" class="musiclistdiv">
-                    <view id="left{{item.id}}" class="musiclistleftwrapper" bindtap="playmusic">
+                  <view id="{{item.id}}" class="musiclistdiv" bindtap="pickMusic">
+                    <!-- <view id="left{{item.id}}" class="musiclistleftwrapper" bindtap="playmusic"> -->
+                      <view id="left{{item.id}}" class="musiclistleftwrapper">
                       <view class="musiclistleft">
                         <image class="playmusic" src="{{item.leftimg}}"></image>
                       </view>
@@ -103,7 +104,8 @@
                       </view>
                     </view>
                     <view class="musiclistright">
-                      <image id="right{{item.id}}" class="addmusic" src="{{item.rightimg}}" bindtap="addmusic"></image>
+                      <!-- <image id="right{{item.id}}" class="addmusic" src="{{item.rightimg}}" bindtap="addmusic"></image> -->
+                      <image id="right{{item.id}}" class="addmusic" src="{{item.rightimg}}"></image>
                     </view>
                   </view>
                 </swiper-item>
@@ -175,15 +177,16 @@
   <cover-view class="overcover" style="display:{{showovercover}}"></cover-view>
   <view class="submissionwrapper" style="display:{{showsubmission}}">
     <cover-view class="submission" wx:if="{{compose_success}}">
-      <cover-image src="../../assets/images/4success@2x.png" class="compose_img"></cover-image>
+      <cover-image src="../../assets/images/4success1@2x.png" class="compose_img"></cover-image>
       <cover-view class="submission_success">
         <cover-view class="submission_top">
-          <cover-view class="submission_title">提交成功</cover-view>
+          <cover-view class="submission_title">视频提交成功</cover-view>
           <cover-view class="submission_text">请在个人中心查看审核进度</cover-view>
+          <cover-view class="submission_texts">审核将在一小时之类完成</cover-view>
         </cover-view>
         <cover-view class="submission_bottom">
-          <cover-view class="submission_button"><cover-image src="../../assets/images/3return@2x.png" catch:tap="successBackHome"></cover-image></cover-view>
-          <cover-view class="submission_button"><cover-image src="../../assets/images/3schedule@2x.png" catch:tap="checkProgress"></cover-image></cover-view>
+          <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3return@2x_0.png" catch:tap="successBackHome"></cover-image></cover-view>
+          <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x_0.png" catch:tap="checkProgress"></cover-image></cover-view>
         </cover-view>
       </cover-view>
     </cover-view>

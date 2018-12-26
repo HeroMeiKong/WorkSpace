@@ -977,6 +977,133 @@ Page({
       pasterbegin: 0
     })
   },
+  pickMusic (e) {
+    console.log('pickMusic')
+    console.log(e)
+    //控制播放按钮
+    let str = e.currentTarget.id
+    const length = this.data.showmusiclists.length
+    const musiclistslength = this.data.musiclists.length
+    if(!playlock && !addmusiclock){
+      for(let i=0;i<length;i++){
+        if(e.currentTarget.id === this.data.showmusiclists[i].id){
+          innerAudioContext.src = this.data.showmusiclists[i].music_url
+          this.data.showmusiclists[i].leftimg = musicpic.pauseimg
+          whichone.who = e.currentTarget.id
+          whichone.id = i
+        }
+      }
+      innerAudioContext.play()
+      playlock = true
+    } else {
+      if(e.currentTarget.id === whichone.who){
+        this.data.showmusiclists[whichone.id].leftimg = musicpic.playimg
+        innerAudioContext.pause()
+        playlock = false
+      } else {
+        for(let i=0;i<length;i++){
+          if(e.currentTarget.id === this.data.showmusiclists[i].id){
+            innerAudioContext.src = this.data.showmusiclists[i].music_url
+            this.data.showmusiclists[i].leftimg = musicpic.pauseimg
+            whichone.who = e.currentTarget.id
+            whichone.id = i
+            innerAudioContext.play()
+          } else {
+            this.data.showmusiclists[i].leftimg = musicpic.playimg
+          }
+        }
+      }
+    }
+    //控制选择按钮
+    if(!addmusiclock){
+      //从未添加音乐
+      for(let i=0;i<length;i++){
+        if(e.currentTarget.id === this.data.showmusiclists[i].id){
+          console.log('选他')
+          preInnerAudioContext.src = this.data.showmusiclists[i].music_url
+          nowmusicname = this.data.showmusiclists[i].music_name
+          this.data.uploadContent.audio_url = this.data.showmusiclists[i].music_url
+          this.data.uploadContent.audio_id = this.data.showmusiclists[i].id
+          this.data.showmusiclists[i].rightimg = musicpic.cancelimg
+          for(let j=0;j<musiclistslength;j++){
+            if(this.data.musiclists[j][0].music_type_id === tempmusic.new.type_id){
+              this.data.musiclists[j][i].rightimg = musicpic.cancelimg
+            }
+          }
+        } else {
+          console.log('我的兄弟')
+        }
+      }
+      tempmusic.new.id = e.currentTarget.id
+      tempmusictype = tempmusic.new.type_id
+      addmusiclock = true
+    } else {
+      //已经添加音乐
+      for(let i=0;i<length;i++){
+        if(this.data.showmusiclists[i].id === e.currentTarget.id && this.data.showmusiclists[i].rightimg === musicpic.cancelimg){
+          samesong = true
+          break
+        } else {
+          samesong = false
+        }
+      }
+      for(let j=0;j<musiclistslength;j++){
+        if(this.data.musiclists[j][0].music_type_id === tempmusictype){
+          this.data.musiclists[j].forEach((element)=>{
+            if(element.rightimg === musicpic.cancelimg){
+              element.rightimg = musicpic.addimg
+            }
+          })
+        }
+      }
+      if(samesong){
+        //是同一首歌
+        console.log('是同一首歌')
+        addmusiclock = false
+        tempmusictype = -1
+        preInnerAudioContext.src = 'https://nomusic.mp3'
+        console.log(preInnerAudioContext.src)
+        nowmusicname = ''
+        this.data.uploadContent.audio_id = ''
+        this.data.uploadContent.audio_url = ''
+        this.setData({
+          uploadContent: this.data.uploadContent
+        })
+      } else {
+        //不是同一首歌
+        console.log('不是同一首歌')
+        for(let k=0;k<length;k++){
+          if(e.currentTarget.id === this.data.showmusiclists[k].id){
+            console.log('选他1')
+            preInnerAudioContext.src = this.data.showmusiclists[k].music_url
+            nowmusicname = this.data.showmusiclists[k].music_name
+            this.data.uploadContent.audio_url = this.data.showmusiclists[k].music_url
+            this.data.uploadContent.audio_id = this.data.showmusiclists[k].id
+            this.data.showmusiclists[k].rightimg = musicpic.cancelimg
+            for(let l=0;l<musiclistslength;l++){
+              if(this.data.musiclists[l][0].music_type_id === tempmusic.new.type_id){
+                this.data.musiclists[l][k].rightimg = musicpic.cancelimg
+              }
+            }
+          } else {
+            console.log('我的兄弟1')
+          }
+        }
+        tempmusic.new.id = e.currentTarget.id
+        tempmusictype = tempmusic.new.type_id
+        addmusiclock = true
+      }
+    }
+    console.log(tempmusic)
+    console.log(this.data.showmusiclists)
+    console.log(this.data.musiclists)
+    console.log(this.data.uploadContent)
+    this.setData({
+      uploadContent: this.data.uploadContent,
+      showmusiclists: this.data.showmusiclists,
+      musiclists: this.data.musiclists
+    })
+  },
   playmusic(e){
     console.log('playmusic')
     console.log(e)

@@ -1,0 +1,37 @@
+/* component/backTitle/backTitle.wxss */
+.head-title{
+    position: absolute;
+    top:50rpx;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 38rpx;
+    font-weight: bold;
+    line-height: 40rpx;
+    color: #000000;
+}
+
+.iphoneX-title{
+    padding-top: 64rpx;
+}
+
+.back-btn{
+    position: fixed;
+    z-index: 3;
+    top:0rpx;
+    left:0rpx;
+    /*width: 24rpx;*/
+    /*height: 42rpx;*/
+    /*background-size: contain;*/
+    /*background-position: center center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-image: url("https://www.newscctv.net/dw/resource/future/1return5.png");*/
+}
+
+.back-btn .image{
+    width: 84rpx;
+    height: 142rpx;
+    background-size: 24rpx 42rpx;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("https://www.newscctv.net/dw/resource/future/1return5.png");
+}

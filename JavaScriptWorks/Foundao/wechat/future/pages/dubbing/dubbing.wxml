@@ -23,20 +23,20 @@
         </cover-view>
 
         <!--字幕及字幕背景-->
-        <cover-view class="lyric-box" hidden="{{!( (!is_dubEnd && isDubbing) || showCountDown )}}">
-            <cover-view class="icon-box">
-                <cover-image class="left icon"
-                             src="https://s-js.sports.cctv.com/host/resource/future/3zhizhenl@2x.png"></cover-image>
-                <cover-image class="right icon"
-                             src="https://s-js.sports.cctv.com/host/resource/future/3zhizhenr@2x.png"></cover-image>
-            </cover-view>
-            <cover-view class="line">{{lyric_0}}</cover-view>
-            <cover-view class="line cur-line">{{lyric_1}}</cover-view>
-            <cover-view class="line">{{lyric_2}}</cover-view>
-            <!--<cover-view class="line">{{lyric_3}}</cover-view>-->
-        </cover-view>
-        <cover-image class="lyric-bg" src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"
-                     hidden="{{!(!is_dubEnd && isDubbing)}}"></cover-image>
+        <!--<cover-view class="lyric-box" hidden="{{!( (!is_dubEnd && isDubbing) || showCountDown )}}">-->
+            <!--<cover-view class="icon-box">-->
+                <!--<cover-image class="left icon"-->
+                             <!--src="https://s-js.sports.cctv.com/host/resource/future/3zhizhenl@2x.png"></cover-image>-->
+                <!--<cover-image class="right icon"-->
+                             <!--src="https://s-js.sports.cctv.com/host/resource/future/3zhizhenr@2x.png"></cover-image>-->
+            <!--</cover-view>-->
+            <!--<cover-view class="line">{{lyric_0}}</cover-view>-->
+            <!--<cover-view class="line cur-line">{{lyric_1}}</cover-view>-->
+            <!--<cover-view class="line">{{lyric_2}}</cover-view>-->
+            <!--&lt;!&ndash;<cover-view class="line">{{lyric_3}}</cover-view>&ndash;&gt;-->
+        <!--</cover-view>-->
+        <!--<cover-image class="lyric-bg" src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"-->
+                     <!--hidden="{{!(!is_dubEnd && isDubbing)}}"></cover-image>-->
 
         <!--开始录音-->
         <cover-view class="ready-status status-box" hidden="{{!(!is_dubEnd && !isDubbing)}}">

@@ -413,7 +413,7 @@ Page({
     // 切换到选择功能页
     switchToRecordList() {
         this.pauseVideo();
-        wx.switchTab({
+        wx.navigateTo({
             url: '/pages/dubbingUpload/dubbingUpload'
         })
     },
@@ -421,7 +421,7 @@ Page({
     // 切换到个人主页
     switchToUser() {
         this.pauseVideo();
-        wx.switchTab({
+        wx.navigateTo({
             url: '/pages/user/user'
         })
     },
