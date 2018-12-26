@@ -7,6 +7,7 @@ import api from './../../config/api';
 import Tool from './../../utils/util';
 
 const app = getApp();
+let nickName = ''
 let usermethod = 'album'
 let computeMethod = 'height' //视频比例计算方式
 var pasterlength = 0
@@ -162,6 +163,13 @@ Page({
         that.setData({
           models: that.data.models
         })
+      }
+    })
+    wx.getUserInfo({
+      success(res) {
+        const userInfo = res.userInfo
+        nickName = userInfo.nickName
+        console.log(nickName)
       }
     })
     console.log(windowHeight)
@@ -1381,6 +1389,9 @@ Page({
     let that = this
     this.videoContext1.pause()
     preInnerAudioContext.pause()
+    if(this.data.uploadContent.video_desc === ''){
+      this.data.uploadContent.video_desc = nickName + '的原创'
+    }
     if(this.data.uploadContent.join_sub === -1 || this.data.uploadContent.join_sub_id === -1){
       wx.showToast({
         title: '未选择话题！',
