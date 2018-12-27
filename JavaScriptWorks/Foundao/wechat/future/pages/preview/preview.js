@@ -46,6 +46,11 @@ const preInnerAudioContext = wx.createInnerAudioContext()//预览歌曲
 preInnerAudioContext.obeyMuteSwitch = false
 preInnerAudioContext.autoplay = false
 preInnerAudioContext.loop =false
+let displayValue = 'none'//贴纸功能键是否消失：none，flex
+
+
+
+
 Page({
   /**
    * 页面的初始数据
@@ -84,6 +89,7 @@ Page({
     pasterbegin: 0,
     pasters: [],
     pasterId: [],
+    hiddenpaster: 'flex',
     nowpasterId: 1,
     pastersrequest: [],
     musics: [],
@@ -613,6 +619,8 @@ Page({
   //显示改变压条按钮
   showMovableView (e) {
     console.log('showMovableView')
+    displayValue = 'none'
+    this.setPasterHidden()
     // var str = e.target.id
     // var pasternumid = this.data.movableviewNum.length
     // for(let i=0;i<pasternumid;i++){
@@ -645,6 +653,8 @@ Page({
   //移动压条
   getStartLocation (e) {
     console.log('getStartLocation')
+    displayValue = 'flex'
+    this.setPasterHidden()
     var str = e.target.id
     for(let i=0;i<pasterNum;i++){
       if(str === 'bottom'+this.data.movableviewNum[i].id){
@@ -656,31 +666,65 @@ Page({
   moveLocation (e) {
     console.log('moveLocation')
     var str = e.target.id
+    const valueX = e.changedTouches[0].pageX - oldLocation.x
+    const valueY = e.changedTouches[0].pageY - oldLocation.y
+    const tempValue = valueX > valueY ? valueY : valueX
+    const picsizeValue = this.data.picsize.width > this.data.picsize.height ? this.data.picsize.height : this.data.picsize.width
+    //只有变化
+    // for(let i=0;i<pasterNum;i++){
+    //   if(str === 'bottom'+this.data.movableviewNum[i].id){
+    //     if(this.data.movableviewNum[i].width <= this.data.picsize.width && this.data.movableviewNum[i].height <= this.data.picsize.height){
+    //         console.log('不行不行不行1')
+    //         this.data.movableviewNum[i].width = valueX
+    //         this.data.movableviewNum[i].height = valueY
+    //       } else if(this.data.movableviewNum[i].width === this.data.picsize.width 
+    //         && this.data.movableviewNum[i].height === this.data.picsize.height
+    //         && e.changedTouches[0].pageX < oldLocation.x
+    //         && e.changedTouches[0].pageY < oldLocation.y){
+    //           console.log('不行不行不行2')
+    //           this.data.movableviewNum[i].width = valueX
+    //           this.data.movableviewNum[i].height = valueY
+    //       } else if(this.data.movableviewNum[i].width > this.data.picsize.width){
+    //         console.log('不行不行不行3')
+    //         this.data.movableviewNum[i].width = this.data.picsize.width
+    //         this.data.movableviewNum[i].height = valueY
+    //       } else if(this.data.movableviewNum[i].height > this.data.picsize.height){
+    //         console.log('不行不行不行4')
+    //         this.data.movableviewNum[i].width = valueX
+    //         this.data.movableviewNum[i].height = this.data.picsize.height
+    //       } else if(this.data.movableviewNum[i].width > this.data.picsize.width && this.data.movableviewNum[i].height > this.data.picsize.height){
+    //         console.log('不行不行不行5')
+    //         this.data.movableviewNum[i].width = this.data.picsize.width
+    //         this.data.movableviewNum[i].height = this.data.picsize.height
+    //       }
+    //   }
+    // }
+    //等比例变化
     for(let i=0;i<pasterNum;i++){
       if(str === 'bottom'+this.data.movableviewNum[i].id){
-        if(this.data.movableviewNum[i].width <= this.data.picsize.width && this.data.movableviewNum[i].height <= this.data.picsize.height){
-          console.log('不行不行不行1')
-            this.data.movableviewNum[i].width = e.changedTouches[0].pageX - oldLocation.x
-            this.data.movableviewNum[i].height = e.changedTouches[0].pageY - oldLocation.y
-          } else if(this.data.movableviewNum[i].width === this.data.picsize.width 
-            && this.data.movableviewNum[i].height === this.data.picsize.height
+        if(tempValue <= this.data.picsize.width && tempValue <= this.data.picsize.height){
+            console.log('不行不行不行1')
+            this.data.movableviewNum[i].width = tempValue
+            this.data.movableviewNum[i].height = tempValue
+          } else if(tempValue === this.data.picsize.width 
+            && tempValue === this.data.picsize.height
             && e.changedTouches[0].pageX < oldLocation.x
             && e.changedTouches[0].pageY < oldLocation.y){
               console.log('不行不行不行2')
-              this.data.movableviewNum[i].width = e.changedTouches[0].pageX - oldLocation.x
-              this.data.movableviewNum[i].height = e.changedTouches[0].pageY - oldLocation.y
-          } else if(this.data.movableviewNum[i].width > this.data.picsize.width){
+              this.data.movableviewNum[i].width = tempValue
+              this.data.movableviewNum[i].height = tempValue
+          } else if(tempValue > this.data.picsize.width){
             console.log('不行不行不行3')
             this.data.movableviewNum[i].width = this.data.picsize.width
-            this.data.movableviewNum[i].height = e.changedTouches[0].pageY - oldLocation.y
-          } else if(this.data.movableviewNum[i].height > this.data.picsize.height){
+            this.data.movableviewNum[i].height = this.data.picsize.width
+          } else if(tempValue > this.data.picsize.height){
             console.log('不行不行不行4')
-            this.data.movableviewNum[i].width = e.changedTouches[0].pageX - oldLocation.x
+            this.data.movableviewNum[i].width = this.data.picsize.height
             this.data.movableviewNum[i].height = this.data.picsize.height
-          } else if(this.data.movableviewNum[i].width > this.data.picsize.width && this.data.movableviewNum[i].height > this.data.picsize.height){
+          } else if(tempValue > this.data.picsize.width && tempValue > this.data.picsize.height){
             console.log('不行不行不行5')
-            this.data.movableviewNum[i].width = this.data.picsize.width
-            this.data.movableviewNum[i].height = this.data.picsize.height
+            this.data.movableviewNum[i].width = picsizeValue
+            this.data.movableviewNum[i].height = picsizeValue
           }
       }
     }
@@ -690,6 +734,8 @@ Page({
   },
   endLocation (e) {
     console.log('endLocation')
+    displayValue = 'none'
+    this.setPasterHidden()
     var str = e.target.id
     for(let i=0;i<pasterNum;i++){
       if(str === 'bottom'+this.data.movableviewNum[i].id){
@@ -925,6 +971,8 @@ Page({
   chosePasterPic (e) {
     console.log('chosePasterPic')
     console.log(this.data.movableviewNum)
+    displayValue = 'none'
+    this.setPasterHidden()
     //var pasternumid = this.data.movableviewNum.length
     var pic = '../../assets/images/2null2@2x.png' //默认图片
     var pasterpicid = e.currentTarget.id
@@ -974,6 +1022,21 @@ Page({
         movableviewNum: this.data.movableviewNum
       })
     }
+  },
+  //按时隐藏贴纸
+  setPasterHidden () {
+    console.log('setPasterHidden')
+    const that = this
+    that.data.hiddenpaster = 'flex'
+    let time = setTimeout(()=>{
+      that.setData({
+        hiddenpaster: displayValue
+      })
+      clearTimeout(time)
+    },2000)
+    that.setData({
+      hiddenpaster: that.data.hiddenpaster
+    })
   },
   //切换压条类型
   chosePaster(e){
@@ -1838,6 +1901,11 @@ Page({
       console.log(pasterswipervalue)
     }).exec()
   },
+  startRotate (e) {
+    console.log('startRotate')
+    displayValue = 'flex'
+    this.setPasterHidden()
+  },
   moveRotate (e) {
     console.log('moveRotate')
     var str = e.target.id
@@ -1853,6 +1921,11 @@ Page({
     this.setData({
       movableviewNum: this.data.movableviewNum
     })
+  },
+  endRotate (e) {
+    console.log('endRotate')
+    displayValue = 'none'
+    this.setPasterHidden()
   },
   getAngle(rotateValue){
     console.log('getAngle')
