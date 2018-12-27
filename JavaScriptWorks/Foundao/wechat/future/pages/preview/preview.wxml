@@ -6,9 +6,12 @@
       <movable-area class="screenshot" style="display:{{showVideo.notvideo}};width:{{picsize.width}}px;height:{{picsize.height}}px;">
         <block wx:for="{{movableviewNum}}" wx:key="*this">
           <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView" damping="200">
-            <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/4shanchu@2x.png" catch:tap="cancelMovableView"></image>
-            <image id="pic{{item.id}}" src="{{item.pic}}" bind:tap="showMovableView"></image>
-            <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{item.display}}" src="../../assets/images/4lashen@2x.png" catch:touchstart="getStartLocation" catch:touchmove="moveLocation" catch:touchend="endLocation"></image>
+            <view class="wrapperimage" style="transform:rotate({{item.rotate}}deg)">
+              <image id="top{{item.id}}" class="flextoppic" style="display:{{item.display}}" src="../../assets/images/4shanchu@2x.png" catch:tap="cancelMovableView"></image>
+              <image id="pic{{item.id}}" src="{{item.pic}}" bind:tap="showMovableView"></image>
+              <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{item.display}}" src="../../assets/images/4lashen@2x.png" catch:touchstart="getStartLocation" catch:touchmove="moveLocation" catch:touchend="endLocation"></image>
+              <image id="rotate{{item.id}}" class="flexrotatepic" style="display:{{item.display}}" src="../../assets/images/4lashen@2x.png" catch:touchmove="moveRotate"></image>
+            </view>
           </movable-view>
         </block>
       </movable-area>
@@ -130,7 +133,7 @@
     <view class="videowrapper">
       <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
         <block wx:for="{{publish}}">
-          <cover-image class="coverimage" src="{{item.pic}}" style="width:{{item.width}}px;height:{{item.height}}px;left:{{item.x}}px;top:{{item.y}}px"></cover-image>
+          <cover-image class="coverimage" src="{{item.pic}}" style="width:{{item.width}}px;height:{{item.height}}px;left:{{item.x}}px;top:{{item.y}}px;transform:rotate({{item.rotate}}deg)"></cover-image>
         </block>
         <cover-view class="playimg" catch:tap="pauseThis">
           <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
@@ -177,12 +180,13 @@
   <cover-view class="overcover" style="display:{{showovercover}}"></cover-view>
   <view class="submissionwrapper" style="display:{{showsubmission}}">
     <cover-view class="submission" wx:if="{{compose_success}}">
+      <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
       <cover-image src="../../assets/images/4success1@2x.png" class="compose_img"></cover-image>
       <cover-view class="submission_success">
         <cover-view class="submission_top">
           <cover-view class="submission_title">视频提交成功</cover-view>
           <cover-view class="submission_text">请在个人中心查看审核进度</cover-view>
-          <cover-view class="submission_texts">审核将在一小时之类完成</cover-view>
+          <cover-view class="submission_texts">审核将在一小时之内完成</cover-view>
         </cover-view>
         <cover-view class="submission_bottom">
           <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3return@2x_0.png" catch:tap="successBackHome"></cover-image></cover-view>
@@ -191,6 +195,7 @@
       </cover-view>
     </cover-view>
     <cover-view class="submission submission_fail_color" wx:if="{{!compose_success}}">
+      <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
       <cover-view class="submission_fail_top">
         <cover-image src="../../assets/images/3failure@2x.png" class="compose_fail_img"></cover-image>
       </cover-view>

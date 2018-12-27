@@ -55,7 +55,7 @@ Page({
             })
             // this.data.user = options.user
         } else {
-            wx.switchTab({
+            wx.redirectTo({
                 url: '/pages/index/index'
             })
         }
@@ -745,7 +745,7 @@ Page({
     goBack(e) {
         console.log(getCurrentPages())
         if (getCurrentPages().length === 1) {
-            wx.switchTab({
+            wx.redirectTo({
                 url: '/pages/index/index',
             })
         } else {
@@ -769,7 +769,7 @@ Page({
     // 切换到个人主页
     switchToUser() {
         this.pauseVideo()
-        wx.switchTab({
+        wx.redirectTo({
             url: '/pages/user/user'
         })
     },
@@ -801,7 +801,7 @@ Page({
     // 切换到选择功能页
     switchToRecordList() {
         this.pauseVideo();
-        wx.switchTab({
+        wx.redirectTo({
             url: '/pages/dubbingUpload/dubbingUpload'
         })
     },

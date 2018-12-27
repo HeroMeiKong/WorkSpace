@@ -112,7 +112,7 @@ Page({
         if (options.video_uuid) {
             this.data.video_uuid = options.video_uuid
         } else {
-            wx.switchTab({
+            wx.redirectTo({
                 url: '/pages/index/index'
             })
         }
@@ -790,7 +790,7 @@ Page({
 
     // 返回首页
     backhome() {
-        wx.switchTab({
+        wx.redirectTo({
             url: '/pages/index/index'
         })
     },
@@ -799,7 +799,7 @@ Page({
     toDetail() {
         // 跳转到视频详情页
         this.pauseVideo();
-        wx.switchTab({
+        wx.redirectTo({
             url: '/pages/user/user'
         })
     },
@@ -1261,7 +1261,7 @@ Page({
     goBack(e) {
         console.log(getCurrentPages())
         if (getCurrentPages().length === 1) {
-            wx.switchTab({
+            wx.redirectTo({
                 url: '/pages/index/index',
             })
         } else {

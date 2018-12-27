@@ -65,6 +65,7 @@
   position: relative;
 }
 
+.wrapperimage,
 .screenshot image {
   width: 100%;
   height: 100%;
@@ -88,6 +89,16 @@
   width: 40rpx;
   height: 40rpx;
   bottom: -20rpx;
+  right: -20rpx;
+  border-radius: 50%;
+  border: none;
+}
+
+.screenshot .flexrotatepic{
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  top: -20rpx;
   right: -20rpx;
   border-radius: 50%;
   border: none;
@@ -670,6 +681,11 @@ swiper-item {
   top: 0;
   left: 0;
 }
+.submissioninner{
+  width: 548rpx;
+  height: 660rpx;
+  position: absolute;
+}
 .submission{
   width: 548rpx;
   height: 660rpx;
@@ -681,8 +697,7 @@ swiper-item {
   transform: translateX(-50%);
   /* border-radius:14px; */
   color: rgba(255, 216, 146, 1);
-  background: url('https://s-js.sports.cctv.com/host/resource/future/3kuang3@2x_0.png') no-repeat rgba(157, 30, 35, 1);
-  background-size: 100%;
+  background-color: #C10420;
   z-index: 11;
 }
 .submission_fail_color{

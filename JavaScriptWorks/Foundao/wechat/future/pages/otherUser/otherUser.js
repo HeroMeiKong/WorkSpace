@@ -35,7 +35,7 @@ Page({
         if (options.user_uuid) {
             this.data.user_uuid = options.user_uuid
         } else {
-            wx.switchTab({
+            wx.redirectTo({
                 url: '/pages/index/index'
             })
         }

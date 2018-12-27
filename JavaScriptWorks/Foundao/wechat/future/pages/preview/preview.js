@@ -15,6 +15,10 @@ var windowWidth = 0  //屏幕宽度
 var windowHeight = 0  //视频屏幕高度
 let previewbox = 0
 var oldLocation = {x:0,y:0} //计算压条大小
+
+let endrotate = {x:0,y:0}//计算旋转坐标
+let rotateValue = {x:0,y:0}//计算旋转角度
+
 var pasterNum = 0 //压条显示个数
 var oldmusiclist = {id: 0}     //选中的音乐列表
 var musiclistcontent = []      //{id: 0,content: ''}音乐的内容
@@ -58,9 +62,9 @@ Page({
     size: 0,
     duration: 0,
     //movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], 
-    movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
-                     {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''},
-                     {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}], //压条个数
+    movableviewNum: [{id:'movableview0',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: '',rotate: 0},
+                     {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: '',rotate: 0},
+                     {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: '',rotate: 0}], //压条个数
     oldCoordinatey: 0,
     oldVideoSize: {width: 0,height: 0},
     previewpic: '', //视频截图加载失败，默认图片
@@ -101,13 +105,14 @@ Page({
     showtextcontent: 'block', //值为block或者none
     showtopictype: 'none',
     showsure: 'flex',
-    topic: '原创话题',
+    topic: '原创',
     topics: [],
-    publish: [{pic: '',width: 0,height: 0,x: 0,y: 0},{pic: '',width: 0,height: 0,x: 0,y: 0},{pic: '',width: 0,height: 0,x: 0,y: 0}],
+    publish: [{pic: '',width: 0,height: 0,x: 0,y: 0,rotate: 0},{pic: '',width: 0,height: 0,x: 0,y: 0,rotate: 0},{pic: '',width: 0,height: 0,x: 0,y: 0,rotate: 0}],
     uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
                     join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
                     tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
-                    tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}]},
+                    tiezhi_arr: []},
+    myUpload: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}],
     showovercover: 'none',
     //videomuted: false, //是否静音视频
     compose_success: true,
@@ -389,8 +394,8 @@ Page({
       //videomuted: false
     })
     if(this.data.chooseVideo === 2){
-      wx.switchTab({
-        url: '/pages/preview/preview'
+      wx.navigateTo({
+        url: '/pages/preview/preview?usermethod=camera'
       })
     }
   },
@@ -584,7 +589,7 @@ Page({
     }
     let str = e.target.id
     let strnum = str.substring(str.length-1)
-    this.data.movableviewNum[strnum] = {id: str,width: 80,height: 80,show: 'none',x: 0,y: 0,pic: ''}
+    this.data.movableviewNum[strnum] = {id: str,width: 80,height: 80,show: 'none',x: 0,y: 0,pic: '',rotate: 0}
     this.setData({
       movableviewNum: this.data.movableviewNum
     })
@@ -702,7 +707,9 @@ Page({
   nextStep (e) {
     console.log('nextStep')
     console.log(preInnerAudioContext.src)
-    console.log(this.data.uploadContent.tiezhi_arr)
+    console.log(this.data.uploadContent)
+    console.log(this.data.movableviewNum)
+    console.log(this.data.myUpload)
     // wx.showToast({
     //   title: '滤镜效果需视频合成后可见',
     //   mask: true,
@@ -727,7 +734,7 @@ Page({
           console.log(res)
           const length = res.data.data.length
           for(let i=0;i<length;i++){
-            if('原创话题' === res.data.data[i].sub_title){
+            if('原创' === res.data.data[i].sub_title){
               res.data.data[i].pic = topicpic.yes
               this.data.topic = res.data.data[i].sub_title
               this.data.uploadContent.join_sub_id = res.data.data[i].sub_type
@@ -764,12 +771,14 @@ Page({
           this.data.publish[i].width = this.data.movableviewNum[i].width * publishValues
           this.data.publish[i].y = this.data.movableviewNum[i].y * publishValues
           this.data.publish[i].x = this.data.movableviewNum[i].x * publishValues//- (windowWidth-9*windowHeight/16)/2) / publishValues + 483*windowWidth/2400
+          this.data.publish[i].rotate = this.data.movableviewNum[i].rotate
           //上传视频贴纸位置
-          this.data.uploadContent.tiezhi_arr[i].img_url = this.data.movableviewNum[i].pic
-          this.data.uploadContent.tiezhi_arr[i].height = this.data.movableviewNum[i].height * videoValues
-          this.data.uploadContent.tiezhi_arr[i].width = this.data.movableviewNum[i].width * videoValues
-          this.data.uploadContent.tiezhi_arr[i].y = this.data.movableviewNum[i].y * videoValues
-          this.data.uploadContent.tiezhi_arr[i].x = this.data.movableviewNum[i].x * videoValues
+          this.data.myUpload[i].img_url = this.data.movableviewNum[i].pic
+          this.data.myUpload[i].height = this.data.movableviewNum[i].height * videoValues
+          this.data.myUpload[i].width = this.data.movableviewNum[i].width * videoValues
+          this.data.myUpload[i].y = this.data.movableviewNum[i].y * videoValues
+          this.data.myUpload[i].x = this.data.movableviewNum[i].x * videoValues
+          this.data.myUpload[i].rotate = this.data.movableviewNum[i].rotate
         }
       }
       //上传视频贴纸位置
@@ -790,6 +799,7 @@ Page({
     //   this.data.uploadContent.tiezhi_arr[l] = JSON.stringify(this.data.uploadContent.tiezhi_arr[l])
     // }
     //console.log(this.data.uploadContent.tiezhi_arr)
+    this.data.uploadContent.tiezhi_arr = this.data.myUpload
     this.data.uploadContent.tiezhi_arr = JSON.stringify(this.data.uploadContent.tiezhi_arr)
     console.log(this.data.uploadContent.tiezhi_arr)
     this.setData({
@@ -797,6 +807,7 @@ Page({
       showwrappers: 'hidden',
       showpublish: 'flex',
       uploadContent: this.data.uploadContent,
+      myUpload: this.data.myUpload,
       publish: this.data.publish,
       //videomuted: this.data.videomuted,
       topic: this.data.topic
@@ -1747,7 +1758,7 @@ Page({
       showovercover: 'none',
       showsubmission: 'none',
     })
-    wx.switchTab({
+    wx.redirectTo({
       url: '/pages/user/user'
     })
   },
@@ -1826,5 +1837,58 @@ Page({
       console.log(e.changedTouches[0].pageX)
       console.log(pasterswipervalue)
     }).exec()
+  },
+  moveRotate (e) {
+    console.log('moveRotate')
+    var str = e.target.id
+    for(let i=0;i<pasterNum;i++){
+      if(str === 'rotate'+this.data.movableviewNum[i].id){
+        endrotate.x = e.changedTouches[0].pageX
+        endrotate.y = e.changedTouches[0].pageY
+        rotateValue.x = endrotate.x - this.data.movableviewNum[i].x - this.data.movableviewNum[i].width/2 - (windowWidth - this.data.picsize.width)/2
+        rotateValue.y = endrotate.y - this.data.movableviewNum[i].y - this.data.movableviewNum[i].height/2 - this.data.oldCoordinatey
+        this.data.movableviewNum[i].rotate = this.getAngle(rotateValue)
+      }
+    }
+    this.setData({
+      movableviewNum: this.data.movableviewNum
+    })
+  },
+  getAngle(rotateValue){
+    console.log('getAngle')
+    let angle = Math.round(Math.atan(Math.abs(rotateValue.y) / Math.abs(rotateValue.x)) * 180 / Math.PI)
+    if(rotateValue.x > 0 && rotateValue.y < 0){
+      //第一象限
+      console.log('第一象限')
+      return 45 - angle
+    }else if(rotateValue.x < 0 && rotateValue.y < 0){
+      //第二象限
+      console.log('第二象限')
+      return -135 + angle
+    }else if(rotateValue.x < 0 && rotateValue.y > 0){
+      //第三象限
+      console.log('第三象限')
+      return 225 - angle
+    }else if(rotateValue.x > 0 && rotateValue.y > 0){
+      //第四象限
+      console.log('第四象限')
+      return angle + 45
+    }else if(rotateValue.x === 0 && rotateValue.y < 0){
+      //y正半轴
+      console.log('y正半轴')
+      return -45
+    }else if(rotateValue.x === 0 && rotateValue.y > 0){
+      //y负半轴
+      console.log('y负半轴')
+      return 135
+    }else if(rotateValue.x > 0 && rotateValue.y === 0){
+      //x正半轴
+      console.log('x正半轴')
+      return 45
+    }else if(rotateValue.x < 0 && rotateValue.y === 0){
+      //x负半轴
+      console.log('x负半轴')
+      return 225
+    }
   }
 })
