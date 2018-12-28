@@ -1821,7 +1821,7 @@ Page({
       showovercover: 'none',
       showsubmission: 'none',
     })
-    wx.redirectTo({
+    wx.switchTab({
       url: '/pages/user/user'
     })
   },

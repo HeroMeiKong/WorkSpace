@@ -46,6 +46,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        wx.hideShareMenu()
         if (options.video_uuid) {
             this.data.video_uuid = options.video_uuid
             this.data.video_id = options.id
@@ -55,7 +56,7 @@ Page({
             })
             // this.data.user = options.user
         } else {
-            wx.redirectTo({
+            wx.switchTab({
                 url: '/pages/index/index'
             })
         }
@@ -745,7 +746,7 @@ Page({
     goBack(e) {
         console.log(getCurrentPages())
         if (getCurrentPages().length === 1) {
-            wx.redirectTo({
+            wx.switchTab({
                 url: '/pages/index/index',
             })
         } else {
@@ -769,7 +770,7 @@ Page({
     // 切换到个人主页
     switchToUser() {
         this.pauseVideo()
-        wx.redirectTo({
+        wx.switchTab({
             url: '/pages/user/user'
         })
     },
@@ -801,7 +802,7 @@ Page({
     // 切换到选择功能页
     switchToRecordList() {
         this.pauseVideo();
-        wx.redirectTo({
+        wx.switchTab({
             url: '/pages/dubbingUpload/dubbingUpload'
         })
     },

@@ -38,19 +38,19 @@ Component({
      */
     methods: {
         switchToIndex() {
-            wx.redirectTo({
+            wx.switchTab({
                 url: '/pages/index/index'
             })
         },
 
         switchToRecordList() {
-            wx.redirectTo({
+            wx.switchTab({
                 url: '/pages/dubbingUpload/dubbingUpload'
             })
         },
 
         switchToUser() {
-            wx.redirectTo({
+            wx.switchTab({
                 url: '/pages/user/user'
             })
         },

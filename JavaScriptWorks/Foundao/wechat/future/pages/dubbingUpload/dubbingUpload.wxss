@@ -15,7 +15,7 @@
 .wrapper{
     height: 100%;/* 背景颜色高度 */
     position: relative;
-    padding: 90rpx 30rpx 0;
+    padding: 60rpx 30rpx 0;
     background-color: #9b2027;/* 背景颜色 */
     background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 背景图片 */
     background-size: 100%;
@@ -62,4 +62,20 @@
   font-weight:500;
   /* color:rgba(153,153,153,1); */
   color: rgba(255, 255, 255,.8);/* 春节样式 */
+}
+.superwrapper {
+  height: 220rpx;
+  width: 690rpx;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 8rpx;
+}
+.superinner {
+  height: 220rpx;
+  width: 330rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
+  border-radius: 8rpx;
 }

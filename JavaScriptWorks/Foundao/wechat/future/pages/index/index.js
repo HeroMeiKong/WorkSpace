@@ -78,6 +78,7 @@ Page({
      */
     onLoad: function (options) {
         console.log('index onLoad')
+        wx.hideShareMenu()
         app.pubSub.on('refreshStatus', (user_uuid, status) => {
             this.refreshStatus(user_uuid, status);
         });
@@ -413,7 +414,7 @@ Page({
     // 切换到选择功能页
     switchToRecordList() {
         this.pauseVideo();
-        wx.redirectTo({
+        wx.switchTab({
             url: '/pages/dubbingUpload/dubbingUpload'
         })
     },
@@ -421,7 +422,7 @@ Page({
     // 切换到个人主页
     switchToUser() {
         this.pauseVideo();
-        wx.redirectTo({
+        wx.switchTab({
             url: '/pages/user/user'
         })
     },

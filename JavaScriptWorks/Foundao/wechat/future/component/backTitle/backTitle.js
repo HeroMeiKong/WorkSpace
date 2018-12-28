@@ -40,7 +40,7 @@ Component({
         goBack(e) {
             console.log(getCurrentPages())
             if (getCurrentPages().length === 1) {
-                wx.redirectTo({
+                wx.switchTab({
                     url: '/pages/index/index',
                 })
             } else {

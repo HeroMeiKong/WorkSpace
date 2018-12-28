@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
+			"current": 14,
 			"list": [
 				{
 					"id": -1,
@@ -119,7 +119,13 @@
 				{
 					"id": -1,
 					"name": "协议页",
-					"pathName": "pages/protocol/protocol"
+					"pathName": "pages/protocol/protocol",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "超级测测测",
+					"pathName": "pages/superTest/superTest"
 				}
 			]
 		}

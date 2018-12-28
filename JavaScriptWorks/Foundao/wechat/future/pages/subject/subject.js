@@ -34,7 +34,7 @@ Page({
         if (options.id) {
             this.data.id = options.id
         } else {
-            wx.redirectTo({
+            wx.switchTab({
                 url: '/pages/subjectIndex/subjectIndex'
             })
         }
@@ -260,13 +260,13 @@ Page({
 
     // 切换到个人主页
     switchToUser() {
-        wx.redirectTo({
+        wx.switchTab({
             url: '/pages/user/user'
         })
     },
 
     switchToUpload(){
-        wx.redirectTo({
+        wx.switchTab({
             url: '/pages/dubbingUpload/dubbingUpload'
         })
     },

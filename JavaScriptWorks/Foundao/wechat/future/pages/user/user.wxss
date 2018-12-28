@@ -18,7 +18,7 @@
     z-index: 3;
     overflow: hidden;
     background-image: url('https://s-js.sports.cctv.com/host/resource/future/2diban1@2x.png');
-    background-size: 100% 100%;
+    background-size: cover;
     background-position: center top;
 }
 

@@ -106,13 +106,14 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        wx.hideShareMenu()
         this.data.recorderManager = wx.getRecorderManager();        // 录音
         this.data.innerAudioContext = wx.createInnerAudioContext(); // 播放音频
         this.data.innerAudioContext.obeyMuteSwitch = false;  // 是否遵循系统静音开关，当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音，默认值 true
         if (options.video_uuid) {
             this.data.video_uuid = options.video_uuid
         } else {
-            wx.redirectTo({
+            wx.switchTab({
                 url: '/pages/index/index'
             })
         }
@@ -790,7 +791,7 @@ Page({
 
     // 返回首页
     backhome() {
-        wx.redirectTo({
+        wx.switchTab({
             url: '/pages/index/index'
         })
     },
@@ -799,7 +800,7 @@ Page({
     toDetail() {
         // 跳转到视频详情页
         this.pauseVideo();
-        wx.redirectTo({
+        wx.switchTab({
             url: '/pages/user/user'
         })
     },
@@ -1261,7 +1262,7 @@ Page({
     goBack(e) {
         console.log(getCurrentPages())
         if (getCurrentPages().length === 1) {
-            wx.redirectTo({
+            wx.switchTab({
                 url: '/pages/index/index',
             })
         } else {

@@ -1,0 +1,5 @@
+<!--pages/superTest/superTest.wxml-->
+<view class="wrapper">
+  <image class="wrapperimg" src=""></image>
+  <view class="bottombutton"><image class="" src="../../assets/images/paishe@2x.png"></image></view>
+</view>

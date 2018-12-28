@@ -14,7 +14,8 @@
     "pages/preview/preview",
     "pages/dubbingUpload/dubbingUpload",
     "pages/videoTest/videoTest",
-    "pages/protocol/protocol"
+    "pages/protocol/protocol",
+    "pages/superTest/superTest"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,5 +23,32 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#E79C6D",
+    "selectedColor": "#FFD892",
+    "backgroundColor": "#C10420",
+    "borderStyle": "#C10420",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "assets/images/1shouye2@2x.png",
+        "selectedIconPath": "assets/images/1shouye2@2x.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/dubbingUpload/dubbingUpload",
+        "iconPath": "assets/images/1chuangzuo@2x.png",
+        "selectedIconPath": "assets/images/1chuangzuo@2x.png",
+        "text": "我要参与"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "assets/images/1wode1@2x.png",
+        "selectedIconPath": "assets/images/1wode2@2x.png",
+        "text": "我的"
+      }
+    ]
   }
 }

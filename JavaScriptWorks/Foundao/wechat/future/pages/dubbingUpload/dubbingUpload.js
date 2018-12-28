@@ -122,18 +122,27 @@ Page({
     })
   },
 
-    // 隐藏原生tabbar，并显示自定义tabbar
-    hideTabBar() {
+  // 隐藏原生tabbar，并显示自定义tabbar
+  hideTabBar() {
         wx.hideTabBar();
         setTimeout(() => {
             this.showDiyTabBar();
         }, 100)
-    },
+  },
 
-    // 显示自定义tabbar
-    showDiyTabBar() {
+  // 显示自定义tabbar
+  showDiyTabBar() {
         this.setData({
             showDiyTabBar: true
         })
-    },
+  },
+  superMatch (e) {
+    console.log('superMatch')
+  },
+  superTest (e) {
+    console.log('superTest')
+    wx.navigateTo({
+      url: '/pages/superTest/superTest'
+    })
+  }
 })
