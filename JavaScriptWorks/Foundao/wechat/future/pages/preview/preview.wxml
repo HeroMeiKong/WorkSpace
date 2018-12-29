@@ -185,8 +185,8 @@
       <cover-view class="submission_success">
         <cover-view class="submission_top">
           <cover-view class="submission_title">视频提交成功</cover-view>
+          <cover-view class="submission_texts">审核预计需要时间<text decode="{{true}}">&lt;</text>1小时</cover-view>
           <cover-view class="submission_text">请在个人中心查看审核进度</cover-view>
-          <cover-view class="submission_texts">审核将在一小时之内完成</cover-view>
         </cover-view>
         <cover-view class="submission_bottom">
           <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3return@2x_0.png" catch:tap="successBackHome"></cover-image></cover-view>

@@ -1,5 +1,24 @@
 <!--pages/superTest/superTest.wxml-->
-<view class="wrapper">
-  <image class="wrapperimg" src=""></image>
-  <view class="bottombutton"><image class="" src="../../assets/images/paishe@2x.png"></image></view>
+<view class="wrapper {{models}}">
+  <backTitle noBack="{{true}}" title="超级测测测"></backTitle>
+  <view class="page pageimg" style="display:{{showFirst}}">
+    <view class="wrapperinner">
+      <image class="avatar" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459812957282.gif"></image>
+    </view>
+    <view class="bottombutton" catch:tap="shooting"><image class="" src="../../assets/images/paishe@2x.png"></image></view>
+  </view>
+  <view class="page" style="display:{{showSecond}}">
+    <view class="pageinner">
+      <image class="avatar" src="" wx:if="{{changeimage}}"></image>
+      <image class="avatar" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459816525687.gif" wx:else="{{!changeimage}}"></image>
+    </view>
+  </view>
+  <view class="page" style="display:{{showThird}}">
+    <image class="wrapperimg" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459816606845.png" mode="scaleToFill"></image>
+    <image class="mainimg" src="{{pic}}"></image>
+    <view class="bottomview">
+      <image class="bottomimg" src="../../assets/images/5yulan@2x.png" catch:tap="preview"></image>
+      <image class="bottomimg" src="../../assets/images/5hecheng@2x.png" catch:tap="compose"></image>
+    </view>
+  </view>
 </view>

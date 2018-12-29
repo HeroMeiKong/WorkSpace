@@ -124,5 +124,10 @@ export default {
     get_submit: host + 'video/get_submit_job.php',  //轮询接口，查看视频处理进程
     music_type: host + 'video/music_type.php', //音效分类
     music: host + 'video/music.php',          //音效查询
-    topic_sub: host + 'video/type_sub.php'    //话题选择
+    topic_sub: host + 'video/type_sub.php',   //话题选择
+
+    //春节活动
+    firstLogin: host + 'sprint_activity/get_user_ce.php',//查询用户是否第一次进入测测测
+    mixVideo: host + 'sprint_activity/submit_video_templet.php',//视频合成提交接口
+    searchVideo: host + 'sprint_activity/get_submit_video_templet.php',//查询视频合成提交接口
 }

@@ -286,9 +286,9 @@ Page({
                 });
                 clearTimeout(timers)
               },1500)
-            } else if (that.data.duration < 10) {
+            } else if (that.data.duration < 5) {
               wx.showToast({
-                title: '上传的视频拍摄时间不能低于10秒！',
+                title: '上传的视频拍摄时间不能低于5秒！',
                 icon: 'none',
                 duration: 3500,
                 mask: true
@@ -355,6 +355,7 @@ Page({
         }
       },
       fail: function (e) {
+        console.log('选择视频失败！')
         console.log(e)
         app.shootsuccess = false
         wx.navigateBack({
@@ -400,9 +401,9 @@ Page({
       //videomuted: false
     })
     if(this.data.chooseVideo === 2){
-      wx.navigateTo({
-        url: '/pages/preview/preview?usermethod=camera'
-      })
+      // wx.navigateTo({
+      //   url: '/pages/dubbingUpload/dubbingUpload'
+      // })
     }
   },
   onHide (e) {

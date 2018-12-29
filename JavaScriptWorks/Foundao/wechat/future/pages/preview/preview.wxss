@@ -726,15 +726,14 @@ swiper-item {
 }
 .submission_title{
   font-size: 38rpx;
-  padding-bottom: 16rpx;
+  padding-bottom: 8rpx;
 }
 .submission_text{
   font-size: 26rpx;
 }
 .submission_texts{
-  font-size: 38rpx;
-  padding-top: 16rpx;
-  color: #000000;
+  font-size: 26rpx;
+  padding-bottom: 8rpx;
 }
 .submission_bottom,
 .submission_top{

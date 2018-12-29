@@ -19,22 +19,21 @@
 
 .iphoneX{
     padding-top: 186rpx!important;
-    box-sizing: border-box;
 }
 .huaweimate10plus{
     padding-top: 142rpx!important;
-    box-sizing: border-box;
 }
 .xiaomi8{
     padding-top: 162rpx!important;
-    box-sizing: border-box;
 }
 .oneplus5t{
     padding-top: 142rpx!important;
-    box-sizing: border-box;
 }
 
 .iphoneX-video{
     padding-top: 64rpx!important;
-    box-sizing: border-box;
+}
+
+.defaultmodel{
+    padding-top: 129rpx!important;
 }

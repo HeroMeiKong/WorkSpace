@@ -1,0 +1,5 @@
+<!--pages/testVideo/testVideo.wxml-->
+<view class="wrapper">
+  <backTitle noBack="{{false}}" title="超级测测测"></backTitle>
+  <video class="innervideo" src="{{videoSrc}}" objectFit="contain"></video>
+</view>

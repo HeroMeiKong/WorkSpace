@@ -15,7 +15,8 @@
     "pages/dubbingUpload/dubbingUpload",
     "pages/videoTest/videoTest",
     "pages/protocol/protocol",
-    "pages/superTest/superTest"
+    "pages/superTest/superTest",
+    "pages/testVideo/testVideo"
   ],
   "window": {
     "backgroundTextStyle": "light",

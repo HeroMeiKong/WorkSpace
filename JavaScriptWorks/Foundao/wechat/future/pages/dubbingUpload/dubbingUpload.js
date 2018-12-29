@@ -81,12 +81,16 @@ Page({
           console.log('已初始化')
       }
     })
-    console.log(shootsuccess)
+    console.log('shootsuccess')
     const shootsuccess = app.shootsuccess
+    console.log(shootsuccess)
     if(shootsuccess){
+      console.log('不可能啊！')
       wx.navigateTo({
         url: '/pages/preview/preview?usermethod=camera'
       })
+    } else {
+      console.log('取消下一步')
     }
   },
 

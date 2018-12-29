@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 15,
 			"list": [
 				{
 					"id": -1,
@@ -125,7 +125,13 @@
 				{
 					"id": -1,
 					"name": "超级测测测",
-					"pathName": "pages/superTest/superTest"
+					"pathName": "pages/superTest/superTest",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "测测测预览视频",
+					"pathName": "pages/testVideo/testVideo"
 				}
 			]
 		}

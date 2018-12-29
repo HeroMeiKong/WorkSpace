@@ -1,23 +1,82 @@
 /* pages/superTest/superTest.wxss */
-.wrapper{
+@import "./../../public.wxss";
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  
+}
+
+.page{
   width: 100%;
   height: 100%;
   position: relative;
   display: flex;
   justify-content: center;
+  background-color: RGBA(157, 30, 35, 1);
+  background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 背景图片 */
+  background-size: 100%;
 }
-.wrapperimg{
+.pageimg{
+  background: url('https://s-js.sports.cctv.com/host/image/2018/12/28/15459819164654.png') no-repeat;
+  background-size: 100%;
+}
+.wrapperimg {
   width: 100%;
   height: 100%;
   position: absolute;
 }
-.bottombutton{
+
+.wrapperinner{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.avatar {
+  width: 651rpx;
+  height: 505rpx;
+  z-index: 100;
+}
+
+.bottombutton {
   width: 386rpx;
   height: 114rpx;
   position: absolute;
-  bottom: 87rpx;
+  bottom: 90rpx;
 }
-.bottombutton image{
+
+.bottombutton image {
   width: 386rpx;
   height: 114rpx;
+}
+
+.pageinner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainimg{
+  width: 390rpx;
+  height: 476rpx;
+  position: absolute;
+  bottom: 263rpx;
+}
+
+.bottomview{
+  width: 90%;
+  height: 114rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  bottom: 133rpx;
+}
+
+.bottomimg{
+  width: 298rpx;
+  height: 100%;
 }
