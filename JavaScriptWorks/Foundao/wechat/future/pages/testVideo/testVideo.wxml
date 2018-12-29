@@ -1,5 +1,10 @@
 <!--pages/testVideo/testVideo.wxml-->
 <view class="wrapper">
-  <backTitle noBack="{{false}}" title="超级测测测"></backTitle>
-  <video class="innervideo" src="{{videoSrc}}" objectFit="contain"></video>
+  <video id="myVideo" class="innervideo" src="{{videoSrc}}" objectFit="contain" controls="{{false}}" show-center-play-btn="{{false}}">
+    <cover-view class="cover" catch:tap="clickVideo">
+      <cover-view class="topbutton {{models}}">
+        <cover-image class="backbutton" src="../../assets/images/jt4.png" catch:tap="closeVideo"></cover-image>
+      </cover-view>
+    </cover-view>
+  </video>
 </view>

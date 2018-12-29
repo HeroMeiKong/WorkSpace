@@ -130,4 +130,5 @@ export default {
     firstLogin: host + 'sprint_activity/get_user_ce.php',//查询用户是否第一次进入测测测
     mixVideo: host + 'sprint_activity/submit_video_templet.php',//视频合成提交接口
     searchVideo: host + 'sprint_activity/get_submit_video_templet.php',//查询视频合成提交接口
+    makerVideo: host + 'sprint_activity/user_queren.php'//用户立即合成
 }

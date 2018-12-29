@@ -44,16 +44,11 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
-        wx.getSystemInfo({
-            success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
-                    this.setData({
-                        isIpx: true
-                    })
-                }
-            }
-        });
+        app.isFullScreen(()=>{
+            this.setData({
+                isIpx: true
+            })
+        })
     },
 
     /**

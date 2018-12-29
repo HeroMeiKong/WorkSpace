@@ -35,9 +35,20 @@
   align-items: center; 
 }
 
+.wrapperavatar{
+  width: 534rpx;
+	height: 400rpx;
+  overflow: hidden;
+}
+
+.longimg{
+	height: 400rpx;
+  width: 12282rpx;
+}
+
 .avatar {
-  width: 651rpx;
-  height: 505rpx;
+  width: 534rpx;
+	height: 400rpx;
   z-index: 100;
 }
 

@@ -508,8 +508,8 @@
     position: absolute;
     top: -10000rpx;
     left:0;
-    width: 750px;
-    height: 1238px;
+    width: 375px;
+    height: 619px;
 }
 
 .poster_layer{
@@ -583,6 +583,7 @@
 
 .poster_layer .save_poster .poster-shandow{
     position: absolute;
+    z-index: 4;
     top: 71rpx;
     width: 426rpx;
     height: 686rpx;
@@ -605,7 +606,7 @@
     margin-top: 80rpx;
     width: 400rpx;
     height: 660rpx;
-    box-shadow:0rpx 4rpx 16rpx 0rpx rgba(0, 0, 0, 0.14);
+    /*box-shadow:0rpx 4rpx 16rpx 0rpx rgba(0, 0, 0, 0.14);*/
     border-radius:14rpx;
     /*border: 2rpx solid #ffd892;*/
 }

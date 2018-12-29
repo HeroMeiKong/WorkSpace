@@ -14,6 +14,11 @@ App({
     onLaunch: function (options) {
         //渠道码
         this.globalData.pt = options.query.pt || '';
+        wx.getSystemInfo({
+            success: (res) => {
+                console.log(res)
+            }
+        });
     },
 
     // PV UV  -> statistics_pv
@@ -180,6 +185,18 @@ App({
                         })
                     }
                 })
+            }
+        });
+    },
+
+    isFullScreen(fun) {
+        wx.getSystemInfo({
+            success: (res) => {
+                const {screenWidth, screenHeight} = res;
+                if (screenHeight / screenWidth > 1.9) {
+                    //全面屏
+                    fun && fun()
+                }
             }
         });
     },

@@ -1,6 +1,5 @@
 // pages/superTest/superTest.js
 import api from './../../config/api';
-const openpic = 'https://s-js.sports.cctv.com/host/image/2018/12/28/15459816402671.gif'
 let videoSrc = ''
 Page({
 
@@ -13,8 +12,9 @@ Page({
     showSecond: 'none',
     changeimage: true,
     showThird: 'none',
-    openpic: '',
+    fromX: 0,//第一张图片动画
     pic: '',
+    makerVideoId: ''
   },
 
   /**
@@ -52,35 +52,41 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    console.log('onReady')
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log('onShow')
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log('onHide')
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    console.log('onUnload')
+    this.setData({
+      showFirst: 'flex',
+      showSecond: 'none',
+      changeimage: true,
+      showThird: 'none',
+    })
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    console.log('onShareAppMessage')
   },
   shooting(e) {
     console.log('shooting')
@@ -145,11 +151,11 @@ Page({
           } else {
             //上传视频， 取得视频服务器地址
             console.log('发送上传视频请求')
-            that.setData({
-              showFirst: 'none',
-              showSecond: 'flex',
-              changeimage: true,
-            })
+            // that.setData({
+            //   showFirst: 'none',
+            //   showSecond: 'flex',
+            //   changeimage: true,
+            // })
             wx.uploadFile({
               url: api.upload,
               filePath: res.tempFilePath,
@@ -173,7 +179,6 @@ Page({
                 that.setData({
                   showFirst: 'none',
                   showSecond: 'flex',
-                  openpic: openpic
                 })
                 //请求视频合成
                 wx.request({
@@ -187,6 +192,19 @@ Page({
                     video_url: data.data.file_path
                   },
                   success: (res1) => {
+                    //设置第一张图对动画！
+                    let x = 0
+                    const times = setInterval(()=>{
+                      x = x + 534
+                      if(x > 11282){
+                        console.log('ahahah')
+                        clearInterval(times)
+                      } else {
+                        that.setData({
+                          fromX: x
+                        })
+                      }
+                    },100)
                     if(res1.data.code === 0){
                       console.log('视频合成成功')
                       //查询视频合成情况
@@ -232,7 +250,6 @@ Page({
                               guanlian_img_url: res1.data.data.guanlian_img_url
                             },
                             success: (res2) => {
-                              console.log('jhhhhhhhhh')
                               console.log(res2)
                               if(res2.data.code === 0){
                                 videoSrc = res2.data.data.video_url
@@ -242,6 +259,7 @@ Page({
                                   showSecond: 'none',
                                   changeimage: true,
                                   showThird: 'flex',
+                                  makerVideoId: res2.data.data.job_id
                                 })
                               }
                             },
@@ -345,12 +363,53 @@ Page({
   },
   preview (e) {
     console.log('preview')
-    console.log(videoSrc)
     wx.navigateTo({
       url: '/pages/testVideo/testVideo?videourl='+videoSrc
     })
   },
   compose (e) {
     console.log('compose')
+    wx.request({
+      url: api.makerVideo,
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          "auth-token": wx.getStorageSync('loginSessionKey'),
+      },
+      data: {
+        job_id: this.data.makerVideoId,
+      },
+      success: (res2) => {
+        if(res2.data.code === 0){
+          wx.showToast({
+            title: '视频合成成功！',
+            icon: 'success',
+            duration: 1500,
+            mask: true
+          })
+          const timers = setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            });
+            this.setData({
+              showFirst: 'flex',
+              showSecond: 'none',
+              changeimage: true,
+              showThird: 'none',
+            })
+            clearTimeout(timers)
+          }, 1500)
+        }
+      },
+      fail: (e) => {
+        console.log(e)
+        wx.showToast({
+          title: '请求发送失败！',
+          icon: 'fail',
+          duration: 1500,
+          mask: true,
+        });
+      },
+    })
   },
 })

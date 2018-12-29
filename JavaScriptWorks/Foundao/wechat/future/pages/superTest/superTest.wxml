@@ -1,6 +1,6 @@
 <!--pages/superTest/superTest.wxml-->
 <view class="wrapper {{models}}">
-  <backTitle noBack="{{true}}" title="超级测测测"></backTitle>
+  <backTitle noBack="{{false}}" title="超级测测测"></backTitle>
   <view class="page pageimg" style="display:{{showFirst}}">
     <view class="wrapperinner">
       <image class="avatar" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459812957282.gif"></image>
@@ -9,7 +9,9 @@
   </view>
   <view class="page" style="display:{{showSecond}}">
     <view class="pageinner">
-      <image class="avatar" src="" wx:if="{{changeimage}}"></image>
+      <view class="wrapperavatar" wx:if="{{changeimage}}">
+        <image class="longimg" src="../../assets/images/111.png" style="transform: translateX({{-fromX}}rpx)"></image>
+      </view>
       <image class="avatar" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459816525687.gif" wx:else="{{!changeimage}}"></image>
     </view>
   </view>

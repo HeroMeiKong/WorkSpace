@@ -89,17 +89,11 @@ Page({
             this.data.first_uuid = options.video_uuid
             this.data.first_id = options.id
         }
-        wx.getSystemInfo({
-            success: (res) => {
-                console.log(res.model)
-                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
-                    this.setData({
-                        isIpx: true
-                    })
-                }
-            }
-        });
-
+        app.isFullScreen(()=>{
+            this.setData({
+                isIpx: true
+            })
+        })
     },
 
     /**
@@ -913,10 +907,46 @@ Page({
         this.data.ctx = wx.createCanvasContext('canvas_poster');
     },
 
+    roundRect(ctx, x, y, w, h, r) {
+        // 开始绘制
+        ctx.save();
+        ctx.beginPath()
+        // 因为边缘描边存在锯齿，最好指定使用 transparent 填充
+        // 这里是使用 fill 还是 stroke都可以，二选一即可
+        // ctx.setFillStyle('transparent')
+        ctx.setStrokeStyle('transparent')
+        // 左上角
+        ctx.arc(x + r, y + r, r, Math.PI, Math.PI * 3 / 2)
+
+        // border-top
+        // ctx.lineTo(x + r, y)
+        // ctx.lineTo(x + w - r, y)
+        ctx.lineTo(x + w - r, y)
+        // 右上角
+        ctx.arc(x + w - r, y + r, r, Math.PI * 3 / 2, Math.PI * 2)
+
+        // border-right
+        ctx.lineTo(x + w, y + h)
+
+        // border-bottom
+        ctx.lineTo(x, y + h)
+
+        // border-left
+        ctx.lineTo(x, y - r)
+
+        // 这里是使用 fill 还是 stroke都可以，二选一即可，但是需要与上面对应
+        ctx.fill()
+        // ctx.stroke()
+        ctx.closePath()
+        // 剪切
+        ctx.clip()
+    },
+
+
     // 生成海报
     create_poster() {
-        const canvas_width = 750;
-        const canvas_height = 1238;
+        // const canvas_width = 750;
+        // const canvas_height = 1238;
         const {userInfo, cur_video} = this.data;
 
         wx.showLoading({
@@ -926,95 +956,102 @@ Page({
         //获取二维码
         this.get_erCode(() => {
             const getImage = promisify(wx.getImageInfo);
+            const getImage1 = promisify(wx.getImageInfo);
             const getImage2 = promisify(wx.getImageInfo);
             const getImage3 = promisify(wx.getImageInfo);
 
             var ctx = this.data.ctx;
-            ctx.setFillStyle('#FFD892');
-            ctx.fillRect(0, 0, 750, 1238);
+            // ctx.setFillStyle('#FFD892');
+            // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
-            // ctx.setFillStyle('#a32b30');
-            ctx.fillRect(10, 10, 730, 1218);
-            getImage({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
-                // 绘制背景图
-                const bg_img = resp.path;  // 背景图片
-                const bg_width = resp.width;
-                const bg_height = resp.height;
-                var dx = 0;
-                var dy = 0;
-                var dWidth = 0;
-                var dHeight = 0;
-                if (bg_width > bg_height) {
-                    dy = 0
-                    dx = (bg_width - bg_height) / 2
-                    dHeight = bg_height;
-                    dWidth = bg_height
-                } else {
-                    dx = 0
-                    dy = (bg_height - bg_width) / 2
-                    dHeight = bg_width;
-                    dWidth = bg_width;
-                }
 
-                getImage2({src: this.data.qr_code_url}).then(res => {
-                    // console.log(res);
-                    const qr_img = res.path; // 二维码
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/1bg2@2x.png'}).then(resp => {
+                const posterBg_img = resp.path;  // 背景图片
+                getImage1({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
+                    const bg_img = resp.path;  // 封面图
+                    const bg_width = resp.width;
+                    const bg_height = resp.height;
+                    var sx = 0;
+                    var sy = 0;
+                    var sWidth = 0;
+                    var sHeight = 0;
+                    if (bg_width / bg_height > 1.3345) {
+                        sy = 0
+                        sx = (bg_width - bg_height * 1.3345) / 2
+                        sHeight = bg_height;
+                        sWidth = bg_height * 1.3345;
+                    } else {
+                        sx = 0
+                        sy = (bg_height - bg_width / 1.3345 ) / 2
+                        sWidth = bg_width;
+                        sHeight = bg_width / 1.3345;
+                    }
+                    getImage2({src: this.data.qr_code_url}).then(res => {
+                        const qr_img = res.path; // 二维码
+                        getImage3({src: cur_video.nick_pic.replace('http://', 'https://')}).then(re => {
+                            const user_img = re.path; // 二维码
 
-                    getImage3({src: cur_video.nick_pic.replace('http://', 'https://')}).then(re => {
-                        const user_img = re.path; // 二维码
+                            //开始绘制
 
-                        // 绘制背景图
-                        ctx.drawImage(bg_img, dx, dy, dWidth, dHeight, 10, 10, 730, 730);
+                            // 绘制背景图
+                            ctx.drawImage(posterBg_img, 0, 0, resp.path.width, resp.path.height, 0, 0, 375, 619);
 
-                        // 绘制头像
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.arc(30 + 64, 686 + 64, 64, 0, Math.PI * 2, false);
-                        ctx.clip();
-                        ctx.drawImage(user_img, 30, 686, 128, 128);
-                        ctx.restore();
+                            //绘制封面图
+                            this.roundRect(ctx, 30, 55, 315, 236, 7)
+                            var dx = 30;
+                            var dy = 55;
+                            if (sWidth < 315) {
+                                dx = dx + (315 - sWidth) / 2
+                            }
+                            if (sHeight < 236) {
+                                dy = dy + (236 - sHeight) / 2
+                            }
+                            ctx.drawImage(bg_img, sx, sy, sWidth, sHeight, dx, dy, 315, 236);
+                            ctx.restore();
 
-                        // 绘制名称
-                        ctx.setFillStyle('#FFD892');
-                        ctx.setFontSize(34);
-                        ctx.setTextBaseline('top')
-                        ctx.fillText(cur_video.nick_name, 185, 766);
+                            // 绘制头像
+                            ctx.save();
+                            ctx.beginPath();
+                            ctx.arc(43 + 32, 256 + 32, 32, 0, Math.PI * 2, false);
+                            ctx.clip();
+                            ctx.drawImage(user_img, 43, 256, 64, 64);
+                            ctx.restore();
 
-                        // 绘制描述
-                        const stringArr = Tool.stringToArr(cur_video.video_desc, 18);
-                        ctx.setFillStyle('#FFD892');
-                        ctx.setFontSize(30);
-                        ctx.setTextBaseline('top');
-                        stringArr.forEach((item, index) => {
-                            ctx.fillText(item, 185, 818 + (index * 50));
-                        });
-                        // ctx.fillText(cur_video.video_desc, 185, 818);
+                            // 绘制二维码
+                            ctx.save();
+                            ctx.beginPath();
+                            ctx.drawImage(qr_img, 48, 457, 94, 94);
+                            ctx.restore();
 
-                        // 绘制二维码
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.rect(124, 990, 200, 200);
-                        ctx.clip();
-                        // qr_img
-                        ctx.drawImage(qr_img, 124, 990, 200, 200);
-                        ctx.restore();
+                            // 绘制名称
+                            ctx.font = "bold";
+                            ctx.setFillStyle('#FFD792');
+                            ctx.setFontSize(17);
+                            ctx.setTextBaseline('top')
+                            ctx.fillText(cur_video.nick_name, 115, 300);
 
-                        // 绘制底部文字
-                        // ctx.setTextAlign('center');
-                        ctx.setFillStyle('rgba(255,216,146,0.8)');
-                        ctx.setFontSize(28);
-                        ctx.setTextBaseline('top')
-                        ctx.fillText('长按小程序查看详情', 358, 1048);
-                        ctx.fillText('和我一起玩「逗牛短视频」', 358, 1092);
+                            // 绘制描述
+                            const stringArr = Tool.stringToArr('#' + cur_video.sub_title + ' ' + cur_video.video_desc, 14);
+                            ctx.setFillStyle('#FFD792');
+                            ctx.setFontSize(15);
+                            ctx.setTextBaseline('top');
+                            stringArr.forEach((item, index) => {
+                                ctx.fillText(item, 115, 326 + (index * 21));
+                            });
 
+                            // 绘制底部文字
+                            ctx.setFillStyle('#FFD792');
+                            ctx.setFontSize(14);
+                            ctx.setTextBaseline('top')
+                            ctx.fillText('长按小程序，一起来', 160, 486);
+                            ctx.fillText('「逗牛短视频」挑战大咖吧！', 160, 508);
 
-                        ctx.draw(false, this.create_poster_image);
+                            ctx.draw(false, this.create_poster_image);
+                        })
                     })
 
-                }).catch(err => {
-                    console.log(err)
-                });
-            });
+                })
+            })
         });
 
 
@@ -1380,19 +1417,19 @@ Page({
             showDoLayer: false
         })
     },
-    switchToCamera(){
+    switchToCamera() {
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=camera'
         })
     },
 
-    switchToUpload(){
+    switchToUpload() {
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=album'
         })
     },
 
-    noclose_poster(){
+    noclose_poster() {
 
     },
 })

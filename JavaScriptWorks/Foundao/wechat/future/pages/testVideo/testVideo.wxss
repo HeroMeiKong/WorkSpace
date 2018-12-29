@@ -1,4 +1,23 @@
 /* pages/testVideo/testVideo.wxss */
+/* 适配机型 */
+.iphoneX{
+  padding-top: 73rpx!important;
+}
+.huaweimate10plus{
+  padding-top: 51rpx!important;
+}
+.xiaomi8{
+  padding-top: 71rpx!important;
+}
+.oneplus5t{
+  padding-top: 51rpx!important;
+}
+
+.defaultmodel{
+  padding-top: 40rpx!important;
+}
+
+
 .wrapper{
   width: 100%;
   height: 100%;
@@ -10,4 +29,20 @@
 .innervideo{
   width: 100%;
   height: 100%;
+}
+
+.cover{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.topbutton{
+  width: 100%;
+}
+
+.backbutton{
+  width: 90rpx;
+  height: 90rpx;
+  padding: 20rpx;
 }

@@ -38,15 +38,11 @@ Page({
                 url: '/pages/subjectIndex/subjectIndex'
             })
         }
-        wx.getSystemInfo({
-            success: (res) => {
-                if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
-                    this.setData({
-                        isIpx: true
-                    })
-                }
-            }
-        });
+        app.isFullScreen(()=>{
+            this.setData({
+                isIpx: true
+            })
+        })
     },
 
     /**
