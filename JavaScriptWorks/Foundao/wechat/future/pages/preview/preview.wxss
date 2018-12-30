@@ -70,6 +70,10 @@
   width: 100%;
   height: 100%;
   border-radius:6rpx;
+  border: 2rpx solid rgba(255,255,255,0);
+}
+
+.screenshot .flex{
   /* border: 2rpx solid #fff; */
   border: 2rpx solid #FE2C1D;/* 春节样式 */
 }

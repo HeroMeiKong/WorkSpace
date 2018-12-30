@@ -465,8 +465,8 @@
     position: absolute;
     left:0;
     top: -10000rpx;
-    width: 750px;
-    height: 1238px;
+    width: 375px;
+    height: 619px;
 }
 
 .poster_layer{

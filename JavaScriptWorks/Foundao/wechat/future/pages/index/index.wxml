@@ -61,7 +61,7 @@
             </cover-view>
 
             <!--覆盖框-->
-            <cover-view class="cover-box {{isIpx?'iphoneX-cover':''}}"
+            <cover-view class="cover-box {{isIpx_bottom?'iphoneX-cover':''}}"
                         bindtap="moveDown"
                         bindtap="videoClick"
                         bindtouchstart="touchStart"
@@ -147,7 +147,7 @@
                 </cover-view>
 
                 <!--tabbar-->
-                <cover-view class="tabbar-box {{isIpx?'iphoneX-tabbar':''}}" hidden="{{hideDiyTabBar}}">
+                <cover-view class="tabbar-box {{isIpx_bottom?'iphoneX-tabbar':''}}" hidden="{{hideDiyTabBar}}">
                     <cover-view class="tabbar-item selected">
                         首页
                         <cover-view class="tabbar-item-border"></cover-view>

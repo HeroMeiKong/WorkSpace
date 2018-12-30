@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 15,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -54,7 +54,7 @@
 					"id": 2,
 					"name": "视频详情页",
 					"pathName": "pages/video/video",
-					"query": "video_uuid=1121140603368636215400&id=112"
+					"query": "video_uuid=43271817152121822976542&id=81"
 				},
 				{
 					"id": -1,
@@ -131,7 +131,8 @@
 				{
 					"id": -1,
 					"name": "测测测预览视频",
-					"pathName": "pages/testVideo/testVideo"
+					"pathName": "pages/testVideo/testVideo",
+					"query": ""
 				}
 			]
 		}

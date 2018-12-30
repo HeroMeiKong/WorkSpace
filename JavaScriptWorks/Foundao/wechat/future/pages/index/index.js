@@ -63,6 +63,7 @@ Page({
         },
 
         isIpx: false,
+        isIpx_bottom: false,
         fit: false,
 
         switch_time: 800,
@@ -89,9 +90,14 @@ Page({
             this.data.first_uuid = options.video_uuid
             this.data.first_id = options.id
         }
-        app.isFullScreen(()=>{
+        app.isFullScreen(() => {
             this.setData({
                 isIpx: true
+            })
+        })
+        app.isPhoneX(() => {
+            this.setData({
+                isIpx_bottom: true
             })
         })
     },
@@ -1000,12 +1006,12 @@ Page({
                             this.roundRect(ctx, 30, 55, 315, 236, 7)
                             var dx = 30;
                             var dy = 55;
-                            if (sWidth < 315) {
-                                dx = dx + (315 - sWidth) / 2
-                            }
-                            if (sHeight < 236) {
-                                dy = dy + (236 - sHeight) / 2
-                            }
+                            // if (sWidth < 315) {
+                            //     dx = dx + (315 - sWidth) / 2
+                            // }
+                            // if (sHeight < 236) {
+                            //     dy = dy + (236 - sHeight) / 2
+                            // }
                             ctx.drawImage(bg_img, sx, sy, sWidth, sHeight, dx, dy, 315, 236);
                             ctx.restore();
 

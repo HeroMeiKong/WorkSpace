@@ -135,9 +135,9 @@ Page({
               });
               clearTimeout(timers)
             }, 1500)
-          } else if (res.duration < 10) {
+          } else if (res.duration < 5) {
             wx.showToast({
-              title: '上传的视频拍摄时间不能低于10秒！',
+              title: '上传的视频拍摄时间不能低于5秒！',
               icon: 'none',
               duration: 3500,
               mask: true

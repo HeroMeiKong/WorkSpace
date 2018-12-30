@@ -192,9 +192,20 @@ App({
     isFullScreen(fun) {
         wx.getSystemInfo({
             success: (res) => {
-                const {screenWidth, screenHeight} = res;
-                if (screenHeight / screenWidth > 1.9) {
+                const {screenWidth, screenHeight, windowHeight, windowWidth} = res;
+                if (windowHeight / windowWidth > 1.8) {
                     //全面屏
+                    fun && fun()
+                }
+            }
+        });
+    },
+
+    isPhoneX(fun) {
+        wx.getSystemInfo({
+            success: (res) => {
+                const {model} = res;
+                if (model.indexOf('iPhone X') > -1) {
                     fun && fun()
                 }
             }
