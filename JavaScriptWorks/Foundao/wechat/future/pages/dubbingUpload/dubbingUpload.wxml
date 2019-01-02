@@ -34,8 +34,8 @@
     </view>
     <!-- 本地上传 -->
     <view class="superwrapper">
-      <view class="superinner" catch:tap="superMatch"><view>#超级配配配</view></view>
-      <view class="superinner" catch:tap="superTest"><view>#超级测测测</view></view>
+      <view class="superinner" catch:tap="superMatch"><image src="https://s-js.sports.cctv.com/host/image/2019/01/02/15464263403578.png"></image></view>
+      <view class="superinner" catch:tap="superTest"><image src="https://s-js.sports.cctv.com/host/image/2019/01/02/15464263431927.png"></image></view>
     </view>
   </view>
   <tabbar select="1" show="{{showDiyTabBar}}"></tabbar>

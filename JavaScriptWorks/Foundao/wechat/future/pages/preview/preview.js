@@ -23,7 +23,7 @@ var pasterNum = 0 //压条显示个数
 var oldmusiclist = {id: 0}     //选中的音乐列表
 var musiclistcontent = []      //{id: 0,content: ''}音乐的内容
 // const musicpic = {playimg: '../../assets/images/4play.png',pauseimg: '../../assets/images/4ing.gif',addimg: '../../assets/images/4add.png',cancelimg: '../../assets/images/4cancel.png'}
-const musicpic = {playimg: '../../assets/images/4play@2x.png',pauseimg: '../../assets/images/bofang.gif',addimg: '../../assets/images/4tianjia@2x.png',cancelimg: '../../assets/images/4xuanze@2x.png'}//春节样式
+const musicpic = {playimg: '../../assets/images/4play1@2x.png',pauseimg: '../../assets/images/bofang.gif',addimg: '../../assets/images/4tianjia@2x.png',cancelimg: '../../assets/images/4xuanze@2x.png'}//春节样式
 var playlock = false //音乐是否播放
 let whichone = {who: '',id: 0} //正在播放哪首歌
 let tempmusic = {new: {type_id: 0,id: 0}, old: {type_id: 0,id: 0}}
@@ -71,6 +71,7 @@ Page({
                      {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: '',rotate: 0},
                      {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: '',rotate: 0}], //压条个数
     oldCoordinatey: 0,
+    originMovableview: {x: 0,y: 0},
     oldVideoSize: {width: 0,height: 0},
     previewpic: '', //视频截图加载失败，默认图片
     filters: [{filterdiv: 'chosefilterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/images/2attention3@2x.png',name: '原画',id: 'none'},
@@ -142,37 +143,47 @@ Page({
         console.log(res)
         console.log(res.model)
         windowWidth = res.windowWidth
+        windowHeight = res.windowHeight
+        that.data.oldCoordinatey = 0
         if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
           //iphoneX
-          windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.73
-          that.data.oldCoordinatey = 186 * windowWidth / 750
+          //windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.73//原来视频大小
+          //that.data.oldCoordinatey = 186 * windowWidth / 750
           that.data.models = 'iphoneX'
         } else if (res.model.indexOf("BLA-AL00") > -1) {
           //huaweimate10plus
-          windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
-          that.data.oldCoordinatey = 142 * windowWidth / 750
+          //windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
+          //that.data.oldCoordinatey = 142 * windowWidth / 750
           that.data.models = 'huaweimate10plus'
         } else if (res.model.indexOf("ONEPLUS A5010") > -1) {
           //OnePlus5T
-          windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
-          that.data.oldCoordinatey = 142 * windowWidth / 750
+          //windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
+          //that.data.oldCoordinatey = 142 * windowWidth / 750
           that.data.models = 'oneplus5t'
         } else if (res.model.indexOf("MI 8") > -1) {
           //xiaomi8
-          windowHeight = (res.windowHeight - 162 * windowWidth / 750)*0.73
-          that.data.oldCoordinatey = 162 * windowWidth / 750
+          //windowHeight = (res.windowHeight - 162 * windowWidth / 750)*0.73
+          //that.data.oldCoordinatey = 162 * windowWidth / 750
           that.data.models = 'xiaomi8'
         } else {
           //其他机型
-          windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.73
-          that.data.oldCoordinatey = 122 * windowWidth / 750
+          //windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.73
+          //that.data.oldCoordinatey = 122 * windowWidth / 750
           // that.setData({
           //   whichmodel: false,
           // })
         }
+        that.data.originMovableview.x = windowWidth/2 - 40
+        that.data.originMovableview.y = windowHeight/2 -40
         previewbox = 69*windowWidth/75
+        for(let i=0;i<3;i++){
+          that.data.movableviewNum[i].x = that.data.originMovableview.x
+          that.data.movableviewNum[i].y = that.data.originMovableview.y
+        }
         that.setData({
-          models: that.data.models
+          models: that.data.models,
+          originMovableview: that.data.originMovableview,
+          movableviewNum: that.data.movableviewNum
         })
       }
     })
@@ -194,181 +205,181 @@ Page({
     console.log('onReady')
     console.log('选取本地视频')
     let that = this
-    // wx.chooseVideo({
-    //   sourceType: [usermethod],
-    //   maxDuration: 30,
-    //   camera: 'back',
-    //   success: function (res) {
-    //     console.log('选取视频')
-    //     console.log(res)
-    //     const videoType = res.tempFilePath
-    //     if(videoType.substring(videoType.length-3) === 'mp4' || videoType.substring(videoType.length-3) === 'mov' || videoType.substring(videoType.length-3) === 'avi'){
-    //       console.log(videoType.substring(videoType.length-3))
-    //       that.data.oldVideoSize.height = res.height
-    //       that.data.oldVideoSize.width = res.width
-    //       res.height > res.width ? computeMethod = 'height': computeMethod = 'width'
-    //       let value = res.height/res.width
-    //       if(computeMethod === 'height'){
-    //         that.data.picsize.height = windowHeight
-    //         that.data.picsize.width = windowHeight/value
-    //         that.data.previewsize.height = previewbox
-    //         that.data.previewsize.width = previewbox/value
-    //       } else {
-    //         that.data.picsize.width = windowWidth
-    //         that.data.picsize.height = windowWidth*value
-    //         that.data.previewsize.width = previewbox
-    //         that.data.previewsize.height = previewbox*value
-    //       }
-    //       wx.showToast({
-    //         title: '选取视频成功',
-    //         icon: 'success',
-    //         duration: 2000
-    //       })
-    //       that.setData({
-    //         tempFilePath: res.tempFilePath,
-    //         duration: res.duration,
-    //         oldVideoSize: that.data.oldVideoSize,
-    //         size: (res.size / (1024 * 1024)).toFixed(2),
-    //         picsize: that.data.picsize,
-    //         previewsize: that.data.previewsize
-    //       })
-    //       console.log(that.data.oldVideoSize)
-    //       wx.showLoading({
-    //         title: '视频上传中',
-    //         mask: true
-    //       })
-    //       if(usermethod === 'camera'){
-    //         console.log('拍摄视频')
-    //         wx.saveVideoToPhotosAlbum({
-    //           filePath: res.tempFilePath,
-    //           success(res) {
-    //             console.log(res)
-    //           },
-    //           fail(res) {
-    //             console.log(res.errMsg)
-    //           }
-    //         })
-    //       }
-    //       if (that.data.size > 100) {
-    //         wx.showToast({
-    //           title: '上传的视频大小不能超过100M！',
-    //           icon: 'none',
-    //           duration: 1500,
-    //           mask: true
-    //         })
-    //         const timers = setTimeout(()=>{
-    //           if(usermethod === 'camera'){
-    //             app.shootsuccess = true
-    //           } else {
-    //             app.shootsuccess = false
-    //           }
-    //           wx.navigateBack({
-    //             delta: 1
-    //           });
-    //           clearTimeout(timers)
-    //         },1500)
-    //       } else {
-    //         if (that.data.duration > 30) {
-    //           wx.showToast({
-    //             title: '上传的视频拍摄时间不能大于30秒！',
-    //             icon: 'none',
-    //             duration: 3500,
-    //             mask: true
-    //           })
-    //           const timers = setTimeout(()=>{
-    //             if(usermethod === 'camera'){
-    //               app.shootsuccess = true
-    //             } else {
-    //               app.shootsuccess = false
-    //             }
-    //             wx.navigateBack({
-    //               delta: 1
-    //             });
-    //             clearTimeout(timers)
-    //           },1500)
-    //         } else if (that.data.duration < 5) {
-    //           wx.showToast({
-    //             title: '上传的视频拍摄时间不能低于5秒！',
-    //             icon: 'none',
-    //             duration: 3500,
-    //             mask: true
-    //           })
-    //           const timers = setTimeout(()=>{
-    //             if(usermethod === 'camera'){
-    //               app.shootsuccess = true
-    //             } else {
-    //               app.shootsuccess = false
-    //             }
-    //             wx.navigateBack({
-    //               delta: 1
-    //             });
-    //             clearTimeout(timers)
-    //           },1500)
-    //         } else {
-    //           //上传视频， 取得视频服务器地址
-    //           console.log('发送上传视频请求')
-    //           wx.uploadFile({
-    //             url: api.upload_cover,
-    //             filePath: that.data.tempFilePath,
-    //             name: 'filename',
-    //             header: {
-    //               'content-type': 'multipart/form-data',
-    //               "auth-token": wx.getStorageSync('loginSessionKey'),
-    //             },
-    //             formData: {
-    //               upload_type: 'tmp1',
-    //               filename: that.data.tempFilePath,
-    //             },
-    //             success(res) {
-    //               const data = JSON.parse(res.data)
-    //               that.data.uploadContent.video_url = data.data.file_path
-    //               console.log(res.data)
-    //               console.log(data)
-    //               that.setData({
-    //                 previewpic: data.data.savehttp,
-    //                 uploadContent: that.data.uploadContent,
-    //                 chooseVideo: 1
-    //               })
-    //             },
-    //             complete () {
-    //               console.log('隐藏了哈')
-    //               wx.hideLoading()
-    //             }
-    //           })
-    //         }
-    //       }
-    //     } else {
-    //       wx.showToast({
-    //         title: '视频只支持mp4,aiv和mov格式！',
-    //         icon: 'none',
-    //         duration: 1500,
-    //         mask: true,
-    //         success: (result)=>{
-    //           const time = setTimeout(()=>{
-    //             clearTimeout(time)
-    //             wx.navigateBack({
-    //               delta: 1
-    //             });
-    //           },1500)
-    //         },
-    //       });
-    //     }
-    //   },
-    //   fail: function (e) {
-    //     console.log('选择视频失败！')
-    //     console.log(e)
-    //     app.shootsuccess = false
-    //     wx.navigateBack({
-    //       delta: 1
-    //     });
-    //     that.setData({
-    //       chooseVideo: 2
-    //     })
-    //   },
-    //   complete: function (e) {
-    //     console.log('我的错我的错我的错')
-    //   }
-    // })
+    wx.chooseVideo({
+      sourceType: [usermethod],
+      maxDuration: 30,
+      camera: 'back',
+      success: function (res) {
+        console.log('选取视频')
+        console.log(res)
+        const videoType = res.tempFilePath
+        if(videoType.substring(videoType.length-3) === 'mp4' || videoType.substring(videoType.length-3) === 'mov' || videoType.substring(videoType.length-3) === 'avi'){
+          console.log(videoType.substring(videoType.length-3))
+          that.data.oldVideoSize.height = res.height
+          that.data.oldVideoSize.width = res.width
+          res.height > res.width ? computeMethod = 'height': computeMethod = 'width'
+          let value = res.height/res.width
+          if(computeMethod === 'height'){
+            that.data.picsize.height = windowHeight
+            that.data.picsize.width = windowHeight/value
+            that.data.previewsize.height = previewbox
+            that.data.previewsize.width = previewbox/value
+          } else {
+            that.data.picsize.width = windowWidth
+            that.data.picsize.height = windowWidth*value
+            that.data.previewsize.width = previewbox
+            that.data.previewsize.height = previewbox*value
+          }
+          wx.showToast({
+            title: '选取视频成功',
+            icon: 'success',
+            duration: 2000
+          })
+          that.setData({
+            tempFilePath: res.tempFilePath,
+            duration: res.duration,
+            oldVideoSize: that.data.oldVideoSize,
+            size: (res.size / (1024 * 1024)).toFixed(2),
+            picsize: that.data.picsize,
+            previewsize: that.data.previewsize
+          })
+          console.log(that.data.oldVideoSize)
+          wx.showLoading({
+            title: '视频上传中',
+            mask: true
+          })
+          if(usermethod === 'camera'){
+            console.log('拍摄视频')
+            wx.saveVideoToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success(res) {
+                console.log(res)
+              },
+              fail(res) {
+                console.log(res.errMsg)
+              }
+            })
+          }
+          if (that.data.size > 100) {
+            wx.showToast({
+              title: '上传的视频大小不能超过100M！',
+              icon: 'none',
+              duration: 1500,
+              mask: true
+            })
+            const timers = setTimeout(()=>{
+              if(usermethod === 'camera'){
+                app.shootsuccess = true
+              } else {
+                app.shootsuccess = false
+              }
+              wx.navigateBack({
+                delta: 1
+              });
+              clearTimeout(timers)
+            },1500)
+          } else {
+            if (that.data.duration > 30) {
+              wx.showToast({
+                title: '上传的视频拍摄时间不能大于30秒！',
+                icon: 'none',
+                duration: 3500,
+                mask: true
+              })
+              const timers = setTimeout(()=>{
+                if(usermethod === 'camera'){
+                  app.shootsuccess = true
+                } else {
+                  app.shootsuccess = false
+                }
+                wx.navigateBack({
+                  delta: 1
+                });
+                clearTimeout(timers)
+              },1500)
+            } else if (that.data.duration < 5) {
+              wx.showToast({
+                title: '上传的视频拍摄时间不能低于5秒！',
+                icon: 'none',
+                duration: 3500,
+                mask: true
+              })
+              const timers = setTimeout(()=>{
+                if(usermethod === 'camera'){
+                  app.shootsuccess = true
+                } else {
+                  app.shootsuccess = false
+                }
+                wx.navigateBack({
+                  delta: 1
+                });
+                clearTimeout(timers)
+              },1500)
+            } else {
+              //上传视频， 取得视频服务器地址
+              console.log('发送上传视频请求')
+              wx.uploadFile({
+                url: api.upload_cover,
+                filePath: that.data.tempFilePath,
+                name: 'filename',
+                header: {
+                  'content-type': 'multipart/form-data',
+                  "auth-token": wx.getStorageSync('loginSessionKey'),
+                },
+                formData: {
+                  upload_type: 'tmp1',
+                  filename: that.data.tempFilePath,
+                },
+                success(res) {
+                  const data = JSON.parse(res.data)
+                  that.data.uploadContent.video_url = data.data.file_path
+                  console.log(res.data)
+                  console.log(data)
+                  that.setData({
+                    previewpic: data.data.savehttp,
+                    uploadContent: that.data.uploadContent,
+                    chooseVideo: 1
+                  })
+                },
+                complete () {
+                  console.log('隐藏了哈')
+                  wx.hideLoading()
+                }
+              })
+            }
+          }
+        } else {
+          wx.showToast({
+            title: '视频只支持mp4,aiv和mov格式！',
+            icon: 'none',
+            duration: 1500,
+            mask: true,
+            success: (result)=>{
+              const time = setTimeout(()=>{
+                clearTimeout(time)
+                wx.navigateBack({
+                  delta: 1
+                });
+              },1500)
+            },
+          });
+        }
+      },
+      fail: function (e) {
+        console.log('选择视频失败！')
+        console.log(e)
+        app.shootsuccess = false
+        wx.navigateBack({
+          delta: 1
+        });
+        that.setData({
+          chooseVideo: 2
+        })
+      },
+      complete: function (e) {
+        console.log('我的错我的错我的错')
+      }
+    })
   },
 
   /**
@@ -469,78 +480,105 @@ Page({
       chooseVideo: 0
     })
   },
-  cancelFilter (e) {
-    console.log('cancelFilter')
-    let filterlength = this.data.filters.length
-    nowfiltername = ''
-    this.data.filters[0].filterdiv = 'chosefilterdiv'
-    this.data.filters[0].chose = this.data.filters[0].ispic
-    for(let i=1;i<filterlength;i++){
-      this.data.filters[i].filterdiv = 'filterdiv'
-      this.data.filters[i].chose = this.data.filters[i].nopic
-    }
-    this.data.uploadContent.filter = 'none'
-    this.setData({
-      showoption: 'flex',
-      showfilter: 'none',
-      //showcover: 'flex',
-      filters: this.data.filters,
-      uploadContent: this.data.uploadContent
-    })
-  },
-  cancelPaster (e) {
-    console.log('cancelPaster')
-    this.data.uploadContent.tiezhi = ''
-    this.data.uploadContent.tiezhi_x = 0
-    this.data.uploadContent.tiezhi_y = 0
-    this.data.uploadContent.tiezhi_height = 0
-    this.data.uploadContent.tiezhi_width = 0
-    this.setData({
-      showoption: 'flex',
-      showpaster: 'none',
-      //showcover: 'flex',
-      uploadContent: this.data.uploadContent
-    })
-  },
-  cancelMusic (e) {
-    console.log('cancelMusic')
-    this.data.uploadContent.audio_id = ''
-    this.data.uploadContent.audio_url = ''
-    this.setData({
-      showoption: 'flex',
-      showmusic: 'none',
-      //showcover: 'flex',
-      uploadContent: this.data.uploadContent
-    })
-  },
-  goHomeFilter: function (e) {
-    console.log('goHomeFilter')
-    if(nowfiltername !== ''){
-      wx.showToast({
-        title: '已选择'+nowfiltername,
-        icon: 'none',
-        duration: 1500,
-        mask: false,
-      });
+  blockThis (e) {
+    console.log('blockThis')
+    if(this.data.showfilter === 'flex'){
+      console.log('goHomeFilter')
+      if(nowfiltername !== ''){
+        wx.showToast({
+          title: '已选择'+nowfiltername,
+          icon: 'none',
+          duration: 1500,
+          mask: false,
+        });
+      }
+    } else if(this.data.showpaster === 'flex'){
+      console.log('goHomePaster')
+    } else if(this.data.showmusic === 'flex'){
+      console.log('goHomeMusic')
+      if(preInnerAudioContext.src !== 'https://nomusic.mp3' && preInnerAudioContext.src !== ''){
+        wx.showToast({
+          title: '已选择'+nowmusicname,
+          icon: 'none',
+          duration: 1500,
+          mask: false,
+        });
+      }
     }
     this.goHome()
   },
-  goHomePaster: function (e) {
-    console.log('goHomePaster')
-    this.goHome()
-  },
-  goHomeMusic: function (e) {
-    console.log('goHomeMusic')
-    if(preInnerAudioContext.src !== 'https://nomusic.mp3' && preInnerAudioContext.src !== ''){
-      wx.showToast({
-        title: '已选择'+nowmusicname,
-        icon: 'none',
-        duration: 1500,
-        mask: false,
-      });
-    }
-    this.goHome()
-  },
+  // cancelFilter (e) {
+  //   console.log('cancelFilter')
+  //   let filterlength = this.data.filters.length
+  //   nowfiltername = ''
+  //   this.data.filters[0].filterdiv = 'chosefilterdiv'
+  //   this.data.filters[0].chose = this.data.filters[0].ispic
+  //   for(let i=1;i<filterlength;i++){
+  //     this.data.filters[i].filterdiv = 'filterdiv'
+  //     this.data.filters[i].chose = this.data.filters[i].nopic
+  //   }
+  //   this.data.uploadContent.filter = 'none'
+  //   this.setData({
+  //     showoption: 'flex',
+  //     showfilter: 'none',
+  //     //showcover: 'flex',
+  //     filters: this.data.filters,
+  //     uploadContent: this.data.uploadContent
+  //   })
+  // },
+  // cancelPaster (e) {
+  //   console.log('cancelPaster')
+  //   this.data.uploadContent.tiezhi = ''
+  //   this.data.uploadContent.tiezhi_x = 0
+  //   this.data.uploadContent.tiezhi_y = 0
+  //   this.data.uploadContent.tiezhi_height = 0
+  //   this.data.uploadContent.tiezhi_width = 0
+  //   this.setData({
+  //     showoption: 'flex',
+  //     showpaster: 'none',
+  //     //showcover: 'flex',
+  //     uploadContent: this.data.uploadContent
+  //   })
+  // },
+  // cancelMusic (e) {
+  //   console.log('cancelMusic')
+  //   this.data.uploadContent.audio_id = ''
+  //   this.data.uploadContent.audio_url = ''
+  //   this.setData({
+  //     showoption: 'flex',
+  //     showmusic: 'none',
+  //     //showcover: 'flex',
+  //     uploadContent: this.data.uploadContent
+  //   })
+  // },
+  // goHomeFilter: function (e) {
+  //   console.log('goHomeFilter')
+  //   if(nowfiltername !== ''){
+  //     wx.showToast({
+  //       title: '已选择'+nowfiltername,
+  //       icon: 'none',
+  //       duration: 1500,
+  //       mask: false,
+  //     });
+  //   }
+  //   this.goHome()
+  // },
+  // goHomePaster: function (e) {
+  //   console.log('goHomePaster')
+  //   this.goHome()
+  // },
+  // goHomeMusic: function (e) {
+  //   console.log('goHomeMusic')
+  //   if(preInnerAudioContext.src !== 'https://nomusic.mp3' && preInnerAudioContext.src !== ''){
+  //     wx.showToast({
+  //       title: '已选择'+nowmusicname,
+  //       icon: 'none',
+  //       duration: 1500,
+  //       mask: false,
+  //     });
+  //   }
+  //   this.goHome()
+  // },
   goHome: function (e) {
     console.log('goHome')
     innerAudioContext.stop()

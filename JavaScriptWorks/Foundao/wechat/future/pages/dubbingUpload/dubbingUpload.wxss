@@ -79,3 +79,8 @@
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
   border-radius: 8rpx;
 }
+
+.superinner image{
+  height: 220rpx;
+  width: 330rpx;
+}

@@ -39,7 +39,7 @@
 }
 
 .preview {
-  height: 73%;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -71,6 +71,7 @@
   height: 100%;
   border-radius:6rpx;
   border: 2rpx solid rgba(255,255,255,0);
+  z-index: 20;/* 保持最上层 */
 }
 
 .screenshot .flex{
@@ -131,58 +132,72 @@
 
 /* bottom */
 .bottom {
-  height: 27%;
+  height: 280rpx;
   width: 100%;
-  position: relative;
+  position: absolute;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   /* background-color: #1f1f1f; */
-  background-color: #92151A;/* 春节样式 */
-  z-index: 2;
+  /* background-color: #92151A;春节样式 */
+  /* z-index: 2; */
 }
 
 .next {
   position: absolute;
   right: 30rpx;
-  top: 25rpx;
+  bottom: 60rpx;
   /* color: #fff; */
   color: #FFD892;/* 春节样式 */
   font-size: 30rpx;
-  display: flex;
-  align-items: center;
+  text-align: center;
+  padding-top: 5rpx;
+  width: 130rpx;
+  height: 60rpx;
+  background:rgba(254,44,29,1);
+  border: 4rpx solid rgba(255,206,124,1);
+  border-radius: 30rpx;
+  z-index: 2;
 }
 
-.next image {
+/* .next image {
   width: 20rpx;
   height: 20rpx;
   margin-left: 9rpx;
-}
+} */
 
 .option {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: start;
+  align-items: flex-end;
+  background: url('https://s-js.sports.cctv.com/host/image/2019/01/02/15464263362738.png') no-repeat;
+  background-size: 100%;
+  background-position: bottom;
 }
 
 .img {
   /* height: 52rpx;
   width: 52rpx; */
-  height: 128rpx;/* 春节样式 */
-  width: 128rpx;/* 春节样式 */
+  height: 58rpx;/* 春节样式 */
+  width: 58rpx;/* 春节样式 */
+  margin-bottom: 16rpx;
 }
 
 .section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 45rpx;
+  margin-left: 60rpx;
+  z-index: 2;
 }
 
 .section text {
   /* color: #fff; */
-  color:rgba(255,216,146,.6);/* 春节样式 */
+  color:rgba(255,216,146,1);/* 春节样式 */
   font-size: 22rpx;
 }
 
@@ -199,21 +214,21 @@ swiper-item {
 }
 
 /* ischosewrapper */
-.ischosewrapper {
+/* .ischosewrapper {
   height: 20%;
   width: 100%;
-  /* color: #5e5e5e; */
-  color: #FFD892;/* 春节样式 */
+  /* color: #5e5e5e; 
+  color: #FFD892;/* 春节样式 
   font-size: 30rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
-.ischose {
+/* .ischose {
   padding: 20rpx 30rpx 0 30rpx;
   font-size: 26rpx;
-}
+} */
 
 /* filter */
 
@@ -222,10 +237,13 @@ swiper-item {
   width: 100%;
   display: flex;
   flex-direction: column;
+  z-index: 2;
+  border-top-left-radius: 14rpx;
+  border-top-right-radius: 14rpx;
 }
 
 .choseinner {
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 
@@ -274,18 +292,21 @@ swiper-item {
   height: 100%;
   width: 100%;
   /* background-color: #1f1f1f; */
-  background-color: #92151A;/* 春节样式 */
+  background-color: rgba(0,0,4,.8); /*春节样式*/
   display: flex;
   flex-direction: column;
+  z-index: 2;
+  border-top-left-radius: 14rpx;
+  border-top-right-radius: 14rpx;
 }
 
 .paster swiper {
   width: 100%;
-  height: 176rpx;
+  height: 190rpx;
 }
 
 .paster_section {
-  height: 88rpx;
+  height: 90rpx;
   width: 100%;
   /* color: #5e5e5e; */
   color: rgba(255,216,146,.4);/* 春节样式 */
@@ -339,6 +360,10 @@ swiper-item {
   position: relative;
   display: flex;
   flex-direction: column;
+  background-color: rgba(0,0,0,.8);
+  z-index: 2;
+  border-top-left-radius: 14rpx;
+  border-top-right-radius: 14rpx;
 }
 .musiclist {
   position: absolute;
@@ -347,7 +372,7 @@ swiper-item {
   top: -500rpx;
   z-index: 2;
   /* background-color: #1f1f1f; */
-  background-color: #92151A;/* 春节样式 */
+  background-color: rgba(0,0,0,.8);/* 春节样式 */
 }
 
 .musiclistdiv {
@@ -407,7 +432,7 @@ swiper-item {
   margin: 0 10rpx;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   border-radius: 10rpx;
 }
@@ -416,7 +441,7 @@ swiper-item {
   width: 120rpx;
   height: 120rpx;
   border-radius: 10rpx;
-  margin-top: 40rpx; 
+  /* margin-top: 40rpx;  */
 }
 
 .musicdiv .musictext {

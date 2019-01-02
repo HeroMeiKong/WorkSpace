@@ -1,16 +1,16 @@
 <!-- pages/preview/preview.wxml -->
-<view class="user-page {{models}}">
+<view class="user-page">
   <backTitle></backTitle>
   <view class="wrappers" style="visibility:{{showwrappers}}">
     <view class="preview">
-      <movable-area class="screenshot" style="display:{{showVideo.notvideo}};width:{{picsize.width}}px;height:{{picsize.height}}px;">
+      <movable-area class="screenshot" style="display:{{showVideo.notvideo}};width:{{picsize.width}}px;height:{{picsize.height}}px;" catch:tap="blockThis">
         <block wx:for="{{movableviewNum}}" wx:key="*this">
-          <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView" damping="200">
+          <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView" damping="200" x="{{originMovableview.x}}px" y="{{originMovableview.y}}px">
             <view class="wrapperimage" style="display:{{item.display}};transform:rotate({{item.rotate}}deg)">
               <image id="top{{item.id}}" class="flextoppic" style="display:{{hiddenpaster}}" src="../../assets/images/4shanchu@2x.png" catch:tap="cancelMovableView"></image>
               <image class="{{hiddenpaster}}" id="pic{{item.id}}" src="{{item.pic}}" bind:tap="showMovableView"></image>
               <image id="bottom{{item.id}}" class="flexbottompic" style="display:{{hiddenpaster}}" src="../../assets/images/4lashen@2x.png" catch:touchstart="getStartLocation" catch:touchmove="moveLocation" catch:touchend="endLocation"></image>
-              <image id="rotate{{item.id}}" class="flexrotatepic" style="display:{{hiddenpaster}}" src="../../assets/images/4lashen@2x.png" catch:touchstart="startRotate" catch:touchmove="moveRotate" catch:touchend="endRotate"></image>
+              <image id="rotate{{item.id}}" class="flexrotatepic" style="display:{{hiddenpaster}}" src="../../assets/images/4xz2.png" catch:touchstart="startRotate" catch:touchmove="moveRotate" catch:touchend="endRotate"></image>
             </view>
           </movable-view>
         </block>
@@ -24,18 +24,18 @@
       <view class="option" style="display:{{showoption}};">
         <view class="next" catch:tap="nextStep">
           下一步
-          <image src="../../assets/images/4jt5@2x.png"></image>
+          <!-- <image src="../../assets/images/4jt5@2x.png"></image> -->
         </view>
         <!-- <view class="section" catch:tap="filter">
           <image class="img" src="../../assets/images/4filter.png"></image>
           <text class="">滤镜</text>
         </view> -->
         <view class="section" catch:tap="paster">
-          <image class="img" src="../../assets/images/4tiezhi@2x.png"></image>
+          <image class="img" src="../../assets/images/graph@2x.png"></image>
           <text class="">贴纸</text>
         </view>
         <view class="section" catch:tap="music">
-          <image class="img" src="../../assets/images/4yinyue@2x.png"></image>
+          <image class="img" src="../../assets/images/music@2x.png"></image>
           <text class="">音乐</text>
         </view>
       </view>
@@ -58,10 +58,10 @@
         </view>
       </view> -->
       <view class="paster" style="display:{{showpaster}};">
-        <view class="ischosewrapper">
+        <!-- <view class="ischosewrapper">
           <view class="ischose" catch:tap="cancelPaster">取消</view>
           <view class="ischose" catch:tap="goHomePaster">确定</view>
-        </view>
+        </view> -->
         <view class="choseinner">
           <swiper id="pasterId" display-multiple-items='5' current="{{pasterbegin}}" duration="1000" skip-hidden-item-layout="{{true}}" bind:touchstart="pasterSwiperStart" bind:touchend="pasterSwiperEnd">
             <block wx:for="{{pasters}}" wx:key="*this">
@@ -87,10 +87,10 @@
         </view>
       </view>
       <view class="music" style="display:{{showmusic}};">
-        <view class="ischosewrapper">
+        <!-- <view class="ischosewrapper">
           <view class="ischose" catch:tap="cancelMusic">取消</view>
           <view class="ischose" catch:tap="goHomeMusic">确定</view>
-        </view>
+        </view> -->
         <view class="choseinner">
           <view class="musiclist" style="display:{{showmusiclist}}">
             <swiper display-multiple-items='5' vertical="true" current="{{musicbegin}}" duration="1000">
@@ -185,7 +185,7 @@
       <cover-view class="submission_success">
         <cover-view class="submission_top">
           <cover-view class="submission_title">视频提交成功</cover-view>
-          <cover-view class="submission_texts">审核预计需要时间<text decode="{{true}}">&lt;</text>1小时</cover-view>
+          <cover-view class="submission_texts">审核预计需要时间小于1小时</cover-view>
           <cover-view class="submission_text">请在个人中心查看审核进度</cover-view>
         </cover-view>
         <cover-view class="submission_bottom">
