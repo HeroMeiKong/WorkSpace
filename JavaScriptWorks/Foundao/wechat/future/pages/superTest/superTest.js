@@ -115,12 +115,12 @@ Page({
             duration: 1500,
             mask: true
           })
-          const timers = setTimeout(() => {
-            wx.navigateBack({
-              delta: 1
-            });
-            clearTimeout(timers)
-          }, 1500)
+          // const timers = setTimeout(() => {
+          //   wx.navigateBack({
+          //     delta: 1
+          //   });
+          //   clearTimeout(timers)
+          // }, 1500)
         } else {
           if (res.duration > 30) {
             wx.showToast({
@@ -129,12 +129,12 @@ Page({
               duration: 3500,
               mask: true
             })
-            const timers = setTimeout(() => {
-              wx.navigateBack({
-                delta: 1
-              });
-              clearTimeout(timers)
-            }, 1500)
+            // const timers = setTimeout(() => {
+            //   wx.navigateBack({
+            //     delta: 1
+            //   });
+            //   clearTimeout(timers)
+            // }, 1500)
           } else if (res.duration < 5) {
             wx.showToast({
               title: '上传的视频拍摄时间不能低于5秒！',
@@ -142,12 +142,12 @@ Page({
               duration: 3500,
               mask: true
             })
-            const timers = setTimeout(() => {
-              wx.navigateBack({
-                delta: 1
-              });
-              clearTimeout(timers)
-            }, 1500)
+            // const timers = setTimeout(() => {
+            //   wx.navigateBack({
+            //     delta: 1
+            //   });
+            //   clearTimeout(timers)
+            // }, 1500)
           } else {
             //上传视频， 取得视频服务器地址
             console.log('发送上传视频请求')
@@ -222,12 +222,12 @@ Page({
                             duration: 1500,
                             mask: true,
                             success: (result)=>{
-                              const timers = setTimeout(()=>{
-                                wx.navigateBack({
-                                  delta: 1
-                                });
-                                clearTimeout(timers)
-                              },1500)
+                              // const timers = setTimeout(()=>{
+                              //   wx.navigateBack({
+                              //     delta: 1
+                              //   });
+                              //   clearTimeout(timers)
+                              // },1500)
                             },
                           });
                           that.setData({
@@ -271,14 +271,14 @@ Page({
                                 icon: 'fail',
                                 duration: 1500,
                                 mask: true,
-                                success: (result)=>{
-                                  const timers = setTimeout(()=>{
-                                    wx.navigateBack({
-                                      delta: 1
-                                    });
-                                    clearTimeout(timers)
-                                  },1500)
-                                },
+                                // success: (result)=>{
+                                //   const timers = setTimeout(()=>{
+                                //     wx.navigateBack({
+                                //       delta: 1
+                                //     });
+                                //     clearTimeout(timers)
+                                //   },1500)
+                                // },
                               });
                               that.setData({
                                 showFirst: 'flex',
@@ -299,12 +299,12 @@ Page({
                       duration: 1500,
                       mask: true,
                       success: (result)=>{
-                        const timers = setTimeout(()=>{
-                          wx.navigateBack({
-                            delta: 1
-                          });
-                          clearTimeout(timers)
-                        },1500)
+                        // const timers = setTimeout(()=>{
+                        //   wx.navigateBack({
+                        //     delta: 1
+                        //   });
+                        //   clearTimeout(timers)
+                        // },1500)
                       },
                       });
                       that.setData({
@@ -322,12 +322,12 @@ Page({
                       duration: 1500,
                       mask: true,
                       success: (result)=>{
-                        const timers = setTimeout(()=>{
-                          wx.navigateBack({
-                            delta: 1
-                          });
-                          clearTimeout(timers)
-                        },1500)
+                        // const timers = setTimeout(()=>{
+                        //   wx.navigateBack({
+                        //     delta: 1
+                        //   });
+                        //   clearTimeout(timers)
+                        // },1500)
                       },
                     });
                     that.setData({
@@ -352,9 +352,9 @@ Page({
       },
       fail: function (e) {
         console.log(e)
-        wx.navigateBack({
-          delta: 1
-        });
+        // wx.navigateBack({
+        //   delta: 1
+        // });
       },
       complete: function (e) {
         console.log('我的错我的错我的错')
@@ -382,7 +382,7 @@ Page({
       success: (res2) => {
         if(res2.data.code === 0){
           wx.showToast({
-            title: '视频合成成功！',
+            title: '视频提交成功！',
             icon: 'success',
             duration: 1500,
             mask: true

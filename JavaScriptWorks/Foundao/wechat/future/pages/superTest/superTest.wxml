@@ -5,14 +5,18 @@
     <view class="wrapperinner">
       <image class="avatar" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459812957282.gif"></image>
     </view>
-    <view class="bottombutton" catch:tap="shooting"><image class="" src="../../assets/images/paishe@2x.png"></image></view>
+    <view class="bottombutton">
+      <view class="bottombuttontext">请拍摄一段你的短视频</view>
+      <view class="bottombuttontext">我们将带你回到过去看看噢</view>
+      <image src="../../assets/images/paishe@2x.png" catch:tap="shooting"></image>
+    </view>
   </view>
   <view class="page" style="display:{{showSecond}}">
     <view class="pageinner">
       <view class="wrapperavatar" wx:if="{{changeimage}}">
         <image class="longimg" src="../../assets/images/111.png" style="transform: translateX({{-fromX}}rpx)"></image>
       </view>
-      <image class="avatar" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459816525687.gif" wx:else="{{!changeimage}}"></image>
+      <image class="loadingavatar" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459816525687.gif" wx:else="{{!changeimage}}"></image>
     </view>
   </view>
   <view class="page" style="display:{{showThird}}">
@@ -20,7 +24,7 @@
     <image class="mainimg" src="{{pic}}"></image>
     <view class="bottomview">
       <image class="bottomimg" src="../../assets/images/5yulan@2x.png" catch:tap="preview"></image>
-      <image class="bottomimg" src="../../assets/images/5hecheng@2x.png" catch:tap="compose"></image>
+      <image class="bottomimg" src="../../assets/images/5hecheng.png" catch:tap="compose"></image>
     </view>
   </view>
 </view>
