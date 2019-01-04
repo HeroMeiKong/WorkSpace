@@ -1,6 +1,6 @@
 <!--pages/testVideo/testVideo.wxml-->
 <view class="wrapper">
-  <video id="myVideo" class="innervideo" src="{{videoSrc}}" objectFit="contain" controls="{{false}}" show-center-play-btn="{{false}}" autoplay="{{true}}" loop="{{true}}">
+  <video id="myVideo" bindended="videoEnd" class="innervideo" src="{{videoSrc}}" objectFit="cover" controls="{{false}}" show-center-play-btn="{{false}}" autoplay="{{true}}" loop="{{true}}">
     <cover-view class="cover" catch:tap="clickVideo">
       <cover-view class="topbutton {{models}}">
         <cover-image class="backbutton" src="../../assets/images/jt4.png" catch:tap="closeVideo"></cover-image>

@@ -9,6 +9,7 @@ Page({
   data: {
     models: 'defaultmodel',
     showFirst: 'flex',
+    showCover: 'none',
     showSecond: 'none',
     changeimage: true,
     showThird: 'none',
@@ -91,6 +92,13 @@ Page({
   shooting(e) {
     console.log('shooting')
     let that = this
+    const timetocover = setTimeout(()=>{
+      that.setData({
+        showFirst: 'none',
+        showCover: 'flex',
+      })
+      clearTimeout(timetocover)
+    },2000)
     wx.chooseVideo({
       sourceType: ['camera'],
       maxDuration: 30,
@@ -178,6 +186,7 @@ Page({
                 },2000)
                 that.setData({
                   showFirst: 'none',
+                  showCover: 'none',
                   showSecond: 'flex',
                 })
                 //请求视频合成
@@ -256,6 +265,7 @@ Page({
                                 clearTimeout(timer)
                                 that.setData({
                                   showFirst: 'none',
+                                  showCover: 'none',
                                   showSecond: 'none',
                                   changeimage: true,
                                   showThird: 'flex',
@@ -282,6 +292,7 @@ Page({
                               });
                               that.setData({
                                 showFirst: 'flex',
+                                showCover: 'none',
                                 showSecond: 'none',
                                 changeimage: true,
                               })
@@ -342,6 +353,7 @@ Page({
                 console.log(e)
                 that.setData({
                   showFirst: 'flex',
+                  showCover: 'none',
                   showSecond: 'none',
                   changeimage: true,
                 })
@@ -352,6 +364,10 @@ Page({
       },
       fail: function (e) {
         console.log(e)
+        that.setData({
+          showFirst: 'flex',
+          showCover: 'none',
+        })
         // wx.navigateBack({
         //   delta: 1
         // });

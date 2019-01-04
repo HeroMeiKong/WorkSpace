@@ -32,7 +32,6 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center; 
 }
 
 .wrapperavatar{
@@ -50,6 +49,8 @@
   width: 680rpx;
 	height: 528rpx;
   z-index: 100;
+  position: absolute;
+  top: 350rpx;
 }
 
 .loadingavatar {
@@ -62,7 +63,7 @@
   width: 386rpx;
   height: 184rpx;
   position: absolute;
-  bottom: 90rpx;
+  top: 930rpx;
   text-align: center;
 }
 

@@ -6,8 +6,7 @@ Page({
    */
   data: {
     models: 'defaultmodel',
-    //videoSrc: '',
-    videoSrc: 'http://mvvideo10.meitudata.com/5bb979eff1770ck81jr2t86233_H264_1_441c6244ca0c12.mp4?k=d3cb8e451bdb2a4da4ee2eefc59da773&t=5c29f59a',
+    videoSrc: '',
     videolock: false
   },
 
@@ -90,5 +89,10 @@ Page({
     wx.navigateBack({
       delta: 1
     });
+  },
+  videoEnd (e) {
+    console.log('videoEnd')
+    this.videoContext.stop()
+    this.videoContext.play()
   }
 })
