@@ -1,0 +1,88 @@
+<!-- pages/newYear/newYear.wxml -->
+<view class="wrapper">
+  <view class="page" style="display:{{showFirst}}">
+    <view class="pageChoose">
+      <view class="">网春大拜年</view>
+      <view class="">选择拜年主持人</view>
+      <view class="avaterBox">
+        <block wx:for="{{avatar}}" wx:key="*this">
+          <view>
+            <image id="{{item.id}}" class="avater" src="{{item.choose}}" catch:tap="chooseAvatar"></image>
+          </view>
+        </block>
+      </view>
+      <view class="">选择拜年称谓</view>
+      <view class="chooseSomebody">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{who}}">
+          <view class="picker">当前选择：{{whos}}{{who[index]}}</view>
+        </picker>
+      </view>
+      <view class="sendWish" catch:tap="sendWish">送祝福</view>
+    </view>
+  </view>
+  <view class="page" style="display:{{showSecond}}">
+    <view class="pagePreview">
+      <view class="publish {{models}}">
+        <view class="videowrapper">
+          <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
+            <cover-view class="playimg" catch:tap="pauseThis">
+              <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
+            </cover-view>
+          </video>
+        </view>
+        <view class="textcontent" style="display:{{showtextcontent}}">
+          <view class="topic">
+            <view class="topicinner">
+              <image class="topicinnerpic" src="../../assets/images/4huati2@2x.png" />
+              <font>网春大拜年</font>
+            </view>
+          </view>
+        </view>
+        <view class="bottom_option" style="display:{{showsure}}">
+          <view class="back" catch:tap="cancelUploadContent"><image src="../../assets/images/4fanhui@2x.png" />返回上一步</view>
+          <view class="sure" catch:tap="uploadContent"><image src="../../assets/images/4fabu@2x.png" />确认发布</view>
+        </view>
+      </view>
+      <cover-view class="overcover" style="display:{{showovercover}}"></cover-view>
+    </view>
+  </view>
+  <view class="page" style="display:{{showThird}}">
+    <view class="pageSubmit">
+      <view class="submissionwrapper">
+          <cover-view class="submission" wx:if="{{compose_success}}">
+            <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
+            <cover-image src="../../assets/images/4success1@2x.png" class="compose_img"></cover-image>
+            <cover-view class="submission_success">
+              <cover-view class="submission_top">
+                <cover-view class="submission_title">视频提交成功</cover-view>
+                <cover-view class="submission_texts">审核预计需要时间小于1小时</cover-view>
+                <cover-view class="submission_text">请在个人中心查看审核进度</cover-view>
+              </cover-view>
+              <cover-view class="submission_bottom">
+                <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3return@2x_0.png" catch:tap="successBackHome"></cover-image></cover-view>
+                <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x_0.png" catch:tap="checkProgress"></cover-image></cover-view>
+              </cover-view>
+            </cover-view>
+          </cover-view>
+          <cover-view class="submission submission_fail_color" wx:if="{{!compose_success}}">
+            <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
+            <cover-view class="submission_fail_top">
+              <cover-image src="../../assets/images/3failure@2x.png" class="compose_fail_img"></cover-image>
+            </cover-view>
+            <cover-view class="submission_fail">
+              <cover-view class="submission_top">
+                <cover-view class="submission_title submission_title_color">提交失败</cover-view>
+                <cover-view class="submission_text submission_text_color">网络原因提交失败，请重试！</cover-view>
+              </cover-view>
+              <cover-view class="submission_bottom">
+                <cover-view class="submission_button"><cover-image src="../../assets/images/3determine@2x.png" class="submission_bottom_img"  catch:tap="returnSubmit"></cover-image></cover-view>
+              </cover-view>
+            </cover-view>
+          </cover-view>
+        </view>
+
+
+
+    </view>
+  </view>
+</view>

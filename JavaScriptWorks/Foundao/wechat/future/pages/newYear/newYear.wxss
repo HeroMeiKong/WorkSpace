@@ -1,0 +1,413 @@
+/* pages/newYear/newYear.wxss */
+@import "./../../public.wxss";
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+}
+
+.pageChoose{
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+  background-color: #9b2027;/* 背景颜色 */
+  background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 背景图片 */
+  background-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.avaterBox{
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.avater{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  border: 1px solid blue;
+}
+
+.chooseSomebody{
+  width: 80%;
+  border: 1px solid black;
+  background-color: #ffffff;
+}
+
+.sendWish{
+  padding: 10rpx 50rpx;
+  border-radius: 10rpx;
+  background-color: yellow;
+}
+
+/*预览页面*/
+.pagePreview{
+  width: 100%;
+  height: 100%;
+}
+
+.publish {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(46,46,46,.8); */
+  background-color: #931E23;/* 春节样式 */
+  /* background-color: rgba(0, 0, 0, 1); */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  /* padding: 10rpx 0; */
+  top: 0;
+  left: 0;
+}
+.videowrapper{
+  width: 690rpx;
+  /* 莫乱改，与后面计算贴纸位置有关 */
+  height: 690rpx;
+  /* 莫乱改，与后面计算贴纸位置有关 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('https://s-js.sports.cctv.com/host/image/2018/12/18/15451249181206.png') no-repeat;
+  background-size: 100%;
+}
+
+#myVideo1 {
+  border-radius: 14rpx;
+  position: relative;
+}
+
+#myVideo1 .playimg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 14rpx;
+}
+
+#myVideo1 .playimg cover-image {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.textcontent {
+  width: 690rpx;
+  /* height: 369rpx; */
+  height: 209rpx;
+  padding-top: 20rpx;
+}
+
+.textcontent .topic {
+  width: 690rpx;
+  /* height: 20%; */
+  height: 40%;/* 春节样式 */
+  color: #fff;
+  font-size: 26rpx;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+/* .topicinner {
+  height: 40rpx;
+  border-radius: 20rpx;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 10rpx 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+/* 春节样式 */
+.topicinner {
+  height: 48rpx;
+  border-radius: 24rpx;
+  background-color: #fe2c1d;
+  padding: 10rpx 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3rpx solid #ffd892;
+}
+
+.topicinnerpic {
+  height: 24rpx;
+  width: 24rpx;
+  margin-right: 10rpx;
+}
+
+.topicinner font {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, .6);
+}
+
+.textcontent .introduce {
+  width: 100%;
+  /* height: 80%; */
+  height: 30%;/* 春节样式 */
+  /* color: #fff;
+  opacity: 0.3; */
+  color: rgba(255,216,146,1);/* 春节样式 */
+  font-size: 30rpx;
+  /* border-top: 1px solid #fff; */
+  border-bottom: 1rpx solid rgba(255,216,146,.6);/* 春节样式 */
+  padding-top: 10rpx;
+}
+
+.topictype {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  /* background-color: #000;
+  opacity: .5; */
+  background-color: #92151A;/* 春节样式 */
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topictype_top {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topictype_line {
+  width: 80rpx;
+  height: 8rpx;
+  background: rgba(255, 255, 255, 1);
+  opacity: 0.6;
+  border-radius: 4rpx;
+}
+
+.topictype_bottom {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.topictype_box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1rpx solid rgba(255, 255, 255, .2);
+  padding: 20rpx 0;
+}
+
+.topictype_pic {
+  width: 24rpx;
+  height: 24rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.topictype_text {
+  width: 90%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  color: #fff;
+  padding: 0 20rpx;
+}
+
+/* .bottom_option {
+  width: 720rpx;
+  height: 154rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.back {
+  width: 330rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 34rpx;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sure {
+  width: 330rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F83450;
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: bold;
+} */
+/* 春节样式 */
+.bottom_option {
+  width: 720rpx;
+  height: 254rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.back {
+  position: absolute;
+  width: 146rpx;
+  height: 180rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fefefe;
+  font-size: 26rpx;
+  transform: translateX(-217rpx);
+}
+.back image{
+  margin: 23rpx 0 25rpx 0;
+  width: 98rpx;
+  height: 98rpx;
+}
+.sure {
+  width: 146rpx;
+  height: 180rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fefefe;
+  font-size: 26rpx;
+}
+.sure image{
+  width: 146rpx;
+  height: 146rpx;
+}
+
+
+.overcover,
+.submissionwrapper{
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  background-color: rgba(46,46,46,.8);
+  top: 0;
+  left: 0;
+}
+.submissioninner{
+  width: 548rpx;
+  height: 660rpx;
+  position: absolute;
+}
+.submission{
+  width: 548rpx;
+  height: 660rpx;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 300rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  /* border-radius:14px; */
+  color: rgba(255, 216, 146, 1);
+  background-color: #C10420;
+  z-index: 11;
+}
+.submission_fail_color{
+  background-color: #fff;
+}
+.submission_title_color{
+  color: #666666;
+}
+.submission_text_color{
+  color: #999999;
+}
+.submission_success,
+.submission_fail{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.compose_img{
+  /* width: 548rpx;
+  height: 596rpx; */
+  width: 360rpx;
+  height: 220rpx;
+  margin-top: 106rpx;
+}
+.submission_title{
+  font-size: 38rpx;
+  padding-bottom: 8rpx;
+}
+.submission_text{
+  font-size: 26rpx;
+}
+.submission_texts{
+  font-size: 26rpx;
+  padding-bottom: 8rpx;
+}
+.submission_bottom,
+.submission_top{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.submission_top{
+  flex-direction: column;
+}
+.submission_success,
+.submission_fail{
+  position: absolute;
+  height: 40%;
+  width: 100%;
+  bottom: 32rpx;
+}
+.submission_success .submission_button{
+  width: 218rpx;
+  height: 94rpx;
+}
+.submission_fail_top{
+  display: flex;
+  justify-content: center;
+}
+.compose_fail_img{
+  position: absolute;
+  width: 268rpx;
+  height: 240rpx;
+  top: 72rpx;
+}
+.submission_bottom_img{
+  width: 360rpx;
+  height: 68rpx;
+}
+
+/*提交页面*/
+.pageSubmit{
+  width: 100%;
+  height: 100%;
+}
