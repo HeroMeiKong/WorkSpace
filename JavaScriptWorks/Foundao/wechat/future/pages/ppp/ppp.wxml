@@ -1,0 +1,28 @@
+<!--pages/ppp/ppp.wxml-->
+<view class="recordList-page {{isIpx?'iphoneX':''}}">
+    <backTitle noBack="{{false}}" title="超极配配配"></backTitle>
+    <view class="record-list">
+        <scroll-view class="scroll-list"
+                     scroll-y
+                     bindscrolltolower="uploadData"
+                     scroll-top="{{scrollTop}}"
+                     bindscroll="scroll">
+            <view class="scroll-list-inner">
+                <block wx:for="{{cur_list}}" wx:for-item="dub">
+                    <!--配音单元-->
+                    <view class="dub-item" bindtap="goDub" data-data="{{dub}}">
+                        <view class="dub-item-bg" style="background-image: url({{dub.video_small_pic}})">
+                            <view class="dub-item-btn"></view>
+                        </view>
+                        <view class="info">
+                            <view class="info-inner">
+                                <text class="info-subject">#{{dub.sub_title}}   </text>
+                                <text class="info-title">   {{dub.video_desc||''}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+        </scroll-view>
+    </view>
+</view>

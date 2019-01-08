@@ -48,13 +48,13 @@
 					"id": 1,
 					"name": "他人主页",
 					"pathName": "pages/otherUser/otherUser",
-					"query": "user_uuid=B102D881-C89D-33C8-DE41-3626A2051165"
+					"query": "user_uuid=492CBBC0-3C2F-CC32-1966-9C91E149B628"
 				},
 				{
 					"id": 2,
 					"name": "视频详情页",
 					"pathName": "pages/video/video",
-					"query": "video_uuid=43271817152121822976542&id=81"
+					"query": "video_uuid=77341893247792044118552&id=495"
 				},
 				{
 					"id": -1,
@@ -84,12 +84,6 @@
 					"id": -1,
 					"name": "授权页",
 					"pathName": "pages/auth/auth",
-					"query": ""
-				},
-				{
-					"id": 8,
-					"name": "首页",
-					"pathName": "pages/index/index",
 					"query": ""
 				},
 				{
@@ -133,6 +127,12 @@
 					"name": "测测测预览视频",
 					"pathName": "pages/testVideo/testVideo",
 					"query": ""
+				},
+				{
+					"id": 16,
+					"name": "分享首页",
+					"pathName": "pages/index/index",
+					"query": "video_uuid=3791134768292865233984&id=175"
 				}
 			]
 		}

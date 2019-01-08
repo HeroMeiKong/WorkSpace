@@ -791,10 +791,10 @@ Page({
 
     // 喜欢
     like() {
-        wx.showLoading({
-            mask: true
-        })
-        this.data.loading_num++;
+        // wx.showLoading({
+        //     mask: true
+        // })
+        // this.data.loading_num++;
 
         const {cur_video} = this.data;
         wx.request({
@@ -831,10 +831,10 @@ Page({
                 }
             },
             complete: () => {
-                this.data.loading_num--;
-                if (this.data.loading_num == 0) {
-                    wx.hideLoading()
-                }
+                // this.data.loading_num--;
+                // if (this.data.loading_num == 0) {
+                //     wx.hideLoading()
+                // }
             }
         })
     },
@@ -844,10 +844,10 @@ Page({
         wx.showShareMenu({
             withShareTicket: true
         })
-        wx.showLoading({
-            mask: true
-        })
-        this.data.loading_num++;
+        // wx.showLoading({
+        //     mask: true
+        // })
+        // this.data.loading_num++;
         const {cur_video} = this.data;
         wx.request({
             url: api.del_fabulous,
@@ -883,10 +883,10 @@ Page({
                 }
             },
             complete: () => {
-                this.data.loading_num--;
-                if (this.data.loading_num == 0) {
-                    wx.hideLoading()
-                }
+                // this.data.loading_num--;
+                // if (this.data.loading_num == 0) {
+                //     wx.hideLoading()
+                // }
             }
         })
     },
@@ -973,7 +973,7 @@ Page({
 
             getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/1bg2@2x.png'}).then(resp => {
                 const posterBg_img = resp.path;  // 背景图片
-                getImage1({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
+                getImage1({src: (cur_video.share_pic || cur_video.pic).replace('http://', 'https://')}).then(resp => {
                     const bg_img = resp.path;  // 封面图
                     const bg_width = resp.width;
                     const bg_height = resp.height;

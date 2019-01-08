@@ -24,8 +24,7 @@ Page({
         product_more: true,
         product_list: [],
 
-
-        isIpx:false,
+        isIpx: false,
     },
 
     /**
@@ -40,7 +39,7 @@ Page({
             })
         }
 
-        app.isFullScreen(()=>{
+        app.isFullScreen(() => {
             this.setData({
                 isIpx: true
             })
@@ -108,7 +107,7 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-
+        this.getUserProduct()
     },
 
     /**
@@ -120,8 +119,8 @@ Page({
 
     // 获取用户信息
     getUserInfo() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -162,8 +161,12 @@ Page({
     getUserProduct: function () {
         const {product_page, product_list, product_more} = this.data
 
-      wx.showLoading({
-            mask:true
+        if (!product_more) {
+            return
+        }
+
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -184,7 +187,9 @@ Page({
                 if (parseInt(data.code) === 0) {
                     //判断是否有数据
                     if (data.data.length === 0) {
-                        this.data.product_more = false
+                        this.setData({
+                            product_more: false
+                        })
                         return
                     }
                     //设置作品数组
@@ -210,8 +215,8 @@ Page({
 
     // 关注
     fabulous() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -235,7 +240,7 @@ Page({
                     this.setData({
                         other_userInfo: this.data.other_userInfo
                     })
-                    this.refreshStatus(this.data.other_userInfo.uuid,2)
+                    this.refreshStatus(this.data.other_userInfo.uuid, 2)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -254,8 +259,8 @@ Page({
 
     // 取消关注
     del_fabulous() {
-      wx.showLoading({
-            mask:true
+        wx.showLoading({
+            mask: true
         })
         this.data.loading_num++;
 
@@ -278,7 +283,7 @@ Page({
                     this.setData({
                         other_userInfo: this.data.other_userInfo
                     })
-                    this.refreshStatus(this.data.other_userInfo.uuid,1)
+                    this.refreshStatus(this.data.other_userInfo.uuid, 1)
                 } else {
                     wx.showToast({
                         title: data.msg,
@@ -300,7 +305,7 @@ Page({
         var data = e.currentTarget.dataset.data;
         wx.navigateTo({
             url: '/pages/video/video?video_uuid=' + data.video_uuid + '&id=' + data.id,
-    })
+        })
     },
 
     // 返回
@@ -318,12 +323,12 @@ Page({
     },
 
     //更新主页的关注数据
-    refreshStatus(user_uuid,status){
+    refreshStatus(user_uuid, status) {
         var pages = getCurrentPages();
-        for(var i=0;i<pages.length;i++){
+        for (var i = 0; i < pages.length; i++) {
             var page_temp = pages[i]
-            if(page_temp.route == 'pages/index/index'){
-                page_temp.refreshStatus(user_uuid,status)
+            if (page_temp.route == 'pages/index/index') {
+                page_temp.refreshStatus(user_uuid, status)
                 return
             }
         }

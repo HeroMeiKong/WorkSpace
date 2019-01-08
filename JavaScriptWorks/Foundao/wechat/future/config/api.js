@@ -1,9 +1,9 @@
 /**
  * Created by DELL on 2018/8/9.
  */
-// const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
+const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
 //const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
-const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
+// const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
 export default {
 
     // //登录
@@ -103,6 +103,7 @@ export default {
     my_is_follow: host + 'person/my_is_follow.php',       //我的粉丝列表
     other_home: host + 'person/other_home.php',       //他人主页
     other_material: host + 'person/other_material.php',       //他人作品
+    del_person_material: host + 'person/del_person_material.php',       //他人作品
 
 
     //统计
@@ -130,5 +131,8 @@ export default {
     firstLogin: host + 'sprint_activity/get_user_ce.php',//查询用户是否第一次进入测测测
     mixVideo: host + 'sprint_activity/submit_video_templet.php',//视频合成提交接口
     searchVideo: host + 'sprint_activity/get_submit_video_templet.php',//查询视频合成提交接口
-    makerVideo: host + 'sprint_activity/user_queren.php'//用户立即合成
+    makerVideo: host + 'sprint_activity/user_queren.php',//用户立即合成
+    template_photo: host + 'sprint_activity/template_photo.php',//获取相框模板
+    submit_photo_dub: host + 'sprint_activity/submit_photo_dub.php',//相框模板和配音合成
+    query_template_photo: host + 'sprint_activity/query_template_photo.php',//查询相框和配音合成状况
 }

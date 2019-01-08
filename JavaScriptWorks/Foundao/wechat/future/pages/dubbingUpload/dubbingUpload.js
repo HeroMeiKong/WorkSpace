@@ -142,6 +142,9 @@ Page({
   },
   superMatch (e) {
     console.log('superMatch')
+      wx.navigateTo({
+          url: '/pages/recordList/recordList'
+      })
   },
   superTest (e) {
     console.log('superTest')

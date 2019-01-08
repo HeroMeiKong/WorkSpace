@@ -39,7 +39,7 @@ Page({
 
         loaded: false,
 
-        showDoLayer:false,
+        showDoLayer: false,
     },
 
     /**
@@ -60,7 +60,7 @@ Page({
                 url: '/pages/index/index'
             })
         }
-        app.isFullScreen(()=>{
+        app.isFullScreen(() => {
             this.setData({
                 isIpx: true
             })
@@ -435,10 +435,10 @@ Page({
 
     // 喜欢
     like() {
-        wx.showLoading({
-            mask: true
-        })
-        this.data.loading_num++;
+        // wx.showLoading({
+        //     mask: true
+        // })
+        // this.data.loading_num++;
 
         const {cur_video} = this.data;
         wx.request({
@@ -474,20 +474,20 @@ Page({
                 }
             },
             complete: () => {
-                this.data.loading_num--;
-                if (this.data.loading_num == 0) {
-                    wx.hideLoading()
-                }
+                // this.data.loading_num--;
+                // if (this.data.loading_num == 0) {
+                //     wx.hideLoading()
+                // }
             }
         })
     },
 
     // 不喜欢
     dislike() {
-        wx.showLoading({
-            mask: true
-        })
-        this.data.loading_num++;
+        // wx.showLoading({
+        //     mask: true
+        // })
+        // this.data.loading_num++;
 
         const {cur_video} = this.data;
         wx.request({
@@ -523,10 +523,10 @@ Page({
                 }
             },
             complete: () => {
-                this.data.loading_num--;
-                if (this.data.loading_num == 0) {
-                    wx.hideLoading()
-                }
+                // this.data.loading_num--;
+                // if (this.data.loading_num == 0) {
+                //     wx.hideLoading()
+                // }
             }
         })
     },
@@ -612,7 +612,7 @@ Page({
 
             getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/1bg2@2x.png'}).then(resp => {
                 const posterBg_img = resp.path;  // 背景图片
-                getImage1({src: cur_video.pic.replace('http://', 'https://')}).then(resp => {
+                getImage1({src: (cur_video.share_pic || cur_video.pic).replace('http://', 'https://')}).then(resp => {
                     const bg_img = resp.path;  // 封面图
                     const bg_width = resp.width;
                     const bg_height = resp.height;
@@ -865,19 +865,56 @@ Page({
         })
     },
 
-    switchToCamera(){
+    switchToCamera() {
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=camera'
         })
     },
 
-    switchToUpload(){
+    switchToUpload() {
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=album'
         })
     },
 
-    noclose_poster(){
+    noclose_poster() {
 
+    },
+
+    //删除视频
+    deleteVideo() {
+        const {cur_video} = this.data;
+        wx.request({
+            url: api.del_person_material,
+            method: 'POST',
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            data: {
+                id: cur_video.id,
+                uuid: cur_video.video_uuid,
+            },
+            success: (resp) => {
+                const {data} = resp;
+                if (parseInt(data.code) === 0) {
+                    this.goBack();
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'none'
+                    })
+                    if (data.code == -1001) {
+                        app.initAuth()
+                    }
+                }
+            },
+            complete: () => {
+                // this.data.loading_num--;
+                // if (this.data.loading_num == 0) {
+                //     wx.hideLoading()
+                // }
+            }
+        })
     },
 })

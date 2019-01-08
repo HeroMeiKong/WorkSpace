@@ -16,7 +16,8 @@
     "pages/videoTest/videoTest",
     "pages/protocol/protocol",
     "pages/superTest/superTest",
-    "pages/testVideo/testVideo"
+    "pages/testVideo/testVideo",
+    "pages/ppp/ppp"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -432,19 +432,19 @@ Page({
         element.rightimg = musicpic.addimg
       });
     }
-    this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                               join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                               tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
-                               tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}]}
-    preInnerAudioContext.src = 'https://nomusic.mp3'
-    innerAudioContext.src = 'https://nomusic.mp3'
+    // this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
+    //                            join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+    //                            tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
+    //                            tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}]}
+    // preInnerAudioContext.src = 'https://nomusic.mp3'
+    // innerAudioContext.src = 'https://nomusic.mp3'
     console.log(innerAudioContext.src)
     console.log(preInnerAudioContext.src)
     this.data.showmusiclists = []
     this.setData({
       musiclists: this.data.musiclists,
       showmusiclists: this.data.showmusiclists,
-      uploadContent: this.data.uploadContent,
+      //uploadContent: this.data.uploadContent,
       showmusiclist: 'none',
       showpause: 'flex',
       chooseVideo: 0
@@ -459,8 +459,9 @@ Page({
     innerAudioContext.pause()
     preInnerAudioContext.pause()
     this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0}
+                                join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
+                                tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
+                                tiezhi_arr: []},
     preInnerAudioContext.src = 'https://nomusic.mp3'
     innerAudioContext.src = 'https://nomusic.mp3'
     console.log(innerAudioContext.src)

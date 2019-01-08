@@ -52,7 +52,8 @@
     box-sizing: border-box;
     line-height: 36rpx;
     font-size: 26rpx;
-    color: rgba(51,51,51,.6);
+    color: #FFD892;
+    background-color: #9D1E23;
 }
 
 
@@ -103,7 +104,7 @@
 .video-list{
     width: 100%;
     padding-top: 14rpx;
-    background-color: #eeeeee;
+    background-color: #831c18;
 }
 
 .videoItem{
@@ -132,6 +133,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    background-color: #9D1E23;
 }
 
 .videoItem .info .head{
@@ -141,6 +143,7 @@
     background-size: cover;
     background-position: center center;
     border-radius: 50%;
+    border:1rpx solid rgba(255,216,146,1);
 }
 
 .videoItem .info .video-des{
@@ -155,7 +158,7 @@
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp:2;
-    color: #333333;
+    color: #ffd892;
 }
 
 .no-more{
@@ -176,13 +179,14 @@
     transform: translateX(-50%);
     width:280rpx;
     height:80rpx;
-    background:rgba(248,52,80,1);
+    /*background:rgba(248,52,80,1);*/
     border-radius:40rpx;
-    background-image: url("https://s-js.sports.cctv.com/host/resource/future/5dub@2x.png");
-    background-size: 48rpx 48rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/5join@2x.png");
+    /*background-size: 48rpx 48rpx;*/
+    background-size: contain;
     background-repeat: no-repeat;
-    background-position: 40rpx center;
-    padding-left: 104rpx;
+    background-position: center center;
+    /*padding-left: 104rpx;*/
     box-sizing: border-box;
     line-height: 80rpx;
     color: #FFFFFF;

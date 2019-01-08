@@ -558,7 +558,7 @@ swiper-item {
   color: rgba(255,216,146,1);/* 春节样式 */
   font-size: 30rpx;
   /* border-top: 1px solid #fff; */
-  border-bottom: 1px solid rgba(255,216,146,.6);/* 春节样式 */
+  border-bottom: 1rpx solid rgba(255,216,146,.6);/* 春节样式 */
   padding-top: 10rpx;
 }
 

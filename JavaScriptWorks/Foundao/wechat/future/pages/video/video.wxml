@@ -42,9 +42,18 @@
             </cover-view>
 
             <!--拍摄+本地上传浮层-->
-            <cover-view class="do-layer" wx:if="{{showDoLayer}}" catchtap="closeDo">
-                <cover-image class="do-photo" catchtap="switchToCamera" src="https://s-js.sports.cctv.com/host/resource/future/1paishe3@2x.png"></cover-image>
-                <cover-image class="do-upload" catchtap="switchToUpload" src="https://s-js.sports.cctv.com/host/resource/future/1shangchuan3@2x.png"></cover-image>
+            <cover-view class="poster_layer" wx:if="{{showDoLayer}}" catchtap="closeDo">
+                <!--<cover-image class="do-photo" catchtap="switchToCamera"-->
+                <!--src="https://s-js.sports.cctv.com/host/resource/future/1paishe3@2x.png"></cover-image>-->
+                <!--<cover-image class="do-upload" catchtap="switchToUpload"-->
+                <!--src="https://s-js.sports.cctv.com/host/resource/future/1shangchuan3@2x.png"></cover-image>-->
+                <!--<cover-view class="select-text">分享到</cover-view>-->
+                <cover-view class="select-box">
+                    <cover-view class="select-content">
+                        <button class="select-item" catchtap="switchToCamera">拍摄</button>
+                        <button class="select-item" catchtap="switchToUpload">本地上传</button>
+                    </cover-view>
+                </cover-view>
             </cover-view>
 
             <!--覆盖框-->
@@ -124,6 +133,11 @@
                         <cover-image class="button-item-icon share"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1fenxiang@2x.png"></cover-image>
                         <cover-view class="button-item-text">{{cur_video.count_material_share}}</cover-view>
+                    </cover-view>
+                    <cover-view class="button-item" catchtap="deleteVideo" hidden="{{!is_user}}">
+                        <cover-image class="button-item-icon"
+                                     src="https://s-js.sports.cctv.com/host/resource/future/2del2@2x.png"></cover-image>
+                        <cover-view class="button-item-text">删除</cover-view>
                     </cover-view>
                 </cover-view>
                 <!--底部信息-->

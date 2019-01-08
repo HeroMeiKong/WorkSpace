@@ -31,7 +31,7 @@
     <!--无更多作品提示-->
     <view class="no-more" wx:if="{{!video_more}}">暂无更多内容</view>
     <!--立即参与-->
-    <view class="rightNow" catchtap="rightNow">立即参与</view>
+    <view class="rightNow" catchtap="rightNow"></view>
     <!--选择浮层-->
     <view class="choose-layer" hidden="{{!showChoose}}" catchtap="closeChoose">
         <viwe class="choose-box">

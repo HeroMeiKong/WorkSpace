@@ -1,6 +1,31 @@
 <wxs module="filters" src="./dubbing.wxs"></wxs>
 
-<view class="dub-videoBox">
+<view class="ppp-layer" style="background-image: url({{video_detail.video_small_pic}})" hidden="{{!showPPP}}">
+    <view class="black-shadow">
+        <!--标题icon-->
+        <div class="title"></div>
+        <!--swiper-->
+        <div class="swiper-box" style="background-image: url({{video_detail.video_small_pic}})">
+            <swiper class="swiper-poster" current="{{poster_index}}">
+                <block wx:for="{{PPP_Poster}}">
+                    <swiper-item>
+                        <image src="{{item.moban_url}}" class="slide-image"/>
+                    </swiper-item>
+                </block>
+            </swiper>
+            <!--左右按钮-->
+            <div class="icon left" catchtap="swiper_left"></div>
+            <div class="icon right" catchtap="swiper_right"></div>
+        </div>
+        <!--按钮-->
+        <div class="btn-box">
+            <div class="btn-icon cancel" catchtap="PPP_cancel"></div>
+            <div class="btn-icon ok" catchtap="PPP_ok"></div>
+        </div>
+    </view>
+</view>
+
+<view class="dub-videoBox {{showPPP?'trans-video':''}}">
     <video controls="{{false}}"
            autoplay="{{true}}"
            hidden="{{!showVideo}}"

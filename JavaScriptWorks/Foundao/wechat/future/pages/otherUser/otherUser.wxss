@@ -12,12 +12,12 @@
 .top-box{
     width: 100%;
     padding-top: 90rpx;
-    background-color: rgba(0,0,0,.2);
+    background-color: #9D1E23;
     position: relative;
     z-index: 3;
     overflow: hidden;
     background-image: url('https://s-js.sports.cctv.com/host/resource/future/2diban1@2x.png');
-    background-size: 100% 100%;
+    background-size: cover;
     background-position: center top;
 }
 
@@ -196,7 +196,7 @@
     transform:translateX(-50%);
     width: 240rpx;
     height: 240rpx;
-    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2null@2x.png");
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/2null1@2x.png");
     background-size: cover;
 }
 .no-product:after{
@@ -250,6 +250,14 @@
     color: #FFFFFF;
 }
 
+.no-more{
+    width: 100%;
+    height: 80rpx;
+    text-align: center;
+    line-height: 80rpx;
+    font-size: 26rpx;
+    color: #999999;
+}
 
 
 

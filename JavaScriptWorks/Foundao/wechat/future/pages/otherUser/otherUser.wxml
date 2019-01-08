@@ -18,7 +18,8 @@
             </view>
         </view>
         <!--个人简介-->
-        <view class="user-intro">{{other_userInfo.test_user_autograph?other_userInfo.test_user_autograph:'暂无个人简介'}}</view>
+        <view class="user-intro">{{other_userInfo.test_user_autograph?other_userInfo.test_user_autograph:'暂无个人简介'}}
+        </view>
         <!--tab-->
         <view class="tab-box">
             <view class="tab-item selected">
@@ -26,21 +27,23 @@
                 <span class="tab-num">{{other_userInfo.count_material}}</span>
             </view>
         </view>
-        <!--列表-->
-        <view class="list-box">
-            <block wx:for="{{product_list}}">
-                <view class="video-item"
-                      bindtap="goVideo"
-                      data-data="{{item}}" style="background-image: url({{item.pic}})">
-                    <view class="video-zan-box" wx:if="{{item.examine==3}}">
-                        <image src="https://s-js.sports.cctv.com/host/resource/future/2dianzanshu@2x.png"></image>
-                        <view class="video-zan">{{item.count_material_love}}</view>
-                    </view>
-                </view>
-            </block>
-            <!--暂无任何作品-->
-            <view class="no-product"
-                  wx:if="{{product_list.length==0}}"></view>
-        </view>
     </view>
+    <!--列表-->
+    <view class="list-box">
+        <block wx:for="{{product_list}}">
+            <view class="video-item"
+                  bindtap="goVideo"
+                  data-data="{{item}}" style="background-image: url({{item.pic}})">
+                <view class="video-zan-box" wx:if="{{item.examine==3}}">
+                    <image src="https://s-js.sports.cctv.com/host/resource/future/2dianzanshu@2x.png"></image>
+                    <view class="video-zan">{{item.count_material_love}}</view>
+                </view>
+            </view>
+        </block>
+        <!--暂无任何作品-->
+        <view class="no-product"
+              wx:if="{{product_list.length==0&&!product_more}}"></view>
+    </view>
+    <!--无更多作品提示-->
+    <view class="no-more" wx:if="{{!product_more&&product_list.length!==0}}">暂无更多内容</view>
 </view>
