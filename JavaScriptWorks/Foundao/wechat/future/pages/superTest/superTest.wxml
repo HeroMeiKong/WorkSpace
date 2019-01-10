@@ -12,8 +12,9 @@
     </view>
   </view>
   <view class="page" style="display:{{showCover}}">
-    <view class="pageinner">
-      <image class="loadingavatar" src="../../assets/images/bgcover.png"></image>
+    <view class="pageinnercover">
+      <image class="loadingavatartop" src="../../assets/images/1.png"></image>
+      <image class="loadingavatarbottom" src="https://s-js.sports.cctv.com/host/image/2019/01/10/15471053385504.gif"></image>
     </view>
   </view>
   <view class="page" style="display:{{showSecond}}">

@@ -59,6 +59,22 @@
   z-index: 100;
 }
 
+.loadingavatartop {
+  width: 534rpx;
+	height: 400rpx;
+  z-index: 100;
+  position: absolute;
+  top: 402rpx;
+}
+
+.loadingavatarbottom {
+  width: 534rpx;
+	height: 90rpx;
+  z-index: 100;
+  position: absolute;
+  top: 682rpx;
+}
+
 .bottombutton {
   width: 386rpx;
   height: 184rpx;
@@ -81,6 +97,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.pageinnercover{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
 }
 
 .mainimg{
