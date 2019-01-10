@@ -1,5 +1,10 @@
 // pages/newYear/newYear.js
+import api from './../../config/api';
 
+let nickName = ''
+var windowWidth = 0  //屏幕宽度
+var windowHeight = 0  //视频屏幕高度
+let previewbox = 0
 Page({
 
   /**
@@ -7,14 +12,18 @@ Page({
    */
   data: {
     models: 'defaultmodel',
-    avatar: [{id: 1,yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 2,yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 3,yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 4,yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'}],
+    alldata: [],
+    avatar: [{id: 0,yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 1,yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 2,yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 3,yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'}],
     whos: '请选择',
-    who: ['爷爷','爸爸'],
+    whodata: [],
+    who: [],
     showFirst: 'flex',
     showSecond: 'none',
     showThird: 'none',
     showovercover: 'none',
     compose_success: false,
+    originMovableview: {x: 0,y: 0},
+    chooseone: {host_id: -1,select_person_id: -1},
   },
 
   /**
@@ -62,7 +71,39 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    let that = this
+    wx.request({
+      url: api.query_host_family,
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          "auth-token": wx.getStorageSync('loginSessionKey'),
+      },
+      success: (res) => {
+        console.log(res)
+        const length = res.data.count.length
+        that.data.alldata = res.data.data
+        that.data.whodata = res.data.count
+        for(let i=0;i<4;i++){
+          that.data.avatar[i].no = that.data.alldata[i].host_pic
+          that.data.avatar[i].yes = that.data.alldata[i].host_pic_select
+          that.data.avatar[i].choose = that.data.alldata[i].host_pic
+        }
+        for(let j=0;j<length;j++){
+          that.data.who.push(that.data.whodata[j].name)
+        }
+        console.log(that.data.whodata)
+        console.log(that.data.who)
+        that.setData({
+          alldata: that.data.alldata,
+          whodata: that.data.whodata,
+          who: that.data.who,
+          avatar: that.data.avatar
+        })
+      },
+      fail: () => {
+        console.log('请求头像失败！')
+      }
+    })
   },
 
   /**
@@ -88,7 +129,7 @@ Page({
   chooseAvatar (e) {
     console.log('chooseAvatar')
     const length = this.data.avatar.length
-    const avatarnumber = e.currentTarget.id - 1
+    const avatarnumber = e.currentTarget.id
     console.log(avatarnumber)
     for(let i=0;i<length;i++){
       if(i !== avatarnumber && this.data.avatar[i].choose === this.data.avatar[i].yes){
@@ -96,14 +137,21 @@ Page({
       }
       if(this.data.avatar[avatarnumber].choose !== this.data.avatar[avatarnumber].yes){
         this.data.avatar[avatarnumber].choose = this.data.avatar[avatarnumber].yes
+        this.data.chooseone.host_id = this.data.alldata[avatarnumber].id
       }
     }
     this.setData({
-      avatar: this.data.avatar
+      avatar: this.data.avatar,
+      chooseone: this.data.chooseone
     })
   },
   bindPickerChange (e) {
+    console.log(e)
     console.log('picker发送选择改变，携带值为', e.detail.value)
+    const length = this.data.whodata.length
+    for(let i=0;i<length;i++){
+      this.data.chooseone.select_person_id = this.data.whodata[e.detail.value].id
+    }
     this.setData({
       index: e.detail.value,
       whos: ''
@@ -111,9 +159,73 @@ Page({
   },
   sendWish (e) {
     console.log('sendWish')
+    console.log(this.data.chooseone)
+    let that = this
+    if(that.data.chooseone.host_id === -1){
+      console.log('未选择祝福主持人')
+    } else if(that.data.chooseone.select_person_id === -1){
+      console.log('未选择祝福对象')
+    } else {
+      wx.request({
+        url: api.sendWish,
+        method: 'POST',
+        header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            "auth-token": wx.getStorageSync('loginSessionKey'),
+        },
+        data: {
+          host_id: that.data.chooseone.host_id,
+          select_person_id: that.data.chooseone.select_person_id
+        },
+        success: (res) => {
+          console.log(res)
+          that.setData({
+            tempFilePath: res.data.data.wangchun_video_url
+          })
+        },
+        fail: () => {
+          console.log('发送祝福失败！')
+        }
+      })
+      this.setData({
+        showFirst: 'none',
+        showSecond: 'flex',
+      })
+    }
+  },
+  backFirstPage (e) {
+    console.log('backFirstPage')
     this.setData({
-      showFirst: 'none',
-      showSecond: 'flex',
+      showFirst: 'flex',
+      showSecond: 'none',
     })
-  }
+  },
+  pauseThis (e) {
+    console.log('pauseThis')
+    autovideolock = true
+    if(videolock){
+      this.videoContext1.pause()
+      //innerAudioContext.pause()
+      preInnerAudioContext.pause()
+      this.setData({
+        showpause: 'flex'
+      })
+      videolock = false
+    } else {
+      console.log('还没有播放！')
+    }
+  },
+  playThis (e) {
+    console.log('playThis')
+    console.log(innerAudioContext.src)
+    console.log(preInnerAudioContext.src)
+    this.videoContext1.play()
+    //innerAudioContext.play()
+    preInnerAudioContext.play()
+    autovideolock = false
+    videolock = true
+    this.setData({
+      showpause: 'none'
+    })
+  },
 })

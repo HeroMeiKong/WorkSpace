@@ -24,7 +24,8 @@
     <view class="pagePreview">
       <view class="publish {{models}}">
         <view class="videowrapper">
-          <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
+          <video id="myVideo" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};" muted="{{videomuted}}" autoplay="{{false}}">
+            <cover-image class="myVideoBg" src="https://s-js.sports.cctv.com/host/image/2018/12/18/15451249181206.png"></cover-image>
             <cover-view class="playimg" catch:tap="pauseThis">
               <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
             </cover-view>
@@ -39,7 +40,7 @@
           </view>
         </view>
         <view class="bottom_option" style="display:{{showsure}}">
-          <view class="back" catch:tap="cancelUploadContent"><image src="../../assets/images/4fanhui@2x.png" />返回上一步</view>
+          <view class="back" catch:tap="backFirstPage"><image src="../../assets/images/4fanhui@2x.png" />返回上一步</view>
           <view class="sure" catch:tap="uploadContent"><image src="../../assets/images/4fabu@2x.png" />确认发布</view>
         </view>
       </view>

@@ -1,9 +1,9 @@
 /**
  * Created by DELL on 2018/8/9.
  */
-//const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
+const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
 //const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
- const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
+// const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
 export default {
 
     // //登录
@@ -135,4 +135,6 @@ export default {
     template_photo: host + 'sprint_activity/template_photo.php',//获取相框模板
     submit_photo_dub: host + 'sprint_activity/submit_photo_dub.php',//相框模板和配音合成
     query_template_photo: host + 'sprint_activity/query_template_photo.php',//查询相框和配音合成状况
+    query_host_family: host + 'sprint_activity/wangchun_host.php',//网春主持人和拜年对象
+    sendWish: host + 'sprint_activity/wangchun_send_zhufu.php',//发送祝福
 }
