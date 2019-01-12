@@ -137,4 +137,5 @@ export default {
     query_template_photo: host + 'sprint_activity/query_template_photo.php',//查询相框和配音合成状况
     query_host_family: host + 'sprint_activity/wangchun_host.php',//网春主持人和拜年对象
     sendWish: host + 'sprint_activity/wangchun_send_zhufu.php',//发送祝福
+    sengWishSure: host + 'sprint_activity/wangchun_fabu.php',//确认发布
 }

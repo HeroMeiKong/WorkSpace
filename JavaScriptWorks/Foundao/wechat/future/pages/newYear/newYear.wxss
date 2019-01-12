@@ -14,7 +14,6 @@
 .pageChoose{
   width: 100%;
   height: 100%;
-  border: 1px solid red;
   background-color: #9b2027;/* 背景颜色 */
   background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 背景图片 */
   background-size: 100%;
@@ -26,23 +25,49 @@
 
 .avaterBox{
   width: 100%;
-  height: 100rpx;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  font-size: 30rpx;
 }
 
 .avater{
   width: 80rpx;
   height: 80rpx;
   border-radius: 40rpx;
-  border: 1px solid blue;
 }
 
 .chooseSomebody{
   width: 80%;
-  border: 1px solid black;
   background-color: #ffffff;
+}
+
+.chooseSomebodyBox{
+  width: 100%;
+}
+
+.boxrow{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10rpx;
+}
+
+.boxnumber{
+  width: 80rpx;
+  height: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  border: 2rpx solid red;
+  border-radius: 6rpx;
+}
+
+.choose{
+  background-color: #9b2027;/* 背景颜色 */
+  background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 背景图片 */
+  background-size: 100%;
 }
 
 .sendWish{
@@ -61,40 +86,33 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(46,46,46,.8); */
   background-color: #931E23;/* 春节样式 */
-  /* background-color: rgba(0, 0, 0, 1); */
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
-  /* padding: 10rpx 0; */
   top: 0;
   left: 0;
 }
 .videowrapper{
   width: 690rpx;
-  /* 莫乱改，与后面计算贴纸位置有关 */
   height: 690rpx;
-  /* 莫乱改，与后面计算贴纸位置有关 */
   display: flex;
   justify-content: center;
   align-items: center;
-  
+  background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/18/15451249181206.png');/* 背景图片 */
+  background-size: 100%;
 }
 
 #myVideo {
-  width: 100%;
-  height: 100%;
   border-radius: 14rpx;
   position: relative;
 }
 
-.myVideoBg{
+/* .myVideoBg{
   width: 100%;
   height: 100%;
   position: absolute;
-}
+} */
 
 #myVideo .playimg {
   width: 100%;
@@ -114,14 +132,12 @@
 
 .textcontent {
   width: 690rpx;
-  /* height: 369rpx; */
   height: 209rpx;
   padding-top: 20rpx;
 }
 
 .textcontent .topic {
   width: 690rpx;
-  /* height: 20%; */
   height: 40%;/* 春节样式 */
   color: #fff;
   font-size: 26rpx;
@@ -130,16 +146,6 @@
   align-items: center;
 }
 
-/* .topicinner {
-  height: 40rpx;
-  border-radius: 20rpx;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 10rpx 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-/* 春节样式 */
 .topicinner {
   height: 48rpx;
   border-radius: 24rpx;
@@ -165,13 +171,9 @@
 
 .textcontent .introduce {
   width: 100%;
-  /* height: 80%; */
   height: 30%;/* 春节样式 */
-  /* color: #fff;
-  opacity: 0.3; */
   color: rgba(255,216,146,1);/* 春节样式 */
   font-size: 30rpx;
-  /* border-top: 1px solid #fff; */
   border-bottom: 1rpx solid rgba(255,216,146,.6);/* 春节样式 */
   padding-top: 10rpx;
 }
@@ -180,8 +182,6 @@
   position: absolute;
   width: 90%;
   height: 90%;
-  /* background-color: #000;
-  opacity: .5; */
   background-color: #92151A;/* 春节样式 */
   border-radius: 14px;
   display: flex;
@@ -238,27 +238,6 @@
   padding: 0 20rpx;
 }
 
-/* .bottom_option {
-  width: 720rpx;
-  height: 154rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.back {
-  width: 330rpx;
-  height: 88rpx;
-  border-radius: 44rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 34rpx;
-  background: rgba(255, 255, 255, 0.2);
-}
-
 .sure {
   width: 330rpx;
   height: 88rpx;
@@ -266,12 +245,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #F83450;
   color: #fff;
   font-size: 34rpx;
   font-weight: bold;
-} */
-/* 春节样式 */
+}
+
 .bottom_option {
   width: 720rpx;
   height: 254rpx;
@@ -338,7 +316,6 @@
   top: 300rpx;
   left: 50%;
   transform: translateX(-50%);
-  /* border-radius:14px; */
   color: rgba(255, 216, 146, 1);
   background-color: #C10420;
   z-index: 11;
@@ -361,8 +338,6 @@
 }
 
 .compose_img{
-  /* width: 548rpx;
-  height: 596rpx; */
   width: 360rpx;
   height: 220rpx;
   margin-top: 106rpx;
@@ -371,13 +346,8 @@
   font-size: 38rpx;
   padding-bottom: 8rpx;
 }
-.submission_text{
-  font-size: 26rpx;
-}
-.submission_texts{
-  font-size: 26rpx;
-  padding-bottom: 8rpx;
-}
+
+
 .submission_bottom,
 .submission_top{
   width: 100%;
