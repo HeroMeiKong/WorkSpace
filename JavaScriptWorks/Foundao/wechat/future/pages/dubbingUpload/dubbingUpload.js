@@ -10,7 +10,8 @@ Page({
    */
   data: {
     models: 'defaultmodel',
-      showDiyTabBar:false,
+    showDiyTabBar:false,
+    showOrHidden: ["flex","flex","flex"]
   },
   /**
    * 生命周期函数--监听页面加载
@@ -41,6 +42,22 @@ Page({
         })
       }
     })
+    wx.request({
+      url: api.showOrhidden,
+      success: (res) => {
+        console.log(res.data.data)
+        const length = res.data.data.length
+        for(let i=0;i<length;i++){
+          that.data.showOrHidden[i] = res.data.data[i].online
+        }
+        that.setData({
+          showOrHidden: that.data.showOrHidden
+        })
+      },
+      fail: (e) => {
+        console.log('请求失败111')
+      }
+    })
     //wx.showTabBar();
     // this.ctx = wx.createCameraContext()
     // wx.setEnableDebug({
@@ -52,7 +69,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    console.log('onReady')
   },
 
   /**
@@ -140,11 +157,17 @@ Page({
             showDiyTabBar: true
         })
   },
+  newYear (e) {
+    console.log('newYear')
+    wx.navigateTo({
+      url: '/pages/newYear/newYear'
+    })
+  },
   superMatch (e) {
     console.log('superMatch')
-      wx.navigateTo({
-          url: '/pages/recordList/recordList'
-      })
+    wx.navigateTo({
+      url: '/pages/recordList/recordList'
+    })
   },
   superTest (e) {
     console.log('superTest')

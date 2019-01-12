@@ -1,9 +1,9 @@
 /**
  * Created by DELL on 2018/8/9.
  */
-const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
+//const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
 //const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
-// const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
+ const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
 export default {
 
     // //登录
@@ -128,6 +128,7 @@ export default {
     topic_sub: host + 'video/type_sub.php',   //话题选择
 
     //春节活动
+    showOrhidden: host + 'sprint_activity/activity_rukou.php',//活动隐藏与显示
     firstLogin: host + 'sprint_activity/get_user_ce.php',//查询用户是否第一次进入测测测
     mixVideo: host + 'sprint_activity/submit_video_templet.php',//视频合成提交接口
     searchVideo: host + 'sprint_activity/get_submit_video_templet.php',//查询视频合成提交接口

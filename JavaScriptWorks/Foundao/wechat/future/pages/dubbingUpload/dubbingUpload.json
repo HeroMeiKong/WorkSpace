@@ -3,5 +3,6 @@
     "backTitle": "/component/backTitle/backTitle",
     "tabbar": "/component/tabbar/tabbar"
   },
-  "disableScroll": false
+  "disableScroll": false,
+  "backgroundColor": "#000000"
 }

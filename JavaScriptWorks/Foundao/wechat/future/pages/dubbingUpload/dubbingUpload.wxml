@@ -2,7 +2,7 @@
 <view class="user-page {{models}}">
   <backTitle noBack="{{true}}" title=""></backTitle>
   <view class="wrapper">
-    <!-- 配音 -->
+    <!-- 配音
     <view id='dubbing' class='box' catch:tap="dubbing">
       <view class='left'>
         <text class='textTitle'>配音</text>
@@ -12,7 +12,7 @@
         <image src='../../assets/images/2peiyin2@2x.png'></image>
       </view>
     </view>
-    <!-- 拍摄 -->
+     拍摄 
     <view id='shoting' class='box' catch:tap="shotingVideo">
       <view class='left'>
         <text class='textTitle'>拍摄</text>
@@ -22,7 +22,7 @@
         <image src='../../assets/images/1paishe1@2x.png'></image>
       </view>
     </view>
-    <!-- 本地上传 -->
+    <!-- 本地上传 
     <view id='upload' class='box' catch:tap="uploadLocalVideo">
       <view class='left'>
         <text class='textTitle'>本地上传</text>
@@ -31,11 +31,24 @@
       <view class='right'>
         <image src='../../assets/images/1shangchuan@2x.png'></image>
       </view>
+    </view> -->
+    <!-- 配音 -->
+    <view id='dubbing' class='box' catch:tap="dubbing">
+      <image src='https://s-js.sports.cctv.com/host/image/2019/01/12/15472789701239.png'></image>
+    </view>
+    <!-- 拍摄 -->
+    <view id='shoting' class='box' catch:tap="shotingVideo">
+      <image src='https://s-js.sports.cctv.com/host/image/2019/01/12/15472789997044.png'></image>
     </view>
     <!-- 本地上传 -->
+    <view id='upload' class='box' catch:tap="uploadLocalVideo">
+      <image src='https://s-js.sports.cctv.com/host/image/2019/01/12/15472789765074.png'></image>
+    </view>
+    <view class="special"  catch:tap="newYear" style="display:{{showOrHidden[0]}}">
+    </view>
     <view class="superwrapper">
-      <view class="superinner" catch:tap="superMatch"><image src="https://s-js.sports.cctv.com/host/image/2019/01/02/15464263403578.png"></image></view>
-      <view class="superinner" catch:tap="superTest"><image src="https://s-js.sports.cctv.com/host/image/2019/01/02/15464263431927.png"></image></view>
+      <view class="superinner" catch:tap="superMatch"  style="display:{{showOrHidden[1]}}"><image src="https://s-js.sports.cctv.com/host/image/2019/01/02/15464263403578.png"></image></view>
+      <view class="superinner" catch:tap="superTest" style="display:{{showOrHidden[2]}}"><image src="https://s-js.sports.cctv.com/host/image/2019/01/02/15464263431927.png"></image></view>
     </view>
   </view>
   <tabbar select="1" show="{{showDiyTabBar}}"></tabbar>

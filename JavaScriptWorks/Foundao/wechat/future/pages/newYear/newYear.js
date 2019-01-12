@@ -17,8 +17,6 @@ Page({
   data: {
     models: 'defaultmodel',
     alldata: [],
-    avatar: [{id: 0,name: '',yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 1,name: '',yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 2,name: '',yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'},{id: 3,name: '',yes: '../../assets/images/4cancel.png',no: '../../assets/images/4add.png',choose: '../../assets/images/4add.png'}],
-    //whos: '请选择',
     whodata: [],
     row1: [],//第一排拜年对象
     row2: [],//第二排拜年对象
@@ -101,40 +99,36 @@ Page({
         that.data.alldata = res.data.data
         that.data.whodata = res.data.count
         for(let i=0;i<4;i++){
-          that.data.avatar[i].no = that.data.alldata[i].host_pic
-          that.data.avatar[i].yes = that.data.alldata[i].host_pic_select
-          that.data.avatar[i].choose = that.data.alldata[i].host_pic
-          that.data.avatar[i].name = that.data.alldata[i].name
+          that.data.alldata[i].pick = 'nopick'
         }
-        if(length > 5){
-          for(let j=0;j<5;j++){
+        if(length > 4){
+          for(let j=0;j<4;j++){
             that.data.row1.push(that.data.whodata[j])
-            that.data.row1[j].class = 'nochoose'
+            that.data.row1[j].name === '您好' ? that.data.row1[j].class = 'choose' : that.data.row1[j].class = 'nochoose'
           }
-          for(let j=5;j<length;j++){
+          for(let j=4;j<length;j++){
             that.data.row2.push(that.data.whodata[j])
-            that.data.row2[j-5].class = 'nochoose'
+            that.data.row2[j-4].name === '您好' ? that.data.row2[j-4].class = 'choose' : that.data.row2[j-4].class = 'nochoose'
           }
-          if(length > 10){
-            for(let j=10;j<length;j++){
+          if(length > 8){
+            for(let j=8;j<length;j++){
               that.data.row3.push(that.data.whodata[j])
-              that.data.row3[j-10].class = 'nochoose'
+              that.data.row3[j-8].name === '您好' ? that.data.row3[j-8].class = 'choose' : that.data.row3[j-8].class = 'nochoose'
             }
           }
         } else {
           for(let j=0;j<length;j++){
             that.data.row1.push(that.data.whodata[j])
-            that.data.row1[j].class = 'nochoose'
+            that.data.row1[j].name === '您好' ? that.data.row1[j].class = 'choose' : that.data.row1[j].class = 'nochoose'
           }
         }
-        console.log(that.data.whodata)
+        console.log(that.data.alldata)
         that.setData({
           alldata: that.data.alldata,
           whodata: that.data.whodata,
           row1: that.data.row1,
           row2: that.data.row2,
           row3: that.data.row3,
-          avatar: that.data.avatar
         })
       },
       fail: () => {
@@ -165,21 +159,26 @@ Page({
   },
   chooseAvatar (e) {
     console.log('chooseAvatar')
-    const length = this.data.avatar.length
+    const length = this.data.alldata.length
     const avatarnumber = e.currentTarget.id
-    console.log(avatarnumber)
+    let whichone = -1
     for(let i=0;i<length;i++){
-      if(i !== avatarnumber && this.data.avatar[i].choose === this.data.avatar[i].yes){
-        this.data.avatar[i].choose = this.data.avatar[i].no
+      if(this.data.alldata[i].id === avatarnumber){
+        whichone = i
       }
-      if(this.data.avatar[avatarnumber].choose !== this.data.avatar[avatarnumber].yes){
-        this.data.avatar[avatarnumber].choose = this.data.avatar[avatarnumber].yes
-        this.data.chooseone.host_id = this.data.alldata[avatarnumber].id
-        this.data.video_title.host = this.data.alldata[avatarnumber].name
+    }
+    for(let j=0;j<length;j++){
+      if(j !== whichone && this.data.alldata[j].pick === 'pick'){
+        this.data.alldata[j].pick = 'nopick'
+      }
+      if(this.data.alldata[whichone].pick !== 'pick'){
+        this.data.alldata[whichone].pick = 'pick'
+        this.data.chooseone.host_id = this.data.alldata[whichone].id
+        this.data.video_title.host = this.data.alldata[whichone].name
       }
     }
     this.setData({
-      avatar: this.data.avatar,
+      alldata: this.data.alldata,
       chooseone: this.data.chooseone,
       video_title: this.data.video_title
     })
@@ -279,6 +278,33 @@ Page({
       showFirst: 'flex',
       showSecond: 'none',
     })
+    // wx.request({
+    //   url: 'https://web-happy.foundao.com/host/api/api/wangchun_poster_qrcode.php',
+    //   method: 'POST',
+    //   header: {
+    //     "auth-token": wx.getStorageSync('loginSessionKey'),
+    //   },
+    //   data: {
+    //     material_id: '7678123456789',
+    //     // material_id: '1',
+    //     page: 'pages/dubbingUpload/dubbingUpload',
+    //     scene: decodeURIComponent('video_uuid=7678123456789'),
+    //     //path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+    //     // path: 'pages/dubbing/dubbing',
+    //     // path: 'pages/index/index',
+    //     width: 188,           // 二维码的宽度
+    //     auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+    //     line_color: {"r": "255", "g": "255", "b": "255"},
+    //     // line_color: {"r": "0", "g": "0", "b": "1"},
+    //     is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+    //   },
+    //   success: (res) => {
+    //     console.log('生成二维码成功！')
+    //   },
+    //   fail: (res) => {
+    //     console.log('生成二维码失败！')
+    //   }
+    // })
   },
   pauseThis (e) {
     console.log('pauseThis')
