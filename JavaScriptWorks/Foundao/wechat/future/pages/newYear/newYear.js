@@ -5,7 +5,7 @@ let nickName = ''
 var windowWidth = 0  //屏幕宽度
 var windowHeight = 0  //视频屏幕高度
 let previewbox = 0
-let videolock = false //视频是否播放
+let videolock = true //视频是否播放
 let autovideolock = true //兼容有些手机视频自动播放
 let computeMethod = 'height' //视频比例计算方式
 
@@ -104,22 +104,24 @@ Page({
         if(length > 4){
           for(let j=0;j<4;j++){
             that.data.row1.push(that.data.whodata[j])
-            that.data.row1[j].name === '您好' ? that.data.row1[j].class = 'choose' : that.data.row1[j].class = 'nochoose'
           }
           for(let j=4;j<length;j++){
             that.data.row2.push(that.data.whodata[j])
-            that.data.row2[j-4].name === '您好' ? that.data.row2[j-4].class = 'choose' : that.data.row2[j-4].class = 'nochoose'
           }
           if(length > 8){
             for(let j=8;j<length;j++){
               that.data.row3.push(that.data.whodata[j])
-              that.data.row3[j-8].name === '您好' ? that.data.row3[j-8].class = 'choose' : that.data.row3[j-8].class = 'nochoose'
             }
           }
         } else {
           for(let j=0;j<length;j++){
             that.data.row1.push(that.data.whodata[j])
-            that.data.row1[j].name === '您好' ? that.data.row1[j].class = 'choose' : that.data.row1[j].class = 'nochoose'
+          }
+        }
+        for(let k=0;k<length;k++){
+          if(that.data.whodata[k].name === '您好'){
+            that.data.whodata[k].class = 'choose'
+            this.data.chooseone.select_person_id = this.data.whodata[k].id
           }
         }
         console.log(that.data.alldata)
@@ -141,7 +143,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**
@@ -327,6 +328,20 @@ Page({
     this.setData({
       showpause: 'none'
     })
+  },
+  videoend (e) {
+    console.log('videoend')
+    this.videoContext.stop()
+    this.setData({
+      showpause: 'flex'
+    })
+  },
+  videoAutoPlay (e) {
+    console.log('videoAutoPlay')
+    this.setData({
+      showpause: 'none'
+    })
+    //autovideolock ? this.videoContext.pause():this.videoContext.play()
   },
   uploadContent (e) {
     console.log('uploadContent')

@@ -48,7 +48,7 @@
     <view class="pagePreview">
       <view class="publish">
         <view class="videowrapper">
-          <video id="myVideo" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
+          <video id="myVideo" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" autoplay="{{true}}">
             <!-- <cover-image class="myVideoBg" src="https://s-js.sports.cctv.com/host/image/2018/12/18/15451249181206.png"></cover-image> -->
             <cover-view class="playimg" catch:tap="pauseThis">
               <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>

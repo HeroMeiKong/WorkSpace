@@ -2,8 +2,8 @@
  * Created by DELL on 2018/8/9.
  */
 //const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
-//const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
- const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
+const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
+// const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
 export default {
 
     // //登录

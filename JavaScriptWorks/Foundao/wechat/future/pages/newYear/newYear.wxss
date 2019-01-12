@@ -100,6 +100,12 @@
   border-radius: 52rpx;
 }
 
+.avaterFont{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .chooseSomebody{
   width: 96%;
 }
@@ -129,9 +135,10 @@
 
 .choose{
   background-color: rgba(188, 33, 33, 1);/* 背景颜色 */
-  background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472742055173.png');/* 背景图片 */
+  background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472918198934.png');/* 背景图片 */
   background-size: 100%;
   color: rgba(255, 240, 206, 1);
+  border: none;
 }
 
 .sendWish{
