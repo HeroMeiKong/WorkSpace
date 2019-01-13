@@ -122,9 +122,10 @@ Page({
    */
   onHide: function () {
     console.log('onHide')
-    this.setData({
-      showpause: 'flex',
-    })
+    // this.videoContext.pause()
+    // this.setData({
+    //   showpause: 'flex',
+    // })
   },
 
   /**

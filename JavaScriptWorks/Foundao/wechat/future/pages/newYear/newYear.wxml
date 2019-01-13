@@ -78,24 +78,15 @@
   <view class="pagemessage" style="display:{{showThird}}">
     <cover-view class="submission" wx:if="{{compose_success}}">
       <cover-image src="https://s-js.sports.cctv.com/host/image/2019/01/13/15473598825048.png" class="compose_img"></cover-image>
-      <cover-image class="submission_close" src="../../assets/images/3guanbi@2x.png" catch:tap="successBackHome"></cover-image>
       <cover-image class="submission_button" src="../../assets/images/3chakan@2x.png" catch:tap="checkProgress"></cover-image>
+      <cover-image class="submission_close" src="../../assets/images/4fanhui.png" catch:tap="successBackHome"></cover-image>
     </cover-view>
-    <cover-view class="submission submission_fail_color" wx:if="{{!compose_success}}">
-      <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
-      <cover-view class="submission_fail_top">
-        <cover-image src="../../assets/images/3failure@2x.png" class="compose_fail_img"></cover-image>
-      </cover-view>
-      <cover-view class="submission_fail">
-        <cover-view class="submission_top">
-          <cover-view class="submission_title submission_title_color">提交失败</cover-view>
-          <cover-view class="submission_text submission_text_color">网络原因提交失败，请重试！</cover-view>
-        </cover-view>
-        <cover-view class="submission_bottom">
-          <cover-view class="submission_button">
-            <cover-image src="../../assets/images/3determine@2x.png" class="submission_bottom_img" catch:tap="returnSubmit"></cover-image>
-          </cover-view>
-        </cover-view>
+    <cover-view class="submission_fail_color" wx:if="{{!compose_success}}">
+      <cover-view class="submissioninner">
+        <cover-image class="submissioninner_fail" src="../../assets/images/3failure@2x.png"></cover-image>
+        <cover-view class="submissioninner_title">提交失败</cover-view>
+        <cover-view class="submissioninner_text">网络原因提交失败，请重试！</cover-view>
+        <cover-image class="submissioninner_button" src="../../assets/images/3determine@2x.png" catch:tap="returnSubmit"></cover-image>
       </cover-view>
     </cover-view>
   </view>
