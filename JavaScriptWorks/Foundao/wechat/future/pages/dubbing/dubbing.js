@@ -165,11 +165,12 @@ Page({
                         // var country = userInfo.country
                     }
                 })
-                this.getVideoData(this.data.video_uuid);
-                //获取配配配的模板
-                if (this.isPPP()) {
-                    this.get_template_photo()
-                }
+                this.getVideoData(this.data.video_uuid,()=>{
+                    //获取配配配的模板
+                    if (this.isPPP()) {
+                        this.get_template_photo()
+                    }
+                });
             } else {
                 console.log('已初始化')
             }
@@ -340,7 +341,7 @@ Page({
     },
 
     // 获取视频数据
-    getVideoData(video_uuid) {
+    getVideoData(video_uuid,fun) {
         wx.showLoading({
             mask: true
         })
@@ -389,6 +390,7 @@ Page({
                             source: 'material',
                         }
                         app.statistics_pv(options)
+                        fun && fun()
                         // // // 提前缓冲音频
                         // setTimeout(() => {
                         //     wx.showLoading({
@@ -1482,7 +1484,12 @@ Page({
 
     //是否是配配配所属
     isPPP() {
-        return true
+        if(this.data.video_detail.sub_title === "超级配配配"){
+            return true
+        }else {
+            return false
+        }
+
     },
 
     // 显示配配配

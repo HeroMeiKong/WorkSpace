@@ -142,6 +142,9 @@ Page({
                     this.setData({
                         top_info: data.data
                     })
+                    wx.setNavigationBarTitle({
+                        title: data.data.sub_title
+                    })
                 } else {
                     wx.showToast({
                         title: data.msg,

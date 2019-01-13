@@ -2,5 +2,6 @@
   "usingComponents": {
     "backTitle": "/component/backTitle/backTitle"
   },
-  "disableScroll": false
+  "disableScroll": false,
+  "navigationBarTitleText":"话题"
 }

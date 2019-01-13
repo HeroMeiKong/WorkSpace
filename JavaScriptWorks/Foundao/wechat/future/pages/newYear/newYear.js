@@ -15,7 +15,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    models: 'defaultmodel',
     alldata: [],
     whodata: [],
     row1: [],//第一排拜年对象
@@ -24,7 +23,7 @@ Page({
     showFirst: 'flex',
     showSecond: 'none',
     previewsize: {height: 0,width: 0},//预览视频的大小
-    showpause: 'flex',
+    showpause: 'none',
     showThird: 'none',
     showovercover: 'none',
     compose_success: false,
@@ -40,36 +39,9 @@ Page({
     var that = this
     wx.getSystemInfo({
       success: function (res) {
+        console.log(res)
         windowWidth = res.windowWidth
         windowHeight = res.windowHeight
-        windowHeight > windowWidth ? computeMethod = 'height': computeMethod = 'width'
-        let value = windowHeight/windowWidth
-        if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
-          //iphoneX
-          that.data.models = 'iphoneX'
-        } else if (res.model.indexOf("BLA-AL00") > -1) {
-          //huaweimate10plus
-          that.data.models = 'huaweimate10plus'
-        } else if (res.model.indexOf("ONEPLUS A5010") > -1) {
-          //OnePlus5T
-          that.data.models = 'oneplus5t'
-        } else if (res.model.indexOf("MI 8") > -1) {
-          //xiaomi8
-          that.data.models = 'xiaomi8'
-        }
-        previewbox = 69*windowWidth/75
-        if(computeMethod === 'height'){
-          that.data.previewsize.height = previewbox
-          that.data.previewsize.width = previewbox/value
-        } else {
-          that.data.previewsize.width = previewbox
-          that.data.previewsize.height = previewbox*value
-        }
-        that.setData({
-          models: that.data.models,
-          originMovableview: that.data.originMovableview,
-          previewsize: that.data.previewsize
-        })
       }
     })
     wx.getUserInfo({
@@ -119,7 +91,7 @@ Page({
           }
         }
         for(let k=0;k<length;k++){
-          if(that.data.whodata[k].name === '您好'){
+          if(that.data.whodata[k].name === '新年好'){
             that.data.whodata[k].class = 'choose'
             this.data.chooseone.select_person_id = this.data.whodata[k].id
           }
@@ -149,7 +121,10 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log('onHide')
+    this.setData({
+      showpause: 'flex',
+    })
   },
 
   /**
@@ -232,8 +207,25 @@ Page({
         },
         success: (res) => {
           console.log(res)
+          wx.showLoading({
+            title: '加载中',
+            mask: true,
+          })
+          res.data.data.wangchun_height > res.data.data.wangchun_width ? computeMethod = 'height': computeMethod = 'width'
+          let value = res.data.data.wangchun_height/res.data.data.wangchun_width
+          console.log(value)
+          previewbox = 69*windowWidth/75
+          if(computeMethod === 'height'){
+            that.data.previewsize.height = previewbox
+            that.data.previewsize.width = previewbox/value
+          } else {
+            that.data.previewsize.width = previewbox
+            that.data.previewsize.height = previewbox*value
+          }
           that.data.video_title.wish = res.data.data.wangchun_title
           that.setData({
+            originMovableview: that.data.originMovableview,
+            previewsize: that.data.previewsize,
             tempFilePath: res.data.data.wangchun_video_url,
             video_title: that.data.video_title
           })
@@ -242,11 +234,14 @@ Page({
           console.log('发送祝福失败！')
         }
       })
-      this.setData({
-        showFirst: 'none',
-        showSecond: 'flex',
-        showpause: 'flex',
-      })
+      let time = setTimeout(() => {
+        wx.hideLoading()
+        clearTimeout(time)
+        this.setData({
+          showFirst: 'none',
+          showSecond: 'flex',
+        })
+      }, 1000)
     }
   },
   chooseSomebody (e) {
@@ -278,6 +273,7 @@ Page({
     this.setData({
       showFirst: 'flex',
       showSecond: 'none',
+      showpause: 'flex',
     })
     // wx.request({
     //   url: 'https://web-happy.foundao.com/host/api/api/wangchun_poster_qrcode.php',
@@ -338,9 +334,9 @@ Page({
   },
   videoAutoPlay (e) {
     console.log('videoAutoPlay')
-    this.setData({
-      showpause: 'none'
-    })
+    // this.setData({
+    //   showpause: 'none'
+    // })
     //autovideolock ? this.videoContext.pause():this.videoContext.play()
   },
   uploadContent (e) {
@@ -363,7 +359,7 @@ Page({
         success: (res) => {
           console.log('确认发布成功！')
           that.setData({
-            showSecond: 'none',
+            //showSecond: 'none',
             showThird: 'flex',
             showovercover: 'flex',
             compose_success: true,

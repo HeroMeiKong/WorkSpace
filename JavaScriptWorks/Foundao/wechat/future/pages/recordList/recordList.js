@@ -62,7 +62,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        wx.showTabBar();
+        // wx.showTabBar();
         app.isAuth(() => {
             const options = {
                 op: 'pv',
@@ -84,7 +84,6 @@ Page({
                 console.log('已初始化')
             }
         })
-
     },
 
     /**

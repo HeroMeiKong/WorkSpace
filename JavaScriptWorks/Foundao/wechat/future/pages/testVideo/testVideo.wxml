@@ -2,9 +2,9 @@
 <view class="wrapper">
   <video id="myVideo" bindended="videoEnd" class="innervideo" src="{{videoSrc}}" objectFit="cover" controls="{{false}}" show-center-play-btn="{{false}}" autoplay="{{true}}" loop="{{true}}">
     <cover-view class="cover" catch:tap="clickVideo">
-      <cover-view class="topbutton {{models}}">
+      <!-- <cover-view class="topbutton">
         <cover-image class="backbutton" src="../../assets/images/jt4.png" catch:tap="closeVideo"></cover-image>
-      </cover-view>
+      </cover-view> -->
     </cover-view>
   </video>
 </view>

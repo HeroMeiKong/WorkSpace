@@ -2,8 +2,8 @@
  * Created by DELL on 2018/8/9.
  */
 //const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
-const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
-// const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
+// const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
+const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
 export default {
 
     // //登录
@@ -89,6 +89,7 @@ export default {
     submit_exmaine: host + 'dub/submit_exmaine.php',    //录音提交接口
     query_video_status: host + 'dub/query_video_status.php',    //录音提交接口
     upload: host + 'upload.php',    //上传
+    ppp: host + 'sprint_activity/peipeipei.php',
 
     //视频详情
     video_topic: host + 'topic/video_topic.php',

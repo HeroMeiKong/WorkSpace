@@ -1,7 +1,7 @@
 <!--pages/user/user.wxml-->
 <view class="user-page {{isIpx?'iphoneX':''}}">
 
-    <backTitle title="用户详情"></backTitle>
+    <!--<backTitle title="用户详情"></backTitle>-->
 
     <view class="top-box">
         <!--用户信息-->

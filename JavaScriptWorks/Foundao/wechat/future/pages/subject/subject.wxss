@@ -2,7 +2,7 @@
 
 .subjectItem-page{
     width: 100%;
-    padding-top: 122rpx;
+    /*padding-top: 122rpx;*/
 }
 
 .head-title{
@@ -52,8 +52,9 @@
     box-sizing: border-box;
     line-height: 36rpx;
     font-size: 26rpx;
-    color: #FFD892;
-    background-color: #9D1E23;
+    /*color: #FFD892;*/
+    /*background-color: #9D1E23;*/
+    color: rgba(51,51,51,.6);
 }
 
 
@@ -104,7 +105,8 @@
 .video-list{
     width: 100%;
     padding-top: 14rpx;
-    background-color: #831c18;
+    /*background-color: #831c18;*/
+    background-color: #eeeeee;
 }
 
 .videoItem{
@@ -133,7 +135,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: #9D1E23;
+    /*background-color: #9D1E23;*/
 }
 
 .videoItem .info .head{
@@ -143,7 +145,7 @@
     background-size: cover;
     background-position: center center;
     border-radius: 50%;
-    border:1rpx solid rgba(255,216,146,1);
+    /*border:1rpx solid rgba(255,216,146,1);*/
 }
 
 .videoItem .info .video-des{
@@ -158,7 +160,8 @@
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp:2;
-    color: #ffd892;
+    /*color: #ffd892;*/
+    color: #333333;
 }
 
 .no-more{

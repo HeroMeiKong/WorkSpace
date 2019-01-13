@@ -136,10 +136,10 @@
         <!-- 合成浮层-->
         <cover-view class="compose_layer" hidden="{{!show_compose_layer}}">
             <!--合成中-->
-            <cover-view class="composeing" wx:if="{{is_composeing}}">
+            <!--<cover-view class="composeing" wx:if="{{is_composeing}}">-->
                 <!--<cover-view class="composeing_icon"></cover-view>-->
                 <!--<cover-view class="composeing_text">合成中...</cover-view>-->
-            </cover-view>
+            <!--</cover-view>-->
             <!--合成成功-->
             <cover-view class="compose_success" wx:if="{{compose_success}}">
                 <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3kuang3@2x_0.png"

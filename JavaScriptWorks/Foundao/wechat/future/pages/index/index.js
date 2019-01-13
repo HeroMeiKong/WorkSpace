@@ -72,6 +72,8 @@ Page({
 
         showDoLayer: false,
 
+        select_show: false,
+
     },
 
     /**
@@ -89,6 +91,9 @@ Page({
         if (options.video_uuid) {
             this.data.first_uuid = options.video_uuid
             this.data.first_id = options.id
+        }
+        if (options.select_id) {
+            this.data.select_id = options.select_id
         }
         app.isFullScreen(() => {
             this.setData({
@@ -149,21 +154,32 @@ Page({
                         // var country = userInfo.country
                     }
                 })
-                this.getTypes();
-                if (this.data.first_uuid) {
-                    //如果是分享入口
-                    this.getVideoData(this.data.first_uuid, this.data.first_id, () => {
+                this.getTypes(() => {
+                    if (this.data.first_uuid) {
+                        //如果是分享入口
+                        this.getVideoData(this.data.first_uuid, this.data.first_id, () => {
+                            this.getSpecialVideoList(() => {
+                                this.refreshSwiper(this.data.special_list)
+                                this.switchVideo(this.data.special_list[0], 0, true)
+                            });
+                        })
+                    } else {
                         this.getSpecialVideoList(() => {
                             this.refreshSwiper(this.data.special_list)
-                            this.switchVideo(this.data.special_list[0], 0, true)
+                            //如果有select_id并且分类里含有select_id，则自动选择到改分类
+                            if (this.data.select_id && this.containTypeId(this.data.select_id)) {
+                                this.switchType_fun(this.data.select_id)
+                                //显示出覆盖层
+                                this.setData({
+                                    first_init: true
+                                })
+                            } else {
+                                this.switchVideo(this.data.special_list[0], 0, true)
+                            }
                         });
-                    })
-                } else {
-                    this.getSpecialVideoList(() => {
-                        this.refreshSwiper(this.data.special_list)
-                        this.switchVideo(this.data.special_list[0], 0, true)
-                    });
-                }
+                    }
+                });
+
 
                 // setTimeout(() => {
                 //获取二维码
@@ -593,6 +609,8 @@ Page({
                     if (isFirst) {
                         this.refreshSwiper(temp_data.list, 0)
                         this.switchVideo(temp_data.list[0], 0)
+                    } else {
+                        this.refreshSwiper(temp_data.list)
                     }
 
                 } else {
@@ -616,7 +634,7 @@ Page({
     },
 
     // 分类查询
-    getTypes() {
+    getTypes(fun) {
         wx.showLoading({
             mask: true
         })
@@ -635,6 +653,8 @@ Page({
                 if (parseInt(data.code) === 0) {
                     this.setData({
                         type_list: data.data.splice(0, 3)
+                    }, () => {
+                        fun && fun()
                     })
                 } else {
                     wx.showToast({
@@ -658,27 +678,44 @@ Page({
 
     // 切换类型
     switchType(event) {
-        const {cur_type, type_data} = this.data
         var data = event.currentTarget.dataset.data
-        if (data.id == cur_type) {
+        this.switchType_fun(data.id)
+    },
+
+    // 根据id切换类型
+    switchType_fun(id) {
+        const {cur_type, type_data} = this.data
+        if (id == cur_type || !this.containTypeId(id)) {
             return
         } else {
             this.setData({
-                cur_type: data.id
+                cur_type: id
             })
         }
         //判断视频数据是否存在
-        if (type_data.hasOwnProperty(data.id)) {
+        if (type_data.hasOwnProperty(id)) {
             //如果有切换视频
-            var index = type_data[data.id].index
-            var video_data = type_data[data.id].list[index]
-            this.refreshSwiper(type_data[data.id].list, index)
+            var index = type_data[id].index
+            var video_data = type_data[id].list[index]
+            this.refreshSwiper(type_data[id].list, index)
             this.switchVideo(video_data, index)
         } else {
             //如果没有则需要去取
-            this.getTypeVideoList(data.id)
+            this.getTypeVideoList(id)
         }
     },
+
+    // 分类列表是否含有相应id
+    containTypeId(id) {
+        const {type_list} = this.data
+        for (var i = 0; i < type_list.length; i++) {
+            if (type_list[i].id == id) {
+                return true
+            }
+        }
+        return false
+    },
+
 
     // 切换到精选
     switchSpecial() {
@@ -1331,7 +1368,9 @@ Page({
             }
             //判断是否加载更多
             if (special_index > special_list.length - 10) {
-                this.getSpecialVideoList()
+                this.getSpecialVideoList(() => {
+                    this.refreshSwiper(this.data.special_list)
+                })
             }
         } else {
             //分类
@@ -1432,6 +1471,12 @@ Page({
     switchToUpload() {
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=album'
+        })
+    },
+
+    openZhufu(){
+        wx.navigateTo({
+            url: '/pages/newYear/newYear'
         })
     },
 

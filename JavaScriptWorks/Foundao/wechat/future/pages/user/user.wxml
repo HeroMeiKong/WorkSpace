@@ -1,6 +1,6 @@
 <!--pages/user/user.wxml-->
-<view class="user-page {{isIpx?'iphoneX':''}}">
-    <backTitle noBack="{{true}}" title="我的"></backTitle>
+<view class="user-page">
+    <!--<backTitle noBack="{{true}}" title="我的"></backTitle>-->
 
     <view class="top-box">
         <!--用户信息-->

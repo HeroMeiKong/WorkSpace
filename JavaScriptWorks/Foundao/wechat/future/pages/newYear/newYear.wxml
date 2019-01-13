@@ -1,6 +1,6 @@
 <!-- pages/newYear/newYear.wxml -->
-<view class="wrapper  {{models}}">
-<backTitle noBack="{{false}}" title="网春大拜年"></backTitle>
+<view class="wrapper">
+  <!-- <backTitle noBack="{{false}}" title="网春大拜年"></backTitle> -->
   <view class="page" style="display:{{showFirst}}">
     <view class="pageChoose">
       <image class="pageChoosetop" src="https://s-js.sports.cctv.com/host/image/2019/01/12/15472653383476.png"></image>
@@ -21,17 +21,23 @@
           <view class="chooseSomebodyBox">
             <view class="boxrow">
               <block wx:for="{{row1}}" wx:key="*this">
-                <view class="boxnumber {{item.class}}" id="row{{item.id}}" catch:tap="chooseSomebody">{{item.name}}</view>
+                <view class="boxnumber {{item.class}}" id="row{{item.id}}" catch:tap="chooseSomebody">
+                  {{item.name}}
+                </view>
               </block>
             </view>
             <view class="boxrow">
               <block wx:for="{{row2}}" wx:key="*this">
-                <view class="boxnumber {{item.class}}" id="row{{item.id}}" catch:tap="chooseSomebody">{{item.name}}</view>
+                <view class="boxnumber {{item.class}}" id="row{{item.id}}" catch:tap="chooseSomebody">
+                  {{item.name}}
+                </view>
               </block>
             </view>
             <view class="boxrow">
               <block wx:for="{{row3}}" wx:key="*this">
-                <view class="boxnumber {{item.class}}" id="row{{item.id}}" catch:tap="chooseSomebody">{{item.name}}</view>
+                <view class="boxnumber {{item.class}}" id="row{{item.id}}" catch:tap="chooseSomebody">
+                  {{item.name}}
+                </view>
               </block>
             </view>
           </view>
@@ -41,80 +47,56 @@
         </view>
       </view>
       <image class="pageChoosebottom" src="https://s-js.sports.cctv.com/host/image/2019/01/12/15472653194405.png"></image>
-      <image class="sendWish" src="../../assets/images/1songzhufu@2x.png" catch:tap="sendWish">送祝福</image>
+      <image class="sendWish" src="../../assets/images/1songzhufu@2x.png" catch:tap="sendWish">
+        送祝福
+      </image>
     </view>
   </view>
   <view class="page" style="display:{{showSecond}}">
     <view class="pagePreview">
       <view class="publish">
         <view class="videowrapper">
-          <video id="myVideo" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" autoplay="{{true}}">
+          <video id="myVideo" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:423rpx;height:750rpx" autoplay="{{true}}">
             <!-- <cover-image class="myVideoBg" src="https://s-js.sports.cctv.com/host/image/2018/12/18/15451249181206.png"></cover-image> -->
             <cover-view class="playimg" catch:tap="pauseThis">
               <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
             </cover-view>
           </video>
         </view>
-        <view class="textcontent" style="display:{{showtextcontent}}">
-          <view class="topic">
-            <view class="topicinner">
-              <image class="topicinnerpic" src="../../assets/images/4huati2@2x.png" />
-              <font>网春大拜年</font>
-            </view>
-          </view>
-        </view>
         <view class="bottom_option" style="display:{{showsure}}">
           <view class="back" catch:tap="backFirstPage">
-            <image src="../../assets/images/4fanhui@2x.png" />
-            返回上一步
+            <image src="../../assets/images/3fanhui@2x.png" />
           </view>
           <view class="sure" catch:tap="uploadContent">
-            <image src="../../assets/images/4fabu@2x.png" />
-            确认发布
+            <image src="../../assets/images/3fabu@2x.png" />
           </view>
         </view>
       </view>
       <cover-view class="overcover" style="display:{{showovercover}}"></cover-view>
     </view>
   </view>
-  <view class="page" style="display:{{showThird}}">
-    <view class="pageSubmit">
-      <view class="submissionwrapper">
-        <cover-view class="submission" wx:if="{{compose_success}}">
-          <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
-          <cover-image src="../../assets/images/4success1@2x.png" class="compose_img"></cover-image>
-          <cover-view class="submission_success">
-            <cover-view class="submission_top">
-              <cover-view class="submission_title">视频发布成功</cover-view>
-            </cover-view>
-            <cover-view class="submission_bottom">
-              <cover-view class="submission_button">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3return@2x_0.png" catch:tap="successBackHome"></cover-image>
-              </cover-view>
-              <cover-view class="submission_button">
-                <cover-image src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x_0.png" catch:tap="checkProgress"></cover-image>
-              </cover-view>
-            </cover-view>
+  <view class="pagemessage" style="display:{{showThird}}">
+    <cover-view class="submission" wx:if="{{compose_success}}">
+      <cover-image src="https://s-js.sports.cctv.com/host/image/2019/01/13/15473598825048.png" class="compose_img"></cover-image>
+      <cover-image class="submission_close" src="../../assets/images/3guanbi@2x.png" catch:tap="successBackHome"></cover-image>
+      <cover-image class="submission_button" src="../../assets/images/3chakan@2x.png" catch:tap="checkProgress"></cover-image>
+    </cover-view>
+    <cover-view class="submission submission_fail_color" wx:if="{{!compose_success}}">
+      <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
+      <cover-view class="submission_fail_top">
+        <cover-image src="../../assets/images/3failure@2x.png" class="compose_fail_img"></cover-image>
+      </cover-view>
+      <cover-view class="submission_fail">
+        <cover-view class="submission_top">
+          <cover-view class="submission_title submission_title_color">提交失败</cover-view>
+          <cover-view class="submission_text submission_text_color">网络原因提交失败，请重试！</cover-view>
+        </cover-view>
+        <cover-view class="submission_bottom">
+          <cover-view class="submission_button">
+            <cover-image src="../../assets/images/3determine@2x.png" class="submission_bottom_img" catch:tap="returnSubmit"></cover-image>
           </cover-view>
         </cover-view>
-        <cover-view class="submission submission_fail_color" wx:if="{{!compose_success}}">
-          <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
-          <cover-view class="submission_fail_top">
-            <cover-image src="../../assets/images/3failure@2x.png" class="compose_fail_img"></cover-image>
-          </cover-view>
-          <cover-view class="submission_fail">
-            <cover-view class="submission_top">
-              <cover-view class="submission_title submission_title_color">提交失败</cover-view>
-              <cover-view class="submission_text submission_text_color">网络原因提交失败，请重试！</cover-view>
-            </cover-view>
-            <cover-view class="submission_bottom">
-              <cover-view class="submission_button">
-                <cover-image src="../../assets/images/3determine@2x.png" class="submission_bottom_img" catch:tap="returnSubmit"></cover-image>
-              </cover-view>
-            </cover-view>
-          </cover-view>
-        </cover-view>
-      </view>
-    </view>
+      </cover-view>
+    </cover-view>
   </view>
 </view>

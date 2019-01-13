@@ -1,4 +1,5 @@
 {
   "disableScroll": true,
-  "backgroundColor": "#000000"
+  "backgroundColor": "#000000",
+  "navigationStyle":"custom"
 }

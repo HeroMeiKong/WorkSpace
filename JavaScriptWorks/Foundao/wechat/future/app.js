@@ -91,24 +91,25 @@ App({
             success: (res) => {
                 console.log(res.authSetting)
                 if (res.authSetting['scope.userInfo'] && wx.getStorageSync('loginSessionKey')) {
-                    wx.checkSession({
-                        success: () => {
-                            // 接口调用成功的回调函数，session_key未过期
-                            console.log('check token 完毕')
-                            _this.getUserInfo(success_cb)
-                        },
-                        fail: () => {
-                            //删除过期key
-                            wx.removeStorageSync('loginSessionKey');
-                            if (fail_cb) {
-                                fail_cb()
-                            } else {
-                                wx.navigateTo({
-                                    url: '/pages/auth/auth'
-                                })
-                            }
-                        }
-                    })
+                    // wx.checkSession({
+                    //     success: () => {
+                    //         // 接口调用成功的回调函数，session_key未过期
+                    //         console.log('check token 完毕')
+                    //         _this.getUserInfo(success_cb)
+                    //     },
+                    //     fail: () => {
+                    //         //删除过期key
+                    //         wx.removeStorageSync('loginSessionKey');
+                    //         if (fail_cb) {
+                    //             fail_cb()
+                    //         } else {
+                    //             wx.navigateTo({
+                    //                 url: '/pages/auth/auth'
+                    //             })
+                    //         }
+                    //     }
+                    // })
+                    _this.getUserInfo(success_cb)
                 } else {
                     if (fail_cb) {
                         fail_cb()

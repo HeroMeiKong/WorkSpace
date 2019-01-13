@@ -1,6 +1,6 @@
 <!--pages/protocol/protocol.wxml-->
-<view class="protocol-page {{isIpx?'iphoneX':''}}">
-    <backTitle noBack="{{false}}" title="用户协议"></backTitle>
+<view class="protocol-page">
+    <!--<backTitle noBack="{{false}}" title="用户协议"></backTitle>-->
     <view class="main-box">
         <text class="text">未来电视有限公司（以下简称“未来电视”）特别提醒您，请审慎阅读本 “逗牛短视频”产品用户协议（以下称“本协议”），确保您充分理解本协议各条款，您有权选择接受或不接受本协议。除非您接受本协议所有条款，否则您无权使用未来电视提供的“逗牛短视频”产品及基于本产品的服务（以下称“本产品”或“本产品服务”）。您使用本产品的行为将视为对本协议的理解和接受，同意本协议对未来电视和您具有法律约束。如您（以下称“用户”）不同意本协议的任何内容或无法准确理解相关条款，请不要使用本产品</text>
         <text class="title">1、适用范围</text>

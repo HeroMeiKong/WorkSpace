@@ -88,6 +88,7 @@ Page({
                 // this.get_erCode()
             } else {
                 console.log('已初始化')
+                this.playVideo();
             }
 
         })
@@ -97,7 +98,7 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
+        this.pauseVideo();
     },
 
     /**
@@ -159,7 +160,7 @@ Page({
 
     // 监听视频播放
     bindplay() {
-        // console.log('play')
+        console.log('bindplay')
         this.setData({
             playing: true,
             hasPlayed: true,
@@ -168,9 +169,16 @@ Page({
 
     // 监听视频暂停
     bindpause() {
-        // console.log('pause')
+        console.log('bindpause')
         this.setData({
             playing: false
+        })
+    },
+
+    bindwaiting() {
+        console.log('bindwaiting')
+        this.setData({
+            playing: true
         })
     },
 
@@ -915,6 +923,12 @@ Page({
                 //     wx.hideLoading()
                 // }
             }
+        })
+    },
+
+    openZhufu(){
+        wx.navigateTo({
+            url: '/pages/newYear/newYear'
         })
     },
 })

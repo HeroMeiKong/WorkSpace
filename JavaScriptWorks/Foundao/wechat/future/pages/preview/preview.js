@@ -59,7 +59,7 @@ Page({
     //isIpx: false,
     //whichmodel: true,
     chooseVideo: 0,//视频是否选取成功,0初始化，1成功，2失败
-    models: 'defaultmodel',
+    //models: 'defaultmodel',
     showwrappers: 'visible',
     picsize: {height: 0,width: 0}, //图片的大小
     previewsize: {height: 0,width: 0},//预览视频的大小
@@ -145,34 +145,34 @@ Page({
         windowWidth = res.windowWidth
         windowHeight = res.windowHeight
         that.data.oldCoordinatey = 0
-        if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
-          //iphoneX
-          //windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.73//原来视频大小
-          //that.data.oldCoordinatey = 186 * windowWidth / 750
-          that.data.models = 'iphoneX'
-        } else if (res.model.indexOf("BLA-AL00") > -1) {
-          //huaweimate10plus
-          //windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
-          //that.data.oldCoordinatey = 142 * windowWidth / 750
-          that.data.models = 'huaweimate10plus'
-        } else if (res.model.indexOf("ONEPLUS A5010") > -1) {
-          //OnePlus5T
-          //windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
-          //that.data.oldCoordinatey = 142 * windowWidth / 750
-          that.data.models = 'oneplus5t'
-        } else if (res.model.indexOf("MI 8") > -1) {
-          //xiaomi8
-          //windowHeight = (res.windowHeight - 162 * windowWidth / 750)*0.73
-          //that.data.oldCoordinatey = 162 * windowWidth / 750
-          that.data.models = 'xiaomi8'
-        } else {
-          //其他机型
-          //windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.73
-          //that.data.oldCoordinatey = 122 * windowWidth / 750
-          // that.setData({
-          //   whichmodel: false,
-          // })
-        }
+        // if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
+        //   //iphoneX
+        //   //windowHeight = (res.windowHeight - 186 * windowWidth / 750)*0.73//原来视频大小
+        //   //that.data.oldCoordinatey = 186 * windowWidth / 750
+        //   that.data.models = 'iphoneX'
+        // } else if (res.model.indexOf("BLA-AL00") > -1) {
+        //   //huaweimate10plus
+        //   //windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
+        //   //that.data.oldCoordinatey = 142 * windowWidth / 750
+        //   that.data.models = 'huaweimate10plus'
+        // } else if (res.model.indexOf("ONEPLUS A5010") > -1) {
+        //   //OnePlus5T
+        //   //windowHeight = (res.windowHeight - 142 * windowWidth / 750)*0.73
+        //   //that.data.oldCoordinatey = 142 * windowWidth / 750
+        //   that.data.models = 'oneplus5t'
+        // } else if (res.model.indexOf("MI 8") > -1) {
+        //   //xiaomi8
+        //   //windowHeight = (res.windowHeight - 162 * windowWidth / 750)*0.73
+        //   //that.data.oldCoordinatey = 162 * windowWidth / 750
+        //   that.data.models = 'xiaomi8'
+        // } else {
+        //   //其他机型
+        //   //windowHeight = (res.windowHeight - 122 * windowWidth / 750)*0.73
+        //   //that.data.oldCoordinatey = 122 * windowWidth / 750
+        //   // that.setData({
+        //   //   whichmodel: false,
+        //   // })
+        // }
         that.data.originMovableview.x = windowWidth/2 - 40
         that.data.originMovableview.y = windowHeight/2 -40
         previewbox = 69*windowWidth/75
@@ -181,7 +181,7 @@ Page({
           that.data.movableviewNum[i].y = that.data.originMovableview.y
         }
         that.setData({
-          models: that.data.models,
+          //models: that.data.models,
           originMovableview: that.data.originMovableview,
           movableviewNum: that.data.movableviewNum
         })

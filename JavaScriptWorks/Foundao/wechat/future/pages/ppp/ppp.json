@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "backTitle": "/component/backTitle/backTitle"
+  },
+  "navigationBarTitleText":"超级配配配"
 }
