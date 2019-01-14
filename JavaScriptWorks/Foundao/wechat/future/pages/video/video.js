@@ -878,9 +878,16 @@ Page({
 
     // 前往话题详情页
     goSubjectDetail() {
+        // var wangchun_value = [1, 3];
+        // if (wangchun_value.includes(parseInt(this.data.cur_video.is_wangchun))) {
+        //     wx.navigateTo({
+        //         url: '/pages/subjectIndex/subjectIndex'
+        //     })
+        // } else {
         wx.navigateTo({
             url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
         })
+        // }
     },
 
     //关闭拍摄+本地上传浮层

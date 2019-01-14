@@ -13,9 +13,9 @@
 
 /*顶部*/
 .wrapper{
-    height: 1400rpx;/* 背景颜色高度 */
+    min-height: 100%;/* 背景颜色高度 */
     position: relative;
-    padding: 30rpx 30rpx 0;
+    padding: 30rpx 30rpx 100rpx;
     background-color: #9b2027;/* 背景颜色 */
     background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 背景图片 */
     background-size: 100%;
@@ -83,7 +83,7 @@
   border-radius: 8rpx;
 }
 .superinner {
-  height: 240rpx;
+  height: 220rpx;
   width: 330rpx;
   display: flex;
   justify-content: center;
@@ -93,6 +93,6 @@
 }
 
 .superinner image{
-  height: 240rpx;
+  height: 220rpx;
   width: 330rpx;
 }

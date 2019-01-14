@@ -1,9 +1,9 @@
 /**
  * Created by DELL on 2018/8/9.
  */
-//const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
- const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
-//const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
+// const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
+//  const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
+const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
 export default {
 
     // //登录
@@ -67,7 +67,8 @@ export default {
     home_page_selection: host + 'home_page_selection.php',  //精选视频
     fabulous: host + 'fabulous.php',        //点赞关注
     del_fabulous: host + 'del_fabulous.php',        //点赞关注
-    poster_qrcode: host + 'poster_qrcode.php',        //小程序
+    poster_qrcode: host + 'poster_qrcode.php',        //二维码
+    wangchun_poster_qrcode: host + 'wangchun_poster_qrcode.php',        //网春二维码
     types: host + 'topic/types.php',        //分类查询
     type_video: host + 'topic/type_video.php',  //首页分类视频
 

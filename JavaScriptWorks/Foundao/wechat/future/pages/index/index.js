@@ -302,14 +302,17 @@ Page({
         const loginSessionKey = wx.getStorageSync('loginSessionKey');
         const wxRequest = promisify(wx.request);
 
+        var wangchun = [1, 3];
+        var is_wangchun = wangchun.includes(parseInt(this.data.cur_video.is_wangchun));
+
         wxRequest({
-            url: api.poster_qrcode,
+            url: is_wangchun ? api.wangchun_poster_qrcode : api.poster_qrcode,
             method: 'POST',
             header: {
                 "auth-token": loginSessionKey
             },
             data: {
-                material_id: this.data.cur_video.video_uuid,
+                material_id: is_wangchun ? '' : this.data.cur_video.video_uuid,
                 // material_id: '1',
                 path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
                 // path: 'pages/dubbing/dubbing',
@@ -721,7 +724,10 @@ Page({
 
     // 切换到精选
     switchSpecial() {
-        const {special_index, special_list} = this.data
+        const {special_index, special_list, cur_type} = this.data
+        if (cur_type == 0) {
+            return
+        }
         this.setData({
             cur_type: 0
         })
@@ -1214,9 +1220,16 @@ Page({
 
     // 前往话题详情页
     goSubjectDetail() {
+        // var wangchun_value = [1, 3];
+        // if (wangchun_value.includes(parseInt(this.data.cur_video.is_wangchun))) {
+        //     wx.navigateTo({
+        //         url: '/pages/subjectIndex/subjectIndex'
+        //     })
+        // } else {
         wx.navigateTo({
             url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
         })
+        // }
     },
 
     // 更新其他视频里的关注状态

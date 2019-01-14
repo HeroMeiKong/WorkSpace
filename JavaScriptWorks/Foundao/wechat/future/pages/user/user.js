@@ -34,14 +34,14 @@ Page({
         product_no_more: false,
         like_no_more: false,
 
-        showDiyTabBar:false,
+        showDiyTabBar: false,
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        app.isFullScreen(()=>{
+        app.isFullScreen(() => {
             this.setData({
                 isIpx: true
             })
@@ -226,6 +226,10 @@ Page({
                             })
                         }
                         return
+                    } else {
+                        this.setData({
+                            product_none: false,
+                        })
                     }
                     //设置作品数组
                     this.data.product_page++;
@@ -291,6 +295,10 @@ Page({
                             })
                         }
                         return
+                    } else {
+                        this.setData({
+                            like_none: false,
+                        })
                     }
                     //设置作品数组
                     this.data.like_page++;
@@ -414,7 +422,7 @@ Page({
     },
 
     //前往协议页
-    goProtocol(){
+    goProtocol() {
         wx.navigateTo({
             url: '/pages/protocol/protocol'
         })
