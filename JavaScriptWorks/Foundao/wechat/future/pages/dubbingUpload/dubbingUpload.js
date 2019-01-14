@@ -10,7 +10,7 @@ Page({
    */
   data: {
     showDiyTabBar:false,
-    showOrHidden: ["flex","flex","flex"]
+    showOrHidden: ["none","none","none"]
   },
   /**
    * 生命周期函数--监听页面加载
@@ -24,7 +24,11 @@ Page({
         console.log(res.data.data)
         const length = res.data.data.length
         for(let i=0;i<length;i++){
-          that.data.showOrHidden[i] = res.data.data[i].online
+          if(res.data.data[i].online === '1'){
+            that.data.showOrHidden[i] = 'none'
+          } else {
+            that.data.showOrHidden[i] = 'flex'
+          }
         }
         that.setData({
           showOrHidden: that.data.showOrHidden
