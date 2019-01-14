@@ -2,12 +2,8 @@
 import api from './../../config/api';
 
 let nickName = ''
-var windowWidth = 0  //屏幕宽度
-var windowHeight = 0  //视频屏幕高度
-let previewbox = 0
 let videolock = true //视频是否播放
 let autovideolock = true //兼容有些手机视频自动播放
-let computeMethod = 'height' //视频比例计算方式
 
 Page({
 
@@ -15,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    chooseHost: -1,//判断是否重复选中一个主持人，即video_src有无变化，来决定showpause显示
     alldata: [],
     whodata: [],
     row1: [],//第一排拜年对象
@@ -22,12 +19,10 @@ Page({
     row3: [],//第三排拜年对象
     showFirst: 'flex',
     showSecond: 'none',
-    previewsize: {height: 0,width: 0},//预览视频的大小
     showpause: 'none',
     showThird: 'none',
     showovercover: 'none',
     compose_success: false,
-    originMovableview: {x: 0,y: 0},
     chooseone: {host_id: -1,select_person_id: -1},
     video_title: {host: '',who: '',wish: ''},
   },
@@ -37,13 +32,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    wx.getSystemInfo({
-      success: function (res) {
-        console.log(res)
-        windowWidth = res.windowWidth
-        windowHeight = res.windowHeight
-      }
-    })
     wx.getUserInfo({
       success(res) {
         const userInfo = res.userInfo
@@ -70,7 +58,7 @@ Page({
         const length = res.data.count.length
         that.data.alldata = res.data.data
         that.data.whodata = res.data.count
-        for(let i=0;i<4;i++){
+        for(let i=1;i<4;i++){
           that.data.alldata[i].pick = 'nopick'
         }
         if(length > 4){
@@ -90,16 +78,16 @@ Page({
             that.data.row1.push(that.data.whodata[j])
           }
         }
-        for(let k=0;k<length;k++){
-          if(that.data.whodata[k].name === '新年好'){
-            that.data.whodata[k].class = 'choose'
-            this.data.chooseone.select_person_id = this.data.whodata[k].id
-          }
-        }
-        console.log(that.data.alldata)
+        that.data.alldata[0].pick = 'pick'
+        that.data.chooseone.host_id = this.data.alldata[0].id
+        that.data.video_title.host = this.data.alldata[0].name
+        that.data.whodata[0].class = 'choose'
+        that.data.chooseone.select_person_id = this.data.whodata[0].id
         that.setData({
           alldata: that.data.alldata,
           whodata: that.data.whodata,
+          chooseone: that.data.chooseone,
+          video_title: that.data.video_title,
           row1: that.data.row1,
           row2: that.data.row2,
           row3: that.data.row3,
@@ -178,23 +166,33 @@ Page({
     console.log('sendWish')
     console.log(this.data.chooseone)
     let that = this
-    if(that.data.chooseone.host_id === -1){
-      console.log('未选择祝福主持人')
-      wx.showToast({
-        title: '未选择祝福主持人',
-        icon: 'loading',
-        duration: 500,
-        mask: false,
-      });
-    } else if(that.data.chooseone.select_person_id === -1){
-      console.log('未选择祝福对象')
-      wx.showToast({
-        title: '未选择祝福对象',
-        icon: 'loading',
-        duration: 500,
-        mask: false,
-      });
+    // if(that.data.chooseone.host_id === -1){
+    //   console.log('未选择祝福主持人')
+    //   wx.showToast({
+    //     title: '未选择祝福主持人',
+    //     icon: 'loading',
+    //     duration: 500,
+    //     mask: false,
+    //   });
+    // } else if(that.data.chooseone.select_person_id === -1){
+    //   console.log('未选择祝福对象')
+    //   wx.showToast({
+    //     title: '未选择祝福对象',
+    //     icon: 'loading',
+    //     duration: 500,
+    //     mask: false,
+    //   });
+    // } else {
+    if(that.data.chooseone.host_id === that.data.chooseHost){
+      wx.showLoading({
+        title: '加载中',
+        mask: true,
+      })
+      that.setData({
+        showpause: 'flex',
+      })
     } else {
+      videolock = true
       wx.request({
         url: api.sendWish,
         method: 'POST',
@@ -212,38 +210,28 @@ Page({
             title: '加载中',
             mask: true,
           })
-          res.data.data.wangchun_height > res.data.data.wangchun_width ? computeMethod = 'height': computeMethod = 'width'
-          let value = res.data.data.wangchun_height/res.data.data.wangchun_width
-          console.log(value)
-          previewbox = 69*windowWidth/75
-          if(computeMethod === 'height'){
-            that.data.previewsize.height = previewbox
-            that.data.previewsize.width = previewbox/value
-          } else {
-            that.data.previewsize.width = previewbox
-            that.data.previewsize.height = previewbox*value
-          }
           that.data.video_title.wish = res.data.data.wangchun_title
           that.setData({
-            originMovableview: that.data.originMovableview,
-            previewsize: that.data.previewsize,
             tempFilePath: res.data.data.wangchun_video_url,
-            video_title: that.data.video_title
+            video_title: that.data.video_title,
+            chooseHost: that.data.chooseone.host_id,
+            showpause: 'none',
           })
         },
         fail: () => {
           console.log('发送祝福失败！')
         }
       })
-      let time = setTimeout(() => {
-        wx.hideLoading()
-        clearTimeout(time)
-        this.setData({
-          showFirst: 'none',
-          showSecond: 'flex',
-        })
-      }, 1000)
     }
+    let time = setTimeout(() => {
+      wx.hideLoading()
+      clearTimeout(time)
+      this.setData({
+        showFirst: 'none',
+        showSecond: 'flex',
+      })
+    }, 1000)
+    //}
   },
   chooseSomebody (e) {
     console.log('chooseSomebody')
@@ -274,7 +262,6 @@ Page({
     this.setData({
       showFirst: 'flex',
       showSecond: 'none',
-      showpause: 'flex',
     })
     // wx.request({
     //   url: 'https://web-happy.foundao.com/host/api/api/wangchun_poster_qrcode.php',
@@ -286,11 +273,11 @@ Page({
     //     material_id: '7678123456789',
     //     // material_id: '1',
     //     page: 'pages/dubbingUpload/dubbingUpload',
-    //     scene: decodeURIComponent('video_uuid=7678123456789'),
+    //     scene: decodeURIComponent('12'),
     //     //path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
     //     // path: 'pages/dubbing/dubbing',
     //     // path: 'pages/index/index',
-    //     width: 188,           // 二维码的宽度
+    //     width: 720,           // 二维码的宽度
     //     auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
     //     line_color: {"r": "255", "g": "255", "b": "255"},
     //     // line_color: {"r": "0", "g": "0", "b": "1"},
@@ -335,10 +322,6 @@ Page({
   },
   videoAutoPlay (e) {
     console.log('videoAutoPlay')
-    // this.setData({
-    //   showpause: 'none'
-    // })
-    //autovideolock ? this.videoContext.pause():this.videoContext.play()
   },
   uploadContent (e) {
     console.log('uploadContent')

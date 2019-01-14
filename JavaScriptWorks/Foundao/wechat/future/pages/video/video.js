@@ -40,6 +40,8 @@ Page({
         loaded: false,
 
         showDoLayer: false,
+
+        isSending: false,
     },
 
     /**
@@ -309,6 +311,9 @@ Page({
                     } else {
                         fit_temp = false
                     }
+                    if (data.data.is_zan && data.data.count_material_love <= 0) {
+                        data.data.count_material_love = 1
+                    }
                     this.setData({
                         cur_video: data.data,
                         fit: fit_temp,
@@ -448,6 +453,12 @@ Page({
         // })
         // this.data.loading_num++;
 
+        if (this.data.isSending) {
+            return
+        } else {
+            this.data.isSending = true
+        }
+
         const {cur_video} = this.data;
         wx.request({
             url: api.fabulous,
@@ -463,6 +474,7 @@ Page({
                 select_id: cur_video.id,            //自增id
             },
             success: (resp) => {
+                this.data.isSending = false;
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
                     this.data.cur_video.is_zan = 2;
@@ -497,6 +509,12 @@ Page({
         // })
         // this.data.loading_num++;
 
+        if (this.data.isSending) {
+            return
+        } else {
+            this.data.isSending = true
+        }
+
         const {cur_video} = this.data;
         wx.request({
             url: api.del_fabulous,
@@ -512,10 +530,14 @@ Page({
                 select_id: cur_video.id,            //自增id
             },
             success: (resp) => {
+                this.data.isSending = false
                 const {data} = resp;
+                const {count_material_love} = this.data.cur_video;
                 if (parseInt(data.code) === 0) {
                     this.data.cur_video.is_zan = 1;
-                    this.data.cur_video.count_material_love--;
+                    if (count_material_love > 0) {
+                        this.data.cur_video.count_material_love--;
+                    }
                     this.setData({
                         cur_video: this.data.cur_video
                     })
@@ -926,7 +948,7 @@ Page({
         })
     },
 
-    openZhufu(){
+    openZhufu() {
         wx.navigateTo({
             url: '/pages/newYear/newYear'
         })

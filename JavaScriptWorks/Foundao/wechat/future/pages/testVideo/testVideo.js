@@ -67,5 +67,18 @@ Page({
     console.log('videoEnd')
     this.videoContext.stop()
     this.videoContext.play()
-  }
+  },
+    // 返回
+    goBack(e) {
+        console.log(getCurrentPages())
+        if (getCurrentPages().length === 1) {
+            wx.switchTab({
+                url: '/pages/index/index',
+            })
+        } else {
+            wx.navigateBack({
+                delta: 1
+            })
+        }
+    },
 })

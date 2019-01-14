@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "backTitle": "/component/backTitle/backTitle"
-  }
+  },
+  "navigationStyle":"custom"
 }

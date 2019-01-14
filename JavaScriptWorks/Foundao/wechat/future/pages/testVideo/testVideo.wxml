@@ -6,5 +6,9 @@
         <cover-image class="backbutton" src="../../assets/images/jt4.png" catch:tap="closeVideo"></cover-image>
       </cover-view> -->
     </cover-view>
+    <cover-view class="back-btn  {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack">
+      <cover-image class="back-btn-img"
+                   src="https://s-js.sports.cctv.com/host/resource/future/1return4.png"></cover-image>
+    </cover-view>
   </video>
 </view>

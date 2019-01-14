@@ -15,7 +15,8 @@
                bindtimeupdate="bindtimeupdate">
 
             <!--底部阴影-->
-            <cover-image class="content-bg" src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"></cover-image>
+            <cover-image class="content-bg"
+                         src="https://s-js.sports.cctv.com/host/resource/future/3mengban@2x.png"></cover-image>
 
             <!--分享浮层-->
             <cover-view class="poster_layer" wx:if="{{show_share}}" catchtap="close_poster_layer">
@@ -107,16 +108,22 @@
                 <cover-view class="button-box">
                     <!--挑战+喜欢+分享-->
                     <cover-view class="button-item" catchtap="challenge"
-                                hidden="{{cur_video.is_dub!=2 || is_user}}">
+                                hidden="{{cur_video.is_dub!=2 || is_user || cur_video.is_wangchun==1 || cur_video.is_wangchun==3}}">
                         <cover-image class="button-item-icon chanllenge"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1tiaozhan@2x.png"></cover-image>
                         <cover-view class="button-item-text">挑战ta</cover-view>
                     </cover-view>
                     <cover-view class="button-item" catchtap="openDo"
-                                hidden="{{cur_video.is_dub==2 || is_user}}">
+                                hidden="{{cur_video.is_dub==2 || is_user || cur_video.is_wangchun==1 || cur_video.is_wangchun==3}}">
                         <cover-image class="button-item-icon chanllenge"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1woyepai@2x.png"></cover-image>
                         <cover-view class="button-item-text">我也拍</cover-view>
+                    </cover-view>
+                    <cover-view class="button-item" catchtap="openZhufu"
+                                wx:if="{{cur_video.is_wangchun==1 || cur_video.is_wangchun==3}}">
+                        <cover-image class="button-item-icon chanllenge"
+                                     src="https://s-js.sports.cctv.com/host/resource/future/1songzhufu.png"></cover-image>
+                        <cover-view class="button-item-text">送祝福</cover-view>
                     </cover-view>
                     <cover-view class="button-item" hidden="{{is_user}}">
                         <cover-image class="button-item-icon"

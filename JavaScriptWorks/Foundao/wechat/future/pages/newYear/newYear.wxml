@@ -12,7 +12,7 @@
               <view class="avaterwrapper {{item.pick}}">
                 <image id="{{item.id}}" class="avater" src="{{item.host_pic}}" catch:tap="chooseAvatar"></image>
               </view>
-              <view class="avaterFont">{{item.name}}</view>
+              <view class="avaterFont font{{item.pick}}">{{item.name}}</view>
             </view>
           </block>
         </view>
@@ -79,7 +79,7 @@
     <cover-view class="submission" wx:if="{{compose_success}}">
       <cover-image src="https://s-js.sports.cctv.com/host/image/2019/01/13/15473598825048.png" class="compose_img"></cover-image>
       <cover-image class="submission_button" src="../../assets/images/3chakan@2x.png" catch:tap="checkProgress"></cover-image>
-      <cover-image class="submission_close" src="../../assets/images/4fanhui.png" catch:tap="successBackHome"></cover-image>
+      <cover-image class="submission_close" src="../../assets/images/3zaiwanyici@2x.png" catch:tap="successBackHome"></cover-image>
     </cover-view>
     <cover-view class="submission_fail_color" wx:if="{{!compose_success}}">
       <cover-view class="submissioninner">

@@ -11,9 +11,7 @@
   height: 100%;
   position: absolute;
   background-color: #9b2027;
-  /* 背景颜色 */
   background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');
-  /* 背景图片 */
   background-size: 100%;
 }
 
@@ -41,7 +39,6 @@
   width: 690rpx;
   height: 722rpx;
   background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472742454405.png');
-  /* 背景图片 */
   background-size: 100%;
   position: absolute;
   top: 223rpx;
@@ -65,7 +62,6 @@
   width: 564rpx;
   height: 63rpx;
   background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472742023654.png');
-  /* 背景图片 */
   background-size: 100%;
   display: flex;
   justify-content: center;
@@ -85,6 +81,7 @@
   justify-content: space-around;
   align-items: center;
   font-size: 30rpx;
+  color: rgba(145, 105, 69, 1);
 }
 
 .avaterwrapper {
@@ -101,7 +98,11 @@
 }
 
 .pick {
-  background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472790083799.gif');
+  background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/14/15474464361841.gif');
+}
+
+.fontpick{
+  color: rgba(188, 33, 33, 1);
 }
 
 .avater {
@@ -143,11 +144,14 @@
   color: rgba(145, 105, 69, 1);
 }
 
+.nochoose{
+  background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472742055173.png');
+  background-size: 100%;
+}
+
 .choose {
-  background-color: rgba(188, 33, 33, 1);
-  /* 背景颜色 */
-  background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472918198934.png');
-  /* 背景图片 */
+  /* background-color: rgba(188, 33, 33, 1); */
+  background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/14/15474467188644.png');
   background-size: 100%;
   color: rgba(255, 240, 206, 1);
   border: none;
@@ -238,14 +242,14 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/13/15473599183576.png');
   /* 背景图片 */
   background-size: 100%;
 }
 
 .back {
-  width: 349rpx;
+  width: 271rpx;
   height: 102rpx;
   display: flex;
   flex-direction: column;
@@ -261,7 +265,7 @@
 }
 
 .sure {
-  width: 349rpx;
+  width: 379rpx;
   height: 102rpx;
   display: flex;
   flex-direction: column;
@@ -364,15 +368,15 @@
 }
 
 .submission_close {
-  width: 359rpx;
-  height: 102rpx;
+  width: 360rpx;
+  height: 70rpx;
   position: relative;
-  top: 113rpx;
+  top: 137rpx;
 }
 
 .submission_button {
-  width: 359rpx;
-  height: 102rpx;
+  width: 360rpx;
+  height: 70rpx;
   position: relative;
-  top: 113rpx;
+  top: 107rpx;
 }

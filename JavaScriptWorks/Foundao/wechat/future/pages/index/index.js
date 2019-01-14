@@ -74,6 +74,8 @@ Page({
 
         select_show: false,
 
+        isSending: false,
+
     },
 
     /**
@@ -833,6 +835,12 @@ Page({
         // })
         // this.data.loading_num++;
 
+        if (this.data.isSending) {
+            return
+        } else {
+            this.data.isSending = true
+        }
+
         const {cur_video} = this.data;
         wx.request({
             url: api.fabulous,
@@ -848,6 +856,7 @@ Page({
                 select_id: cur_video.id,            //自增id
             },
             success: (resp) => {
+                this.data.isSending = false;
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
                     this.data.cur_video.is_zan = 2;
@@ -878,9 +887,11 @@ Page({
 
     // 不喜欢
     dislike() {
-        wx.showShareMenu({
-            withShareTicket: true
-        })
+        if (this.data.isSending) {
+            return
+        } else {
+            this.data.isSending = true
+        }
         // wx.showLoading({
         //     mask: true
         // })
@@ -900,10 +911,14 @@ Page({
                 select_id: cur_video.id,            //自增id
             },
             success: (resp) => {
+                this.data.isSending = false;
                 const {data} = resp;
+                const {count_material_love} = this.data.cur_video;
                 if (parseInt(data.code) === 0) {
-                    this.data.cur_video.is_zan = 1
-                    this.data.cur_video.count_material_love--;
+                    this.data.cur_video.is_zan = 1;
+                    if (count_material_love > 0) {
+                        this.data.cur_video.count_material_love--;
+                    }
                     this.setData({
                         cur_video: this.data.cur_video
                     })
@@ -1268,6 +1283,9 @@ Page({
         this.setData({
             fit: fit_temp
         }, () => {
+            if (data.is_zan && data.count_material_love <= 0) {
+                data.count_material_love = 1
+            }
             if (isfirst) {
                 //第一次初始化
                 this.setData({
@@ -1474,7 +1492,7 @@ Page({
         })
     },
 
-    openZhufu(){
+    openZhufu() {
         wx.navigateTo({
             url: '/pages/newYear/newYear'
         })

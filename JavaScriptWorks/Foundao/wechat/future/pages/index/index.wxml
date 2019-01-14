@@ -87,15 +87,17 @@
                                      src="https://s-js.sports.cctv.com/host/resource/future/1tiaozhan@2x_0.png"></cover-image>
                         <cover-view class="button-item-text">挑战ta</cover-view>
                     </cover-view>
-                    <cover-view class="button-item" catchtap="openDo" hidden="{{cur_video.is_dub==2  || cur_video.is_wangchun==1 || cur_video.is_wangchun==3}}">
+                    <cover-view class="button-item" catchtap="openDo"
+                                hidden="{{cur_video.is_dub==2 || cur_video.is_wangchun==1 || cur_video.is_wangchun==3}}">
                         <cover-image class="button-item-icon chanllenge"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1woyepai@2x_0.png"></cover-image>
                         <cover-view class="button-item-text">我也拍</cover-view>
                     </cover-view>
-                    <cover-view class="button-item" catchtap="openZhufu" wx:if="{{cur_video.is_wangchun==1 || cur_video.is_wangchun==3}}">
+                    <cover-view class="button-item" catchtap="openZhufu"
+                                wx:if="{{cur_video.is_wangchun==1 || cur_video.is_wangchun==3}}">
                         <cover-image class="button-item-icon chanllenge"
-                                     src="https://s-js.sports.cctv.com/host/resource/future/1woyepai@2x_0.png"></cover-image>
-                        <cover-view class="button-item-text">祝福</cover-view>
+                                     src="https://s-js.sports.cctv.com/host/resource/future/1songzhufu.png"></cover-image>
+                        <cover-view class="button-item-text">送祝福</cover-view>
                     </cover-view>
                     <cover-view class="button-item">
                         <cover-image class="button-item-icon"

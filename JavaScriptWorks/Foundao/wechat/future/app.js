@@ -111,6 +111,11 @@ App({
                     // })
                     _this.getUserInfo(success_cb)
                 } else {
+                    var text = wx.getStorageSync('loginSessionKey') ? 'token有效，没有授权' : 'token无效'
+                    wx.showToast({
+                        title: 'text',
+                        duration: 2000
+                    })
                     if (fail_cb) {
                         fail_cb()
                     } else {
