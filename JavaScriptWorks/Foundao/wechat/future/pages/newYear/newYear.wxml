@@ -10,7 +10,7 @@
           <block wx:for="{{alldata}}" wx:key="*this">
             <view>
               <view class="avaterwrapper {{item.pick}}">
-                <image id="{{item.id}}" class="avater" src="{{item.host_pic}}" catch:tap="chooseAvatar"></image>
+                <view id="{{item.id}}" class="avater" style="background:url({{item.host_pic}}) center no-repeat;background-size: cover;" catch:tap="chooseAvatar"></view>
               </view>
               <view class="avaterFont font{{item.pick}}">{{item.name}}</view>
             </view>

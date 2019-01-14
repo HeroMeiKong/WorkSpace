@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    chooseHost: -1,//判断是否重复选中一个主持人，即video_src有无变化，来决定showpause显示
+    chooseHost: {host: -1,wish: -1},//判断是否重复选中一个主持人，即video_src有无变化，来决定showpause显示
     alldata: [],
     whodata: [],
     row1: [],//第一排拜年对象
@@ -183,7 +183,7 @@ Page({
     //     mask: false,
     //   });
     // } else {
-    if(that.data.chooseone.host_id === that.data.chooseHost){
+    if(that.data.chooseone.host_id === that.data.chooseHost.host && that.data.chooseone.select_person_id === that.data.chooseHost.wish){
       wx.showLoading({
         title: '加载中',
         mask: true,
@@ -211,10 +211,12 @@ Page({
             mask: true,
           })
           that.data.video_title.wish = res.data.data.wangchun_title
+          that.data.chooseHost.host = that.data.chooseone.host_id
+          that.data.chooseHost.wish = that.data.chooseone.select_person_id
           that.setData({
             tempFilePath: res.data.data.wangchun_video_url,
             video_title: that.data.video_title,
-            chooseHost: that.data.chooseone.host_id,
+            chooseHost: that.data.chooseHost,
             showpause: 'none',
           })
         },
