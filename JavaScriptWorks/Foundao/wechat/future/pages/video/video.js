@@ -249,6 +249,9 @@ Page({
         const loginSessionKey = wx.getStorageSync('loginSessionKey');
         const wxRequest = promisify(wx.request);
 
+        var wangchun = [1, 3];
+        var is_wangchun = wangchun.includes(parseInt(this.data.cur_video.is_wangchun));
+
         wxRequest({
             url: api.poster_qrcode,
             method: 'POST',
@@ -256,7 +259,7 @@ Page({
                 "auth-token": loginSessionKey
             },
             data: {
-                material_id: this.data.video_uuid,
+                material_id: this.data.cur_video.video_uuid,
                 path: '/pages/index/index?video_uuid=' + this.data.video_uuid + '&id=' + this.data.cur_video.id,
                 // path: 'pages/dubbing/dubbing',
                 // path: 'pages/index/index',

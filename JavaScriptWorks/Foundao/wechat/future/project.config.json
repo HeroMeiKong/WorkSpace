@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 17,
 			"list": [
 				{
 					"id": -1,
@@ -72,7 +72,7 @@
 					"id": 5,
 					"name": "话题详情页",
 					"pathName": "pages/subject/subject",
-					"query": "id=8"
+					"query": "id=999"
 				},
 				{
 					"id": -1,
@@ -137,7 +137,14 @@
 				{
 					"id": -1,
 					"name": "网春大拜年",
-					"pathName": "pages/newYear/newYear"
+					"pathName": "pages/newYear/newYear",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "配配配",
+					"pathName": "pages/ppp/ppp",
+					"query": ""
 				}
 			]
 		}

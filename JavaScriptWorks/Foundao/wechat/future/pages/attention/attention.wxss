@@ -3,7 +3,7 @@
 
 .attention-page{
     width: 100%;
-    /*padding-top: 152rpx;*/
+    padding-top: 152rpx;
     height: 100%;
     box-sizing: border-box;
 }

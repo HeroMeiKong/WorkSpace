@@ -1,5 +1,6 @@
 <!--pages/ppp/ppp.wxml-->
 <view class="recordList-page {{isIpx?'iphoneX':''}}">
+    <backTitle title="超级配配配"></backTitle>
     <view class="record-list">
         <scroll-view class="scroll-list"
                      scroll-y

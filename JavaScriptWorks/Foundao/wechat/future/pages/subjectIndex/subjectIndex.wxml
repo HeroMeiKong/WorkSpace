@@ -1,6 +1,6 @@
 <!--pages/subject/subject.wxml-->
-<view class="subject-page">
-    <!--<backTitle title="话题"></backTitle>-->
+<view class="subject-page {{isIpx?'iphoneX':''}}">
+    <backTitle title="话题"></backTitle>
     <swiper indicator-dots="{{true}}"
             autoplay="{{true}}"
             interval="{{10000}}"

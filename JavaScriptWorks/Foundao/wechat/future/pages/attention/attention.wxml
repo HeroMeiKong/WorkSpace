@@ -1,6 +1,6 @@
 <!--pages/attention/attention.wxml-->
-<view class="attention-page">
-    <!--<backTitle></backTitle>-->
+<view class="attention-page {{isIpx?'iphoneX':''}}">
+    <backTitle></backTitle>
     <!--返回按钮-->
     <view class="tab-box">
         <view class="tab-item {{select==1?'selected':''}}" bindtap="toggle" data-select="1">关注</view>

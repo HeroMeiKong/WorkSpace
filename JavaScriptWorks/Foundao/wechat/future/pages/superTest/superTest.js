@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    models: 'defaultmodel',
     showFirst: 'flex',
     showCover: 'none',
     showSecond: 'none',
@@ -22,6 +23,29 @@ Page({
    */
   onLoad: function (options) {
     console.log('onLoad')
+    let that = this
+    wx.getSystemInfo({
+      success: function (res) {
+        if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
+          //iphoneX
+          that.data.models = 'iphoneX'
+        } else if (res.model.indexOf("BLA-AL00") > -1) {
+          //huaweimate10plus
+          that.data.models = 'huaweimate10plus'
+        } else if (res.model.indexOf("ONEPLUS A5010") > -1) {
+          //OnePlus5T
+          that.data.models = 'oneplus5t'
+        } else if (res.model.indexOf("MI 8") > -1) {
+          //xiaomi8
+          that.data.models = 'xiaomi8'
+        } else {
+
+        }
+        that.setData({
+          models: that.data.models,
+        })
+      }
+    })
   },
 
   /**

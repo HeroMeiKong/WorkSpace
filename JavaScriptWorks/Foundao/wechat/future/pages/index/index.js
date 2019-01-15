@@ -306,13 +306,13 @@ Page({
         var is_wangchun = wangchun.includes(parseInt(this.data.cur_video.is_wangchun));
 
         wxRequest({
-            url: is_wangchun ? api.wangchun_poster_qrcode : api.poster_qrcode,
+            url: api.poster_qrcode,
             method: 'POST',
             header: {
                 "auth-token": loginSessionKey
             },
             data: {
-                material_id: is_wangchun ? '' : this.data.cur_video.video_uuid,
+                material_id: this.data.cur_video.video_uuid,
                 // material_id: '1',
                 path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
                 // path: 'pages/dubbing/dubbing',
@@ -1220,16 +1220,15 @@ Page({
 
     // 前往话题详情页
     goSubjectDetail() {
-        // var wangchun_value = [1, 3];
-        // if (wangchun_value.includes(parseInt(this.data.cur_video.is_wangchun))) {
-        //     wx.navigateTo({
-        //         url: '/pages/subjectIndex/subjectIndex'
-        //     })
-        // } else {
-        wx.navigateTo({
-            url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
-        })
-        // }
+        if (this.data.cur_video.sub_title == '网春大拜年') {
+            wx.navigateTo({
+                url: '/pages/subject/subject?id=999'
+            })
+        } else {
+            wx.navigateTo({
+                url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
+            })
+        }
     },
 
     // 更新其他视频里的关注状态

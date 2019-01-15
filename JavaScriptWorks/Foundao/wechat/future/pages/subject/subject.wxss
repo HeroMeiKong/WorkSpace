@@ -2,7 +2,7 @@
 
 .subjectItem-page{
     width: 100%;
-    /*padding-top: 122rpx;*/
+    padding-top: 122rpx;
 }
 
 .head-title{

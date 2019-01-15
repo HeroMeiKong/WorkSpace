@@ -1,4 +1,12 @@
 /* pages/ppp/ppp.wxss */
+@import "./../../public.wxss";
+
+.recordList-page{
+    width: 100%;
+    padding-top: 152rpx;
+    box-sizing: border-box;
+}
+
 /*列表*/
 .record-list{
     margin-top: 10rpx;
@@ -6,6 +14,7 @@
     /*height: 100%;*/
     height:calc(100% - 70rpx);
     background-color: #eeeeee;
+    /*padding-top: 122rpx;*/
 }
 
 .scroll-list{

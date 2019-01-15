@@ -1,24 +1,71 @@
 /* pages/newYear/newYear.wxss */
 @import "./../../public.wxss";
 
+.toptitle{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 30rpx;
+  font-size: 40rpx;
+}
+
+.topcoverinner{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top:0;
+  left:0;
+}
+
+.back-btn{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 84rpx;
+  height: 100%;
+}
+
+.back-btn-img{
+  position: absolute;
+  width: 24rpx;
+  height: 42rpx;
+  bottom: 30rpx;
+  left: 30rpx;
+}
+
+.iphoneX-back-btn{
+  height:245rpx;
+}
+
+
 .wrapper {
   width: 100%;
   height: 100%;
 }
 
-.page {
+.topcover{
   width: 100%;
   height: 100%;
   position: absolute;
+  background-color: #ffffff;
+  top: 0;/* 兼容老版本 */
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+  position: relative;
   background-color: #9b2027;
   background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');
   background-size: 100%;
+  top: 0;/* 兼容老版本 */
 }
 
 .pagemessage {
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
+  top: 0;/* 兼容老版本 */
 }
 
 .pageChoose {
@@ -40,8 +87,8 @@
   height: 722rpx;
   background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472742454405.png');
   background-size: 100%;
-  position: absolute;
-  top: 223rpx;
+  position: relative;
+  top: -60rpx;
   display: flex;
   align-items: center;
   flex-direction: column;

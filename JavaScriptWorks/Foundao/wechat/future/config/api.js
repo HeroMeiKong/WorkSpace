@@ -79,6 +79,7 @@ export default {
     topic_class: host + 'topic/topic_class.php',            //话题列表
     topic_fenlie: host + 'topic/topic_fenlie.php',            //分类
     topic_fenlie_list: host + 'topic/topic_fenlie_list.php',            //分类列表
+    topic_wangchundabainian: host + '/topic/topic_wangchundabainian.php',            //网春大拜年话题
 
     //配音列表
     dub: host + 'dub/dub.php',

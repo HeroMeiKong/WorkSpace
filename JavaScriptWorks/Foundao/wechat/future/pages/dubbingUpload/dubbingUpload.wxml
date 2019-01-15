@@ -1,6 +1,6 @@
 <!--pages/dubbingUpload/dubbingUpload.wxml-->
-<view class="user-page">
-  <!--<backTitle noBack="{{true}}" title=""></backTitle>-->
+<view class="user-page {{models}}">
+  <backTitle noBack="{{true}}" title=""></backTitle>
   <view class="wrapper">
     <!-- 配音
     <view id='dubbing' class='box' catch:tap="dubbing">

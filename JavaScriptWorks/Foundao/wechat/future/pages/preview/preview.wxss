@@ -3,6 +3,27 @@
 @import "./weui.wxss";
 
 
+.back-btn{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 84rpx;
+  height: 142rpx;
+  z-index: 10;
+}
+
+.back-btn-img{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  width: 24rpx;
+  height: 42rpx;
+}
+
+.iphoneX-back-btn{
+  height:245rpx;
+}
 .defaultmodel{
   padding-top: 122rpx;
 }

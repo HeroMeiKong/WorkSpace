@@ -1,6 +1,6 @@
 <!--pages/superTest/superTest.wxml-->
-<view class="wrapper">
-  <!--<backTitle noBack="{{false}}" title="超级测测测"></backTitle>-->
+<view class="wrapper  {{models}}">
+  <backTitle noBack="{{false}}" title="超级测测测"></backTitle>
   <view class="page" style="display:{{showFirst}}">
     <view class="wrapperinner pageimg">
       <image class="avatar" src="https://s-js.sports.cctv.com/host/image/2018/12/28/15459812957282.gif"></image>

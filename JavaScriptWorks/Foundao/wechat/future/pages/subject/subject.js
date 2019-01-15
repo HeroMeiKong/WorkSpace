@@ -24,7 +24,7 @@ Page({
 
         isIpx: false,
 
-        showChoose:false,
+        showChoose: false,
     },
 
     /**
@@ -38,7 +38,7 @@ Page({
                 url: '/pages/subjectIndex/subjectIndex'
             })
         }
-        app.isFullScreen(()=>{
+        app.isFullScreen(() => {
             this.setData({
                 isIpx: true
             })
@@ -66,7 +66,13 @@ Page({
             if (!this.data.hasInit) {
                 console.log('未初始化')
                 this.data.hasInit = true
-                this.getTopInfo()
+                if (!this.isWangchun()) {
+                    this.getTopInfo()
+                } else {
+                    wx.setNavigationBarTitle({
+                        title: '网春大拜年'
+                    })
+                }
                 this.getVideoList()
             } else {
                 console.log('已初始化')
@@ -164,6 +170,10 @@ Page({
         })
     },
 
+    isWangchun() {
+        return (this.data.id == 999) ? true : false
+    },
+
     // 获取视频列表
     getVideoList(fun) {
         if (!this.data.video_more) {
@@ -173,8 +183,9 @@ Page({
         wx.showLoading()
         this.data.loading_num++;
 
+        var iswang = this.isWangchun();
         wx.request({
-            url: api.topic_class,
+            url: iswang ? api.topic_wangchundabainian : api.topic_class,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',
@@ -264,37 +275,47 @@ Page({
         })
     },
 
-    switchToUpload(){
+    switchToUpload() {
         wx.switchTab({
             url: '/pages/dubbingUpload/dubbingUpload'
         })
     },
 
-    rightNow(){
-        this.setData({
-            showChoose:true
+    rightNow() {
+        if (this.isWangchun()) {
+            this.openZhufu()
+        } else {
+            this.setData({
+                showChoose: true
+            })
+        }
+    },
+
+    openZhufu() {
+        wx.navigateTo({
+            url: '/pages/newYear/newYear'
         })
     },
 
-    closeChoose(){
+    closeChoose() {
         this.setData({
-            showChoose:false
+            showChoose: false
         })
     },
 
-    switchToRecord(){
+    switchToRecord() {
         wx.navigateTo({
             url: '/pages/recordList/recordList',
         })
     },
 
-    switchToCamera(){
+    switchToCamera() {
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=camera'
         })
     },
 
-    switchToUpload(){
+    switchToUpload() {
         wx.navigateTo({
             url: '/pages/preview/preview?usermethod=album'
         })

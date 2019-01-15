@@ -1,6 +1,8 @@
 <!-- pages/preview/preview.wxml -->
 <view class="user-page">
-  <!--<backTitle></backTitle>-->
+  <cover-view class="back-btn  {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack">
+    <cover-image class="back-btn-img" src="https://s-js.sports.cctv.com/host/resource/future/1return4.png"></cover-image>
+  </cover-view>
   <view class="wrappers" style="visibility:{{showwrappers}}">
     <view class="preview">
       <movable-area class="screenshot" style="display:{{showVideo.notvideo}};width:{{picsize.width}}px;height:{{picsize.height}}px;" catch:tap="blockThis">
@@ -129,7 +131,7 @@
       </view>
     </view>
   </view>
-  <view class="publish" style="display:{{showpublish}}">
+  <view class="publish {{models}}" style="display:{{showpublish}}">
     <view class="videowrapper">
       <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
         <block wx:for="{{publish}}">

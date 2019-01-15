@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    models: 'defaultmodel',
+    windowHeight: 142,
     chooseHost: {host: -1,wish: -1},//判断是否重复选中一个主持人，即video_src有无变化，来决定showpause显示
     alldata: [],
     whodata: [],
@@ -32,6 +34,34 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    wx.getSystemInfo({
+      success: function (res) {
+        console.log(res)
+        if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
+          //iphoneX
+          that.data.models = 'iphoneX'
+          that.data.windowHeight = 186
+        } else if (res.model.indexOf("BLA-AL00") > -1) {
+          //huaweimate10plus
+          that.data.models = 'huaweimate10plus'
+          that.data.windowHeight = 142
+        } else if (res.model.indexOf("ONEPLUS A5010") > -1) {
+          //OnePlus5T
+          that.data.models = 'oneplus5t'
+          that.data.windowHeight = 142
+        } else if (res.model.indexOf("MI 8") > -1) {
+          //xiaomi8
+          that.data.models = 'xiaomi8'
+          that.data.windowHeight = 172
+        } else {
+          that.data.windowHeight = 142
+        }
+        that.setData({
+          models: that.data.models,
+          windowHeight: that.data.windowHeight
+        })
+      }
+    })
     wx.getUserInfo({
       success(res) {
         const userInfo = res.userInfo
@@ -164,8 +194,8 @@ Page({
   // },
   sendWish (e) {
     console.log('sendWish')
-    console.log(this.data.chooseone)
     let that = this
+    let showPage = {showFirst: 'none',showSecond: 'flex'}
     // if(that.data.chooseone.host_id === -1){
     //   console.log('未选择祝福主持人')
     //   wx.showToast({
@@ -191,6 +221,7 @@ Page({
       that.setData({
         showpause: 'flex',
       })
+      showPage = {showFirst: 'none',showSecond: 'flex'}
     } else {
       videolock = true
       wx.request({
@@ -206,19 +237,29 @@ Page({
         },
         success: (res) => {
           console.log(res)
-          wx.showLoading({
-            title: '加载中',
-            mask: true,
-          })
-          that.data.video_title.wish = res.data.data.wangchun_title
-          that.data.chooseHost.host = that.data.chooseone.host_id
-          that.data.chooseHost.wish = that.data.chooseone.select_person_id
-          that.setData({
-            tempFilePath: res.data.data.wangchun_video_url,
-            video_title: that.data.video_title,
-            chooseHost: that.data.chooseHost,
-            showpause: 'none',
-          })
+          console.log(res.data.code)
+          if(res.data.code === 0){
+            showPage = {showFirst: 'none',showSecond: 'flex'}
+            wx.showLoading({
+              title: '加载中',
+              mask: true,
+            })
+            that.data.video_title.wish = res.data.data.wangchun_title
+            that.data.chooseHost.host = that.data.chooseone.host_id
+            that.data.chooseHost.wish = that.data.chooseone.select_person_id
+            that.setData({
+              tempFilePath: res.data.data.wangchun_video_url,
+              video_title: that.data.video_title,
+              chooseHost: that.data.chooseHost,
+              showpause: 'none',
+            })
+          } else {
+            showPage = {showFirst: 'flex',showSecond: 'none'}
+            wx.showLoading({
+              title: '请求失败',
+              mask: true,
+            })
+          }
         },
         fail: () => {
           console.log('发送祝福失败！')
@@ -229,8 +270,8 @@ Page({
       wx.hideLoading()
       clearTimeout(time)
       this.setData({
-        showFirst: 'none',
-        showSecond: 'flex',
+        showFirst: showPage.showFirst,
+        showSecond: showPage.showSecond,
       })
     }, 1000)
     //}
@@ -329,7 +370,7 @@ Page({
     console.log('uploadContent')
     this.videoContext.pause()
     let that = this
-    const str = nickName+'和'+that.data.video_title.host+'给'+that.data.video_title.who+'拜年了，'+that.data.video_title.wish
+    //const str = nickName+'和'+that.data.video_title.host+'给'+that.data.video_title.who+'拜年了，'+that.data.video_title.wish
     wx.request({
       url: api.sengWishSure,
         method: 'POST',
@@ -340,7 +381,7 @@ Page({
         data: {
           host_id: that.data.chooseone.host_id,
           select_person_id: that.data.chooseone.select_person_id,
-          video_title: str
+          video_title: that.data.video_title.wish //str
         },
         success: (res) => {
           console.log('确认发布成功！')
@@ -396,5 +437,18 @@ Page({
       showThird: 'none',
       showovercover: 'none',
     })
-  }
+  },
+  goBack(e) {
+    console.log('goBack')
+    console.log(getCurrentPages())
+    if (getCurrentPages().length === 1) {
+        wx.switchTab({
+            url: '/pages/index/index',
+        })
+    } else {
+        wx.navigateBack({
+            delta: 1
+        })
+    }
+  },
 })
