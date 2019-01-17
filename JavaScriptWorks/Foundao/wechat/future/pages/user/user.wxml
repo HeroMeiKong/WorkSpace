@@ -17,7 +17,7 @@
         <!--关注粉丝数-->
         <view class="user-fans-attention">
             <view class="user-fans-attention-inner">
-                <span class="user-num" data-select="2">{{userInfo.count_zan_10}}</span>
+                <span class="user-num" data-select="2">{{userInfo.count_zan_10||0}}</span>
                 <span>获赞</span>
                 <view class="line"></view>
                 <span class="user-num" bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>

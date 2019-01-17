@@ -1,10 +1,11 @@
 <!--pages/subject/subject.wxml-->
 <view class="subjectItem-page  {{isIpx?'iphoneX':''}}">
     <backTitle title="#{{top_info.sub_title}}"></backTitle>
-    <view class="cover-box" wx:if="{{top_info.sub_desc && top_info.sub_pic}}">
+    <!--<view class="cover-box" wx:if="{{top_info.sub_desc && top_info.sub_pic}}">-->
+    <view class="cover-box" wx:if="{{top_info.sub_pic}}">
         <view class="cover" style="background-image: url({{top_info.sub_pic}})"></view>
         <!--<view class="subjectItem-title">活动说明</view>-->
-        <view class="subjectItem-content">{{top_info.sub_desc}}</view>
+        <view class="subjectItem-content" wx:if="{{top_info.sub_desc}}">{{top_info.sub_desc}}</view>
     </view>
     <view class="text-box" wx:if="{{top_info.sub_desc && !top_info.sub_pic}}">
         <!--底部背景-->

@@ -158,6 +158,10 @@ Page({
                 })
                 this.getTypes(() => {
                     if (this.data.first_uuid) {
+                       // console.log('first_uuid:')
+                       // console.log(this.data.first_uuid)
+                       // console.log('first_id:')
+                       // console.log(this.data.first_id)
                         //如果是分享入口
                         this.getVideoData(this.data.first_uuid, this.data.first_id, () => {
                             this.getSpecialVideoList(() => {

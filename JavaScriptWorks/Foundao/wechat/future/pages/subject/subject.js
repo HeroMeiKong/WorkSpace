@@ -70,10 +70,10 @@ Page({
                 this.getTopInfo()
                 // } else {
                 //     this.setData({
-                //         top_info: {sub_title: '网春大拜年'}
+                //         top_info: {sub_title: '小央拜年助手'}
                 //     })
                 //     wx.setNavigationBarTitle({
-                //         title: '网春大拜年'
+                //         title: '小央拜年助手'
                 //     })
                 // }
                 this.getVideoList()
@@ -174,7 +174,7 @@ Page({
     },
 
     isWangchun() {
-        return (this.data.top_info.sub_title == '网春大拜年') ? true : false
+        return (this.data.top_info.sub_title == '小央拜年助手') ? true : false
     },
 
     // 获取视频列表

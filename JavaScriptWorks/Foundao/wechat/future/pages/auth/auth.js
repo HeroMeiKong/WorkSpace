@@ -37,7 +37,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        wx.removeStorage({
+        wx.removeStorageSync({
             key: 'loginSessionKey',
         })
     },
@@ -83,6 +83,9 @@ Page({
         // console.log(e)
         var _this = this
         app.globalData.userInfo = e.detail.userInfo
+        wx.removeStorageSync({
+            key: 'loginSessionKey',
+        })
         wx.login({
             success: res => {
                 wx.showLoading({
@@ -117,7 +120,7 @@ Page({
                                     //     title: msg,
                                     //     icon: 'none'
                                     // })
-                                    wx.removeStorage({
+                                    wx.removeStorageSync({
                                         key: 'loginSessionKey',
                                     })
                                 }

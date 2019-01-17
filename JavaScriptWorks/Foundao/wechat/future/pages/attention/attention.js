@@ -390,7 +390,7 @@ Page({
                     //更新数据
                     var temp_data = Tool.copyObj(this.data.fans_list)
                     for (var i = 0; i < temp_data.length; i++) {
-                        if (temp_data[i].other_uuid == other_data.other_uuid) {
+                        if (temp_data[i].my_uuid == other_data.my_uuid) {
                             temp_data[i].guanzhu = 3
                             break
                         }

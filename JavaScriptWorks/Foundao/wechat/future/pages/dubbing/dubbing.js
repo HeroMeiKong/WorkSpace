@@ -476,9 +476,9 @@ Page({
         this.data.recorderManager.onStop((res) => {
             console.log('recorder stop');
             //restartvideo = true
+            this.videoContext.pause();
             if (this.data.break_record) {       //主动停止
                 this.data.break_record = false;
-                this.videoContext.pause();
                 return
             }
             console.log(res)
@@ -583,7 +583,6 @@ Page({
     // 录音结束
     record_success: function (tempFilePath) {
         this.stopInterval();
-        this.videoContext.pause();
         wx.hideLoading();
         wx.showToast({
             title: '录音完成',
@@ -595,6 +594,10 @@ Page({
         });
         this.data.record_path = tempFilePath;
         this.change_src(tempFilePath);
+        this.videoContext.pause();
+        setTimeout(()=>{
+            this.videoContext.pause();
+        },500)
     },
 
     // 切换audio src

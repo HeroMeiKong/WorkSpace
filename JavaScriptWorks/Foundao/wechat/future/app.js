@@ -111,18 +111,21 @@ App({
                     // })
                     _this.getUserInfo(success_cb)
                 } else {
-                    var text = wx.getStorageSync('loginSessionKey') ? 'token有效，没有授权' : 'token无效'
+                    var text = wx.getStorageSync('loginSessionKey') ? 'token有效，没有授权' : '请先授权登录'
                     wx.showToast({
-                        title: 'text',
-                        duration: 2000
+                        title: text,
+                        duration: 2000,
+                        mask: true,
                     })
-                    if (fail_cb) {
-                        fail_cb()
-                    } else {
-                        wx.navigateTo({
-                            url: '/pages/auth/auth'
-                        })
-                    }
+                    setTimeout(() => {
+                        if (fail_cb) {
+                            fail_cb()
+                        } else {
+                            wx.navigateTo({
+                                url: '/pages/auth/auth'
+                            })
+                        }
+                    }, 2000)
                 }
             }
         })

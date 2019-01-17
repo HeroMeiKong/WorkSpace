@@ -221,6 +221,14 @@ Page({
       that.setData({
         showpause: 'flex',
       })
+      let time = setTimeout(() => {
+        wx.hideLoading()
+        clearTimeout(time)
+        this.setData({
+          showFirst: showPage.showFirst,
+          showSecond: showPage.showSecond,
+        })
+      }, 1000)
       showPage = {showFirst: 'none',showSecond: 'flex'}
     } else {
       videolock = true
@@ -260,20 +268,20 @@ Page({
               mask: true,
             })
           }
+          let time = setTimeout(() => {
+            wx.hideLoading()
+            clearTimeout(time)
+            this.setData({
+              showFirst: showPage.showFirst,
+              showSecond: showPage.showSecond,
+            })
+          }, 1000)
         },
         fail: () => {
           console.log('发送祝福失败！')
         }
       })
     }
-    let time = setTimeout(() => {
-      wx.hideLoading()
-      clearTimeout(time)
-      this.setData({
-        showFirst: showPage.showFirst,
-        showSecond: showPage.showSecond,
-      })
-    }, 1000)
     //}
   },
   chooseSomebody (e) {
