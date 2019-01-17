@@ -238,7 +238,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/13/15473598858264.png');
+  background-image: url('https://s-js.sports.cctv.com/test_host/image/2019/01/17/15477089874698.png');
   /* 背景图片 */
   background-size: 100%;
 }

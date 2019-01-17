@@ -4,7 +4,7 @@
 // const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
 //  const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
 const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
-//const host = 'http://39.98.45.204/test_host/api';//逗牛测试
+//const host = 'https://test.iuxiao.com/api/';//逗牛测试
 export default {
 
     // //登录
