@@ -167,6 +167,9 @@ Page({
                   if (x > 11282) {
                     console.log('ahahah')
                     clearInterval(times)
+                    that.setData({
+                      changeimage: false,
+                    })
                   } else {
                     that.setData({
                       fromX: x
@@ -177,17 +180,20 @@ Page({
                   console.log('视频合成成功')
                   //查询视频合成情况
                   that.setData({
-                    pic: res1.data.data.video_guanlian_pic
+                    pic: res1.data.data.video_guanlian_pic,
                   })
                   videoSrc = res1.data.data.video_url
-                  that.setData({
-                    showFirst: 'none',
-                    showCover: 'none',
-                    showSecond: 'none',
-                    changeimage: true,
-                    showThird: 'flex',
-                    makerVideoId: res1.data.data.job_id
-                  })
+                  const timer1 = setTimeout(() => {
+                    clearTimeout(timer1)
+                    that.setData({
+                      showFirst: 'none',
+                      showCover: 'none',
+                      showSecond: 'none',
+                      changeimage: true,
+                      showThird: 'flex',
+                      makerVideoId: res1.data.data.job_id
+                    })
+                  },5000)
                 } else {
                   wx.showToast({
                     title: '视频合成失败！',

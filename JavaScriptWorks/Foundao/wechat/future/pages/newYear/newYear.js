@@ -393,12 +393,22 @@ Page({
         },
         success: (res) => {
           console.log('确认发布成功！')
-          that.setData({
-            //showSecond: 'none',
-            showThird: 'flex',
-            showovercover: 'flex',
-            compose_success: true,
-          })
+          console.log(res)
+          if(res.statusCode === 200){
+            that.setData({
+              //showSecond: 'none',
+              showThird: 'flex',
+              showovercover: 'flex',
+              compose_success: true,
+            })
+          } else {
+            that.setData({
+              showSecond: 'none',
+              showThird: 'flex',
+              showovercover: 'flex',
+              compose_success: false,
+            })
+          }
         },
         fail: () => {
           console.log('确认发布失败！')

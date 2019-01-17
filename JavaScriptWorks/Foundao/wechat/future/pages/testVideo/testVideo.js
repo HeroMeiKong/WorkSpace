@@ -1,5 +1,6 @@
 // pages/testVideo/testVideo.js
 const app = getApp()
+let videolock = true //视频是否播放
 
 Page({
 
@@ -10,6 +11,7 @@ Page({
         videoSrc: '',
         videolock: false,
         isIpx: false,
+        showpause: 'none'
     },
 
     /**
@@ -54,15 +56,35 @@ Page({
     onUnload: function () {
 
     },
-    clickVideo(e) {
-        console.log('clickVideo')
-        if (this.data.videolock) {
-            this.videoContext.play()
-        } else {
+    // clickVideo(e) {
+    //     console.log('clickVideo')
+    //     if (this.data.videolock) {
+    //         this.videoContext.play()
+    //     } else {
+    //         this.videoContext.pause()
+    //     }
+    //     this.setData({
+    //         videolock: !this.data.videolock
+    //     })
+    // },
+    pauseThis(e) {
+        console.log('pauseThis')
+        if (videolock) {
             this.videoContext.pause()
+            this.setData({
+                showpause: 'flex'
+            })
+            videolock = false
+        } else {
+            console.log('还没有播放！')
         }
+    },
+    playThis(e) {
+        console.log('playThis')
+        this.videoContext.play()
+        videolock = true
         this.setData({
-            videolock: !this.data.videolock
+            showpause: 'none'
         })
     },
     // closeVideo (e) {
