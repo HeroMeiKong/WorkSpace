@@ -34,7 +34,7 @@
                   data-data="{{item}}" style="background-image: url({{item.pic}})">
                 <view class="video-zan-box" wx:if="{{item.examine==3}}">
                     <image src="https://s-js.sports.cctv.com/host/resource/future/2dianzanshu@2x.png"></image>
-                    <view class="video-zan">{{item.count_material_love}}</view>
+                    <view class="video-zan">{{item.count_material_love_10}}</view>
                 </view>
             </view>
         </block>

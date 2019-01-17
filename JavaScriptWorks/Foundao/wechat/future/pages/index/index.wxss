@@ -303,6 +303,7 @@
     margin-left: 17rpx;
     color: #ffffff;
     font-weight: bold;
+    max-width:400rpx;
 }
 
 .attention-box{

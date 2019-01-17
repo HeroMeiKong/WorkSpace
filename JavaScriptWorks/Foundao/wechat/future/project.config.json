@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 15,
 			"list": [
 				{
 					"id": -1,
@@ -54,7 +54,7 @@
 					"id": 2,
 					"name": "视频详情页",
 					"pathName": "pages/video/video",
-					"query": "video_uuid=77341893247792044118552&id=495"
+					"query": "video_uuid=58936092367820518157106&id=753"
 				},
 				{
 					"id": -1,
@@ -129,10 +129,10 @@
 					"query": ""
 				},
 				{
-					"id": 16,
+					"id": 15,
 					"name": "分享首页",
 					"pathName": "pages/index/index",
-					"query": "video_uuid=3791134768292865233984&id=175"
+					"query": "video_uuid=35415626906764721413530&id=1029"
 				},
 				{
 					"id": -1,

@@ -275,7 +275,9 @@ Page({
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
-                    this.data.special_list.push(data.data);
+                    if (data.data.length !== 0) {
+                        this.data.special_list.push(data.data);
+                    }
                     fun && fun()
                 } else {
                     wx.showToast({
@@ -345,6 +347,10 @@ Page({
             playing: true,
             hasPlayed: true,
         })
+        var pages = getCurrentPages();
+        if (pages[pages.length - 1].route != 'pages/index/index') {
+            this.pauseVideo()
+        }
     },
 
     // 监控视频暂停
@@ -867,6 +873,7 @@ Page({
                 if (parseInt(data.code) === 0) {
                     this.data.cur_video.is_zan = 2;
                     this.data.cur_video.count_material_love++;
+                    this.data.cur_video.count_material_love_10++;
                     this.setData({
                         cur_video: this.data.cur_video
                     })
@@ -919,11 +926,14 @@ Page({
             success: (resp) => {
                 this.data.isSending = false;
                 const {data} = resp;
-                const {count_material_love} = this.data.cur_video;
+                const {count_material_love, count_material_love_10} = this.data.cur_video;
                 if (parseInt(data.code) === 0) {
                     this.data.cur_video.is_zan = 1;
                     if (count_material_love > 0) {
                         this.data.cur_video.count_material_love--;
+                    }
+                    if (count_material_love_10 > 0) {
+                        this.data.cur_video.count_material_love_10--;
                     }
                     this.setData({
                         cur_video: this.data.cur_video
@@ -1160,14 +1170,26 @@ Page({
                     },
                     fail: () => {
                         console.log('用户不同意保存');
-                        wx.openSetting({
+                        wx.showModal({
+                            title: '提示',
+                            content: '逗牛短视频 申请获得保存图片到相册的权限',
                             success(res) {
-                                console.log(res)
-                            },
-                            fail(res) {
-                                console.log(res)
+                                if (res.confirm) {
+                                    wx.openSetting({})
+                                    console.log('用户点击确定')
+                                } else if (res.cancel) {
+                                    console.log('用户点击取消')
+                                }
                             }
                         })
+                        // wx.openSetting({
+                        //     success(res) {
+                        //         console.log(res)
+                        //     },
+                        //     fail(res) {
+                        //         console.log(res)
+                        //     }
+                        // })
                         // this.showAuthorize('scope.writePhotosAlbum');
                     }
                 })
@@ -1220,15 +1242,15 @@ Page({
 
     // 前往话题详情页
     goSubjectDetail() {
-        if (this.data.cur_video.sub_title == '网春大拜年') {
-            wx.navigateTo({
-                url: '/pages/subject/subject?id=999'
-            })
-        } else {
-            wx.navigateTo({
-                url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
-            })
-        }
+        // if (this.data.cur_video.sub_title == '网春大拜年') {
+        //     wx.navigateTo({
+        //         url: '/pages/subject/subject?id=999'
+        //     })
+        // } else {
+        wx.navigateTo({
+            url: '/pages/subject/subject?id=' + this.data.cur_video.join_type_sub
+        })
+        // }
     },
 
     // 更新其他视频里的关注状态
@@ -1295,8 +1317,11 @@ Page({
         this.setData({
             fit: fit_temp
         }, () => {
-            if (data.is_zan && data.count_material_love <= 0) {
+            if (data.is_zan == 2 && data.count_material_love <= 0) {
                 data.count_material_love = 1
+            }
+            if (data.is_zan == 2 && data.count_material_love_10 <= 0) {
+                data.count_material_love_10 = 1
             }
             if (isfirst) {
                 //第一次初始化

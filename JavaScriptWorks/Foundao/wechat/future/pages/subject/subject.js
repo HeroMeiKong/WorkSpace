@@ -66,13 +66,16 @@ Page({
             if (!this.data.hasInit) {
                 console.log('未初始化')
                 this.data.hasInit = true
-                if (!this.isWangchun()) {
-                    this.getTopInfo()
-                } else {
-                    wx.setNavigationBarTitle({
-                        title: '网春大拜年'
-                    })
-                }
+                // if (!this.isWangchun()) {
+                this.getTopInfo()
+                // } else {
+                //     this.setData({
+                //         top_info: {sub_title: '网春大拜年'}
+                //     })
+                //     wx.setNavigationBarTitle({
+                //         title: '网春大拜年'
+                //     })
+                // }
                 this.getVideoList()
             } else {
                 console.log('已初始化')
@@ -171,7 +174,7 @@ Page({
     },
 
     isWangchun() {
-        return (this.data.id == 999) ? true : false
+        return (this.data.top_info.sub_title == '网春大拜年') ? true : false
     },
 
     // 获取视频列表
@@ -185,7 +188,8 @@ Page({
 
         var iswang = this.isWangchun();
         wx.request({
-            url: iswang ? api.topic_wangchundabainian : api.topic_class,
+            // url: iswang ? api.topic_wangchundabainian : api.topic_class,
+            url: api.topic_class,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',

@@ -6,7 +6,7 @@
         <cover-image class="back-btn-img"
                     src="https://www.newscctv.net/dw/resource/future/1return5.png"></cover-image>
       </cover-view>
-      <cover-view class="toptitle">网春大拜年</cover-view>
+      <cover-view class="toptitle">小央拜年助手</cover-view>
     </cover-view>
     <view class="page" style="display:{{showFirst}};">
       <view class="pageChoose">

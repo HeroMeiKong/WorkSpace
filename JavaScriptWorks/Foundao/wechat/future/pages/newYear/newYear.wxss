@@ -79,12 +79,13 @@
 
 .pageChoosetop {
   width: 100%;
-  height: 268rpx;
+  /* height: 268rpx; */
+  height: 20%;
 }
 
 .pageChoosecenter {
   width: 690rpx;
-  height: 722rpx;
+  /* height: 722rpx; */
   background-image: url('https://s-js.sports.cctv.com/host/image/2019/01/12/15472742454405.png');
   background-size: 100%;
   position: relative;
@@ -119,7 +120,8 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 262rpx;
+  /* height: 262rpx; */
+  height: 19.6%;
 }
 
 .avaterBox {
@@ -404,7 +406,7 @@
   height: 660rpx;
   margin-bottom: 53rpx;
   position: relative;
-  top: 113rpx;
+  top: 173rpx;
 }
 
 .submission_fail {
@@ -418,12 +420,12 @@
   width: 360rpx;
   height: 70rpx;
   position: relative;
-  top: 137rpx;
+  top: 197rpx;
 }
 
 .submission_button {
   width: 360rpx;
   height: 70rpx;
   position: relative;
-  top: 107rpx;
+  top: 167rpx;
 }

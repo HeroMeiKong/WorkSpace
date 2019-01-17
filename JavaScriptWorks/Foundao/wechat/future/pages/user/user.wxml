@@ -17,7 +17,7 @@
         <!--关注粉丝数-->
         <view class="user-fans-attention">
             <view class="user-fans-attention-inner">
-                <span class="user-num" data-select="2">{{userInfo.count_zan}}</span>
+                <span class="user-num" data-select="2">{{userInfo.count_zan_10}}</span>
                 <span>获赞</span>
                 <view class="line"></view>
                 <span class="user-num" bindtap="goAttention" data-select="2">{{userInfo.is_follow}}</span>
@@ -52,7 +52,7 @@
                     <view class="waiting-box fail" wx:if="{{item.examine==1}}">审核未通过</view>
                     <view class="video-zan-box" wx:if="{{item.examine==3}}">
                         <image src="https://s-js.sports.cctv.com/host/resource/future/2dianzanshu@2x.png"></image>
-                        <view class="video-zan">{{item.count_material_love}}</view>
+                        <view class="video-zan">{{item.count_material_love_10}}</view>
                     </view>
                 </view>
             </block>
