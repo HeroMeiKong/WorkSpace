@@ -47,10 +47,25 @@ Page({
         console.log(res.data.data)
         const length = res.data.data.length
         for(let i=0;i<length;i++){
+          let sorh = 'none'
           if(res.data.data[i].online === '1'){
-            that.data.showOrHidden[i] = 'none'
+            sorh = 'none'
           } else {
-            that.data.showOrHidden[i] = 'flex'
+            sorh = 'flex'
+          }
+          switch (res.data.data[i].name) {
+            case '小央拜年助手':
+              that.data.showOrHidden[0] = sorh
+              break;
+            case '超级配配配':
+              that.data.showOrHidden[1] = sorh
+              break;
+            case '超级测测测':
+              that.data.showOrHidden[2] = sorh
+              break;
+            default:
+              that.data.showOrHidden = ["none","none","none"]
+              break;
           }
         }
         that.setData({
