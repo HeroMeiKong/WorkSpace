@@ -10,7 +10,7 @@
     </cover-view>
     <view class="page" style="display:{{showFirst}};">
       <view class="pageChoose">
-        <image class="pageChoosetop" src="https://s-js.sports.cctv.com/test_host/image/2019/01/17/15477089713666.png"></image>
+        <image class="pageChoosetop" src="https://s-js.sports.cctv.com/host/image/2019/01/20/15479757496516.png"></image>
         <view class="pageChoosecenter">
           <view class="pageChoosecentertitle pageChoosetitleMargin1">01 选择拜年主持人</view>
           <view class="avaterBox">
@@ -54,7 +54,7 @@
           </view>
         </view>
         <image class="pageChoosebottom" src="https://s-js.sports.cctv.com/test_host/image/2019/01/17/15477089638969.png"></image>
-        <image class="sendWish" src="../../assets/images/1songzhufu@2x.png" catch:tap="sendWish">
+        <image class="sendWish" src="https://s-js.sports.cctv.com/host/image/2019/01/20/15479757522348.png" catch:tap="sendWish">
           送祝福
         </image>
       </view>
