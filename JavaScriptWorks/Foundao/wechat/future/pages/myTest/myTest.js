@@ -106,7 +106,7 @@ Page({
     showmusic: 'none',
     //musicimgs: {playimg: '../../assets/images/4ing.gif',pause: '',addimg: '../../assets/images/4add.png',cancel: '',palyorpause: '',},
     showmusiclist: 'none',
-    //showpublish: 'none',
+    showpublish: 'none',
     showpause: 'flex',
     showVideos: 'flex',
     showtextcontent: 'block', //值为block或者none
@@ -123,9 +123,7 @@ Page({
     showovercover: 'none',
     //videomuted: false, //是否静音视频
     compose_success: true,
-    showsubmission: 'none',
-    wrappers_width: '100%',
-    wrappers_height: '100%',
+    showsubmission: 'none'
   },
 
   /**
@@ -204,181 +202,7 @@ Page({
     console.log('onReady')
     console.log('选取本地视频')
     let that = this
-    wx.chooseVideo({
-      sourceType: [usermethod],
-      maxDuration: 30,
-      camera: 'back',
-      success: function (res) {
-        console.log('选取视频')
-        console.log(res)
-        const videoType = res.tempFilePath
-        if(videoType.substring(videoType.length-3) === 'mp4' || videoType.substring(videoType.length-3) === 'mov' || videoType.substring(videoType.length-3) === 'avi'){
-          console.log(videoType.substring(videoType.length-3))
-          that.data.oldVideoSize.height = res.height
-          that.data.oldVideoSize.width = res.width
-          res.height > res.width ? computeMethod = 'height': computeMethod = 'width'
-          let value = res.height/res.width
-          if(computeMethod === 'height'){
-            that.data.picsize.height = windowHeight
-            that.data.picsize.width = windowHeight/value
-            that.data.previewsize.height = previewbox
-            that.data.previewsize.width = previewbox/value
-          } else {
-            that.data.picsize.width = windowWidth
-            that.data.picsize.height = windowWidth*value
-            that.data.previewsize.width = previewbox
-            that.data.previewsize.height = previewbox*value
-          }
-          wx.showToast({
-            title: '选取视频成功',
-            icon: 'success',
-            duration: 2000
-          })
-          that.setData({
-            tempFilePath: res.tempFilePath,
-            duration: res.duration,
-            oldVideoSize: that.data.oldVideoSize,
-            size: (res.size / (1024 * 1024)).toFixed(2),
-            picsize: that.data.picsize,
-            previewsize: that.data.previewsize
-          })
-          console.log(that.data.oldVideoSize)
-          wx.showLoading({
-            title: '视频上传中',
-            mask: true
-          })
-          if(usermethod === 'camera'){
-            console.log('拍摄视频')
-            wx.saveVideoToPhotosAlbum({
-              filePath: res.tempFilePath,
-              success(res) {
-                console.log(res)
-              },
-              fail(res) {
-                console.log(res.errMsg)
-              }
-            })
-          }
-          if (that.data.size > 100) {
-            wx.showToast({
-              title: '上传的视频大小不能超过100M！',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            const timers = setTimeout(()=>{
-              if(usermethod === 'camera'){
-                app.shootsuccess = true
-              } else {
-                app.shootsuccess = false
-              }
-              wx.navigateBack({
-                delta: 1
-              });
-              clearTimeout(timers)
-            },1500)
-          } else {
-            if (that.data.duration > 30) {
-              wx.showToast({
-                title: '上传的视频拍摄时间不能大于30秒！',
-                icon: 'none',
-                duration: 3500,
-                mask: true
-              })
-              const timers = setTimeout(()=>{
-                if(usermethod === 'camera'){
-                  app.shootsuccess = true
-                } else {
-                  app.shootsuccess = false
-                }
-                wx.navigateBack({
-                  delta: 1
-                });
-                clearTimeout(timers)
-              },1500)
-            } else if (that.data.duration < 5) {
-              wx.showToast({
-                title: '上传的视频拍摄时间不能低于5秒！',
-                icon: 'none',
-                duration: 3500,
-                mask: true
-              })
-              const timers = setTimeout(()=>{
-                if(usermethod === 'camera'){
-                  app.shootsuccess = true
-                } else {
-                  app.shootsuccess = false
-                }
-                wx.navigateBack({
-                  delta: 1
-                });
-                clearTimeout(timers)
-              },1500)
-            } else {
-              //上传视频， 取得视频服务器地址
-              console.log('发送上传视频请求')
-              wx.uploadFile({
-                url: api.upload_cover,
-                filePath: that.data.tempFilePath,
-                name: 'filename',
-                header: {
-                  'content-type': 'multipart/form-data',
-                  "auth-token": wx.getStorageSync('loginSessionKey'),
-                },
-                formData: {
-                  upload_type: 'tmp1',
-                  filename: that.data.tempFilePath,
-                },
-                success(res) {
-                  const data = JSON.parse(res.data)
-                  that.data.uploadContent.video_url = data.data.file_path
-                  console.log(res.data)
-                  console.log(data)
-                  that.setData({
-                    previewpic: data.data.savehttp,
-                    uploadContent: that.data.uploadContent,
-                    chooseVideo: 1
-                  })
-                },
-                complete () {
-                  console.log('隐藏了哈')
-                  wx.hideLoading()
-                }
-              })
-            }
-          }
-        } else {
-          wx.showToast({
-            title: '视频只支持mp4,aiv和mov格式！',
-            icon: 'none',
-            duration: 1500,
-            mask: true,
-            success: (result)=>{
-              const time = setTimeout(()=>{
-                clearTimeout(time)
-                wx.navigateBack({
-                  delta: 1
-                });
-              },1500)
-            },
-          });
-        }
-      },
-      fail: function (e) {
-        console.log('选择视频失败！')
-        console.log(e)
-        app.shootsuccess = false
-        wx.navigateBack({
-          delta: 1
-        });
-        that.setData({
-          chooseVideo: 2
-        })
-      },
-      complete: function (e) {
-        console.log('我的错我的错我的错')
-      }
-    })
+    
   },
 
   /**
@@ -386,25 +210,6 @@ Page({
    */
   onShow: function () {
     console.log('onShow')
-    app.isAuth(() => {
-      if (!this.data.hasInit) {
-          console.log('未初始化')
-          this.data.hasInit = true
-          wx.getUserInfo({
-              success: (res) => {
-                  this.data.userInfo = res.userInfo
-                  // var nickName = userInfo.nickName
-                  // var avatarUrl = userInfo.avatarUrl
-                  // var gender = userInfo.gender //性别 0：未知、1：男、2：女
-                  // var province = userInfo.province
-                  // var city = userInfo.city
-                  // var country = userInfo.country
-              }
-          })
-      } else {
-          console.log('已初始化')
-      }
-    })
     this.setData({
       //showovercover: 'none',
       //showsubmission: 'none',
@@ -889,15 +694,14 @@ Page({
     console.log(this.data.uploadContent.tiezhi_arr)
     this.setData({
       //showwrappers: 'none',
+      tempFilePath: 'http://mvvideo10.meitudata.com/5afe7b87e5d422520_H264_18.mp4?k=f57f521f24b08e767a7b7511ff02fa63&t=5c4adbb9',
       showwrappers: 'hidden',
-      //showpublish: 'flex',
+      showpublish: 'flex',
       uploadContent: this.data.uploadContent,
       myUpload: this.data.myUpload,
       publish: this.data.publish,
       //videomuted: this.data.videomuted,
-      topic: this.data.topic,
-      wrappers_width: 0,
-      wrappers_height: 0
+      topic: this.data.topic
     })
     // this.videoContext.play()
     // this.videoContext.pause()
@@ -1507,48 +1311,6 @@ Page({
     if(this.data.uploadContent.video_desc === ''){
       this.data.uploadContent.video_desc = nickName + '的原创'
     }
-    if(this.data.uploadContent.join_sub === -1 || this.data.uploadContent.join_sub_id === -1){
-      wx.showToast({
-        title: '未选择话题！',
-        icon: 'none',
-        duration: 1000
-      })
-      // if(this.data.topics.length === 0){
-      //   wx.request({
-      //     url: api.topic_sub,
-      //     method: 'POST',
-      //     header: {
-      //         'content-type': 'application/x-www-form-urlencoded',
-      //         "auth-token": wx.getStorageSync('loginSessionKey'),
-      //     },
-      //     success: (res) => {
-      //       console.log(res)
-      //       const length = res.data.data.length
-      //       for(let i=0;i<length;i++){
-      //         if('原创话题' === res.data.data[i].sub_title){
-      //           this.data.topic = res.data.data[i].sub_title
-      //           this.data.uploadContent.join_sub_id = res.data.data[i].sub_type
-      //           this.data.uploadContent.join_sub = res.data.data[i].id
-      //           topiclock = true
-      //         } else {
-      //           res.data.data[i].pic = topicpic.no
-      //         }
-      //       }
-      //       this.setData({
-      //         topics: res.data.data
-      //       })
-      //       console.log(this.data.topics)
-      //     },
-      //     complete: () => {
-      //       console.log('查询音效分类！')
-      //     }
-      //   })
-      // }
-      // that.setData({
-      //   uploadContent: this.data.uploadContent,
-      //   topic: this.data.topic
-      // })
-    } else {
       console.log('that.data.uploadContent')
       console.log(that.data.uploadContent)
       that.setData({
@@ -1701,7 +1463,7 @@ Page({
           },5000)
         },
       })
-    }
+    
   },
   pauseThis (e) {
     console.log('pauseThis')
@@ -1839,9 +1601,7 @@ Page({
       //showwrappers: 'block',
       showwrappers: 'visible',
       showpause: 'flex',
-      //showpublish: 'none',
-      wrappers_width: '100%',
-      wrappers_height: '100%'
+      showpublish: 'none',
     })
   },
   videoAutoPlay (e) {

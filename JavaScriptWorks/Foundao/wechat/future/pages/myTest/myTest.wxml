@@ -3,7 +3,7 @@
   <cover-view class="back-btn  {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack">
     <cover-image class="back-btn-img" src="https://s-js.sports.cctv.com/host/resource/future/1return4.png"></cover-image>
   </cover-view>
-  <view class="wrappers" style="visibility:{{showwrappers}};width:{{wrappers_width}};height:{{wrappers_height}}">
+  <view class="wrappers" style="visibility:{{showwrappers}}">
     <view class="preview">
       <movable-area class="screenshot" style="display:{{showVideo.notvideo}};width:{{picsize.width}}px;height:{{picsize.height}}px;" catch:tap="blockThis">
         <block wx:for="{{movableviewNum}}" wx:key="*this">
@@ -131,17 +131,13 @@
       </view>
     </view>
   </view>
-  <view class="publish {{models}}">
-    <view class="videowrapper">
-      <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
-        <block wx:for="{{publish}}">
-          <cover-image class="coverimage" src="{{item.pic}}" style="width:{{item.width}}px;height:{{item.height}}px;left:{{item.x}}px;top:{{item.y}}px;transform:rotate({{item.rotate}}deg)"></cover-image>
-        </block>
+  <view class="publish {{models}}" style="display:{{showpublish}}">
+      <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:690rpx;height:690rpx" muted="{{videomuted}}" autoplay="{{false}}">
         <cover-view class="playimg" catch:tap="pauseThis">
           <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
         </cover-view>
       </video>
-    </view>
+
     <view class="textcontent" style="display:{{showtextcontent}}">
     <textarea bindblur="bindTextAreaBlur" class="introduce" placeholder="请输入简介...(选填,最多30字！)" maxlength="30" bindinput="bindTextAreaInput"></textarea>
       <view class="topic" catch:tap="choseTopic">

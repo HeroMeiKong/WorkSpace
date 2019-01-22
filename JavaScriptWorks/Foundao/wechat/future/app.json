@@ -18,7 +18,8 @@
     "pages/superTest/superTest",
     "pages/testVideo/testVideo",
     "pages/ppp/ppp",
-    "pages/newYear/newYear"
+    "pages/newYear/newYear",
+    "pages/myTest/myTest"
   ],
   "window": {
     "backgroundTextStyle": "light",
