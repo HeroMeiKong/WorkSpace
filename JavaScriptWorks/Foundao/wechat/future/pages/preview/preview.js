@@ -2000,5 +2000,17 @@ Page({
       console.log('x负半轴')
       return 225
     }
-  }
+  },
+  goBack(e) {
+    console.log(getCurrentPages())
+    if (getCurrentPages().length === 1) {
+        wx.switchTab({
+            url: '/pages/index/index',
+        })
+    } else {
+        wx.navigateBack({
+            delta: 1
+        })
+    }
+},
 })
