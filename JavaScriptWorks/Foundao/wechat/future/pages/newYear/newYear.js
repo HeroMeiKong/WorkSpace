@@ -31,6 +31,8 @@ Page({
     compose_success: false,
     chooseone: {host_id: -1,select_person_id: -1},
     video_title: {host: '',who: '',wish: ''},
+    wrappers_width: '100%',
+    wrappers_height: '100%',
   },
 
   /**
@@ -251,6 +253,8 @@ Page({
         this.setData({
           showFirst: showPage.showFirst,
           showSecond: showPage.showSecond,
+          wrappers_width: 0,
+          wrappers_height: 0,
         })
       }, 1000)
       showPage = {showFirst: 'none',showSecond: 'flex'}
@@ -298,6 +302,8 @@ Page({
             this.setData({
               showFirst: showPage.showFirst,
               showSecond: showPage.showSecond,
+              wrappers_width: 0,
+              wrappers_height: 0,
             })
           }, 1000)
         },
@@ -384,6 +390,8 @@ Page({
     this.setData({
       showFirst: 'flex',
       showSecond: 'none',
+      wrappers_width: '100%',
+      wrappers_height: '100%',
     })
     // wx.request({
     //   url: 'https://web-happy.foundao.com/host/api/api/wangchun_poster_qrcode.php',

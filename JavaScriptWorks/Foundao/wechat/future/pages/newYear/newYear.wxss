@@ -49,6 +49,7 @@
   position: absolute;
   background-color: #ffffff;
   top: 0;/* 兼容老版本 */
+  overflow: hidden;
 }
 
 .page {

@@ -8,7 +8,7 @@
       </cover-view>
       <cover-view class="toptitle">小央拜年助手</cover-view>
     </cover-view>
-    <view class="page" style="display:{{showFirst}};">
+    <view class="page" style="display:{{showFirst}};width:{{wrappers_width}};height:{{wrappers_height}}">
       <view class="pageChoose">
         <image class="pageChoosetop" src="https://s-js.sports.cctv.com/host/image/2019/01/23/15482523093554.png"></image>
         <view class="pageChoosecenter">
@@ -80,7 +80,7 @@
         </image>
       </view>
     </view>
-    <view class="page" style="display:{{showSecond}};">
+    <view class="page" style="display:flex;">
       <view class="pagePreview">
         <view class="publish">
           <view class="videowrapper">
