@@ -69,10 +69,11 @@
 .special{
   height: 270rpx;
   width: 690rpx;
-  background: url('https://s-js.sports.cctv.com/test_host/image/2019/01/17/15477095215011.png') no-repeat;
+  background: url('https://s-js.sports.cctv.com/host/resource/future/banner2.png') no-repeat;
   background-size: 100%;
   background-color: #C10420;
   margin-bottom: 30rpx;
+  box-shadow: 0 0 16rpx 0 rgba(0,0,0,.1);
 }
 
 .superwrapper {

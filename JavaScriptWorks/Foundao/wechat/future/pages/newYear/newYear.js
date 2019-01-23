@@ -115,15 +115,15 @@ Page({
           }
         }
         //选择拜年对象
-        if(length > 4){
-          for(let j=0;j<4;j++){
+        if(length > 5){
+          for(let j=0;j<5;j++){
             that.data.row1.push(that.data.whodata[j])
           }
-          for(let j=4;j<length;j++){
+          for(let j=5;j<length;j++){
             that.data.row2.push(that.data.whodata[j])
           }
-          if(length > 8){
-            for(let j=8;j<length;j++){
+          if(length > 10){
+            for(let j=10;j<length;j++){
               that.data.row3.push(that.data.whodata[j])
             }
           }

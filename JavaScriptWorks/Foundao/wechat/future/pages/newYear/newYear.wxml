@@ -10,7 +10,7 @@
     </cover-view>
     <view class="page" style="display:{{showFirst}};width:{{wrappers_width}};height:{{wrappers_height}}">
       <view class="pageChoose">
-        <image class="pageChoosetop" src="https://s-js.sports.cctv.com/host/image/2019/01/23/15482523093554.png"></image>
+        <view class="pageChoosetop"></view>
         <view class="pageChoosecenter">
           <!-- <view class="pageChoosecentertitle pageChoosetitleMargin1">01 我的祝福只想送给TA</view>
           <view class="avaterBox">
