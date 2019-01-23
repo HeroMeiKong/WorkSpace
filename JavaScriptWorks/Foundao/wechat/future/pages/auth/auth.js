@@ -19,7 +19,7 @@ Page({
      */
     onLoad: function (options) {
         console.log('auth onLoad')
-        app.isFullScreen(()=>{
+        app.isFullScreen(() => {
             this.setData({
                 isIpx: true
             })
@@ -82,6 +82,7 @@ Page({
         // console.log('用户点击授权：')
         // console.log(e)
         var _this = this
+        e.detail.userInfo.avatarUrl = e.detail.userInfo.avatarUrl ? e.detail.userInfo.avatarUrl : app.globalData.default_avatarUrl
         app.globalData.userInfo = e.detail.userInfo
         wx.removeStorageSync({
             key: 'loginSessionKey',
@@ -95,6 +96,10 @@ Page({
                 console.log(res.code)
                 wx.getUserInfo({
                     success: function (re) {
+                        console.log('re:')
+                        console.log(re)
+                        // re.nickName = e.detail.userInfo.nickName;
+                        // re.avatarUrl = e.detail.userInfo.avatarUrl;
                         wx.request({
                             url: api.login_auth,
                             method: 'POST',
@@ -104,7 +109,9 @@ Page({
                             data: {
                                 wx_sign: re.signature,
                                 raw_user_data: re.rawData,
-                                code: res.code
+                                code: res.code,
+                                nickName: app.globalData.userInfo.nickName,
+                                avatarUrl: app.globalData.userInfo.avatarUrl,
                             },
                             success: (resp) => {
                                 console.log('login_auth:')
@@ -135,12 +142,10 @@ Page({
                         })
 
                     },
-                    complete:function (re) {
+                    complete: function (re) {
                         wx.hideLoading()
                     }
                 })
-
-
             }
         });
     },

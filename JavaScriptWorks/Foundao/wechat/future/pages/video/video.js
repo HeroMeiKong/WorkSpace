@@ -42,6 +42,8 @@ Page({
         showDoLayer: false,
 
         isSending: false,
+
+        isShare: false,
     },
 
     /**
@@ -56,6 +58,12 @@ Page({
                 is_user: options.user || 0,
                 examine: options.examine || 1
             })
+            if (options.share) {
+                this.data.isShare = true
+                this.setData({
+                    isShare: true
+                })
+            }
             // this.data.user = options.user
         } else {
             wx.switchTab({
@@ -82,6 +90,10 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        if (this.data.isShare) {
+            this.getVideoData(this.data.video_uuid, this.data.video_id, true)
+            return
+        }
         app.isAuth(() => {
             if (!this.data.hasInit) {
                 console.log('未初始化')
@@ -160,6 +172,19 @@ Page({
         }
     },
 
+    // vv
+    vv() {
+        // 统计
+        const options = {
+            op: 'vv',
+            wz: 'video_detail',
+            uniqueid: this.data.cur_video.video_uuid,
+            id: this.data.cur_video.id,
+            source: 'ugc'
+        }
+        app.statistics_pv(options)
+    },
+
     // 监听视频播放
     bindplay() {
         console.log('bindplay')
@@ -167,6 +192,7 @@ Page({
             playing: true,
             hasPlayed: true,
         })
+        this.vv()
     },
 
     // 监听视频暂停
@@ -186,7 +212,10 @@ Page({
 
     // 监听视频时间变化
     bindtimeupdate(e) {
-        var p = e.detail.currentTime / e.detail.duration
+        var p = e.detail.currentTime / e.detail.duration;
+        if (p < this.data.progress) {
+            this.vv()
+        }
         this.setData({
             progress: p
         })
@@ -260,7 +289,7 @@ Page({
             },
             data: {
                 material_id: this.data.cur_video.video_uuid,
-                path: '/pages/index/index?video_uuid=' + this.data.video_uuid + '&id=' + this.data.cur_video.id,
+                path: '/pages/video/video?share=1&video_uuid=' + this.data.video_uuid + '&id=' + this.data.cur_video.id,
                 // path: 'pages/dubbing/dubbing',
                 // path: 'pages/index/index',
                 width: 188,           // 二维码的宽度
@@ -284,13 +313,14 @@ Page({
     },
 
     // 获取视频数据
-    getVideoData(video_uuid, id) {
+    getVideoData(video_uuid, id, isShare) {
         wx.showLoading({
             mask: true
         })
         this.data.loading_num++;
 
-        var url = this.data.is_user == 1 ? api.video_topics : api.video_topic
+        var url = this.data.is_user == 1 ? api.video_topics : api.video_topic;
+        url = isShare ? api.user_view_video : url;
 
         wx.request({
             url: url,

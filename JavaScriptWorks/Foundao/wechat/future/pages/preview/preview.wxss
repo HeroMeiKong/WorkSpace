@@ -469,7 +469,7 @@ swiper-item {
   font-size: 22rpx;
   /* color: #969696; */
   color: #FFD892;/* 春节样式 */
-  margin-top: 20rpx; 
+  margin-top: 20rpx;
 }
 
 .publish {

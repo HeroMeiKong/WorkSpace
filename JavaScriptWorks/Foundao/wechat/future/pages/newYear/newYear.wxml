@@ -10,9 +10,9 @@
     </cover-view>
     <view class="page" style="display:{{showFirst}};">
       <view class="pageChoose">
-        <image class="pageChoosetop" src="https://s-js.sports.cctv.com/host/image/2019/01/20/15479757496516.png"></image>
+        <image class="pageChoosetop" src="https://s-js.sports.cctv.com/host/image/2019/01/23/15482523093554.png"></image>
         <view class="pageChoosecenter">
-          <view class="pageChoosecentertitle pageChoosetitleMargin1">01 选择拜年主持人</view>
+          <!-- <view class="pageChoosecentertitle pageChoosetitleMargin1">01 我的祝福只想送给TA</view>
           <view class="avaterBox">
             <block wx:for="{{alldata}}" wx:key="*this">
               <view>
@@ -22,8 +22,7 @@
                 <view class="avaterFont font{{item.pick}}">{{item.name}}</view>
               </view>
             </block>
-          </view>
-          <view class="pageChoosecentertitle pageChoosetitleMargin2">02 选择问好方式</view>
+          </view> -->
           <view class="chooseSomebody">
             <view class="chooseSomebodyBox">
               <view class="boxrow">
@@ -52,8 +51,30 @@
               <view class="picker">当前选择：{{whos}}{{who[index]}}</view>
             </picker> -->
           </view>
+          <!-- <view class="pageChoosecentertitle pageChoosetitleMargin2">02 我最想对TA说</view> -->
+          <view class="chooseSomebody">
+            <view class="chooseSomebodyBox">
+              <view class="boxrow">
+                <block wx:for="{{way1}}" wx:key="*this">
+                  <view class="waynumber {{item.class}}" id="{{item.id}}" catch:tap="chooseMessage">
+                    {{item.name}}
+                  </view>
+                </block>
+              </view>
+              <view class="boxrow">
+                <block wx:for="{{way2}}" wx:key="*this">
+                  <view class="waynumber {{item.class}}" id="{{item.id}}" catch:tap="chooseMessage">
+                    {{item.name}}
+                  </view>
+                </block>
+              </view>
+            </view>
+            <!-- <picker bindchange="bindPickerChange" value="{{index}}" range="{{who}}">
+              <view class="picker">当前选择：{{whos}}{{who[index]}}</view>
+            </picker> -->
+          </view>
         </view>
-        <image class="pageChoosebottom" src="https://s-js.sports.cctv.com/test_host/image/2019/01/17/15477089638969.png"></image>
+        <image class="pageChoosebottom" src="https://s-js.sports.cctv.com/host/image/2019/01/23/15482527945482.png"></image>
         <image class="sendWish" src="https://s-js.sports.cctv.com/host/image/2019/01/20/15479757522348.png" catch:tap="sendWish">
           送祝福
         </image>

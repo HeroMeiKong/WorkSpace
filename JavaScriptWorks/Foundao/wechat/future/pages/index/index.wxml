@@ -74,8 +74,7 @@
                         bindtap="moveDown"
                         bindtap="videoClick"
                         bindtouchstart="touchStart"
-                        bindtouchend="touchEnd"
-                        wx:if="{{first_init}}">
+                        bindtouchend="touchEnd">
 
                 <!--播放按钮-->
                 <cover-image class="play-btn" src="https://s-js.sports.cctv.com/host/resource/future/1play.png"

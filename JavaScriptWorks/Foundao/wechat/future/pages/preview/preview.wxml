@@ -100,7 +100,7 @@
                 <swiper-item>
                   <view id="{{item.id}}" class="musiclistdiv" bindtap="pickMusic">
                     <!-- <view id="left{{item.id}}" class="musiclistleftwrapper" bindtap="playmusic"> -->
-                      <view id="left{{item.id}}" class="musiclistleftwrapper">
+                    <view id="left{{item.id}}" class="musiclistleftwrapper">
                       <view class="musiclistleft">
                         <image class="playmusic" src="{{item.leftimg}}"></image>
                       </view>
@@ -143,14 +143,14 @@
       </video>
     </view>
     <view class="textcontent" style="display:{{showtextcontent}}">
-    <textarea bindblur="bindTextAreaBlur" class="introduce" placeholder="请输入简介...(选填,最多30字！)" maxlength="30" bindinput="bindTextAreaInput"></textarea>
+      <textarea bindblur="bindTextAreaBlur" class="introduce" placeholder="请输入简介...(选填,最多30字！)" maxlength="30" bindinput="bindTextAreaInput"></textarea>
       <view class="topic" catch:tap="choseTopic">
         <view class="topicinner">
           <image class="topicinnerpic" src="../../assets/images/4huati2@2x.png" />
           <font>{{topic}}</font>
         </view>
       </view>
-      
+
     </view>
     <view class="topictype" style="display:{{showtopictype}}">
       <view class="topictype_top">

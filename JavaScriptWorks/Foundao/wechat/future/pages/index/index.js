@@ -145,23 +145,26 @@ Page({
             if (!this.data.hasInit) {
                 console.log('未初始化')
                 this.data.hasInit = true
-                wx.getUserInfo({
-                    success: (res) => {
-                        this.data.userInfo = res.userInfo       //用微信返回的用户信息（最新），不用后台给的
-                        // var nickName = userInfo.nickName
-                        // var avatarUrl = userInfo.avatarUrl
-                        // var gender = userInfo.gender //性别 0：未知、1：男、2：女
-                        // var province = userInfo.province
-                        // var city = userInfo.city
-                        // var country = userInfo.country
-                    }
+                this.setData({
+                    userInfo: app.globalData.userInfo
                 })
+                // wx.getUserInfo({
+                //     success: (res) => {
+                //         this.data.userInfo = res.userInfo       //用微信返回的用户信息（最新），不用后台给的
+                //         // var nickName = userInfo.nickName
+                //         // var avatarUrl = userInfo.avatarUrl
+                //         // var gender = userInfo.gender //性别 0：未知、1：男、2：女
+                //         // var province = userInfo.province
+                //         // var city = userInfo.city
+                //         // var country = userInfo.country
+                //     }
+                // })
                 this.getTypes(() => {
                     if (this.data.first_uuid) {
-                       // console.log('first_uuid:')
-                       // console.log(this.data.first_uuid)
-                       // console.log('first_id:')
-                       // console.log(this.data.first_id)
+                        // console.log('first_uuid:')
+                        // console.log(this.data.first_uuid)
+                        // console.log('first_id:')
+                        // console.log(this.data.first_id)
                         //如果是分享入口
                         this.getVideoData(this.data.first_uuid, this.data.first_id, () => {
                             this.getSpecialVideoList(() => {
@@ -248,6 +251,10 @@ Page({
                 title: this.data.cur_video.video_desc,
                 path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
                 imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
+                success: (res) => {
+                    console.log('分享回调：')
+                    console.log(res)
+                }
             }
         } else if (res.from === 'menu') {
             return {
@@ -320,7 +327,7 @@ Page({
             data: {
                 material_id: this.data.cur_video.video_uuid,
                 // material_id: '1',
-                path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+                path: '/pages/video/video?share=1&video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
                 // path: 'pages/dubbing/dubbing',
                 // path: 'pages/index/index',
                 width: 188,           // 二维码的宽度
@@ -355,6 +362,20 @@ Page({
         if (pages[pages.length - 1].route != 'pages/index/index') {
             this.pauseVideo()
         }
+        this.vv()
+    },
+
+    // vv
+    vv() {
+        // 统计
+        const options = {
+            op: 'vv',
+            wz: 'home_page',
+            uniqueid: this.data.cur_video.video_uuid,
+            id: this.data.cur_video.id,
+            source: 'ugc'
+        }
+        app.statistics_pv(options)
     },
 
     // 监控视频暂停
@@ -374,7 +395,10 @@ Page({
 
     // 监控视频播放进度
     bindtimeupdate(e) {
-        var p = e.detail.currentTime / e.detail.duration
+        var p = e.detail.currentTime / e.detail.duration;
+        if (p < this.data.progress) {
+            this.vv()
+        }
         this.setData({
             progress: p
         })
@@ -625,7 +649,7 @@ Page({
                         this.refreshSwiper(temp_data.list, 0)
                         this.switchVideo(temp_data.list[0], 0)
                     } else {
-                        this.refreshSwiper(temp_data.list)
+                        this.refreshSwiper(temp_data.list, -2)
                     }
 
                 } else {
@@ -1328,6 +1352,7 @@ Page({
                 data.count_material_love_10 = 1
             }
             if (isfirst) {
+                console.log('swiper_current isfirst')
                 //第一次初始化
                 this.setData({
                     // playing: true,
@@ -1350,6 +1375,8 @@ Page({
                 })
             } else {
                 //隐藏视频，重置视频源，并滑动swiper;滑动结束后，显示视频
+                console.log('swiper_current:')
+                console.log(index)
                 this.setData({
                     // playing: true,
                     cur_video: data,
@@ -1428,7 +1455,7 @@ Page({
             //判断是否加载更多
             if (special_index > special_list.length - 10) {
                 this.getSpecialVideoList(() => {
-                    this.refreshSwiper(this.data.special_list)
+                    this.refreshSwiper(this.data.special_list, -2)
                 })
             }
         } else {
@@ -1498,10 +1525,19 @@ Page({
         for (var i = 0; i < list.length; i++) {
             pic_list.push(list[i].first_pic3 || list[i].pic)
         }
-        this.setData({
-            swiper_list: pic_list,
-            swiper_current: index || 0
-        })
+        // -2只增加list,不操作swiper
+        if (index == -2) {
+            setTimeout(() => {
+                this.setData({
+                    swiper_list: pic_list,
+                })
+            }, 1000)
+        } else {
+            this.setData({
+                swiper_list: pic_list,
+                swiper_current: index || 0
+            })
+        }
     },
 
     bindprogress() {

@@ -2,5 +2,6 @@
   "usingComponents": {
     "backTitle": "/component/backTitle/backTitle"
   },
-  "navigationBarTitleText":"网春大拜年"
+  "navigationBarTitleText":"网春大拜年",
+  "disableScroll": true
 }

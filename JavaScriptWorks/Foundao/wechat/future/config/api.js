@@ -1,10 +1,12 @@
 /**
  * Created by DELL on 2018/8/9.
  */
-//const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
-//const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
+
+// const host = 'https://a-js.sports.cctv.com/host/api/';          //线上版本
+//  const host = 'https://web-happy.foundao.com/host/api/api/';   //线下版本
 const host = 'https://a-js.sports.cctv.com/test_host/api/';  //预上线版本
-//const host = 'https://test.iuxiao.com/test_host/api/';//逗牛测试
+// const host = 'https://test.iuxiao.com/www/host/api/';//逗牛测试
+
 export default {
 
     // //登录
@@ -80,7 +82,8 @@ export default {
     topic_class: host + 'topic/topic_class.php',            //话题列表
     topic_fenlie: host + 'topic/topic_fenlie.php',            //分类
     topic_fenlie_list: host + 'topic/topic_fenlie_list.php',            //分类列表
-    topic_wangchundabainian: host + '/topic/topic_wangchundabainian.php',            //网春大拜年话题
+    topic_wangchundabainian: host + 'topic/topic_wangchundabainian.php',            //网春大拜年话题
+    user_view_video: host + 'topic/user_view_video.php',            //视频详情，不需要授权
 
     //配音列表
     dub: host + 'dub/dub.php',

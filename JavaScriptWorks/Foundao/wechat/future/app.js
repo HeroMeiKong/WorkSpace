@@ -50,10 +50,12 @@ App({
             } else {
                 console.log('PV统计失败: ' + msg)
             }
-            wx.setStorage({
-                key: "vir_ID",
-                data: data.vir_ID
-            });
+            if (!vir_ID) {
+                wx.setStorage({
+                    key: "vir_ID",
+                    data: data.vir_ID
+                });
+            }
         }).catch(err => {
             console.log('PV统计接口错误');
         })
@@ -90,7 +92,8 @@ App({
         wx.getSetting({
             success: (res) => {
                 console.log(res.authSetting)
-                if (res.authSetting['scope.userInfo'] && wx.getStorageSync('loginSessionKey')) {
+                if (this.globalData.auth_again ||  (res.authSetting['scope.userInfo'] && wx.getStorageSync('loginSessionKey'))) {
+                    // if (wx.getStorageSync('loginSessionKey')) {
                     // wx.checkSession({
                     //     success: () => {
                     //         // 接口调用成功的回调函数，session_key未过期
@@ -111,7 +114,11 @@ App({
                     // })
                     _this.getUserInfo(success_cb)
                 } else {
-                    var text = wx.getStorageSync('loginSessionKey') ? 'token有效，没有授权' : '请先授权登录'
+                    var text = wx.getStorageSync('loginSessionKey') ? '授权过期' : '请先授权登录'
+                    if (wx.getStorageSync('loginSessionKey')) {
+                        console.log('微信判断用户未授权')
+                        this.globalData.auth_again = true
+                    }
                     wx.showToast({
                         title: text,
                         duration: 2000,
@@ -148,6 +155,7 @@ App({
         } else {
             wx.getUserInfo({
                 success: function (res) {
+                    res.userInfo.avatarUrl = res.userInfo.avatarUrl ? res.userInfo.avatarUrl : _this.globalData.default_avatarUrl
                     _this.globalData.userInfo = res.userInfo
                     typeof fun == "function" && fun(_this.globalData.userInfo)
                 }
@@ -226,6 +234,8 @@ App({
         userInfo: null,
         pt: '',
         shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png',
-        shareText: '我在逗牛短视频里玩配音拍视频，现在邀你来玩哦~'
+        shareText: '我在逗牛短视频里玩配音拍视频，现在邀你来玩哦~',
+        auth_again: false,
+        default_avatarUrl:'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png'
     }
 })

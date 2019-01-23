@@ -141,13 +141,10 @@ Page({
         })
         this.data.loading_num++;
 
-        wx.getUserInfo({
-            success: (res) => {
-                this.setData({
-                    real_userInfo: res.userInfo
-                })
-            }
+        this.setData({
+            real_userInfo: app.globalData.userInfo
         })
+
 
         wx.request({
             url: api.my_home,

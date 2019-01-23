@@ -1,157 +1,163 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": true,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.5.0",
-	"appid": "wxa4c05d1367eee5db",
-	"projectname": "future",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": 18,
-			"list": [
-				{
-					"id": -1,
-					"name": "我的",
-					"pathName": "pages/user/user",
-					"query": ""
-				},
-				{
-					"id": 1,
-					"name": "他人主页",
-					"pathName": "pages/otherUser/otherUser",
-					"query": "user_uuid=492CBBC0-3C2F-CC32-1966-9C91E149B628"
-				},
-				{
-					"id": 2,
-					"name": "视频详情页",
-					"pathName": "pages/video/video",
-					"query": "video_uuid=58936092367820518157106&id=753"
-				},
-				{
-					"id": -1,
-					"name": "关注粉丝页",
-					"pathName": "pages/attention/attention",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "配音列表页",
-					"pathName": "pages/recordList/recordList",
-					"query": ""
-				},
-				{
-					"id": 5,
-					"name": "话题详情页",
-					"pathName": "pages/subject/subject",
-					"query": "id=999"
-				},
-				{
-					"id": -1,
-					"name": "话题首页",
-					"pathName": "pages/subjectIndex/subjectIndex",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "授权页",
-					"pathName": "pages/auth/auth",
-					"query": ""
-				},
-				{
-					"id": 9,
-					"name": "录音页",
-					"pathName": "pages/dubbing/dubbing",
-					"query": "video_uuid=14BE7EC9-5FB4-1B53-75B7-843E2B9C8316"
-				},
-				{
-					"id": -1,
-					"name": "预览",
-					"pathName": "pages/preview/preview",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "配音及上传视频",
-					"pathName": "pages/dubbingUpload/dubbingUpload",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "视频测试页",
-					"pathName": "pages/videoTest/videoTest",
-					"query": "user_uuid=B102D881-C89D-33C8-DE41-3626A2051165"
-				},
-				{
-					"id": -1,
-					"name": "协议页",
-					"pathName": "pages/protocol/protocol",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "超级测测测",
-					"pathName": "pages/superTest/superTest",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "测测测预览视频",
-					"pathName": "pages/testVideo/testVideo",
-					"query": ""
-				},
-				{
-					"id": 15,
-					"name": "分享首页",
-					"pathName": "pages/index/index",
-					"query": "video_uuid=15571770452001092656333&id=922"
-				},
-				{
-					"id": -1,
-					"name": "网春大拜年",
-					"pathName": "pages/newYear/newYear",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "配配配",
-					"pathName": "pages/ppp/ppp",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "随便测",
-					"pathName": "pages/myTest/myTest"
-				}
-			]
-		}
-	}
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.5.0",
+  "appid": "wxa4c05d1367eee5db",
+  "projectname": "future",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "isGameTourist": false,
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "currentL": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 18,
+      "list": [
+        {
+          "id": -1,
+          "name": "我的",
+          "pathName": "pages/user/user",
+          "query": ""
+        },
+        {
+          "id": 1,
+          "name": "他人主页",
+          "pathName": "pages/otherUser/otherUser",
+          "query": "user_uuid=492CBBC0-3C2F-CC32-1966-9C91E149B628"
+        },
+        {
+          "id": 2,
+          "name": "视频详情页",
+          "pathName": "pages/video/video",
+          "query": "video_uuid=58936092367820518157106&id=753"
+        },
+        {
+          "id": -1,
+          "name": "关注粉丝页",
+          "pathName": "pages/attention/attention",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "配音列表页",
+          "pathName": "pages/recordList/recordList",
+          "query": ""
+        },
+        {
+          "id": 5,
+          "name": "话题详情页",
+          "pathName": "pages/subject/subject",
+          "query": "id=999"
+        },
+        {
+          "id": -1,
+          "name": "话题首页",
+          "pathName": "pages/subjectIndex/subjectIndex",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "授权页",
+          "pathName": "pages/auth/auth",
+          "query": ""
+        },
+        {
+          "id": 9,
+          "name": "录音页",
+          "pathName": "pages/dubbing/dubbing",
+          "query": "video_uuid=14BE7EC9-5FB4-1B53-75B7-843E2B9C8316"
+        },
+        {
+          "id": -1,
+          "name": "预览",
+          "pathName": "pages/preview/preview",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "配音及上传视频",
+          "pathName": "pages/dubbingUpload/dubbingUpload",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "视频测试页",
+          "pathName": "pages/videoTest/videoTest",
+          "query": "user_uuid=B102D881-C89D-33C8-DE41-3626A2051165"
+        },
+        {
+          "id": -1,
+          "name": "协议页",
+          "pathName": "pages/protocol/protocol",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "超级测测测",
+          "pathName": "pages/superTest/superTest",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "测测测预览视频",
+          "pathName": "pages/testVideo/testVideo",
+          "query": ""
+        },
+        {
+          "id": 15,
+          "name": "分享首页",
+          "pathName": "pages/index/index",
+          "query": "video_uuid=5772103514087694570391&id=75"
+        },
+        {
+          "id": -1,
+          "name": "网春大拜年",
+          "pathName": "pages/newYear/newYear",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "配配配",
+          "pathName": "pages/ppp/ppp",
+          "query": ""
+        },
+        {
+          "id": 18,
+          "name": "分享视频",
+          "pathName": "pages/video/video",
+          "query": "share=1&video_uuid=13571317743631081415353&id=550"
+        },
+        {
+          "id": -1,
+          "name": "随便测",
+          "pathName": "pages/myTest/myTest"
+        }
+      ]
+    }
+  }
 }

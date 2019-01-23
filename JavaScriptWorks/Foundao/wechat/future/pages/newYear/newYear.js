@@ -1,6 +1,8 @@
 // pages/newYear/newYear.js
 import api from './../../config/api';
 
+const app = getApp();
+
 let nickName = ''
 let videolock = true //视频是否播放
 let autovideolock = true //兼容有些手机视频自动播放
@@ -18,7 +20,9 @@ Page({
     whodata: [],
     row1: [],//第一排拜年对象
     row2: [],//第二排拜年对象
-    row3: [],//第三排拜年对象
+    row3: [],//第三排拜年对象，
+    way1: [],//第一排拜年语
+    way2: [],//第二排拜年语
     showFirst: 'flex',
     showSecond: 'none',
     showpause: 'none',
@@ -62,13 +66,14 @@ Page({
         })
       }
     })
-    wx.getUserInfo({
-      success(res) {
-        const userInfo = res.userInfo
-        nickName = userInfo.nickName
-        console.log(nickName)
-      }
-    })
+    // wx.getUserInfo({
+    //   success(res) {
+    //     const userInfo = res.userInfo
+    //     nickName = userInfo.nickName
+    //     console.log(nickName)
+    //   }
+    // })
+    nickName = app.globalData.userInfo.nickName
   },
 
   /**
@@ -86,11 +91,28 @@ Page({
       success: (res) => {
         console.log(res)
         const length = res.data.count.length
+        const lengths = res.data.data.length
         that.data.alldata = res.data.data
         that.data.whodata = res.data.count
+        console.log(that.data.way1)
+        console.log(that.data.way2)
         for(let i=1;i<4;i++){
-          that.data.alldata[i].pick = 'nopick'
+          that.data.alldata[i].class = 'nochooseMessage'
         }
+        //选择拜年语
+        if(lengths > 2){
+          for(let j=0;j<2;j++){
+            that.data.way1.push(that.data.alldata[j])
+          }
+          for(let j=2;j<lengths;j++){
+            that.data.way2.push(that.data.alldata[j])
+          }
+        } else {
+          for(let j=0;j<lengths;j++){
+            that.data.way1.push(that.data.alldata[j])
+          }
+        }
+        //选择拜年对象
         if(length > 4){
           for(let j=0;j<4;j++){
             that.data.row1.push(that.data.whodata[j])
@@ -108,19 +130,21 @@ Page({
             that.data.row1.push(that.data.whodata[j])
           }
         }
-        that.data.alldata[0].pick = 'pick'
+        that.data.alldata[0].class = 'chooseMessage'
         that.data.chooseone.host_id = this.data.alldata[0].id
         that.data.video_title.host = this.data.alldata[0].name
         that.data.whodata[0].class = 'choose'
         that.data.chooseone.select_person_id = this.data.whodata[0].id
         that.setData({
-          alldata: that.data.alldata,
+          //alldata: that.data.alldata,
           whodata: that.data.whodata,
           chooseone: that.data.chooseone,
           video_title: that.data.video_title,
           row1: that.data.row1,
           row2: that.data.row2,
           row3: that.data.row3,
+          way1: that.data.way1,
+          way2: that.data.way2,
         })
       },
       fail: () => {
@@ -152,32 +176,32 @@ Page({
   onUnload: function () {
 
   },
-  chooseAvatar (e) {
-    console.log('chooseAvatar')
-    const length = this.data.alldata.length
-    const avatarnumber = e.currentTarget.id
-    let whichone = -1
-    for(let i=0;i<length;i++){
-      if(this.data.alldata[i].id === avatarnumber){
-        whichone = i
-      }
-    }
-    for(let j=0;j<length;j++){
-      if(j !== whichone && this.data.alldata[j].pick === 'pick'){
-        this.data.alldata[j].pick = 'nopick'
-      }
-      if(this.data.alldata[whichone].pick !== 'pick'){
-        this.data.alldata[whichone].pick = 'pick'
-        this.data.chooseone.host_id = this.data.alldata[whichone].id
-        this.data.video_title.host = this.data.alldata[whichone].name
-      }
-    }
-    this.setData({
-      alldata: this.data.alldata,
-      chooseone: this.data.chooseone,
-      video_title: this.data.video_title
-    })
-  },
+  // chooseAvatar (e) {
+  //   console.log('chooseAvatar')
+  //   //const length = this.data.alldata.length
+  //   const avatarnumber = e.currentTarget.id
+  //   let whichone = -1
+  //   for(let i=0;i<length;i++){
+  //     if(this.data.alldata[i].id === avatarnumber){
+  //       whichone = i
+  //     }
+  //   }
+  //   for(let j=0;j<length;j++){
+  //     if(j !== whichone && this.data.alldata[j].pick === 'pick'){
+  //       this.data.alldata[j].pick = 'nopick'
+  //     }
+  //     if(this.data.alldata[whichone].pick !== 'pick'){
+  //       this.data.alldata[whichone].pick = 'pick'
+  //       this.data.chooseone.host_id = this.data.alldata[whichone].id
+  //       this.data.video_title.host = this.data.alldata[whichone].name
+  //     }
+  //   }
+  //   this.setData({
+  //     alldata: this.data.alldata,
+  //     chooseone: this.data.chooseone,
+  //     video_title: this.data.video_title
+  //   })
+  // },
   // bindPickerChange (e) {
   //   console.log(e)
   //   console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -305,6 +329,53 @@ Page({
       row1: this.data.row1,
       row2: this.data.row2,
       row3: this.data.row3,
+    })
+  },
+  chooseMessage (e) {
+    console.log('chooseMessage')
+    console.log(e)
+    // const str = e.currentTarget.id
+    // const length = this.data.alldata.length
+    // for(let i=0;i<length;i++){
+    //   this.data.alldata[i].class = 'nochooseMessage'
+    // }
+    // for(let i=0;i<length;i++){
+    //   if('way' + this.data.alldata[i].id === str){
+    //     this.data.alldata[i].class = 'chooseMessage'
+    //     this.data.chooseone.select_person_id = this.data.alldata[i].id
+    //     this.data.video_title.who = this.data.alldata[i].name
+    //   }
+    // }
+    // this.setData({
+    //   video_title: this.data.video_title,
+    //   chooseone: this.data.chooseone,
+    //   way1: this.data.way1,
+    //   way2: this.data.way2,
+    // })
+    const length = this.data.alldata.length
+    const avatarnumber = e.currentTarget.id
+    let whichone = -1
+    for(let i=0;i<length;i++){
+      if(this.data.alldata[i].id === avatarnumber){
+        whichone = i
+      }
+    }
+    for(let j=0;j<length;j++){
+      if(j !== whichone && this.data.alldata[j].class === 'chooseMessage'){
+        this.data.alldata[j].class = 'nochooseMessage'
+      }
+      if(this.data.alldata[whichone].class !== 'chooseMessage'){
+        this.data.alldata[whichone].class = 'chooseMessage'
+        this.data.chooseone.host_id = this.data.alldata[whichone].id
+        this.data.video_title.host = this.data.alldata[whichone].name
+      }
+    }
+    this.setData({
+      alldata: this.data.alldata,
+      chooseone: this.data.chooseone,
+      video_title: this.data.video_title,
+      way1: this.data.way1,
+      way2: this.data.way2,
     })
   },
   backFirstPage (e) {
