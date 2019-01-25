@@ -110,19 +110,19 @@
                 <cover-view class="button-box" hidden="{{isShare}}">
                     <!--挑战+喜欢+分享-->
                     <cover-view class="button-item" catchtap="challenge"
-                                hidden="{{cur_video.is_dub!=2 || is_user || cur_video.sub_title == '小央拜年助手'}}">
+                                hidden="{{cur_video.is_dub!=2 || is_user || cur_video.sub_title == '央视虚拟主持人祝新年'}}">
                         <cover-image class="button-item-icon chanllenge"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1tiaozhan@2x.png"></cover-image>
                         <cover-view class="button-item-text">挑战ta</cover-view>
                     </cover-view>
                     <cover-view class="button-item" catchtap="openDo"
-                                hidden="{{cur_video.is_dub==2 || is_user || cur_video.sub_title == '小央拜年助手'}}">
+                                hidden="{{cur_video.is_dub==2 || is_user || cur_video.sub_title == '央视虚拟主持人祝新年'}}">
                         <cover-image class="button-item-icon chanllenge"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1woyepai@2x.png"></cover-image>
                         <cover-view class="button-item-text">我也拍</cover-view>
                     </cover-view>
                     <cover-view class="button-item" catchtap="openZhufu"
-                                wx:if="{{cur_video.sub_title == '小央拜年助手'}}">
+                                wx:if="{{cur_video.sub_title == '央视虚拟主持人祝新年'}}">
                         <cover-image class="button-item-icon chanllenge"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1songzhufu.png"></cover-image>
                         <cover-view class="button-item-text">送祝福</cover-view>
@@ -175,11 +175,7 @@
                 <cover-view class="progress-box">
                     <cover-view class="progress" style="width:{{progress*100}}%"></cover-view>
                 </cover-view>
-
-
             </cover-view>
-
-
         </video>
         <!--canvas-->
         <canvas class="canvas_poster" canvas-id="canvas_poster"></canvas>

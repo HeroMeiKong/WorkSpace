@@ -6,7 +6,7 @@
         <cover-image class="back-btn-img"
                     src="https://www.newscctv.net/dw/resource/future/1return5.png"></cover-image>
       </cover-view>
-      <cover-view class="toptitle">小央拜年助手</cover-view>
+      <cover-view class="toptitle">央视虚拟主持人祝新年 </cover-view>
     </cover-view>
     <view class="page" style="display:{{showFirst}};width:{{wrappers_width}};height:{{wrappers_height}}">
       <view class="pageChoose">
@@ -74,9 +74,8 @@
             </picker> -->
           </view>
         </view>
-        <image class="pageChoosebottom" src="https://s-js.sports.cctv.com/host/image/2019/01/23/15482527945482.png"></image>
-        <image class="sendWish" src="https://s-js.sports.cctv.com/host/image/2019/01/20/15479757522348.png" catch:tap="sendWish">
-          送祝福
+        <image class="pageChoosebottom" src="https://s-js.sports.cctv.com/host/image/2019/01/25/15483974665903.png"></image>
+        <image  class="sendWish {{button_top}}" src="https://s-js.sports.cctv.com/host/image/2019/01/20/15479757522348.png" catch:tap="sendWish">
         </image>
       </view>
     </view>

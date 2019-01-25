@@ -92,7 +92,7 @@ App({
         wx.getSetting({
             success: (res) => {
                 console.log(res.authSetting)
-                if (this.globalData.auth_again ||  (res.authSetting['scope.userInfo'] && wx.getStorageSync('loginSessionKey'))) {
+                if (this.globalData.auth_again || (res.authSetting['scope.userInfo'] && wx.getStorageSync('loginSessionKey'))) {
                     // if (wx.getStorageSync('loginSessionKey')) {
                     // wx.checkSession({
                     //     success: () => {
@@ -236,6 +236,7 @@ App({
         shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png',
         shareText: '我在逗牛短视频里玩配音拍视频，现在邀你来玩哦~',
         auth_again: false,
-        default_avatarUrl:'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png'
+        default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',
+        wangchun_title: '央视虚拟主持人祝新年'
     }
 })

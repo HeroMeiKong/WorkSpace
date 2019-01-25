@@ -13,6 +13,8 @@
     font-size: 38rpx;
     line-height: 40rpx;
     color: #000000;
+    width:100%;
+    text-align:center;
 }
 
 .back-btn{

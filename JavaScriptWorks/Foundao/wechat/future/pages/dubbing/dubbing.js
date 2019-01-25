@@ -166,7 +166,7 @@ Page({
                 //         // var country = userInfo.country
                 //     }
                 // })
-                this.getVideoData(this.data.video_uuid,()=>{
+                this.getVideoData(this.data.video_uuid, () => {
                     //获取配配配的模板
                     if (this.isPPP()) {
                         this.get_template_photo()
@@ -342,7 +342,7 @@ Page({
     },
 
     // 获取视频数据
-    getVideoData(video_uuid,fun) {
+    getVideoData(video_uuid, fun) {
         wx.showLoading({
             mask: true
         })
@@ -596,9 +596,9 @@ Page({
         this.data.record_path = tempFilePath;
         this.change_src(tempFilePath);
         this.videoContext.pause();
-        setTimeout(()=>{
+        setTimeout(() => {
             this.videoContext.pause();
-        },500)
+        }, 500)
     },
 
     // 切换audio src
@@ -1144,100 +1144,233 @@ Page({
             const getImage1 = promisify(wx.getImageInfo);
             const getImage2 = promisify(wx.getImageInfo);
             const getImage3 = promisify(wx.getImageInfo);
+            const getImage4 = promisify(wx.getImageInfo);
 
             var ctx = this.data.ctx;
             // ctx.setFillStyle('#FFD892');
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/1bg2@2x.png'}).then(resp => {
-                const posterBg_img = resp.path;  // 背景图片
-                getImage1({src: (video_share_pic || video_small_pic).replace('http://', 'https://')}).then(resp => {
-                    const bg_img = resp.path;  // 封面图
-                    const bg_width = resp.width;
-                    const bg_height = resp.height;
-                    var sx = 0;
-                    var sy = 0;
-                    var sWidth = 0;
-                    var sHeight = 0;
-                    if (bg_width / bg_height > 1.3345) {
-                        sy = 0
-                        sx = (bg_width - bg_height * 1.3345) / 2
-                        sHeight = bg_height;
-                        sWidth = bg_height * 1.3345;
-                    } else {
-                        sx = 0
-                        sy = (bg_height - bg_width / 1.3345 ) / 2
-                        sWidth = bg_width;
-                        sHeight = bg_width / 1.3345;
-                    }
-                    getImage2({src: this.data.qr_code_url}).then(res => {
-                        const qr_img = res.path; // 二维码
-                        getImage3({src: this.data.userInfo.avatarUrl}).then(re => {
-                            const user_img = re.path; // 二维码
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x.png'}).then(res_bg => {
+                const posterBg_img = res_bg.path;  // 背景图片
+                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/4qipao@2x.png'}).then(resp_phone => {
+                    const posterBg_img_phone = resp_phone.path;  // 相机图片
+                    getImage1({src: (video_share_pic || video_small_pic).replace('http://', 'https://')}).then(res_poster => {
+                        var bg_img = res_poster.path;  // 封面图
+                        var bg_width = res_poster.width;
+                        var bg_height = res_poster.height;
+                        var sx = 0;
+                        var sy = 0;
+                        var sWidth = 0;
+                        var sHeight = 0;
+                        if (bg_width > 165) {
+                            var scale = bg_width / 165
+                            bg_width = 165
+                            bg_height = bg_height / scale
+                        }
+                        if (bg_height > 241) {
+                            var scale = bg_height / 241
+                            bg_height = 241
+                            bg_width = bg_width / scale
+                        }
+                        if (bg_width / bg_height > 0.68) {
+                            sy = 0
+                            sx = (bg_width - bg_height * 0.68) / 2
+                            sHeight = bg_height;
+                            sWidth = bg_height * 0.68;
+                        } else {
+                            sx = 0
+                            sy = (bg_height - bg_width / 0.68) / 2
+                            sWidth = bg_width;
+                            sHeight = bg_width / 0.68;
+                        }
+                        getImage2({src: this.data.qr_code_url}).then(res_QR => {
+                            const qr_img = res_QR.path; // 二维码
+                            getImage3({src: this.data.userInfo.avatarUrl}).then(re_user => {
+                                const user_img = re_user.path; // 头像
 
-                            //开始绘制
+                                ////////////////////////开始绘制 ////////////////////////
 
-                            // 绘制背景图
-                            ctx.drawImage(posterBg_img, 0, 0, resp.path.width, resp.path.height, 0, 0, 375, 619);
+                                // 绘制背景图
+                                ctx.save();
+                                ctx.drawImage(posterBg_img, 0, 0, 375, 619, 0, 0, res_bg.path.width, res_bg.path.height);
 
-                            //绘制封面图
-                            this.roundRect(ctx, 30, 55, 315, 236, 7)
-                            var dx = 30;
-                            var dy = 55;
-                            // if (sWidth < 315) {
-                            //     dx = dx + ((315 - sWidth) / 2)
-                            // }
-                            // if (sHeight < 236) {
-                            //     dy = dy + ((236 - sHeight) / 2)
-                            // }
-                            ctx.drawImage(bg_img, sx, sy, sWidth, sHeight, dx, dy, 315, 236);
-                            ctx.restore();
+                                //绘制封面图
+                                ctx.rotate(5 * Math.PI / 180);
+                                ctx.drawImage(bg_img, 190, 190, 165, 241);
+                                ctx.restore();
 
-                            // 绘制头像
-                            ctx.save();
-                            ctx.beginPath();
-                            ctx.arc(43 + 32, 256 + 32, 32, 0, Math.PI * 2, false);
-                            ctx.clip();
-                            ctx.drawImage(user_img, 43, 256, 64, 64);
-                            ctx.restore();
+                                // 绘制手机
+                                ctx.drawImage(posterBg_img_phone, 133, 126, 235, 358, 0, 0, resp_phone.path.width, resp_phone.path.height);
+                                ctx.restore();
 
-                            // 绘制二维码
-                            ctx.save();
-                            ctx.beginPath();
-                            ctx.drawImage(qr_img, 48, 457, 94, 94);
-                            ctx.restore();
+                                //绘制封面图
+                                // ctx.drawImage(bg_img, 133, 126, 165, 241, sx, sy, sWidth, sHeight);
 
-                            // 绘制名称
-                            ctx.font = "bold";
-                            ctx.setFillStyle('#FFD792');
-                            ctx.setFontSize(17);
-                            ctx.setTextBaseline('top')
-                            ctx.fillText(this.data.userInfo.nickName, 115, 300);
+                                // 绘制头像
+                                ctx.save();
+                                ctx.beginPath();
+                                ctx.arc(160 + 13, 137 + 13, 13, 0, Math.PI * 2, false);
+                                ctx.clip();
+                                ctx.drawImage(user_img, 160, 137, 26, 26);
+                                ctx.restore();
 
-                            // 绘制描述
-                            const stringArr = Tool.stringToArr('#' + sub_title + ' ' + (video_desc || ''), 14);
-                            ctx.setFillStyle('#FFD792');
-                            ctx.setFontSize(15);
-                            ctx.setTextBaseline('top');
-                            stringArr.forEach((item, index) => {
-                                ctx.fillText(item, 115, 326 + (index * 21));
-                            });
 
-                            // 绘制底部文字
-                            ctx.setFillStyle('#FFD792');
-                            ctx.setFontSize(14);
-                            ctx.setTextBaseline('top');
-                            ctx.fillText('长按小程序，一起来', 160, 486);
-                            ctx.fillText('「逗牛短视频」挑战大咖吧！', 160, 508);
+                                // 绘制名称
+                                ctx.font = "bold";
+                                ctx.setFillStyle('#BA2228');
+                                ctx.setFontSize(14);
+                                ctx.setTextBaseline('top')
+                                ctx.fillText(this.data.userInfo.nickName, 195, 142);
 
-                            ctx.draw(false, this.create_poster_image);
+                                // 绘制描述
+                                var all_str = '#' + sub_title + ' ' + (video_desc || '');
+                                ctx.setFillStyle('#BA2228');
+                                ctx.setFontSize(12);
+                                ctx.setTextBaseline('top');
+                                if (all_str.length <= 16) {
+                                    ctx.fillText(all_str, 160, 180);
+                                } else {
+                                    const stringArr = Tool.stringToArr(all_str, 16);
+                                    stringArr.forEach((item, index) => {
+                                        ctx.fillText(item, 160, 168 + (index * 16));
+                                    });
+                                }
+
+
+                                // 绘制二维码
+                                ctx.save();
+                                ctx.beginPath();
+                                ctx.arc(53 + 27, 526 + 27, 27, 0, Math.PI * 2, false);
+                                ctx.clip();
+                                ctx.drawImage(qr_img, 53, 526, 54, 54);
+                                ctx.restore();
+
+
+                                // // 绘制底部文字
+                                ctx.font = "bold";
+                                ctx.setFillStyle('#FFD792');
+                                ctx.setFontSize(13);
+                                ctx.setTextBaseline('top')
+                                if (sub_title == app.globalData.wangchun_title) {
+                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 119, 538);
+                                    ctx.fillText('扫码开启偶邦湃友人工智能', 119, 556);
+                                } else {
+                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 119, 538);
+                                    ctx.fillText('挑战大咖吧！', 119, 556);
+                                }
+
+
+                                ctx.draw(false, this.create_poster_image);
+                            })
                         })
-                    })
 
+                    })
                 })
+
             })
         });
+
+        //获取二维码
+        // this.get_erCode(() => {
+        //     const getImage = promisify(wx.getImageInfo);
+        //     const getImage1 = promisify(wx.getImageInfo);
+        //     const getImage2 = promisify(wx.getImageInfo);
+        //     const getImage3 = promisify(wx.getImageInfo);
+        //
+        //     var ctx = this.data.ctx;
+        //     // ctx.setFillStyle('#FFD892');
+        //     // ctx.fillRect(0, 0, 750, 1238);
+        //     ctx.setFillStyle('#a32b30');
+        //
+        //     getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/1bg2@2x.png'}).then(resp => {
+        //         const posterBg_img = resp.path;  // 背景图片
+        //         getImage1({src: (video_share_pic || video_small_pic).replace('http://', 'https://')}).then(resp => {
+        //             const bg_img = resp.path;  // 封面图
+        //             const bg_width = resp.width;
+        //             const bg_height = resp.height;
+        //             var sx = 0;
+        //             var sy = 0;
+        //             var sWidth = 0;
+        //             var sHeight = 0;
+        //             if (bg_width / bg_height > 1.3345) {
+        //                 sy = 0
+        //                 sx = (bg_width - bg_height * 1.3345) / 2
+        //                 sHeight = bg_height;
+        //                 sWidth = bg_height * 1.3345;
+        //             } else {
+        //                 sx = 0
+        //                 sy = (bg_height - bg_width / 1.3345 ) / 2
+        //                 sWidth = bg_width;
+        //                 sHeight = bg_width / 1.3345;
+        //             }
+        //             getImage2({src: this.data.qr_code_url}).then(res => {
+        //                 const qr_img = res.path; // 二维码
+        //                 getImage3({src: this.data.userInfo.avatarUrl}).then(re => {
+        //                     const user_img = re.path; // 二维码
+        //
+        //                     //开始绘制
+        //
+        //                     // 绘制背景图
+        //                     ctx.drawImage(posterBg_img, 0, 0, resp.path.width, resp.path.height, 0, 0, 375, 619);
+        //
+        //                     //绘制封面图
+        //                     this.roundRect(ctx, 30, 55, 315, 236, 7)
+        //                     var dx = 30;
+        //                     var dy = 55;
+        //                     // if (sWidth < 315) {
+        //                     //     dx = dx + ((315 - sWidth) / 2)
+        //                     // }
+        //                     // if (sHeight < 236) {
+        //                     //     dy = dy + ((236 - sHeight) / 2)
+        //                     // }
+        //                     ctx.drawImage(bg_img, sx, sy, sWidth, sHeight, dx, dy, 315, 236);
+        //                     ctx.restore();
+        //
+        //                     // 绘制头像
+        //                     ctx.save();
+        //                     ctx.beginPath();
+        //                     ctx.arc(43 + 32, 256 + 32, 32, 0, Math.PI * 2, false);
+        //                     ctx.clip();
+        //                     ctx.drawImage(user_img, 43, 256, 64, 64);
+        //                     ctx.restore();
+        //
+        //                     // 绘制二维码
+        //                     ctx.save();
+        //                     ctx.beginPath();
+        //                     ctx.drawImage(qr_img, 48, 457, 94, 94);
+        //                     ctx.restore();
+        //
+        //                     // 绘制名称
+        //                     ctx.font = "bold";
+        //                     ctx.setFillStyle('#FFD792');
+        //                     ctx.setFontSize(17);
+        //                     ctx.setTextBaseline('top')
+        //                     ctx.fillText(this.data.userInfo.nickName, 115, 300);
+        //
+        //                     // 绘制描述
+        //                     const stringArr = Tool.stringToArr('#' + sub_title + ' ' + (video_desc || ''), 14);
+        //                     ctx.setFillStyle('#FFD792');
+        //                     ctx.setFontSize(15);
+        //                     ctx.setTextBaseline('top');
+        //                     stringArr.forEach((item, index) => {
+        //                         ctx.fillText(item, 115, 326 + (index * 21));
+        //                     });
+        //
+        //                     // 绘制底部文字
+        //                     ctx.setFillStyle('#FFD792');
+        //                     ctx.setFontSize(14);
+        //                     ctx.setTextBaseline('top');
+        //                     ctx.fillText('长按小程序，一起来', 160, 486);
+        //                     ctx.fillText('「逗牛短视频」挑战大咖吧！', 160, 508);
+        //
+        //                     ctx.draw(false, this.create_poster_image);
+        //                 })
+        //             })
+        //
+        //         })
+        //     })
+        // });
     },
 
     // 生成海报图片
@@ -1488,9 +1621,9 @@ Page({
 
     //是否是配配配所属
     isPPP() {
-        if(this.data.video_detail.sub_title === "超级配配配"){
+        if (this.data.video_detail.sub_title === "超级配配配") {
             return true
-        }else {
+        } else {
             return false
         }
 

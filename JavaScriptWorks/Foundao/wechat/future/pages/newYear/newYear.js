@@ -33,6 +33,7 @@ Page({
     video_title: {host: '',who: '',wish: ''},
     wrappers_width: '100%',
     wrappers_height: '100%',
+    button_top: ''
   },
 
   /**
@@ -221,7 +222,7 @@ Page({
   sendWish (e) {
     console.log('sendWish')
     let that = this
-    let showPage = {showFirst: 'none',showSecond: 'flex'}
+    let showPage = {showFirst: 'none',showSecond: 'flex',how: 0, button_top: 'button_top'}
     // if(that.data.chooseone.host_id === -1){
     //   console.log('未选择祝福主持人')
     //   wx.showToast({
@@ -253,11 +254,14 @@ Page({
         this.setData({
           showFirst: showPage.showFirst,
           showSecond: showPage.showSecond,
-          wrappers_width: 0,
-          wrappers_height: 0,
+          wrappers_width: showPage.how,
+          wrappers_height: showPage.how,
+          button_top: showPage.button_top
+          // wrappers_width: 0,
+          // wrappers_height: 0,
         })
       }, 1000)
-      showPage = {showFirst: 'none',showSecond: 'flex'}
+      showPage = {showFirst: 'none',showSecond: 'flex',how: 0, button_top: 'button_top'}
     } else {
       videolock = true
       wx.request({
@@ -275,7 +279,7 @@ Page({
           console.log(res)
           console.log(res.data.code)
           if(res.data.code === 0){
-            showPage = {showFirst: 'none',showSecond: 'flex'}
+            showPage = {showFirst: 'none',showSecond: 'flex',how: 0, button_top: 'button_top'}
             wx.showLoading({
               title: '加载中',
               mask: true,
@@ -290,7 +294,7 @@ Page({
               showpause: 'none',
             })
           } else {
-            showPage = {showFirst: 'flex',showSecond: 'none'}
+            showPage = {showFirst: 'flex',showSecond: 'none',how: '100%', button_top: ''}
             wx.showLoading({
               title: '请求失败',
               mask: true,
@@ -302,8 +306,9 @@ Page({
             this.setData({
               showFirst: showPage.showFirst,
               showSecond: showPage.showSecond,
-              wrappers_width: 0,
-              wrappers_height: 0,
+              wrappers_width: showPage.how,
+              wrappers_height: showPage.how,
+              button_top: showPage.button_top
             })
           }, 1000)
         },
@@ -392,6 +397,7 @@ Page({
       showSecond: 'none',
       wrappers_width: '100%',
       wrappers_height: '100%',
+      button_top: ''
     })
     // wx.request({
     //   url: 'https://web-happy.foundao.com/host/api/api/wangchun_poster_qrcode.php',

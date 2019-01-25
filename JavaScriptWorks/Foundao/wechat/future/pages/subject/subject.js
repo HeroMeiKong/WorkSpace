@@ -70,10 +70,10 @@ Page({
                 this.getTopInfo()
                 // } else {
                 //     this.setData({
-                //         top_info: {sub_title: '小央拜年助手'}
+                //         top_info: {sub_title: '央视虚拟主持人祝新年'}
                 //     })
                 //     wx.setNavigationBarTitle({
-                //         title: '小央拜年助手'
+                //         title: '央视虚拟主持人祝新年'
                 //     })
                 // }
                 this.getVideoList()
@@ -174,7 +174,7 @@ Page({
     },
 
     isWangchun() {
-        return (this.data.top_info.sub_title == '小央拜年助手') ? true : false
+        return (this.data.top_info.sub_title == '央视虚拟主持人祝新年') ? true : false
     },
 
     // 获取视频列表
