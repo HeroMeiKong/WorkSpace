@@ -32,6 +32,7 @@
         <image src='../../assets/images/1shangchuan@2x.png'></image>
       </view>
     </view> -->
+    <view class="special"  catch:tap="newYear" style="display:{{showOrHidden[0]}};background-image: url('{{pics[0]}}');"></view>
     <!-- 配音 -->
     <view id='dubbing' class='box' catch:tap="dubbing">
       <image src='https://s-js.sports.cctv.com/host/image/2019/01/12/15472789701239.png'></image>
@@ -44,11 +45,10 @@
     <view id='upload' class='box' catch:tap="uploadLocalVideo">
       <image src='https://s-js.sports.cctv.com/host/image/2019/01/12/15472789765074.png'></image>
     </view>
-    <view class="special"  catch:tap="newYear" style="display:{{showOrHidden[0]}}">
-    </view>
+
     <view class="superwrapper">
-      <view class="superinner" catch:tap="superMatch"  style="display:{{showOrHidden[1]}}"><image src="https://s-js.sports.cctv.com/host/image/2019/01/02/15464263403578.png"></image></view>
-      <view class="superinner" catch:tap="superTest" style="display:{{showOrHidden[2]}}"><image src="https://s-js.sports.cctv.com/host/image/2019/01/02/15464263431927.png"></image></view>
+      <view class="superinner" catch:tap="superMatch"  style="display:{{showOrHidden[1]}}"><image src="{{pics[1]}}"></image></view>
+      <view class="superinner" catch:tap="superTest" style="display:{{showOrHidden[2]}}"><image src="{{pics[2]}}"></image></view>
     </view>
   </view>
   <tabbar select="1" show="{{showDiyTabBar}}"></tabbar>

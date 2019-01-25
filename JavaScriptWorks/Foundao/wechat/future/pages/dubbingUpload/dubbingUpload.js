@@ -11,7 +11,8 @@ Page({
   data: {
     models: 'defaultmodel',
     showDiyTabBar:false,
-    showOrHidden: ["none","none","none"]
+    showOrHidden: ["none","none","none"],
+    pics: ['','','']
   },
   /**
    * 生命周期函数--监听页面加载
@@ -54,22 +55,27 @@ Page({
             sorh = 'flex'
           }
           switch (res.data.data[i].name) {
-            case '小央拜年助手':
+            case '央视虚拟主持人祝新年':
               that.data.showOrHidden[0] = sorh
+              that.data.pics[0] = res.data.data[i].activity_pic
               break;
             case '超级配配配':
               that.data.showOrHidden[1] = sorh
+              that.data.pics[1] = res.data.data[i].activity_pic
               break;
             case '超级测测测':
               that.data.showOrHidden[2] = sorh
+              that.data.pics[2] = res.data.data[i].activity_pic
               break;
             default:
               that.data.showOrHidden = ["none","none","none"]
+              that.data.pics = ['','','']
               break;
           }
         }
         that.setData({
-          showOrHidden: that.data.showOrHidden
+          showOrHidden: that.data.showOrHidden,
+          pics: that.data.pics
         })
       },
       fail: (e) => {

@@ -1699,7 +1699,7 @@ Page({
             that.setData({
               uploadContent: that.data.uploadContent,
             })
-          },5000)
+          },3000)
         },
       })
     }

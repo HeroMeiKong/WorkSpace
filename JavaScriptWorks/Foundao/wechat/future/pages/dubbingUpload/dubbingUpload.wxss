@@ -67,9 +67,9 @@
 }
 
 .special{
-  height: 270rpx;
+  height: 310rpx;
   width: 690rpx;
-  background: url('https://s-js.sports.cctv.com/host/resource/future/banner2.png') no-repeat;
+  background-repeat: no-repeat;
   background-size: 100%;
   /* background-color: #C10420; */
   margin-bottom: 30rpx;
