@@ -108,7 +108,7 @@ Page({
     showmusiclist: 'none',
     //showpublish: 'none',
     showpause: 'flex',
-    showVideos: 'flex',
+    showVideosPic: 'flex',
     showtextcontent: 'block', //值为block或者none
     showtopictype: 'none',
     showsure: 'flex',
@@ -1763,8 +1763,10 @@ Page({
     //     }
     //   })
     // }
+    this.videoContext1.pause()
+    preInnerAudioContext.pause()
     this.setData({
-      showVideos: 'none',
+      showVideosPic: 'none',
       showtextcontent: 'none',
       showtopictype: 'flex',
       showsure: 'none'
@@ -1796,10 +1798,11 @@ Page({
     this.setData({
       topic: this.data.topic,
       topics: this.data.topics,
-      showVideos: 'flex',
+      showVideosPic: 'flex',
       showtextcontent: 'block',
       showtopictype: 'none',
-      showsure: 'flex'
+      showsure: 'flex',
+      showpause: 'flex'
     })
   },
   bindTextAreaBlur: function(e) {

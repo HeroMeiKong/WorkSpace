@@ -134,11 +134,11 @@
     </view>
     <view class="publish {{models}}">
       <view class="videowrapper">
-        <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
+        <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:flex;width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
           <block wx:for="{{publish}}">
-            <cover-image class="coverimage" src="{{item.pic}}" style="width:{{item.width}}px;height:{{item.height}}px;left:{{item.x}}px;top:{{item.y}}px;transform:rotate({{item.rotate}}deg)"></cover-image>
+            <cover-image class="coverimage" src="{{item.pic}}" style="display:{{showVideosPic}};width:{{item.width}}px;height:{{item.height}}px;left:{{item.x}}px;top:{{item.y}}px;transform:rotate({{item.rotate}}deg)"></cover-image>
           </block>
-          <cover-view class="playimg" catch:tap="pauseThis">
+          <cover-view style="display:{{showVideosPic}}" class="playimg" catch:tap="pauseThis">
             <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
           </cover-view>
         </video>

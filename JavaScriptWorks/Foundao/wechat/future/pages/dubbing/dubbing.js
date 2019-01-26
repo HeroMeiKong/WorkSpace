@@ -1151,7 +1151,7 @@ Page({
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x.png'}).then(res_bg => {
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x_0.png'}).then(res_bg => {
                 const posterBg_img = res_bg.path;  // 背景图片
                 getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/4qipao@2x.png'}).then(resp_phone => {
                     const posterBg_img_phone = resp_phone.path;  // 相机图片

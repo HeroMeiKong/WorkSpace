@@ -1,7 +1,7 @@
 <!--pages/videoTest/videoTest.wxml-->
 
 <view class="video-box">
-    <video src="https://s-js.sports.cctv.com/host/video/2018/12/30/3134191951677452453.mp4" class="myVideo">
+    <video src="http://s-js.sports.cctv.com/host/video/2018/12/30/3134191951677452453.mp4" class="myVideo">
         <!--<cover-view class="swpier-box" >-->
             <!--<cover-view class="swperi-item">1</cover-view>-->
             <!--<cover-view class="swperi-item">2</cover-view>-->

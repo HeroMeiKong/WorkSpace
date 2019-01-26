@@ -50,7 +50,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        // wx.hideShareMenu()
+        wx.hideShareMenu()
         if (options.video_uuid) {
             this.data.video_uuid = options.video_uuid
             this.data.video_id = options.id
@@ -160,13 +160,13 @@ Page({
             // 来自页面内转发按钮
             return {
                 title: this.data.cur_video.video_desc,
-                path: '/pages/video/video?share=1&video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+                path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
                 imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
             }
         } else {
             return {
                 title: this.data.cur_video.video_desc,
-                path: '/pages/video/video?share=1&video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+                path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
                 imageUrl: this.data.cur_video.pic,
             }
         }
@@ -289,7 +289,7 @@ Page({
             },
             data: {
                 material_id: this.data.cur_video.video_uuid,
-                path: '/pages/video/video?share=1&video_uuid=' + this.data.video_uuid + '&id=' + this.data.cur_video.id,
+                path: '/pages/index/index?video_uuid=' + this.data.video_uuid + '&id=' + this.data.cur_video.id,
                 // path: 'pages/dubbing/dubbing',
                 // path: 'pages/index/index',
                 width: 188,           // 二维码的宽度
@@ -682,7 +682,7 @@ Page({
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x.png'}).then(res_bg => {
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x_0.png'}).then(res_bg => {
                 const posterBg_img = res_bg.path;  // 背景图片
                 getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/4qipao@2x.png'}).then(resp_phone => {
                     const posterBg_img_phone = resp_phone.path;  // 相机图片
