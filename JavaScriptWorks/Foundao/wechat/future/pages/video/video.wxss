@@ -235,7 +235,9 @@
 .button-item-text{
     margin-top: 10rpx;
 }
-
+.button-item-text-share {
+    color: #FFD792
+}
 
 
 /*底部信息*/

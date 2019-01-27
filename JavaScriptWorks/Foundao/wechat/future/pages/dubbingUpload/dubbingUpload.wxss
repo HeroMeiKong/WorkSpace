@@ -67,7 +67,7 @@
 }
 
 .special{
-  height: 310rpx;
+  height: 440rpx;
   width: 690rpx;
   background-repeat: no-repeat;
   background-size: 100%;

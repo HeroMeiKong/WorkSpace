@@ -3,10 +3,9 @@
   <view class="topcover {{models}}">
     <cover-view class="topcoverinner" style="height: {{windowHeight}}rpx">
       <cover-view class="back-btn  {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack">
-        <cover-image class="back-btn-img"
-                    src="https://www.newscctv.net/dw/resource/future/1return5.png"></cover-image>
+        <cover-image class="back-btn-img" src="https://www.newscctv.net/dw/resource/future/1return5.png"></cover-image>
       </cover-view>
-      <cover-view class="toptitle">央视虚拟主持人祝新年 </cover-view>
+      <cover-view class="toptitle">央视虚拟主持人</cover-view>
     </cover-view>
     <view class="page" style="display:{{showFirst}};width:{{wrappers_width}};height:{{wrappers_height}}">
       <view class="pageChoose">
@@ -75,8 +74,7 @@
           </view>
         </view>
         <image class="pageChoosebottom" src="https://s-js.sports.cctv.com/host/image/2019/01/25/15483974665903.png"></image>
-        <image  class="sendWish {{button_top}}" src="https://s-js.sports.cctv.com/host/image/2019/01/20/15479757522348.png" catch:tap="sendWish">
-        </image>
+        <image class="sendWish {{button_top}}" src="https://s-js.sports.cctv.com/host/image/2019/01/20/15479757522348.png" catch:tap="sendWish"></image>
       </view>
     </view>
     <view class="page" style="display:flex;">
@@ -105,9 +103,17 @@
   </view>
   <view class="pagemessage" style="display:{{showThird}}">
     <cover-view class="submission" wx:if="{{compose_success}}">
-      <cover-image src="https://s-js.sports.cctv.com/host/image/2019/01/13/15473598825048.png" class="compose_img"></cover-image>
-      <cover-image class="submission_button" src="../../assets/images/3chakan@2x.png" catch:tap="checkProgress"></cover-image>
-      <cover-image class="submission_close" src="../../assets/images/3zaiwanyici@2x.png" catch:tap="successBackHome"></cover-image>
+      <!-- <cover-image src="https://s-js.sports.cctv.com/host/image/2019/01/13/15473598825048.png" class="compose_img"></cover-image> -->
+      <!-- 海报 -->
+      <cover-view class="compose_img" wx:if="{{show_poster}}" catchtap="noclose_poster">
+        <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
+      </cover-view>
+      <cover-image class="isimg1" catchtap="save_poster" src="../../assets/images/savetoblum@2x.png"></cover-image>
+      <button open-type="share" class="isimg2"><cover-image class="" src="https://s-js.sports.cctv.com/host/image/2019/01/28/15486154636155.png"></cover-image></button>
+      <cover-view class="isimg3">
+        <cover-image class="submission_button" src="../../assets/images/check@2x.png" catch:tap="checkProgress"></cover-image>
+        <cover-image class="submission_close" src="../../assets/images/playagain@2x.png" catch:tap="successBackHome"></cover-image>
+      </cover-view>
     </cover-view>
     <cover-view class="submission_fail_color" wx:if="{{!compose_success}}">
       <cover-view class="submissioninner">
@@ -118,4 +124,5 @@
       </cover-view>
     </cover-view>
   </view>
+  <canvas class="canvas_poster" canvas-id="canvas_poster"></canvas>
 </view>

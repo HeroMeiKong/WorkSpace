@@ -104,6 +104,8 @@ Page({
         showPPP: false,//显示配配配
         PPP_Poster: [],//海报数据
         poster_index: 0,//海报数据
+
+        share_id: '',
     },
 
     /**
@@ -114,7 +116,9 @@ Page({
         this.data.recorderManager = wx.getRecorderManager();        // 录音
         this.data.innerAudioContext = wx.createInnerAudioContext(); // 播放音频
         this.data.innerAudioContext.obeyMuteSwitch = false;  // 是否遵循系统静音开关，当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音，默认值 true
-        if (options.video_uuid) {
+        if (options.id) {
+            this.data.share_id = options.id
+        } else if (options.video_uuid) {
             this.data.video_uuid = options.video_uuid
         } else {
             wx.switchTab({
@@ -166,7 +170,7 @@ Page({
                 //         // var country = userInfo.country
                 //     }
                 // })
-                this.getVideoData(this.data.video_uuid, () => {
+                this.getVideoData(() => {
                     //获取配配配的模板
                     if (this.isPPP()) {
                         this.get_template_photo()
@@ -342,22 +346,34 @@ Page({
     },
 
     // 获取视频数据
-    getVideoData(video_uuid, fun) {
+    getVideoData(fun) {
         wx.showLoading({
             mask: true
         })
         this.data.loading_num++;
 
+        var url = ''
+        var temp_data = {};
+        if (this.data.share_id) {
+            url = api.view_share_luyin
+            temp_data = {
+                id: this.data.share_id
+            }
+        } else {
+            url = api.dub_detail
+            temp_data = {
+                video_uuid: this.data.video_uuid
+            }
+        }
+
         wx.request({
-            url: api.dub_detail,
+            url: url,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',
                 "auth-token": wx.getStorageSync('loginSessionKey'),
             },
-            data: {
-                video_uuid: video_uuid
-            },
+            data: temp_data,
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
@@ -377,6 +393,7 @@ Page({
                     }
                     this.setData({
                         video_detail: data.data,
+                        video_uuid: data.data.video_uuid,
                         //whichVideo: data.data.transcode_video_url,
                         total_time: total_time,
                         lyric: lyric,
@@ -1036,14 +1053,16 @@ Page({
         const wxRequest = promisify(wx.request);
 
         wxRequest({
-            url: api.poster_qrcode,
+            url: api.wangchun_poster_qrcode,
             method: 'POST',
             header: {
                 "auth-token": loginSessionKey
             },
             data: {
                 material_id: this.data.video_uuid,
-                path: 'pages/dubbing/dubbing?video_uuid=' + this.data.video_uuid,
+                // path: 'pages/dubbing/dubbing?video_uuid=' + this.data.video_uuid,
+                path: '/pages/dubbing/dubbing',
+                scene: 'id=luyin_' + this.data.video_detail.video_id,
                 // path: 'pages/dubbing/dubbing',
                 // path: 'pages/index/index',
                 width: 188,           // 二维码的宽度
@@ -1151,9 +1170,9 @@ Page({
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x_0.png'}).then(res_bg => {
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x_1.png'}).then(res_bg => {
                 const posterBg_img = res_bg.path;  // 背景图片
-                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/4qipao@2x.png'}).then(resp_phone => {
+                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/3shouji@2x_1.png'}).then(resp_phone => {
                     const posterBg_img_phone = resp_phone.path;  // 相机图片
                     getImage1({src: (video_share_pic || video_small_pic).replace('http://', 'https://')}).then(res_poster => {
                         var bg_img = res_poster.path;  // 封面图
@@ -1197,11 +1216,11 @@ Page({
 
                                 //绘制封面图
                                 ctx.rotate(5 * Math.PI / 180);
-                                ctx.drawImage(bg_img, 190, 190, 165, 241);
+                                ctx.drawImage(bg_img, 190, 225, 160, 140);
                                 ctx.restore();
 
                                 // 绘制手机
-                                ctx.drawImage(posterBg_img_phone, 133, 126, 235, 358, 0, 0, resp_phone.path.width, resp_phone.path.height);
+                                ctx.drawImage(posterBg_img_phone, 133, 129, 242, 351, 0, 0, resp_phone.path.width, resp_phone.path.height);
                                 ctx.restore();
 
                                 //绘制封面图
@@ -1241,9 +1260,11 @@ Page({
                                 // 绘制二维码
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(53 + 27, 526 + 27, 27, 0, Math.PI * 2, false);
+                                ctx.arc(38 + 35, 518 + 35, 37, 0, Math.PI * 2, false);
+                                ctx.setFillStyle('#fff')
+                                ctx.fill()
                                 ctx.clip();
-                                ctx.drawImage(qr_img, 53, 526, 54, 54);
+                                ctx.drawImage(qr_img, 38, 518, 70, 70);
                                 ctx.restore();
 
 
@@ -1253,11 +1274,11 @@ Page({
                                 ctx.setFontSize(13);
                                 ctx.setTextBaseline('top')
                                 if (sub_title == app.globalData.wangchun_title) {
-                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 119, 538);
-                                    ctx.fillText('扫码开启偶邦湃友人工智能', 119, 556);
+                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 538);
+                                    ctx.fillText('扫码开启偶邦湃友人工智能', 118, 556);
                                 } else {
-                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 119, 538);
-                                    ctx.fillText('挑战大咖吧！', 119, 556);
+                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 118, 538);
+                                    ctx.fillText('挑战大咖吧！', 118, 556);
                                 }
 
 

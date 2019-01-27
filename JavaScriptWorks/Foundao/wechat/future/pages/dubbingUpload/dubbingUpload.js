@@ -55,7 +55,7 @@ Page({
             sorh = 'flex'
           }
           switch (res.data.data[i].name) {
-            case '央视虚拟主持人祝新年':
+            case '央视虚拟主持人':
               that.data.showOrHidden[0] = sorh
               that.data.pics[0] = res.data.data[i].activity_pic
               break;

@@ -119,11 +119,11 @@ App({
                         console.log('微信判断用户未授权')
                         this.globalData.auth_again = true
                     }
-                    wx.showToast({
-                        title: text,
-                        duration: 2000,
-                        mask: true,
-                    })
+                    // wx.showToast({
+                    //     title: text,
+                    //     duration: 2000,
+                    //     mask: true,
+                    // })
                     setTimeout(() => {
                         if (fail_cb) {
                             fail_cb()

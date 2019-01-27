@@ -82,7 +82,7 @@
   width: 100%;
   height: 268rpx;
   /* height: 22.5%; */
-  background-image: url("https://s-js.sports.cctv.com/host/image/2019/01/24/15483263572427.png");
+  background-image: url("https://s-js.sports.cctv.com/host/image/2019/01/28/15486176935714.png");
   background-size: cover;
   background-position: center center;
 }
@@ -444,15 +444,62 @@
 }
 
 .submission_close {
-  width: 360rpx;
-  height: 70rpx;
-  position: relative;
-  top: 197rpx;
+  width: 270rpx;
+  height: 100%;
 }
 
 .submission_button {
-  width: 360rpx;
+  width: 220rpx;
+  height: 100%;
+}
+
+.canvas_poster{
+  position: absolute;
+  top: -10000rpx;
+  left:0;
+  width: 375px;
+  height: 619px;
+}
+
+.poster-shandow{
+  position: absolute;
+  z-index: 4;
+  top: 71rpx;
+  width: 426rpx;
+  height: 686rpx;
+  left:50%;
+  transform: translateX(-50%);
+}
+
+.poster{
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  /*box-shadow:0rpx 4rpx 16rpx 0rpx rgba(0, 0, 0, 0.14);*/
+  border-radius:14rpx;
+}
+
+.isimg1{
+  width: 512rpx;
+  height: 70rpx;
+  position: relative;
+  top: 147rpx;
+}
+
+.isimg2{
+  width: 512rpx;
   height: 70rpx;
   position: relative;
   top: 167rpx;
+  background-color: rgba(0, 0, 0, .8);
+}
+
+.isimg3{
+  height: 70rpx;
+  width: 512rpx;
+  position: relative;
+  top: 187rpx;
+  display: flex;
+  justify-content: space-between;
 }

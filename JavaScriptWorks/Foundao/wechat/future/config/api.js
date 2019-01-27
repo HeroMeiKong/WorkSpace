@@ -71,6 +71,8 @@ export default {
     del_fabulous: host + 'del_fabulous.php',        //点赞关注
     poster_qrcode: host + 'poster_qrcode.php',        //二维码
     wangchun_poster_qrcode: host + 'wangchun_poster_qrcode.php',        //网春二维码
+    view_share_sucai: host + 'view_share_sucai.php',
+    view_share_luyin: host + 'view_share_luyin.php',
     types: host + 'topic/types.php',        //分类查询
     type_video: host + 'topic/type_video.php',  //首页分类视频
 

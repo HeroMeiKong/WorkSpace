@@ -160,14 +160,15 @@ Page({
             // 来自页面内转发按钮
             return {
                 title: this.data.cur_video.video_desc,
-                path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+                // path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+                path: '/pages/index/index?id=sucai_' + this.data.cur_video.id,
                 imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
             }
         } else {
             return {
                 title: this.data.cur_video.video_desc,
-                path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
-                imageUrl: this.data.cur_video.pic,
+                path: '/pages/index/index?id=sucai_' + this.data.cur_video.id,
+                imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
             }
         }
     },
@@ -282,14 +283,16 @@ Page({
         var is_wangchun = wangchun.includes(parseInt(this.data.cur_video.is_wangchun));
 
         wxRequest({
-            url: api.poster_qrcode,
+            url: api.wangchun_poster_qrcode,
             method: 'POST',
             header: {
                 "auth-token": loginSessionKey
             },
             data: {
                 material_id: this.data.cur_video.video_uuid,
-                path: '/pages/index/index?video_uuid=' + this.data.video_uuid + '&id=' + this.data.cur_video.id,
+                // path: '/pages/index/index?video_uuid=' + this.data.video_uuid + '&id=' + this.data.cur_video.id,
+                path: '/pages/index/index',
+                scene: 'id=sucai_' + this.data.cur_video.id,
                 // path: 'pages/dubbing/dubbing',
                 // path: 'pages/index/index',
                 width: 188,           // 二维码的宽度
@@ -682,9 +685,9 @@ Page({
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x_0.png'}).then(res_bg => {
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x_1.png'}).then(res_bg => {
                 const posterBg_img = res_bg.path;  // 背景图片
-                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/4qipao@2x.png'}).then(resp_phone => {
+                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/3shouji@2x_1.png'}).then(resp_phone => {
                     const posterBg_img_phone = resp_phone.path;  // 相机图片
                     getImage1({src: (cur_video.share_pic || cur_video.pic).replace('http://', 'https://')}).then(res_poster => {
                         var bg_img = res_poster.path;  // 封面图
@@ -728,11 +731,11 @@ Page({
 
                                 //绘制封面图
                                 ctx.rotate(5 * Math.PI / 180);
-                                ctx.drawImage(bg_img, 190, 190, 165, 241);
+                                ctx.drawImage(bg_img, 190, 225, 160, 140);
                                 ctx.restore();
 
                                 // 绘制手机
-                                ctx.drawImage(posterBg_img_phone, 133, 126, 235, 358, 0, 0, resp_phone.path.width, resp_phone.path.height);
+                                ctx.drawImage(posterBg_img_phone, 133, 129, 242, 351, 0, 0, resp_phone.path.width, resp_phone.path.height);
                                 ctx.restore();
 
                                 //绘制封面图
@@ -772,9 +775,11 @@ Page({
                                 // 绘制二维码
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(53 + 27, 526 + 27, 27, 0, Math.PI * 2, false);
+                                ctx.arc(38 + 35, 518 + 35, 37, 0, Math.PI * 2, false);
+                                ctx.setFillStyle('#fff')
+                                ctx.fill()
                                 ctx.clip();
-                                ctx.drawImage(qr_img, 53, 526, 54, 54);
+                                ctx.drawImage(qr_img, 38, 518, 70, 70);
                                 ctx.restore();
 
 
@@ -784,11 +789,11 @@ Page({
                                 ctx.setFontSize(13);
                                 ctx.setTextBaseline('top')
                                 if (_this.data.cur_video.sub_title == app.globalData.wangchun_title) {
-                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 119, 538);
-                                    ctx.fillText('扫码开启偶邦湃友人工智能', 119, 556);
+                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 538);
+                                    ctx.fillText('扫码开启偶邦湃友人工智能', 118, 556);
                                 } else {
-                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 119, 538);
-                                    ctx.fillText('挑战大咖吧！', 119, 556);
+                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 118, 538);
+                                    ctx.fillText('挑战大咖吧！', 118, 556);
                                 }
 
 
