@@ -90,9 +90,15 @@ Page({
         app.pubSub.on('refreshVideo', (video_uuid, status) => {
             this.refreshVideo(video_uuid, status);
         });
-        if (options.id) {
-            // this.data.first_uuid = options.video_uuid
+        // if (options.id) {
+        //     // this.data.first_uuid = options.video_uuid
+        //     this.data.first_id = options.id
+        // }
+        if (options.video_uuid) {
+            this.data.first_uuid = options.video_uuid
             this.data.first_id = options.id
+        } else if (options.scene) {
+            this.data.scene = options.scene
         }
         if (options.select_id) {
             this.data.select_id = options.select_id
@@ -160,13 +166,10 @@ Page({
                 //     }
                 // })
                 this.getTypes(() => {
-                    if (this.data.first_id) {
-                        // console.log('first_uuid:')
-                        // console.log(this.data.first_uuid)
-                        // console.log('first_id:')
-                        // console.log(this.data.first_id)
+                    if (this.data.first_id || this.data.scene) {
                         //如果是分享入口
-                        this.getVideoData(this.data.first_id, () => {
+                        // this.getVideoData(this.data.first_id, () => {
+                        this.getVideoData(() => {
                             this.getSpecialVideoList(() => {
                                 this.refreshSwiper(this.data.special_list)
                                 this.switchVideo(this.data.special_list[0], 0, true)
@@ -242,43 +245,49 @@ Page({
             uniqueid: this.data.cur_video.video_uuid,
             source: 'ugc',
         }
-        console.log('分享统计：')
-        console.log(options)
+        // console.log('分享统计：')
+        // console.log(options)
         app.statistics_pv(options)
-        if (res.from === 'button') {
-            // 来自页面内转发按钮
-            return {
-                title: this.data.cur_video.video_desc,
-                // path: '/pages/index/index?&video_uuid=' + this.data.cur_video.video_uuid + '&id=su' + this.data.cur_video.id,
-                path: '/pages/index/index?id=sucai_' + this.data.cur_video.id,
-                imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
-            }
-        } else if (res.from === 'menu') {
-            return {
-                title: this.data.cur_video.video_desc,
-                path: '/pages/index/index?id=sucai_' + this.data.cur_video.id,
-                imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
-            }
+        console.log('分享地址：')
+        console.log('/pages/index/index?scene=sucai_' + this.data.cur_video.id)
+        return {
+            title: this.data.cur_video.video_desc,
+            path: '/pages/index/index?scene=sucai_' + this.data.cur_video.id,
+            imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
         }
+
     },
 
     //获取视频数据
-    getVideoData(id, fun) {
+    getVideoData(fun) {
         wx.showLoading({
             mask: true
         })
         this.data.loading_num++;
 
+        var url = '';
+        var temp_data = {};
+        if (this.data.first_uuid) {         //video_uuid
+            url = api.video_topic;
+            temp_data = {
+                video_uuid: this.data.first_uuid,
+                id: this.data.first_id,
+            }
+        } else {
+            url = api.view_share_sucai
+            temp_data = {
+                id: this.data.scene,
+            }
+        }
+
         wx.request({
-            url: api.view_share_sucai,
+            url: url,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',
                 "auth-token": wx.getStorageSync('loginSessionKey'),
             },
-            data: {
-                id: id,
-            },
+            data: temp_data,
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
@@ -322,18 +331,31 @@ Page({
             },
             data: {
                 material_id: this.data.cur_video.video_uuid,
-                // material_id: '1',
-                // path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
-                path: '/pages/index/index',
-                scene: 'id=sucai_' + this.data.cur_video.id,
-                // path: 'pages/dubbing/dubbing',
-                // path: 'pages/index/index',
+                page: 'pages/index/index',
+                scene: 'sucai_' + this.data.cur_video.id,
                 width: 188,           // 二维码的宽度
                 auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
                 line_color: {"r": "255", "g": "255", "b": "255"},
-                // line_color: {"r": "0", "g": "0", "b": "1"},
                 is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
             },
+        // wxRequest({
+        //     url: api.poster_qrcode,
+        //     method: 'POST',
+        //     header: {
+        //         "auth-token": loginSessionKey
+        //     },
+        //     data: {
+        //         material_id: this.data.cur_video.video_uuid,
+        //         // material_id: '1',
+        //         path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+        //         // path: 'pages/dubbing/dubbing',
+        //         // path: 'pages/index/index',
+        //         width: 188,           // 二维码的宽度
+        //         auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+        //         line_color: {"r": "255", "g": "255", "b": "255"},
+        //         // line_color: {"r": "0", "g": "0", "b": "1"},
+        //         is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+        //     },
         }).then(resp => {
             const {code, data, msg} = resp.data;
             if (code === 0) {
@@ -1099,9 +1121,9 @@ Page({
                                 // 绘制头像
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(160 + 28, 29 + 28, 28, 0, Math.PI * 2, false);
+                                ctx.arc(160 + 28, 28 + 28, 28, 0, Math.PI * 2, false);
                                 ctx.clip();
-                                ctx.drawImage(user_img, 160, 29, 56, 56);
+                                ctx.drawImage(user_img, 160, 28, 56, 56);
                                 ctx.restore();
 
 

@@ -116,10 +116,19 @@ Page({
         this.data.recorderManager = wx.getRecorderManager();        // 录音
         this.data.innerAudioContext = wx.createInnerAudioContext(); // 播放音频
         this.data.innerAudioContext.obeyMuteSwitch = false;  // 是否遵循系统静音开关，当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音，默认值 true
-        if (options.id) {
-            this.data.share_id = options.id
-        } else if (options.video_uuid) {
+        // if (options.id) {
+        //     this.data.share_id = options.id
+        // } else if (options.video_uuid) {
+        //     this.data.video_uuid = options.video_uuid
+        // } else {
+        //     wx.switchTab({
+        //         url: '/pages/index/index'
+        //     })
+        // }
+        if (options.video_uuid) {
             this.data.video_uuid = options.video_uuid
+        } else if (options.scene) {
+            this.data.scene = options.scene
         } else {
             wx.switchTab({
                 url: '/pages/index/index'
@@ -354,15 +363,15 @@ Page({
 
         var url = ''
         var temp_data = {};
-        if (this.data.share_id) {
-            url = api.view_share_luyin
-            temp_data = {
-                id: this.data.share_id
-            }
-        } else {
-            url = api.dub_detail
+        if (this.data.video_uuid) {         //video_uuid
+            url = api.dub_detail;
             temp_data = {
                 video_uuid: this.data.video_uuid
+            }
+        } else {
+            url = api.view_share_luyin
+            temp_data = {
+                id: this.data.scene,
             }
         }
 
@@ -1060,11 +1069,8 @@ Page({
             },
             data: {
                 material_id: this.data.video_uuid,
-                // path: 'pages/dubbing/dubbing?video_uuid=' + this.data.video_uuid,
-                path: '/pages/dubbing/dubbing',
-                scene: 'id=luyin_' + this.data.video_detail.video_id,
-                // path: 'pages/dubbing/dubbing',
-                // path: 'pages/index/index',
+                page: 'pages/dubbing/dubbing',
+                scene: 'luyin_' + this.data.video_detail.video_id,
                 width: 188,           // 二维码的宽度
                 auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
                 line_color: {"r": "0", "g": "0", "b": "0"},
@@ -1170,42 +1176,15 @@ Page({
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x_1.png'}).then(res_bg => {
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/poster.png'}).then(res_bg => {
                 const posterBg_img = res_bg.path;  // 背景图片
-                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/3shouji@2x_1.png'}).then(resp_phone => {
+                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/poster_0.png'}).then(resp_phone => {
                     const posterBg_img_phone = resp_phone.path;  // 相机图片
-                    getImage1({src: (video_share_pic || video_small_pic).replace('http://', 'https://')}).then(res_poster => {
+                    getImage1({src: ((video_share_pic || video_small_pic).replace('http://', 'https://') + '')}).then(res_poster => {
                         var bg_img = res_poster.path;  // 封面图
-                        var bg_width = res_poster.width;
-                        var bg_height = res_poster.height;
-                        var sx = 0;
-                        var sy = 0;
-                        var sWidth = 0;
-                        var sHeight = 0;
-                        if (bg_width > 165) {
-                            var scale = bg_width / 165
-                            bg_width = 165
-                            bg_height = bg_height / scale
-                        }
-                        if (bg_height > 241) {
-                            var scale = bg_height / 241
-                            bg_height = 241
-                            bg_width = bg_width / scale
-                        }
-                        if (bg_width / bg_height > 0.68) {
-                            sy = 0
-                            sx = (bg_width - bg_height * 0.68) / 2
-                            sHeight = bg_height;
-                            sWidth = bg_height * 0.68;
-                        } else {
-                            sx = 0
-                            sy = (bg_height - bg_width / 0.68) / 2
-                            sWidth = bg_width;
-                            sHeight = bg_width / 0.68;
-                        }
                         getImage2({src: this.data.qr_code_url}).then(res_QR => {
                             const qr_img = res_QR.path; // 二维码
-                            getImage3({src: this.data.userInfo.avatarUrl}).then(re_user => {
+                            getImage3({src: this.data.userInfo.avatarUrl.replace('http://', 'https://')}).then(re_user => {
                                 const user_img = re_user.path; // 头像
 
                                 ////////////////////////开始绘制 ////////////////////////
@@ -1220,7 +1199,7 @@ Page({
                                 ctx.restore();
 
                                 // 绘制手机
-                                ctx.drawImage(posterBg_img_phone, 133, 129, 242, 351, 0, 0, resp_phone.path.width, resp_phone.path.height);
+                                ctx.drawImage(posterBg_img_phone, 33, 25, 343, 455, 0, 0, resp_phone.path.width, resp_phone.path.height);
                                 ctx.restore();
 
                                 //绘制封面图
@@ -1229,32 +1208,39 @@ Page({
                                 // 绘制头像
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(160 + 13, 137 + 13, 13, 0, Math.PI * 2, false);
+                                ctx.arc(160 + 28, 28 + 28, 28, 0, Math.PI * 2, false);
                                 ctx.clip();
-                                ctx.drawImage(user_img, 160, 137, 26, 26);
+                                ctx.drawImage(user_img, 160, 28, 56, 56);
                                 ctx.restore();
 
 
                                 // 绘制名称
                                 ctx.font = "bold";
-                                ctx.setFillStyle('#BA2228');
+                                ctx.setFillStyle('#A48764');
                                 ctx.setFontSize(14);
                                 ctx.setTextBaseline('top')
-                                ctx.fillText(this.data.userInfo.nickName, 195, 142);
+                                ctx.setTextAlign('center')
+                                ctx.fillText(this.data.userInfo.nickName, 186, 92);
 
                                 // 绘制描述
-                                var all_str = '#' + sub_title + ' ' + (video_desc || '');
+                                var all_str = video_desc || '';
                                 ctx.setFillStyle('#BA2228');
-                                ctx.setFontSize(12);
+                                ctx.setFontSize(14);
                                 ctx.setTextBaseline('top');
-                                if (all_str.length <= 16) {
-                                    ctx.fillText(all_str, 160, 180);
+                                ctx.setTextAlign('left')
+                                if (all_str.length <= 20) {
+                                    ctx.fillText(all_str, 53, 117);
                                 } else {
-                                    const stringArr = Tool.stringToArr(all_str, 16);
+                                    const stringArr = Tool.stringToArr(all_str, 20);
                                     stringArr.forEach((item, index) => {
-                                        ctx.fillText(item, 160, 168 + (index * 16));
+                                        ctx.fillText(item, 53, 117 + (index * 16));
                                     });
                                 }
+
+                                ctx.setFillStyle('#A48764');
+                                ctx.setFontSize(13);
+                                ctx.setTextBaseline('top')
+                                ctx.fillText('「长按图片识别二维码查看」', 53, 158);
 
 
                                 // 绘制二维码
@@ -1265,6 +1251,7 @@ Page({
                                 ctx.fill()
                                 ctx.clip();
                                 ctx.drawImage(qr_img, 38, 518, 70, 70);
+                                // ctx.drawImage(qr_img, 40, 520, 66, 66);
                                 ctx.restore();
 
 
@@ -1288,7 +1275,6 @@ Page({
 
                     })
                 })
-
             })
         });
 

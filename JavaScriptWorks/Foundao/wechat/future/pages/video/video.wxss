@@ -232,7 +232,13 @@
     height: 60rpx;
     background-size: cover;
 }
+.denglong{
+    width: 57rpx;
+    height: 69rpx;
+    margin-left: 5rpx;
+}
 .button-item-text{
+    color: #FFD792;
     margin-top: 10rpx;
 }
 .button-item-text-share {

@@ -67,8 +67,8 @@
 }
 
 .special{
-  height: 440rpx;
-  width: 690rpx;
+    /*height:440rpx;*/
+    width: 690rpx;
   background-repeat: no-repeat;
   background-size: 100%;
   /* background-color: #C10420; */

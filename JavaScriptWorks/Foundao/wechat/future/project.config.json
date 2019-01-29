@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 15,
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -90,7 +90,7 @@
 					"id": 8,
 					"name": "录音页",
 					"pathName": "pages/dubbing/dubbing",
-					"query": "id=luyin_108"
+					"query": "video_uuid=7564167872127748597049"
 				},
 				{
 					"id": -1,
@@ -132,7 +132,7 @@
 					"id": 15,
 					"name": "分享首页",
 					"pathName": "pages/index/index",
-					"query": "id=sucai_884"
+					"query": "video_uuid=25071785946281807830158&id=564"
 				},
 				{
 					"id": -1,
@@ -157,6 +157,18 @@
 					"name": "随便测",
 					"pathName": "pages/myTest/myTest",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分享首页（新）",
+					"pathName": "pages/index/index",
+					"query": "scene=sucai_884"
+				},
+				{
+					"id": -1,
+					"name": "录音页（新）",
+					"pathName": "pages/dubbing/dubbing",
+					"query": "scene=luyin_228"
 				}
 			]
 		}

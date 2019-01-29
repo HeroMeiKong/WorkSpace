@@ -96,8 +96,8 @@
                     </cover-view>
                     <cover-view class="button-item" catchtap="openZhufu"
                                 wx:if="{{cur_video.sub_title == '央视虚拟主持人'}}">
-                        <cover-image class="button-item-icon chanllenge"
-                                     src="https://s-js.sports.cctv.com/host/resource/future/1songzhufu.png"></cover-image>
+                        <cover-image class="button-item-icon chanllenge denglong"
+                                     src="https://s-js.sports.cctv.com/host/resource/future/denglong.png"></cover-image>
                         <cover-view class="button-item-text">送祝福</cover-view>
                     </cover-view>
                     <cover-view class="button-item">

@@ -164,6 +164,7 @@ Page({
     })
   },
 
+
   /**
    * 生命周期函数--监听页面显示
    */
@@ -494,31 +495,36 @@ Page({
               that.data.cur_video.nick_pic = res.data.data.nick_pic
               that.data.cur_video.nick_name = res.data.data.nick_name
               that.data.cur_video.video_desc = res.data.data.video_title
+              that.data.cur_video.video_uuid = res.data.data.video_uuid
+              that.data.cur_video.id = res.data.data.id
               wx.request({
                 url: api.wangchun_poster_qrcode,
+                // url: api.poster_qrcode,
                 method: 'POST',
                 header: {
                   "auth-token": wx.getStorageSync('loginSessionKey'),
                 },
                 data: {
-                  material_id: 'sucai_'+res.data.data.id,
-                  page: 'pages/index/index',
-                  scene: 'id=sucai_'+res.data.data.id,
-                  width: 188,
-                  auto_color: false,
-                  line_color: {"r": "255", "g": "216", "b": "146"},
-                  is_hyaline: false,
+                    material_id: res.data.data.video_uuid,
+                    page: 'pages/index/index',
+                    scene: 'sucai_'+res.data.data.id,
+                    // material_id: res.data.data.video_uuid,
+                    // path: '/pages/index/index?video_uuid=' + res.data.data.video_uuid + '&id=' + res.data.data.id,
+                    width: 188,
+                    auto_color: false,
+                    line_color: {"r": "255", "g": "216", "b": "146"},
+                    is_hyaline: false,
                 },
-                success: (res) => {
+                success: (resp) => {
                   console.log('生成二维码成功！')
-                  that.data.qr_code_url = res.data.data.file_path.replace('http://', 'https://');
+                  that.data.qr_code_url = resp.data.data.file_path.replace('http://', 'https://');
                   that.create_poster()
                   that.setData({
                     cur_video: that.data.cur_video,
                     qr_code_url: that.data.qr_code_url
                   })
                 },
-                fail: (res) => {
+                fail: (resp) => {
                   console.log('生成二维码失败！')
                 }
               })
@@ -593,18 +599,28 @@ Page({
   },
   onShareAppMessage: function (res) {
     console.log('onShareAppMessage')
-    // const options = {
-    //     op: 'share',
-    //     wz: 'home_page',
-    //     id: this.data.cur_video.id,
-    //     uniqueid: this.data.cur_video.video_uuid,
-    //     source: 'ugc',
-    // }
-    return {
-      title: '央视虚拟主持人祝新年！携“四小福”，祝大家新春快乐，大吉大利！',
-      path: '/pages/newYear/newYear',
-      //imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
-    }
+      if (res.from === 'button') {
+          console.log('分享地址：')
+          console.log('/pages/index/index?scene=sucai_' + this.data.cur_video.id)
+          return {
+              title: this.data.cur_video.video_desc,
+              path: '/pages/index/index?scene=sucai_' + this.data.cur_video.id,
+              imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
+          }
+          // return {
+          //     title: this.data.cur_video.video_desc,
+          //     path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+          //     // path: '/pages/newYear/newYear',
+          //     imageUrl: this.data.cur_video.share_pic,
+          // }
+      } else {
+          return {
+              title: '央视虚拟主持人祝新年！携“四小福”，祝大家新春快乐，大吉大利！',
+              path: '/pages/newYear/newYear',
+              imageUrl: app.globalData.shareImg,
+          }
+      }
+
   },
   // 创建画布对象
   createCanvas() {
@@ -619,7 +635,7 @@ Page({
     const {userInfo, cur_video} = this.data;
 
     wx.showLoading({
-        title: '海报生成中'
+        title: '祝福视频提交中'
     });
         const getImage = promisify(wx.getImageInfo);
         const getImage1 = promisify(wx.getImageInfo);
@@ -664,9 +680,9 @@ Page({
                             // 绘制头像
                             ctx.save();
                             ctx.beginPath();
-                            ctx.arc(160 + 28, 29 + 28, 28, 0, Math.PI * 2, false);
+                            ctx.arc(160 + 28, 28 + 28, 28, 0, Math.PI * 2, false);
                             ctx.clip();
-                            ctx.drawImage(user_img, 160, 29, 56, 56);
+                            ctx.drawImage(user_img, 160, 28, 56, 56);
                             ctx.restore();
 
 
@@ -689,6 +705,8 @@ Page({
                             } else {
                                 const stringArr = Tool.stringToArr(all_str, 20);
                                 stringArr.forEach((item, index) => {
+                                    ctx.setFillStyle('#BA2228');
+                                    ctx.setTextAlign('left')
                                     ctx.fillText(item, 53, 117 + (index * 16));
                                 });
                             }
@@ -696,6 +714,7 @@ Page({
                             ctx.setFillStyle('#A48764');
                             ctx.setFontSize(13);
                             ctx.setTextBaseline('top')
+                            ctx.setTextAlign('left')
                             ctx.fillText('「长按图片识别二维码查看」', 53, 158);
 
 
@@ -716,15 +735,8 @@ Page({
                             ctx.setFillStyle('#FFD792');
                             ctx.setFontSize(13);
                             ctx.setTextBaseline('top')
-                            if (_this.data.cur_video.sub_title == app.globalData.wangchun_title) {
-                                ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 538);
-                                ctx.fillText('扫码开启偶邦湃友人工智能', 118, 556);
-                            } else {
-                                ctx.fillText('长按小程序，一起来「逗牛短视频」', 118, 538);
-                                ctx.fillText('挑战大咖吧！', 118, 556);
-                            }
-
-
+                            ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 538);
+                            ctx.fillText('扫码开启偶邦湃友人工智能', 118, 556);
                             ctx.draw(false, this.create_poster_image);
                         })
                     })
@@ -735,91 +747,91 @@ Page({
         })
 
 
-},
+  },
 
-// 生成海报图片
-create_poster_image() {
-    console.log('生成海报图片');
-    const canvasToTempFilePath = promisify(wx.canvasToTempFilePath);
-    canvasToTempFilePath({
-        canvasId: 'canvas_poster',
-        fileType: 'png',
-        quality: 1.0,
-        destWidth: 750 * 2,
-        destHeight: 1238 * 2,
-    }, this).then(resp => {
-        // console.log(resp.tempFilePath);
-        this.setData({
-            canvas_poster_url: resp.tempFilePath,
-            show_poster: true,
-            show_select: false,
-            showThird: 'flex',
-            showovercover: 'flex',
-            compose_success: true,
-        });
-        wx.hideLoading();
-    }).catch(err => {
-        console.log('err:', err)
-        // canvas_poster_url
-    });
-},
+  // 生成海报图片
+  create_poster_image() {
+      console.log('生成海报图片');
+      const canvasToTempFilePath = promisify(wx.canvasToTempFilePath);
+      canvasToTempFilePath({
+          canvasId: 'canvas_poster',
+          fileType: 'png',
+          quality: 1.0,
+          destWidth: 750 * 2,
+          destHeight: 1238 * 2,
+      }, this).then(resp => {
+          // console.log(resp.tempFilePath);
+          this.setData({
+              canvas_poster_url: resp.tempFilePath,
+              show_poster: true,
+              show_select: false,
+              showThird: 'flex',
+              showovercover: 'flex',
+              compose_success: true,
+          });
+          wx.hideLoading();
+      }).catch(err => {
+          console.log('err:', err)
+          // canvas_poster_url
+      });
+  },
 
-// 保存海报
-save_poster() {
-    const getSetting = promisify(wx.getSetting);
-    // 判断用户是否有保存文件的权限
-    getSetting().then(resp => {
-        if (!resp.authSetting['scope.writePhotosAlbum']) {
-            wx.authorize({
-                scope: 'scope.writePhotosAlbum',
-                success: () => {
-                    // 用户已经同意小程序使用录音功能，后续调用 接口不会弹窗询问
-                    this.save_photo_sure();
-                    console.log('用户同意保存');
-                },
-                fail: () => {
-                    console.log('用户不同意保存');
-                    wx.showModal({
-                        title: '提示',
-                        content: '逗牛短视频 申请获得保存图片到相册的权限',
-                        success(res) {
-                            if (res.confirm) {
-                                wx.openSetting({})
-                                console.log('用户点击确定')
-                            } else if (res.cancel) {
-                                console.log('用户点击取消')
-                            }
-                        }
-                    })
-                    // wx.openSetting({
-                    //     success(res) {
-                    //         console.log(res)
-                    //     },
-                    //     fail(res) {
-                    //         console.log(res)
-                    //     }
-                    // })
-                    // this.showAuthorize('scope.writePhotosAlbum');
-                }
-            })
-        } else {
-            // 直接保存
-            this.save_photo_sure();
-        }
-    })
+  // 保存海报
+  save_poster() {
+      const getSetting = promisify(wx.getSetting);
+      // 判断用户是否有保存文件的权限
+      getSetting().then(resp => {
+          if (!resp.authSetting['scope.writePhotosAlbum']) {
+              wx.authorize({
+                  scope: 'scope.writePhotosAlbum',
+                  success: () => {
+                      // 用户已经同意小程序使用录音功能，后续调用 接口不会弹窗询问
+                      this.save_photo_sure();
+                      console.log('用户同意保存');
+                  },
+                  fail: () => {
+                      console.log('用户不同意保存');
+                      wx.showModal({
+                          title: '提示',
+                          content: '逗牛短视频 申请获得保存图片到相册的权限',
+                          success(res) {
+                              if (res.confirm) {
+                                  wx.openSetting({})
+                                  console.log('用户点击确定')
+                              } else if (res.cancel) {
+                                  console.log('用户点击取消')
+                              }
+                          }
+                      })
+                      // wx.openSetting({
+                      //     success(res) {
+                      //         console.log(res)
+                      //     },
+                      //     fail(res) {
+                      //         console.log(res)
+                      //     }
+                      // })
+                      // this.showAuthorize('scope.writePhotosAlbum');
+                  }
+              })
+          } else {
+              // 直接保存
+              this.save_photo_sure();
+          }
+      })
 
-},
+  },
 
-// 保存海报动作
-save_photo_sure() {
-    const {canvas_poster_url} = this.data;
-    wx.saveImageToPhotosAlbum({
-        filePath: canvas_poster_url,
-        success(res) {
-            wx.showToast({
-                title: '保存成功'
-            })
-        }
-    })
-},
+  // 保存海报动作
+  save_photo_sure() {
+      const {canvas_poster_url} = this.data;
+      wx.saveImageToPhotosAlbum({
+          filePath: canvas_poster_url,
+          success(res) {
+              wx.showToast({
+                  title: '保存成功'
+              })
+          }
+      })
+  },
 })

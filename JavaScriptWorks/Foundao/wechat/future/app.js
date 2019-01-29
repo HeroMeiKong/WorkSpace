@@ -25,8 +25,8 @@ App({
     statistics_pv(options = {}) {
         const loginSessionKey = wx.getStorageSync('loginSessionKey');
         const vir_ID = wx.getStorageSync('vir_ID') || '';
-        console.log('vir_ID:')
-        console.log(vir_ID)
+        // console.log('vir_ID:')
+        // console.log(vir_ID)
         wxRequest({
             url: api.statistics_pv,
             method: 'POST',
@@ -132,7 +132,7 @@ App({
                                 url: '/pages/auth/auth'
                             })
                         }
-                    }, 2000)
+                    }, 1000)
                 }
             }
         })
@@ -237,6 +237,6 @@ App({
         shareText: '我在逗牛短视频里玩配音拍视频，现在邀你来玩哦~',
         auth_again: false,
         default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',
-        wangchun_title: '央视虚拟主持人祝新年'
+        wangchun_title: '央视虚拟主持人'
     }
 })

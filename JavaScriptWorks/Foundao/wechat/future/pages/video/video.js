@@ -58,12 +58,12 @@ Page({
                 is_user: options.user || 0,
                 examine: options.examine || 1
             })
-            if (options.share) {
-                this.data.isShare = true
-                this.setData({
-                    isShare: true
-                })
-            }
+            // if (options.share) {
+            //     this.data.isShare = true
+            //     this.setData({
+            //         isShare: true
+            //     })
+            // }
             // this.data.user = options.user
         } else {
             wx.switchTab({
@@ -156,21 +156,14 @@ Page({
                 imageUrl: this.data.cur_video.share_pic || app.globalData.shareImg,
             }
         }
-        if (res.from === 'button') {
-            // 来自页面内转发按钮
-            return {
-                title: this.data.cur_video.video_desc,
-                // path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
-                path: '/pages/index/index?id=sucai_' + this.data.cur_video.id,
-                imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
-            }
-        } else {
-            return {
-                title: this.data.cur_video.video_desc,
-                path: '/pages/index/index?id=sucai_' + this.data.cur_video.id,
-                imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
-            }
+        console.log('分享地址：')
+        console.log('/pages/index/index?scene=sucai_' + this.data.cur_video.id)
+        return {
+            title: this.data.cur_video.video_desc,
+            path: '/pages/index/index?scene=sucai_' + this.data.cur_video.id,
+            imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
         }
+
     },
 
     // vv
@@ -290,16 +283,29 @@ Page({
             },
             data: {
                 material_id: this.data.cur_video.video_uuid,
-                // path: '/pages/index/index?video_uuid=' + this.data.video_uuid + '&id=' + this.data.cur_video.id,
-                path: '/pages/index/index',
-                scene: 'id=sucai_' + this.data.cur_video.id,
-                // path: 'pages/dubbing/dubbing',
-                // path: 'pages/index/index',
+                page: 'pages/index/index',
+                scene: 'sucai_' + this.data.cur_video.id,
                 width: 188,           // 二维码的宽度
                 auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
                 line_color: {"r": "255", "g": "216", "b": "146"},
                 is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
             },
+            // wxRequest({
+            //     url: api.poster_qrcode,
+            //     method: 'POST',
+            //     header: {
+            //         "auth-token": loginSessionKey
+            //     },
+            //     data: {
+            //         material_id: this.data.cur_video.video_uuid,
+            //         path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+            //         // path: 'pages/dubbing/dubbing',
+            //         // path: 'pages/index/index',
+            //         width: 188,           // 二维码的宽度
+            //         auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+            //         line_color: {"r": "255", "g": "216", "b": "146"},
+            //         is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+            //     },
         }).then(resp => {
             const {code, data, msg} = resp.data;
             if (code === 0) {
@@ -685,39 +691,12 @@ Page({
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bg@2x_1.png'}).then(res_bg => {
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/poster.png'}).then(res_bg => {
                 const posterBg_img = res_bg.path;  // 背景图片
-                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/3shouji@2x_1.png'}).then(resp_phone => {
+                getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/poster_0.png'}).then(resp_phone => {
                     const posterBg_img_phone = resp_phone.path;  // 相机图片
-                    getImage1({src: (cur_video.share_pic || cur_video.pic).replace('http://', 'https://')}).then(res_poster => {
+                    getImage1({src: ((cur_video.share_pic || cur_video.pic).replace('http://', 'https://') + '')}).then(res_poster => {
                         var bg_img = res_poster.path;  // 封面图
-                        var bg_width = res_poster.width;
-                        var bg_height = res_poster.height;
-                        var sx = 0;
-                        var sy = 0;
-                        var sWidth = 0;
-                        var sHeight = 0;
-                        if (bg_width > 165) {
-                            var scale = bg_width / 165
-                            bg_width = 165
-                            bg_height = bg_height / scale
-                        }
-                        if (bg_height > 241) {
-                            var scale = bg_height / 241
-                            bg_height = 241
-                            bg_width = bg_width / scale
-                        }
-                        if (bg_width / bg_height > 0.68) {
-                            sy = 0
-                            sx = (bg_width - bg_height * 0.68) / 2
-                            sHeight = bg_height;
-                            sWidth = bg_height * 0.68;
-                        } else {
-                            sx = 0
-                            sy = (bg_height - bg_width / 0.68) / 2
-                            sWidth = bg_width;
-                            sHeight = bg_width / 0.68;
-                        }
                         getImage2({src: this.data.qr_code_url}).then(res_QR => {
                             const qr_img = res_QR.path; // 二维码
                             getImage3({src: cur_video.nick_pic.replace('http://', 'https://')}).then(re_user => {
@@ -735,7 +714,7 @@ Page({
                                 ctx.restore();
 
                                 // 绘制手机
-                                ctx.drawImage(posterBg_img_phone, 133, 129, 242, 351, 0, 0, resp_phone.path.width, resp_phone.path.height);
+                                ctx.drawImage(posterBg_img_phone, 33, 25, 343, 455, 0, 0, resp_phone.path.width, resp_phone.path.height);
                                 ctx.restore();
 
                                 //绘制封面图
@@ -744,32 +723,39 @@ Page({
                                 // 绘制头像
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(160 + 13, 137 + 13, 13, 0, Math.PI * 2, false);
+                                ctx.arc(160 + 28, 28 + 28, 28, 0, Math.PI * 2, false);
                                 ctx.clip();
-                                ctx.drawImage(user_img, 160, 137, 26, 26);
+                                ctx.drawImage(user_img, 160, 28, 56, 56);
                                 ctx.restore();
 
 
                                 // 绘制名称
                                 ctx.font = "bold";
-                                ctx.setFillStyle('#BA2228');
+                                ctx.setFillStyle('#A48764');
                                 ctx.setFontSize(14);
                                 ctx.setTextBaseline('top')
-                                ctx.fillText(cur_video.nick_name, 195, 142);
+                                ctx.setTextAlign('center')
+                                ctx.fillText(cur_video.nick_name, 186, 92);
 
                                 // 绘制描述
-                                var all_str = '#' + cur_video.sub_title + ' ' + cur_video.video_desc;
+                                var all_str = cur_video.video_desc;
                                 ctx.setFillStyle('#BA2228');
-                                ctx.setFontSize(12);
+                                ctx.setFontSize(14);
                                 ctx.setTextBaseline('top');
-                                if (all_str.length <= 16) {
-                                    ctx.fillText(all_str, 160, 180);
+                                ctx.setTextAlign('left')
+                                if (all_str.length <= 20) {
+                                    ctx.fillText(all_str, 53, 117);
                                 } else {
-                                    const stringArr = Tool.stringToArr(all_str, 16);
+                                    const stringArr = Tool.stringToArr(all_str, 20);
                                     stringArr.forEach((item, index) => {
-                                        ctx.fillText(item, 160, 168 + (index * 16));
+                                        ctx.fillText(item, 53, 117 + (index * 16));
                                     });
                                 }
+
+                                ctx.setFillStyle('#A48764');
+                                ctx.setFontSize(13);
+                                ctx.setTextBaseline('top')
+                                ctx.fillText('「长按图片识别二维码查看」', 53, 158);
 
 
                                 // 绘制二维码
@@ -780,6 +766,7 @@ Page({
                                 ctx.fill()
                                 ctx.clip();
                                 ctx.drawImage(qr_img, 38, 518, 70, 70);
+                                // ctx.drawImage(qr_img, 40, 520, 66, 66);
                                 ctx.restore();
 
 

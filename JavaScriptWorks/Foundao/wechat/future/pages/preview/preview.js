@@ -102,6 +102,7 @@ Page({
     //showcover: 'flex',//遮罩层
     showoption: 'flex',
     showfilter: 'none',
+    showphotoFrame: 'none',
     showpaster: 'none',
     showmusic: 'none',
     //musicimgs: {playimg: '../../assets/images/4ing.gif',pause: '',addimg: '../../assets/images/4add.png',cancel: '',palyorpause: '',},
@@ -913,6 +914,13 @@ Page({
     this.setData({
       showoption: 'none',
       showfilter: 'flex'
+    })
+  },
+  photoFrame (e) {
+    console.log('photoFrame')
+    this.setData({
+      showoption: 'none',
+      showphotoFrame: 'flex'
     })
   },
   choseFilter (e) {
@@ -2022,5 +2030,5 @@ Page({
             delta: 1
         })
     }
-},
+  },
 })

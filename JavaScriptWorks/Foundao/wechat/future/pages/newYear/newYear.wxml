@@ -81,7 +81,7 @@
       <view class="pagePreview">
         <view class="publish">
           <view class="videowrapper">
-            <video id="myVideo" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:423rpx;height:750rpx" autoplay="{{true}}">
+            <video id="myVideo" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="cover" controls="{{false}}" src="{{tempFilePath}}" style="display:{{showVideos}};width:423rpx;height:750rpx" autoplay="{{true}}">
               <!-- <cover-image class="myVideoBg" src="https://s-js.sports.cctv.com/host/image/2018/12/18/15451249181206.png"></cover-image> -->
               <cover-view class="playimg" catch:tap="pauseThis">
                 <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
@@ -103,9 +103,9 @@
   </view>
   <view class="pagemessage" style="display:{{showThird}}">
     <cover-view class="submission" wx:if="{{compose_success}}">
-      <!-- <cover-image src="https://s-js.sports.cctv.com/host/image/2019/01/13/15473598825048.png" class="compose_img"></cover-image> -->
+      <cover-image src="https://s-js.sports.cctv.com/host/image/2019/01/28/15486690153757.png" class="compose_img_success"></cover-image>
       <!-- 海报 -->
-      <cover-view class="compose_img" wx:if="{{show_poster}}" catchtap="noclose_poster">
+      <cover-view class="compose_img">
         <cover-image src="{{canvas_poster_url}}" mode="aspectFill" class="poster"></cover-image>
       </cover-view>
       <cover-image class="isimg1" catchtap="save_poster" src="../../assets/images/savetoblum@2x.png"></cover-image>
