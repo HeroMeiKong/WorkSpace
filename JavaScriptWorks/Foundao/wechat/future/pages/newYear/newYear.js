@@ -75,14 +75,6 @@ Page({
         })
       }
     })
-    // wx.getUserInfo({
-    //   success(res) {
-    //     const userInfo = res.userInfo
-    //     nickName = userInfo.nickName
-    //     console.log(nickName)
-    //   }
-    // })
-    nickName = app.globalData.userInfo.nickName
   },
 
   /**
@@ -92,76 +84,6 @@ Page({
     this.videoContext = wx.createVideoContext('myVideo')
     // 初始化canvas
     this.createCanvas();
-    let that = this
-    wx.request({
-      url: api.query_host_family,
-      header: {
-          'content-type': 'application/x-www-form-urlencoded',
-          "auth-token": wx.getStorageSync('loginSessionKey'),
-      },
-      success: (res) => {
-        console.log(res)
-        const length = res.data.count.length
-        const lengths = res.data.data.length
-        that.data.alldata = res.data.data
-        that.data.whodata = res.data.count
-        console.log(that.data.way1)
-        console.log(that.data.way2)
-        for(let i=1;i<4;i++){
-          that.data.alldata[i].class = 'nochooseMessage'
-        }
-        //选择拜年语
-        if(lengths > 2){
-          for(let j=0;j<2;j++){
-            that.data.way1.push(that.data.alldata[j])
-          }
-          for(let j=2;j<lengths;j++){
-            that.data.way2.push(that.data.alldata[j])
-          }
-        } else {
-          for(let j=0;j<lengths;j++){
-            that.data.way1.push(that.data.alldata[j])
-          }
-        }
-        //选择拜年对象
-        if(length > 5){
-          for(let j=0;j<5;j++){
-            that.data.row1.push(that.data.whodata[j])
-          }
-          for(let j=5;j<length;j++){
-            that.data.row2.push(that.data.whodata[j])
-          }
-          if(length > 10){
-            for(let j=10;j<length;j++){
-              that.data.row3.push(that.data.whodata[j])
-            }
-          }
-        } else {
-          for(let j=0;j<length;j++){
-            that.data.row1.push(that.data.whodata[j])
-          }
-        }
-        that.data.alldata[0].class = 'chooseMessage'
-        that.data.chooseone.host_id = this.data.alldata[0].id
-        that.data.video_title.host = this.data.alldata[0].name
-        that.data.whodata[0].class = 'choose'
-        that.data.chooseone.select_person_id = this.data.whodata[0].id
-        that.setData({
-          //alldata: that.data.alldata,
-          whodata: that.data.whodata,
-          chooseone: that.data.chooseone,
-          video_title: that.data.video_title,
-          row1: that.data.row1,
-          row2: that.data.row2,
-          row3: that.data.row3,
-          way1: that.data.way1,
-          way2: that.data.way2,
-        })
-      },
-      fail: () => {
-        console.log('请求头像失败！')
-      }
-    })
   },
 
 
@@ -169,6 +91,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+      app.isAuth(() => {
+          if (!this.data.hasInit) {
+              console.log('未初始化')
+              this.data.hasInit = true
+              this.query_data()
+          } else {
+              console.log('已初始化')
+          }
+      })
   },
 
   /**
@@ -188,6 +119,79 @@ Page({
   onUnload: function () {
 
   },
+
+    query_data(){
+        let that= this
+        wx.request({
+            url: api.query_host_family,
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                "auth-token": wx.getStorageSync('loginSessionKey'),
+            },
+            success: (res) => {
+                console.log(res)
+                const length = res.data.count.length
+                const lengths = res.data.data.length
+                that.data.alldata = res.data.data
+                that.data.whodata = res.data.count
+                console.log(that.data.way1)
+                console.log(that.data.way2)
+                for(let i=1;i<4;i++){
+                    that.data.alldata[i].class = 'nochooseMessage'
+                }
+                //选择拜年语
+                if(lengths > 2){
+                    for(let j=0;j<2;j++){
+                        that.data.way1.push(that.data.alldata[j])
+                    }
+                    for(let j=2;j<lengths;j++){
+                        that.data.way2.push(that.data.alldata[j])
+                    }
+                } else {
+                    for(let j=0;j<lengths;j++){
+                        that.data.way1.push(that.data.alldata[j])
+                    }
+                }
+                //选择拜年对象
+                if(length > 5){
+                    for(let j=0;j<5;j++){
+                        that.data.row1.push(that.data.whodata[j])
+                    }
+                    for(let j=5;j<length;j++){
+                        that.data.row2.push(that.data.whodata[j])
+                    }
+                    if(length > 10){
+                        for(let j=10;j<length;j++){
+                            that.data.row3.push(that.data.whodata[j])
+                        }
+                    }
+                } else {
+                    for(let j=0;j<length;j++){
+                        that.data.row1.push(that.data.whodata[j])
+                    }
+                }
+                that.data.alldata[0].class = 'chooseMessage'
+                that.data.chooseone.host_id = this.data.alldata[0].id
+                that.data.video_title.host = this.data.alldata[0].name
+                that.data.whodata[0].class = 'choose'
+                that.data.chooseone.select_person_id = this.data.whodata[0].id
+                that.setData({
+                    //alldata: that.data.alldata,
+                    whodata: that.data.whodata,
+                    chooseone: that.data.chooseone,
+                    video_title: that.data.video_title,
+                    row1: that.data.row1,
+                    row2: that.data.row2,
+                    row3: that.data.row3,
+                    way1: that.data.way1,
+                    way2: that.data.way2,
+                })
+            },
+            fail: () => {
+                console.log('请求头像失败！')
+            }
+        })
+    },
   // chooseAvatar (e) {
   //   console.log('chooseAvatar')
   //   //const length = this.data.alldata.length
@@ -419,9 +423,9 @@ Page({
     //     // material_id: '1',
     //     page: 'pages/dubbingUpload/dubbingUpload',
     //     scene: decodeURIComponent('12'),
-    //     //path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+    //     //path: '/pages/video/video?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
     //     // path: 'pages/dubbing/dubbing',
-    //     // path: 'pages/index/index',
+    //     // path: 'pages/video/video',
     //     width: 720,           // 二维码的宽度
     //     auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
     //     line_color: {"r": "255", "g": "255", "b": "255"},
@@ -506,10 +510,10 @@ Page({
                 },
                 data: {
                     material_id: res.data.data.video_uuid,
-                    page: 'pages/index/index',
+                    page: 'pages/video/video',
                     scene: 'sucai_'+res.data.data.id,
                     // material_id: res.data.data.video_uuid,
-                    // path: '/pages/index/index?video_uuid=' + res.data.data.video_uuid + '&id=' + res.data.data.id,
+                    // path: '/pages/video/video?video_uuid=' + res.data.data.video_uuid + '&id=' + res.data.data.id,
                     width: 188,
                     auto_color: false,
                     line_color: {"r": "255", "g": "216", "b": "146"},
@@ -601,15 +605,15 @@ Page({
     console.log('onShareAppMessage')
       if (res.from === 'button') {
           console.log('分享地址：')
-          console.log('/pages/index/index?scene=sucai_' + this.data.cur_video.id)
+          console.log('/pages/video/video?scene=sucai_' + this.data.cur_video.id)
           return {
               title: this.data.cur_video.video_desc,
-              path: '/pages/index/index?scene=sucai_' + this.data.cur_video.id,
+              path: '/pages/video/video?scene=sucai_' + this.data.cur_video.id,
               imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
           }
           // return {
           //     title: this.data.cur_video.video_desc,
-          //     path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+          //     path: '/pages/video/video?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
           //     // path: '/pages/newYear/newYear',
           //     imageUrl: this.data.cur_video.share_pic,
           // }
@@ -648,7 +652,7 @@ Page({
         // ctx.fillRect(0, 0, 750, 1238);
         ctx.setFillStyle('#a32b30');
 
-        getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/poster.png'}).then(res_bg => {
+        getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bgPoster.png'}).then(res_bg => {
             const posterBg_img = res_bg.path;  // 背景图片
             getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/poster_0.png'}).then(resp_phone => {
                 const posterBg_img_phone = resp_phone.path;  // 相机图片
@@ -667,11 +671,11 @@ Page({
 
                             //绘制封面图
                             ctx.rotate(5 * Math.PI / 180);
-                            ctx.drawImage(bg_img, 190, 225, 160, 140);
+                            ctx.drawImage(bg_img, 190, 250, 160, 140);
                             ctx.restore();
 
                             // 绘制手机
-                            ctx.drawImage(posterBg_img_phone, 33, 25, 343, 455, 0, 0, resp_phone.path.width, resp_phone.path.height);
+                            ctx.drawImage(posterBg_img_phone, 33, 49, 343, 455, 0, 0, resp_phone.path.width, resp_phone.path.height);
                             ctx.restore();
 
                             //绘制封面图
@@ -680,9 +684,9 @@ Page({
                             // 绘制头像
                             ctx.save();
                             ctx.beginPath();
-                            ctx.arc(160 + 28, 28 + 28, 28, 0, Math.PI * 2, false);
+                            ctx.arc(160 + 28, 52 + 28, 28, 0, Math.PI * 2, false);
                             ctx.clip();
-                            ctx.drawImage(user_img, 160, 28, 56, 56);
+                            ctx.drawImage(user_img, 160, 52, 56, 56);
                             ctx.restore();
 
 
@@ -692,7 +696,7 @@ Page({
                             ctx.setFontSize(14);
                             ctx.setTextBaseline('top')
                             ctx.setTextAlign('center')
-                            ctx.fillText(cur_video.nick_name, 186, 92);
+                            ctx.fillText(cur_video.nick_name, 186, 116);
 
                             // 绘制描述
                             var all_str = cur_video.video_desc;
@@ -701,13 +705,13 @@ Page({
                             ctx.setTextBaseline('top');
                             ctx.setTextAlign('left')
                             if (all_str.length <= 20) {
-                                ctx.fillText(all_str, 53, 117);
+                                ctx.fillText(all_str, 53, 141);
                             } else {
                                 const stringArr = Tool.stringToArr(all_str, 20);
                                 stringArr.forEach((item, index) => {
                                     ctx.setFillStyle('#BA2228');
                                     ctx.setTextAlign('left')
-                                    ctx.fillText(item, 53, 117 + (index * 16));
+                                    ctx.fillText(item, 53, 141 + (index * 16));
                                 });
                             }
 
@@ -715,17 +719,17 @@ Page({
                             ctx.setFontSize(13);
                             ctx.setTextBaseline('top')
                             ctx.setTextAlign('left')
-                            ctx.fillText('「长按图片识别二维码查看」', 53, 158);
+                            ctx.fillText('「长按图片识别二维码查看」', 53, 182);
 
 
                             // 绘制二维码
                             ctx.save();
                             ctx.beginPath();
-                            ctx.arc(38 + 35, 518 + 35, 37, 0, Math.PI * 2, false);
+                            ctx.arc(38 + 35, 528 + 35, 37, 0, Math.PI * 2, false);
                             ctx.setFillStyle('#fff')
                             ctx.fill()
                             ctx.clip();
-                            ctx.drawImage(qr_img, 38, 518, 70, 70);
+                            ctx.drawImage(qr_img, 38, 528, 70, 70);
                             // ctx.drawImage(qr_img, 40, 520, 66, 66);
                             ctx.restore();
 
@@ -735,8 +739,8 @@ Page({
                             ctx.setFillStyle('#FFD792');
                             ctx.setFontSize(13);
                             ctx.setTextBaseline('top')
-                            ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 538);
-                            ctx.fillText('扫码开启偶邦湃友人工智能', 118, 556);
+                            ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 548);
+                            ctx.fillText('扫码开启偶邦湃友人工智能', 118, 564);
                             ctx.draw(false, this.create_poster_image);
                         })
                     })

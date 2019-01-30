@@ -107,7 +107,7 @@
                 <!--<cover-image class="play-btn" src="https://s-js.sports.cctv.com/host/resource/future/1play.png"-->
                              <!--wx:if="{{!playing&&hasPlayed}}"></cover-image>-->
 
-                <cover-view class="button-box" hidden="{{isShare}}">
+                <cover-view class="button-box" hidden="{{noAuth}}">
                     <!--挑战+喜欢+分享-->
                     <cover-view class="button-item" catchtap="challenge"
                                 hidden="{{cur_video.is_dub!=2 || is_user || cur_video.sub_title == '央视虚拟主持人'}}">
@@ -136,7 +136,7 @@
                                      catchtap="dislike"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1dianzan2@2x.png"
                                      wx:if="{{cur_video.is_zan!==1}}"></cover-image>
-                        <cover-view class="button-item-text">{{cur_video.count_material_love_10}}</cover-view>
+                        <cover-view class="button-item-text">{{tools.numModel(cur_video.count_material_love_10)}}</cover-view>
                     </cover-view>
                     <cover-view class="button-item share" catchtap="share" hidden="{{is_user&&examine!=3}}">
                         <cover-image class="button-item-icon share"

@@ -74,6 +74,7 @@ Page({
     originMovableview: {x: 0,y: 0},
     oldVideoSize: {width: 0,height: 0},
     previewpic: '', //视频截图加载失败，默认图片
+    photoFramePic: {top: '', bottom: ''},
     filters: [{filterdiv: 'chosefilterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/images/2attention3@2x.png',name: '原画',id: 'none'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-1.png',chose: '../../assets/filter/4filter-1.png',name: '秘语',id: 'vintage'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-2.png',chose: '../../assets/filter/4filter-2.png',name: '绿光',id: 'strong_contrast'},
@@ -86,6 +87,7 @@ Page({
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-9.png',chose: '../../assets/filter/4filter-9.png',name: '消逝1',id: 'color_negative'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/filter/4filter-0.png',name: '暗淡1',id: 'boxblur'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/filter/4filter-0.png',name: '明亮1',id: 'black_white'}],
+    photoframes: [],
     pasters_type: [],
     pasterbegin: 0,
     pasters: [],
@@ -117,10 +119,9 @@ Page({
     topics: [],
     publish: [{pic: '',width: 0,height: 0,x: 0,y: 0,rotate: 0},{pic: '',width: 0,height: 0,x: 0,y: 0,rotate: 0},{pic: '',width: 0,height: 0,x: 0,y: 0,rotate: 0}],
     uploadContent: {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                    join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                    tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
-                    tiezhi_arr: []},
+                    join_sub: -1,audio_url: '',audio_id: '',tiezhi_arr: [],xiangkuan_arr: []},
     myUpload: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}],
+    photoFramearr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}],
     showovercover: 'none',
     //videomuted: false, //是否静音视频
     compose_success: true,
@@ -433,12 +434,6 @@ Page({
         element.rightimg = musicpic.addimg
       });
     }
-    // this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-    //                            join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-    //                            tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
-    //                            tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}]}
-    // preInnerAudioContext.src = 'https://nomusic.mp3'
-    // innerAudioContext.src = 'https://nomusic.mp3'
     console.log(innerAudioContext.src)
     console.log(preInnerAudioContext.src)
     this.data.showmusiclists = []
@@ -460,9 +455,7 @@ Page({
     innerAudioContext.pause()
     preInnerAudioContext.pause()
     this.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                                join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                                tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
-                                tiezhi_arr: []},
+                                join_sub: -1,audio_url: '',audio_id: '',tiezhi_arr: [],xiangkuan_arr: []},
     preInnerAudioContext.src = 'https://nomusic.mp3'
     innerAudioContext.src = 'https://nomusic.mp3'
     console.log(innerAudioContext.src)
@@ -530,11 +523,6 @@ Page({
   // },
   // cancelPaster (e) {
   //   console.log('cancelPaster')
-  //   this.data.uploadContent.tiezhi = ''
-  //   this.data.uploadContent.tiezhi_x = 0
-  //   this.data.uploadContent.tiezhi_y = 0
-  //   this.data.uploadContent.tiezhi_height = 0
-  //   this.data.uploadContent.tiezhi_width = 0
   //   this.setData({
   //     showoption: 'flex',
   //     showpaster: 'none',
@@ -584,18 +572,6 @@ Page({
   goHome: function (e) {
     console.log('goHome')
     innerAudioContext.stop()
-    // if(this.data.movableviewNum.length > 0){
-    //   //this.data.movableviewNum[0].display = 'none'
-    //   this.data.uploadContent.tiezhi = this.data.movableviewNum[0].pic
-    // }
-    // if(this.data.movableviewNum.length > 0){
-    //   // let heightValue = this.data.oldVideoSize.height / windowHeight
-    //   // let widthValue = this.data.oldVideoSize.width / windowWidth
-    //   this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * heightValue
-    //   this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * widthValue
-    //   this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * heightValue
-    //   this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * widthValue
-    // }
     const length = this.data.showmusiclists.length
     for(let i=0;i<length;i++){
       if(this.data.showmusiclists[i].leftimg === musicpic.pauseimg){
@@ -605,6 +581,7 @@ Page({
     this.setData({
       showoption: 'flex',
       showfilter: 'none',
+      showphotoFrame: 'none',
       showpaster: 'none',
       showmusic: 'none',
       //showcover: 'flex',
@@ -793,22 +770,20 @@ Page({
   },
   nextStep (e) {
     console.log('nextStep')
-    console.log(preInnerAudioContext.src)
-    console.log(this.data.uploadContent)
-    console.log(this.data.movableviewNum)
-    console.log(this.data.myUpload)
     // wx.showToast({
     //   title: '滤镜效果需视频合成后可见',
     //   mask: true,
     //   icon: 'none',
     //   duration: 3000
     // })
-    //默认选择原创话题
-    wx.showToast({
-      title: '默认选择原创话题！',
-      icon: 'none',
-      duration: 3000
-    })
+    //默认选择原创话题 && 没有选过话题
+    if(!topiclock){
+      wx.showToast({
+        title: '默认选择原创话题！',
+        icon: 'none',
+        duration: 3000
+      })
+    }
     if(this.data.topics.length === 0){
       wx.request({
         url: api.topic_sub,
@@ -841,8 +816,6 @@ Page({
         }
       })
     }
-
-
     this.videoContext1.play()
     this.videoContext1.pause()
     innerAudioContext.stop()
@@ -868,11 +841,6 @@ Page({
           this.data.myUpload[i].rotate = this.data.movableviewNum[i].rotate
         }
       }
-      //上传视频贴纸位置
-      // this.data.uploadContent.tiezhi_height = this.data.movableviewNum[0].height * videoValues
-      // this.data.uploadContent.tiezhi_width = this.data.movableviewNum[0].width * videoValues
-      // this.data.uploadContent.tiezhi_y = this.data.movableviewNum[0].y * videoValues
-      // this.data.uploadContent.tiezhi_x = this.data.movableviewNum[0].x * videoValues// - (windowWidth-9*windowHeight/16)/2) * videoValues
     }
     console.log(this.data.publish)
     //消音
@@ -889,6 +857,16 @@ Page({
     this.data.uploadContent.tiezhi_arr = this.data.myUpload
     this.data.uploadContent.tiezhi_arr = JSON.stringify(this.data.uploadContent.tiezhi_arr)
     console.log(this.data.uploadContent.tiezhi_arr)
+    //相框大小
+    if(this.data.photoFramePic.top !== ''){
+      this.data.photoFramearr[0].width = this.data.oldVideoSize.width
+      this.data.photoFramearr[0].height = this.data.oldVideoSize.height*.59
+      this.data.photoFramearr[1].width = this.data.oldVideoSize.width
+      this.data.photoFramearr[1].height = this.data.oldVideoSize.height*.5
+      this.data.photoFramearr[1].y = this.data.oldVideoSize.height*.5
+      this.data.uploadContent.xiangkuan_arr = this.data.photoFramearr
+      this.data.uploadContent.xiangkuan_arr = JSON.stringify(this.data.uploadContent.xiangkuan_arr)
+    }
     this.setData({
       //showwrappers: 'none',
       showwrappers: 'hidden',
@@ -899,7 +877,8 @@ Page({
       //videomuted: this.data.videomuted,
       topic: this.data.topic,
       wrappers_width: 0,
-      wrappers_height: 0
+      wrappers_height: 0,
+      photoFramearr: this.data.photoFramearr
     })
     // this.videoContext.play()
     // this.videoContext.pause()
@@ -918,9 +897,59 @@ Page({
   },
   photoFrame (e) {
     console.log('photoFrame')
+    const that = this
     this.setData({
       showoption: 'none',
       showphotoFrame: 'flex'
+    })
+    if(this.data.photoframes.length === 0){
+      wx.request({
+        url: api.photoframe,
+        method: 'POST',
+        header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            "auth-token": wx.getStorageSync('loginSessionKey'),
+        },
+        success: (res) => {
+          console.log(res)
+          const length = res.data.data.length
+          for(let i=0;i<length;i++){
+            res.data.data[i].class = 'nochoose'
+          }
+          that.setData({
+            photoframes: res.data.data
+          })
+          console.log(that.data.photoframes)
+        },
+      })
+    }
+  },
+  chosePhotoFrame (e) {
+    console.log('chosePhotoFrame')
+    console.log(e)
+    const length = this.data.photoframes.length
+    for(let i=0;i<length;i++){
+      if(e.target.id === this.data.photoframes[i].id){
+        if(this.data.photoFramePic.top !== this.data.photoframes[i].moban_up_url){
+          this.data.photoFramePic.top = this.data.photoframes[i].moban_up_url
+          this.data.photoFramePic.bottom = this.data.photoframes[i].moban_down_url
+          this.data.photoFramearr[0].img_url = this.data.photoframes[i].moban_up_url
+          this.data.photoFramearr[1].img_url = this.data.photoframes[i].moban_down_url
+          this.data.photoframes[i].class = 'choose'
+        } else {
+          this.data.photoFramePic.top = ''
+          this.data.photoFramePic.bottom = ''
+          this.data.photoFramearr[0].img_url = ''
+          this.data.photoFramearr[1].img_url = ''
+          this.data.photoframes[i].class = 'nochoose'
+        }
+      } else {
+        this.data.photoframes[i].class = 'nochoose'
+      }
+    }
+    this.setData({
+      photoFramePic: this.data.photoFramePic,
+      photoframes: this.data.photoframes
     })
   },
   choseFilter (e) {
@@ -985,7 +1014,7 @@ Page({
               wx.hideLoading()
           }
       }
-  })
+    })
   },
   music (e) {
     console.log('music')
@@ -1662,9 +1691,7 @@ Page({
                       compose_success: true
                     })
                     that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                                               join_sub: -1,audio_url: '',audio_id: '',tiezhi: '',tiezhi_x: 0,
-                                               tiezhi_y: 0,tiezhi_height: 0,tiezhi_width: 0,
-                                               tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}]}
+                                               join_sub: -1,audio_url: '',audio_id: '',tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}],xiangkuan_arr: []}
                     preInnerAudioContext.src = 'https://nomusic.mp3'
                     innerAudioContext.src = 'https://nomusic.mp3'
                   } else if (res.data.code === -2){

@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 18,
 			"list": [
 				{
 					"id": -1,
@@ -150,7 +150,8 @@
 					"id": 18,
 					"name": "分享视频",
 					"pathName": "pages/video/video",
-					"query": "share=1&video_uuid=35171469087471091510533&id=1342"
+					"query": "video_uuid=86916540547223494223946&id=261748",
+					"scene": null
 				},
 				{
 					"id": -1,
@@ -159,16 +160,29 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "分享首页（新）",
-					"pathName": "pages/index/index",
-					"query": "scene=sucai_884"
+					"id": 20,
+					"name": "分享视频（新）",
+					"pathName": "pages/video/video",
+					"query": "scene=sucai_261748",
+					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "录音页（新）",
 					"pathName": "pages/dubbing/dubbing",
 					"query": "scene=luyin_228"
+				},
+				{
+					"id": -1,
+					"name": "直接打开网络春晚话题",
+					"pathName": "pages/index/index",
+					"query": "select_id=19"
+				},
+				{
+					"id": -1,
+					"name": "功能页面",
+					"pathName": "pages/dubbingUpload/dubbingUpload",
+					"query": ""
 				}
 			]
 		}

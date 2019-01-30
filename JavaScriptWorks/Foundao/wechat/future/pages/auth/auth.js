@@ -37,9 +37,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        wx.removeStorageSync({
-            key: 'loginSessionKey',
-        })
+        wx.removeStorageSync('loginSessionKey')
     },
 
     /**
@@ -84,9 +82,7 @@ Page({
         var _this = this
         e.detail.userInfo.avatarUrl = e.detail.userInfo.avatarUrl ? e.detail.userInfo.avatarUrl : app.globalData.default_avatarUrl
         app.globalData.userInfo = e.detail.userInfo
-        wx.removeStorageSync({
-            key: 'loginSessionKey',
-        })
+        wx.removeStorageSync('loginSessionKey')
         wx.login({
             success: res => {
                 wx.showLoading({
@@ -121,6 +117,7 @@ Page({
                                     console.log(data.token, 'data.token');
                                     wx.setStorageSync('loginSessionKey', data.token)
                                     //返回上一层页面
+                                    app.globalData.auth_again = true
                                     wx.navigateBack();
                                 } else {
                                     // wx.showToast({

@@ -32,7 +32,7 @@
     "color": "#E79C6D",
     "selectedColor": "#FFD892",
     "backgroundColor": "#C10420",
-    "borderStyle": "#C10420",
+    "borderStyle": "black",
     "position": "bottom",
     "list": [
       {

@@ -1176,7 +1176,7 @@ Page({
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/poster.png'}).then(res_bg => {
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bgPoster.png'}).then(res_bg => {
                 const posterBg_img = res_bg.path;  // 背景图片
                 getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/poster_0.png'}).then(resp_phone => {
                     const posterBg_img_phone = resp_phone.path;  // 相机图片
@@ -1195,11 +1195,11 @@ Page({
 
                                 //绘制封面图
                                 ctx.rotate(5 * Math.PI / 180);
-                                ctx.drawImage(bg_img, 190, 225, 160, 140);
+                                ctx.drawImage(bg_img, 195, 250, 160, 140);
                                 ctx.restore();
 
                                 // 绘制手机
-                                ctx.drawImage(posterBg_img_phone, 33, 25, 343, 455, 0, 0, resp_phone.path.width, resp_phone.path.height);
+                                ctx.drawImage(posterBg_img_phone, 33, 49, 343, 455, 0, 0, resp_phone.path.width, resp_phone.path.height);
                                 ctx.restore();
 
                                 //绘制封面图
@@ -1208,9 +1208,9 @@ Page({
                                 // 绘制头像
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(160 + 28, 28 + 28, 28, 0, Math.PI * 2, false);
+                                ctx.arc(160 + 28, 52 + 28, 28, 0, Math.PI * 2, false);
                                 ctx.clip();
-                                ctx.drawImage(user_img, 160, 28, 56, 56);
+                                ctx.drawImage(user_img, 160, 52, 56, 56);
                                 ctx.restore();
 
 
@@ -1220,7 +1220,7 @@ Page({
                                 ctx.setFontSize(14);
                                 ctx.setTextBaseline('top')
                                 ctx.setTextAlign('center')
-                                ctx.fillText(this.data.userInfo.nickName, 186, 92);
+                                ctx.fillText(this.data.userInfo.nickName, 186, 116);
 
                                 // 绘制描述
                                 var all_str = video_desc || '';
@@ -1229,28 +1229,28 @@ Page({
                                 ctx.setTextBaseline('top');
                                 ctx.setTextAlign('left')
                                 if (all_str.length <= 20) {
-                                    ctx.fillText(all_str, 53, 117);
+                                    ctx.fillText(all_str, 53, 141);
                                 } else {
                                     const stringArr = Tool.stringToArr(all_str, 20);
                                     stringArr.forEach((item, index) => {
-                                        ctx.fillText(item, 53, 117 + (index * 16));
+                                        ctx.fillText(item, 53, 141 + (index * 16));
                                     });
                                 }
 
                                 ctx.setFillStyle('#A48764');
                                 ctx.setFontSize(13);
                                 ctx.setTextBaseline('top')
-                                ctx.fillText('「长按图片识别二维码查看」', 53, 158);
+                                ctx.fillText('「长按图片识别二维码查看」', 53, 182);
 
 
                                 // 绘制二维码
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(38 + 35, 518 + 35, 37, 0, Math.PI * 2, false);
+                                ctx.arc(38 + 35, 528 + 35, 37, 0, Math.PI * 2, false);
                                 ctx.setFillStyle('#fff')
                                 ctx.fill()
                                 ctx.clip();
-                                ctx.drawImage(qr_img, 38, 518, 70, 70);
+                                ctx.drawImage(qr_img, 38, 528, 70, 70);
                                 // ctx.drawImage(qr_img, 40, 520, 66, 66);
                                 ctx.restore();
 
@@ -1261,11 +1261,11 @@ Page({
                                 ctx.setFontSize(13);
                                 ctx.setTextBaseline('top')
                                 if (sub_title == app.globalData.wangchun_title) {
-                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 538);
-                                    ctx.fillText('扫码开启偶邦湃友人工智能', 118, 556);
+                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 548);
+                                    ctx.fillText('扫码开启偶邦湃友人工智能', 118, 564);
                                 } else {
-                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 118, 538);
-                                    ctx.fillText('挑战大咖吧！', 118, 556);
+                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 118, 548);
+                                    ctx.fillText('挑战大咖吧！', 118, 564);
                                 }
 
 

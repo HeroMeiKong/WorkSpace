@@ -107,7 +107,7 @@
                         <cover-image class="button-item-icon"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1dianzan2@2x.png"
                                      wx:if="{{cur_video.is_zan==2}}" catchtap="dislike"></cover-image>
-                        <cover-view class="button-item-text">{{cur_video.count_material_love_10}}</cover-view>
+                        <cover-view class="button-item-text">{{tools.numModel(cur_video.count_material_love_10)}}</cover-view>
                     </cover-view>
                     <!--分享-->
                     <cover-view class="button-item share" catchtap="share">

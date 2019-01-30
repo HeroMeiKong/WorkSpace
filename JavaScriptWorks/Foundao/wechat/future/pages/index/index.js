@@ -154,17 +154,6 @@ Page({
                 this.setData({
                     userInfo: app.globalData.userInfo
                 })
-                // wx.getUserInfo({
-                //     success: (res) => {
-                //         this.data.userInfo = res.userInfo       //用微信返回的用户信息（最新），不用后台给的
-                //         // var nickName = userInfo.nickName
-                //         // var avatarUrl = userInfo.avatarUrl
-                //         // var gender = userInfo.gender //性别 0：未知、1：男、2：女
-                //         // var province = userInfo.province
-                //         // var city = userInfo.city
-                //         // var country = userInfo.country
-                //     }
-                // })
                 this.getTypes(() => {
                     if (this.data.first_id || this.data.scene) {
                         //如果是分享入口
@@ -249,10 +238,10 @@ Page({
         // console.log(options)
         app.statistics_pv(options)
         console.log('分享地址：')
-        console.log('/pages/index/index?scene=sucai_' + this.data.cur_video.id)
+        console.log('/pages/video/video?scene=sucai_' + this.data.cur_video.id)
         return {
             title: this.data.cur_video.video_desc,
-            path: '/pages/index/index?scene=sucai_' + this.data.cur_video.id,
+            path: '/pages/video/video?scene=sucai_' + this.data.cur_video.id,
             imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
         }
 
@@ -331,7 +320,7 @@ Page({
             },
             data: {
                 material_id: this.data.cur_video.video_uuid,
-                page: 'pages/index/index',
+                page: 'pages/video/video',
                 scene: 'sucai_' + this.data.cur_video.id,
                 width: 188,           // 二维码的宽度
                 auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
@@ -347,9 +336,9 @@ Page({
         //     data: {
         //         material_id: this.data.cur_video.video_uuid,
         //         // material_id: '1',
-        //         path: '/pages/index/index?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+        //         path: '/pages/video/video?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
         //         // path: 'pages/dubbing/dubbing',
-        //         // path: 'pages/index/index',
+        //         // path: 'pages/video/video',
         //         width: 188,           // 二维码的宽度
         //         auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
         //         line_color: {"r": "255", "g": "255", "b": "255"},
@@ -1089,7 +1078,7 @@ Page({
             // ctx.fillRect(0, 0, 750, 1238);
             ctx.setFillStyle('#a32b30');
 
-            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/poster.png'}).then(res_bg => {
+            getImage({src: 'https://s-js.sports.cctv.com/host/resource/future/bgPoster.png'}).then(res_bg => {
                 const posterBg_img = res_bg.path;  // 背景图片
                 getImage4({src: 'https://s-js.sports.cctv.com/host/resource/future/poster_0.png'}).then(resp_phone => {
                     const posterBg_img_phone = resp_phone.path;  // 相机图片
@@ -1108,11 +1097,11 @@ Page({
 
                                 //绘制封面图
                                 ctx.rotate(5 * Math.PI / 180);
-                                ctx.drawImage(bg_img, 190, 225, 160, 140);
+                                ctx.drawImage(bg_img, 195, 250, 160, 140);
                                 ctx.restore();
 
                                 // 绘制手机
-                                ctx.drawImage(posterBg_img_phone, 33, 25, 343, 455, 0, 0, resp_phone.path.width, resp_phone.path.height);
+                                ctx.drawImage(posterBg_img_phone, 33, 49, 343, 455, 0, 0, resp_phone.path.width, resp_phone.path.height);
                                 ctx.restore();
 
                                 //绘制封面图
@@ -1121,9 +1110,9 @@ Page({
                                 // 绘制头像
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(160 + 28, 28 + 28, 28, 0, Math.PI * 2, false);
+                                ctx.arc(160 + 28, 52 + 28, 28, 0, Math.PI * 2, false);
                                 ctx.clip();
-                                ctx.drawImage(user_img, 160, 28, 56, 56);
+                                ctx.drawImage(user_img, 160, 52, 56, 56);
                                 ctx.restore();
 
 
@@ -1133,7 +1122,7 @@ Page({
                                 ctx.setFontSize(14);
                                 ctx.setTextBaseline('top')
                                 ctx.setTextAlign('center')
-                                ctx.fillText(cur_video.nick_name, 186, 92);
+                                ctx.fillText(cur_video.nick_name, 186, 116);
 
                                 // 绘制描述
                                 var all_str = cur_video.video_desc;
@@ -1142,28 +1131,28 @@ Page({
                                 ctx.setTextBaseline('top');
                                 ctx.setTextAlign('left')
                                 if (all_str.length <= 20) {
-                                    ctx.fillText(all_str, 53, 117);
+                                    ctx.fillText(all_str, 53, 141);
                                 } else {
                                     const stringArr = Tool.stringToArr(all_str, 20);
                                     stringArr.forEach((item, index) => {
-                                        ctx.fillText(item, 53, 117 + (index * 16));
+                                        ctx.fillText(item, 53, 141 + (index * 16));
                                     });
                                 }
 
                                 ctx.setFillStyle('#A48764');
                                 ctx.setFontSize(13);
                                 ctx.setTextBaseline('top')
-                                ctx.fillText('「长按图片识别二维码查看」', 53, 158);
+                                ctx.fillText('「长按图片识别二维码查看」', 53, 182);
 
 
                                 // 绘制二维码
                                 ctx.save();
                                 ctx.beginPath();
-                                ctx.arc(38 + 35, 518 + 35, 37, 0, Math.PI * 2, false);
+                                ctx.arc(38 + 35, 528 + 35, 37, 0, Math.PI * 2, false);
                                 ctx.setFillStyle('#fff')
                                 ctx.fill()
                                 ctx.clip();
-                                ctx.drawImage(qr_img, 38, 518, 70, 70);
+                                ctx.drawImage(qr_img, 38, 528, 70, 70);
                                 // ctx.drawImage(qr_img, 40, 520, 66, 66);
                                 ctx.restore();
 
@@ -1174,11 +1163,11 @@ Page({
                                 ctx.setFontSize(13);
                                 ctx.setTextBaseline('top')
                                 if (_this.data.cur_video.sub_title == app.globalData.wangchun_title) {
-                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 538);
-                                    ctx.fillText('扫码开启偶邦湃友人工智能', 118, 556);
+                                    ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 548);
+                                    ctx.fillText('扫码开启偶邦湃友人工智能', 118, 564);
                                 } else {
-                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 118, 538);
-                                    ctx.fillText('挑战大咖吧！', 118, 556);
+                                    ctx.fillText('长按小程序，一起来「逗牛短视频」', 118, 548);
+                                    ctx.fillText('挑战大咖吧！', 118, 564);
                                 }
 
 

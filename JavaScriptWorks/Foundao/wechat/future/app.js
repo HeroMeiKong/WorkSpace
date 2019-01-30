@@ -90,6 +90,9 @@ App({
     isAuth(success_cb, fail_cb) {
         var _this = this
         wx.getSetting({
+            fail: res => {
+                console.log(res)
+            },
             success: (res) => {
                 console.log(res.authSetting)
                 if (this.globalData.auth_again || (res.authSetting['scope.userInfo'] && wx.getStorageSync('loginSessionKey'))) {
@@ -114,25 +117,23 @@ App({
                     // })
                     _this.getUserInfo(success_cb)
                 } else {
-                    var text = wx.getStorageSync('loginSessionKey') ? '授权过期' : '请先授权登录'
-                    if (wx.getStorageSync('loginSessionKey')) {
-                        console.log('微信判断用户未授权')
-                        this.globalData.auth_again = true
-                    }
-                    // wx.showToast({
-                    //     title: text,
-                    //     duration: 2000,
-                    //     mask: true,
-                    // })
-                    setTimeout(() => {
-                        if (fail_cb) {
-                            fail_cb()
-                        } else {
-                            wx.navigateTo({
-                                url: '/pages/auth/auth'
-                            })
+                    if (fail_cb) {
+                        fail_cb()
+                    } else {
+                        var text = wx.getStorageSync('loginSessionKey') ? '授权过期' : '请先授权登录'
+                        if (wx.getStorageSync('loginSessionKey')) {
+                            console.log(text)
                         }
-                    }, 1000)
+                        // wx.showToast({
+                        //     title: text,
+                        //     duration: 2000,
+                        //     mask: true,
+                        // })
+                        wx.navigateTo({
+                            url: '/pages/auth/auth'
+                        })
+                    }
+
                 }
             }
         })

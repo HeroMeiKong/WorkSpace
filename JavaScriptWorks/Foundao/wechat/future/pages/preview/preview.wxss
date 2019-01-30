@@ -312,6 +312,33 @@ swiper-item {
   padding: 5rpx;
 }
 
+/* photoframe */
+.photoframe{
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,4,.8);
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  border-top-left-radius: 14rpx;
+  border-top-right-radius: 14rpx;
+}
+
+.photoframe .nochoose,
+.photoframe .choose{
+  width: 148rpx;
+  height: 148rpx;
+}
+
+.photoframe .choose{
+  outline: 4px solid rgba(255,216,146,1);
+  border-radius: 6rpx;
+}
+
+.photoframe .photoframeimage{
+  width: 100%;
+  height: 100%;
+}
 
 /* paster */
 .paster {
