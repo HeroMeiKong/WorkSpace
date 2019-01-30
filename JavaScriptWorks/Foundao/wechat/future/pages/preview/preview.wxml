@@ -154,11 +154,11 @@
     <view class="publish {{models}}">
       <view class="videowrapper">
         <video id="myVideo1" bindplay="videoAutoPlay" show-center-play-btn="{{false}}" bindended="videoend" objectFit="contain" controls="{{false}}" src="{{tempFilePath}}" style="display:flex;width:{{previewsize.width}}px;height:{{previewsize.height}}px" muted="{{videomuted}}" autoplay="{{false}}">
-          <cover-image class="coverimage" src="{{photoFramePic.top}}" style="display:{{showVideosPic}};width:{{previewsize.width}}px;height:{{previewsize.height*.59}}px;top:0px;"></cover-image>
+          <cover-image class="coverimage" src="{{photoFramePic.top}}" style="display:{{showVideosPic}};width:{{photoFramePic.top === '' ? 0 : previewsize.width}}px;height:{{photoFramePic.top === '' ? 0 : previewsize.height*.59}}px;top:0px;"></cover-image>
           <block wx:for="{{publish}}">
             <cover-image class="coverimage" src="{{item.pic}}" style="display:{{showVideosPic}};width:{{item.width}}px;height:{{item.height}}px;left:{{item.x}}px;top:{{item.y}}px;transform:rotate({{item.rotate}}deg)"></cover-image>
           </block>
-          <cover-image class="coverimage" src="{{photoFramePic.bottom}}" style="display:{{showVideosPic}};width:{{previewsize.width}}px;height:{{previewsize.height*.5}}px;bottom:0px;"></cover-image>
+          <cover-image class="coverimage" src="{{photoFramePic.bottom}}" style="display:{{showVideosPic}};width:{{photoFramePic.bottom === '' ? 0 : previewsize.width}}px;height:{{photoFramePic.bottom === '' ? 0 : previewsize.height*.5}}px;bottom:0px;"></cover-image>
           <cover-view style="display:{{showVideosPic}}" class="playimg" catch:tap="pauseThis">
             <cover-image style="display:{{showpause}}" src="../../assets/images/4play1.png" catch:tap="playThis"></cover-image>
           </cover-view>
