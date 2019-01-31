@@ -8,7 +8,7 @@
       <view class="preview">
         <movable-area class="screenshot" style="display:{{showVideo.notvideo}};width:{{picsize.width}}px;height:{{picsize.height}}px;" catch:tap="blockThis">
           <block wx:for="{{movableviewNum}}" wx:key="*this">
-            <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView" damping="200" x="{{originMovableview.x}}px" y="{{originMovableview.y}}px">
+            <movable-view id="{{item.id}}" style="width: {{item.width}}px;height: {{item.height}}px;display:{{item.show}}" direction="all" bindchange="moveMovableView" damping="200" x="{{movableviewNum[index].x}}px" y="{{movableviewNum[index].y}}px">
               <view class="wrapperimage" style="display:{{item.display}};transform:rotate({{item.rotate}}deg)">
                 <image id="top{{item.id}}" class="flextoppic" style="display:{{hiddenpaster}}" src="../../assets/images/4shanchu@2x.png" catch:tap="cancelMovableView"></image>
                 <image class="{{hiddenpaster}}" id="pic{{item.id}}" src="{{item.pic}}" bind:tap="showMovableView"></image>

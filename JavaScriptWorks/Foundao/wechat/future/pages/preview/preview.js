@@ -71,7 +71,7 @@ Page({
                      {id:'movableview1',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: '',rotate: 0},
                      {id:'movableview2',width: 80,height: 80,show: 'none',x: 0,y: 0,pic: '',rotate: 0}], //压条个数
     oldCoordinatey: 0,
-    originMovableview: {x: 0,y: 0},
+    originMovableview: {x: 10,y: 0},
     oldVideoSize: {width: 0,height: 0},
     previewpic: '', //视频截图加载失败，默认图片
     photoFramePic: {top: '', bottom: ''},
@@ -128,6 +128,7 @@ Page({
     showsubmission: 'none',
     wrappers_width: '100%',
     wrappers_height: '100%',
+    isShowTopic: true,//是否提示默认话题
   },
 
   /**
@@ -184,7 +185,8 @@ Page({
         that.setData({
           models: that.data.models,
           originMovableview: that.data.originMovableview,
-          movableviewNum: that.data.movableviewNum
+          movableviewNum: that.data.movableviewNum,
+          isShowTopic: true
         })
       }
     })
@@ -777,7 +779,7 @@ Page({
     //   duration: 3000
     // })
     //默认选择原创话题 && 没有选过话题
-    if(!topiclock){
+    if(this.data.isShowTopic){
       wx.showToast({
         title: '默认选择原创话题！',
         icon: 'none',
@@ -1837,7 +1839,8 @@ Page({
       showtextcontent: 'block',
       showtopictype: 'none',
       showsure: 'flex',
-      showpause: 'flex'
+      showpause: 'flex',
+      isShowTopic: false
     })
   },
   bindTextAreaBlur: function(e) {
