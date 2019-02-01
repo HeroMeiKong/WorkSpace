@@ -1,0 +1,37 @@
+<!--pages/rank/rank.wxml-->
+<view class="rank_box">
+    <view class="rank_top">
+        <view class="rank_left">
+            <text class="rank_ranking">名次</text>
+            <text class="rank_num">{{rank_num}}</text>
+        </view>
+        <open-data type="userAvatarUrl" class="user_head" mode="cover"></open-data>
+        <open-data type="userNickName" class="user_name"></open-data>
+        <view class="rank_right">
+            <text class="calorie">卡路里</text>
+            <text class="calorie_num">{{calorie_num}}</text>
+        </view>
+    </view>
+    <view wx:for="{{rank_arr}}" class="rank_content">
+        <!--前三名-->
+        <block wx:if="{{index < 3}}">
+            <image class="left_icon"
+                   wx:if="{{index === 0}}"
+                   src="https://s-js.sports.cctv.com/host/resource/map/top1_icon.png"></image>
+            <image class="left_icon"
+                   wx:if="{{index === 1}}"
+                   src="https://s-js.sports.cctv.com/host/resource/map/top2_icon.png"></image>
+            <image class="left_icon"
+                   wx:if="{{index === 2}}"
+                   src="https://s-js.sports.cctv.com/host/resource/map/top3_icon.png"></image>
+        </block>
+        <!--4名之后-->
+        <block wx:if="{{index >= 3}}">
+            <view class="left_num">{{index+1}}</view>
+        </block>
+        <!--头像-->
+        <image src="{{item.head_img}}" mode="aspectFill" class="head_img"></image>
+        <view class="rank_name">{{item.name}}</view>
+        <view class="rank_calorie">{{item.calorie}}</view>
+    </view>
+</view>

@@ -1,0 +1,30 @@
+<!--pages/map/map.wxml-->
+<scroll-view class='map-box'>
+  <view class='map_huanan'>
+    <image
+    class='map-img'
+    mode='widthFix'
+    src='https://s-js.sports.cctv.com/host/resource/map/map_huanan.png'></image>
+    <view class='progress-box'></view>
+    <view class='map_mark'>123</view>
+  </view>
+</scroll-view>
+<!--用户信息-->
+<view class='userInfo-box'>
+  <view>
+    <image 
+      class='userImg'
+      src='https://s-js.sports.cctv.com/host/resource/map/headerImg.png'
+    ></image>
+    <view class='userInfo'>
+      <view class='online-person'>在线用户：41987</view>
+      <h2>Robert Martin</h2>
+      <h3>累积贡献0卡路里，现在出发！</h3>
+    </view>
+    <view class='userInfo-btnbox'>
+      <view class='gotoRank' catchtap='gotoRank'>查看排行榜</view>
+      <view class='changeRoad' catchtap='changeRoad'>更换路线</view>
+    </view>
+  </view>
+</view>
+<musicControl/>

@@ -1,0 +1,20 @@
+<!--pages/question/question.wxml-->
+<view class="wrapper">
+  <view class="inner">
+    <image class="brand" src="https://s-js.sports.cctv.com/host/resource/map/Qbrand.png"></image>
+    <view class="top">
+      <view class="number"><view><font>{{whichQuestion+1}}</font>/5</view></view>
+      <view class="question">中国是人口大国，占据了世界首位，请问中国实际人口大约有多少？</view>
+    </view>
+    <view class="bottom">
+      <block wx:for="{{options}}" wx:key="*this">
+        <view class="options {{item.class}}" catch:tap="choose" id="{{item.id}}">
+          <view class="text">{{item.title}}</view>
+          <image src="{{item.pic}}" style="display:{{showOptions[index].show}}"></image>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="innercover" style="display:{{showinnercover}}">
+  </view>
+</view>

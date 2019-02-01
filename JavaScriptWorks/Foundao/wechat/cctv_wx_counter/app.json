@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/auth/auth",
+    "pages/map/map",    
+    "pages/question/question",
+    "pages/destination/destination",
+    "pages/rank/rank",
+    "pages/webview/webview"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "usingComponents": {
+    "musicControl": "/component/musicControl/musicControl"
+  },
+  "requiredBackgroundModes": [
+    "audio"
+  ]
+}

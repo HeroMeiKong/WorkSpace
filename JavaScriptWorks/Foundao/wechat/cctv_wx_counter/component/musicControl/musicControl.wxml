@@ -1,0 +1,4 @@
+<!--component/musicControl/musicControl.wxml-->
+<view class='playBM'>
+  <view catchtap='getState'>播放按钮</view>
+</view>

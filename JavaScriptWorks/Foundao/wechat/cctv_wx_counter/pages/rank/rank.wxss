@@ -1,0 +1,156 @@
+/* pages/rank/rank.wxss */
+
+.rank_box {
+    width: 100%;
+    height: 100%;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/rank_bg.png");
+    background-size: 100% 100%;
+    z-index: 1;
+    position: relative;
+    padding-top: 72rpx;
+    box-sizing: border-box;
+}
+
+.rank_top {
+    margin: 0 auto;
+    z-index: 2;
+    width: 726rpx;
+    height: 256rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/rank_top.png");
+    background-size: 100% 100%;
+    position: relative;
+    color: #466828;
+}
+
+.rank_left {
+    float: left;
+    padding-top: 72rpx;
+    box-sizing: border-box;
+    width: 252rpx;
+    height: 100%;
+    text-align: center;
+    letter-spacing: 1rpx;
+}
+
+.rank_ranking {
+    display: block;
+    font-size: 26rpx;
+    font-weight: 400;
+    font-family: PingFangSC-Regular;
+    line-height: 37rpx;
+}
+
+.rank_num {
+    display: block;
+    margin-top: 4rpx;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    line-height: 67rpx;
+    font-size: 48rpx;
+}
+
+.user_head {
+    width: 110rpx;
+    height: 110rpx;
+    position: absolute;
+    top: 47rpx;
+    left: 305rpx;
+    border-radius: 50%;
+    display: flex;
+    overflow: hidden;
+}
+
+.user_name {
+    position: absolute;
+    top: 168rpx;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 28rpx;
+    font-family: PingFangSC-Medium;
+    line-height: 40rpx;
+    letter-spacing: 1rpx;
+    font-weight: 500;
+}
+
+.rank_right {
+    float: right;
+    padding-top: 72rpx;
+    box-sizing: border-box;
+    width: 252rpx;
+    height: 100%;
+    text-align: center;
+    letter-spacing: 1rpx;
+}
+
+.calorie {
+    display: block;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    line-height: 37rpx;
+    letter-spacing: 1rpx;
+    font-size: 26rpx;
+}
+
+.calorie_num {
+    display: block;
+    margin-top: 4rpx;
+    font-size: 48rpx;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    line-height: 67rpx;
+}
+
+.rank_content {
+    width: 100%;
+    height: 120rpx;
+    color: #466828;
+}
+
+.left_icon {
+    margin: 35rpx 34rpx 35rpx 40rpx;
+    width: 50rpx;
+    height: 50rpx;
+}
+
+.left_num {
+    padding: 40rpx 0;
+    box-sizing: border-box;
+    width: 124rpx;
+    height: 120rpx;
+    text-align: center;
+    font-size: 28rpx;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    line-height: 40rpx;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.head_img {
+    width: 80rpx;
+    height: 80rpx;
+    margin: 20rpx 0;
+    border-radius: 50%;
+}
+
+.rank_name {
+    margin: 43rpx 20rpx;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    font-size: 24rpx;
+    line-height: 33rpx;
+    letter-spacing: 1rpx;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.rank_calorie {
+    float: right;
+    font-size: 26rpx;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    line-height: 37rpx;
+    margin-top: 43rpx;
+    margin-right: 56rpx;
+}

@@ -1,0 +1,41 @@
+<view class="index-layer">
+    <view class="index-box">
+        <!--规则相关-->
+        <image class="rule-btn" src="https://s-js.sports.cctv.com/host/resource/map/index_map_rule.png"
+               catchtap="showRule"></image>
+        <view class="rule-layer" wx:if="{{showRule_flag}}">
+            <view class="rule-box">
+                <view class="rule-title"></view>
+                <view class="rule-text">
+                    <view class="text">1. 每日3000卡路里可前进一站</view>
+                    <view class="text">2. 排名标准：以总卡路里数进行排名</view>
+                    <view class="text">3. 当判断到游戏结束的「天数」小于 用户剩余的站数 时，提示用户「邀请好友」获得加速卡，一张加速卡允许多前进一站，每日最多获得2张</view>
+                    <view class="text">4. 昨日未达到3000卡路里的用户，在次日首次进入时，必须回答问题补足昨日所需的卡路里</view>
+                    <view class="text">5. 以前第九站结束的排名为准， TOP3到达终点时，可直接领取奖品，其余用户通过抽奖方式获得奖品</view>
+                    <view class="text">6. 所有用户达到终点或指定站点时，可以生成海报，保存本地进行分享</view>
+                    <view class="text">7. 每到达一站时，可以答题或看资讯</view>
+                </view>
+                <view class="close-btn" catchtap="closeRule">我知道啦</view>
+            </view>
+        </view>
+        <!--地图-->
+        <view class="index_map">
+            <!--点击区域 透明-->
+            <view class="map_0_0" catchtap="go_map" data-id="0"></view>
+            <view class="map_0_1" catchtap="go_map" data-id="0"></view>
+            <view class="map_0_2" catchtap="go_map" data-id="0"></view>
+            <view class="map_1_0" catchtap="go_map" data-id="1"></view>
+            <view class="map_1_1" catchtap="go_map" data-id="1"></view>
+            <view class="map_2_0" catchtap="go_map" data-id="2"></view>
+            <view class="map_3_0" catchtap="go_map" data-id="3"></view>
+            <view class="map_4_0" catchtap="go_map" data-id="4"></view>
+            <view class="map_5_0" catchtap="go_map" data-id="5"></view>
+            <view class="map_5_1" catchtap="go_map" data-id="5"></view>
+        </view>
+        <!--玩法提醒-->
+        <view class="game-tips-layer" wx:if="{{showGameTips_flag}}" catchtap="closeGameTips">
+            <view class="game-tips"></view>
+        </view>
+    </view>
+</view>
+<musicControl/>

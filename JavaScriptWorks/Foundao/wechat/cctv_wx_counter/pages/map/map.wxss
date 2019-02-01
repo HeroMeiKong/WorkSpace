@@ -1,0 +1,101 @@
+/* pages/map/map.wxss */
+.map-box{
+  font-size: 0;
+  position: relative;
+}
+.map-img{
+  width: 100%;
+  position: relative;
+  z-index: 9;
+}
+.userInfo-box{
+  height: 258rpx;
+  position: fixed;
+  bottom: 10rpx;
+  left: 30rpx;
+  right: 30rpx;
+  z-index: 999;
+  background: white;
+  padding: 30rpx 24rpx 22rpx;
+  border-radius: 20rpx;
+}
+.userImg{
+  width: 110rpx;
+  height: 110rpx;
+  float: left;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.userInfo{
+  padding-left: 158rpx;
+  position: relative;
+}
+.online-person{
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size:20rpx;
+  color:rgba(66,124,30,1);
+  line-height:28rpx;
+}
+.userInfo h2{
+  display: block;
+  font-size: 28rpx;
+  color:rgba(82,122,46,1);
+  line-height:40rpx;
+  letter-spacing:1rpx;
+}
+.userInfo h3{
+  font-size:24rpx;
+  color:rgba(82,122,46,1);
+  line-height:33rpx;
+}
+.userInfo-btnbox{
+  position: absolute;
+  bottom: 0;
+  left: 24rpx;
+  right: 24rpx;
+  padding: 22rpx 0;
+  border-top: 1rpx solid #f2f2f2;
+}
+.userInfo-btnbox view{
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  text-align: center;
+  font-size:26rpx;
+  color:rgba(65,117,5,1);
+  line-height: 44rpx;
+  box-sizing: border-box;
+
+}
+.gotoRank{
+  background: url(https://s-js.sports.cctv.com/host/resource/map/rank-icon.png) no-repeat 55rpx center / auto 44rpx;
+  border-right: 1rpx solid #f2f2f2;
+}
+.changeRoad{
+  background: url(https://s-js.sports.cctv.com/host/resource/map/road-icon.png) no-repeat 50rpx center / 44rpx 44rpx;
+}
+.map_mark{
+  width: 90rpx;
+  height: 50rpx;
+  position: absolute;
+  background:url(https://s-js.sports.cctv.com/host/resource/map/address.png) no-repeat center / 90rpx 50rpx;
+  top: 1020rpx;
+  z-index: 10;
+  left: 435rpx;
+}
+.progress-box{
+  position: absolute;
+  left:0;
+  right:0;
+  z-index: 8;
+}
+.map_huanan{
+  background-color: #97892B;
+}
+.map_huanan .progress-box{
+  height: 80rpx;
+  background:#E8E48A;
+  bottom: 430rpx;
+}
