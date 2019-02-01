@@ -107,7 +107,8 @@
                         <cover-image class="button-item-icon"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1dianzan2@2x.png"
                                      wx:if="{{cur_video.is_zan==2}}" catchtap="dislike"></cover-image>
-                        <cover-view class="button-item-text">{{tools.numModel(cur_video.count_material_love_10)}}</cover-view>
+                        <cover-view class="button-item-text">{{tools.numModel(cur_video.count_material_love_10)}}
+                        </cover-view>
                     </cover-view>
                     <!--分享-->
                     <cover-view class="button-item share" catchtap="share">
@@ -124,8 +125,8 @@
                     <cover-view class="userinfo-box">
                         <cover-image class="user-head" src="{{cur_video.nick_pic}}" catchtap="goUser"></cover-image>
                         <cover-view class="user-name">{{tools.nameSub(cur_video.nick_name)}}</cover-view>
-                        <cover-view class="attention-box" wx:if="{{cur_video.is_follow==1}}" catchtap="fabulous"
-                                    hidden="{{cur_video.is_user==1}}">
+                        <cover-view class="attention-box" wx:if="{{cur_video.is_follow==1 && cur_video.is_user!=1}}"
+                                    catchtap="fabulous">
                             <!--<cover-image class="attention-icon"-->
                             <!--src="https://s-js.sports.cctv.com/host/resource/future/1gengduo@2x.png"></cover-image>-->
                             <cover-view class="attention-icon-text">+ 关注</cover-view>
@@ -146,6 +147,8 @@
                     <cover-view class="progress" style="width:{{progress*100}}%"></cover-view>
                 </cover-view>
 
+
+
                 <!--话题-->
                 <cover-view class="topic-box {{isIpx?'iphoneX-topic-box':''}}">
                     <!--话题icon-->
@@ -161,6 +164,9 @@
                             </cover-view>
                         </block>
                     </cover-view>
+
+                    <!--话题蒙版-->
+                    <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1mengban6_1.png" class="meng"></cover-image>
                 </cover-view>
 
                 <!--tabbar-->

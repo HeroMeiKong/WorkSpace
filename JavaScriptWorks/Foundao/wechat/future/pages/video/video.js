@@ -354,6 +354,9 @@ Page({
             success: (resp) => {
                 const {data} = resp;
                 if (parseInt(data.code) === 0) {
+                    if (data.data.length == 0) {
+                        this.goBack()
+                    }
                     const {width2, height2} = data.data;
                     var fit_temp = false;
                     if (width2 / height2 < 0.6) {
@@ -1046,4 +1049,17 @@ Page({
             url: '/pages/newYear/newYear'
         })
     },
+
+    join() {
+        if (this.data.cur_video.sub_title == app.globalData.wangchun_title) {
+            wx.navigateTo({
+                url: '/pages/newYear/newYear'
+            })
+        } else {
+            wx.switchTab({
+                url: '/pages/index/index'
+            })
+        }
+
+    }
 })

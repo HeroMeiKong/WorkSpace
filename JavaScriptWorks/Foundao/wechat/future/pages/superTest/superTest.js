@@ -740,8 +740,8 @@ Page({
                             ctx.setFillStyle('#FFD792');
                             ctx.setFontSize(13);
                             ctx.setTextBaseline('top')
-                            ctx.fillText('四小福送吉祥，想要喜提你的小福？', 118, 548);
-                            ctx.fillText('扫码开启偶邦湃友人工智能', 118, 564);
+                            ctx.fillText('长按小程序，一起来「逗牛短视频」', 118, 548);
+                            ctx.fillText('挑战大咖吧！', 118, 564);
                             ctx.draw(false, this.create_poster_image);
                         })
                     })

@@ -101,6 +101,11 @@ Page({
    */
   onShow: function () {
     console.log('onShow')
+      const options = {
+          op: 'pv',
+          wz: 'sprint_activity1',
+      }
+      app.statistics_pv(options)
     // wx.showTabBar();
     this.hideTabBar()
     console.log('shootsuccess')

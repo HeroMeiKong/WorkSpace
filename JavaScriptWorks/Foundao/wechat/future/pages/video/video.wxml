@@ -1,5 +1,5 @@
 <!--pages/video.wxml-->
-<wxs src="./../../utils/tool.wxs" module="tools" />
+<wxs src="./../../utils/tool.wxs" module="tools"/>
 
 <view class="videoItem-videoBox">
     <view class="video-box">
@@ -59,8 +59,11 @@
                 </cover-view>
             </cover-view>
 
+            <!--未授权情况下立即参与-->
+            <cover-image src="https://s-js.sports.cctv.com/host/resource/future/canyu@2x.png" class="join-btn" wx:if="{{noAuth}}"  catchtap="join"></cover-image>
+
             <!--覆盖框-->
-            <cover-view class="cover-box" bindtap="videoClick" wx:if="loaded">
+            <cover-view class="cover-box {{noAuth?'cover-box-noAuth':''}}" bindtap="videoClick" wx:if="loaded">
 
                 <cover-view class="back-btn  {{isIpx?'iphoneX-back-btn':''}}" catchtap="goBack">
                     <cover-image class="back-btn-img"
@@ -105,7 +108,7 @@
                 <!--</cover-view>-->
                 <!--播放按钮-->
                 <!--<cover-image class="play-btn" src="https://s-js.sports.cctv.com/host/resource/future/1play.png"-->
-                             <!--wx:if="{{!playing&&hasPlayed}}"></cover-image>-->
+                <!--wx:if="{{!playing&&hasPlayed}}"></cover-image>-->
 
                 <cover-view class="button-box" hidden="{{noAuth}}">
                     <!--挑战+喜欢+分享-->
@@ -136,7 +139,8 @@
                                      catchtap="dislike"
                                      src="https://s-js.sports.cctv.com/host/resource/future/1dianzan2@2x.png"
                                      wx:if="{{cur_video.is_zan!==1}}"></cover-image>
-                        <cover-view class="button-item-text">{{tools.numModel(cur_video.count_material_love_10)}}</cover-view>
+                        <cover-view class="button-item-text">{{tools.numModel(cur_video.count_material_love_10)}}
+                        </cover-view>
                     </cover-view>
                     <cover-view class="button-item share" catchtap="share" hidden="{{is_user&&examine!=3}}">
                         <cover-image class="button-item-icon share"
@@ -156,8 +160,9 @@
                     <cover-view class="userinfo-box">
                         <cover-image class="user-head" src="{{cur_video.nick_pic}}" catchtap="goUser"></cover-image>
                         <cover-view class="user-name">{{tools.nameSub(cur_video.nick_name)}}</cover-view>
-                        <cover-view class="attention-box" wx:if="{{cur_video.is_follow==1}}" catchtap="fabulous"
-                                    hidden="{{cur_video.is_user==1}}">
+                        <cover-view class="attention-box"
+                                    wx:if="{{cur_video.is_follow==1 && cur_video.is_user!=1 && !noAuth}}"
+                                    catchtap="fabulous">
                             <!--<cover-image class="attention-icon"-->
                             <!--src="https://s-js.sports.cctv.com/host/resource/future/1gengduo@2x.png"></cover-image>-->
                             <cover-view class="attention-icon-text">+ 关注</cover-view>

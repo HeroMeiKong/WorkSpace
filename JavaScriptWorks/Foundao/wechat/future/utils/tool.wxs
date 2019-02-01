@@ -16,7 +16,7 @@ var numModel = function (num) {
     // }
     else if (num >= 10000) {
         var t = num / 10000
-        return t.toFixed(1) + 'w'
+        return t.toFixed(1) + '万'
     }
 }
 module.exports = {

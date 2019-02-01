@@ -74,6 +74,7 @@ Page({
     originMovableview: {x: 10,y: 0},
     oldVideoSize: {width: 0,height: 0},
     previewpic: '', //视频截图加载失败，默认图片
+    photoFrame: 0,//上下相框位置
     photoFramePic: {top: '', bottom: ''},
     filters: [{filterdiv: 'chosefilterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-0.png',chose: '../../assets/images/2attention3@2x.png',name: '原画',id: 'none'},
               {filterdiv: 'filterdiv',ispic: '../../assets/images/2attention3@2x.png',nopic: '../../assets/filter/4filter-1.png',chose: '../../assets/filter/4filter-1.png',name: '秘语',id: 'vintage'},
@@ -224,15 +225,21 @@ Page({
           res.height > res.width ? computeMethod = 'height': computeMethod = 'width'
           let value = res.height/res.width
           if(computeMethod === 'height'){
+            //横屏视频
             that.data.picsize.height = windowHeight
             that.data.picsize.width = windowHeight/value
             that.data.previewsize.height = previewbox
             that.data.previewsize.width = previewbox/value
+            //设置上下相框位置
+            that.data.photoFrame = 0
           } else {
+            //横屏视频
             that.data.picsize.width = windowWidth
             that.data.picsize.height = windowWidth*value
             that.data.previewsize.width = previewbox
             that.data.previewsize.height = previewbox*value
+            //设置上下相框位置
+            that.data.photoFrame = (windowHeight - that.data.picsize.height)/2
           }
           wx.showToast({
             title: '选取视频成功',
@@ -245,7 +252,8 @@ Page({
             oldVideoSize: that.data.oldVideoSize,
             size: (res.size / (1024 * 1024)).toFixed(2),
             picsize: that.data.picsize,
-            previewsize: that.data.previewsize
+            previewsize: that.data.previewsize,
+            photoFrame: that.data.photoFrame
           })
           console.log(that.data.oldVideoSize)
           wx.showLoading({

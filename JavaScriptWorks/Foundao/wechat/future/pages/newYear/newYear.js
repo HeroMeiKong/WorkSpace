@@ -92,6 +92,11 @@ Page({
    */
   onShow: function () {
       app.isAuth(() => {
+          const options = {
+              op: 'pv',
+              wz: 'sprint_xuni_host',
+          }
+          app.statistics_pv(options)
           if (!this.data.hasInit) {
               console.log('未初始化')
               this.data.hasInit = true

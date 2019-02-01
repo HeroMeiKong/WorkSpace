@@ -19,9 +19,9 @@
           </block>
         </movable-area>
         <view class="previewpic">
-          <image style="width:{{picsize.width}}px;height:{{picsize.height*.59}}px;position:absolute;top:0;" src="{{photoFramePic.top}}"></image>
+          <image style="width:{{picsize.width}}px;height:{{picsize.height*.59}}px;position:absolute;top:{{photoFrame}}px;" src="{{photoFramePic.top}}"></image>
           <image style="width:{{picsize.width}}px;height:{{picsize.height}}px;" src="{{previewpic}}"></image>
-          <image style="width:{{picsize.width}}px;height:{{picsize.height*.5}}px;position:absolute;bottom:0;" src="{{photoFramePic.bottom}}"></image>
+          <image style="width:{{picsize.width}}px;height:{{picsize.height*.5}}px;position:absolute;bottom:{{photoFrame}}px;" src="{{photoFramePic.bottom}}"></image>
         </view>
         <!-- <view class="cover" style="display:{{showcover}}"></view>遮罩层 -->
       </view>
