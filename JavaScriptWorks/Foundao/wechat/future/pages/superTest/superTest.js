@@ -2,6 +2,7 @@
 const promisify = require('../../utils/promisify');
 import api from './../../config/api';
 import Tool from './../../utils/util';
+const app = getApp();
 
 let videoSrc = ''
 Page({
@@ -24,6 +25,7 @@ Page({
     cur_video: {},
     qr_code_url: '',
     canvas_poster_url: '',
+    isIpx:false,
   },
 
   /**
@@ -32,6 +34,11 @@ Page({
   onLoad: function (options) {
     console.log('onLoad')
     let that = this
+      app.isFullScreen(() => {
+          this.setData({
+              isIpx: true
+          })
+      })
     wx.getSystemInfo({
       success: function (res) {
         if (res.model.indexOf("iPhone X") > -1 || res.model.indexOf("iPhone11") > -1) {
@@ -269,6 +276,9 @@ Page({
       },
       fail: function (e) {
         console.log(e)
+        wx.navigateBack({
+          delta: 1
+        });
         that.setData({
           showFirst: 'flex',
           showCover: 'none',

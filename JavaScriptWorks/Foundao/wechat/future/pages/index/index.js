@@ -327,24 +327,24 @@ Page({
                 line_color: {"r": "255", "g": "255", "b": "255"},
                 is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
             },
-        // wxRequest({
-        //     url: api.poster_qrcode,
-        //     method: 'POST',
-        //     header: {
-        //         "auth-token": loginSessionKey
-        //     },
-        //     data: {
-        //         material_id: this.data.cur_video.video_uuid,
-        //         // material_id: '1',
-        //         path: '/pages/video/video?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
-        //         // path: 'pages/dubbing/dubbing',
-        //         // path: 'pages/video/video',
-        //         width: 188,           // 二维码的宽度
-        //         auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
-        //         line_color: {"r": "255", "g": "255", "b": "255"},
-        //         // line_color: {"r": "0", "g": "0", "b": "1"},
-        //         is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
-        //     },
+            // wxRequest({
+            //     url: api.poster_qrcode,
+            //     method: 'POST',
+            //     header: {
+            //         "auth-token": loginSessionKey
+            //     },
+            //     data: {
+            //         material_id: this.data.cur_video.video_uuid,
+            //         // material_id: '1',
+            //         path: '/pages/video/video?video_uuid=' + this.data.cur_video.video_uuid + '&id=' + this.data.cur_video.id,
+            //         // path: 'pages/dubbing/dubbing',
+            //         // path: 'pages/video/video',
+            //         width: 188,           // 二维码的宽度
+            //         auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+            //         line_color: {"r": "255", "g": "255", "b": "255"},
+            //         // line_color: {"r": "0", "g": "0", "b": "1"},
+            //         is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+            //     },
         }).then(resp => {
             const {code, data, msg} = resp.data;
             if (code === 0) {
@@ -1570,12 +1570,39 @@ Page({
         // this.playVideo()
     },
 
+    isWangchun() {
+        return (this.data.cur_video.sub_title == app.globalData.wangchun_title) ? true : false
+    },
+
+    isCecece() {
+        return (this.data.cur_video.sub_title == app.globalData.cecece_title) ? true : false
+    },
+
+    isPPP() {
+        return (this.data.cur_video.sub_title == app.globalData.ppp_title) ? true : false
+    },
+
+    openCecece() {
+        wx.navigateTo({
+            url: '/pages/superTest/superTest'
+        })
+    },
+
+    openPPP() {
+        wx.navigateTo({
+            url: '/pages/ppp/ppp'
+        })
+    },
 
     //关闭拍摄+本地上传浮层
     openDo() {
-        this.setData({
-            showDoLayer: true
-        })
+        if (this.isCecece()) {
+            this.openCecece()
+        } else {
+            this.setData({
+                showDoLayer: true
+            })
+        }
     },
     closeDo() {
         this.setData({

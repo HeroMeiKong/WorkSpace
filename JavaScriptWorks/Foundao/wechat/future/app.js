@@ -239,6 +239,8 @@ App({
         shareText: '我在逗牛短视频里玩配音拍视频，现在邀你来玩哦~',
         auth_again: false,
         default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',
-        wangchun_title: '央视虚拟主持人'
+        wangchun_title: '央视虚拟主持人',
+        cecece_title: '超级测测测',
+        ppp_title: '超级配配配'
     }
 })

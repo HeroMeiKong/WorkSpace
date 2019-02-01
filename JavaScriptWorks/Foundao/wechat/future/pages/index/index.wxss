@@ -12,11 +12,14 @@
     width: 100%;
     height: 100%;
     background-color: #000000;
+    position: absolute;
+    top:0;
+    left:0;
     /*background-image: url("https://s-js.sports.cctv.com/yyh/image/2018/08/29/7d662a177ea04286472ab7cf809b16a7.jpg");*/
     /*background-image: url("./../../bg.png");*/
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
+    /*background-position: center center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: contain;*/
 }
 
 .videoItem-videoBox video {
@@ -726,4 +729,12 @@ video{
 
 .do-upload{
     right:90rpx;
+}
+
+.meng{
+    position: absolute;
+    width: 619rpx;
+    /*height: 69rpx;*/
+    top:0;
+    left:100rpx;
 }

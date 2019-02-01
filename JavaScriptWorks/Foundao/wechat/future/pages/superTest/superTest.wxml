@@ -1,5 +1,5 @@
 <!--pages/superTest/superTest.wxml-->
-<view class="wrapper  {{models}}">
+<view class="wrapper  {{isIpx?'iphoneX':''}}">
   <backTitle noBack="{{false}}" title="超级测测测"></backTitle>
   <view class="page" style="display:{{showFirst}}">
     <view class="wrapperinner pageimg">

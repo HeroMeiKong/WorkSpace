@@ -174,7 +174,15 @@ Page({
     },
 
     isWangchun() {
-        return (this.data.top_info.sub_title == '央视虚拟主持人') ? true : false
+        return (this.data.top_info.sub_title == app.globalData.wangchun_title) ? true : false
+    },
+
+    isCecece() {
+        return (this.data.top_info.sub_title == app.globalData.cecece_title) ? true : false
+    },
+
+    isPPP() {
+        return (this.data.top_info.sub_title == app.globalData.ppp_title) ? true : false
     },
 
     // 获取视频列表
@@ -288,6 +296,10 @@ Page({
     rightNow() {
         if (this.isWangchun()) {
             this.openZhufu()
+        } else if (this.isCecece()) {
+            this.openCecece()
+        } else if (this.isPPP()) {
+            this.openPPP()
         } else {
             this.setData({
                 showChoose: true
@@ -298,6 +310,18 @@ Page({
     openZhufu() {
         wx.navigateTo({
             url: '/pages/newYear/newYear'
+        })
+    },
+
+    openCecece() {
+        wx.navigateTo({
+            url: '/pages/superTest/superTest'
+        })
+    },
+
+    openPPP() {
+        wx.navigateTo({
+            url: '/pages/ppp/ppp'
         })
     },
 

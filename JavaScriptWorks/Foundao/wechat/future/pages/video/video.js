@@ -966,9 +966,13 @@ Page({
 
     //关闭拍摄+本地上传浮层
     openDo() {
-        this.setData({
-            showDoLayer: true
-        })
+        if (this.isCecece()) {
+            this.openCecece()
+        } else {
+            this.setData({
+                showDoLayer: true
+            })
+        }
     },
     closeDo() {
         this.setData({
@@ -1061,5 +1065,25 @@ Page({
             })
         }
 
-    }
+    },
+
+    isCecece() {
+        return (this.data.cur_video.sub_title == app.globalData.cecece_title) ? true : false
+    },
+
+    isPPP() {
+        return (this.data.cur_video.sub_title == app.globalData.ppp_title) ? true : false
+    },
+
+    openCecece() {
+        wx.navigateTo({
+            url: '/pages/superTest/superTest'
+        })
+    },
+
+    openPPP() {
+        wx.navigateTo({
+            url: '/pages/ppp/ppp'
+        })
+    },
 })

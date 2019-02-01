@@ -16,7 +16,6 @@
                controls="{{false}}"
                autoplay="{{true}}"
                src="{{cur_video.video_url}}"
-               poster="{{cur_video.first_pic3||cur_video.pic}}"
                loop="{{true}}"
                id="video"
                objectFit="{{fit?'cover':'contain'}}"
@@ -151,6 +150,9 @@
 
                 <!--话题-->
                 <cover-view class="topic-box {{isIpx?'iphoneX-topic-box':''}}">
+                    <!--话题蒙版-->
+                    <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1mengban6_1.png" class="meng"></cover-image>
+
                     <!--话题icon-->
                     <cover-image class="topic-icon-box" catchtap="goSubject"
                                  src="https://s-js.sports.cctv.com/host/resource/future/1huati@2x_0.png"></cover-image>
@@ -165,8 +167,7 @@
                         </block>
                     </cover-view>
 
-                    <!--话题蒙版-->
-                    <cover-image src="https://s-js.sports.cctv.com/host/resource/future/1mengban6_1.png" class="meng"></cover-image>
+
                 </cover-view>
 
                 <!--tabbar-->

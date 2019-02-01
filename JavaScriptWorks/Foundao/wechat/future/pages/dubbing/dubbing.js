@@ -953,7 +953,7 @@ Page({
                     }
                 })
             } else {
-                // 直接保存
+                // 直接录音
                 this.start_record_real();
             }
         })
@@ -1000,7 +1000,7 @@ Page({
             setTimeout(() => {
                 // this.videoContext.seek(0);
                 this.data.recorderManager.start(this.data.options);
-            }, 0);
+            }, 100);
         })
     },
 
@@ -1628,7 +1628,7 @@ Page({
 
     //是否是配配配所属
     isPPP() {
-        if (this.data.video_detail.sub_title === "超级配配配") {
+        if (this.data.video_detail.sub_title === app.globalData.ppp_title) {
             return true
         } else {
             return false
