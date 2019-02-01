@@ -9,9 +9,10 @@
   z-index: 9;
 }
 .userInfo-box{
+  display: none;
   height: 258rpx;
   position: fixed;
-  bottom: 10rpx;
+  bottom: 170rpx;
   left: 30rpx;
   right: 30rpx;
   z-index: 999;
@@ -84,18 +85,54 @@
   top: 1020rpx;
   z-index: 10;
   left: 435rpx;
+  transition-delay: 1s;
 }
 .progress-box{
   position: absolute;
   left:0;
   right:0;
   z-index: 8;
+  transition: all 1s;
 }
 .map_huanan{
   background-color: #97892B;
 }
 .map_huanan .progress-box{
-  height: 80rpx;
   background:#E8E48A;
   bottom: 430rpx;
+}
+.map_xibei{
+  background: #FCE7B5;
+}
+.map_xibei .progress-box{
+  background-color: #A58650;
+  bottom: 470rpx;
+}
+.map_huabei{
+  background: #CDC264;
+}
+.map_huabei .progress-box{
+  background-color: #FFF17E;
+  bottom: 470rpx;
+}
+.map_dongbei{
+  background: #95D9FE;
+}
+.map_dongbei .progress-box{
+  background-color: #FFFFFF;
+  bottom: 464rpx;
+}
+.map_huadong{
+  background: #66A1FA;
+}
+.map_huadong .progress-box{
+  background-color: #F4FFAC;
+  bottom: 436rpx;
+}
+.map_xinan{
+  background: #FAD675;
+}
+.map_xinan .progress-box{
+  background-color: #705205;
+  bottom: 440rpx;
 }

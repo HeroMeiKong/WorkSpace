@@ -1,20 +1,28 @@
 <!--pages/question/question.wxml-->
 <view class="wrapper">
   <view class="inner">
-    <image class="brand" src="https://s-js.sports.cctv.com/host/resource/map/Qbrand.png"></image>
+    <view class="brand">{{brand[whichQuestion]}}</view>
     <view class="top">
       <view class="number"><view><font>{{whichQuestion+1}}</font>/5</view></view>
-      <view class="question">中国是人口大国，占据了世界首位，请问中国实际人口大约有多少？</view>
+      <view class="question">{{allQuestions[whichQuestion].body.description}}</view>
     </view>
     <view class="bottom">
       <block wx:for="{{options}}" wx:key="*this">
         <view class="options {{item.class}}" catch:tap="choose" id="{{item.id}}">
-          <view class="text">{{item.title}}</view>
-          <image src="{{item.pic}}" style="display:{{showOptions[index].show}}"></image>
+          <view class="text">{{item.item}}</view>
+          <image src="{{item.image}}" style="display:{{showOptions[index].show}}"></image>
         </view>
       </block>
     </view>
   </view>
   <view class="innercover" style="display:{{showinnercover}}">
+  </view>
+  <view class="cover" style="display:{{showCover}}">
+    <view class="bgcover">
+      <view class="tippic" style="background: url('{{tip.tippic}}') no-repeat;background-size: 100%;"></view>
+      <view class="tip">{{tip.tip}}</view>
+      <view class="title"><view class="left">错误：{{5-number}}</view><view class="right">正确：{{number}}</view></view>
+      <view class="title">{{tip.title}}</view>
+    </view>
   </view>
 </view>

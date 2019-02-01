@@ -11,11 +11,12 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "我为”两会“燃烧卡路里",
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {
-    "musicControl": "/component/musicControl/musicControl"
+    "musicControl": "/component/musicControl/musicControl",
+    "newsList": "/component/newsList/newsList"
   },
   "requiredBackgroundModes": [
     "audio"

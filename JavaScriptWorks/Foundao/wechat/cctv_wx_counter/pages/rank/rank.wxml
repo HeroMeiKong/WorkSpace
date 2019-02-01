@@ -12,7 +12,7 @@
             <text class="calorie_num">{{calorie_num}}</text>
         </view>
     </view>
-    <view wx:for="{{rank_arr}}" class="rank_content">
+    <view wx:for="{{rank_arr}}" class="rank_content"  wx:key="*this">
         <!--前三名-->
         <block wx:if="{{index < 3}}">
             <image class="left_icon"

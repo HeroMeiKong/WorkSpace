@@ -1,0 +1,67 @@
+/* component/newsList/newsList.wxss */
+.newsList-layer{
+    position: absolute;
+    z-index: 9;
+    top:0;
+    left: 0;
+    width: 100%;
+    padding-top: 175rpx;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,.6);
+}
+
+.newsList-box{
+    margin: 0 auto;
+    width: 560rpx;
+    height: 729rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/newsList-box.png");
+    background-size: cover;
+    padding: 85rpx 39rpx 0 39rpx;
+}
+
+.news-big-box{
+    width: 100%;
+    height: 279rpx;
+    box-sizing: border-box;
+    border: 5rpx solid #ffffff;
+    background-size: cover;
+    background-position: center center;
+}
+
+.news-small-box{
+    margin: 0 auto;
+    margin-top: 20rpx;
+    width: 100%;
+    height: 137rpx;
+    display: flex;
+    flex-direction: row;
+}
+
+.news-small-img{
+    width: 237rpx;
+    height: 100%;
+    box-sizing: border-box;
+    border: 5rpx solid #ffffff;
+    background-size: cover;
+    background-position: center center;
+}
+
+.news-small-text{
+    width: 245rpx;
+    height: 135rpx;
+    margin-left: 9rpx;
+    box-sizing: border-box;
+    font-size:20rpx;
+    font-family:PingFangSC-Medium;
+    color:rgba(80,128,36,1);
+    line-height:27rpx;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:5;
+}
+
+

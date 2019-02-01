@@ -7,6 +7,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: RGBA(135, 193, 83, 1);
+}
+
+.music{
+  width: 44rpx;
+  height: 44rpx;
+  position: fixed;
+  right: 46rpx;
+  top: 26rpx;
 }
 
 .inner{
@@ -21,8 +30,16 @@
   height: 120rpx;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  top: 20rpx;
+  transform: translate(-50%,-110%);
+  background: url('https://s-js.sports.cctv.com/host/resource/map/Qbrand.png') no-repeat;
+  background-size: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 10rpx;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color:rgba(255,255,255,1);
 }
 
 .top{
@@ -79,7 +96,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 60rpx;
+  padding: 0 50rpx;
 }
 
 .options .text{
@@ -88,6 +105,7 @@
   display: flex;
   justify-content: start;
   align-items: center;
+  font-size: 30rpx;
 }
 
 .options image{
@@ -103,4 +121,52 @@
   width: 690rpx;
   height: 900rpx;
   position: absolute;
+}
+
+.cover{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0,0,0,.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bgcover{
+  width: 560rpx;
+  height: 500rpx;
+  background-image: url('https://s-js.sports.cctv.com/host/resource/map/Group@2x.png');
+  background-repeat:  no-repeat;
+  background-size: contain;
+  transform: translateY(-150rpx);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tippic{
+  width: 140rpx;
+  height: 140rpx;
+  margin-bottom: 30rpx;
+}
+
+.tip{
+  font-size: 36rpx;
+  font-family: PingFangSC-Semibold;
+  font-weight: 600;
+  color:rgba(57,96,29,1);
+}
+
+.title{
+  width: 270rpx;
+  font-size: 30rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color:rgba(57,96,29,1);
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

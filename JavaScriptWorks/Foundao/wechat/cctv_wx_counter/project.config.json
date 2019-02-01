@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -56,12 +56,21 @@
 				{
 					"id": -1,
 					"name": "地图",
-					"pathName": "pages/map/map"
+					"pathName": "pages/map/map",
+					"query": ""
 				},
 				{
 					"id": -1,
 					"name": "答题页面",
-					"pathName": "pages/question/question"
+					"pathName": "pages/question/question",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "终点页",
+					"pathName": "pages/destination/destination",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

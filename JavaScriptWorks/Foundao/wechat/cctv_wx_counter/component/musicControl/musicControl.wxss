@@ -13,3 +13,6 @@
   background: url(https://s-js.sports.cctv.com/host/resource/map/icon-music.png) no-repeat center / 44rpx 44rpx;
   border-radius: 50%;
 }
+.playBM .close{
+  background: url(https://s-js.sports.cctv.com/host/resource/map/icon-music-close.png) no-repeat center / 44rpx 44rpx;
+}

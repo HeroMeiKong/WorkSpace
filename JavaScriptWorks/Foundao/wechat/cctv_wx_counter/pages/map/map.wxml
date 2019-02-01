@@ -1,12 +1,58 @@
 <!--pages/map/map.wxml-->
 <scroll-view class='map-box'>
-  <view class='map_huanan'>
+  <!--西北区地图-->
+  <view class='map_xibei' wx:if="{{ mapType === 1 }}">
+    <image
+    class='map-img'
+    mode='widthFix'
+    src='https://s-js.sports.cctv.com/host/resource/map/map_xibei.png'></image>
+    <view class='progress-box' style='height:{{mapHeight}}'></view>
+    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+  </view>
+  <!--华北区地图-->
+  <view class='map_huabei' wx:elif="{{ mapType === 2}}">
+    <image
+    class='map-img'
+    mode='widthFix'
+    src='https://s-js.sports.cctv.com/host/resource/map/map_huabei.png'></image>
+    <view class='progress-box' style='height:{{mapHeight}}'></view>
+    <view class='map_mark'  style='top:{{marskTop}};left:{{marskLeft}}'></view>
+  </view>
+  <!--东北区地图-->
+  <view class='map_dongbei' wx:elif="{{ mapType === 3}}">
+    <image
+    class='map-img'
+    mode='widthFix'
+    src='https://s-js.sports.cctv.com/host/resource/map/map_dongbei.png'></image>
+    <view class='progress-box' style='height:{{mapHeight}}'></view>
+    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+  </view>
+  <!--华东区地图-->
+  <view class='map_huadong' wx:elif="{{ mapType === 4}}">
+    <image
+    class='map-img'
+    mode='widthFix'
+    src='https://s-js.sports.cctv.com/host/resource/map/map_huadong.png'></image>
+    <view class='progress-box' style='height:{{mapHeight}}'></view>
+    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+  </view>
+  <!--华南区地图-->
+  <view class='map_huanan' wx:elif="{{ mapType === 5}}">
     <image
     class='map-img'
     mode='widthFix'
     src='https://s-js.sports.cctv.com/host/resource/map/map_huanan.png'></image>
-    <view class='progress-box'></view>
-    <view class='map_mark'>123</view>
+    <view class='progress-box' style='height:{{mapHeight}}'></view>
+    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+  </view>
+  <!--西南区地图-->
+  <view class='map_xinan' wx:elif="{{ mapType === 6}}">
+    <image
+    class='map-img'
+    mode='widthFix'
+    src='https://s-js.sports.cctv.com/host/resource/map/map_xinan.png'></image>
+    <view class='progress-box' style='height:{{mapHeight}}'></view>
+    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
 </scroll-view>
 <!--用户信息-->

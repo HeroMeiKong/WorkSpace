@@ -1,2 +1,14 @@
 <!--pages/destination/destination.wxml-->
-<text>pages/destination/destination.wxml</text>
+<view class="destination_box">
+    <canvas canvas-id="myCanvas"
+            hidden="hidden"></canvas>
+    <view class="destination_topBox">
+        <view class="destination_num">{{num}}</view>
+    </view>
+    <view class="destination_btn ask_btn"
+          bindtap="askBtn">向部长提问</view>
+    <view class="destination_btn accept_btn"
+          bindtap="acceptBtn">马上领奖</view>
+    <view class="save_btn"
+          bindtap="saveImg"></view>
+</view>

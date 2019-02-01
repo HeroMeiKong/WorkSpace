@@ -1,4 +1,6 @@
 // pages/question/question.js
+const tippic = {right: 'https://s-js.sports.cctv.com/host/resource/map/Qright1.png',wrong:'https://s-js.sports.cctv.com/host/resource/map/Qwrong1.png'}
+const tip = {right: '恭喜您',wrong:'太遗憾了'}
 Page({
 
   /**
@@ -6,20 +8,25 @@ Page({
    */
   data: {
     whichQuestion: 0,
-    options: [{id: 1, title: 'A.10亿', pic: 'https://s-js.sports.cctv.com/host/resource/map/Qwrong2.png',class: 'nochoose',is_right: 0},
-              {id: 2, title: 'A.10亿', pic: 'https://s-js.sports.cctv.com/host/resource/map/Qwrong2.png',class: 'nochoose',is_right: 0},
-              {id: 3, title: 'A.10亿', pic: 'https://s-js.sports.cctv.com/host/resource/map/Qright2.png',class: 'nochoose',is_right: 1},
-              {id: 4, title: 'A.10亿', pic: 'https://s-js.sports.cctv.com/host/resource/map/Qwrong2.png',class: 'nochoose',is_right: 0}],
-    showOptions: [{show: 'none'},{show: 'none'},{show: 'none'},{show: 'none'}],
-    allQuestions: [],
-    showinnercover: 'none'
+    brand: ['第一题','第二题','第三题','第四题','第五题'],
+    options: [],//选项
+    showOptions: [{show: 'none'},{show: 'none'},{show: 'none'},{show: 'none'}],//各选项后图标的显示与隐藏
+    allQuestions: [],//所有问题
+    showinnercover: 'none',
+    showCover: 'none',
+    tip: {tippic: '',tip: '',title: ''},
+    number: 0,//答对几道题
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.data.number = 0
+    this.setData({
+      number: this.data.number,
+      showCover: 'none',
+    })
   },
 
   /**
@@ -34,10 +41,18 @@ Page({
    */
   onShow: function () {
     wx.request({
-      url: 'https://common.itv.cntv.cn/answer/detail/42326',
+      url: 'https://common.itv.cctv.com/answer/detail/?iid=99023',//'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
       header: {'content-type':'application/json'},
       success: (res)=>{
-        console.log(res)
+        this.data.allQuestions = res.data.data.questions
+        console.log(this.data.allQuestions)
+        const length = res.data.data.questions.length
+        //设置题目
+        this.resetQuestion()
+        this.setData({
+          allQuestions: this.data.allQuestions,
+          options: this.data.options
+        })
       },
       fail: ()=>{},
       complete: ()=>{}
@@ -68,9 +83,15 @@ Page({
   choose (e) {
     console.log('choose')
     console.log(e.currentTarget.id)
-    this.data.options[e.currentTarget.id-1].class = 'choose'
-    this.data.showOptions[e.currentTarget.id-1].show = 'flex'
-    this.findAnswer(this.data.whichQuestion)
+    let which = 0
+    for(let i=0;i<4;i++){
+      if(this.data.options[i].id === e.currentTarget.id){
+        this.data.options[i].class = 'choose'
+        this.data.showOptions[i].show = 'flex'
+        which = i
+      }
+    }
+    this.findAnswer(which)
     this.delayReplace()
     this.setData({
       options: this.data.options,
@@ -78,37 +99,74 @@ Page({
     })
   },
   //重制题目
-  resetQuestion (e) {
+  resetQuestion () {
     console.log('resetQuestion')
-    this.data.options = this.data.allQuestions[this.data.whichQuestion]
+    this.data.options = this.data.allQuestions[this.data.whichQuestion].options
+    console.log(this.data.options)
+    console.log(this.data.whichQuestion)
+    for(let j=0;j<4;j++){
+      if(this.data.options[j].is_right === '1'){
+        this.data.options[j].image = 'https://s-js.sports.cctv.com/host/resource/map/Qright2.png'
+      } else {
+        this.data.options[j].image = 'https://s-js.sports.cctv.com/host/resource/map/Qwrong2.png'
+      }
+      this.data.options[j].class = 'nochoose'
+    }
+    this.setData({
+      showinnercover: 'none',
+      options: this.data.options,
+      showOptions: [{show: 'none'},{show: 'none'},{show: 'none'},{show: 'none'}],
+    })
   },
   //下一题
   nextQuestion () {
     console.log('nextQuestion')
     if(this.data.whichQuestion < 4){
       //不是最后一题
-      this.resetQuestion()
       this.data.whichQuestion++
+      this.resetQuestion()
     } else {
       //最后一题
+      if(this.data.number === 0){
+        //全错
+        this.data.tip.tippic = tippic.wrong
+        this.data.tip.tip = tip.wrong
+        this.data.tip.title = '别灰心，再接再厉，继续前进'
+      } else {
+        //至少答对一道
+        this.data.tip.tippic = tippic.right
+        this.data.tip.tip = tip.right
+        this.data.tip.title = '成功燃烧'+ this.data.number*10 +'卡路里'
+      }
+      this.setData({
+        tip: this.data.tip,
+        showCover: 'flex',
+      })
     }
     this.setData({
-      whichQuestion: this.data.whichQuestion
+      whichQuestion: this.data.whichQuestion,
     })
   },
   //找出正确的选项
   findAnswer (which) {
     console.log('findAnswer')
     if(this.data.options[which].is_right === '1'){
-
+      //直接下一题
+      //答对加一
+      this.data.number++
     } else {
+      //显示正确答案
       for(let i=0;i<4;i++){
         if(this.data.options[i].is_right === '1'){
+          console.log(this.data.options[i].is_right)
           this.data.options[i].class = 'choose'
           this.data.showOptions[i].show = 'flex'
         }
       }
     }
+    this.setData({
+      number: this.data.number
+    })
   },
   //延迟替换题目
   delayReplace () {

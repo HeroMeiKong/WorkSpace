@@ -7,7 +7,7 @@
     background-size: 100% 100%;
     z-index: 1;
     position: relative;
-    padding-top: 72rpx;
+    padding-top: 85rpx;
     box-sizing: border-box;
 }
 
