@@ -86,7 +86,7 @@
 }
 
 .options{
-  width: 530rpx;
+  width: 620rpx;
   height: 100rpx;
   border-radius: 60rpx;
   background-color: RGBA(236, 255, 219, 1);
@@ -100,7 +100,7 @@
 }
 
 .options .text{
-  width: 320rpx;
+  width: 476rpx;
   height:100rpx;
   display: flex;
   justify-content: start;
@@ -109,8 +109,8 @@
 }
 
 .options image{
-  width: 90rpx;
-  height: 90rpx;
+  width: 44rpx;
+  height: 44rpx;
 }
 
 .choose{

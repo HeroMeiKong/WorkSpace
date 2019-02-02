@@ -1,5 +1,5 @@
 // pages/question/question.js
-const tippic = {right: 'https://s-js.sports.cctv.com/host/resource/map/Qright1.png',wrong:'https://s-js.sports.cctv.com/host/resource/map/Qwrong1.png'}
+const tippic = {right: 'https://s-js.sports.cctv.com/host/resource/map/Qright1.png',wrong:'https://s-js.sports.cctv.com/host/resource/map/Qwrong2.png'}
 const tip = {right: '恭喜您',wrong:'太遗憾了'}
 Page({
 
@@ -108,7 +108,7 @@ Page({
       if(this.data.options[j].is_right === '1'){
         this.data.options[j].image = 'https://s-js.sports.cctv.com/host/resource/map/Qright2.png'
       } else {
-        this.data.options[j].image = 'https://s-js.sports.cctv.com/host/resource/map/Qwrong2.png'
+        this.data.options[j].image = 'https://s-js.sports.cctv.com/host/resource/map/Qwrong1.png'
       }
       this.data.options[j].class = 'nochoose'
     }
