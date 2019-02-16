@@ -18,6 +18,7 @@ Page({
      */
     onLoad: function (options) {
         //this.onMusicTap(); //进入页面创建背景音乐
+        console.log('onLoad')
         wx.login({
             timeout: 10000,
             success: (result) => {
@@ -30,22 +31,60 @@ Page({
                         wx.getWeRunData({
                             success(res0) {
                                 const encryptedData = res0.encryptedData
-                                console.log('encryptedData')
-                                console.log(encryptedData)
+                                const iv = res0.iv
                                 wx.request({
                                     url: api.getUserCalorie,
                                     data: {
                                         code: result.code,
                                         encryptedData: encryptedData,
-                                        iv: res0.iv,
+                                        iv: iv,
                                         wx_sign: signature
                                     },
-                                    header: {'content-type':'application/x-www-form-urlencoded'},
+                                    header: {
+                                        'content-type':'application/x-www-form-urlencoded',
+                                        'auth-token': wx.getStorageSync('loginSessionKey')
+                                    },
                                     method: 'POST',
                                     success: (re)=>{
                                         console.log('re')
                                         app.globalData.steps = re.data.data
                                         console.log(app.globalData.steps)
+                                        //发送后端请求你处理
+                                        wx.login({
+                                            timeout: 10000,
+                                            success: (result0) => {
+                                                wx.getUserInfo({
+                                                    success(res) {
+                                                        const signature = res.signature
+                                                        wx.getWeRunData({
+                                                            success(res0) {
+                                                                wx.request({
+                                                                    url: api.backGetUserCalorie,
+                                                                    data: {
+                                                                        code: result0.code,
+                                                                        encryptedData: encryptedData,
+                                                                        iv: iv,
+                                                                        wx_sign: signature
+                                                                    },
+                                                                    header: {
+                                                                        'content-type':'application/x-www-form-urlencoded',
+                                                                        'auth-token': wx.getStorageSync('loginSessionKey')
+                                                                    },
+                                                                    method: 'POST',
+                                                                    success: (re)=>{
+                                                                        console.log(re)
+                                                                    },
+                                                                    fail: ()=>{},
+                                                                    complete: ()=>{}
+                                                                });
+                                                            }
+                                                        })
+                                                    }
+                                                  })
+                                            },
+                                            fail: () => {},
+                                            complete: () => {}
+                                        });
                                     },
                                     fail: ()=>{},
                                     complete: ()=>{}
@@ -58,19 +97,21 @@ Page({
             fail: () => {},
             complete: () => {}
         });
+        
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
+        console.log('onReady')
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        console.log('onShow')
         this.isFisrt()
         app.isAuth(() => {
             //统计
