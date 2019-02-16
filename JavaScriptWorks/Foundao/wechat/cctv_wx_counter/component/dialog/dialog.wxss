@@ -1,0 +1,89 @@
+.dialog_root {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6031);
+}
+
+.dialog_box {
+    position: absolute;
+    top: 245rpx;
+    left: 95rpx;
+    width: 560rpx;
+    height: 600rpx;
+    background-size: 100% 100%;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+.dialog_box1 {
+    padding-top: 224rpx;
+}
+
+.dialog_box2 {
+    padding-top: 231rpx;
+}
+
+.dialog_box3 {
+    padding-top: 246rpx;
+}
+
+.dialogBtn {
+    position: absolute;
+    font-size: 32rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #FFFFFF;
+    padding-top: 22rpx;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.dialog_btn {
+    left: 50%;
+    bottom: 70rpx;
+    transform: translate(-50%,0);
+    width: 300rpx;
+    height: 98rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/bounced_btn.png");
+    background-size: 100% 100%;
+}
+
+.dialog_btn_left {
+    left: 37rpx;
+    bottom: 70rpx;
+    width: 230rpx;
+    height: 98rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/bounced_btn_0.png");
+    background-size: 100% 100%;
+}
+
+.dialog_btn_right {
+    right: 37rpx;
+    bottom: 70rpx;
+    width: 230rpx;
+    height: 98rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/bounced_btn_0.png");
+    background-size: 100% 100%;
+}
+
+.dialog_title {
+    text-align: center;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    color: #39601D;
+    font-size: 36rpx;
+    line-height: 60rpx;
+    margin-bottom: 20rpx;
+}
+
+.dialog_content {
+    text-align: center;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #39601D;
+    font-size: 30rpx;
+    line-height: 44rpx;
+}

@@ -1,20 +1,63 @@
 // pages/index/index.js
+import api from './../../config/api';
+const app = getApp()
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        showRule_flag: false,//显示游戏规则
-        showGameTips_flag: false,//显示游戏提示
+        hasInit: false, //是否初始化
+        showRule_flag: false, //显示游戏规则
+        showGameTips_flag: false, //显示游戏提示
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-      this.onMusicTap();//进入页面创建背景音乐
-  
+        //this.onMusicTap(); //进入页面创建背景音乐
+        wx.login({
+            timeout: 10000,
+            success: (result) => {
+                console.log('result')
+                console.log(result)
+                wx.getUserInfo({
+                    success(res) {
+                        const signature = res.signature
+                        app.globalData.userInfo = res.userInfo
+                        wx.getWeRunData({
+                            success(res0) {
+                                const encryptedData = res0.encryptedData
+                                console.log('encryptedData')
+                                console.log(encryptedData)
+                                wx.request({
+                                    url: api.getUserCalorie,
+                                    data: {
+                                        code: result.code,
+                                        encryptedData: encryptedData,
+                                        iv: res0.iv,
+                                        wx_sign: signature
+                                    },
+                                    header: {'content-type':'application/x-www-form-urlencoded'},
+                                    method: 'POST',
+                                    success: (re)=>{
+                                        console.log('re')
+                                        app.globalData.steps = re.data.data
+                                        console.log(app.globalData.steps)
+                                    },
+                                    fail: ()=>{},
+                                    complete: ()=>{}
+                                });
+                            }
+                        })
+                    }
+                  })
+            },
+            fail: () => {},
+            complete: () => {}
+        });
     },
 
     /**
@@ -29,6 +72,15 @@ Page({
      */
     onShow: function () {
         this.isFisrt()
+        app.isAuth(() => {
+            //统计
+            if (!this.data.hasInit) {
+                console.log('未初始化')
+                this.data.hasInit = true
+            } else {
+                console.log('已初始化')
+            }
+        })
     },
 
     /**
@@ -98,6 +150,12 @@ Page({
         wx.showToast({
             title: '您选择了线路' + map_id
         })
+        wx.navigateTo({
+            url: '/pages/map/map',
+            success: (result)=>{
+                app.globalData.map_id = map_id
+            },
+        });
     },
 
     //判断用户是否第一次打开app
@@ -110,21 +168,20 @@ Page({
     },
 
     /*创建背景音乐*/
-    onMusicTap() {
-    const backgroundAudioManager = wx.getBackgroundAudioManager()
-    backgroundAudioManager.title = '此时此刻';
-    backgroundAudioManager.epname = '此时此刻';
-    backgroundAudioManager.singer = '许巍';
-    backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000';
-    // 设置了 src 之后会自动播放
-    backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46';
-    backgroundAudioManager.play();
-    backgroundAudioManager.onPlay(() => {
-      console.log("音乐播放开始");
-    })
-    backgroundAudioManager.onEnded(() => {
-      console.log("音乐播放结束");
-    })
-  }
-
+    // onMusicTap() {
+    //     const backgroundAudioManager = wx.getBackgroundAudioManager()
+    //     backgroundAudioManager.title = '此时此刻';
+    //     backgroundAudioManager.epname = '此时此刻';
+    //     backgroundAudioManager.singer = '许巍';
+    //     backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000';
+    //     // 设置了 src 之后会自动播放
+    //     backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46';
+    //     backgroundAudioManager.play();
+    //     backgroundAudioManager.onPlay(() => {
+    //         console.log("音乐播放开始");
+    //     })
+    //     backgroundAudioManager.onEnded(() => {
+    //         console.log("音乐播放结束");
+    //     })
+    // }
 })

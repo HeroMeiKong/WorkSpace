@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+      onlinePerson:41987,//在线人数
+      totalCalorie:0,//总卡路里
       mapHeight:'0rpx',//进度条高度
       marskTop:'0rpx',//marsk标记top值
       marskLeft: '0rpx',//marsk标记Left值
@@ -90,6 +92,14 @@ Page({
           { height: "840rpx", top: "252rpx", left: "364rpx" },
           { height: "1000rpx", top: "130rpx", left: "170rpx" }, 
         ]
+      },
+      mapSpecial:{
+        xibeiSpecial:['https://s-js.sports.cctv.com/host/resource/map/end-btnBg.png'],
+        huabeiSpecial:[],
+        dongbeiSpecial:[],
+        huadongSpecial:[],
+        huananSpecial:[],
+        xinanSpecial:[]
       }
   },
 

@@ -58,19 +58,79 @@
 <!--用户信息-->
 <view class='userInfo-box'>
   <view>
-    <image 
+    <image
       class='userImg'
       src='https://s-js.sports.cctv.com/host/resource/map/headerImg.png'
     ></image>
     <view class='userInfo'>
-      <view class='online-person'>在线用户：41987</view>
+      <view class='online-person'>在线用户：{{onlinePerson}}</view>
       <h2>Robert Martin</h2>
-      <h3>累积贡献0卡路里，现在出发！</h3>
+      <h3>累积贡献{{totalCalorie}}卡路里，现在出发！</h3>
     </view>
     <view class='userInfo-btnbox'>
       <view class='gotoRank' catchtap='gotoRank'>查看排行榜</view>
       <view class='changeRoad' catchtap='changeRoad'>更换路线</view>
     </view>
+  </view>
+</view>
+
+<!--加速卡-->
+<view class='maskLayer acceleratorMask'>
+  <view class='accelerator'>
+    <view class='accelerator-view-first'>恭喜你</view>
+    <view>可以快速前进一站啦！</view>
+  </view>
+</view>
+<!--还差多少未到-->
+<view class='maskLayer notArrivedMask'>
+  <view class='notArrived'>
+    <view class='notArrived-view-first'>昨日还差600卡路里</view>
+    <view>就能到达“松原”站啦！</view>
+    <view>快去答题吧</view>
+    <view class='notArrived-btn-box'>
+        按钮
+    </view>
+  </view>
+</view>
+<!--到达某地-->
+<view class='maskLayer arrivedWhereMask'>
+  <view class='arrivedWhere'>
+    <view class='arrivedWhere-first-view'>恭喜你</view>
+    <view>到达“松原”站</view>
+    <view class='arrivedWhere-btn-box'>
+      <view class='btn-item'>去答题</view>
+      <view class='btn-item'>看热点</view>
+    </view>
+  </view>
+</view>
+<!--倒数第二站提示-->
+<view class="maskLayer lastSecondMask">
+  <view class="lastSecond">
+    <view class="lastSecond-first-view">恭喜你</view>
+    <view>距离终点仅剩一站，快去答题吧！</view>
+    <view class="lastSecond-btn">去答题</view>
+  </view>
+</view>
+
+<!--特殊站点-->
+<view class='maskLayer speacialMask'>
+  <view class='speacial'>
+    <canvas class='speacialCanvas' id='speacialCanvas'></canvas>
+    <view class='saveSpeacialPost'>保存海报</view>
+  </view>
+  <view class='speacial-btn-box'>
+    <view class='btn-item'>去答题</view>
+    <view class='btn-item'>看热点</view>
+  </view>
+</view>
+
+<!--终点-->
+<view class='endPlacebox'>
+  <canvas id="endPlace" class="endPlace"></canvas>
+  <view class="saveEndPoster">保存海报</view>
+  <view class="endPlace-btn">
+    <view class="askQuestion">向部长提问</view>
+    <view class="getAward">马上领奖</view>
   </view>
 </view>
 <musicControl/>

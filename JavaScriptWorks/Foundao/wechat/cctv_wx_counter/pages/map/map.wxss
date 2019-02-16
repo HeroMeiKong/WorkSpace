@@ -9,7 +9,7 @@
   z-index: 9;
 }
 .userInfo-box{
-  display: none;
+  /* display: none; */
   height: 258rpx;
   position: fixed;
   bottom: 170rpx;
@@ -135,4 +135,210 @@
 .map_xinan .progress-box{
   background-color: #705205;
   bottom: 440rpx;
+}
+.maskLayer{
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .4);
+}
+.accelerator{
+  position: relative;
+  background:url(https://s-js.sports.cctv.com/host/resource/map/accelerator-pop.png) no-repeat center / 560rpx 680rpx;
+  /* background: #95D9FE; */
+  width: 560rpx;
+  height: 680rpx;
+  margin: 200rpx 95rpx 0;
+  text-align: center;
+  color: #39601D;
+  overflow: hidden;
+  font-size: 30rpx;
+}
+.accelerator-view-first{
+  font-size: 36rpx;
+  font-weight: bold;
+  margin: 424rpx 0 40rpx;
+}
+.notArrived{
+  width: 560rpx;
+  height: 600rpx;
+   background:url(https://s-js.sports.cctv.com/host/resource/map/pop-bg2.png) no-repeat center / 560rpx 600rpx;
+  /* background: #95D9FE; */
+  margin: 250rpx 95rpx 0;
+  overflow: hidden;
+  text-align: center;
+  color: #39601D;
+  line-height: 1.5;
+  font-size: 30rpx;
+}
+.notArrived-view-first{
+  margin: 244rpx 0 20rpx;
+  line-height: 1.5;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.notArrived-btn-box{
+  margin-top: 40rpx;
+}
+.arrivedWhere{
+  width: 560rpx;
+  height: 600rpx;
+  background:url(https://s-js.sports.cctv.com/host/resource/map/pop-bg.png) no-repeat center / 560rpx 600rpx;
+  margin: 250rpx 95rpx 0;
+  color: #39601D;
+  text-align: center;
+  font-size: 30rpx;
+  overflow: hidden;
+}
+.arrivedWhere-first-view{
+  font-weight: bold;
+  font-size: 36rpx;
+  margin: 230rpx 0 20rpx;
+}
+.arrivedWhere-btn-box{
+  margin: 76rpx 0 0;
+}
+.arrivedWhere-btn-box .btn-item{
+  display: inline-block;
+  vertical-align: top;
+  width: 230rpx;
+  text-align: center;
+  line-height: 98rpx;
+  height: 98rpx;
+}
+.arrivedWhere-btn-box .btn-item:nth-of-type(1){
+  margin-right: 25rpx;
+}
+.speacial{
+  margin: 40rpx auto 0;
+  width: 520rpx;
+  height: 910rpx;
+  position: relative;
+}
+.speacialCanvas{
+  display: block !important;
+  width: 520rpx;
+  height: 910rpx;
+  background: white;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+.saveSpeacialPost{
+  position: absolute;
+  font-size: 0;
+  left: 170rpx;
+  bottom: 34rpx;
+  width: 178rpx;
+  height: 54rpx;
+  z-index: 100rpx;
+  background: url(https://s-js.sports.cctv.com/host/resource/map/savePic.png) no-repeat center / 100% 100%;
+}
+.speacial-btn-box{
+  text-align: center;
+  margin-top: 20rpx;
+}
+.speacial-btn-box .btn-item{
+  display: inline-block;
+  vertical-align: top;
+  width: 230rpx;
+  text-align: center;
+  line-height: 90rpx;
+  height: 98rpx;
+  background: url(https://s-js.sports.cctv.com/host/resource/map/bounced_btn_0.png) no-repeat center / 100% ;
+  font-size: 32rpx;
+  color: white;
+}
+.speacial-btn-box  .btn-item:nth-of-type(1){
+  margin-right: 55rpx;
+}
+.lastSecond{
+  width: 560rpx;
+  height: 600rpx;
+  background:url(https://s-js.sports.cctv.com/host/resource/map/pop-bg2.png) no-repeat center / 560rpx 600rpx;
+  margin: 250rpx 95rpx 0;
+  overflow: hidden;
+  text-align: center;
+  color: #39601D;
+  line-height: 1.5;
+  font-size: 30rpx;
+}
+.lastSecond-first-view{
+  font-size: 36rpx;
+  font-weight: bold;
+  margin: 250rpx auto 20rpx;
+}
+.lastSecond-btn{
+  width: 300rpx;
+  height: 98rpx;
+  margin: 40rpx auto 0;
+  /*background-color: darkgrey;*/
+  line-height: 98rpx;
+  text-align: center;
+}
+.endPlacebox{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #FFF;
+  text-align: center;
+}
+.endPlace-btn{
+  position: absolute;
+  bottom: 130rpx;
+  left: 0;
+  right: 0;
+}
+.endPlace{
+  display: block !important;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+.endPlace-btn view{
+  display: inline-block;
+  vertical-align: top;
+  width: 300rpx;
+  height: 98rpx;
+  text-align: center;
+  color: #527A2E;
+  font-size: 32rpx;
+  line-height: 86rpx;
+  background:url(https://s-js.sports.cctv.com/host/resource/map/end-btnBg.png) no-repeat center / 100% 100% ;
+}
+.endPlace-btn view:nth-of-type(1){
+  margin-right: 50rpx;
+}
+.saveEndPoster{
+  background: url(https://s-js.sports.cctv.com/host/resource/map/savePic.png) no-repeat center / 100% 100%;
+  width: 178rpx;
+  height: 54rpx;
+  font-size: 0;
+  position: absolute;
+  left: 300rpx;
+  bottom: 40rpx;
+}
+
+.lastSecondMask{
+  display: none;
+}
+.acceleratorMask{
+  display: none;
+}
+.notArrivedMask{
+  display: none;
+}
+.arrivedWhereMask{
+  display: none;
+}
+.speacialMask{
+  display: none;
+}
+.endPlacebox{
+  display: none;
 }

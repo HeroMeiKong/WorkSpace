@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isDialog :false,
     num : 1,
     poster_url : '', //海报地址
   },
@@ -178,5 +179,7 @@ Page({
   //领奖
   acceptBtn() {
     console.log('领奖')
+    this.setData({isDialog:true})
   },
+
 })

@@ -16,7 +16,8 @@
   },
   "usingComponents": {
     "musicControl": "/component/musicControl/musicControl",
-    "newsList": "/component/newsList/newsList"
+    "newsList": "/component/newsList/newsList",
+    "dialog": "/component/dialog/dialog"
   },
   "requiredBackgroundModes": [
     "audio"

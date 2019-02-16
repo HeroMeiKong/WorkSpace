@@ -1,0 +1,31 @@
+<view class="dialog_root" wx:if="{{isDialog}}">
+    <view class="dialog_box dialog_box1"
+          wx:if="{{dialog_type==1}}"
+          style="background-image: url({{lineBg}})">
+        <view class="dialog_title">昨日还差{{calorieNum}}卡路里</view>
+        <view class="dialog_content">就能到达“{{siteName}}”站啦！</view>
+        <view class="dialog_content">快去答题吧！</view>
+        <view class="dialogBtn dialog_btn"
+              bindtap="toAnswer">去答题</view>
+    </view>
+    <view class="dialog_box dialog_box2"
+          wx:if="{{dialog_type==2}}"
+          style="background-image: url({{siteBg}})">
+        <view class="dialog_title">恭喜您</view>
+        <view class="dialog_content">到达“{{siteName}}”站</view>
+        <view class="dialogBtn dialog_btn_left"
+              bindtap="toAnswer">去答题</view>
+        <view class="dialogBtn dialog_btn_right"
+              bindtap="viewNews"
+        >看热点</view>
+    </view>
+    <view class="dialog_box dialog_box3"
+          wx:if="{{dialog_type==3}}"
+          style="background-image: url({{lineBg}})">
+        <view class="dialog_title">恭喜您</view>
+        <view class="dialog_content">距离终点仅剩一站，快去答题吧！</view>
+        <view class="dialogBtn dialog_btn"
+              bindtap="toAnswer">去答题</view>
+    </view>
+</view>
+<newsList wx:if="{{isNewsList}}"/>
