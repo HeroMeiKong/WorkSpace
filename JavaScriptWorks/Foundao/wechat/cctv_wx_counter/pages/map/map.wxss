@@ -43,6 +43,10 @@
 .userInfo h2{
   display: block;
   font-size: 28rpx;
+    width: 60%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   color:rgba(82,122,46,1);
   line-height:40rpx;
   letter-spacing:1rpx;
@@ -338,7 +342,7 @@
   display: none;
 }
 .specialMask{
-  display: none;
+  display: block;
 }
 .endPlacebox{
   display: none;

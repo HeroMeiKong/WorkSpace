@@ -42,8 +42,8 @@
             <view class="authorizeFailTitle">温馨提示</view>
             <view class="authorizeFailText">请关注微信运动并授权</view>
             <view class="authorizeFailText">即可参与活动哦～</view>
-            <navigator class="exitbutton" target="miniProgram" hover-class="navigator-hover" open-type="exit"  catch:tap="quit">
-                立即退出
+            <navigator class="exitbutton"  catch:tap="quit">
+                重新获取步数
             </navigator>
         </view>
     </view>

@@ -1,7 +1,7 @@
 <!--pages/map/map.wxml-->
 <scroll-view class='map-box'>
   <!--西北区地图-->
-  <view class='map_xibei' wx:if="{{ mapType === 1 }}">
+  <view class='map_xibei' wx:if="{{ mapType === 2 }}">
     <image
     class='map-img'
     mode='widthFix'
@@ -10,7 +10,7 @@
     <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--华北区地图-->
-  <view class='map_huabei' wx:elif="{{ mapType === 2}}">
+  <view class='map_huabei' wx:elif="{{ mapType === 3}}">
     <image
     class='map-img'
     mode='widthFix'
@@ -19,7 +19,7 @@
     <view class='map_mark'  style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--东北区地图-->
-  <view class='map_dongbei' wx:elif="{{ mapType === 3}}">
+  <view class='map_dongbei' wx:elif="{{ mapType === 1}}">
     <image
     class='map-img'
     mode='widthFix'
@@ -37,7 +37,7 @@
     <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--华南区地图-->
-  <view class='map_huanan' wx:elif="{{ mapType === 5}}">
+  <view class='map_huanan' wx:elif="{{ mapType === 6}}">
     <image
     class='map-img'
     mode='widthFix'
@@ -46,7 +46,7 @@
     <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--西南区地图-->
-  <view class='map_xinan' wx:elif="{{ mapType === 6}}">
+  <view class='map_xinan' wx:elif="{{ mapType === 5}}">
     <image
     class='map-img'
     mode='widthFix'
@@ -113,9 +113,9 @@
 </view>
 
 <!--特殊站点-->
-<view class='maskLayer specialMask'>
+<view class='maskLayer specialMask' catchtap="closePopup"  wx:if="{{ isSpecialSite === true && isShowDialog === true}}">
   <view class='special'>
-    <canvas class='specialCanvas' id='specialCanvas'></canvas>
+    <canvas class='specialCanvas' canvas-id='specialCanvas'></canvas>
     <view class='saveSpecialPost'>保存海报</view>
   </view>
   <view class='special-btn-box'>
@@ -124,13 +124,4 @@
   </view>
 </view>
 
-<!--终点-->
-<view class='endPlacebox'>
-  <canvas id="endPlace" class="endPlace"></canvas>
-  <view class="saveEndPoster">保存海报</view>
-  <view class="endPlace-btn">
-    <view class="askQuestion">向部长提问</view>
-    <view class="getAward">马上领奖</view>
-  </view>
-</view>
 <musicControl/>

@@ -205,6 +205,9 @@ Page({
             success:(res) => {
                 const encryptedData = res.encryptedData
                 const iv = res.iv
+                this.setData({
+                    hasAuthorize: 'none'
+                })
                 wx.request({
                     url: url,
                     data: {
@@ -236,11 +239,38 @@ Page({
                     fail: ()=>{},
                     complete: ()=>{}
                 });
+            },
+            fail: (res) => {
+                console.log('用户拒绝获取步数')
+                wx.showModal({
+                    title: '警告',
+                    content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
+                    showCancel: true,
+                    cancelText: '取消',
+                    cancelColor: '#000000',
+                    confirmText: '确定',
+                    confirmColor: '#3CC51F',
+                    success: (result) => {
+                        if(result.confirm){
+                            wx.openSetting({})
+                        } else {
+                            this.setData({
+                                hasAuthorize: 'flex'
+                            })
+                        }
+                    },
+                    fail: ()=>{},
+                    complete: ()=>{}
+                });
             }
         })
     },
     quit () {
         console.log('quit')
+        this.setData({
+            hasAuthorize: 'none'
+        })
+        this.getLogin(true)
     }
 
     /*创建背景音乐*/

@@ -50,6 +50,6 @@ App({
         userInfo: null,     //用户信息
         shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png',   //默认分享图片
         shareText: '两会燃烧卡路里',   //默认分享文字
-        default_avatarUrl: '',//默认头像路径
+        default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',//默认头像路径
     }
 })
