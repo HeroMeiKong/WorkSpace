@@ -6,8 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isDialog :false,
-    num : 1,
+    num : '1',
     poster_url : '', //海报地址
   },
 
@@ -70,7 +69,7 @@ Page({
 
   //加载网络图片
   getImages (){
-    var ctx = this.data.ctx;
+    const ctx = wx.createCanvasContext('myCanvas')
     var _this = this
     const getBgImg = promisify(wx.getImageInfo)
     const getTopImg = promisify(wx.getImageInfo)
@@ -81,14 +80,14 @@ Page({
         const top_url = res.path
 
       //  开始绘制
-        ctx.save()
+      //   ctx.save()
         ctx.drawImage(bg_url,0,0,750,1206,0,0,bg_url.width,bg_url.height)
 
         ctx.save()
         ctx.drawImage(top_url,90,62,570,371,0,0,top_url.width,top_url.height)
 
         ctx.save()
-        const num = _this.num
+        const num = _this.data.num
         ctx.setFontSize(62)
         ctx.setTextAlign('center')
         ctx.setFillStyle('#FFFFFF')
@@ -117,6 +116,7 @@ Page({
       destWidth : 750 * 2, //输出的图片的宽度,width*屏幕像素密度
       destHeight : 1206 * 2
     }).then(res=>{
+      console.log(res)
       _this.setData({
         poster_url : res.tempFilePath  //生成文件的临时路径
       })
@@ -179,7 +179,6 @@ Page({
   //领奖
   acceptBtn() {
     console.log('领奖')
-    this.setData({isDialog:true})
   },
 
 })

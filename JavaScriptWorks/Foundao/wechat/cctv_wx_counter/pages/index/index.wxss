@@ -188,3 +188,53 @@
   background-image: url("https://s-js.sports.cctv.com/host/resource/map/game-tips.png");
   background-size: cover;
 }
+.authorizeFail{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background:rgba(0,0,0,0.6);
+  z-index: 100;
+}
+.authorizeFailImg{
+  width: 560rpx;
+  height: 380rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: url("https://s-js.sports.cctv.com/host/resource/map/authorizeFailImg.png") no-repeat;
+  background-size: 100%;
+  color:rgba(57,96,29,1);
+}
+.authorizeFailTitle{
+  font-size: 36rpx;
+  width: 330rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25rpx;
+  font-weight: 600;
+}
+.authorizeFailText{
+  font-size: 30rpx;
+  width: 330rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+}
+.exitbutton{
+  width: 300rpx;
+  height: 98rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: url("https://s-js.sports.cctv.com/host/resource/map/quitImg.png") no-repeat;
+  background-size: 100%;
+  margin-top: 33rpx;
+}

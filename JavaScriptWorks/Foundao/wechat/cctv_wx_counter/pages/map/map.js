@@ -1,4 +1,5 @@
 // pages/map/map.js
+const app = getApp();
 Page({
 
   /**
@@ -6,10 +7,15 @@ Page({
    */
   data: {
       onlinePerson:41987,//在线人数
+      userName:"",//用户名
+      avatarUrl:"",//用户头像
       totalCalorie:0,//总卡路里
       mapHeight:'0rpx',//进度条高度
       marskTop:'0rpx',//marsk标记top值
       marskLeft: '0rpx',//marsk标记Left值
+      currSpecail:'https://s-js.sports.cctv.com/host/resource/map/hb-taiyuan.jpg',//特殊站点海报
+      isSpecialSite:true,
+      isArrive:true,
       mapType:1,//地图ID
       mapStation:{//地图站点名字
         xibei:['乌鲁木齐', '吐鲁番', '银川', '西宁', '兰州', '嘉峪关', '西安', '宝鸡', '咸阳', '人民大会堂'],
@@ -94,20 +100,25 @@ Page({
         ]
       },
       mapSpecial:{
-        xibeiSpecial:['https://s-js.sports.cctv.com/host/resource/map/end-btnBg.png'],
-        huabeiSpecial:[],
-        dongbeiSpecial:[],
-        huadongSpecial:[],
-        huananSpecial:[],
-        xinanSpecial:[]
-      }
+        xibeiSpecial:['https://s-js.sports.cctv.com/host/resource/map/xb-wulumuqi.jpg','https://s-js.sports.cctv.com/host/resource/map/xb-lanzhou.jpg'],
+        huabeiSpecial:['https://s-js.sports.cctv.com/host/resource/map/hb-taiyuan.jpg','https://s-js.sports.cctv.com/host/resource/map/hb-qinhuangdao.jpg'],
+        dongbeiSpecial:['https://s-js.sports.cctv.com/host/resource/map/db-chifeng.jpg','https://s-js.sports.cctv.com/host/resource/map/db-songyuan.jpg','https://s-js.sports.cctv.com/host/resource/map/db-dalian.jpg'],
+        huadongSpecial:['https://s-js.sports.cctv.com/host/resource/map/hd-xiamen.jpg','https://s-js.sports.cctv.com/host/resource/map/hd-hangzhou.jpg'],
+        huananSpecial:['https://s-js.sports.cctv.com/host/resource/map/hn-xiangguang.jpg','https://s-js.sports.cctv.com/host/resource/map/hn-guangzhou.jpg'],
+        xinanSpecial:['https://s-js.sports.cctv.com/host/resource/map/xn-lasha.jpg','https://s-js.sports.cctv.com/host/resource/map/xn-dali.jpg','https://s-js.sports.cctv.com/host/resource/map/xn-chengdu.jpg']
+      },
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    console.log(app.globalData);
+    this.setData({
+      userName:app.globalData.userInfo.nickName,
+      avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
+      mapType:app.globalData.map_id*1 + 1,
+    });
     this.setMapData(2);//生成地图数据
   },
   /**
@@ -141,11 +152,12 @@ Page({
   /* 查看排行榜按钮 */
   gotoRank:function(){
     wx.navigateTo({
-      url: '/pages/index/index',
+      url: '/pages/rank/rank',
     });
   },
   /*更换路线 */
   changeRoad:function(){
+    app.globalData.ischange=true;
     wx.navigateTo({
       url: '/pages/index/index',
     });
@@ -196,5 +208,17 @@ Page({
         marskLeft: mapOption.xinanOption[level].left
       })
     }
+  },
+
+  /*生成特殊站点海报*/
+  createSpecialSite:function () {
+    var _this = this;
+    const {currSpecail,} = this.data;
+    wx.showLoading({
+      title: '海报生成中'
+    });
+    const specialPost = wx.createCanvasContext('specialCanvas');
+
+
   }
-})
+});

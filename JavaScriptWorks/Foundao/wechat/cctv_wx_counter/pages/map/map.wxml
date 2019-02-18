@@ -60,11 +60,11 @@
   <view>
     <image
       class='userImg'
-      src='https://s-js.sports.cctv.com/host/resource/map/headerImg.png'
+      src='{{avatarUrl}}'
     ></image>
     <view class='userInfo'>
       <view class='online-person'>在线用户：{{onlinePerson}}</view>
-      <h2>Robert Martin</h2>
+      <h2>{{userName}}</h2>
       <h3>累积贡献{{totalCalorie}}卡路里，现在出发！</h3>
     </view>
     <view class='userInfo-btnbox'>
@@ -113,12 +113,12 @@
 </view>
 
 <!--特殊站点-->
-<view class='maskLayer speacialMask'>
-  <view class='speacial'>
-    <canvas class='speacialCanvas' id='speacialCanvas'></canvas>
-    <view class='saveSpeacialPost'>保存海报</view>
+<view class='maskLayer specialMask'>
+  <view class='special'>
+    <canvas class='specialCanvas' id='specialCanvas'></canvas>
+    <view class='saveSpecialPost'>保存海报</view>
   </view>
-  <view class='speacial-btn-box'>
+  <view class='special-btn-box'>
     <view class='btn-item'>去答题</view>
     <view class='btn-item'>看热点</view>
   </view>

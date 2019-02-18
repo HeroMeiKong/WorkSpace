@@ -21,20 +21,30 @@
         <!--地图-->
         <view class="index_map">
             <!--点击区域 透明-->
-            <view class="map_0_0" catchtap="go_map" data-id="0"></view>
-            <view class="map_0_1" catchtap="go_map" data-id="0"></view>
-            <view class="map_0_2" catchtap="go_map" data-id="0"></view>
-            <view class="map_1_0" catchtap="go_map" data-id="1"></view>
-            <view class="map_1_1" catchtap="go_map" data-id="1"></view>
-            <view class="map_2_0" catchtap="go_map" data-id="2"></view>
-            <view class="map_3_0" catchtap="go_map" data-id="3"></view>
-            <view class="map_4_0" catchtap="go_map" data-id="4"></view>
+            <view class="map_0_0" catchtap="go_map" data-id="2"></view>
+            <view class="map_0_1" catchtap="go_map" data-id="2"></view>
+            <view class="map_0_2" catchtap="go_map" data-id="2"></view>
+            <view class="map_1_0" catchtap="go_map" data-id="3"></view>
+            <view class="map_1_1" catchtap="go_map" data-id="3"></view>
+            <view class="map_2_0" catchtap="go_map" data-id="1"></view>
+            <view class="map_3_0" catchtap="go_map" data-id="4"></view>
+            <view class="map_4_0" catchtap="go_map" data-id="6"></view>
             <view class="map_5_0" catchtap="go_map" data-id="5"></view>
             <view class="map_5_1" catchtap="go_map" data-id="5"></view>
         </view>
         <!--玩法提醒-->
         <view class="game-tips-layer" wx:if="{{showGameTips_flag}}" catchtap="closeGameTips">
             <view class="game-tips"></view>
+        </view>
+    </view>
+    <view class="authorizeFail" style="display:{{hasAuthorize}}">
+        <view class="authorizeFailImg">
+            <view class="authorizeFailTitle">温馨提示</view>
+            <view class="authorizeFailText">请关注微信运动并授权</view>
+            <view class="authorizeFailText">即可参与活动哦～</view>
+            <navigator class="exitbutton" target="miniProgram" hover-class="navigator-hover" open-type="exit"  catch:tap="quit">
+                立即退出
+            </navigator>
         </view>
     </view>
 </view>

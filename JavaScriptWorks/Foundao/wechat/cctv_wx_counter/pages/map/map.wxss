@@ -2,6 +2,7 @@
 .map-box{
   font-size: 0;
   position: relative;
+  min-height: 100vh;
 }
 .map-img{
   width: 100%;
@@ -212,13 +213,13 @@
 .arrivedWhere-btn-box .btn-item:nth-of-type(1){
   margin-right: 25rpx;
 }
-.speacial{
+.special{
   margin: 40rpx auto 0;
   width: 520rpx;
   height: 910rpx;
   position: relative;
 }
-.speacialCanvas{
+.specialCanvas{
   display: block !important;
   width: 520rpx;
   height: 910rpx;
@@ -226,7 +227,7 @@
   padding: 10rpx;
   box-sizing: border-box;
 }
-.saveSpeacialPost{
+.saveSpecialPost{
   position: absolute;
   font-size: 0;
   left: 170rpx;
@@ -236,11 +237,11 @@
   z-index: 100rpx;
   background: url(https://s-js.sports.cctv.com/host/resource/map/savePic.png) no-repeat center / 100% 100%;
 }
-.speacial-btn-box{
+.special-btn-box{
   text-align: center;
   margin-top: 20rpx;
 }
-.speacial-btn-box .btn-item{
+.special-btn-box .btn-item{
   display: inline-block;
   vertical-align: top;
   width: 230rpx;
@@ -251,7 +252,7 @@
   font-size: 32rpx;
   color: white;
 }
-.speacial-btn-box  .btn-item:nth-of-type(1){
+.special-btn-box  .btn-item:nth-of-type(1){
   margin-right: 55rpx;
 }
 .lastSecond{
@@ -336,7 +337,7 @@
 .arrivedWhereMask{
   display: none;
 }
-.speacialMask{
+.specialMask{
   display: none;
 }
 .endPlacebox{
