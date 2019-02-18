@@ -104,8 +104,7 @@ Page({
                                 console.log(resp)
                                 const {code, data, msg} = resp.data;
                                 if (code === 0) {
-                                    console.log(data.token, 'data.token')
-                                    console.log('ssssss')
+                                    console.log(data.token, 'data.token');
                                     wx.setStorageSync('loginSessionKey', data.token)
                                     //返回上一层页面
                                     // app.globalData.auth_again = true
@@ -115,14 +114,9 @@ Page({
                                     //     title: msg,
                                     //     icon: 'none'
                                     // })
-                                    // wx.removeStorageSync({
-                                    //     key: 'loginSessionKey',
-                                    // })
-                                    try {
-                                        wx.removeStorageSync('key')
-                                    } catch (e) {
-                                        // Do something when catch error
-                                    }
+                                    wx.removeStorageSync({
+                                        key: 'loginSessionKey',
+                                    })
                                 }
                             },
                             fail(res) {
@@ -133,6 +127,7 @@ Page({
                                 wx.hideLoading()
                             }
                         })
+
                     },
                     complete: function (re) {
                         wx.hideLoading()
