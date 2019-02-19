@@ -1,0 +1,11 @@
+<view class="message_root">
+    <!--maxlength设置为-1位不限制最大值-->
+    <textarea class="message_box"
+              placeholder="我有话对部长说···"
+              maxlength="-1"
+              value="{{content}}"
+              bindblur="bindblur"
+    />
+    <view class="cancle_btn btn" bindtap="backList">取消</view>
+    <view class="submit_btn btn" bindtap="submit">发送</view>
+</view>

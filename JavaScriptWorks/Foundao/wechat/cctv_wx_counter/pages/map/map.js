@@ -121,7 +121,7 @@ Page({
   onLoad: function (options) {
     const {userLevel} = this.data;
     this.setData({
-      userName:app.globalData.userInfo.nickName||'',
+      userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
       avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
       mapType:app.globalData.map_id*1,
     });
@@ -350,7 +350,6 @@ Page({
 
   /*关闭弹窗*/
   closePopup:function(){
-    console.log(11)
     this.setData({
       isShowDialog:false
     })

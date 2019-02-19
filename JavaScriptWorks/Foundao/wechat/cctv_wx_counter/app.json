@@ -6,7 +6,9 @@
     "pages/question/question",
     "pages/destination/destination",
     "pages/rank/rank",
-    "pages/webview/webview"
+    "pages/webview/webview",
+    "pages/suggest/suggest",
+    "pages/message/message"
   ],
   "window": {
     "backgroundTextStyle": "light",

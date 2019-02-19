@@ -1,7 +1,6 @@
 <!--pages/destination/destination.wxml-->
 <view class="destination_box">
-    <canvas canvas-id="myCanvas"
-            hidden="hidden"></canvas>
+    <canvas canvas-id="myCanvas" class="canvasBox"></canvas>
     <view class="destination_topBox">
         <view class="destination_num">{{num}}</view>
     </view>

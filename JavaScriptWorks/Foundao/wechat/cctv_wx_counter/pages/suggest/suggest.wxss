@@ -1,0 +1,103 @@
+.suggest_root {
+    width: 100%;
+    height: 100%;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/question_bg.png");
+    background-size: 100% 100%;
+    position: relative;
+    padding: 40rpx 20rpx 0;
+    box-sizing: border-box;
+}
+
+.suggest_content {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.suggest_box {
+    width: 100%;
+    /*overflow: hidden;*/
+    background: #FFFFFF;
+    border-radius: 20rpx;
+    padding: 22rpx;
+    box-sizing: border-box;
+    margin-bottom: 53rpx;
+    position: relative;
+}
+
+.content_header {
+    width: 100%;
+    height: 60rpx;
+    font-size: 26rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #87C153;
+    line-height: 60rpx;
+}
+
+.head_img {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    float: left;
+}
+
+.header_name {
+    float: left;
+    margin-left: 10rpx;
+}
+
+.time {
+    float: right;
+}
+
+.content_main {
+    margin-top: 9rpx;
+    font-size: 24rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #59862F;
+    line-height: 38rpx;
+}
+
+.box_icon {
+    position: absolute;
+    right: 34rpx;
+    bottom: -20rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/question_icon1.png");
+    background-size: 100% 100%;
+    width: 46rpx;
+    height: 24rpx;
+}
+
+.suggest_btn {
+    position: absolute;
+    left: 20rpx;
+    bottom: 38rpx;
+    width : 710rpx;
+    height: 109rpx;
+    background-size: 100% 100%;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/question_btn.png");
+    z-index: 100;
+    padding-left: 67rpx;
+    box-sizing: border-box;
+}
+
+.btn_icon {
+    margin-top: 30rpx;
+    width: 42rpx;
+    height: 43rpx;
+    background-image: url("https://s-js.sports.cctv.com/host/resource/map/question_icon2.png");
+    background-size: 100% 100%;
+    float: left;
+}
+
+.btn_content {
+    font-size: 30rpx;
+    margin-left: 27rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #618B43;
+    margin-top: 30rpx;
+    float: left;
+}

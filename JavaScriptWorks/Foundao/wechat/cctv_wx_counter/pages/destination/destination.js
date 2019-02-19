@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    num : '1',
+    num : '12345',
     poster_url : '', //海报地址
   },
 
@@ -80,25 +80,34 @@ Page({
         const top_url = res.path
 
       //  开始绘制
-      //   ctx.save()
-        ctx.drawImage(bg_url,0,0,750,1206,0,0,bg_url.width,bg_url.height)
+        ctx.drawImage(bg_url,0,0,bg_url.width,bg_url.height,0,0,_this.changePx(750),_this.changePx(1206))
 
         ctx.save()
-        ctx.drawImage(top_url,90,62,570,371,0,0,top_url.width,top_url.height)
+        ctx.drawImage(top_url,0,0,top_url.width,top_url.height,_this.changePx(90),_this.changePx(62),_this.changePx(570),_this.changePx(371))
 
         ctx.save()
         const num = _this.data.num
-        ctx.setFontSize(62)
+        ctx.setFontSize(31)
         ctx.setTextAlign('center')
         ctx.setFillStyle('#FFFFFF')
         ctx.setTextBaseline('top')
-        ctx.fillText(num,243,213,248)
+        ctx.fillText(num,_this.changePx(243+124),_this.changePx(213))
 
         ctx.draw(false,_this.create_poster)
       }).catch(err =>{
         console.log('err:', err)
       })
     })
+  },
+
+  //换算px
+  changePx(value) {
+    wx.getSystemInfo({
+      success: res => {
+        value = value*(res.windowWidth/750)
+      }
+    })
+    return value
   },
 
   //生成海报
@@ -109,8 +118,8 @@ Page({
       canvasId: 'myCanvas',
       x : 0, //画布区域左上角的横坐标
       y : 0, // 画布区域左上角的纵坐标
-      width : 750, //画布区域宽度
-      height : 1206, //画布区域高度
+      // width : 750, //画布区域宽度
+      // height : 1206, //画布区域高度
       fileType : 'png', //输出图片的格式
       quality : 1.0,//图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理
       destWidth : 750 * 2, //输出的图片的宽度,width*屏幕像素密度
@@ -160,20 +169,33 @@ Page({
   //确认保存
   save_photo_sure (){
     var _this = this
+    wx.showLoading()
     wx.saveImageToPhotosAlbum({
       filePath:_this.data.poster_url,
       success : res =>{
-        console.log(res)
+        wx.hideLoading()
+        wx.showToast({
+          title: '保存成功',
+          icon : 'success',
+          duration : 2000
+        })
       },
       fail : err =>{
-        console.log(err)
+        wx.hideLoading()
+        wx.showToast({
+          title: '保存失败',
+          icon: 'error',
+          duration: 2000
+        })
       }
     })
   },
 
   //提问
   askBtn() {
-    console.log('提问')
+    wx.navigateTo({
+      url : '/pages/suggest/suggest'
+    })
   },
 
   //领奖

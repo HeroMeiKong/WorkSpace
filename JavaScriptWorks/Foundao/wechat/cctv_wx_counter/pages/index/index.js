@@ -11,8 +11,8 @@ Page({
         hasInit: false, //是否初始化
         showRule_flag: false, //显示游戏规则
         showGameTips_flag: false, //显示游戏提示
-        hasGetRunData: false,//是否获取用户步数
-        hasAuthorize: 'none',//用户已授权
+        hasGetRunData: false, //是否获取用户步数
+        hasAuthorize: 'none', //用户已授权
     },
 
     /**
@@ -26,15 +26,6 @@ Page({
                 app.globalData.systemInfo = res
             }
         })
-        var isChoose = wx.getStorageSync('isChoose');
-        if (isChoose) {
-            if(!app.globalData.ischange){
-                app.globalData.map_id = parseInt(wx.getStorageSync('route'))
-                wx.redirectTo({
-                    url: '/pages/map/map',
-                });
-            }
-        }
     },
 
     /**
@@ -49,7 +40,6 @@ Page({
      */
     onShow: function () {
         console.log('onShow')
-        this.isFisrt()
         app.isAuth(() => {
             //统计
             if (!this.data.hasInit) {
@@ -58,8 +48,9 @@ Page({
             } else {
                 console.log('已初始化')
             }
+            this.isFisrt()
         })
-        if(!this.data.hasGetRunData){
+        if (!this.data.hasGetRunData) {
             console.log('还没有获取用户步数')
             this.getLogin(true)
         } else {
@@ -136,9 +127,8 @@ Page({
         })
         wx.redirectTo({
             url: '/pages/map/map',
-            success: (result)=>{
+            success: (result) => {
                 app.globalData.map_id = map_id
-                wx.setStorageSync('isChoose', true);
                 wx.setStorageSync('route', map_id);
                 wx.request({
                     url: api.selectRoute,
@@ -146,15 +136,15 @@ Page({
                         user_way_id: map_id
                     },
                     header: {
-                        'content-type':'application/x-www-form-urlencoded',
+                        'content-type': 'application/x-www-form-urlencoded',
                         'auth-token': wx.getStorageSync('loginSessionKey')
                     },
                     method: 'POST',
-                    success: (result)=>{
+                    success: (result) => {
                         console.log(result)
                     },
-                    fail: ()=>{},
-                    complete: ()=>{}
+                    fail: () => {},
+                    complete: () => {}
                 });
             },
         });
@@ -169,28 +159,38 @@ Page({
         }
     },
 
+    //用户跳转页面
+    gotoMap(route) {
+        if (!app.globalData.ischange) {
+            app.globalData.map_id = route
+            wx.redirectTo({
+                url: '/pages/map/map',
+            });
+            app.globalData.ischange = true
+        }
+    },
     //获取用户登陆信息
-    getLogin (isSet) {
+    getLogin(isSet) {
         //isSet是否存储用户信息
         console.log('getLogin')
         wx.login({
             timeout: 10000,
             success: (result) => {
                 wx.getUserInfo({
-                    success:(res) => {
+                    success: (res) => {
                         const signature = res.signature
-                        if(isSet) {
+                        if (isSet) {
                             app.globalData.userInfo = res.userInfo
-                            this.getRunData(api.getUserCalorie,result.code,signature,isSet)
+                            this.getRunData(api.getUserCalorie, result.code, signature, isSet)
                             setTimeout(() => {
                                 //由于连着放，两个请求会忽略一个，所以设置延时
                                 //this.getLogin(!isSet)
-                            },10000)
+                            }, 10000)
                         } else {
-                            this.getRunData(api.backGetUserCalorie,result.code,signature,false)
+                            this.getRunData(api.backGetUserCalorie, result.code, signature, false)
                         }
                     }
-                  })
+                })
             },
             fail: () => {},
             complete: () => {}
@@ -198,11 +198,11 @@ Page({
     },
 
     //获取步数
-    getRunData (url,code,signature,isFont) {
+    getRunData(url, code, signature, isFont) {
         //isSet是否获取步数
         console.log('getRunData')
         wx.getWeRunData({
-            success:(res) => {
+            success: (res) => {
                 const encryptedData = res.encryptedData
                 const iv = res.iv
                 this.setData({
@@ -217,17 +217,21 @@ Page({
                         wx_sign: signature
                     },
                     header: {
-                        'content-type':'application/x-www-form-urlencoded',
+                        'content-type': 'application/x-www-form-urlencoded',
                         'auth-token': wx.getStorageSync('loginSessionKey')
                     },
                     method: 'POST',
-                    success: (re)=>{
-                        if(isFont){
+                    success: (re) => {
+                        if (isFont) {
                             console.log('发送前端步数请求成功!')
                             app.globalData.steps = re.data.data
+                            app.globalData.allData = re.data.count
                             app.globalData.map_id = parseInt(wx.getStorageSync('route'));
                             if (!app.globalData.map_id) {
-                                wx.setStorageSync('route', re.data.count);
+                                wx.setStorageSync('route', re.data.count.user_way_id);
+                            }
+                            if (re.data.count.user_way_id > 0) {
+                                this.gotoMap(re.data.count.user_way_id)
                             }
                             this.setData({
                                 hasGetRunData: true
@@ -236,8 +240,8 @@ Page({
                             console.log('发送后端步数请求成功!')
                         }
                     },
-                    fail: ()=>{},
-                    complete: ()=>{}
+                    fail: () => {},
+                    complete: () => {}
                 });
             },
             fail: (res) => {
@@ -251,7 +255,7 @@ Page({
                     confirmText: '确定',
                     confirmColor: '#3CC51F',
                     success: (result) => {
-                        if(result.confirm){
+                        if (result.confirm) {
                             wx.openSetting({})
                         } else {
                             this.setData({
@@ -259,13 +263,13 @@ Page({
                             })
                         }
                     },
-                    fail: ()=>{},
-                    complete: ()=>{}
+                    fail: () => {},
+                    complete: () => {}
                 });
             }
         })
     },
-    quit () {
+    quit() {
         console.log('quit')
         this.setData({
             hasAuthorize: 'none'

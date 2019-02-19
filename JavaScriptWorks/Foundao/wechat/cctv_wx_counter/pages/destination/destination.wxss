@@ -18,6 +18,14 @@
     transform: translate(-50%,0);
 }
 
+.canvasBox {
+    position: absolute;
+    top: -1000000rpx;
+    left: 0;
+    width: 750rpx;
+    height: 1206rpx;
+}
+
 .destination_num {
     position: absolute;
     width: 248rpx;
