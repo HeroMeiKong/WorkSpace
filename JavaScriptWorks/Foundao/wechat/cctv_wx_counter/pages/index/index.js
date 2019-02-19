@@ -26,6 +26,7 @@ Page({
                 app.globalData.systemInfo = res
             }
         })
+        this.getQuestion()
     },
 
     /**
@@ -40,6 +41,7 @@ Page({
      */
     onShow: function () {
         console.log('onShow')
+        console.log(app.globalData.uuid)
         app.isAuth(() => {
             //统计
             if (!this.data.hasInit) {
@@ -184,7 +186,7 @@ Page({
                             this.getRunData(api.getUserCalorie, result.code, signature, isSet)
                             setTimeout(() => {
                                 //由于连着放，两个请求会忽略一个，所以设置延时
-                                //this.getLogin(!isSet)
+                                this.getLogin(!isSet)
                             }, 10000)
                         } else {
                             this.getRunData(api.backGetUserCalorie, result.code, signature, false)
@@ -224,13 +226,14 @@ Page({
                     success: (re) => {
                         if (isFont) {
                             console.log('发送前端步数请求成功!')
-                            app.globalData.steps = re.data.data
-                            app.globalData.allData = re.data.count
+                            app.globalData.steps = re.data.data || ''
+                            app.globalData.allData = re.data.count || ''
                             app.globalData.map_id = parseInt(wx.getStorageSync('route'));
+                            this.getACode()//获取二维码
                             if (!app.globalData.map_id) {
                                 wx.setStorageSync('route', re.data.count.user_way_id);
                             }
-                            if (re.data.count.user_way_id > 0) {
+                            if (re.data.count && re.data.count.user_way_id > 0) {
                                 this.gotoMap(re.data.count.user_way_id)
                             }
                             this.setData({
@@ -275,8 +278,66 @@ Page({
             hasAuthorize: 'none'
         })
         this.getLogin(true)
-    }
-
+    },
+    //分享
+    onShareAppMessage: function (res) {
+        console.log('onShareAppMessage')
+        console.log(res.from)
+        if (res.from === 'menu') {
+            //右上角转发
+            console.log('分享地址：')
+            console.log('/pages/index/index?share_uuid=' + app.globalData.allData.uuid)
+            return {
+                title: '我为“两会”燃烧卡路里',
+                path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
+                imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
+            }
+        }
+    },
+    //获取二维码
+    getACode() {
+        console.log('getACode')
+        wx.request({
+            url: 'https://a-js.sports.cctv.com/calorie/api/erweima.php',
+            data: {
+                material_id: app.globalData.allData.uuid,
+                page: 'pages/index/index',
+                scene: app.globalData.allData.uuid,
+                width: 188,           // 二维码的宽度
+                auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+                line_color: {"r": "255", "g": "255", "b": "255"},
+                is_hyaline: false,   // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+            },
+            header: {
+                'auth-token': wx.getStorageSync('loginSessionKey')
+            },
+            method: 'POST',
+            success: (result)=>{
+                console.log(result)
+            },
+            fail: ()=>{},
+            complete: ()=>{}
+        })
+    },
+    //获取问题
+    getQuestion() {
+        wx.request({
+            url: 'https://common.itv.cctv.com/answer/detail',//'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
+            header: {'content-type':'application/json'},
+            success: (res)=>{
+              this.data.allQuestions = res.data.data.questions
+              console.log(this.data.allQuestions)
+              const length = res.data.data.questions.length
+              //设置题目
+              this.setData({
+                allQuestions: this.data.allQuestions,
+                options: this.data.options
+              })
+            },
+            fail: ()=>{},
+            complete: ()=>{}
+          });
+    },
     /*创建背景音乐*/
     // onMusicTap() {
     //     const backgroundAudioManager = wx.getBackgroundAudioManager()

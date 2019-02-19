@@ -75,30 +75,30 @@
 </view>
 
 <!--加速卡-->
-<view class='maskLayer acceleratorMask'>
+<view class='maskLayer acceleratorMask' catchtap="closeAccPopup"  wx:if="{{ isShowAccDialog === true && isFirstIn===true}}">
   <view class='accelerator'>
     <view class='accelerator-view-first'>恭喜你</view>
-    <view>可以快速前进一站啦！</view>
+    <view>你使用加速卡一共前进了{{hasAccNum}}站！</view>
   </view>
 </view>
 <!--还差多少未到-->
-<view class='maskLayer notArrivedMask'>
+<view class='maskLayer notArrivedMask'  catchtap="closePopup" wx:if="{{ isShowDialog === true && isFirstIn===true && isArrive===false}}">
   <view class='notArrived'>
-    <view class='notArrived-view-first'>昨日还差600卡路里</view>
-    <view>就能到达“松原”站啦！</view>
+    <view class='notArrived-view-first'>还差{{chaCalorie}}卡路里</view>
+    <view>就能到达“{{arriveSoon}}”站啦！</view>
     <view>快去答题吧</view>
-    <view class='notArrived-btn-box'>
-        按钮
+    <view class='notArrived-btn-box' catchtap="gotoQuestion">
+        去答题
     </view>
   </view>
 </view>
 <!--到达某地-->
-<view class='maskLayer arrivedWhereMask'>
+<view class='maskLayer arrivedWhereMask' catchtap="closePopup" wx:if="{{ isSpecialSite === false && isShowDialog === true && isFirstIn===true && isArrive===true}}">
   <view class='arrivedWhere'>
     <view class='arrivedWhere-first-view'>恭喜你</view>
-    <view>到达“松原”站</view>
+    <view>到达“{{currSite}}”站</view>
     <view class='arrivedWhere-btn-box'>
-      <view class='btn-item'>去答题</view>
+      <view class='btn-item' catchtap="gotoQuestion">去答题</view>
       <view class='btn-item'>看热点</view>
     </view>
   </view>
@@ -113,13 +113,13 @@
 </view>
 
 <!--特殊站点-->
-<view class='maskLayer specialMask' catchtap="closePopup"  wx:if="{{ isSpecialSite === true && isShowDialog === true}}">
+<view class='maskLayer specialMask' catchtap="closePopup"  wx:if="{{ isSpecialSite === true && isShowDialog === true && isFirstIn===true && isArrive===true}}">
   <view class='special'>
     <canvas class='specialCanvas' canvas-id='specialCanvas'></canvas>
     <view class='saveSpecialPost'>保存海报</view>
   </view>
   <view class='special-btn-box'>
-    <view class='btn-item'>去答题</view>
+    <view class='btn-item' catchtap="gotoQuestion">去答题</view>
     <view class='btn-item'>看热点</view>
   </view>
 </view>

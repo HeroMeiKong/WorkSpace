@@ -51,5 +51,27 @@ App({
         shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png',   //默认分享图片
         shareText: '两会燃烧卡路里',   //默认分享文字
         default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',//默认头像路径
-    }
+    },
+
+    //分享
+    onShareAppMessage: function (res) {
+        console.log('onShareAppMessage')
+        console.log(res.from)
+          if (res.from === 'button') {
+              console.log('分享地址：')
+              console.log('/pages/video/video?scene=sucai_' + this.data.cur_video.id)
+              return {
+                  title: this.data.cur_video.video_desc,
+                  path: '/pages/video/video?scene=sucai_' + this.data.cur_video.id,
+                  imageUrl: this.data.cur_video.share_pic || this.data.cur_video.pic,
+              }
+          } else {
+              return {
+                  title: '央视虚拟主持人祝新年！携“四小福”，祝大家新春快乐，大吉大利！',
+                  path: '/pages/newYear/newYear',
+                  imageUrl: app.globalData.shareImg,
+              }
+          }
+    
+    },
 })

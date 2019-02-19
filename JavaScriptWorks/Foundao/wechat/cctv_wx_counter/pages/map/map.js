@@ -1,5 +1,6 @@
 // pages/map/map.js
 const promisify = require('../../utils/promisify');
+import api from './../../config/api';
 const app = getApp();
 Page({
 
@@ -7,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-      onlinePerson:41987,//在线人数
+      onlinePerson:0,//在线人数
       wd:1,//屏幕比例
       userName:"",//用户名
       avatarUrl:"",//用户头像
@@ -15,12 +16,18 @@ Page({
       mapHeight:'0rpx',//进度条高度
       marskTop:'0rpx',//marsk标记top值
       marskLeft: '0rpx',//marsk标记Left值
-      currSpecail:'https://s-js.sports.cctv.com/host/resource/map/hb-taiyuan.jpg',//特殊站点海报
+      isFirstIn:'false',//是否是第一次进入
+      currSpecail:'',//特殊站点海报
       qucord:'https://s-js.sports.cctv.com/host/resource/map/hb-taiyuan.jpg',//小程序码
       userLevel:0,//用户当前等级
+      hasAccNum:0,//有几张加速卡
+      currSite:'',//当前站点名字
+      arriveSoon:'',//即将到达站点
       isSpecialSite:false,//是否是特殊站点
       isArrive:true,//是否到达
+      chaCalorie:0,//差多少卡路里到达下一站
       isShowDialog:false,//是否显示弹窗
+      isShowAccDialog:true,//是否显示加速卡
       mapType:1,//地图ID
       activityLevel:5,//当前活动进行的天数
       mapStation:{//地图站点名字
@@ -119,13 +126,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const {userLevel} = this.data;
     this.setData({
       userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
       avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
       mapType:app.globalData.map_id*1,
     });
-    this.setMapData(userLevel);//生成地图数据
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -135,12 +140,34 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(app.globalData)
-    const wd = app.globalData.systemInfo.screenWidth/375;
+    this.judgeCalorieFuction();
+    this.judgeTime();
+    console.log(app.globalData);
+      /*判断加速卡弹窗是否弹出*/
+    if (app.globalData.allData){
+      this.setData({
+        hasAccNum:app.globalData.allData.card
+      });
+      if (app.globalData.allData.notice_card/1===1){
+        this.setData({
+          isShowAccDialog:true
+        })
+      }else {
+        this.setData({
+          isShowAccDialog:true
+        })
+      }
+    }
+    this.getUserWayDetail();
+    const wd = app.globalData.systemInfo.screenWidth / 375;
     this.setData({
-      wd:wd
+      wd:wd,
+      userLevel:app.globalData.allData ? app.globalData.allData.site - 1 : 0
+    },function () {
+      const {userLevel} = this.data;
+      this.setMapData(userLevel);//生成地图数据
+      this.createSpecialSite();
     });
-    this.createSpecialSite();
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -162,6 +189,93 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
+
+  /*判断用户昨日卡路里是否达标*/
+  judgeCalorieFuction:function(){
+    wx.request({
+      url:api.yesterdayCalorieJudge,
+      header:{
+        'content-type':'application/x-www-form-urlencoded',
+        'auth-token': wx.getStorageSync('loginSessionKey')
+      },
+      success:(res)=>{
+        console.log(res.data.data.cha)
+        if (res.data.data.cha/1===0){
+          this.setData({
+            chaCalorie:res.data.data.cha,
+            isArrive:true
+          })
+        } else {
+          this.setData({
+            chaCalorie:res.data.data.cha,
+            isArrive:false
+          })
+        }
+
+      }
+    })
+  },
+  /*设置当前时间*/
+  setCurrDate:function(){
+    let currTime  = new Date();
+    let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
+    wx.setStorage({
+      key:"lastLoginDate",
+      data:cuurDate
+    });
+  },
+  //判断当前时间是不是当天第一次进入
+  judgeTime:function(){
+    wx.getStorage({
+      key: 'lastLoginDate',
+      success: res => {
+        console.log(res.data);
+        let lastDate = res.data;
+        let currTime  = new Date();
+        let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
+        if (lastDate===cuurDate){
+          this.setData({
+            isFirstIn:false
+          });
+
+        } else {
+          this.setData({
+            isFirstIn:true
+          });
+          wx.setStorage({
+            key:"lastLoginDate",
+            data:cuurDate
+          });
+        }
+      },
+      fail:res=>{
+        if (res.errMsg==='getStorage:fail data not found') {
+          this.setData({
+            isFirstIn:true
+          });
+          this.setCurrDate()
+        }
+      }
+    });
+  },
+
+  /*获取用户信息*/
+  getUserWayDetail:function(){
+    wx.request({
+      url:api.userWayDetail,
+      header:{
+        'content-type':'application/x-www-form-urlencoded',
+        'auth-token': wx.getStorageSync('loginSessionKey')
+      },
+      success:(res)=>{
+        console.log(res.data)
+        this.setData({
+          onlinePerson:res.data.data.online_people,
+          totalCalorie:res.data.data.calorie
+        })
+      }
+    })
+  },
   /* 查看排行榜按钮 */
   gotoRank:function(){
     wx.navigateTo({
@@ -175,62 +289,114 @@ Page({
       url: '/pages/index/index',
     });
   },
+  /*去答题*/
+  gotoQuestion:function(){
+    this.setData({
+      isShowDialog:false
+    });
+    wx.navigateTo({
+      url: '/pages/question/question',
+    });
+    return false;
+  },
+  /*看资讯*/
+  gotoSeeNews:function(){
 
+  },
   /* 地图数据生成 */
   setMapData:function(level){
-    this.setSpecialSite(level);
-    this.setData({
-      isShowDialog:true
-    });
-    const { mapType, mapOption} = this.data;//获取当前地图ID
+    const { mapType, mapOption ,mapStation} = this.data;//获取当前地图ID
     if(mapType === 2){
        /* 西北区 */
       this.setData({
         mapHeight: mapOption.xibeiOption[level].height,
         marskTop: mapOption.xibeiOption[level].top,
-        marskLeft: mapOption.xibeiOption[level].left
+        marskLeft: mapOption.xibeiOption[level].left,
+        currSite: mapStation.xibei[level],
+        arriveSoon:mapStation.xibei[level+1]||'',
+      },function () {
+        this.setSpecialSite(level);
+        /*需要判断是不是要显示*/
+        this.setData({
+          isShowDialog:true
+        });
       })
     }else if(mapType === 3){
       /* 华北区 */
       this.setData({
         mapHeight: mapOption.huabeiOption[level].height,
         marskTop: mapOption.huabeiOption[level].top,
-        marskLeft: mapOption.huabeiOption[level].left
+        marskLeft: mapOption.huabeiOption[level].left,
+        currSite: mapStation.huabei[level],
+        arriveSoon:mapStation.huabei[level+1]||'',
+      },function () {
+        this.setSpecialSite(level);
+        this.setData({
+          isShowDialog:true
+        });
       })
     }else if(mapType === 1){
       /* 东北区 */
       this.setData({
         mapHeight: mapOption.dongbeiOption[level].height,
         marskTop: mapOption.dongbeiOption[level].top,
-        marskLeft: mapOption.dongbeiOption[level].left
+        marskLeft: mapOption.dongbeiOption[level].left,
+        currSite: mapStation.dongbei[level],
+        arriveSoon:mapStation.dongbei[level+1]||'',
+      },function () {
+        this.setSpecialSite(level);
+        this.setData({
+          isShowDialog:true
+        });
       })
     }else if(mapType === 4){
       /* 华东区 */
       this.setData({
         mapHeight: mapOption.huadongOption[level].height,
         marskTop: mapOption.huadongOption[level].top,
-        marskLeft: mapOption.huadongOption[level].left
+        marskLeft: mapOption.huadongOption[level].left,
+        currSite: mapStation.huadong[level],
+        arriveSoon:mapStation.huadong[level+1]||'',
+      },function () {
+        this.setSpecialSite(level);
+        this.setData({
+          isShowDialog:true
+        });
       })
     }else if(mapType === 6){
       /*华南区 */
       this.setData({
         mapHeight: mapOption.huananOption[level].height,
         marskTop: mapOption.huananOption[level].top,
-        marskLeft: mapOption.huananOption[level].left
+        marskLeft: mapOption.huananOption[level].left,
+        currSite: mapStation.huanan[level],
+        arriveSoon:mapStation.huanan[level+1]||'',
+      },function () {
+        this.setSpecialSite(level);
+        this.setData({
+          isShowDialog:true
+        });
       })
     }else if(mapType === 5){
       /* 西南区 */
       this.setData({
         mapHeight: mapOption.xinanOption[level].height,
         marskTop: mapOption.xinanOption[level].top,
-        marskLeft: mapOption.xinanOption[level].left
+        marskLeft: mapOption.xinanOption[level].left,
+        currSite: mapStation.xinan[level],
+        arriveSoon:mapStation.xinan[level+1]||'',
+      },function () {
+        this.setSpecialSite(level);
+        this.setData({
+          isShowDialog:true
+        });
       })
     }
   },
 
   /*特殊站点海报*/
   setSpecialSite:function(level){
-    const { mapType, mapSpecial ,isSpecialSite} = this.data;//获取当前地图ID
+    const { mapType, mapSpecial ,currSite} = this.data;//获取当前地图ID
     if(mapType === 2){
       /* 西北区 */
       if (level/1===0){
@@ -354,6 +520,12 @@ Page({
       isShowDialog:false
     })
   },
+  /*关闭加速卡弹窗*/
+  closeAccPopup:function(){
+    this.setData({
+      isShowAccDialog:false
+    })
+  },
   /*生成特殊站点海报*/
   createSpecialSite:function () {
     const {wd,currSpecail,qucord} = this.data
@@ -399,5 +571,9 @@ Page({
     }).catch(err => {
       console.log('err:', err)
     })
+  },
+  /*保存海报*/
+  savePoster:function () {
+
   }
 });

@@ -107,7 +107,6 @@ Page({
                                     console.log(data.token, 'data.token')
                                     console.log('ssssss')
                                     wx.setStorageSync('loginSessionKey', data.token)
-                                    app.globalData.uuid = resp.data.uuid
                                     //返回上一层页面
                                     // app.globalData.auth_again = true
                                     wx.navigateBack();

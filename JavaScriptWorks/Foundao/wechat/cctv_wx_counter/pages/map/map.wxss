@@ -186,7 +186,13 @@
   font-weight: bold;
 }
 .notArrived-btn-box{
-  margin-top: 40rpx;
+  margin: 40rpx auto;
+  width: 300rpx;
+  height: 98rpx;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  color: white;
+  background: url(https://s-js.sports.cctv.com/host/resource/map/bounced_btn.png) no-repeat center / 100% ;
 }
 .arrivedWhere{
   width: 560rpx;
@@ -213,6 +219,8 @@
   text-align: center;
   line-height: 98rpx;
   height: 98rpx;
+  background: url(https://s-js.sports.cctv.com/host/resource/map/bounced_btn_0.png) no-repeat center / 100% ;
+  color: white;
 }
 .arrivedWhere-btn-box .btn-item:nth-of-type(1){
   margin-right: 25rpx;
@@ -333,13 +341,13 @@
   display: none;
 }
 .acceleratorMask{
-  display: none;
+  display: block;
 }
 .notArrivedMask{
-  display: none;
+  display: block;
 }
 .arrivedWhereMask{
-  display: none;
+  display: block;
 }
 .specialMask{
   display: block;
