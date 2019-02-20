@@ -1,66 +1,22 @@
 // pages/destination/destination.js
 const promisify = require('../../utils/promisify')
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    lists : [
-      {
-        name : '哈哈哈',
-        time : '01-11 10:22',
-        content : '的撒娇恐龙当家按时考虑到骄傲卡老实交代克拉斯自行车把这些吗，从你怎么，那可接受的请叫我接口卵巢囊肿买些， 脑残这么些年离开家按时考虑到',
-        head_img : 'https://test-bjnews.oss-cn-beijing.aliyuncs.com/image/2018/12/10/4736261798435536187.jpg'
-      },
-      {
-        name : '哈哈哈',
-        time : '01-11 10:22',
-        content : '的撒娇恐龙当家按时考虑到骄傲卡老实交代克拉斯自行车把这些吗，从你怎么，那可接受的请叫我接口卵巢囊肿买些， 脑残这么些年离开家按时考虑到',
-        head_img : 'https://test-bjnews.oss-cn-beijing.aliyuncs.com/image/2018/12/10/4736261798435536187.jpg'
-      },
-      {
-        name : '哈哈哈',
-        time : '01-11 10:22',
-        content : '的撒娇恐龙当家按时考虑到骄傲卡老实交代克拉斯自行车把这些吗，从你怎么，那可接受的请叫我接口卵巢囊肿买些， 脑残这么些年离开家按时考虑到',
-        head_img : 'https://test-bjnews.oss-cn-beijing.aliyuncs.com/image/2018/12/10/4736261798435536187.jpg'
-      },
-      {
-        name : '哈哈哈',
-        time : '01-11 10:22',
-        content : '的撒娇恐龙当家按时考虑到骄傲卡老实交代克拉斯自行车把这些吗，从你怎么，那可接受的请叫我接口卵巢囊肿买些， 脑残这么些年离开家按时考虑到',
-        head_img : 'https://test-bjnews.oss-cn-beijing.aliyuncs.com/image/2018/12/10/4736261798435536187.jpg'
-      },
-      {
-        name : '哈哈哈',
-        time : '01-11 10:22',
-        content : '的撒娇恐龙当家按时考虑到骄傲卡老实交代克拉斯自行车把这些吗，从你怎么，那可接受的请叫我接口卵巢囊肿买些， 脑残这么些年离开家按时考虑到',
-        head_img : 'https://test-bjnews.oss-cn-beijing.aliyuncs.com/image/2018/12/10/4736261798435536187.jpg'
-      },
-      {
-        name : '哈哈哈',
-        time : '01-11 10:22',
-        content : '的撒娇恐龙当家按时考虑到骄傲卡老实交代克拉斯自行车把这些吗，从你怎么，那可接受的请叫我接口卵巢囊肿买些， 脑残这么些年离开家按时考虑到',
-        head_img : 'https://test-bjnews.oss-cn-beijing.aliyuncs.com/image/2018/12/10/4736261798435536187.jpg'
-      }
-    ]
+    page: 1,
+    lists: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.request({
-      url : 'https://common.newcomment.cntv.cn/data/list',
-      header : {'content-type': 'application/json'}, // 默认值
-      data : {
-        app : 'wxapp2019cal',
-        itemid : 'lianghui2019',
-        avata : 1, //返回用户头像
-      },
-      method : 'GET',
-      dataType : 'json'
-    })
+    this.getList()
   },
 
   /**
@@ -95,25 +51,102 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    //显示顶部刷新图标
+    wx.showNavigationBarLoading()
+    this.getList()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    // 显示加载图标
+    wx.showLoading({
+      title: '玩命加载中',
+    })
+    this.scrollBottom()
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    if (res.from === 'menu') {
+      //右上角转发
+      return {
+        title: '“两会”走起来',
+        path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
+        imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
+      }
+    }
   },
-  
+
+  //获取留言列表
+  getList: function (isChangePage) {
+    wx.request({
+      url: 'https://common.newcomment.cntv.cn/data/list',
+      header: {'content-type': 'application/json'}, // 默认值
+      data: {
+        app: 'wxapp2019cal',
+        itemid: 'lianghui2019',
+        avata: 1, //返回用户头像
+        page: isChangePage ? this.data.page : 1
+      },
+      method: 'GET',
+      dataType: 'json',
+      success: res => {
+        //隐藏导航栏加载框
+        wx.hideNavigationBarLoading()
+        //停止下拉动作
+        wx.stopPullDownRefresh()
+        //隐藏加载框
+        wx.hideLoading()
+        if (res.data.code / 1 === 0) {
+          const data = res.data.data
+          const lists = this.data.lists
+          data.content.forEach((item, index) => {   //时间戳转换为日期
+            const date = new Date()
+            date.setTime(item.dateline*1000)
+            const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+            const D = date.getDate() + '  '
+            const H = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':'
+            const m = (date.getMinutes()<10 ? '0'+date.getMinutes() : date.getMinutes())
+            item.time = M+D+H+m
+          })
+          if (isChangePage) {
+            data.content.forEach((item, index) => {
+              lists.push(item)
+            })
+            this.setData({
+              lists: lists
+            })
+          } else {
+            this.setData({
+              lists: data.content,
+              page: 1
+            })
+          }
+        } else {
+          console.log(res.data.data.msg)
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+
+  //滑动到底部 翻页
+  scrollBottom: function () {
+    this.setData({
+      page: (this.data.page + 1)
+    }, () => {
+      this.getList(true)
+    })
+  },
+
   //跳转留言页面
-  message : function () {
+  message: function () {
     wx.navigateTo({
       url: '/pages/message/message'
     })

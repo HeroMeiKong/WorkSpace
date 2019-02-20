@@ -18,17 +18,21 @@ Page({
       marskLeft: '0rpx',//marsk标记Left值
       isFirstIn:'false',//是否是第一次进入
       currSpecail:'',//特殊站点海报
+      isNewsList:false,//是否显示新闻列表
       qucord:'https://s-js.sports.cctv.com/host/resource/map/hb-taiyuan.jpg',//小程序码
       userLevel:0,//用户当前等级
       hasAccNum:0,//有几张加速卡
       currSite:'',//当前站点名字
       arriveSoon:'',//即将到达站点
       isSpecialSite:false,//是否是特殊站点
+      istips:false,//是否弹出提示用户分享
       isArrive:true,//是否到达
       chaCalorie:0,//差多少卡路里到达下一站
       isShowDialog:false,//是否显示弹窗
       isShowAccDialog:true,//是否显示加速卡
       mapType:1,//地图ID
+      isLastSecond:false,//倒数第二站
+      poster_url:'',
       activityLevel:5,//当前活动进行的天数
       mapStation:{//地图站点名字
         xibei:['乌鲁木齐', '吐鲁番', '银川', '西宁', '兰州', '嘉峪关', '西安', '宝鸡', '咸阳', '人民大会堂'],
@@ -140,9 +144,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log(app.globalData);
+    if (app.globalData.allData.site===9){
+      /*判断倒数第二站*/
+    }else if(app.globalData.allData.site ===10){
+      /*最后一站*/
+      wx.redirectTo({
+        url: '/pages/destination/destination'
+      })
+    }
     this.judgeCalorieFuction();
     this.judgeTime();
-    console.log(app.globalData);
       /*判断加速卡弹窗是否弹出*/
     if (app.globalData.allData){
       this.setData({
@@ -154,9 +166,19 @@ Page({
         })
       }else {
         this.setData({
-          isShowAccDialog:true
+          isShowAccDialog:false
         })
       }
+    }
+    /*判断用户当前进度是否和活动进度相同 */
+    if (app.globalData.allData.site*1<app.globalData.allData.today*1){
+      this.setData({
+        istips:true
+      })
+    } else {
+      this.setData({
+        istips:false
+      })
     }
     this.getUserWayDetail();
     const wd = app.globalData.systemInfo.screenWidth / 375;
@@ -166,7 +188,7 @@ Page({
     },function () {
       const {userLevel} = this.data;
       this.setMapData(userLevel);//生成地图数据
-      this.createSpecialSite();
+
     });
   },
   /**
@@ -188,7 +210,16 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {},
+  onShareAppMessage: function (res) {
+    if (res.from === 'menu') {
+      //右上角转发
+      return {
+        title: '“两会”走起来',
+        path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
+        imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
+      }
+    }
+  },
 
   /*判断用户昨日卡路里是否达标*/
   judgeCalorieFuction:function(){
@@ -199,7 +230,7 @@ Page({
         'auth-token': wx.getStorageSync('loginSessionKey')
       },
       success:(res)=>{
-        console.log(res.data.data.cha)
+        // console.log(res.data.data.cha)
         if (res.data.data.cha/1===0){
           this.setData({
             chaCalorie:res.data.data.cha,
@@ -226,18 +257,21 @@ Page({
   },
   //判断当前时间是不是当天第一次进入
   judgeTime:function(){
+    console.log('进入校对时间')
     wx.getStorage({
       key: 'lastLoginDate',
       success: res => {
-        console.log(res.data);
+        // console.log(res.data);
         let lastDate = res.data;
         let currTime  = new Date();
         let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
+        // console.log(res.data,'存储时间');
+        // console.log(cuurDate,'当前时间');
         if (lastDate===cuurDate){
           this.setData({
             isFirstIn:false
+            // isFirstIn:true
           });
-
         } else {
           this.setData({
             isFirstIn:true
@@ -249,12 +283,14 @@ Page({
         }
       },
       fail:res=>{
-        if (res.errMsg==='getStorage:fail data not found') {
-          this.setData({
-            isFirstIn:true
-          });
-          this.setCurrDate()
-        }
+        this.setData({
+          isFirstIn:true
+        });
+        this.setCurrDate()
+        // console.log(res,'没有获取')
+        // if (res.errMsg==='getStorage:fail data not found') {
+        //
+        // }
       }
     });
   },
@@ -268,7 +304,7 @@ Page({
         'auth-token': wx.getStorageSync('loginSessionKey')
       },
       success:(res)=>{
-        console.log(res.data)
+        // console.log(res.data)
         this.setData({
           onlinePerson:res.data.data.online_people,
           totalCalorie:res.data.data.calorie
@@ -301,7 +337,38 @@ Page({
   },
   /*看资讯*/
   gotoSeeNews:function(){
+    // console.log(122);
+    let _this = this;
+    let nowTime = new Date();
+    let nowDate = nowTime.getFullYear()+'-'+(nowTime.getMonth()+1)+'-'+
+      nowTime.getDate()+' '+nowTime.getHours()+':'+nowTime.getMinutes()+':'+nowTime.getSeconds()
+    wx.request({
+      url : api.add_calorie,
+      method:'post',
+      header:{
+        'content-type':'application/x-www-form-urlencoded',
+        'auth-token': wx.getStorageSync('loginSessionKey')
+      },
+      data:{
+        type:3,
+        date:nowDate,
+        value:'{"qid":1}'
+      },
+      success:res=>{
+        console.log(res)
+        _this.setData({
+          isNewsList:true,
+          isShowDialog:false
+        })
+      }
 
+    })
+  },
+  /*去留言页面*/
+  askForMinister:function(){
+    wx.navigateTo({
+      url: '/pages/suggest/suggest',
+    });
   },
   /* 地图数据生成 */
   setMapData:function(level){
@@ -397,17 +464,23 @@ Page({
   /*特殊站点海报*/
   setSpecialSite:function(level){
     const { mapType, mapSpecial ,currSite} = this.data;//获取当前地图ID
+    // console.log('进来',level)
+
     if(mapType === 2){
       /* 西北区 */
       if (level/1===0){
         this.setData({
           currSpecail:mapSpecial.xibeiSpecial[0],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       } else if (level/1===4) {
         this.setData({
           currSpecail:mapSpecial.xibeiSpecial[1],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       }else {
         this.setData({
@@ -421,11 +494,15 @@ Page({
         this.setData({
           currSpecail:mapSpecial.huabeiSpecial[0],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       } else if (level/1===7) {
         this.setData({
           currSpecail:mapSpecial.huabeiSpecial[1],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       }else {
         this.setData({
@@ -438,16 +515,22 @@ Page({
         this.setData({
           currSpecail:mapSpecial.dongbeiSpecial[0],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       } else if (level/1===6) {
         this.setData({
           currSpecail:mapSpecial.dongbeiSpecial[1],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       }else if (level/1===8) {
         this.setData({
           currSpecail:mapSpecial.dongbeiSpecial[2],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       }else {
         this.setData({
@@ -460,11 +543,15 @@ Page({
         this.setData({
           currSpecail:mapSpecial.huadongSpecial[0],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       } else if (level/1===4) {
         this.setData({
           currSpecail:mapSpecial.huadongSpecial[1],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       }else {
         this.setData({
@@ -477,11 +564,15 @@ Page({
         this.setData({
           currSpecail:mapSpecial.huananSpecial[0],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       } else if (level/1===6) {
         this.setData({
           currSpecail:mapSpecial.huananSpecial[1],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       }else {
         this.setData({
@@ -495,16 +586,22 @@ Page({
         this.setData({
           currSpecail:mapSpecial.xinanSpecial[0],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       } else if (level/1===2) {
         this.setData({
           currSpecail:mapSpecial.xinanSpecial[1],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       } else if (level/1===7) {
         this.setData({
           currSpecail:mapSpecial.xinanSpecial[1],
           isSpecialSite:true
+        },function () {
+          this.createSpecialSite();
         })
       }else {
         this.setData({
@@ -516,6 +613,7 @@ Page({
 
   /*关闭弹窗*/
   closePopup:function(){
+    wx.hideLoading()
     this.setData({
       isShowDialog:false
     })
@@ -526,9 +624,29 @@ Page({
       isShowAccDialog:false
     })
   },
+  /*关闭提示弹窗*/
+  closeTipsPopup:function(){
+    this.setData({
+      istips:false
+    })
+  },
+  /*关闭新闻列表弹窗*/
+  closeNewsList:function(){
+    this.setData({
+      isNewsList:false
+    })
+  },
+  /*关闭倒数第二站提示*/
+  closelastTips:function(){
+    this.setData({
+      isLastSecond:false
+    })
+  },
   /*生成特殊站点海报*/
   createSpecialSite:function () {
-    const {wd,currSpecail,qucord} = this.data
+    const {wd,currSpecail,qucord} = this.data;
+    // console.log('生成特殊站点海报');
+    // console.log(currSpecail,'currSpecail');
     const ctx = wx.createCanvasContext('specialCanvas');
     var _this = this;
     const getBgImg = promisify(wx.getImageInfo);
@@ -542,8 +660,8 @@ Page({
         ctx.drawImage(bg_url,5*wd,5*wd,250*wd,445*wd,0,0,bg_url.width,bg_url.height);
         ctx.save();
         ctx.drawImage(top_url,191*wd,385*wd,44*wd,44*wd,0,0,top_url.width,top_url.height);
-
         ctx.save();
+
         ctx.draw(false,_this.create_poster_image())
       }).catch(err =>{
         console.log('err:', err)
@@ -552,28 +670,90 @@ Page({
   },
   /*生成海报*/
   create_poster_image() {
+    wx.showLoading({
+      title: '加载中...'
+    });
     var _this = this;
-    const canvasToTempFilePath = promisify(wx.canvasToTempFilePath);
-    canvasToTempFilePath({
-      canvasId: 'specialCanvas',
-      x: 0, //画布区域左上角的横坐标
-      y: 0, // 画布区域左上角的纵坐
-      width: 520, //画布区域宽度
-      height: 910, //画布区域高度
-      fileType: 'png', //输出图片的格式
-      quality: 1.0,//图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理
-      destWidth: 500*2, //输出的图片的宽度,width*屏幕像素密度
-      destHeight: 890*2
-    }).then(res => {
-      _this.setData({
-        poster_url: res.tempFilePath  //生成文件的临时路径
+    setTimeout(function () {
+      const canvasToTempFilePath = promisify(wx.canvasToTempFilePath);
+      canvasToTempFilePath({
+        canvasId: 'specialCanvas',
+        x: 0, //画布区域左上角的横坐标
+        y: 0, // 画布区域左上角的纵坐
+        width: 520*2, //画布区域宽度
+        height: 910*2, //画布区域高度
+        fileType: 'jpg', //输出图片的格式
+        quality: 1.0,//图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理
+        destWidth: 500, //输出的图片的宽度,width*屏幕像素密度
+        destHeight: 890
+      }).then(res => {
+        // console.log(res.tempFilePath);
+        wx.hideLoading()
+        _this.setData({
+          poster_url: res.tempFilePath  //生成文件的临时路径
+        })
+      }).catch(err => {
+        wx.hideLoading()
+        console.log('err:', err)
       })
-    }).catch(err => {
-      console.log('err:', err)
-    })
+    },500)
+
   },
   /*保存海报*/
   savePoster:function () {
+    var _this = this
+    const getSetting = promisify(wx.getSetting)  //获取用户的当前设置
+    getSetting().then(res=>{
+      if(!res.authSetting['scope.writePhotosAlbum']){ //如果未授权照片功能
+        wx.authorize({
+          scope : 'scope.writePhotosAlbum',
+          success : ()=> {
+            _this.save_photo_sure()
+          },
+          fail : ()=> {
+            wx.showModal({
+              title: '提示',
+              content: '燃烧卡路里 申请获得保存图片到相册的权限',
+              success(res) {
+                if (res.confirm) {
+                  wx.openSetting({})
+                  // console.log('用户点击确定')
+                } else if (res.cancel) {
+                  // console.log('用户点击取消')
+                }
+              }
+            })
+          }
+        })
+      }else {
+        _this.save_photo_sure()  //直接保存
+      }
+    })
+    return false
+  },
 
-  }
+  //确认保存
+  save_photo_sure (){
+    var _this = this
+    wx.showLoading()
+    wx.saveImageToPhotosAlbum({
+      filePath:_this.data.poster_url,
+      success : res =>{
+        wx.hideLoading()
+        wx.showToast({
+          title: '保存成功',
+          icon : 'success',
+          duration : 2000
+        })
+      },
+      fail : err =>{
+        wx.hideLoading()
+        wx.showToast({
+          title: '保存失败',
+          icon : 'none',
+          mask : true
+        })
+      }
+    })
+  },
 });

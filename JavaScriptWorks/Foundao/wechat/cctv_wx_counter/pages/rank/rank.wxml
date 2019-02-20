@@ -3,16 +3,16 @@
     <view class="rank_top">
         <view class="rank_left">
             <text class="rank_ranking">名次</text>
-            <text class="rank_num">{{rank_num}}</text>
+            <text class="rank_num">{{user_rank.rank}}</text>
         </view>
-        <open-data type="userAvatarUrl" class="user_head" mode="cover"></open-data>
-        <open-data type="userNickName" class="user_name"></open-data>
+        <image src="{{userHead}}" class="user_head" mode="aspectFill"/>
+        <view class="user_name">{{userName}}</view>
         <view class="rank_right">
             <text class="calorie">卡路里</text>
-            <text class="calorie_num">{{calorie_num}}</text>
+            <text class="calorie_num">{{user_rank.calorie}}</text>
         </view>
     </view>
-    <view wx:for="{{rank_arr}}" class="rank_content"  wx:key="*this">
+    <view wx:for="{{rank_list}}" class="rank_content"  wx:key="{{index}}">
         <!--前三名-->
         <block wx:if="{{index < 3}}">
             <image class="left_icon"
@@ -27,11 +27,11 @@
         </block>
         <!--4名之后-->
         <block wx:if="{{index >= 3}}">
-            <view class="left_num">{{index+1}}</view>
+            <view class="left_num">{{item.rank}}</view>
         </block>
         <!--头像-->
-        <image src="{{item.head_img}}" mode="aspectFill" class="head_img"></image>
-        <view class="rank_name">{{item.name}}</view>
+        <image src="{{item.nick_pic}}" mode="aspectFill" class="head_img"></image>
+        <view class="rank_name">{{item.nick_name}}</view>
         <view class="rank_calorie">{{item.calorie}}</view>
     </view>
 </view>

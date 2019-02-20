@@ -76,8 +76,16 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    console.log('onShareAppMessage')
+    if (res.from === 'menu') {
+        //右上角转发
+        return {
+            title: '“两会”走起来',
+            path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
+            imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
+        }
+    }
   },
   //用户点击选项
   choose (e) {

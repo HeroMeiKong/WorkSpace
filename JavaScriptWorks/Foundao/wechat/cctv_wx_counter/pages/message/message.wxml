@@ -4,7 +4,7 @@
               placeholder="我有话对部长说···"
               maxlength="-1"
               value="{{content}}"
-              bindblur="bindblur"
+              bindinput="bindinput"
     />
     <view class="cancle_btn btn" bindtap="backList">取消</view>
     <view class="submit_btn btn" bindtap="submit">发送</view>

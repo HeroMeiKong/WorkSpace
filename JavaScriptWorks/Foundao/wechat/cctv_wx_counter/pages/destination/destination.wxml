@@ -2,12 +2,12 @@
 <view class="destination_box">
     <canvas canvas-id="myCanvas" class="canvasBox"></canvas>
     <view class="destination_topBox">
-        <view class="destination_num">{{num}}</view>
+        <view class="destination_num">{{rank_num < 10 ? '00'+rank_num : rank_num < 100 ? '0' + rank_num : rank_num}}</view>
     </view>
     <view class="destination_btn ask_btn"
-          bindtap="askBtn">向部长提问</view>
+          bindtap="askBtn">向部长留言</view>
     <view class="destination_btn accept_btn"
-          bindtap="acceptBtn">马上领奖</view>
+          bindtap="acceptBtn">{{rank_num>3 ? '参与抽奖':'马上领奖'}}</view>
     <view class="save_btn"
           bindtap="saveImg"></view>
 </view>

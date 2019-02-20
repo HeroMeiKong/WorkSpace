@@ -8,6 +8,7 @@
   width: 100%;
   position: relative;
   z-index: 9;
+  /*min-height: 100vh;*/
 }
 .userInfo-box{
   /* display: none; */
@@ -236,7 +237,7 @@
   width: 520rpx;
   height: 910rpx;
   background: white;
-  padding: 10rpx;
+  /*padding: 10rpx;*/
   box-sizing: border-box;
 }
 .saveSpecialPost{
@@ -290,6 +291,8 @@
   /*background-color: darkgrey;*/
   line-height: 98rpx;
   text-align: center;
+  color: #fff;
+  background: url(https://s-js.sports.cctv.com/host/resource/map/bounced_btn.png) no-repeat center / 100% ;
 }
 .endPlacebox{
   position: fixed;
@@ -336,12 +339,25 @@
   left: 300rpx;
   bottom: 40rpx;
 }
-
+.shareTips{
+  position: fixed;
+  z-index: 10001;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,.4);
+}
+.share-tips{
+  width: 460rpx;
+  margin-left: 174rpx;
+}
 .lastSecondMask{
-  display: none;
+  display: block;
 }
 .acceleratorMask{
   display: block;
+  z-index: 10001;
 }
 .notArrivedMask{
   display: block;
@@ -352,6 +368,28 @@
 .specialMask{
   display: block;
 }
-.endPlacebox{
-  display: none;
+.canvascss{
+  position: fixed;
+  top: 200%;
+  width: 520rpx;
+  height: 910rpx;
+  background: white;
+  box-sizing: border-box;
+}
+.newsDialog{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+}
+.questionsToMinister{
+  position: fixed;
+  left: 0;
+  top: 93rpx;
+  width: 83rpx;
+  height: 207rpx;
+  z-index: 999;
+  background: url(https://s-js.sports.cctv.com/host/resource/map/map-liuyan.png) no-repeat left center / auto 100%;
 }

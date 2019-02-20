@@ -61,14 +61,20 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
-
+    onShareAppMessage: function (res) {
+        console.log('onShareAppMessage')
+        if (res.from === 'menu') {
+            //右上角转发
+            return {
+                title: '“两会”走起来',
+                path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
+                imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
+            }
+        }
     },
 
     //获取用户信息，将相关用户信息传给后台，获取token，并存在storage中
     getUserInfo: function (e) {
-        // console.log('用户点击授权：')
-        // console.log(e)
         var _this = this
         e.detail.userInfo.avatarUrl = e.detail.userInfo.avatarUrl ? e.detail.userInfo.avatarUrl : app.globalData.default_avatarUrl
         app.globalData.userInfo = e.detail.userInfo
@@ -82,10 +88,6 @@ Page({
                 console.log(res.code)
                 wx.getUserInfo({
                     success: function (re) {
-                        console.log('getUserInfo res:')
-                        console.log(re)
-                        // re.nickName = e.detail.userInfo.nickName;
-                        // re.avatarUrl = e.detail.userInfo.avatarUrl;
                         wx.request({
                             url: api.login_auth,
                             method: 'POST',
@@ -96,28 +98,14 @@ Page({
                                 wx_sign: re.signature,
                                 raw_user_data: re.rawData,
                                 code: res.code,
-                                nickName: app.globalData.userInfo.nickName,
-                                avatarUrl: app.globalData.userInfo.avatarUrl,
+                                share_uuid: app.globalData.share_uuid
                             },
                             success: (resp) => {
-                                console.log('login_auth:')
-                                console.log(resp)
                                 const {code, data, msg} = resp.data;
                                 if (code === 0) {
-                                    console.log(data.token, 'data.token')
-                                    console.log('ssssss')
                                     wx.setStorageSync('loginSessionKey', data.token)
-                                    //返回上一层页面
-                                    // app.globalData.auth_again = true
                                     wx.navigateBack();
                                 } else {
-                                    // wx.showToast({
-                                    //     title: msg,
-                                    //     icon: 'none'
-                                    // })
-                                    // wx.removeStorageSync({
-                                    //     key: 'loginSessionKey',
-                                    // })
                                     try {
                                         wx.removeStorageSync('key')
                                     } catch (e) {

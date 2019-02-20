@@ -1,19 +1,27 @@
 // pages/destination/destination.js
 const promisify = require('../../utils/promisify')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    content : ''
+    content : '',
+    userName :'',
+    userHead : ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const userName = app.globalData.userInfo.nickName
+    const userHead = app.globalData.userInfo.avatarUrl
+    this.setData({
+      userName : userName,
+      userHead : userHead
+    })
   },
 
   /**
@@ -61,12 +69,19 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    if (res.from === 'menu') {
+      //右上角转发
+      return {
+        title: '“两会”走起来',
+        path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
+        imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
+      }
+    }
   },
 
-  //留言失去焦点
-  bindblur:function (e) {
+  //输入流言
+  bindinput:function (e) {
     this.setData({
       content : e.detail.value
     })
@@ -82,18 +97,62 @@ Page({
   //提交留言
   submit : function () {
     var _this = this
-    // wx.request({
-    //   url : 'https://newcomment.cntv.cn/comment/post',
-    //   methor : 'POST',
-    //   dataType : 'json',
-    //   header : {'content-type': 'application/json'}, // 默认值
-    //   data : {
-    //     app : 'wxapp2019cal',
-    //     itemid : 'lianghui2019',
-    //     message : _this.data.content,
-    //
-    //   }
-    // })
+    let timestamp = Date.parse(new Date())
+    timestamp = timestamp / 1000  //当前时间戳
+    const data = 'urlencode(base64(uid=1&time='+timestamp+'))' //匿名留言参数，组成格式为：urlencode(base64(uid=xx&time=1xxx))。uid为任意整数，time为当前uninx时间戳，urlencode, base64 对应两种编码方式。
+    if(!this.data.content){
+      wx.showToast({
+        title: '请输入留言内容',
+        icon : 'none'
+      })
+      return
+    }
+    wx.showLoading()
+    wx.request({
+      url : 'https://newcomment.cntv.cn/comment/post',
+      methor : 'POST',
+      dataType : 'json',
+      header : {'content-type': 'application/json'}, // 默认值
+      data : {
+        app : 'wxapp2019cal',
+        itemid : 'lianghui2019',
+        message : _this.data.content,
+        pic : _this.data.userHead, //用户头像
+        authorid : 1, //用户id，匿名留言传任意整数
+        author : this.data.userName, //用户名，匿名留言传任意值
+        data : data
+      },
+      success : res=>{
+        wx.hideLoading()
+        if(res.data.code/1 === 0){
+          wx.showToast({
+            title: '成功',
+            icon : 'success',
+            mask : true,
+            duration : 2000
+          })
+          setTimeout(function () {
+            wx.navigateBack({
+              delta : 1, //返回的页面数
+            })
+          },2000)
+        }else {
+          wx.showToast({
+            title: res.data.msg,
+            icon : 'none',
+            mask : true
+          })
+        }
+      },
+      fail : err=>{
+        wx.hideLoading()
+        wx.showToast({
+          title: err,
+          icon : 'none',
+          mask : true
+        })
+      }
+    })
   }
 
 })

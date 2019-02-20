@@ -1,14 +1,14 @@
 <view class="suggest_root">
     <view class="suggest_content">
-        <view class="suggest_box" wx:for="{{lists}}" wx:key="*this">
+        <view class="suggest_box" wx:for="{{lists}}" wx:key="{{index}}">
             <view class="content_header">
-                <image src="{{item.head_img}}"
+                <image src="{{item.pics[0].url}}"
                        mode="aspectFill"
                        class="head_img"></image>
-                <view class="header_name">网友：{{item.name}}</view>
+                <view class="header_name">网友：{{item.author}}</view>
                 <view class="time">{{item.time}}</view>
             </view>
-            <view class="content_main">{{item.content}}</view>
+            <view class="content_main">{{item.message}}</view>
             <view class="box_icon"></view>
         </view>
     </view>

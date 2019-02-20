@@ -73,9 +73,10 @@
     </view>
   </view>
 </view>
-
+<!--向部长留言-->
+<view class="questionsToMinister" catchtap="askForMinister"></view>
 <!--加速卡-->
-<view class='maskLayer acceleratorMask' catchtap="closeAccPopup"  wx:if="{{ isShowAccDialog === true && isFirstIn===true}}">
+<view class='maskLayer acceleratorMask' catchtap="closeAccPopup"  wx:if="{{ isShowAccDialog === true && isFirstIn===true }}">
   <view class='accelerator'>
     <view class='accelerator-view-first'>恭喜你</view>
     <view>你使用加速卡一共前进了{{hasAccNum}}站！</view>
@@ -99,29 +100,40 @@
     <view>到达“{{currSite}}”站</view>
     <view class='arrivedWhere-btn-box'>
       <view class='btn-item' catchtap="gotoQuestion">去答题</view>
-      <view class='btn-item'>看热点</view>
+      <view class='btn-item' catchtap="gotoSeeNews">看热点</view>
     </view>
   </view>
 </view>
 <!--倒数第二站提示-->
-<view class="maskLayer lastSecondMask">
+<view class="maskLayer lastSecondMask" catchtap="closelastTips" wx:if="{{ isLastSecond === true }}">
   <view class="lastSecond">
     <view class="lastSecond-first-view">恭喜你</view>
     <view>距离终点仅剩一站，快去答题吧！</view>
-    <view class="lastSecond-btn">去答题</view>
+    <view class="lastSecond-btn" catchtap="gotoQuestion">去答题</view>
   </view>
 </view>
 
 <!--特殊站点-->
 <view class='maskLayer specialMask' catchtap="closePopup"  wx:if="{{ isSpecialSite === true && isShowDialog === true && isFirstIn===true && isArrive===true}}">
   <view class='special'>
-    <canvas class='specialCanvas' canvas-id='specialCanvas'></canvas>
-    <view class='saveSpecialPost'>保存海报</view>
+    <canvas canvas-id='specialCanvas' class="canvascss"></canvas>
+    <image  class='specialCanvas' src="{{poster_url}}"></image>
+    <view class='saveSpecialPost' catchtap="savePoster">保存海报</view>
   </view>
   <view class='special-btn-box'>
     <view class='btn-item' catchtap="gotoQuestion">去答题</view>
-    <view class='btn-item'>看热点</view>
+    <view class='btn-item' catchtap="gotoSeeNews">看热点</view>
   </view>
 </view>
-
+<!--分享提示-->
+<view class="shareTips" catchtap="closeTipsPopup" wx:if="{{isFirstIn===true && istips === true}}">
+    <image
+    class='share-tips'
+    mode='widthFix'
+    src='https://s-js.sports.cctv.com/host/resource/map/share-tips.png'></image>
+</view>
+<!--新闻列表-->
+<view class="newsDialog" catchtap="closeNewsList" wx:if="{{isNewsList}}">
+  <newsList/>
+</view>
 <musicControl/>
