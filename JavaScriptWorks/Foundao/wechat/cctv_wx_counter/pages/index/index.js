@@ -22,6 +22,7 @@ Page({
         //this.onMusicTap(); //进入页面创建背景音乐
         console.log('onLoad')
         console.log(options)
+        //this.onMusicTap()
         options.share_uuid ? app.globalData.share_uuid = options.share_uuid : app.globalData.share_uuid=''
         wx.showShareMenu({
             withShareTicket: true,
@@ -216,12 +217,12 @@ Page({
         console.log('getRunData')
         wx.getWeRunData({
             success: (res) => {
-                if (!this.data.hasGetRunData) {
-                    wx.showLoading({
-                        title: '请求数据中',
-                        mask: true,
-                    });
-                } 
+                // if (!this.data.hasGetRunData) {
+                //     wx.showLoading({
+                //         title: '请求数据中',
+                //         mask: true,
+                //     });
+                // } 
                 const encryptedData = res.encryptedData
                 const iv = res.iv
                 this.setData({
@@ -243,7 +244,7 @@ Page({
                     success: (re) => {
                         if (isFont) {
                             console.log('发送前端步数请求成功!')
-                            wx.hideLoading();
+                            //wx.hideLoading();
                             app.globalData.steps = re.data.data || ''
                             app.globalData.allData = re.data.count || ''
                             app.globalData.map_id = parseInt(wx.getStorageSync('route'));
@@ -341,21 +342,4 @@ Page({
     //         complete: ()=>{}
     //       });
     // },
-    /*创建背景音乐*/
-    onMusicTap() {
-        const backgroundAudioManager = wx.getBackgroundAudioManager()
-        backgroundAudioManager.title = '此时此刻';
-        backgroundAudioManager.epname = '此时此刻';
-        backgroundAudioManager.singer = '许巍';
-        backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000';
-        // 设置了 src 之后会自动播放
-        backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46';
-        backgroundAudioManager.play();
-        backgroundAudioManager.onPlay(() => {
-            console.log("音乐播放开始");
-        })
-        backgroundAudioManager.onEnded(() => {
-            console.log("音乐播放结束");
-        })
-    }
 })
