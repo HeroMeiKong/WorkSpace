@@ -9,7 +9,8 @@ Page({
   data: {
     content : '',
     userName :'',
-    userHead : ''
+    userHead : '',
+    unionId : ''
   },
 
   /**
@@ -18,9 +19,11 @@ Page({
   onLoad: function (options) {
     const userName = app.globalData.userInfo.nickName
     const userHead = app.globalData.userInfo.avatarUrl
+    const unionId = app.globalData.allData.unionId
     this.setData({
       userName : userName,
-      userHead : userHead
+      userHead : userHead,
+      unionId : unionId
     })
   },
 
@@ -99,15 +102,15 @@ Page({
     var _this = this
     let timestamp = Date.parse(new Date())
     timestamp = timestamp / 1000  //当前时间戳
-    const data = 'urlencode(base64(uid=1&time='+timestamp+'))' //匿名留言参数，组成格式为：urlencode(base64(uid=xx&time=1xxx))。uid为任意整数，time为当前uninx时间戳，urlencode, base64 对应两种编码方式。
-    if(!this.data.content){
+    const {unionId,content,userHead,userName} = this.data
+    const data = 'urlencode(base64(uid='+unionId+'&time='+timestamp+'))' //匿名留言参数，组成格式为：urlencode(base64(uid=xx&time=1xxx))。uid为任意整数，time为当前uninx时间戳，urlencode, base64 对应两种编码方式。
+    if(!content){
       wx.showToast({
         title: '请输入留言内容',
         icon : 'none'
       })
       return
     }
-    const authorNum = Math.floor(Math.random()*100 + 1) //1-100的随机整数
     wx.showLoading()
     wx.request({
       url : 'https://newcomment.cntv.cn/comment/post',
@@ -117,10 +120,10 @@ Page({
       data : {
         app : 'wxapp2019cal',
         itemid : 'lianghui2019',
-        message : _this.data.content,
-        pic : _this.data.userHead, //用户头像
-        authorid : authorNum, //用户id，匿名留言传任意整数
-        author : this.data.userName, //用户名，匿名留言传任意值
+        message : content,
+        pic : userHead, //用户头像
+        authorid : unionId, //用户id，匿名留言传任意整数
+        author : userName, //用户名，匿名留言传任意值
         data : data
       },
       success : res=>{

@@ -250,7 +250,7 @@ Page({
                             app.globalData.map_id = parseInt(wx.getStorageSync('route'));
                             //this.getACode()//获取二维码
                             if (!app.globalData.map_id) {
-                                wx.setStorageSync('route', re.data.count.user_way_id);
+                                wx.setStorageSync('route', re.data.count.user_way_id || 0);
                             }
                             if (re.data.count && re.data.count.user_way_id > 0) {
                                 this.gotoMap(re.data.count.user_way_id)

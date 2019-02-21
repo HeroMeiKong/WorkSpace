@@ -149,14 +149,14 @@ Page({
       mapType:app.globalData.map_id*1,
     });
     /*判断是不是未到目标答题后返回*/
-    // app.globalData.allData.q_type=1;
-    if(app.globalData.allData.q_type){
-      if (app.globalData.allData.q_type/1===1){
+    // app.globalData.q_type=1;
+    if(app.globalData.q_type){
+      if (app.globalData.q_type/1===1){
         this.setData({
           isReturn:true,
         });
-        app.globalData.allData.q_type=4
-      }else if (app.globalData.allData.q_type/1===3) {
+        app.globalData.q_type=4
+      }else if (app.globalData.q_type/1===3) {
         this.setData({
           isReturn:false
         });
@@ -410,17 +410,22 @@ Page({
       },
       success:res=>{
         console.log(res.data.code);
-        if (res.data.code===0){
-          _this.setData({
-            isNewsList:true,
-            isShowDialog:false
-          })
-        }else{
-          wx.showToast({
-            title: res.data.errMsg,
-            duration: 2000
-          })
-        }
+        app.globalData.currSite='北京';
+        _this.setData({
+          isNewsList:true,
+          isShowDialog:false
+        })
+        // if (res.data.code===0){
+        //   _this.setData({
+        //     isNewsList:true,
+        //     isShowDialog:false
+        //   })
+        // }else{
+        //   wx.showToast({
+        //     title: res.data.errMsg,
+        //     duration: 2000
+        //   })
+        // }
       }
 
     })

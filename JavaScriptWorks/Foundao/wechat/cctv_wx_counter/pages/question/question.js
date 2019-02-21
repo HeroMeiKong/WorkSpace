@@ -181,16 +181,17 @@ Page({
         this.data.tip.tip = tip.right
         this.data.tip.title = '成功燃烧' + this.data.number * 10 + '卡路里'
       }
+      const value = {
+        "all_count": this.data.howmuch,
+        "correct_count": this.data.number,
+        "error_count": this.data.howmuch - this.data.number
+      }
       wx.request({
         url: api.add_calorie,
         data: {
           type: 2,
           date: currentDate,
-          value: {
-            "all_count": this.data.howmuch,
-            "correct_count": this.data.number,
-            "error_count": this.data.howmuch - this.data.number
-          },
+          value: JSON.stringify(value),
         },
         header: {
           'content-type': 'application/x-www-form-urlencoded',

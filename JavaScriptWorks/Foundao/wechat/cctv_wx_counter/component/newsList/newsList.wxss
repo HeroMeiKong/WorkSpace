@@ -26,6 +26,7 @@
     box-sizing: border-box;
     border: 5rpx solid #ffffff;
     background-size: cover;
+    position: relative;
     background-position: center center;
 }
 
@@ -65,3 +66,12 @@
 }
 
 
+.class-big-title{
+    position: absolute;
+    bottom: 10rpx;
+    left: 17rpx;
+    right: 17rpx;
+    color: white;
+    font-size: 22rpx;
+    line-height: 30rpx;
+}

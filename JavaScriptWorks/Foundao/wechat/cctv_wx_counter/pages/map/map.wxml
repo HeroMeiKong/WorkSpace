@@ -76,7 +76,7 @@
 <!--向部长留言-->
 <view class="questionsToMinister" catchtap="askForMinister"></view>
 <!--加速卡-->
-<view class='maskLayer acceleratorMask' catchtap="closeAccPopup"  wx:if="{{ isShowAccDialog === true && isFirstIn===true }}">
+<view class='maskLayer acceleratorMask' catchtap="closeAccPopup"  wx:if="{{ isShowAccDialog === true }}">
   <view class='accelerator'>
     <view class='accelerator-view-first'>恭喜你</view>
     <view>你使用加速卡一共前进了{{hasAccNum}}站！</view>

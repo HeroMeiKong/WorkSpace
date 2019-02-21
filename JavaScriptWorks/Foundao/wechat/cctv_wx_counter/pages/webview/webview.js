@@ -26,10 +26,10 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        var local_src = wx.getStorageSync('webview_src');
-        if (local_src) {
+        let listUrl = this.options.listUrl;
+        if (listUrl) {
             this.setData({
-                src: local_src
+                src: listUrl
             })
         } else {
             wx.navigateBack({
