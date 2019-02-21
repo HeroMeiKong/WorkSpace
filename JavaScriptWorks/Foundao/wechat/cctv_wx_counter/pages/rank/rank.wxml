@@ -14,19 +14,19 @@
     </view>
     <view wx:for="{{rank_list}}" class="rank_content"  wx:key="{{index}}">
         <!--前三名-->
-        <block wx:if="{{index < 3}}">
+        <block wx:if="{{item.rank <= 3}}">
             <image class="left_icon"
-                   wx:if="{{index === 0}}"
+                   wx:if="{{item.rank === 1}}"
                    src="https://s-js.sports.cctv.com/host/resource/map/top1_icon.png"></image>
             <image class="left_icon"
-                   wx:if="{{index === 1}}"
+                   wx:if="{{item.rank === 2}}"
                    src="https://s-js.sports.cctv.com/host/resource/map/top2_icon.png"></image>
             <image class="left_icon"
-                   wx:if="{{index === 2}}"
+                   wx:if="{{item.rank === 3}}"
                    src="https://s-js.sports.cctv.com/host/resource/map/top3_icon.png"></image>
         </block>
         <!--4名之后-->
-        <block wx:if="{{index >= 3}}">
+        <block wx:if="{{item.rank > 3}}">
             <view class="left_num">{{item.rank}}</view>
         </block>
         <!--头像-->

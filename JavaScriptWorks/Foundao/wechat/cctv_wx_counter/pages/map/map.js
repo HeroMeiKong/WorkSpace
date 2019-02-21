@@ -33,7 +33,9 @@ Page({
       mapType:1,//地图ID
       isLastSecond:false,//倒数第二站
       poster_url:'',
+      isReturn:false,//是否是未达目标返回
       activityLevel:5,//当前活动进行的天数
+      isanswer:false,//用户今天是否答题
       mapStation:{//地图站点名字
         xibei:['乌鲁木齐', '吐鲁番', '银川', '西宁', '兰州', '嘉峪关', '西安', '宝鸡', '咸阳', '人民大会堂'],
         huabei:['呼和浩特', '鄂尔多斯市', '乌兰察布', '太原', '大同', '长治', '石家庄', '秦皇岛', '天津', '人民大会堂'],
@@ -145,13 +147,43 @@ Page({
    */
   onShow: function () {
     console.log(app.globalData);
-    if (app.globalData.allData.site===9){
-      /*判断倒数第二站*/
-    }else if(app.globalData.allData.site ===10){
-      /*最后一站*/
-      wx.redirectTo({
-        url: '/pages/destination/destination'
-      })
+    /*判断是不是未到目标答题后返回*/
+    // app.globalData.allData.q_type=1;
+    if(app.globalData.allData.q_type){
+      if (app.globalData.allData.q_type/1===1){
+        this.setData({
+          isReturn:true,
+        });
+        app.globalData.allData.q_type=4
+      }else if (app.globalData.allData.q_type/1===3) {
+        this.setData({
+          isReturn:false
+        });
+        /*最后一站*/
+        wx.redirectTo({
+          url: '/pages/destination/destination'
+        })
+      }else {
+        this.setData({
+          isReturn:false
+        });
+      }
+    }else {
+      this.setData({
+        isReturn:false
+      });
+      if (app.globalData.allData.site===9){
+        /*判断倒数第二站*/
+        this.setData({
+          isLastSecond:true,
+          isShowDialog:false
+        })
+      }else if(app.globalData.allData.site ===10){
+        /*最后一站*/
+        wx.redirectTo({
+          url: '/pages/destination/destination'
+        })
+      }
     }
     this.judgeCalorieFuction();
     this.judgeTime();
@@ -190,6 +222,7 @@ Page({
       this.setMapData(userLevel);//生成地图数据
 
     });
+
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -257,7 +290,20 @@ Page({
   },
   //判断当前时间是不是当天第一次进入
   judgeTime:function(){
-    console.log('进入校对时间')
+    try {
+      const res =  wx.getStorageSync('successAnswer');
+      if (res===true){
+        this.setData({
+          isanswer:true,
+        })
+      }else {
+        this.setData({
+          isanswer:false,
+        })
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
     wx.getStorage({
       key: 'lastLoginDate',
       success: res => {
@@ -265,8 +311,6 @@ Page({
         let lastDate = res.data;
         let currTime  = new Date();
         let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
-        // console.log(res.data,'存储时间');
-        // console.log(cuurDate,'当前时间');
         if (lastDate===cuurDate){
           this.setData({
             isFirstIn:false
@@ -274,7 +318,8 @@ Page({
           });
         } else {
           this.setData({
-            isFirstIn:true
+            isFirstIn:true,
+            isanswer:false,
           });
           wx.setStorage({
             key:"lastLoginDate",
@@ -288,7 +333,7 @@ Page({
         });
         this.setCurrDate()
         // console.log(res,'没有获取')
-        // if (res.errMsg==='getStorage:fail data not found') {
+        // if (res.errMsg==='getStorage:fail:data not found') {
         //
         // }
       }
@@ -327,12 +372,20 @@ Page({
   },
   /*去答题*/
   gotoQuestion:function(){
+    const {isanswer}=this.data;
     this.setData({
       isShowDialog:false
     });
-    wx.navigateTo({
-      url: '/pages/question/question',
-    });
+    if (isanswer===false){
+      wx.navigateTo({
+        url: '/pages/question/question?iid='+99023,
+      });
+    }else {
+      wx.showToast({
+        title: '你今天已经答过题了',
+        duration: 2000
+      })
+    }
     return false;
   },
   /*看资讯*/
@@ -355,11 +408,18 @@ Page({
         value:'{"qid":1}'
       },
       success:res=>{
-        console.log(res)
-        _this.setData({
-          isNewsList:true,
-          isShowDialog:false
-        })
+        console.log(res.data.code);
+        if (res.data.code===0){
+          _this.setData({
+            isNewsList:true,
+            isShowDialog:false
+          })
+        }else{
+          wx.showToast({
+            title: res.data.errMsg,
+            duration: 2000
+          })
+        }
       }
 
     })
@@ -615,11 +675,22 @@ Page({
   closePopup:function(){
     wx.hideLoading()
     this.setData({
-      isShowDialog:false
+      isShowDialog:false,
+      isReturn:false
     })
   },
   /*关闭加速卡弹窗*/
   closeAccPopup:function(){
+    /*修改加速卡弹窗提示*/
+    wx.request({
+      url:api.updateAcc,
+      header:{
+        'content-type':'application/x-www-form-urlencoded',
+        'auth-token': wx.getStorageSync('loginSessionKey')
+      },
+      method: 'POST',
+      success:res=>{}
+    });
     this.setData({
       isShowAccDialog:false
     })
@@ -687,7 +758,7 @@ Page({
         destWidth: 500, //输出的图片的宽度,width*屏幕像素密度
         destHeight: 890
       }).then(res => {
-        // console.log(res.tempFilePath);
+        console.log(res.tempFilePath);
         wx.hideLoading()
         _this.setData({
           poster_url: res.tempFilePath  //生成文件的临时路径
@@ -697,6 +768,9 @@ Page({
         console.log('err:', err)
       })
     },500)
+    setTimeout(function () {
+      wx.hideLoading()
+    },600)
 
   },
   /*保存海报*/

@@ -94,11 +94,11 @@
   </view>
 </view>
 <!--到达某地-->
-<view class='maskLayer arrivedWhereMask' catchtap="closePopup" wx:if="{{ isSpecialSite === false && isShowDialog === true && isFirstIn===true && isArrive===true}}">
+<view class='maskLayer arrivedWhereMask' catchtap="closePopup" wx:if="{{ isReturn===true&&isSpecialSite === false || isSpecialSite === false && isShowDialog === true && isFirstIn===true && isArrive===true}}">
   <view class='arrivedWhere'>
     <view class='arrivedWhere-first-view'>恭喜你</view>
     <view>到达“{{currSite}}”站</view>
-    <view class='arrivedWhere-btn-box'>
+    <view class='arrivedWhere-btn-box' wx:if="{{isReturn===false}}">
       <view class='btn-item' catchtap="gotoQuestion">去答题</view>
       <view class='btn-item' catchtap="gotoSeeNews">看热点</view>
     </view>
@@ -114,13 +114,13 @@
 </view>
 
 <!--特殊站点-->
-<view class='maskLayer specialMask' catchtap="closePopup"  wx:if="{{ isSpecialSite === true && isShowDialog === true && isFirstIn===true && isArrive===true}}">
+<view class='maskLayer specialMask' catchtap="closePopup"  wx:if="{{  isReturn===true && isSpecialSite === true || isSpecialSite === true && isShowDialog === true && isFirstIn===true && isArrive===true}}">
   <view class='special'>
     <canvas canvas-id='specialCanvas' class="canvascss"></canvas>
     <image  class='specialCanvas' src="{{poster_url}}"></image>
     <view class='saveSpecialPost' catchtap="savePoster">保存海报</view>
   </view>
-  <view class='special-btn-box'>
+  <view class='special-btn-box' wx:if="{{isReturn===false}}">
     <view class='btn-item' catchtap="gotoQuestion">去答题</view>
     <view class='btn-item' catchtap="gotoSeeNews">看热点</view>
   </view>

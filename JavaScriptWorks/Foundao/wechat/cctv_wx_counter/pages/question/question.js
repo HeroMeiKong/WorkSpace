@@ -15,6 +15,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    iid: 0,//题库id
     whichQuestion: 0,
     brand: ['第一题', '第二题', '第三题', '第四题', '第五题'],
     options: [], //选项
@@ -44,6 +45,7 @@ Page({
   onLoad: function (options) {
     this.data.number = 0
     this.setData({
+      iid: options.iid,
       number: this.data.number,
       showCover: 'none',
     })
@@ -61,7 +63,7 @@ Page({
    */
   onShow: function () {
     wx.request({
-      url: 'https://common.itv.cctv.com/answer/detail/?iid=99023', //'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
+      url: 'https://common.itv.cctv.com/answer/detail/?iid='+this.data.iid, //'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
       header: {
         'content-type': 'application/json'
       },
@@ -198,7 +200,7 @@ Page({
           if(result.data.data){
             app.globalData.allData.site = result.data.data.site_count
             app.globalData.allData.today = result.data.data.today
-            app.globalData.allData.q_type = result.data.data.q_type
+            app.globalData.q_type = result.data.data.q_type
           }
           app.globalData.successAnswer = (result.data.code === 0 ? true : false)
           wx.setStorageSync('successAnswer',true)

@@ -47,7 +47,6 @@ Component({
           }, fail(res) { }
         })
       }, 500)
-
     },
   }
 })

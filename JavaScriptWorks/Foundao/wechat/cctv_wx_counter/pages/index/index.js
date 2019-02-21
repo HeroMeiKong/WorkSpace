@@ -195,13 +195,13 @@ Page({
                         const signature = res.signature
                         if (isSet) {
                             app.globalData.userInfo = res.userInfo
-                            this.getRunData(api.getUserCalorie, result.code, signature, isSet)
-                            setTimeout(() => {
+                            this.getRunData(api.backGetUserCalorie, result.code, signature, isSet)
+                            //setTimeout(() => {
                                 //由于连着放，两个请求会忽略一个，所以设置延时
                                 this.getLogin(!isSet)
-                            }, 10000)
+                            //}, 10000)
                         } else {
-                            this.getRunData(api.backGetUserCalorie, result.code, signature, false)
+                            this.getRunData(api.getUserCalorie, result.code, signature, false)
                         }
                     }
                 })
@@ -242,7 +242,7 @@ Page({
                     },
                     method: 'POST',
                     success: (re) => {
-                        if (isFont) {
+                        if (!isFont) {
                             console.log('发送前端步数请求成功!')
                             //wx.hideLoading();
                             app.globalData.steps = re.data.data || ''
@@ -262,7 +262,17 @@ Page({
                             console.log('发送后端步数请求成功!')
                         }
                     },
-                    fail: () => {},
+                    fail: () => {
+                        wx.showToast({
+                            title: '刷新数据失败！请重新尝试',
+                            icon: 'none',
+                            duration: 1500,
+                            mask: true,
+                            success: (result)=>{
+                                
+                            },
+                        });
+                    },
                     complete: () => {}
                 });
             },
@@ -322,24 +332,5 @@ Page({
     //         fail: ()=>{},
     //         complete: ()=>{}
     //     })
-    // },
-    //获取问题
-    // getQuestion() {
-    //     wx.request({
-    //         url: 'https://common.itv.cctv.com/answer/detail',//'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
-    //         header: {'content-type':'application/json'},
-    //         success: (res)=>{
-    //           this.data.allQuestions = res.data.data.questions
-    //           console.log(this.data.allQuestions)
-    //           const length = res.data.data.questions.length
-    //           //设置题目
-    //           this.setData({
-    //             allQuestions: this.data.allQuestions,
-    //             options: this.data.options
-    //           })
-    //         },
-    //         fail: ()=>{},
-    //         complete: ()=>{}
-    //       });
     // },
 })
