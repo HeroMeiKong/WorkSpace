@@ -8,3 +8,4 @@ allData: 用户的其它相关信息，如第几天参加活动,uuid
 share_uuid: 分享用户的id
 successAnswer: 是否成功答题
 q_type: 参与答题类型
+hasGetRunData: 是否获取用户步数

@@ -13,7 +13,34 @@ Component({
   data: {
     isPlay:true
   },
-
+  lifetimes: {
+    attached() {
+      // 在组件实例进入页面节点树时执行
+      let _this = this;
+      wx.getBackgroundAudioPlayerState({
+        success(res) {
+          const state = res.status;
+          if (state === 0) {
+            /*当前暂停状态  改成播放状态*/
+            _this.setData({
+              isPlay: false
+            })
+          } else if (state === 1) {
+            /*当前播放状态  改成暂停状态*/
+            _this.setData({
+              isPlay: true
+            })
+          } else {
+            /*当前没有播放器在播放 */
+            return
+          }
+        }, fail(res) { }
+      })
+    },
+    detached() {
+      // 在组件实例被从页面节点树移除时执行
+    },
+  },
   /**
    * 组件的方法列表
    */
@@ -42,6 +69,20 @@ Component({
               wx.pauseBackgroundAudio();
             } else {
               /*当前没有播放器在播放 */
+              const backgroundAudioManager = wx.getBackgroundAudioManager()
+              backgroundAudioManager.title = '此时此刻';
+              backgroundAudioManager.epname = '此时此刻';
+              backgroundAudioManager.singer = '许巍';
+              backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000';
+              // 设置了 src 之后会自动播放
+              backgroundAudioManager.src = this.globalData.musicSrc
+              backgroundAudioManager.play();
+              backgroundAudioManager.onPlay(() => {
+                console.log("音乐播放开始");
+              })
+              backgroundAudioManager.onEnded(() => {
+                console.log("音乐播放结束");
+              })
               return
             }
           }, fail(res) { }

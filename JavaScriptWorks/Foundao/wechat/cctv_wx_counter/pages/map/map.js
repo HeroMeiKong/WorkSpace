@@ -132,11 +132,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
-      avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
-      mapType:app.globalData.map_id*1,
-    });
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -147,6 +143,11 @@ Page({
    */
   onShow: function () {
     console.log(app.globalData);
+    this.setData({
+      userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
+      avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
+      mapType:app.globalData.map_id*1,
+    });
     /*判断是不是未到目标答题后返回*/
     // app.globalData.allData.q_type=1;
     if(app.globalData.allData.q_type){

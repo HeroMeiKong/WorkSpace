@@ -11,7 +11,6 @@ Page({
         hasInit: false, //是否初始化
         showRule_flag: false, //显示游戏规则
         showGameTips_flag: false, //显示游戏提示
-        hasGetRunData: false, //是否获取用户步数
         hasAuthorize: 'none', //用户已授权
     },
 
@@ -140,11 +139,11 @@ Page({
         wx.showToast({
             title: '您选择了线路' + map_id
         })
+        app.globalData.map_id = map_id
+        wx.setStorageSync('route', map_id);
         wx.redirectTo({
             url: '/pages/map/map',
             success: (result) => {
-                app.globalData.map_id = map_id
-                wx.setStorageSync('route', map_id);
                 wx.request({
                     url: api.selectRoute,
                     data: {
@@ -215,14 +214,15 @@ Page({
     getRunData(url, code, signature, isFont) {
         //isSet是否获取步数
         console.log('getRunData')
+        let that = this
         wx.getWeRunData({
             success: (res) => {
-                // if (!this.data.hasGetRunData) {
-                //     wx.showLoading({
-                //         title: '请求数据中',
-                //         mask: true,
-                //     });
-                // } 
+                if (!app.globalData.hasGetRunData) {
+                    wx.showLoading({
+                        title: '请求数据中',
+                        mask: true,
+                    });
+                } 
                 const encryptedData = res.encryptedData
                 const iv = res.iv
                 this.setData({
@@ -244,7 +244,7 @@ Page({
                     success: (re) => {
                         if (!isFont) {
                             console.log('发送前端步数请求成功!')
-                            //wx.hideLoading();
+                            wx.hideLoading();
                             app.globalData.steps = re.data.data || ''
                             app.globalData.allData = re.data.count || ''
                             app.globalData.map_id = parseInt(wx.getStorageSync('route'));
@@ -255,9 +255,7 @@ Page({
                             if (re.data.count && re.data.count.user_way_id > 0) {
                                 this.gotoMap(re.data.count.user_way_id)
                             }
-                            this.setData({
-                                hasGetRunData: true
-                            })
+                            app.globalData.hasGetRunData = true
                         } else {
                             console.log('发送后端步数请求成功!')
                         }

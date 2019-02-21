@@ -3,7 +3,7 @@
   <view class="inner">
     <view class="brand">{{brand[whichQuestion]}}</view>
     <view class="top">
-      <view class="number"><view><font>{{whichQuestion+1}}</font>/5</view></view>
+      <view class="number"><view><font>{{whichQuestion+1}}</font>/{{howmuch}}</view></view>
       <view class="question">{{allQuestions[whichQuestion].body.description}}</view>
     </view>
     <view class="bottom">
@@ -21,8 +21,9 @@
     <view class="bgcover">
       <view class="tippic" style="background: url('{{tip.tippic}}') no-repeat;background-size: 100%;"></view>
       <view class="tip">{{tip.tip}}</view>
-      <view class="title"><view class="left">错误：{{5-number}}</view><view class="right">正确：{{number}}</view></view>
+      <view class="title"><view class="left">错误：{{howmuch-number}}</view><view class="right">正确：{{number}}</view></view>
       <view class="title">{{tip.title}}</view>
     </view>
   </view>
 </view>
+<musicControl />

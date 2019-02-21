@@ -2,3 +2,4 @@
     <view class="text">需要您授权同意我们获取您的个人信息， 才能为您开启小游</view>
     <button class="btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">微信授权</button>
 </view>
+<musicControl />

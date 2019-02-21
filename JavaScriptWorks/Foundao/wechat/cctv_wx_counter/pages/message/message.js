@@ -107,6 +107,7 @@ Page({
       })
       return
     }
+    const authorNum = Math.floor(Math.random()*100 + 1) //1-100的随机整数
     wx.showLoading()
     wx.request({
       url : 'https://newcomment.cntv.cn/comment/post',
@@ -118,7 +119,7 @@ Page({
         itemid : 'lianghui2019',
         message : _this.data.content,
         pic : _this.data.userHead, //用户头像
-        authorid : 1, //用户id，匿名留言传任意整数
+        authorid : authorNum, //用户id，匿名留言传任意整数
         author : this.data.userName, //用户名，匿名留言传任意值
         data : data
       },

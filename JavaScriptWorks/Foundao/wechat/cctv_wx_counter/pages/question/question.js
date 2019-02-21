@@ -15,7 +15,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    iid: 0,//题库id
+    howmuch: 5,//多少道题
     whichQuestion: 0,
     brand: ['第一题', '第二题', '第三题', '第四题', '第五题'],
     options: [], //选项
@@ -44,8 +44,27 @@ Page({
    */
   onLoad: function (options) {
     this.data.number = 0
+    wx.request({
+      url: 'https://common.itv.cctv.com/answer/detail/?iid='+options.iid, //'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (res) => {
+        this.data.allQuestions = res.data.data.questions
+        console.log(this.data.allQuestions)
+        const length = res.data.data.questions.length
+        //设置题目
+        this.resetQuestion()
+        this.setData({
+          howmuch: length,
+          allQuestions: this.data.allQuestions,
+          options: this.data.options
+        })
+      },
+      fail: () => {},
+      complete: () => {}
+    });
     this.setData({
-      iid: options.iid,
       number: this.data.number,
       showCover: 'none',
     })
@@ -62,25 +81,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.request({
-      url: 'https://common.itv.cctv.com/answer/detail/?iid='+this.data.iid, //'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
-      header: {
-        'content-type': 'application/json'
-      },
-      success: (res) => {
-        this.data.allQuestions = res.data.data.questions
-        console.log(this.data.allQuestions)
-        const length = res.data.data.questions.length
-        //设置题目
-        this.resetQuestion()
-        this.setData({
-          allQuestions: this.data.allQuestions,
-          options: this.data.options
-        })
-      },
-      fail: () => {},
-      complete: () => {}
-    });
+    
   },
 
   /**
@@ -161,7 +162,7 @@ Page({
   //下一题
   nextQuestion() {
     console.log('nextQuestion')
-    if (this.data.whichQuestion < 4) {
+    if (this.data.whichQuestion < this.data.howmuch-1) {
       //不是最后一题
       this.data.whichQuestion++
       this.resetQuestion()
@@ -186,9 +187,9 @@ Page({
           type: 2,
           date: currentDate,
           value: {
-            "all_count": 5,
+            "all_count": this.data.howmuch,
             "correct_count": this.data.number,
-            "error_count": 5 - this.data.number
+            "error_count": this.data.howmuch - this.data.number
           },
         },
         header: {
