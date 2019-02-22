@@ -65,7 +65,8 @@
     <view class='userInfo'>
       <view class='online-person'>在线用户：{{onlinePerson}}</view>
       <h2>{{userName}}</h2>
-      <h3>累积贡献{{totalCalorie}}卡路里，现在出发！</h3>
+      <h3 wx:if="{{isFirstplay===true}}">累积贡献{{totalCalorie}}卡路里，现在出发！</h3>
+      <h3 wx:else >累积贡献{{totalCalorie}}卡路里，现在已到达“{{currSite}}站”！</h3>
     </view>
     <view class='userInfo-btnbox'>
       <view class='gotoRank' catchtap='gotoRank'>查看排行榜</view>

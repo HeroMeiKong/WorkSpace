@@ -61,7 +61,7 @@ App({
         backgroundAudioManager.singer = '许巍';
         backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000';
         // 设置了 src 之后会自动播放
-        backgroundAudioManager.src = this.globalData.musicSrc
+        backgroundAudioManager.src = this.globalData.musicSrc;
         backgroundAudioManager.play();
         backgroundAudioManager.onPlay(() => {
             console.log("音乐播放开始");
@@ -71,11 +71,10 @@ App({
         })
     },
     onShow() {
-        console.log('onpageshow')
-        wx.playBackgroundAudio();
+        // console.log('onpageshow');
     },
     onHide() {
-        console.log('onpagehide')
+        // console.log('onpagehide')
         wx.pauseBackgroundAudio();
     }
 })

@@ -1,6 +1,9 @@
 // pages/index/index.js
 import api from './../../config/api';
 const app = getApp()
+let hasShowModal = false //是否有showModal
+let userinfo = false
+let werun = false
 
 Page({
 
@@ -12,6 +15,7 @@ Page({
         showRule_flag: false, //显示游戏规则
         showGameTips_flag: false, //显示游戏提示
         hasAuthorize: 'none', //用户已授权
+        showCover: 'flex',//显示遮罩层
     },
 
     /**
@@ -20,9 +24,10 @@ Page({
     onLoad: function (options) {
         //this.onMusicTap(); //进入页面创建背景音乐
         console.log('onLoad')
-        console.log(options)
-        //this.onMusicTap()
-        options.share_uuid ? app.globalData.share_uuid = options.share_uuid : app.globalData.share_uuid=''
+        hasShowModal = false
+        userinfo = false
+        werun = false
+        options.share_uuid ? app.globalData.share_uuid = options.share_uuid : app.globalData.share_uuid = ''
         wx.showShareMenu({
             withShareTicket: true,
         })
@@ -75,20 +80,6 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
 
     },
 
@@ -154,8 +145,7 @@ Page({
                         'auth-token': wx.getStorageSync('loginSessionKey')
                     },
                     method: 'POST',
-                    success: (result) => {
-                    },
+                    success: (result) => {},
                     fail: () => {},
                     complete: () => {}
                 });
@@ -196,8 +186,8 @@ Page({
                             app.globalData.userInfo = res.userInfo
                             this.getRunData(api.backGetUserCalorie, result.code, signature, isSet)
                             //setTimeout(() => {
-                                //由于连着放，两个请求会忽略一个，所以设置延时
-                                this.getLogin(!isSet)
+                            //由于连着放，两个请求会忽略一个，所以设置延时
+                            this.getLogin(!isSet)
                             //}, 10000)
                         } else {
                             this.getRunData(api.getUserCalorie, result.code, signature, false)
@@ -222,7 +212,7 @@ Page({
                         title: '请求数据中',
                         mask: true,
                     });
-                } 
+                }
                 const encryptedData = res.encryptedData
                 const iv = res.iv
                 this.setData({
@@ -258,6 +248,9 @@ Page({
                             app.globalData.hasGetRunData = true
                         } else {
                             console.log('发送后端步数请求成功!')
+                            this.setData({
+                                showCover: 'none'
+                            })
                         }
                     },
                     fail: () => {
@@ -266,8 +259,8 @@ Page({
                             icon: 'none',
                             duration: 1500,
                             mask: true,
-                            success: (result)=>{
-                                
+                            success: (result) => {
+
                             },
                         });
                     },
@@ -276,28 +269,47 @@ Page({
             },
             fail: (res) => {
                 console.log('用户拒绝获取步数')
-                wx.showModal({
-                    title: '警告',
-                    content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
-                    showCancel: true,
-                    cancelText: '取消',
-                    cancelColor: '#000000',
-                    confirmText: '确定',
-                    confirmColor: '#3CC51F',
-                    success: (result) => {
-                        if (result.confirm) {
-                            wx.openSetting({})
-                        } else {
-                            this.setData({
-                                hasAuthorize: 'flex'
-                            })
-                        }
-                    },
-                    fail: () => {},
-                    complete: () => {}
-                });
+                if (!isFont) {
+                    this.showModal()
+                }
             }
         })
+    },
+    //弹窗提示用户
+    showModal() {
+        console.log('showModal')
+        wx.openSetting({
+            success: (e) => {
+                userinfo = e.scope.userInfo
+                werun = e.scope.werun
+            }
+        })
+        if(!hasShowModal && !(userinfo && werun)){
+            hasShowModal = true
+            console.log(hasShowModal)
+            wx.showModal({
+                title: '警告',
+                content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
+                showCancel: true,
+                cancelText: '取消',
+                cancelColor: '#000000',
+                confirmText: '确定',
+                confirmColor: '#3CC51F',
+                success: (result) => {
+                    if (result.confirm) {
+                        wx.openSetting({})
+                    } else {
+                        this.setData({
+                            hasAuthorize: 'flex'
+                        })
+                    }
+                },
+                fail: () => {},
+                complete: () => {
+                    hasShowModal = false
+                }
+            });
+        }
     },
     quit() {
         console.log('quit')

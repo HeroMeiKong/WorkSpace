@@ -13,9 +13,9 @@ Component({
   data: {
     isPlay:true
   },
-  lifetimes: {
-    attached() {
-      // 在组件实例进入页面节点树时执行
+  pageLifetimes: {
+    show() {
+      // 页面被展示
       let _this = this;
       wx.getBackgroundAudioPlayerState({
         success(res) {
@@ -37,6 +37,17 @@ Component({
         }, fail(res) { }
       })
     },
+    hide() {
+      // 页面被隐藏
+    },
+    resize(size) {
+      // 页面尺寸变化
+    }
+  },
+  lifetimes: {
+    attached() {
+      // 在组件实例进入页面节点树时执行
+    },
     detached() {
       // 在组件实例被从页面节点树移除时执行
     },
@@ -52,9 +63,9 @@ Component({
       ti = setInterval(function () {
         wx.getBackgroundAudioPlayerState({
           success(res) {
-            clearInterval(ti)
+            clearInterval(ti);
             const state = res.status;
-            console.log(state)
+            console.log(state);
             if (state === 0) {
               /*当前暂停状态  改成播放状态*/
               _this.setData({

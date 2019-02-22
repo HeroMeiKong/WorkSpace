@@ -47,6 +47,7 @@
             </navigator>
         </view>
     </view>
+    <view class="cover" style="display:{{showCover}}" catch:tap="showModal"></view>
 </view>
 <musicControl/>
 <!--<newsList/>-->

@@ -15,7 +15,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    howmuch: 5,//多少道题
+    howmuch: 5, //多少道题
     whichQuestion: 0,
     brand: ['第一题', '第二题', '第三题', '第四题', '第五题'],
     options: [], //选项
@@ -45,7 +45,7 @@ Page({
   onLoad: function (options) {
     this.data.number = 0
     wx.request({
-      url: 'https://common.itv.cctv.com/answer/detail/?iid='+options.iid, //'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
+      url: 'https://common.itv.cctv.com/answer/detail/?iid=' + options.iid, //'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
       header: {
         'content-type': 'application/json'
       },
@@ -81,7 +81,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
@@ -162,7 +162,7 @@ Page({
   //下一题
   nextQuestion() {
     console.log('nextQuestion')
-    if (this.data.whichQuestion < this.data.howmuch-1) {
+    if (this.data.whichQuestion < this.data.howmuch - 1) {
       //不是最后一题
       this.data.whichQuestion++
       this.resetQuestion()
@@ -172,14 +172,21 @@ Page({
       let currentDate = currTime.getFullYear() + '-' + (currTime.getMonth() + 1) + '-' + currTime.getDate() + ' ' + currTime.getHours() + ':' + currTime.getMinutes() + ':' + currTime.getSeconds();
       if (this.data.number === 0) {
         //全错
+        console.log('全错')
         this.data.tip.tippic = tippic.wrong
         this.data.tip.tip = tip.wrong
         this.data.tip.title = '别灰心，再接再厉，继续前进'
       } else {
         //至少答对一道
-        this.data.tip.tippic = tippic.right
-        this.data.tip.tip = tip.right
-        this.data.tip.title = '成功燃烧' + this.data.number * 10 + '卡路里'
+        if (app.globalData.chaCalorie) {
+          this.data.tip.tippic = tippic.right
+          this.data.tip.tip = tip.right
+          this.data.tip.title = '成功燃烧' + app.globalData.chaCalorie + '卡路里'
+        } else {
+          this.data.tip.tippic = tippic.right
+          this.data.tip.tip = tip.right
+          this.data.tip.title = '成功燃烧' + this.data.number+'*(100~200)' + '卡路里'
+        }
       }
       const value = {
         "all_count": this.data.howmuch,
@@ -199,25 +206,25 @@ Page({
         },
         method: 'POST',
         success: (result) => {
-          if(result.data.data){
+          if (result.data.data) {
             app.globalData.allData.site = result.data.data.site_count
             app.globalData.allData.today = result.data.data.today
             app.globalData.q_type = result.data.data.q_type
           }
           app.globalData.successAnswer = (result.data.code === 0 ? true : false)
-          wx.setStorageSync('successAnswer',true)
+          wx.setStorageSync('successAnswer', true)
         },
         fail: () => {
-            wx.showLoading({
-              title: '答题失败，请您检查网络情况并重新尝试',
-              mask: true,
-              success: (result)=>{
-                wx.setStorageSync('successAnswer',false)
-                let time = setTimeout(() => {
-                  wx.hideLoading();
-                },500)
-              },
-            });
+          wx.showLoading({
+            title: '答题失败，请您检查网络情况并重新尝试',
+            mask: true,
+            success: (result) => {
+              wx.setStorageSync('successAnswer', false)
+              let time = setTimeout(() => {
+                wx.hideLoading();
+              }, 500)
+            },
+          });
         },
         complete: () => {
           let times = setTimeout(() => {
@@ -225,7 +232,7 @@ Page({
               delta: 1,
             });
             clearTimeout(times)
-          },1000)
+          }, 3000)
         }
       });
       this.setData({

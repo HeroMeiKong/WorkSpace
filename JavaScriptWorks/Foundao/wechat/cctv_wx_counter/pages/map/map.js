@@ -21,6 +21,7 @@ Page({
       isNewsList:false,//是否显示新闻列表
       qucord:'https://s-js.sports.cctv.com/host/resource/map/hb-taiyuan.jpg',//小程序码
       userLevel:0,//用户当前等级
+      isFirstplay:true,//用户是否是第一次进入游戏
       hasAccNum:0,//有几张加速卡
       currSite:'',//当前站点名字
       arriveSoon:'',//即将到达站点
@@ -148,14 +149,29 @@ Page({
       avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
       mapType:app.globalData.map_id*1,
     });
+    if (app.globalData.allData.site<=1){
+      this.setData({
+        isFirstplay:true
+      })
+    } else {
+      this.setData({
+        isFirstplay:false
+      })
+    }
     /*判断是不是未到目标答题后返回*/
     // app.globalData.q_type=1;
+    // app.globalData.allData.site=9;
     if(app.globalData.q_type){
       if (app.globalData.q_type/1===1){
         this.setData({
           isReturn:true,
         });
         app.globalData.q_type=4
+        if (app.globalData.allData.site/1>=10){
+          wx.redirectTo({
+            url: '/pages/destination/destination'
+          })
+        }
       }else if (app.globalData.q_type/1===3) {
         this.setData({
           isReturn:false
@@ -172,19 +188,19 @@ Page({
     }else {
       this.setData({
         isReturn:false
-      });
-      if (app.globalData.allData.site===9){
-        /*判断倒数第二站*/
-        this.setData({
-          isLastSecond:true,
-          isShowDialog:false
-        })
-      }else if(app.globalData.allData.site ===10){
-        /*最后一站*/
-        wx.redirectTo({
-          url: '/pages/destination/destination'
-        })
-      }
+      })
+    }
+    if (app.globalData.allData.site===9){
+      /*判断倒数第二站*/
+      this.setData({
+        isLastSecond:true,
+        isShowDialog:false
+      })
+    }else if(app.globalData.allData.site/1>=10){
+      /*最后一站*/
+      wx.redirectTo({
+        url: '/pages/destination/destination'
+      })
     }
     this.judgeCalorieFuction();
     this.judgeTime();
@@ -271,6 +287,7 @@ Page({
             isArrive:true
           })
         } else {
+          app.globalData.chaCalorie=res.data.data.cha;
           this.setData({
             chaCalorie:res.data.data.cha,
             isArrive:false

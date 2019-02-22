@@ -10,3 +10,4 @@ successAnswer: 是否成功答题
 q_type: 参与答题类型
 hasGetRunData: 是否获取用户步数
 currSite:当前站点
+chaCalorie:差多少卡路里
