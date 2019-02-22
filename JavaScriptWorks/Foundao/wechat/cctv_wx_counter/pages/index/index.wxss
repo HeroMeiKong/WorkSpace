@@ -245,4 +245,8 @@
   top: 0;
   background-color: rgba(0,0,0,.1);
   z-index: 99;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

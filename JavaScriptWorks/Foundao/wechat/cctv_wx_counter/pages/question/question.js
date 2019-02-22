@@ -51,7 +51,6 @@ Page({
       },
       success: (res) => {
         this.data.allQuestions = res.data.data.questions
-        console.log(this.data.allQuestions)
         const length = res.data.data.questions.length
         //设置题目
         this.resetQuestion()
@@ -115,7 +114,6 @@ Page({
   //用户点击选项
   choose(e) {
     console.log('choose')
-    console.log(e.currentTarget.id)
     let which = 0
     for (let i = 0; i < 4; i++) {
       if (this.data.options[i].id === e.currentTarget.id) {
@@ -135,8 +133,6 @@ Page({
   resetQuestion() {
     console.log('resetQuestion')
     this.data.options = this.data.allQuestions[this.data.whichQuestion].options
-    console.log(this.data.options)
-    console.log(this.data.whichQuestion)
     for (let j = 0; j < 4; j++) {
       if (this.data.options[j].is_right === '1') {
         this.data.options[j].image = 'https://s-js.sports.cctv.com/host/resource/map/Qright2.png'
@@ -162,6 +158,8 @@ Page({
   //下一题
   nextQuestion() {
     console.log('nextQuestion')
+    let that = this
+    let tip = {}
     if (this.data.whichQuestion < this.data.howmuch - 1) {
       //不是最后一题
       this.data.whichQuestion++
@@ -170,24 +168,6 @@ Page({
       //最后一题
       let currTime = new Date();
       let currentDate = currTime.getFullYear() + '-' + (currTime.getMonth() + 1) + '-' + currTime.getDate() + ' ' + currTime.getHours() + ':' + currTime.getMinutes() + ':' + currTime.getSeconds();
-      if (this.data.number === 0) {
-        //全错
-        console.log('全错')
-        this.data.tip.tippic = tippic.wrong
-        this.data.tip.tip = tip.wrong
-        this.data.tip.title = '别灰心，再接再厉，继续前进'
-      } else {
-        //至少答对一道
-        if (app.globalData.chaCalorie) {
-          this.data.tip.tippic = tippic.right
-          this.data.tip.tip = tip.right
-          this.data.tip.title = '成功燃烧' + app.globalData.chaCalorie + '卡路里'
-        } else {
-          this.data.tip.tippic = tippic.right
-          this.data.tip.tip = tip.right
-          this.data.tip.title = '成功燃烧' + this.data.number+'*(100~200)' + '卡路里'
-        }
-      }
       const value = {
         "all_count": this.data.howmuch,
         "correct_count": this.data.number,
@@ -206,6 +186,28 @@ Page({
         },
         method: 'POST',
         success: (result) => {
+          if (that.data.number === 0) {
+            //全错
+            console.log('全错')
+            tip.tippic = tippic.wrong
+            tip.tip = tip.wrong
+            tip.title = '别灰心，再接再厉，继续前进'
+          } else {
+            //至少答对一道
+            if (app.globalData.chaCalorie) {
+              tip.tippic = tippic.right
+              tip.tip = tip.right
+              tip.title = '成功燃烧' + app.globalData.chaCalorie + '卡路里'
+            } else {
+              tip.tippic = tippic.right
+              tip.tip = tip.right
+              if (result.data.data) {
+                tip.title = '成功燃烧' + result.data.data.calorie + '卡路里'
+              } else {
+                tip.title = '成功燃烧0卡路里'
+              }
+            }
+          }
           if (result.data.data) {
             app.globalData.allData.site = result.data.data.site_count
             app.globalData.allData.today = result.data.data.today
@@ -213,6 +215,16 @@ Page({
           }
           app.globalData.successAnswer = (result.data.code === 0 ? true : false)
           wx.setStorageSync('successAnswer', true)
+          that.setData({
+            tip: tip,
+            showCover: 'flex',
+          })
+          let times = setTimeout(() => {
+            wx.navigateBack({
+              delta: 1,
+            });
+            clearTimeout(times)
+          }, 3000)
         },
         fail: () => {
           wx.showLoading({
@@ -227,18 +239,9 @@ Page({
           });
         },
         complete: () => {
-          let times = setTimeout(() => {
-            wx.navigateBack({
-              delta: 1,
-            });
-            clearTimeout(times)
-          }, 3000)
+          
         }
       });
-      this.setData({
-        tip: this.data.tip,
-        showCover: 'flex',
-      })
     }
     this.setData({
       whichQuestion: this.data.whichQuestion,
@@ -255,7 +258,6 @@ Page({
       //显示正确答案
       for (let i = 0; i < 4; i++) {
         if (this.data.options[i].is_right === '1') {
-          console.log(this.data.options[i].is_right)
           this.data.options[i].class = 'choose'
           this.data.showOptions[i].show = 'flex'
         }

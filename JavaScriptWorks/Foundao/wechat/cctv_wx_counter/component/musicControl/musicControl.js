@@ -1,4 +1,5 @@
 // component/musicControl/musicControl.js
+const app = getApp();
 Component({
   /**
    * 组件的属性列表
@@ -31,7 +32,7 @@ Component({
               isPlay: true
             })
           } else {
-            /*当前没有播放器在播放 */
+
             return
           }
         }, fail(res) { }
@@ -86,7 +87,7 @@ Component({
               backgroundAudioManager.singer = '许巍';
               backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000';
               // 设置了 src 之后会自动播放
-              backgroundAudioManager.src = this.globalData.musicSrc
+              backgroundAudioManager.src = app.globalData.musicSrc
               backgroundAudioManager.play();
               backgroundAudioManager.onPlay(() => {
                 console.log("音乐播放开始");

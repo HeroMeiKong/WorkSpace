@@ -2,8 +2,9 @@
 import api from './../../config/api';
 const app = getApp()
 let hasShowModal = false //是否有showModal
-let userinfo = false
-let werun = false
+let userinfo = false //获取用户信息授权
+let werun = false //获取用户步数授权
+let inMap = false //用户是否已经授权
 
 Page({
 
@@ -24,6 +25,7 @@ Page({
     onLoad: function (options) {
         //this.onMusicTap(); //进入页面创建背景音乐
         console.log('onLoad')
+        inMap = options.inMap
         hasShowModal = false
         userinfo = false
         werun = false
@@ -278,37 +280,38 @@ Page({
     //弹窗提示用户
     showModal() {
         console.log('showModal')
-        wx.openSetting({
-            success: (e) => {
-                userinfo = e.scope.userInfo
-                werun = e.scope.werun
-            }
-        })
-        if(!hasShowModal && !(userinfo && werun)){
-            hasShowModal = true
-            console.log(hasShowModal)
-            wx.showModal({
-                title: '警告',
-                content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
-                showCancel: true,
-                cancelText: '取消',
-                cancelColor: '#000000',
-                confirmText: '确定',
-                confirmColor: '#3CC51F',
-                success: (result) => {
-                    if (result.confirm) {
-                        wx.openSetting({})
-                    } else {
-                        this.setData({
-                            hasAuthorize: 'flex'
-                        })
-                    }
-                },
-                fail: () => {},
-                complete: () => {
-                    hasShowModal = false
+        if(!inMap){
+            wx.openSetting({
+                success: (e) => {
+                    userinfo = e.scope.userInfo
+                    werun = e.scope.werun
                 }
-            });
+            })
+            if(!hasShowModal && !(userinfo && werun)){
+                hasShowModal = true
+                wx.showModal({
+                    title: '警告',
+                    content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
+                    showCancel: true,
+                    cancelText: '取消',
+                    cancelColor: '#000000',
+                    confirmText: '确定',
+                    confirmColor: '#3CC51F',
+                    success: (result) => {
+                        if (result.confirm) {
+                            wx.openSetting({})
+                        } else {
+                            this.setData({
+                                hasAuthorize: 'flex'
+                            })
+                        }
+                    },
+                    fail: () => {},
+                    complete: () => {
+                        hasShowModal = false
+                    }
+                });
+            }
         }
     },
     quit() {

@@ -30,7 +30,7 @@ Page({
       isArrive:true,//是否到达
       chaCalorie:0,//差多少卡路里到达下一站
       isShowDialog:false,//是否显示弹窗
-      isShowAccDialog:true,//是否显示加速卡
+      isShowAccDialog:false,//是否显示加速卡
       mapType:1,//地图ID
       isLastSecond:false,//倒数第二站
       poster_url:'',
@@ -385,7 +385,7 @@ Page({
   changeRoad:function(){
     app.globalData.ischange=true;
     wx.redirectTo({
-      url: '/pages/index/index',
+      url: '/pages/index/index?inMap='+1,
     });
   },
   /*去答题*/
