@@ -11,6 +11,7 @@ Page({
   data: {
     rank_num: '',
     poster_url: '', //海报地址
+    isNewsList:true,
   },
 
   /**
@@ -33,7 +34,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    /*设置标志*/
+    app.globalData.inEnd = true;
   },
 
   /**
@@ -77,7 +79,19 @@ Page({
       }
     }
   },
-
+  /*看资讯*/
+  toSeeNews:function(){
+    // app.globalData.currSite='北京';
+    this.setData({
+      isNewsList:true
+    })
+  },
+  /*关闭新闻资讯*/
+  closeNewsList:function(){
+     this.setData({
+       isNewsList:false
+     })
+  },
   getCalorieList: function () {
     wx.request({
       url: api.calorie_rank,

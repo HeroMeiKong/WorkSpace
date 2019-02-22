@@ -127,6 +127,7 @@ Page({
         huananSpecial:['https://s-js.sports.cctv.com/host/resource/map/hn-xiangguang.jpg','https://s-js.sports.cctv.com/host/resource/map/hn-guangzhou.jpg'],
         xinanSpecial:['https://s-js.sports.cctv.com/host/resource/map/xn-lasha.jpg','https://s-js.sports.cctv.com/host/resource/map/xn-dali.jpg','https://s-js.sports.cctv.com/host/resource/map/xn-chengdu.jpg']
       },
+      answerIds : [101187,101188,101189,101190,101191,101192,101193,101194,101195,101196]
   },
 
   /**
@@ -143,7 +144,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(app.globalData);
+    console.log(app.globalData)
     this.setData({
       userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
       avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
@@ -160,7 +161,7 @@ Page({
     }
     /*判断是不是未到目标答题后返回*/
     // app.globalData.q_type=1;
-    // app.globalData.allData.site=9;
+    app.globalData.allData.site=11;
     if(app.globalData.q_type){
       if (app.globalData.q_type/1===1){
         this.setData({
@@ -168,18 +169,23 @@ Page({
         });
         app.globalData.q_type=4
         if (app.globalData.allData.site/1>=10){
-          wx.redirectTo({
-            url: '/pages/destination/destination'
-          })
+          app.globalData.allData.site=10;
+          if (!app.globalData.inEnd){
+            wx.navigateTo({
+              url: '/pages/destination/destination'
+            })
+          }
         }
       }else if (app.globalData.q_type/1===3) {
         this.setData({
           isReturn:false
         });
         /*最后一站*/
-        wx.redirectTo({
-          url: '/pages/destination/destination'
-        })
+        if (!app.globalData.inEnd){
+          wx.navigateTo({
+            url: '/pages/destination/destination'
+          })
+        }
       }else {
         this.setData({
           isReturn:false
@@ -197,10 +203,13 @@ Page({
         isShowDialog:false
       })
     }else if(app.globalData.allData.site/1>=10){
+      app.globalData.allData.site=10
       /*最后一站*/
-      wx.redirectTo({
-        url: '/pages/destination/destination'
-      })
+      if (!app.globalData.inEnd){
+        wx.navigateTo({
+          url: '/pages/destination/destination'
+        })
+      }
     }
     this.judgeCalorieFuction();
     this.judgeTime();
@@ -239,7 +248,6 @@ Page({
       this.setMapData(userLevel);//生成地图数据
 
     });
-
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -385,18 +393,25 @@ Page({
   changeRoad:function(){
     app.globalData.ischange=true;
     wx.redirectTo({
-      url: '/pages/index/index?inMap='+1,
+      url: '/pages/index/index?inMap='+true,
     });
   },
   /*去答题*/
   gotoQuestion:function(){
-    const {isanswer}=this.data;
+    const {isanswer,isArrive,answerIds,userLevel}=this.data;
+    let answerID ='';
+    if (isArrive){
+      answerID = answerIds[userLevel>9?9:userLevel]
+    }else {
+      answerID = answerIds[userLevel+1>9?9:userLevel+1]
+    }
     this.setData({
       isShowDialog:false
     });
+    console.log(answerID,'答题ID')
     if (isanswer===false){
       wx.navigateTo({
-        url: '/pages/question/question?iid='+99023,
+        url: '/pages/question/question?iid='+answerID,
       });
     }else {
       wx.showToast({
@@ -408,7 +423,8 @@ Page({
   },
   /*看资讯*/
   gotoSeeNews:function(){
-    // console.log(122);
+    const {currSite}=this.data;
+    console.log(currSite);
     let _this = this;
     let nowTime = new Date();
     let nowDate = nowTime.getFullYear()+'-'+(nowTime.getMonth()+1)+'-'+
@@ -426,8 +442,7 @@ Page({
         value:'{"qid":1}'
       },
       success:res=>{
-        console.log(res.data.code);
-        app.globalData.currSite='北京';
+        app.globalData.currSite=currSite;
         _this.setData({
           isNewsList:true,
           isShowDialog:false

@@ -48,6 +48,16 @@
         </view>
     </view>
     <view class="cover" style="display:{{showCover}}" catch:tap="showModal">稍等片刻……</view>
+    <view class="activity" style="display:{{showActivity}}">
+        <view class="activityBg">
+            <image class="activityImg" src="https://s-js.sports.cctv.com/host/resource/map/activityEnd.png"></image>
+            <view class="activityTitle">活动已结束</view>
+            <view class="activityText">敬请期待下次精彩</view>
+            <view class="activitySure">
+                <navigator class="activitySureText" target="miniProgram" open-type="exit">我知道啦</navigator>
+            </view>
+        </view>
+    </view>
 </view>
 <musicControl/>
 <!--<newsList/>-->

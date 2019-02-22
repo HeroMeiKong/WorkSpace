@@ -250,3 +250,55 @@
   justify-content: center;
   align-items: center;
 }
+.activity{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0,0,0,.6);
+  z-index: 101;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.activityBg{
+  width: 560rpx;
+  height: 600rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: url("https://s-js.sports.cctv.com/host/resource/map/activityBg@2x.png") no-repeat;
+  background-size: 100%;
+}
+.activityImg{
+  width: 190rpx;
+  height: 200rpx;
+  margin-top: 42rpx;
+}
+.activityTitle{
+  font-size: 40rpx;
+  font-weight: 600;
+  color: rgba(57, 96, 29, 1);
+  margin-top: 35rpx;
+}
+.activityText{
+  font-size: 30rpx;
+  font-weight: 600;
+  color: rgba(57, 96, 29, 1);
+  margin-top: 35rpx;
+}
+.activitySure{
+  width: 300rpx;
+  height: 98rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("https://s-js.sports.cctv.com/host/resource/map/activityButton.png") no-repeat;
+  background-size: 100%;
+  margin-top: 32rpx;
+}
+.activitySureText{
+  font-size: 32rpx;
+  color: #fff;
+}

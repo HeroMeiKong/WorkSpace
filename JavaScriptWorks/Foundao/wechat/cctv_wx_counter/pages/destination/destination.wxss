@@ -2,13 +2,13 @@
 .destination_box {
     width: 100%;
     height: 100%;
-    background-image: url("https://s-js.sports.cctv.com/host/resource/map/destination_bg.png");
+    background-image: url(https://s-js.sports.cctv.com/host/resource/map/destination_bg.png);
     background-size: 100% 100%;
     position: relative;
 }
 
 .destination_topBox {
-    background-image: url("https://s-js.sports.cctv.com/host/resource/map/destination_top.png");
+    background-image: url(https://s-js.sports.cctv.com/host/resource/map/destination_top.png);
     background-size: 100% 100%;
     width: 570rpx;
     height: 371rpx;
@@ -44,7 +44,7 @@
     position: absolute;
     width: 300rpx;
     height: 98rpx;
-    background-image: url("https://s-js.sports.cctv.com/host/resource/map/destination_button.png");
+    background-image: url(https://s-js.sports.cctv.com/host/resource/map/destination_button.png);
     background-size: 100% 100%;
     font-size: 32rpx;
     font-family: PingFangSC-Regular;
@@ -64,14 +64,32 @@
     right: 46rpx;
     bottom: 134rpx;
 }
-
+.destination_news{
+    position: absolute;
+    right: 46rpx;
+    bottom: 265rpx;
+    width: 150rpx;
+    height: 147rpx;
+    z-index: 99;
+    font-size: 0;
+    background: url(https://s-js.sports.cctv.com/host/resource/map/destination_news.png) no-repeat center / 100%;
+}
 .save_btn {
-    width: 178rpx;
+    width: 250rpx;
     height: 54rpx;
     position: absolute;
     left: 50%;
     bottom: 39rpx;
     transform: translate(-50%,0);
-    background-image: url("https://s-js.sports.cctv.com/host/resource/map/destination_save.png");
+    background-image: url(https://s-js.sports.cctv.com/host/resource/map/destination_save.png);
     background-size: 100% 100%;
+}
+.destinationNews{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10001;
+    background: rgba(0,0,0,0.4);
 }

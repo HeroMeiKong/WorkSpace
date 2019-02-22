@@ -16,7 +16,8 @@ Page({
         showRule_flag: false, //显示游戏规则
         showGameTips_flag: false, //显示游戏提示
         hasAuthorize: 'none', //用户已授权
-        showCover: 'flex',//显示遮罩层
+        showCover: 'flex', //显示遮罩层
+        showActivity: 'none',//活动是否结束
     },
 
     /**
@@ -211,7 +212,7 @@ Page({
             success: (res) => {
                 if (!app.globalData.hasGetRunData) {
                     wx.showLoading({
-                        title: '请求数据中',
+                        title: '加载数据中',
                         mask: true,
                     });
                 }
@@ -244,10 +245,42 @@ Page({
                             if (!app.globalData.map_id) {
                                 wx.setStorageSync('route', re.data.count.user_way_id || 0);
                             }
-                            if (re.data.count && re.data.count.user_way_id > 0) {
-                                this.gotoMap(re.data.count.user_way_id)
+                            if (app.globalData.allData) {
+                                switch (app.globalData.allData.start_end) {
+                                    case -10086:
+                                        wx.showToast({
+                                            title: '活动未开始！',
+                                            icon: 'none',
+                                            duration: 1500,
+                                            mask: true,
+                                        });
+                                        break;
+                                    case -10087:
+                                        if (re.data.count && re.data.count.user_way_id > 0) {
+                                            this.gotoMap(re.data.count.user_way_id)
+                                        }
+                                        app.globalData.hasGetRunData = true
+                                        break;
+                                    case -10088:
+                                        that.setData({
+                                            showActivity: 'flex'
+                                        })
+                                        break;
+                                    default:
+                                        if (re.data.count && re.data.count.user_way_id > 0) {
+                                            this.gotoMap(re.data.count.user_way_id)
+                                        }
+                                        app.globalData.hasGetRunData = true
+                                        break;
+                                }
+                            } else {
+                                wx.showToast({
+                                    title: '刷新数据失败！请重新尝试',
+                                    icon: 'none',
+                                    duration: 1500,
+                                    mask: true,
+                                });
                             }
-                            app.globalData.hasGetRunData = true
                         } else {
                             console.log('发送后端步数请求成功!')
                             this.setData({
@@ -261,9 +294,6 @@ Page({
                             icon: 'none',
                             duration: 1500,
                             mask: true,
-                            success: (result) => {
-
-                            },
                         });
                     },
                     complete: () => {}
@@ -280,14 +310,14 @@ Page({
     //弹窗提示用户
     showModal() {
         console.log('showModal')
-        if(!inMap){
+        if (!inMap) {
             wx.openSetting({
                 success: (e) => {
                     userinfo = e.scope.userInfo
                     werun = e.scope.werun
                 }
             })
-            if(!hasShowModal && !(userinfo && werun)){
+            if (!hasShowModal && !(userinfo && werun)) {
                 hasShowModal = true
                 wx.showModal({
                     title: '警告',
