@@ -11,7 +11,7 @@ Page({
   data: {
     rank_num: '',
     poster_url: '', //海报地址
-    isNewsList:true,
+    isNewsList:false,
   },
 
   /**
@@ -73,7 +73,7 @@ Page({
     if (res.from === 'menu') {
       //右上角转发
       return {
-        title: '“两会”走起来',
+        title: '两会，走起来',
         path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
         imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
       }
@@ -94,7 +94,7 @@ Page({
   },
   getCalorieList: function () {
     wx.request({
-      url: api.calorie_rank,
+      url: api.arriveNumber,
       header: {
         'auth-token': wx.getStorageSync('loginSessionKey'),
         'content-type': 'application/x-www-form-urlencoded',
@@ -105,11 +105,20 @@ Page({
         page: 1
       },
       success: res => {
+        console.log(res);
         const data = res.data.data
-        const rank_num = data.user_rank.rank.toString()
-        this.setData({
-          rank_num : rank_num
-        })
+        if (res.data.code===0){
+          const rank_num = data.rank.toString();
+          this.setData({
+            rank_num : rank_num
+          })
+        }else{
+          wx.showToast({
+            title: res.data.errMsg
+
+          })
+        }
+
       },
       fail: err => {
         console.log(err)

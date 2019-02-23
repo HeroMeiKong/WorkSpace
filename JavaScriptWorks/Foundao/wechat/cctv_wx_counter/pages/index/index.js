@@ -94,7 +94,7 @@ Page({
         if (res.from === 'menu') {
             //右上角转发
             return {
-                title: '“两会”走起来',
+                title: '两会，走起来',
                 path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
                 imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
             }
@@ -135,25 +135,28 @@ Page({
         })
         app.globalData.map_id = map_id
         wx.setStorageSync('route', map_id);
-        wx.redirectTo({
-            url: '/pages/map/map',
-            success: (result) => {
-                wx.request({
-                    url: api.selectRoute,
-                    data: {
-                        user_way_id: map_id
-                    },
-                    header: {
-                        'content-type': 'application/x-www-form-urlencoded',
-                        'auth-token': wx.getStorageSync('loginSessionKey')
-                    },
-                    method: 'POST',
-                    success: (result) => {},
-                    fail: () => {},
-                    complete: () => {}
-                });
-            },
-        });
+        let time = setTimeout(()=>{
+            wx.redirectTo({
+                url: '/pages/map/map',
+                success: (result) => {
+                    wx.request({
+                        url: api.selectRoute,
+                        data: {
+                            user_way_id: map_id
+                        },
+                        header: {
+                            'content-type': 'application/x-www-form-urlencoded',
+                            'auth-token': wx.getStorageSync('loginSessionKey')
+                        },
+                        method: 'POST',
+                        success: (result) => {},
+                        fail: () => {},
+                        complete: () => {}
+                    });
+                },
+            });
+            clearTimeout(time)
+        },500)
     },
 
     //判断用户是否第一次打开app

@@ -22,7 +22,7 @@ Page({
       qucord:'https://s-js.sports.cctv.com/host/resource/map/hb-taiyuan.jpg',//小程序码
       userLevel:0,//用户当前等级
       isFirstplay:true,//用户是否是第一次进入游戏
-      hasAccNum:0,//有几张加速卡
+      hasAccNum:1,//有几张加速卡
       currSite:'',//当前站点名字
       arriveSoon:'',//即将到达站点
       isSpecialSite:false,//是否是特殊站点
@@ -30,6 +30,7 @@ Page({
       isArrive:true,//是否到达
       chaCalorie:0,//差多少卡路里到达下一站
       isShowDialog:false,//是否显示弹窗
+      isUserAcc:false,//是否使用加速卡
       isShowAccDialog:false,//是否显示加速卡
       mapType:1,//地图ID
       isLastSecond:false,//倒数第二站
@@ -161,7 +162,7 @@ Page({
     }
     /*判断是不是未到目标答题后返回*/
     // app.globalData.q_type=1;
-    app.globalData.allData.site=11;
+    // app.globalData.allData.site=11;
     if(app.globalData.q_type){
       if (app.globalData.q_type/1===1){
         this.setData({
@@ -220,11 +221,13 @@ Page({
       });
       if (app.globalData.allData.notice_card/1===1){
         this.setData({
-          isShowAccDialog:true
+          isShowAccDialog:true,
+          isUserAcc:true
         })
       }else {
         this.setData({
-          isShowAccDialog:false
+          isShowAccDialog:false,
+          isUserAcc:false
         })
       }
     }
@@ -272,7 +275,7 @@ Page({
     if (res.from === 'menu') {
       //右上角转发
       return {
-        title: '“两会”走起来',
+        title: '两会，走起来',
         path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
         imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
       }
@@ -714,7 +717,8 @@ Page({
     wx.hideLoading()
     this.setData({
       isShowDialog:false,
-      isReturn:false
+      isReturn:false,
+      isUserAcc:false
     })
   },
   /*关闭加速卡弹窗*/

@@ -77,7 +77,7 @@ Page({
     if (res.from === 'menu') {
       //右上角转发
       return {
-        title: '“两会”走起来',
+        title: '两会，走起来',
         path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
         imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
       }

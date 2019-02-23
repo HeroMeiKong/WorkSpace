@@ -1,7 +1,7 @@
 //app.js
 App({
     onLaunch: function (options) {
-        this.onMusicTap()
+        //this.onMusicTap()
     },
     //是否登录，是否过期(没有fail_cb，默认前往授权页)
     isAuth(success_cb, fail_cb) {

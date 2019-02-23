@@ -14,4 +14,5 @@ export default {
     add_calorie : host + 'add_calorie.php',//答题、看资讯获取卡路里
     calorie_rank: host + 'calorie_rank.php', //卡路里排行榜
     updateAcc : host + 'status/change_card_notify_status.php',//修改加速卡的状态
+    arriveNumber : host + 'arrive_rank.php',//到达终点的排名
 }

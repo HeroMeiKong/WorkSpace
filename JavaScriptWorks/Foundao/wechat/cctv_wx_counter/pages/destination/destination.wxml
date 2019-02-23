@@ -8,7 +8,7 @@
     <view class="destination_btn ask_btn"
           bindtap="askBtn">向部长留言</view>
     <view class="destination_btn accept_btn"
-          bindtap="acceptBtn">{{rank_num>3 ? '参与抽奖':'马上领奖'}}</view>
+          bindtap="acceptBtn">{{ rank_num*1<4&&rank_num*1>0? '马上领奖':'参与抽奖'}}</view>
     <view class="save_btn"
           bindtap="saveImg"></view>
 </view>
