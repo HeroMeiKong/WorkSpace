@@ -162,7 +162,7 @@ Page({
     }
     /*判断是不是未到目标答题后返回*/
     // app.globalData.q_type=1;
-    // app.globalData.allData.site=11;
+    // app.globalData.allData.notice_card=1;
     if(app.globalData.q_type){
       if (app.globalData.q_type/1===1){
         this.setData({
@@ -227,7 +227,6 @@ Page({
       }else {
         this.setData({
           isShowAccDialog:false,
-          isUserAcc:false
         })
       }
     }
@@ -248,6 +247,7 @@ Page({
       userLevel:app.globalData.allData ? app.globalData.allData.site - 1 : 0
     },function () {
       const {userLevel} = this.data;
+      console.log(userLevel,'user')
       this.setMapData(userLevel);//生成地图数据
 
     });
@@ -320,8 +320,9 @@ Page({
   //判断当前时间是不是当天第一次进入
   judgeTime:function(){
     try {
-      const res =  wx.getStorageSync('successAnswer');
-      if (res===true){
+      const res = app.globalData.allData.answer_status;
+      console.log(res)
+      if (res/1===1){
         this.setData({
           isanswer:true,
         })
@@ -348,7 +349,6 @@ Page({
         } else {
           this.setData({
             isFirstIn:true,
-            isanswer:false,
           });
           wx.setStorage({
             key:"lastLoginDate",
@@ -418,7 +418,7 @@ Page({
       });
     }else {
       wx.showToast({
-        title: '你今天已经答过题了',
+        title: '你已经答过题了',
         duration: 2000
       })
     }
@@ -448,7 +448,8 @@ Page({
         app.globalData.currSite=currSite;
         _this.setData({
           isNewsList:true,
-          isShowDialog:false
+          isShowDialog:false,
+          isUserAcc:false
         })
         // if (res.data.code===0){
         //   _this.setData({
@@ -474,16 +475,17 @@ Page({
   /* 地图数据生成 */
   setMapData:function(level){
     const { mapType, mapOption ,mapStation} = this.data;//获取当前地图ID
+    let newlevel = level*1<0?0:level
     if(mapType === 2){
        /* 西北区 */
       this.setData({
-        mapHeight: mapOption.xibeiOption[level].height,
-        marskTop: mapOption.xibeiOption[level].top,
-        marskLeft: mapOption.xibeiOption[level].left,
-        currSite: mapStation.xibei[level],
-        arriveSoon:mapStation.xibei[level+1]||'',
+        mapHeight: mapOption.xibeiOption[newlevel].height,
+        marskTop: mapOption.xibeiOption[newlevel].top,
+        marskLeft: mapOption.xibeiOption[newlevel].left,
+        currSite: mapStation.xibei[newlevel],
+        arriveSoon:mapStation.xibei[level<0?0:level+1]||'',
       },function () {
-        this.setSpecialSite(level);
+        this.setSpecialSite(newlevel);
         /*需要判断是不是要显示*/
         this.setData({
           isShowDialog:true
@@ -492,13 +494,13 @@ Page({
     }else if(mapType === 3){
       /* 华北区 */
       this.setData({
-        mapHeight: mapOption.huabeiOption[level].height,
-        marskTop: mapOption.huabeiOption[level].top,
-        marskLeft: mapOption.huabeiOption[level].left,
-        currSite: mapStation.huabei[level],
-        arriveSoon:mapStation.huabei[level+1]||'',
+        mapHeight: mapOption.huabeiOption[newlevel].height,
+        marskTop: mapOption.huabeiOption[newlevel].top,
+        marskLeft: mapOption.huabeiOption[newlevel].left,
+        currSite: mapStation.huabei[newlevel],
+        arriveSoon:mapStation.huabei[level<0?0:level+1]||'',
       },function () {
-        this.setSpecialSite(level);
+        this.setSpecialSite(newlevel);
         this.setData({
           isShowDialog:true
         });
@@ -506,13 +508,13 @@ Page({
     }else if(mapType === 1){
       /* 东北区 */
       this.setData({
-        mapHeight: mapOption.dongbeiOption[level].height,
-        marskTop: mapOption.dongbeiOption[level].top,
-        marskLeft: mapOption.dongbeiOption[level].left,
-        currSite: mapStation.dongbei[level],
-        arriveSoon:mapStation.dongbei[level+1]||'',
+        mapHeight: mapOption.dongbeiOption[newlevel].height,
+        marskTop: mapOption.dongbeiOption[newlevel].top,
+        marskLeft: mapOption.dongbeiOption[newlevel].left,
+        currSite: mapStation.dongbei[newlevel],
+        arriveSoon:mapStation.dongbei[level<0?0:level+1]||'',
       },function () {
-        this.setSpecialSite(level);
+        this.setSpecialSite(newlevel);
         this.setData({
           isShowDialog:true
         });
@@ -520,13 +522,13 @@ Page({
     }else if(mapType === 4){
       /* 华东区 */
       this.setData({
-        mapHeight: mapOption.huadongOption[level].height,
-        marskTop: mapOption.huadongOption[level].top,
-        marskLeft: mapOption.huadongOption[level].left,
-        currSite: mapStation.huadong[level],
-        arriveSoon:mapStation.huadong[level+1]||'',
+        mapHeight: mapOption.huadongOption[newlevel].height,
+        marskTop: mapOption.huadongOption[newlevel].top,
+        marskLeft: mapOption.huadongOption[newlevel].left,
+        currSite: mapStation.huadong[newlevel],
+        arriveSoon:mapStation.huadong[level<0?0:level+1]||'',
       },function () {
-        this.setSpecialSite(level);
+        this.setSpecialSite(newlevel);
         this.setData({
           isShowDialog:true
         });
@@ -534,13 +536,13 @@ Page({
     }else if(mapType === 6){
       /*华南区 */
       this.setData({
-        mapHeight: mapOption.huananOption[level].height,
-        marskTop: mapOption.huananOption[level].top,
-        marskLeft: mapOption.huananOption[level].left,
-        currSite: mapStation.huanan[level],
-        arriveSoon:mapStation.huanan[level+1]||'',
+        mapHeight: mapOption.huananOption[newlevel].height,
+        marskTop: mapOption.huananOption[newlevel].top,
+        marskLeft: mapOption.huananOption[newlevel].left,
+        currSite: mapStation.huanan[newlevel],
+        arriveSoon:mapStation.huanan[level<0?0:level+1]||'',
       },function () {
-        this.setSpecialSite(level);
+        this.setSpecialSite(newlevel);
         this.setData({
           isShowDialog:true
         });
@@ -548,13 +550,13 @@ Page({
     }else if(mapType === 5){
       /* 西南区 */
       this.setData({
-        mapHeight: mapOption.xinanOption[level].height,
-        marskTop: mapOption.xinanOption[level].top,
-        marskLeft: mapOption.xinanOption[level].left,
-        currSite: mapStation.xinan[level],
-        arriveSoon:mapStation.xinan[level+1]||'',
+        mapHeight: mapOption.xinanOption[newlevel].height,
+        marskTop: mapOption.xinanOption[newlevel].top,
+        marskLeft: mapOption.xinanOption[newlevel].left,
+        currSite: mapStation.xinan[newlevel],
+        arriveSoon:mapStation.xinan[level<0?0:level+1]||'',
       },function () {
-        this.setSpecialSite(level);
+        this.setSpecialSite(newlevel);
         this.setData({
           isShowDialog:true
         });
@@ -699,7 +701,7 @@ Page({
         })
       } else if (level/1===7) {
         this.setData({
-          currSpecail:mapSpecial.xinanSpecial[1],
+          currSpecail:mapSpecial.xinanSpecial[2],
           isSpecialSite:true
         },function () {
           this.createSpecialSite();

@@ -26,6 +26,7 @@ Page({
     onLoad: function (options) {
         //this.onMusicTap(); //进入页面创建背景音乐
         console.log('onLoad')
+        console.log(options)
         inMap = options.inMap
         hasShowModal = false
         userinfo = false
@@ -37,6 +38,12 @@ Page({
         wx.getSystemInfo({
             success(res) {
                 app.globalData.systemInfo = res
+            }
+        })
+        wx.getSetting({
+            success: (res) => {
+                userinfo = res.authSetting['scope.userInfo']
+                werun = res.authSetting['scope.werun']
             }
         })
         // this.getQuestion()
@@ -316,36 +323,32 @@ Page({
     showModal() {
         console.log('showModal')
         if (!inMap) {
-            wx.openSetting({
-                success: (e) => {
-                    userinfo = e.scope.userInfo
-                    werun = e.scope.werun
-                }
-            })
-            if (!hasShowModal && !(userinfo && werun)) {
-                hasShowModal = true
-                wx.showModal({
-                    title: '警告',
-                    content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
-                    showCancel: true,
-                    cancelText: '取消',
-                    cancelColor: '#000000',
-                    confirmText: '确定',
-                    confirmColor: '#3CC51F',
-                    success: (result) => {
-                        if (result.confirm) {
-                            wx.openSetting({})
-                        } else {
-                            this.setData({
-                                hasAuthorize: 'flex'
-                            })
+            if (!(userinfo && werun)) {
+                if (!hasShowModal){
+                    hasShowModal = true
+                    wx.showModal({
+                        title: '警告',
+                        content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
+                        showCancel: true,
+                        cancelText: '取消',
+                        cancelColor: '#000000',
+                        confirmText: '确定',
+                        confirmColor: '#3CC51F',
+                        success: (result) => {
+                            if (result.confirm) {
+                                wx.openSetting({})
+                            } else {
+                                this.setData({
+                                    hasAuthorize: 'flex'
+                                })
+                            }
+                        },
+                        fail: () => {},
+                        complete: () => {
+                            hasShowModal = false
                         }
-                    },
-                    fail: () => {},
-                    complete: () => {
-                        hasShowModal = false
-                    }
-                });
+                    });
+                }
             }
         }
     },

@@ -114,7 +114,7 @@ Page({
           })
         }else{
           wx.showToast({
-            title: res.data.errMsg
+            title: res.data.msg
 
           })
         }
@@ -258,10 +258,11 @@ Page({
       url: '/pages/suggest/suggest'
     })
   },
-
   //领奖
   acceptBtn() {
-    console.log('领奖')
+    wx.navigateTo({
+      url: '/pages/webview/webview?listUrl=https://itv.cctv.com/html/2019wwlhrskll/prize.html'
+    })
   },
 
 })
