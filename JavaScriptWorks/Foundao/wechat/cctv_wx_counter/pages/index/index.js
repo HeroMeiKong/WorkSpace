@@ -270,6 +270,9 @@ Page({
                                             this.gotoMap(re.data.count.user_way_id)
                                         }
                                         app.globalData.hasGetRunData = true
+                                        if(app.globalData.userInfo.avatarUrl !== app.globalData.allData.nick_pic || app.globalData.userInfo.nickName !== app.globalData.allData.nick_name){
+                                            this.updateUserNameAndAvatar(code)
+                                        }
                                         break;
                                     case -10088:
                                         that.setData({
@@ -359,6 +362,26 @@ Page({
         })
         this.getLogin(true)
     },
+    updateUserNameAndAvatar(code){
+        wx.request({
+            url: api.updateUserNameAndAvatar,
+            data: {
+                code: code,
+                nick_name: app.globalData.userInfo.nickName,
+                nick_pic: app.globalData.userInfo.avatarUrl
+            },
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'auth-token': wx.getStorageSync('loginSessionKey')
+            },
+            method: 'POST',
+            success: (result)=>{
+                console.log(result)
+            },
+            fail: ()=>{},
+            complete: ()=>{}
+        });
+    }
     //获取二维码
     // getACode() {
     //     console.log('getACode')
