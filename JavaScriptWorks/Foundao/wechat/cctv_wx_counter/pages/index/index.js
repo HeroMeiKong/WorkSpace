@@ -278,11 +278,12 @@ Page({
                                 }
                             } else {
                                 wx.showToast({
-                                    title: '刷新数据失败！请重新尝试',
+                                    title: '刷新数据失败！请重新授权！',
                                     icon: 'none',
                                     duration: 1500,
                                     mask: true,
                                 });
+                                wx.removeStorageSync('loginSessionKey')
                             }
                         } else {
                             console.log('发送后端步数请求成功!')
@@ -293,11 +294,12 @@ Page({
                     },
                     fail: () => {
                         wx.showToast({
-                            title: '刷新数据失败！请重新尝试',
+                            title: '刷新数据失败！请重新授权或重启小程序！',
                             icon: 'none',
                             duration: 1500,
                             mask: true,
                         });
+                        wx.removeStorageSync('loginSessionKey')
                     },
                     complete: () => {}
                 });

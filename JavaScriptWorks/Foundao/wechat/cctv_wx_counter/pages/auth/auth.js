@@ -84,8 +84,6 @@ Page({
                 wx.showLoading({
                     mask: true
                 })
-                console.log('code:')
-                console.log(res.code)
                 wx.getUserInfo({
                     success: function (re) {
                         wx.request({
