@@ -59,7 +59,7 @@
                        mode="aspectFill"></image>
             </view>
         </view>
-        <view class="poster_btn" catchtap="savePoster">保存海报并分享</view>
+        <view class="poster_btn" catchtap="savePoster" open-type="share">保存海报并分享</view>
     </view>
-    <!--<canvas canvas-id="posterCanvas" class="posterCanvas"></canvas>-->
+    <canvas canvas-id="posterCanvas" class="posterCanvas"></canvas>
 </view>

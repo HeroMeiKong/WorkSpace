@@ -16,3 +16,4 @@
 <view class="destinationNews" catchtap="closeNewsList" wx:if="{{isNewsList}}">
     <newsList/>
 </view>
+<musicControl/>

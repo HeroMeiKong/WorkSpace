@@ -22,8 +22,8 @@
     position: absolute;
     top: -1000000rpx;
     left: 0;
-    width: 750rpx;
-    height: 1206rpx;
+    width: 750px;
+    height: 1206px;
 }
 
 .destination_num {
@@ -31,11 +31,10 @@
     width: 248rpx;
     height: 91rpx;
     font-size: 62rpx;
-    font-family: PingFangSC-Semiblod;
     font-weight: 600;
     color: #FFFFFF;
     line-height: 87rpx;
-    top: 151rpx;
+    top: 161rpx;
     left: 153rpx;
     text-align: center;
 }
@@ -47,7 +46,6 @@
     background-image: url(https://s-js.sports.cctv.com/host/resource/map/destination_button.png);
     background-size: 100% 100%;
     font-size: 32rpx;
-    font-family: PingFangSC-Regular;
     font-weight: 400;
     color: #527A2E;
     padding-top: 22rpx;

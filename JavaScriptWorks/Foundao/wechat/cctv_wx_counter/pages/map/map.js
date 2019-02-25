@@ -164,7 +164,7 @@ Page({
     }
 
     // app.globalData.q_type=1;
-    app.globalData.allData.site=1;
+    // app.globalData.allData.site=1;
     /*判断是不是未到目标答题后返回*/
     if(app.globalData.q_type){
       if (app.globalData.q_type/1===1){
@@ -824,6 +824,8 @@ Page({
       getTopImg({src : qucord}).then(res=>{
         const top_url = res.path;
         //  开始绘制
+        ctx.setFillStyle('white');
+        ctx.fillRect(0, 0, 260*wd,455*wd);
         ctx.drawImage(bg_url,5*wd,5*wd,250*wd,445*wd,0,0,bg_url.width,bg_url.height);
         ctx.save();
         ctx.drawImage(top_url,191*wd,385*wd,44*wd,44*wd,0,0,top_url.width,top_url.height);

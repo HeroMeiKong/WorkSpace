@@ -44,12 +44,17 @@ Page({
    */
   onLoad: function (options) {
     this.data.number = 0
+    wx.showLoading({
+      title: '数据加载中……',
+      mask: true,
+    });
     wx.request({
       url: 'https://common.itv.cctv.com/answer/detail/?iid=' + options.iid, //'https://manage.itv.cntv.net/cms/detail/index?id=487&column=2517',
       header: {
         'content-type': 'application/json'
       },
       success: (res) => {
+        wx.hideLoading();
         this.data.allQuestions = res.data.data.questions
         const length = res.data.data.questions.length
         //设置题目

@@ -10,14 +10,6 @@
   background-color: RGBA(135, 193, 83, 1);
 }
 
-.music{
-  width: 44rpx;
-  height: 44rpx;
-  position: fixed;
-  right: 46rpx;
-  top: 26rpx;
-}
-
 .inner{
   width: 690rpx;
   height: 900rpx;
@@ -126,7 +118,9 @@
 .cover{
   width: 100%;
   height: 100%;
-  position: fixed;
+  position: absolute;
+  left: 0;
+  top: 0;
   background: rgba(0,0,0,.6);
   display: flex;
   justify-content: center;

@@ -293,8 +293,8 @@
 
 .posterCanvas {
     position: absolute;
-    top: 0rpx;
+    top: -10000000rpx;
     left: 0;
-    width: 500rpx;
-    height: 890rpx;
+    width: 500px;
+    height: 890px;
 }

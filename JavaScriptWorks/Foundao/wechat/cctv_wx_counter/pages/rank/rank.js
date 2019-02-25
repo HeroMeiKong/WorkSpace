@@ -10,15 +10,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isPoster : false,
+    isPoster: false,
     page: 1,
-    userName : '',//当前用户昵称
-    userHead : '', //当前用户头像
+    userName: '',//当前用户昵称
+    userHead: '', //当前用户头像
     user_rank: {}, //当前用户数据
     rank_list: [],  //排行列表
-    top1_bg : 'https://s-js.sports.cctv.com/host/resource/map/top1_head.png',
-    top2_bg : 'https://s-js.sports.cctv.com/host/resource/map/top2_head.png',
-    top3_bg : 'https://s-js.sports.cctv.com/host/resource/map/top3_head.png',
+    top1_bg: 'https://s-js.sports.cctv.com/host/resource/map/top1_head.png',
+    top2_bg: 'https://s-js.sports.cctv.com/host/resource/map/top2_head.png',
+    top3_bg: 'https://s-js.sports.cctv.com/host/resource/map/top3_head.png',
   },
 
   /**
@@ -91,7 +91,7 @@ Page({
   },
 
   //获取卡路里排行榜
-  getCalorieList :function(isChangePage) {
+  getCalorieList: function (isChangePage) {
     wx.request({
       url: api.calorie_rank,
       header: {
@@ -110,31 +110,31 @@ Page({
         wx.stopPullDownRefresh()
         //隐藏加载框
         wx.hideLoading()
-        if(res.data.code /1 === 0){
+        if (res.data.code / 1 === 0) {
           const userInfo = app.globalData.userInfo
           const nick_name = userInfo.nickName
           const nick_pic = userInfo.avatarUrl
           const data = res.data.data
           const rank_list = this.data.rank_list
-          if(isChangePage){
-            data.rank_list.forEach((item,index)=>{
+          if (isChangePage) {
+            data.rank_list.forEach((item, index) => {
               rank_list.push(item)
             })
             this.setData({
               rank_list: rank_list
             })
-          }else {
+          } else {
             this.setData({
               userName: nick_name,
               userHead: nick_pic,
               user_rank: data.user_rank,
               rank_list: data.rank_list,
-              page :1
-            },()=>{
+              page: 1
+            }, () => {
               this.getImages()
             })
           }
-        }else {
+        } else {
           console.log(res.data.data.msg)
         }
       },
@@ -145,31 +145,34 @@ Page({
   },
 
   //滑动到底部 翻页
-  scrollBottom : function () {
+  scrollBottom: function () {
     this.setData({
-      page : (this.data.page+1)
-    },()=>{
+      page: (this.data.page + 1)
+    }, () => {
       this.getCalorieList(true)
     })
   },
 
   //打开海报页面
-  saveBox : function () {
+  saveBox: function () {
     this.setData({
-      isPoster : true
+      isPoster: true
     })
   },
 
   //关闭海报页面
-  closePoster : function () {
+  closePoster: function () {
     this.setData({
-      isPoster : false
+      isPoster: false
     })
   },
 
   //保存海报按钮
-  savePoster : function () {
-    console.log(1)
+  savePoster: function () {
+    this.saveImg()
+    this.setData({
+      isPoster: false
+    })
   },
 
   //加载网络图片
@@ -178,68 +181,86 @@ Page({
     var _this = this
     const getBgImg = promisify(wx.getImageInfo)
     const getchengxumaImg = promisify(wx.getImageInfo)
+    const getHeadImg = promisify(wx.getImageInfo)
 
-    getBgImg({src: 'https://s-js.sports.cctv.com/host/resource/map/poster_bg.png'}).then(res => {
-      const bg_url = res.path
-      getchengxumaImg({src: 'https://s-js.sports.cctv.com/host/resource/map/rank_save_icon.png'}).then(res => {
-        const chengxuma_url = res.path
+    getBgImg({src: 'https://s-js.sports.cctv.com/host/resource/map/poster_bg.png'}).then(res1 => {
+      const bg_url = res1
+      getchengxumaImg({src: 'https://s-js.sports.cctv.com/host/resource/map/rank_save_icon.png'}).then(res2 => {
+        const chengxuma_url = res2
+        const head = this.data.userHead
 
-        //  开始绘制
-        //绘制背景图片
-        ctx.drawImage(bg_url, 0, 0, bg_url.width, bg_url.height, 0, 0, _this.changePx(500), _this.changePx(890))
-        ctx.save()
-        //绘制程序码图片
-        ctx.drawImage(chengxuma_url, 0, 0, chengxuma_url.width, chengxuma_url.height, _this.changePx(360), _this.changePx(750), _this.changePx(100), _this.changePx(100))
-        ctx.save()
-        //绘制头像
-        const head_url = this.data.userHead
-        ctx.clearRect(_this.changePx(213),_this.changePx(366),head_url.width/2,head_url.height/2)   //清楚该区域一个矩形区域
-        ctx.save()
-        ctx.beginPath() //开始创建一个路径
-        //先画个圆   前两个参数确定了圆心 （x,y） 坐标  第三个参数是圆的半径  第四个参数是起始弧度，第五个参数是终止弧度，第六个参数是绘图方向  默认是false，即顺时针
-        ctx.arc(head_url.width/2,head_url.height/2,head_url.width/2,0,Math.PI*2,false)
-        ctx.clip();//画好了圆 剪切  原始画布中剪切任意形状和尺寸。一旦剪切了某个区域，则所有之后的绘图都会被限制在被剪切的区域内 这也是我们要save上下文的原因
-        ctx.drawImage(head_url,0,0,head_url.width,head_url.height,_this.changePx(213),_this.changePx(366),_this.changePx(82),_this.changePx(82))
-        ctx.restore() //恢复状态
-        ctx.save()
-        let rank_num = _this.data.user_rank.rank
-        ctx.setFontSize(31)
-        ctx.setTextAlign('center')
-        ctx.setFillStyle('#FFFFFF')
-        ctx.setTextBaseline('top')
-        ctx.fillText(rank_num, _this.changePx(243 + 124), _this.changePx(213))
+        getHeadImg({src: head}).then(res3 => {
+          const head_url = res3
+          //  开始绘制
+          //绘制背景图片
+          ctx.drawImage(bg_url.path, 0, 0, bg_url.width, bg_url.height, 0, 0, 500, 890)
+          ctx.save()
+          //绘制程序码图片
+          ctx.drawImage(chengxuma_url.path, 0, 0, chengxuma_url.width, chengxuma_url.height, 360, 750, 100, 100)
+          ctx.save()
 
-        ctx.draw(false, _this.create_poster)
+          //绘制名字
+          const userName = _this.data.userName
+          ctx.setFontSize(27)
+          ctx.setTextAlign('center')
+          ctx.setFillStyle('#84C158')
+          ctx.setTextBaseline('top')
+          ctx.fillText(userName, 250, 447 + 19)
+          ctx.save()
+
+          //绘制名次和卡路里
+          const rank = '名次'
+          const calorie = '卡路里'
+          ctx.setFontSize(22)
+          ctx.setTextAlign('center')
+          ctx.setFillStyle('#84C158')
+          ctx.setTextBaseline('top')
+          ctx.fillText(rank, 63 + 23, 510 + 15)
+          ctx.fillText(calorie, 63 + 23, 572 + 15)
+          ctx.save()
+
+          //绘制名次和卡路里的数字
+          const rank_num = this.data.user_rank.rank
+          const colorie_num = this.data.user_rank.calorie
+          ctx.setFontSize(34)
+          ctx.setTextAlign('right')
+          ctx.setFillStyle('#84C158')
+          ctx.setTextBaseline('top')
+          ctx.fillText(rank_num, 431, 501 + 15)
+          ctx.fillText(colorie_num, 431, 563 + 15)
+          ctx.save()
+
+          //绘制头像
+          ctx.beginPath() //开始创建一个路径
+          //先画个圆   前两个参数确定了圆心 （x,y） 坐标  第三个参数是圆的半径  第四个参数是起始弧度，第五个参数是终止弧度，第六个参数是绘图方向  默认是false，即顺时针
+          ctx.arc(213 + 41, 366 + 41, 41, Math.PI * 2, false)
+          ctx.fill();
+          ctx.clip();//画好了圆 剪切  原始画布中剪切任意形状和尺寸。一旦剪切了某个区域，则所有之后的绘图都会被限制在被剪切的区域内 这也是我们要save上下文的原因
+          ctx.drawImage(head_url.path, 213, 366, 82, 82)
+          ctx.restore() //恢复状态
+          ctx.draw(false, _this.create_poster)
+        })
       }).catch(err => {
         console.log('err:', err)
       })
     })
   },
 
-  //换算px
-  changePx(value) {
-    wx.getSystemInfo({
-      success: res => {
-        value = value * (res.windowWidth / 750)
-      }
-    })
-    return value
-  },
 
   //生成海报
   create_poster() {
     var _this = this
     const canvasToTempFilePath = promisify(wx.canvasToTempFilePath)
     canvasToTempFilePath({
-      canvasId: 'myCanvas',
+      canvasId: 'posterCanvas',
       x: 0, //画布区域左上角的横坐标
       y: 0, // 画布区域左上角的纵坐标
-      // width : 750, //画布区域宽度
-      // height : 1206, //画布区域高度
+      width: 750, //画布区域宽度
+      height: 1206, //画布区域高度
       fileType: 'png', //输出图片的格式
       quality: 1.0,//图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理
-      destWidth: 750 * 2, //输出的图片的宽度,width*屏幕像素密度
-      destHeight: 1206 * 2
+      destWidth: 520, //输出的图片的宽度,width*屏幕像素密度
+      destHeight: 890
     }).then(res => {
       console.log(res.tempFilePath)
       _this.setData({
