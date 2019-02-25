@@ -2,17 +2,23 @@
 import api from './../../config/api';
 
 const app = getApp()
+const promisify = require('../../utils/promisify')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    isPoster : false,
     page: 1,
     userName : '',//当前用户昵称
     userHead : '', //当前用户头像
     user_rank: {}, //当前用户数据
-    rank_list: []  //排行列表
+    rank_list: [],  //排行列表
+    top1_bg : 'https://s-js.sports.cctv.com/host/resource/map/top1_head.png',
+    top2_bg : 'https://s-js.sports.cctv.com/host/resource/map/top2_head.png',
+    top3_bg : 'https://s-js.sports.cctv.com/host/resource/map/top3_head.png',
   },
 
   /**
@@ -124,6 +130,8 @@ Page({
               user_rank: data.user_rank,
               rank_list: data.rank_list,
               page :1
+            },()=>{
+              this.getImages()
             })
           }
         }else {
@@ -142,6 +150,161 @@ Page({
       page : (this.data.page+1)
     },()=>{
       this.getCalorieList(true)
+    })
+  },
+
+  //打开海报页面
+  saveBox : function () {
+    this.setData({
+      isPoster : true
+    })
+  },
+
+  //关闭海报页面
+  closePoster : function () {
+    this.setData({
+      isPoster : false
+    })
+  },
+
+  //保存海报按钮
+  savePoster : function () {
+    console.log(1)
+  },
+
+  //加载网络图片
+  getImages() {
+    const ctx = wx.createCanvasContext('posterCanvas')
+    var _this = this
+    const getBgImg = promisify(wx.getImageInfo)
+    const getchengxumaImg = promisify(wx.getImageInfo)
+
+    getBgImg({src: 'https://s-js.sports.cctv.com/host/resource/map/poster_bg.png'}).then(res => {
+      const bg_url = res.path
+      getchengxumaImg({src: 'https://s-js.sports.cctv.com/host/resource/map/rank_save_icon.png'}).then(res => {
+        const chengxuma_url = res.path
+
+        //  开始绘制
+        //绘制背景图片
+        ctx.drawImage(bg_url, 0, 0, bg_url.width, bg_url.height, 0, 0, _this.changePx(500), _this.changePx(890))
+        ctx.save()
+        //绘制程序码图片
+        ctx.drawImage(chengxuma_url, 0, 0, chengxuma_url.width, chengxuma_url.height, _this.changePx(360), _this.changePx(750), _this.changePx(100), _this.changePx(100))
+        ctx.save()
+        //绘制头像
+        const head_url = this.data.userHead
+        ctx.clearRect(_this.changePx(213),_this.changePx(366),head_url.width/2,head_url.height/2)   //清楚该区域一个矩形区域
+        ctx.save()
+        ctx.beginPath() //开始创建一个路径
+        //先画个圆   前两个参数确定了圆心 （x,y） 坐标  第三个参数是圆的半径  第四个参数是起始弧度，第五个参数是终止弧度，第六个参数是绘图方向  默认是false，即顺时针
+        ctx.arc(head_url.width/2,head_url.height/2,head_url.width/2,0,Math.PI*2,false)
+        ctx.clip();//画好了圆 剪切  原始画布中剪切任意形状和尺寸。一旦剪切了某个区域，则所有之后的绘图都会被限制在被剪切的区域内 这也是我们要save上下文的原因
+        ctx.drawImage(head_url,0,0,head_url.width,head_url.height,_this.changePx(213),_this.changePx(366),_this.changePx(82),_this.changePx(82))
+        ctx.restore() //恢复状态
+        ctx.save()
+        let rank_num = _this.data.user_rank.rank
+        ctx.setFontSize(31)
+        ctx.setTextAlign('center')
+        ctx.setFillStyle('#FFFFFF')
+        ctx.setTextBaseline('top')
+        ctx.fillText(rank_num, _this.changePx(243 + 124), _this.changePx(213))
+
+        ctx.draw(false, _this.create_poster)
+      }).catch(err => {
+        console.log('err:', err)
+      })
+    })
+  },
+
+  //换算px
+  changePx(value) {
+    wx.getSystemInfo({
+      success: res => {
+        value = value * (res.windowWidth / 750)
+      }
+    })
+    return value
+  },
+
+  //生成海报
+  create_poster() {
+    var _this = this
+    const canvasToTempFilePath = promisify(wx.canvasToTempFilePath)
+    canvasToTempFilePath({
+      canvasId: 'myCanvas',
+      x: 0, //画布区域左上角的横坐标
+      y: 0, // 画布区域左上角的纵坐标
+      // width : 750, //画布区域宽度
+      // height : 1206, //画布区域高度
+      fileType: 'png', //输出图片的格式
+      quality: 1.0,//图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理
+      destWidth: 750 * 2, //输出的图片的宽度,width*屏幕像素密度
+      destHeight: 1206 * 2
+    }).then(res => {
+      console.log(res.tempFilePath)
+      _this.setData({
+        poster_url: res.tempFilePath  //生成文件的临时路径
+      })
+    }).catch(err => {
+      console.log('err:', err)
+    })
+  },
+
+  //保存海报
+  saveImg() {
+    var _this = this
+    const getSetting = promisify(wx.getSetting)  //获取用户的当前设置
+    getSetting().then(res => {
+      if (!res.authSetting['scope.writePhotosAlbum']) { //如果未授权照片功能
+        wx.authorize({
+          scope: 'scope.writePhotosAlbum',
+          success: () => {
+            _this.save_photo_sure()
+          },
+          fail: () => {
+            wx.showModal({
+              title: '提示',
+              content: '燃烧卡路里 申请获得保存图片到相册的权限',
+              success(res) {
+                if (res.confirm) {
+                  wx.openSetting({})
+                  console.log('用户点击确定')
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+            })
+          }
+        })
+      } else {
+        _this.save_photo_sure()  //直接保存
+      }
+    })
+  },
+
+  //确认保存
+  save_photo_sure() {
+    var _this = this
+    wx.showLoading()
+    wx.saveImageToPhotosAlbum({
+      filePath: _this.data.poster_url,
+      success: res => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '保存成功',
+          icon: 'success',
+          duration: 2000,
+          mask: true
+        })
+      },
+      fail: err => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '保存失败',
+          icon: 'none',
+          mask: true
+        })
+      }
     })
   },
 

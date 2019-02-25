@@ -106,7 +106,7 @@
   </view>
 </view>
 <!--倒数第二站提示-->
-<view class="maskLayer lastSecondMask" catchtap="closelastTips" wx:if="{{ isLastSecond === true }}">
+<view class="maskLayer lastSecondMask" catchtap="closelastTips" wx:if="{{ isLastSecond === true && ismove===false }}">
   <view class="lastSecond">
     <view class="lastSecond-first-view">恭喜你</view>
     <view>距离终点仅剩一站，快去答题吧！</view>

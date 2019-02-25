@@ -137,9 +137,9 @@ Page({
     // 点击地图
     go_map(event) {
         var map_id = event.currentTarget.dataset.id
-        wx.showToast({
-            title: '您选择了线路' + map_id
-        })
+        // wx.showToast({
+        //     title: '您选择了线路' + map_id
+        // })
         app.globalData.map_id = map_id
         wx.setStorageSync('route', map_id);
         let time = setTimeout(()=>{

@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        src: ''
+      src: 'https://app.cctv.com/2019/02/21/ARTIPugRAroEtJ4fIBXlvr5a190221.shtml'
     },
 
     /**

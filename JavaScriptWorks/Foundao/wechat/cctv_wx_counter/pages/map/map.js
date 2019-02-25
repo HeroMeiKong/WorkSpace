@@ -38,6 +38,7 @@ Page({
       isReturn:false,//是否是未达目标返回
       activityLevel:5,//当前活动进行的天数
       isanswer:false,//用户今天是否答题
+      ismove:true,//用户今天是否前进了
       mapStation:{//地图站点名字
         xibei:['乌鲁木齐', '吐鲁番', '银川', '西宁', '兰州', '嘉峪关', '西安', '宝鸡', '咸阳', '人民大会堂'],
         huabei:['呼和浩特', '鄂尔多斯市', '乌兰察布', '太原', '大同', '长治', '石家庄', '秦皇岛', '天津', '人民大会堂'],
@@ -146,12 +147,13 @@ Page({
    */
   onShow: function () {
     console.log(app.globalData)
+    this.getSimpleInfo();
     this.setData({
       userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
       avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
       mapType:app.globalData.map_id*1,
     });
-    if (app.globalData.allData.site<=1){
+    if (app.globalData.allData.site<1){
       this.setData({
         isFirstplay:true
       })
@@ -160,15 +162,16 @@ Page({
         isFirstplay:false
       })
     }
-    /*判断是不是未到目标答题后返回*/
+
     // app.globalData.q_type=1;
-    // app.globalData.allData.notice_card=1;
+    app.globalData.allData.site=1;
+    /*判断是不是未到目标答题后返回*/
     if(app.globalData.q_type){
       if (app.globalData.q_type/1===1){
         this.setData({
           isReturn:true,
         });
-        app.globalData.q_type=4
+        app.globalData.q_type=4;
         if (app.globalData.allData.site/1>=10){
           app.globalData.allData.site=10;
           if (!app.globalData.inEnd){
@@ -197,6 +200,16 @@ Page({
         isReturn:false
       })
     }
+    /*判断用户今天是否移动*/
+    if (app.globalData.allData.today_is_move/1===1){
+      this.setData({
+        ismove:true
+      })
+    } else{
+      this.setData({
+        ismove:false
+      })
+    }
     if (app.globalData.allData.site===9){
       /*判断倒数第二站*/
       this.setData({
@@ -204,7 +217,11 @@ Page({
         isShowDialog:false
       })
     }else if(app.globalData.allData.site/1>=10){
-      app.globalData.allData.site=10
+      app.globalData.allData.site=10;
+      this.setData({
+        isLastSecond:false,
+        isShowDialog:false
+      });
       /*最后一站*/
       if (!app.globalData.inEnd){
         wx.navigateTo({
@@ -230,16 +247,6 @@ Page({
         })
       }
     }
-    /*判断用户当前进度是否和活动进度相同 */
-    if (app.globalData.allData.site*1<app.globalData.allData.today*1){
-      this.setData({
-        istips:true
-      })
-    } else {
-      this.setData({
-        istips:false
-      })
-    }
     this.getUserWayDetail();
     const wd = app.globalData.systemInfo.screenWidth / 375;
     this.setData({
@@ -247,7 +254,7 @@ Page({
       userLevel:app.globalData.allData ? app.globalData.allData.site - 1 : 0
     },function () {
       const {userLevel} = this.data;
-      console.log(userLevel,'user')
+      // console.log(userLevel,'user')
       this.setMapData(userLevel);//生成地图数据
 
     });
@@ -282,6 +289,32 @@ Page({
     }
   },
 
+  /*地图页获取当前用户进度，用户今天是否前进*/
+  getSimpleInfo:function(){
+    wx.request({
+      url:api.simpleInfo,
+      header:{
+        'content-type':'application/x-www-form-urlencoded',
+        'auth-token': wx.getStorageSync('loginSessionKey')
+      },
+      success:(res)=>{
+        app.globalData.allData.site=res.data.data.site;
+        app.globalData.allData.today_is_move=res.data.data.today_is_move;
+        if (res.data.data.today_is_move/1===1){
+          this.setData({
+            ismove:true,
+            userLevel:res.data.data.site-1
+          })
+        } else {
+          this.setData({
+            ismove:false,
+            userLevel:res.data.data.site-1
+          })
+        }
+
+      }
+    })
+  },
   /*判断用户昨日卡路里是否达标*/
   judgeCalorieFuction:function(){
     wx.request({
@@ -343,13 +376,23 @@ Page({
         let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
         if (lastDate===cuurDate){
           this.setData({
-            isFirstIn:false
-            // isFirstIn:true
+            isFirstIn:false,
+            istips:false
           });
         } else {
           this.setData({
             isFirstIn:true,
           });
+          /*判断是否需要分享*/
+          if (app.globalData.allData.is_need_share/1===1){
+            this.setData({
+              istips:true,
+            });
+          } else {
+            this.setData({
+              istips:false,
+            });
+          }
           wx.setStorage({
             key:"lastLoginDate",
             data:cuurDate
@@ -358,8 +401,17 @@ Page({
       },
       fail:res=>{
         this.setData({
-          isFirstIn:true
+          isFirstIn:true,
         });
+        if (app.globalData.allData.is_need_share/1===1){
+          this.setData({
+            istips:true,
+          });
+        } else {
+          this.setData({
+            istips:false,
+          });
+        }
         this.setCurrDate()
         // console.log(res,'没有获取')
         // if (res.errMsg==='getStorage:fail:data not found') {

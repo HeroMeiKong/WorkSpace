@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -91,6 +91,12 @@
 					"name": "提问页",
 					"pathName": "pages/message/message",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "webview",
+					"pathName": "pages/webview/webview",
 					"scene": null
 				}
 			]

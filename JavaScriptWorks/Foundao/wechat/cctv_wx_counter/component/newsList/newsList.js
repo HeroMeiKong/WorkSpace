@@ -38,6 +38,7 @@ Component({
                 wx.showToast({
                   title: '系统繁忙...'
                 })
+                return
             }
             let currSiteList=[];
             /*获取数据*/
