@@ -81,7 +81,9 @@ Page({
   },
   /*看资讯*/
   toSeeNews:function(){
-    // app.globalData.currSite='北京';
+    if (!app.globalData.currSite || app.globalData.currSite===''){
+      app.globalData.currSite='人民大会堂';
+    }
     this.setData({
       isNewsList:true
     })

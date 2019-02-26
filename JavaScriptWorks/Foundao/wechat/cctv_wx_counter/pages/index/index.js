@@ -198,10 +198,11 @@ Page({
                         if (isSet) {
                             app.globalData.userInfo = res.userInfo
                             this.getRunData(api.backGetUserCalorie, result.code, signature, isSet)
-                            //setTimeout(() => {
+                            let time = setTimeout(() => {
                             //由于连着放，两个请求会忽略一个，所以设置延时
-                            this.getLogin(!isSet)
-                            //}, 10000)
+                                this.getLogin(!isSet)
+                                clearTimeout(time)
+                            }, 1000)
                         } else {
                             this.getRunData(api.getUserCalorie, result.code, signature, false)
                         }
@@ -381,7 +382,7 @@ Page({
             fail: ()=>{},
             complete: ()=>{}
         });
-    }
+    },
     //获取二维码
     // getACode() {
     //     console.log('getACode')

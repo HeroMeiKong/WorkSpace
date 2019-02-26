@@ -19,7 +19,7 @@ Page({
       isFirstIn:'false',//是否是第一次进入
       currSpecail:'',//特殊站点海报
       isNewsList:false,//是否显示新闻列表
-      qucord:'https://s-js.sports.cctv.com/host/resource/map/hb-taiyuan.jpg',//小程序码
+      qucord:'https://s-js.sports.cctv.com/host/resource/map/eqcode.png',//小程序码
       userLevel:0,//用户当前等级
       isFirstplay:true,//用户是否是第一次进入游戏
       hasAccNum:1,//有几张加速卡
@@ -164,7 +164,7 @@ Page({
     }
 
     // app.globalData.q_type=1;
-    // app.globalData.allData.site=1;
+    // app.globalData.allData.site=11;
     /*判断是不是未到目标答题后返回*/
     if(app.globalData.q_type){
       if (app.globalData.q_type/1===1){
@@ -256,8 +256,9 @@ Page({
       const {userLevel} = this.data;
       // console.log(userLevel,'user')
       this.setMapData(userLevel);//生成地图数据
-
+      app.globalData.currSite=this.data.currSite;
     });
+
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -270,7 +271,9 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {},
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
+  },
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -288,7 +291,6 @@ Page({
       }
     }
   },
-
   /*地图页获取当前用户进度，用户今天是否前进*/
   getSimpleInfo:function(){
     wx.request({
@@ -325,19 +327,22 @@ Page({
       },
       success:(res)=>{
         // console.log(res.data.data.cha)
-        if (res.data.data.cha/1===0){
-          this.setData({
-            chaCalorie:res.data.data.cha,
-            isArrive:true
-          })
-        } else {
-          app.globalData.chaCalorie=res.data.data.cha;
-          this.setData({
-            chaCalorie:res.data.data.cha,
-            isArrive:false
-          })
-        }
+        if (res.data.data && res.data.data.cha){
+          if (res.data.data.cha/1===0){
+            this.setData({
+              chaCalorie:res.data.data.cha,
+              isArrive:true
+            })
+          } else {
+            app.globalData.chaCalorie=res.data.data.cha;
+            this.setData({
+              chaCalorie:res.data.data.cha,
+              isArrive:false
+            })
+          }
+        } else{
 
+        }
       }
     })
   },
@@ -380,6 +385,7 @@ Page({
             istips:false
           });
         } else {
+          this.haveaward();
           this.setData({
             isFirstIn:true,
           });
@@ -400,6 +406,7 @@ Page({
         }
       },
       fail:res=>{
+        this.haveaward();
         this.setData({
           isFirstIn:true,
         });
@@ -471,7 +478,7 @@ Page({
     }else {
       wx.showToast({
         title: '你已经答过题了',
-        duration: 2000
+        duration: 4000
       })
     }
     return false;
@@ -870,6 +877,16 @@ Page({
       wx.hideLoading()
     },600)
 
+  },
+  /*弹出抽奖提示*/
+  haveaward:function(){
+    if (app.globalData.allData.today>0&&app.globalData.allData.site<10){
+      wx.showToast({
+        title: '到达人民大会堂之后可以抽奖',
+        icon:'none',
+        duration: 2000
+      })
+    }
   },
   /*保存海报*/
   savePoster:function () {

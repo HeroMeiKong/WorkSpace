@@ -87,12 +87,53 @@
   width: 90rpx;
   height: 50rpx;
   position: absolute;
-  background:url(https://s-js.sports.cctv.com/host/resource/map/address.png) no-repeat center / 90rpx 50rpx;
-  top: 1020rpx;
+  background:url(https://s-js.sports.cctv.com/host/resource/map/address.png) no-repeat center / 100% 100%;
+  top: -100rpx;
   z-index: 10;
-  left: 435rpx;
+  left: -100rpx;
   transition-delay: 1s;
+  animation:animal 1s infinite;
+  -webkit-animation:animal 1s infinite;
 }
+@keyframes animal
+{
+  0%{
+    -webkit-transform: translateY(0rpx);
+    -moz-transform: translateY(0rpx);
+    -ms-transform: translateY(0rpx);
+    -o-transform: translateY(0rpx);
+    transform: translateY(0rpx);
+  }
+  25% {
+    -webkit-transform: translateY(-5rpx);
+    -moz-transform: translateY(-5rpx);
+    -ms-transform: translateY(-5rpx);
+    -o-transform: translateY(-5rpx);
+    transform: translateY(-5rpx);
+  }
+  50% {
+    -webkit-transform: translateY(0rpx);
+    -moz-transform: translateY(0rpx);
+    -ms-transform: translateY(0rpx);
+    -o-transform: translateY(0rpx);
+    transform: translateY(0rpx);
+  }
+  75% {
+    -webkit-transform: translateY(5rpx);
+    -moz-transform: translateY(5rpx);
+    -ms-transform: translateY(5rpx);
+    -o-transform: translateY(5rpx);
+    transform: translateY(5rpx);
+  }
+  100% {
+    -webkit-transform: translateY(0rpx);
+    -moz-transform: translateY(0rpx);
+    -ms-transform: translateY(0rpx);
+    -o-transform: translateY(0rpx);
+    transform: translateY(0rpx);
+  }
+}
+
 .progress-box{
   position: absolute;
   left:0;

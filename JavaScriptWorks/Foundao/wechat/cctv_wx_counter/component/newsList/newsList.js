@@ -49,7 +49,8 @@ Component({
                     console.log(newsList)
                     console.log(currSite)
                     for (let i in newsList){
-                        if (currSite===newsList[i].site&&i<3){
+                        if (currSite===newsList[i].site){
+                            console.log(newsList[i])
                             // newsList.bigImgUrl.replace('http://','https://')
                             currSiteList.push(newsList[i])
                         }

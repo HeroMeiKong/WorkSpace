@@ -68,6 +68,7 @@ App({
         })
         backgroundAudioManager.onEnded(() => {
             console.log("音乐播放结束");
+            this.onMusicTap();
         })
     },
     onShow() {
