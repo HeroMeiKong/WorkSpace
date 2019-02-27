@@ -19,11 +19,12 @@
 }
 
 .canvasBox {
-    position: absolute;
-    top: -1000000rpx;
+    position: fixed;
+    top: -10000rpx;
     left: 0;
     width: 750px;
     height: 1206px;
+    z-index: -1;
 }
 
 .destination_num {

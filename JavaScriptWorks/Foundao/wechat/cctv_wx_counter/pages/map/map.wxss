@@ -423,3 +423,12 @@
 .isr view,.newsitem{
   margin-right: 0 !important;
 }
+.renovate{
+  position: fixed;
+  top: 27rpx;
+  left: 50rpx;
+  width: 44rpx;
+  height: 44rpx;
+  background: url(https://s-js.sports.cctv.com/host/resource/map/renovate-btn.png);
+  z-index: 1001;
+}

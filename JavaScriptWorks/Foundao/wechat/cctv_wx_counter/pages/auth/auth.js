@@ -7,7 +7,9 @@ Page({
     /**
      * 页面的初始数据
      */
-    data: {},
+    data: {
+        showActivity: 'none'
+    },
 
     /**
      * 生命周期函数--监听页面加载
@@ -104,11 +106,18 @@ Page({
                                     wx.setStorageSync('loginSessionKey', data.token)
                                     wx.navigateBack();
                                 } else {
-                                    wx.showToast({
-                                        title: resp.data.msg,
-                                        icon: 'none',
-                                        mask: true,
-                                    });
+                                    if(resp.data.data && resp.data.data.start_end === -10088){
+                                        _this.setData({
+                                            showActivity: 'flex'
+                                        })
+                                    } else {
+                                        wx.showToast({
+                                            title: '活动未开始……请静候佳音！',
+                                            icon: 'none',
+                                            duration: 1500,
+                                            mask: true,
+                                        });
+                                    }
                                     try {
                                         wx.removeStorageSync('key')
                                     } catch (e) {

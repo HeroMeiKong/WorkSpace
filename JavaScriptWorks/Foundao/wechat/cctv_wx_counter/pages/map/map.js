@@ -181,23 +181,23 @@ Page({
         app.globalData.q_type=4;
         if (app.globalData.allData.site/1>=10){/*如果用户站点达到10，去终点页*/
           app.globalData.allData.site=10;
-          if (!app.globalData.inEnd){
-            wx.navigateTo({
-              url: '/pages/destination/destination'
-            })
-          }
-          return
+          // if (!app.globalData.inEnd){
+          //   wx.navigateTo({
+          //     url: '/pages/destination/destination'
+          //   })
+          // }
+          // return
         }
       }else if (app.globalData.q_type/1===3) {/* q_type 1 最后一天答题*/
         this.setData({
           isReturn:false
         });
         /*最后一站*/
-        if (!app.globalData.inEnd){
-          wx.navigateTo({
-            url: '/pages/destination/destination'
-          })
-        }
+        // if (!app.globalData.inEnd){
+        //   wx.navigateTo({
+        //     url: '/pages/destination/destination'
+        //   })
+        // }
       }else {
         this.setData({
           isReturn:false
@@ -270,7 +270,8 @@ Page({
     /*判断当前弹窗是否关闭*/
     const value = wx.getStorageSync('dialogisShow');
     console.log(value,'弹窗状态');
-    if (!value||value===true){
+    console.log(value==='true','判断')
+    if (!value||value==='true'){
       if (app.globalData.allData.site<10){
         wx.setStorageSync('dialogisShow', 'true');
         this.setData({
@@ -292,7 +293,9 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function () {
+    app.globalData.ischange = ''
+  },
   /**
    * 生命周期函数--监听页面卸载
    */
@@ -301,7 +304,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.stopPullDownRefresh()
   },
   /**
    * 页面上拉触底事件的处理函数
@@ -319,6 +321,97 @@ Page({
         imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
       }
     }
+  },
+
+  /*刷新页面*/
+  renovatePage:function(){
+    console.log('点击刷新按钮');
+    this.onShow();
+    // wx.login({
+    //   timeout: 10000,
+    //   success: (result) => {
+    //     wx.getUserInfo({
+    //       success: (res) => {
+    //         const signature = res.signature
+    //           app.globalData.userInfo = res.userInfo
+    //           this.getRunData(api.main_home, result.code, signature, true)
+    //       }
+    //     })
+    //   },
+    //   fail: () => {},
+    //   complete: () => {}
+    // });
+  },
+  getRunData(url, code, signature, isFont) {
+    //isSet是否获取步数
+    let that = this;
+    wx.getWeRunData({
+      success: (res) => {
+        if (!app.globalData.hasGetRunData) {
+          wx.showLoading({
+            title: '加载数据中',
+            mask: true,
+          });
+        }
+        const encryptedData = res.encryptedData
+        const iv = res.iv
+        wx.request({
+          url: url,
+          data: {
+            code: code,
+            encryptedData: encryptedData,
+            iv: iv,
+            wx_sign: signature
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'auth-token': wx.getStorageSync('loginSessionKey')
+          },
+          method: 'POST',
+          success: (re) => {
+            if (isFont) {
+              this.setData({
+                showCover: 'none'
+              })
+              wx.hideLoading();
+              app.globalData.steps = re.data.data || ''
+              app.globalData.allData = re.data.count || ''
+              app.globalData.map_id = parseInt(wx.getStorageSync('route'));
+              that.onShow()
+              if (!app.globalData.map_id) {
+                wx.setStorageSync('route', re.data.count.user_way_id || 0);
+              }
+              if (app.globalData.allData) {
+                    app.globalData.hasGetRunData = true
+              } else {
+                wx.showToast({
+                  title: '刷新数据失败！请重新授权！',
+                  icon: 'none',
+                  duration: 1500,
+                  mask: true,
+                });
+                wx.removeStorageSync('loginSessionKey')
+              }
+            } else {
+              console.log('发送后端步数请求成功!')
+            }
+          },
+          fail: () => {
+            wx.showToast({
+              title: '刷新数据失败！请重新授权或重启小程序！',
+              icon: 'none',
+              duration: 1500,
+              mask: true,
+            });
+            wx.removeStorageSync('loginSessionKey')
+          },
+          complete: () => {}
+        });
+      },
+      fail: (res) => {
+        console.log('用户拒绝获取步数')
+      }
+    })
   },
   /*地图页获取当前用户进度，用户今天是否前进*/
   getSimpleInfo:function(){
@@ -504,6 +597,7 @@ Page({
   },
   /*去答题*/
   gotoQuestion:function(){
+    wx.setStorageSync('dialogisShow', 'false');
     const {isanswer,isArrive,answerIds,userLevel}=this.data;
     let answerID ='';
     if (isArrive){
@@ -512,7 +606,10 @@ Page({
       answerID = answerIds[userLevel+1>9?9:userLevel+1]
     }
     this.setData({
-      isShowDialog:false
+      isShowDialog:false,
+      isUserAcc:false,
+      isReturn:false,
+      dialogisShow:false
     });
     console.log(answerID,'答题ID');
     if (isanswer===false){
@@ -529,6 +626,7 @@ Page({
   },
   /*看资讯*/
   gotoSeeNews:function(){
+    wx.setStorageSync('dialogisShow', 'false');
     const {currSite}=this.data;
     console.log(currSite);
     let _this = this;
@@ -553,7 +651,8 @@ Page({
           isNewsList:true,
           isShowDialog:false,
           isUserAcc:false,
-          isReturn:false
+          isReturn:false,
+          dialogisShow:false
         })
       }
 
@@ -812,6 +911,7 @@ Page({
   /*关闭弹窗*/
   closePopup:function(){
     wx.setStorageSync('dialogisShow', 'false');
+    app.globalData.allData.notice_card=0;
     wx.hideLoading()
     this.setData({
       isShowDialog:false,
@@ -819,6 +919,7 @@ Page({
       isUserAcc:false,
       dialogisShow:false
     })
+    this.onShow();
   },
   /*关闭加速卡弹窗*/
   closeAccPopup:function(){
@@ -830,7 +931,9 @@ Page({
         'auth-token': wx.getStorageSync('loginSessionKey')
       },
       method: 'POST',
-      success:res=>{}
+      success:res=>{
+        app.globalData.allData.notice_card=0;
+      }
     });
     this.setData({
       isShowAccDialog:false

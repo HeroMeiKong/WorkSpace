@@ -142,4 +142,6 @@
 <view class="newsDialog" catchtap="closeNewsList" wx:if="{{isNewsList}}">
   <newsList/>
 </view>
+<!--刷新-->
+<view class="renovate" catchtap="renovatePage"></view>
 <musicControl/>
