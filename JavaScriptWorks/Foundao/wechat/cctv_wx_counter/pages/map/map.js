@@ -19,7 +19,7 @@ Page({
       isFirstIn:'false',//是否是第一次进入
       currSpecail:'',//特殊站点海报
       isNewsList:false,//是否显示新闻列表
-      qucord:'https://s-js.sports.cctv.com/host/resource/map/eqcode.png',//小程序码
+      qucord:'https://s-js.sports.cctv.com/host/resource/map/eqcode_1.jpg',//小程序码
       userLevel:0,//用户当前等级
       isFirstplay:true,//用户是否是第一次进入游戏
       hasAccNum:1,//有几张加速卡
@@ -39,6 +39,7 @@ Page({
       activityLevel:5,//当前活动进行的天数
       isanswer:false,//用户今天是否答题
       ismove:true,//用户今天是否前进了
+      dialogisShow:false,//当前弹窗是否关闭
       mapStation:{//地图站点名字
         xibei:['乌鲁木齐', '吐鲁番', '银川', '西宁', '兰州', '嘉峪关', '西安', '宝鸡', '咸阳', '人民大会堂'],
         huabei:['呼和浩特', '鄂尔多斯市', '乌兰察布', '太原', '大同', '长治', '石家庄', '秦皇岛', '天津', '人民大会堂'],
@@ -147,12 +148,16 @@ Page({
    */
   onShow: function () {
     console.log(app.globalData)
-    this.getSimpleInfo();
+    this.getSimpleInfo();//获取站点数  用户今天是否走了站
+    this.judgeCalorieFuction();//判断卡路里是否达标
+    this.judgeTime();//判断今天是否第一次进入
+    this.getUserWayDetail();//获取在线信息
     this.setData({
       userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
       avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
       mapType:app.globalData.map_id*1,
     });
+    /*判断用户是否是第一次进入小程序*/
     if (app.globalData.allData.site<1){
       this.setData({
         isFirstplay:true
@@ -167,20 +172,23 @@ Page({
     // app.globalData.allData.site=11;
     /*判断是不是未到目标答题后返回*/
     if(app.globalData.q_type){
-      if (app.globalData.q_type/1===1){
+      app.globalData.allData.answer_status = '1';
+      if (app.globalData.q_type/1===1){/*未完成答题返回q_type 1 */
         this.setData({
           isReturn:true,
+          isArrive:true
         });
         app.globalData.q_type=4;
-        if (app.globalData.allData.site/1>=10){
+        if (app.globalData.allData.site/1>=10){/*如果用户站点达到10，去终点页*/
           app.globalData.allData.site=10;
           if (!app.globalData.inEnd){
             wx.navigateTo({
               url: '/pages/destination/destination'
             })
           }
+          return
         }
-      }else if (app.globalData.q_type/1===3) {
+      }else if (app.globalData.q_type/1===3) {/* q_type 1 最后一天答题*/
         this.setData({
           isReturn:false
         });
@@ -210,27 +218,26 @@ Page({
         ismove:false
       })
     }
+    /*判断倒数第二站*/
     if (app.globalData.allData.site===9){
-      /*判断倒数第二站*/
       this.setData({
         isLastSecond:true,
         isShowDialog:false
       })
-    }else if(app.globalData.allData.site/1>=10){
+    }else if(app.globalData.allData.site/1>=10){/*判断是否到达终点页*/
       app.globalData.allData.site=10;
       this.setData({
         isLastSecond:false,
         isShowDialog:false
       });
-      /*最后一站*/
+      /*最后一站  如果有inEnd值，说明是从终点页返回的，*/
       if (!app.globalData.inEnd){
         wx.navigateTo({
           url: '/pages/destination/destination'
         })
       }
     }
-    this.judgeCalorieFuction();
-    this.judgeTime();
+
       /*判断加速卡弹窗是否弹出*/
     if (app.globalData.allData){
       this.setData({
@@ -247,7 +254,7 @@ Page({
         })
       }
     }
-    this.getUserWayDetail();
+
     const wd = app.globalData.systemInfo.screenWidth / 375;
     this.setData({
       wd:wd,
@@ -259,6 +266,28 @@ Page({
       app.globalData.currSite=this.data.currSite;
     });
 
+
+    /*判断当前弹窗是否关闭*/
+    const value = wx.getStorageSync('dialogisShow');
+    console.log(value,'弹窗状态');
+    if (!value||value===true){
+      if (app.globalData.allData.site<10){
+        wx.setStorageSync('dialogisShow', 'true');
+        this.setData({
+          dialogisShow:true
+        })
+      } else {
+        wx.setStorageSync('dialogisShow', 'false');
+        this.setData({
+          dialogisShow:false
+        })
+      }
+    }else{
+      wx.setStorageSync('dialogisShow', 'false');
+      this.setData({
+        dialogisShow:false
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -319,32 +348,39 @@ Page({
   },
   /*判断用户昨日卡路里是否达标*/
   judgeCalorieFuction:function(){
-    wx.request({
-      url:api.yesterdayCalorieJudge,
-      header:{
-        'content-type':'application/x-www-form-urlencoded',
-        'auth-token': wx.getStorageSync('loginSessionKey')
-      },
-      success:(res)=>{
-        // console.log(res.data.data.cha)
-        if (res.data.data && res.data.data.cha){
-          if (res.data.data.cha/1===0){
-            this.setData({
-              chaCalorie:res.data.data.cha,
-              isArrive:true
-            })
-          } else {
-            app.globalData.chaCalorie=res.data.data.cha;
-            this.setData({
-              chaCalorie:res.data.data.cha,
-              isArrive:false
-            })
-          }
-        } else{
+    console.log('进入判断')
+    if (app.globalData.allData.site>=10){
+      this.setData({
+        isArrive:true
+      })
+    }else {
+      wx.request({
+        url:api.yesterdayCalorieJudge,
+        header:{
+          'content-type':'application/x-www-form-urlencoded',
+          'auth-token': wx.getStorageSync('loginSessionKey')
+        },
+        success:(res)=>{
+          console.log(res.data.data.cha)
+          if (res.data.data){
+            if (res.data.data.cha/1===0){
+              this.setData({
+                chaCalorie:res.data.data.cha,
+                isArrive:true
+              })
+            } else {
+              app.globalData.chaCalorie=res.data.data.cha;
+              this.setData({
+                chaCalorie:res.data.data.cha,
+                isArrive:false
+              })
+            }
+          } else{
 
+          }
         }
-      }
-    })
+      })
+    }
   },
   /*设置当前时间*/
   setCurrDate:function(){
@@ -361,6 +397,7 @@ Page({
       const res = app.globalData.allData.answer_status;
       console.log(res)
       if (res/1===1){
+        console.log(111)
         this.setData({
           isanswer:true,
         })
@@ -398,6 +435,13 @@ Page({
             this.setData({
               istips:false,
             });
+          }
+          /*判断当前是第几天*/
+          if(app.globalData.allData.site<10){
+            wx.setStorageSync('dialogisShow', 'true')
+            this.setData({
+              dialogisShow:true
+            })
           }
           wx.setStorage({
             key:"lastLoginDate",
@@ -470,7 +514,7 @@ Page({
     this.setData({
       isShowDialog:false
     });
-    console.log(answerID,'答题ID')
+    console.log(answerID,'答题ID');
     if (isanswer===false){
       wx.navigateTo({
         url: '/pages/question/question?iid='+answerID,
@@ -508,19 +552,9 @@ Page({
         _this.setData({
           isNewsList:true,
           isShowDialog:false,
-          isUserAcc:false
+          isUserAcc:false,
+          isReturn:false
         })
-        // if (res.data.code===0){
-        //   _this.setData({
-        //     isNewsList:true,
-        //     isShowDialog:false
-        //   })
-        // }else{
-        //   wx.showToast({
-        //     title: res.data.errMsg,
-        //     duration: 2000
-        //   })
-        // }
       }
 
     })
@@ -534,7 +568,9 @@ Page({
   /* 地图数据生成 */
   setMapData:function(level){
     const { mapType, mapOption ,mapStation} = this.data;//获取当前地图ID
-    let newlevel = level*1<0?0:level
+    let newlevel = level*1<0?0:level;
+    let addlevel= app.globalData.allData.dati_site?app.globalData.allData.dati_site*1:1;
+    let newLevel = (level+addlevel)>9?9:(level+addlevel);
     if(mapType === 2){
        /* 西北区 */
       this.setData({
@@ -542,7 +578,7 @@ Page({
         marskTop: mapOption.xibeiOption[newlevel].top,
         marskLeft: mapOption.xibeiOption[newlevel].left,
         currSite: mapStation.xibei[newlevel],
-        arriveSoon:mapStation.xibei[level<0?0:level+1]||'',
+        arriveSoon:mapStation.xibei[level<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         /*需要判断是不是要显示*/
@@ -557,7 +593,7 @@ Page({
         marskTop: mapOption.huabeiOption[newlevel].top,
         marskLeft: mapOption.huabeiOption[newlevel].left,
         currSite: mapStation.huabei[newlevel],
-        arriveSoon:mapStation.huabei[level<0?0:level+1]||'',
+        arriveSoon:mapStation.huabei[level<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -571,7 +607,7 @@ Page({
         marskTop: mapOption.dongbeiOption[newlevel].top,
         marskLeft: mapOption.dongbeiOption[newlevel].left,
         currSite: mapStation.dongbei[newlevel],
-        arriveSoon:mapStation.dongbei[level<0?0:level+1]||'',
+        arriveSoon:mapStation.dongbei[level<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -585,7 +621,7 @@ Page({
         marskTop: mapOption.huadongOption[newlevel].top,
         marskLeft: mapOption.huadongOption[newlevel].left,
         currSite: mapStation.huadong[newlevel],
-        arriveSoon:mapStation.huadong[level<0?0:level+1]||'',
+        arriveSoon:mapStation.huadong[level<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -599,7 +635,7 @@ Page({
         marskTop: mapOption.huananOption[newlevel].top,
         marskLeft: mapOption.huananOption[newlevel].left,
         currSite: mapStation.huanan[newlevel],
-        arriveSoon:mapStation.huanan[level<0?0:level+1]||'',
+        arriveSoon:mapStation.huanan[level<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -613,7 +649,7 @@ Page({
         marskTop: mapOption.xinanOption[newlevel].top,
         marskLeft: mapOption.xinanOption[newlevel].left,
         currSite: mapStation.xinan[newlevel],
-        arriveSoon:mapStation.xinan[level<0?0:level+1]||'',
+        arriveSoon:mapStation.xinan[level<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -775,11 +811,13 @@ Page({
 
   /*关闭弹窗*/
   closePopup:function(){
+    wx.setStorageSync('dialogisShow', 'false');
     wx.hideLoading()
     this.setData({
       isShowDialog:false,
       isReturn:false,
-      isUserAcc:false
+      isUserAcc:false,
+      dialogisShow:false
     })
   },
   /*关闭加速卡弹窗*/
@@ -832,10 +870,10 @@ Page({
         const top_url = res.path;
         //  开始绘制
         ctx.setFillStyle('white');
-        ctx.fillRect(0, 0, 260*wd,455*wd);
-        ctx.drawImage(bg_url,5*wd,5*wd,250*wd,445*wd,0,0,bg_url.width,bg_url.height);
+        ctx.fillRect(0, 0, 520,910);
+        ctx.drawImage(bg_url,10,10,500,890,0,0,bg_url.width,bg_url.height);
         ctx.save();
-        ctx.drawImage(top_url,191*wd,385*wd,44*wd,44*wd,0,0,top_url.width,top_url.height);
+        ctx.drawImage(top_url,382,770,88,88,0,0,top_url.width,top_url.height);
         ctx.save();
 
         ctx.draw(false,_this.create_poster_image())
@@ -856,12 +894,12 @@ Page({
         canvasId: 'specialCanvas',
         x: 0, //画布区域左上角的横坐标
         y: 0, // 画布区域左上角的纵坐
-        width: 520*2, //画布区域宽度
-        height: 910*2, //画布区域高度
+        width: 520, //画布区域宽度
+        height: 910, //画布区域高度
         fileType: 'jpg', //输出图片的格式
         quality: 1.0,//图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理
-        destWidth: 500, //输出的图片的宽度,width*屏幕像素密度
-        destHeight: 890
+        destWidth: 520, //输出的图片的宽度,width*屏幕像素密度
+        destHeight: 910
       }).then(res => {
         console.log(res.tempFilePath);
         wx.hideLoading()
@@ -880,7 +918,7 @@ Page({
   },
   /*弹出抽奖提示*/
   haveaward:function(){
-    if (app.globalData.allData.today>0&&app.globalData.allData.site<10){
+    if (app.globalData.allData.today>=10&&app.globalData.allData.site<10){
       wx.showToast({
         title: '到达人民大会堂之后可以抽奖',
         icon:'none',

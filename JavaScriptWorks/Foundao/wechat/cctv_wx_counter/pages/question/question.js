@@ -15,7 +15,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    howmuch: 5, //多少道题
+    howmuch: 3, //多少道题
     whichQuestion: 0,
     brand: ['第一题', '第二题', '第三题', '第四题', '第五题'],
     options: [], //选项

@@ -54,6 +54,7 @@ Page({
      */
     onReady: function () {
         console.log('onReady')
+        console.log(app.globalData)
     },
 
     /**
@@ -197,12 +198,13 @@ Page({
                         const signature = res.signature
                         if (isSet) {
                             app.globalData.userInfo = res.userInfo
-                            this.getRunData(api.backGetUserCalorie, result.code, signature, isSet)
-                            let time = setTimeout(() => {
-                            //由于连着放，两个请求会忽略一个，所以设置延时
-                                this.getLogin(!isSet)
-                                clearTimeout(time)
-                            }, 1000)
+                            this.getRunData(api.main_home, result.code, signature, isSet)
+                            // this.getRunData(api.backGetUserCalorie, result.code, signature, isSet)
+                            // let time = setTimeout(() => {
+                            // //由于连着放，两个请求会忽略一个，所以设置延时
+                            //     this.getLogin(!isSet)
+                            //     clearTimeout(time)
+                            // }, 1500)
                         } else {
                             this.getRunData(api.getUserCalorie, result.code, signature, false)
                         }
@@ -246,8 +248,11 @@ Page({
                     },
                     method: 'POST',
                     success: (re) => {
-                        if (!isFont) {
+                        if (isFont) {
                             console.log('发送前端步数请求成功!')
+                            this.setData({
+                                showCover: 'none'
+                            })
                             wx.hideLoading();
                             app.globalData.steps = re.data.data || ''
                             app.globalData.allData = re.data.count || ''
@@ -267,7 +272,7 @@ Page({
                                         });
                                         break;
                                     case -10087:
-                                        if (re.data.count && re.data.count.user_way_id > 0) {
+                                        if (re.data.count && re.data.count.user_way_id && re.data.count.user_way_id > 0) {
                                             this.gotoMap(re.data.count.user_way_id)
                                         }
                                         app.globalData.hasGetRunData = true
@@ -298,9 +303,6 @@ Page({
                             }
                         } else {
                             console.log('发送后端步数请求成功!')
-                            this.setData({
-                                showCover: 'none'
-                            })
                         }
                     },
                     fail: () => {
@@ -387,11 +389,11 @@ Page({
     // getACode() {
     //     console.log('getACode')
     //     wx.request({
-    //         url: 'https://a-js.sports.cctv.com/calorie/api/erweima.php',
+    //         url: 'https://a-js.sports.cctv.com/calorie_test/api/erweima.php',
     //         data: {
     //             material_id: app.globalData.allData.uuid,
-    //             page: '/pages/index/index',
-    //             scene: 1,
+    //             page: 'pages/index/index',
+    //             scene: 2,
     //             width: 188,           // 二维码的宽度
     //             auto_color: false,      // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
     //             line_color: {"r": "255", "g": "255", "b": "255"},

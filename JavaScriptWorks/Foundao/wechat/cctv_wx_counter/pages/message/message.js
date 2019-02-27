@@ -131,7 +131,7 @@ Page({
         if(res.data.code/1 === 0){
           wx.showToast({
             title: '待审核通过后显示',
-            icon : 'success',
+            icon : 'none',
             mask : true,
             duration : 2000
           })

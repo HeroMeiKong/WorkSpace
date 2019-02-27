@@ -92,45 +92,31 @@
   z-index: 10;
   left: -100rpx;
   transition-delay: 1s;
-  animation:animal 1s infinite;
-  -webkit-animation:animal 1s infinite;
+  animation:animal 1.5s infinite ease;
+  -webkit-animation:animal 1.5s infinite ease;
 }
 @keyframes animal
 {
   0%{
-    -webkit-transform: translateY(0rpx);
-    -moz-transform: translateY(0rpx);
-    -ms-transform: translateY(0rpx);
-    -o-transform: translateY(0rpx);
-    transform: translateY(0rpx);
-  }
-  25% {
-    -webkit-transform: translateY(-5rpx);
-    -moz-transform: translateY(-5rpx);
-    -ms-transform: translateY(-5rpx);
-    -o-transform: translateY(-5rpx);
-    transform: translateY(-5rpx);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
   }
   50% {
-    -webkit-transform: translateY(0rpx);
-    -moz-transform: translateY(0rpx);
-    -ms-transform: translateY(0rpx);
-    -o-transform: translateY(0rpx);
-    transform: translateY(0rpx);
-  }
-  75% {
-    -webkit-transform: translateY(5rpx);
-    -moz-transform: translateY(5rpx);
-    -ms-transform: translateY(5rpx);
-    -o-transform: translateY(5rpx);
-    transform: translateY(5rpx);
+    -webkit-transform: scale(1.8);
+    -moz-transform: scale(1.8);
+    -ms-transform: scale(1.8);
+    -o-transform: scale(1.8);
+    transform: scale(1.8);
   }
   100% {
-    -webkit-transform: translateY(0rpx);
-    -moz-transform: translateY(0rpx);
-    -ms-transform: translateY(0rpx);
-    -o-transform: translateY(0rpx);
-    transform: translateY(0rpx);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
   }
 }
 
@@ -412,8 +398,8 @@
 .canvascss{
   position: fixed;
   top: 200%;
-  width: 520rpx;
-  height: 910rpx;
+  width: 520px;
+  height: 910px;
   background: white;
   box-sizing: border-box;
 }
@@ -433,4 +419,7 @@
   height: 207rpx;
   z-index: 999;
   background: url(https://s-js.sports.cctv.com/host/resource/map/map-liuyan.png) no-repeat left center / auto 100%;
+}
+.isr view,.newsitem{
+  margin-right: 0 !important;
 }

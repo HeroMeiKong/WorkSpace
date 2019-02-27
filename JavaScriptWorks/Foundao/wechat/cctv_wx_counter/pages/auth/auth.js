@@ -104,6 +104,11 @@ Page({
                                     wx.setStorageSync('loginSessionKey', data.token)
                                     wx.navigateBack();
                                 } else {
+                                    wx.showToast({
+                                        title: resp.data.msg,
+                                        icon: 'none',
+                                        mask: true,
+                                    });
                                     try {
                                         wx.removeStorageSync('key')
                                     } catch (e) {

@@ -283,7 +283,6 @@
 }
 
 .chengxuma {
-    border-radius: 50%;
     position: absolute;
     bottom: 40rpx;
     right: 40rpx;

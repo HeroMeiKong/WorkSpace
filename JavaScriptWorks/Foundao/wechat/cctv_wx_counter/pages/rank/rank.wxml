@@ -55,7 +55,7 @@
                 <view class="poster_calorie">卡路里</view>
                 <view class="poster_calorie_num">{{user_rank.calorie}}</view>
                 <image class="chengxuma"
-                       src="{{userHead}}"
+                       src="{{chengxuma}}"
                        mode="aspectFill"></image>
             </view>
         </view>

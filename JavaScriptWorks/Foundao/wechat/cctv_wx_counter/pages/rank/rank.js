@@ -19,6 +19,7 @@ Page({
     top1_bg: 'https://s-js.sports.cctv.com/host/resource/map/top1_head.png',
     top2_bg: 'https://s-js.sports.cctv.com/host/resource/map/top2_head.png',
     top3_bg: 'https://s-js.sports.cctv.com/host/resource/map/top3_head.png',
+    chengxuma : 'https://s-js.sports.cctv.com/host/resource/map/eqcode_1.jpg'
   },
 
   /**
@@ -185,7 +186,7 @@ Page({
 
     getBgImg({src: 'https://s-js.sports.cctv.com/host/resource/map/poster_bg.png'}).then(res1 => {
       const bg_url = res1
-      getchengxumaImg({src: 'https://s-js.sports.cctv.com/host/resource/map/rank_save_icon.png'}).then(res2 => {
+      getchengxumaImg({src: 'https://s-js.sports.cctv.com/host/resource/map/eqcode_1.jpg'}).then(res2 => {
         const chengxuma_url = res2
         const head = this.data.userHead
 

@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-      src: 'https://app.cctv.com/2019/02/21/ARTIPugRAroEtJ4fIBXlvr5a190221.shtml'
+        src: 'https://app.cctv.com/2019/02/21/ARTIPugRAroEtJ4fIBXlvr5a190221.shtml'
     },
 
     /**
@@ -69,14 +69,5 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
-        if (res.from === 'menu') {
-            //右上角转发
-            return {
-              title: '两会，走起来',
-              path: '/pages/index/index?share_uuid=' + app.globalData.allData.uuid,
-              imageUrl: 'https://s-js.sports.cctv.com/host/resource/map/sharePic.png',
-            }
-          }
-    }
+    onShareAppMessage: function () {}
 })

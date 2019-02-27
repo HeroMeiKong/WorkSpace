@@ -33,11 +33,15 @@ Component({
     lifetimes: {
         attached() {
             console.log(app.globalData);
+            wx.showLoading({
+                title: '加载中...'
+            });
             let currSite = app.globalData.currSite;
             if (!currSite){
                 wx.showToast({
                   title: '系统繁忙...'
-                })
+                });
+                wx.hideLoading();
                 return
             }
             let currSiteList=[];
@@ -46,21 +50,25 @@ Component({
                 url:"https://app.cctv.com/2019car/list/index.json",
                 success:res=>{
                     let newsList = res.data.data.itemList;
-                    console.log(newsList)
-                    console.log(currSite)
+                    // console.log(newsList)
+                    // console.log(currSite)
                     for (let i in newsList){
                         if (currSite===newsList[i].site){
-                            console.log(newsList[i])
+                            // console.log(newsList[i])
                             // newsList.bigImgUrl.replace('http://','https://')
+                            wx.hideLoading();
                             currSiteList.push(newsList[i])
                         }
                     }
-                    console.log(currSiteList);
+                    // console.log(currSiteList);
                     this.setData({
                         newList:currSiteList
                     })
                 }
             })
+            setTimeout(function () {
+                wx.hideLoading()
+            },5000)
         },
         detached() {
             // 在组件实例被从页面节点树移除时执行

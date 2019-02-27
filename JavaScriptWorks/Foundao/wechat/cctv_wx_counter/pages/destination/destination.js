@@ -135,7 +135,7 @@ Page({
     const getBgImg = promisify(wx.getImageInfo)
     const getTopImg = promisify(wx.getImageInfo)
 
-    getBgImg({src: 'https://s-js.sports.cctv.com/host/resource/map/destination_bg.png'}).then(res1 => {
+    getBgImg({src: 'https://s-js.sports.cctv.com/host/resource/map/destination_bg_0.png'}).then(res1 => {
       const bg_url = res1
       getTopImg({src: 'https://s-js.sports.cctv.com/host/resource/map/destination_top.png'}).then(res2 => {
         const top_url = res2

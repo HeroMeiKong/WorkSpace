@@ -1,6 +1,7 @@
 //app.js
 App({
     onLaunch: function (options) {
+        this.globalData.backgroundAudioManager = wx.getBackgroundAudioManager()
         this.onMusicTap()
     },
     //是否登录，是否过期(没有fail_cb，默认前往授权页)
@@ -51,11 +52,13 @@ App({
         shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png',   //默认分享图片
         shareText: '两会，走起来',   //默认分享文字
         default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',//默认头像路径
-        musicSrc: 'https://s-js.sports.cctv.com/host/resource/map/bgMusic.mp3'
+        musicSrc: 'https://s-js.sports.cctv.com/host/resource/map/bgMusic.mp3',
+        music_state: false,
+        backgroundAudioManager: null,
     },
     /*创建背景音乐*/
     onMusicTap() {
-        const backgroundAudioManager = wx.getBackgroundAudioManager()
+        var backgroundAudioManager = this.globalData.backgroundAudioManager;
         backgroundAudioManager.title = 'Spring In My Step';
         backgroundAudioManager.epname = 'Spring In My Step';
         backgroundAudioManager.singer = 'Silent Partner';
@@ -65,6 +68,11 @@ App({
         backgroundAudioManager.play();
         backgroundAudioManager.onPlay(() => {
             console.log("音乐播放开始");
+            this.globalData.music_state = true;
+        })
+        backgroundAudioManager.onPause(() => {
+            console.log("音乐播放暂停");
+            this.globalData.music_state = false;
         })
         backgroundAudioManager.onEnded(() => {
             console.log("音乐播放结束");
@@ -72,10 +80,19 @@ App({
         })
     },
     onShow() {
-        // console.log('onpageshow');
+        console.log('onpageshow');
+        console.log('before_music_state:' + this.before_music_state);
+        if (this.before_music_state) {
+            this.globalData.backgroundAudioManager.play();
+        } else {
+            this.globalData.backgroundAudioManager.pause();
+        }
+
     },
     onHide() {
-        // console.log('onpagehide')
-        wx.pauseBackgroundAudio();
+        console.log('onpagehide')
+        console.log('before_music_state:' + this.before_music_state);
+        this.before_music_state = this.globalData.music_state
+        this.globalData.backgroundAudioManager.pause();
     }
 })
