@@ -60,7 +60,7 @@ Page({
         isPaused: false,  // 暂停中
         is_dubEnd: false,  // 录音完成
         show_compose_layer: false, // 显示合成浮层
-        is_composeing: false,    // 合成中
+        is_composeing: false,   // 合成中
         compose_success: false,    // 合成成功
         compose_error: false,      // 合成错误
         show_poster: false,        // 显示海报
@@ -187,6 +187,7 @@ Page({
                 });
             } else {
                 console.log('已初始化')
+                this.playVideo();
             }
 
         })
@@ -677,11 +678,11 @@ Page({
         app.aldstat.sendEvent('开始合成', '点击开始合成按钮')
         this.data.innerAudioContext.pause();
         this.videoContext.pause();
-        if (this.isPPP()) {
-            this.showPPP_fun()
-        } else {
-            this.uploadFile();
-        }
+        // if (this.isPPP()) {
+        //     this.showPPP_fun()
+        // } else {
+        this.uploadFile();
+        // }
     },
 
     // 播放录音 -> 预览
@@ -1656,7 +1657,7 @@ Page({
         this.uploadFile()
     },
 
-    //配配配——不选
+    //配配配——选
     PPP_ok() {
         this.hidePPP_fun()
         this.uploadFile(true)

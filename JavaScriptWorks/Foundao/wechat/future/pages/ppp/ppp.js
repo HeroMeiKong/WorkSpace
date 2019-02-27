@@ -21,6 +21,9 @@ Page({
         isIpx: false,
 
         no_more: false,
+
+        // title:'我要“说”春晚'
+        title:'我要说春晚'
     },
 
     /**

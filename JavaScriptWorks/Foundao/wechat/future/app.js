@@ -241,6 +241,7 @@ App({
         default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',
         wangchun_title: '央视虚拟主持人',
         cecece_title: '超级测测测',
-        ppp_title: '超级配配配'
+        // ppp_title: '我要“说”春晚',
+        ppp_title: '我要说春晚',
     }
 })

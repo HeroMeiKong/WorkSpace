@@ -23,7 +23,7 @@ var pasterNum = 0 //压条显示个数
 var oldmusiclist = {id: 0}     //选中的音乐列表
 var musiclistcontent = []      //{id: 0,content: ''}音乐的内容
 // const musicpic = {playimg: '../../assets/images/4play.png',pauseimg: '../../assets/images/4ing.gif',addimg: '../../assets/images/4add.png',cancelimg: '../../assets/images/4cancel.png'}
-const musicpic = {playimg: '../../assets/images/4play1@2x.png',pauseimg: '../../assets/images/bofang.gif',addimg: '../../assets/images/4tianjia@2x.png',cancelimg: '../../assets/images/4xuanze@2x.png'}//春节样式
+const musicpic = {playimg: '../../assets/images/4play1@2x.png',pauseimg: '../../assets/images/bofang.gif',addimg: '../../assets/images/4add.png',cancelimg: '../../assets/images/4xuanze@2x.png'}//春节样式
 var playlock = false //音乐是否播放
 let whichone = {who: '',id: 0} //正在播放哪首歌
 let tempmusic = {new: {type_id: 0,id: 0}, old: {type_id: 0,id: 0}}
@@ -126,7 +126,7 @@ Page({
     showovercover: 'none',
     //videomuted: false, //是否静音视频
     compose_success: true,
-    showsubmission: 'none',
+    showsubmission: 'flex',
     wrappers_width: '100%',
     wrappers_height: '100%',
     isShowTopic: true,//是否提示默认话题

@@ -12,13 +12,13 @@
 .top-box{
     width: 100%;
     padding-top: 90rpx;
-    background-color: #9D1E23;
+    /*background-color: #9D1E23;*/
     position: relative;
     z-index: 3;
     overflow: hidden;
-    background-image: url('https://s-js.sports.cctv.com/host/resource/future/2diban1@2x.png');
-    background-size: cover;
-    background-position: center top;
+    /*background-image: url('https://s-js.sports.cctv.com/host/resource/future/2diban1@2x.png');*/
+    /*background-size: cover;*/
+    /*background-position: center top;*/
 }
 
 /*背景*/
@@ -59,7 +59,8 @@
     width: 128rpx;
     height: 128rpx;
     border-radius: 50%;
-    border: 2rpx solid #ffd792;
+    /*border: 2rpx solid #ffd792;*/
+    border: 2rpx solid #ffffff;
     box-sizing: border-box;
     background-size: cover;
     background-position: center center;
@@ -73,7 +74,8 @@
     margin-top: 24rpx;
     font-size: 38rpx;
     line-height: 38rpx;
-    color: #ffd792;
+    /*color: #ffd792;*/
+    color: #ffffff;
     font-weight: bold;
     width: 500rpx;
     display: -webkit-box;
@@ -93,9 +95,11 @@
     background-color: #fe2c1d;
     border-radius: 20rpx;
     text-align: center;
-    color: #ffd792;
+    /*color: #ffd792;*/
+    color: #ffffff;
     font-size: 26rpx;
-    border: 2rpx solid #ffd792;
+    /*border: 2rpx solid #ffd792;*/
+    border: 2rpx solid #ffffff;
     box-sizing: content-box;
 }
 
@@ -158,7 +162,8 @@
     margin-left: 87rpx;
 }
 .tab-item.selected{
-    color: #ffd792;
+    /*color: #ffd792;*/
+    color: #ffffff;
     font-weight: bold;
 }
 
@@ -170,7 +175,8 @@
     transform:translateX(-50%);
     width: 48rpx;
     height: 4rpx;
-    background-color: #ffd792;
+    /*background-color: #ffd792;*/
+    background-color: #ffffff;
 }
 .tab-num{
     margin-left: 8rpx;

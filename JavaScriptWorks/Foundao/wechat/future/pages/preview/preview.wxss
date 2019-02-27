@@ -58,10 +58,10 @@
   position: relative;
   /* width: 100%;
   height: 100%; 在js中设置了*/
-  /* background-color: #2e2e2e; */
-  background-color: #9b2027;/* 春节样式 */
-  background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');/* 春节样式 */
-  background-size: 100%;/* 春节样式 */
+  background-color: #2e2e2e;
+  /* background-color: #9b2027;
+  background-image: url('https://s-js.sports.cctv.com/host/image/2018/12/17/15450216596245.png');
+  background-size: 100%;*/
 }
 
 .preview {
@@ -222,8 +222,8 @@
 }
 
 .section text {
-  /* color: #fff; */
-  color:rgba(255,216,146,1);/* 春节样式 */
+  color: #fff;
+  /* color:rgba(255,216,146,1);春节样式 */
   font-size: 22rpx;
 }
 
@@ -379,15 +379,15 @@ swiper-item {
   align-items: center;
 }
 .chosethispaster .font {
-  /* color: #fff; */
-  color: #FFD892;/* 春节样式 */
+  color: #fff;
+  /* color: #FFD892;春节样式 */
   font-size: 30rpx;
   font-weight: bold;
 }
 
 .chosethispaster .line {
-  /* background-color: #ea2c44; */
-  background-color: #FFD892;/* 春节样式 */
+  background-color: #ea2c44;
+  /* background-color: #FFD892;春节样式 */
   width: 100%;
   height: 4rpx;
   border-radius: 2rpx;
@@ -499,8 +499,8 @@ swiper-item {
 
 .musicdiv .musictext {
   font-size: 22rpx;
-  /* color: #969696; */
-  color: #FFD892;/* 春节样式 */
+  color: #969696;
+  /* color: #FFD892;春节样式 */
   margin-top: 20rpx;
 }
 
@@ -508,8 +508,8 @@ swiper-item {
   position: relative;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(46,46,46,.8); */
-  background-color: #931E23;/* 春节样式 */
+  background-color: rgba(46,46,46,.8);
+  /* background-color: #931E23;春节样式 */
   /* background-color: rgba(0, 0, 0, 1); */
   display: flex;
   /* justify-content: center; */
@@ -527,8 +527,8 @@ swiper-item {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('https://s-js.sports.cctv.com/host/image/2018/12/18/15451249181206.png') no-repeat;
-  background-size: 100%;
+  /* background: url('https://s-js.sports.cctv.com/host/image/2018/12/18/15451249181206.png') no-repeat;
+  background-size: 100%; */
 }
 
 #myVideo1 {
@@ -569,7 +569,7 @@ swiper-item {
   align-items: center;
 }
 
-/* .topicinner {
+.topicinner {
   height: 40rpx;
   border-radius: 20rpx;
   background-color: rgba(255, 255, 255, 0.2);
@@ -577,9 +577,9 @@ swiper-item {
   display: flex;
   justify-content: center;
   align-items: center;
-} */
+}
 /* 春节样式 */
-.topicinner {
+/* .topicinner {
   height: 48rpx;
   border-radius: 24rpx;
   background-color: #fe2c1d;
@@ -588,7 +588,7 @@ swiper-item {
   justify-content: center;
   align-items: center;
   border: 3rpx solid #ffd892;
-}
+} */
 
 .topicinnerpic {
   height: 24rpx;
@@ -606,12 +606,11 @@ swiper-item {
   width: 100%;
   /* height: 80%; */
   height: 30%;/* 春节样式 */
-  /* color: #fff;
-  opacity: 0.3; */
-  color: rgba(255,216,146,1);/* 春节样式 */
+  color: rgba(255,255,255,.5);
+  /* color: rgba(255,216,146,1);春节样式 */
   font-size: 30rpx;
-  /* border-top: 1px solid #fff; */
-  border-bottom: 1rpx solid rgba(255,216,146,.6);/* 春节样式 */
+  border-top: 1px solid #fff;
+  /* border-bottom: 1rpx solid rgba(255,216,146,.6);春节样式 */
   padding-top: 10rpx;
 }
 
@@ -619,9 +618,8 @@ swiper-item {
   position: absolute;
   width: 90%;
   height: 90%;
-  /* background-color: #000;
-  opacity: .5; */
-  background-color: #92151A;/* 春节样式 */
+  background-color: rgba(255,255,255,.2);
+  /* background-color: #92151A;春节样式 */
   border-radius: 14px;
   display: flex;
   flex-direction: column;
@@ -677,7 +675,7 @@ swiper-item {
   padding: 0 20rpx;
 }
 
-/* .bottom_option {
+.bottom_option {
   width: 720rpx;
   height: 154rpx;
   display: flex;
@@ -709,9 +707,9 @@ swiper-item {
   color: #fff;
   font-size: 34rpx;
   font-weight: bold;
-} */
+}
 /* 春节样式 */
-.bottom_option {
+/* .bottom_option {
   width: 720rpx;
   height: 254rpx;
   display: flex;
@@ -750,7 +748,7 @@ swiper-item {
 .sure image{
   width: 146rpx;
   height: 146rpx;
-}
+} */
 
 
 .overcover,
@@ -777,9 +775,10 @@ swiper-item {
   top: 300rpx;
   left: 50%;
   transform: translateX(-50%);
-  /* border-radius:14px; */
+  border-radius:14px;
   color: rgba(255, 216, 146, 1);
-  background-color: #C10420;
+  /* background-color: #C10420; */
+  background-color: rgba(248, 52, 80, 1);
   z-index: 11;
 }
 .submission_fail_color{
@@ -800,11 +799,11 @@ swiper-item {
 }
 
 .compose_img{
-  /* width: 548rpx;
-  height: 596rpx; */
-  width: 360rpx;
+  width: 548rpx;
+  height: 596rpx;
+  /* width: 360rpx;
   height: 220rpx;
-  margin-top: 106rpx;
+  margin-top: 106rpx; */
 }
 .submission_title{
   font-size: 38rpx;
@@ -836,7 +835,8 @@ swiper-item {
 }
 .submission_success .submission_button{
   width: 218rpx;
-  height: 94rpx;
+  /* height: 94rpx; */
+  height: 64rpx;
 }
 .submission_fail_top{
   display: flex;

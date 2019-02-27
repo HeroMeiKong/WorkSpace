@@ -19,6 +19,7 @@ var numModel = function (num) {
         return t.toFixed(1) + '万'
     }
 }
+
 module.exports = {
     nameSub: nameSub,
     numModel: numModel,

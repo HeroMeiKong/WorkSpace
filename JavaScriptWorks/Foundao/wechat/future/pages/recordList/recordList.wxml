@@ -37,7 +37,7 @@
                     <!--配音单元-->
                     <view class="dub-item" bindtap="goDub" data-data="{{dub}}">
                         <view class="dub-item-bg" style="background-image: url({{dub.video_small_pic}})">
-                            <view class="dub-item-btn"></view>
+                            <view class="dub-item-btn">开始配音</view>
                         </view>
                         <view class="info">
                             <view class="info-inner">
@@ -48,6 +48,8 @@
                     </view>
                 </block>
             </view>
+            <!--无更多作品提示-->
+            <view class="no-more" wx:if="{{no_more}}">暂无更多内容</view>
         </scroll-view>
         <!--<block wx:for="{{type_list}}" scroll-y>-->
         <!--&lt;!&ndash;滑动容器&ndash;&gt;-->
@@ -62,6 +64,5 @@
         <!--</scroll-view>-->
         <!--</block>-->
     </view>
-    <!--无更多作品提示-->
-    <!--<view class="no-more" wx:if="{{no_more}}">暂无更多内容</view>-->
+
 </view>

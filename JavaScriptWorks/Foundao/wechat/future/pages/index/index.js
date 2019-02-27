@@ -728,6 +728,14 @@ Page({
     switchType(event) {
         var data = event.currentTarget.dataset.data
         this.switchType_fun(data.id)
+        const options = {
+            op: 'pv',
+            wz: 'pindao_click',
+            id: data.id,
+            uniqueid: data.name,
+            source: 'pindao',
+        }
+        app.statistics_pv(options)
     },
 
     // 根据id切换类型
@@ -1523,7 +1531,7 @@ Page({
             if (absX > 1 * absY) {
                 if (tmX < -10) {
                     console.log("左滑")
-                    this.switchToRecordList()
+                    // this.switchToRecordList()
                 } else if (tmX > 10) {
                     console.log("右滑")
                 }

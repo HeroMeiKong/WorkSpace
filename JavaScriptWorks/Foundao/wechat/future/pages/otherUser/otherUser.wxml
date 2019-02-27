@@ -2,6 +2,10 @@
 <view class="user-page {{isIpx?'iphoneX':''}}">
     <backTitle title="用户详情"></backTitle>
     <view class="top-box">
+        <!--底部背景-->
+        <view class="bg" style="background-image: url({{other_userInfo.nick_pic}})">
+            <view class="bg-color"></view>
+        </view>
         <!--用户信息-->
         <view class="userInfo-box">
             <view class="user-head" style="background-image: url({{other_userInfo.nick_pic}})"></view>

@@ -36,15 +36,15 @@
             <text class="">滤镜</text>
           </view> -->
           <view class="section" catch:tap="paster">
-            <image class="img" src="../../assets/images/graph@2x.png"></image>
+            <image class="img" src="../../assets/images/4graph.png"></image>
             <text class="">贴纸</text>
           </view>
           <view class="section" catch:tap="music">
-            <image class="img" src="../../assets/images/music@2x.png"></image>
+            <image class="img" src="../../assets/images/4music.png"></image>
             <text class="">音乐</text>
           </view>
           <view class="section" catch:tap="photoFrame">
-            <image class="img" src="../../assets/images/4xiangkuang.png"></image>
+            <image class="img" src="../../assets/images/xiangkuang.png"></image>
             <text class="">相框</text>
           </view>
         </view>
@@ -191,22 +191,22 @@
           </swiper>
         </view>
       </view>
-      <!-- <view class="bottom_option" style="display:{{showsure}}">
+      <view class="bottom_option" style="display:{{showsure}}">
         <view class="back" catch:tap="cancelUploadContent">返回上一步</view>
         <view class="sure" catch:tap="uploadContent">确认发布</view>
-      </view> -->
+      </view>
       <!-- 春节样式 -->
-      <view class="bottom_option" style="display:{{showsure}}">
+      <!-- <view class="bottom_option" style="display:{{showsure}}">
         <view class="back" catch:tap="cancelUploadContent"><image src="../../assets/images/4fanhui@2x.png" />返回上一步</view>
         <view class="sure" catch:tap="uploadContent"><image src="../../assets/images/4fabu@2x.png" />确认发布</view>
-      </view>
+      </view> -->
     </view>
   </view>
   <cover-view class="overcover" style="display:{{showovercover}}"></cover-view>
   <view class="submissionwrapper" style="display:{{showsubmission}}">
     <cover-view class="submission" wx:if="{{compose_success}}">
-      <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
-      <cover-image src="../../assets/images/4success1@2x.png" class="compose_img"></cover-image>
+      <!-- <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image> -->
+      <cover-image src="../../assets/images/4success@2x.png" class="compose_img"></cover-image>
       <cover-view class="submission_success">
         <cover-view class="submission_top">
           <cover-view class="submission_title">视频提交成功</cover-view>
@@ -214,13 +214,13 @@
           <cover-view class="submission_text">请在个人中心查看审核进度</cover-view>
         </cover-view>
         <cover-view class="submission_bottom">
-          <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3return@2x_0.png" catch:tap="successBackHome"></cover-image></cover-view>
-          <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x_0.png" catch:tap="checkProgress"></cover-image></cover-view>
+          <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3return@2x.png" catch:tap="successBackHome"></cover-image></cover-view>
+          <cover-view class="submission_button"><cover-image src="https://s-js.sports.cctv.com/host/resource/future/3schedule@2x.png" catch:tap="checkProgress"></cover-image></cover-view>
         </cover-view>
       </cover-view>
     </cover-view>
     <cover-view class="submission submission_fail_color" wx:if="{{!compose_success}}">
-      <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image>
+      <!-- <cover-image class="submissioninner" src="https://s-js.sports.cctv.com/host/image/2018/12/27/15458823882843.png"></cover-image> -->
       <cover-view class="submission_fail_top">
         <cover-image src="../../assets/images/3failure@2x.png" class="compose_fail_img"></cover-image>
       </cover-view>

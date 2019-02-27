@@ -163,7 +163,7 @@
 					"id": 20,
 					"name": "分享视频（新）",
 					"pathName": "pages/video/video",
-					"query": "scene=sucai_1131765",
+					"query": "scene=sucai_1197",
 					"scene": null
 				},
 				{
@@ -173,10 +173,11 @@
 					"query": "scene=luyin_228"
 				},
 				{
-					"id": -1,
+					"id": 22,
 					"name": "直接打开网络春晚话题",
 					"pathName": "pages/index/index",
-					"query": "select_id=19"
+					"query": "select_id=27",
+					"scene": null
 				},
 				{
 					"id": -1,

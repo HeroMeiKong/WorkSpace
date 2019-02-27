@@ -44,7 +44,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        app.isFullScreen(()=>{
+        app.isFullScreen(() => {
             this.setData({
                 isIpx: true
             })
@@ -197,7 +197,8 @@ Page({
                     //判断是否有数据
                     if (data.data.length === 0) {
                         this.setData({
-                            special_more: false
+                            special_more: false,
+                            no_more: true
                         })
                         return
                     }
@@ -281,6 +282,7 @@ Page({
                         temp_type_data[type_id].more = false
                         this.setData({
                             type_data: temp_type_data,
+                            no_more: true,
                         })
                         return
                     }
@@ -345,20 +347,22 @@ Page({
             //如果有切换视频
             this.setData({
                 cur_list: type_data[data.id].list,
-                scrollTop: type_data[data.id].scroll
+                scrollTop: type_data[data.id].scroll,
+                no_more: type_data[data.id].more ? false : true
             })
         } else {
             //如果没有则需要去取
             this.getTypeVideoList(data.id)
             this.setData({
-                scrollTop: 0
+                scrollTop: 0,
+                no_more: false,
             })
         }
     },
 
     // 切换到精选
     switchSpecial() {
-        const {cur_type, type_data, special_index, special_list, special_scroll} = this.data
+        const {cur_type, type_data, special_index, special_list, special_scroll, special_more} = this.data
         //关闭展开列表
         this.closeType()
         if (cur_type == 0) {
@@ -368,6 +372,7 @@ Page({
                 cur_type: 0,
                 cur_list: special_list,
                 scrollTop: special_scroll,
+                no_more: special_more ? false : true
             })
         }
     },

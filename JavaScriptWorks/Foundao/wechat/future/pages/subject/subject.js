@@ -154,6 +154,14 @@ Page({
                     wx.setNavigationBarTitle({
                         title: data.data.sub_title
                     })
+                    const options = {
+                        op: 'pv',
+                        wz: 'huati_click',
+                        id: data.data.id,
+                        uniqueid: data.data.sub_title,
+                        source: 'huati',
+                    }
+                    app.statistics_pv(options)
                 } else {
                     wx.showToast({
                         title: data.msg,

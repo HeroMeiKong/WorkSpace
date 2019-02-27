@@ -4,7 +4,7 @@
         首页
     </view>
     <image class="tabbar-icon"
-           src="https://s-js.sports.cctv.com/host/resource/future/1chuangzuo@2x.png"
+           src="https://s-js.sports.cctv.com/host/resource/future/1peiyin@2x.png"
            catchtap="switchToRecordList"></image>
     <view class="tabbar-item {{select==2?'selected':''}}" catchtap="switchToUser">
         我的

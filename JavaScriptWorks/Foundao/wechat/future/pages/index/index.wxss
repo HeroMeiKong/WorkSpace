@@ -282,11 +282,13 @@
     margin-left: 5rpx;
 }
 .button-item-text{
-    color: #FFD792;
+    /*color: #FFD792;*/
+    color: #ffffff;
     margin-top: 10rpx;
 }
 .button-item-text-share {
-    color: #FFD792
+    /*color: #FFD792;*/
+    color: #ffffff;
 }
 
 
@@ -633,35 +635,35 @@
     z-index: 9;
     margin-top: 72rpx;
     font-size:26rpx;
-    /*color:rgba(51,51,51,1);*/
-    color:rgba(255,255,255,.8);
+    color:rgba(51,51,51,1);
+    /*color:rgba(255,255,255,.8);*/
     width:100%;
     text-align:center;
+}
+
+.btn_save_img{
+    position: relative;
+    z-index: 3;
+    margin-top: 35rpx;
+    margin-top: 35rpx;
+    width:360rpx;
+    height:88rpx;
+    background:rgba(248,52,80,1);
+    border-radius:44rpx;
+    text-align: center;
+    line-height: 88rpx;
+    font-size:34rpx;
+    font-weight:bold;
+    color: #ffffff;
 }
 
 /*.btn_save_img{*/
     /*position: relative;*/
     /*z-index: 3;*/
-    /*margin-top: 35rpx;*/
-    /*margin-top: 35rpx;*/
-    /*width:360rpx;*/
-    /*height:88rpx;*/
-    /*background:rgba(248,52,80,1);*/
-    /*border-radius:44rpx;*/
-    /*text-align: center;*/
-    /*line-height: 88rpx;*/
-    /*font-size:34rpx;*/
-    /*font-weight:bold;*/
-    /*color: #ffffff;*/
+    /*margin-top: 26rpx;*/
+    /*width:386rpx;*/
+    /*height:114rpx;*/
 /*}*/
-
-.btn_save_img{
-    position: relative;
-    z-index: 3;
-    margin-top: 26rpx;
-    width:386rpx;
-    height:114rpx;
-}
 
 
 /*背景轮播*/

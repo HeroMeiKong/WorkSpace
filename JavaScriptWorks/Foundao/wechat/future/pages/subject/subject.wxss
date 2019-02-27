@@ -186,7 +186,8 @@
     height:80rpx;
     /*background:rgba(248,52,80,1);*/
     border-radius:40rpx;
-    background-image: url("https://s-js.sports.cctv.com/host/resource/future/5join@2x.png");
+    /*background-image: url("https://s-js.sports.cctv.com/host/resource/future/5join@2x.png");*/
+    background-image: url("https://s-js.sports.cctv.com/host/resource/future/5join.png");
     /*background-size: 48rpx 48rpx;*/
     background-size: contain;
     background-repeat: no-repeat;
