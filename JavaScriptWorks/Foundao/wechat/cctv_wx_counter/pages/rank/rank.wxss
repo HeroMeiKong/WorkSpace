@@ -149,8 +149,8 @@
 
 .head_img_bg {
     position: absolute;
-    left: 108rpx;
-    top: 0rpx;
+    left: 111rpx;
+    top: 1rpx;
     width: 95rpx;
     height: 104rpx;
 }

@@ -202,14 +202,14 @@ Page({
             if (app.globalData.chaCalorie) {
               tip.tippic = tippic.right
               tip.tip = tip.right
-              tip.title = '成功燃烧' + app.globalData.chaCalorie + '卡路里'
+              tip.title = '成功前进' + app.globalData.chaCalorie + '步数'
             } else {
               tip.tippic = tippic.right
               tip.tip = tip.right
-              if (result.data.data) {
-                tip.title = '成功燃烧' + result.data.data.calorie + '卡路里'
+              if (result.data.code === 0) {
+                tip.title = '成功前进' + result.data.data.calorie + '步数'
               } else {
-                tip.title = '成功燃烧0卡路里'
+                tip.title = '您已经答过题，成功前进0步数'
               }
             }
           }

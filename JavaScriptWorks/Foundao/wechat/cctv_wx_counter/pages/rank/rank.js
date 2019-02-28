@@ -91,7 +91,7 @@ Page({
     }
   },
 
-  //获取卡路里排行榜
+  //获取步数排行榜
   getCalorieList: function (isChangePage) {
     wx.request({
       url: api.calorie_rank,
@@ -209,9 +209,9 @@ Page({
           ctx.fillText(userName, 250, 447 + 19)
           ctx.save()
 
-          //绘制名次和卡路里
+          //绘制名次和步数
           const rank = '名次'
-          const calorie = '卡路里'
+          const calorie = '步数'
           ctx.setFontSize(22)
           ctx.setTextAlign('center')
           ctx.setFillStyle('#84C158')
@@ -220,7 +220,7 @@ Page({
           ctx.fillText(calorie, 63 + 23, 572 + 15)
           ctx.save()
 
-          //绘制名次和卡路里的数字
+          //绘制名次和步数的数字
           const rank_num = this.data.user_rank.rank
           const colorie_num = this.data.user_rank.calorie
           ctx.setFontSize(34)
@@ -286,7 +286,7 @@ Page({
           fail: () => {
             wx.showModal({
               title: '提示',
-              content: '燃烧卡路里 申请获得保存图片到相册的权限',
+              content: '前进步数 申请获得保存图片到相册的权限',
               success(res) {
                 if (res.confirm) {
                   wx.openSetting({})

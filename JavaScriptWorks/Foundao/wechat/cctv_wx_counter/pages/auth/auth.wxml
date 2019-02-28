@@ -1,5 +1,5 @@
 <view class="auth-layer">
-    <view class="text">需要您授权同意我们获取您的个人信息， 才能为您开启小游</view>
+    <view class="text">需要您授权同意我们获取您的个人信息， 才能为您开启小游戏</view>
     <button class="btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">微信授权</button>
     <view class="activity" style="display:{{showActivity}}">
         <view class="activityBg">

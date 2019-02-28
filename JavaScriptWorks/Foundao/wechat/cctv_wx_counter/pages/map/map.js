@@ -12,7 +12,7 @@ Page({
       wd:1,//屏幕比例
       userName:"",//用户名
       avatarUrl:"",//用户头像
-      totalCalorie:0,//总卡路里
+      totalCalorie:0,//总步数
       mapHeight:'0rpx',//进度条高度
       marskTop:'0rpx',//marsk标记top值
       marskLeft: '0rpx',//marsk标记Left值
@@ -28,7 +28,7 @@ Page({
       isSpecialSite:false,//是否是特殊站点
       istips:false,//是否弹出提示用户分享
       isArrive:true,//是否到达
-      chaCalorie:0,//差多少卡路里到达下一站
+      chaCalorie:0,//差多少步数到达下一站
       isShowDialog:false,//是否显示弹窗
       isUserAcc:false,//是否使用加速卡
       isShowAccDialog:false,//是否显示加速卡
@@ -62,16 +62,16 @@ Page({
           { height: '940rpx', top: "128rpx", left: "314rpx" },
           ],
         huabeiOption: [
-          { height: "0rpx", top: "1050rpx", left: "390rpx" }, 
-          { height: "150rpx", top: "910rpx", left: "447rpx" }, 
-          { height: "238rpx", top: "830rpx", left: "306rpx" }, 
-          { height: "320rpx", top: "740rpx", left: "418rpx" }, 
-          { height: "410rpx", top: "652rpx", left: "302rpx" }, 
-          { height: "508rpx", top: "554rpx", left: "408rpx" }, 
-          { height: "604rpx", top: "454rpx", left: "250rpx" }, 
-          { height: "730rpx", top: "330rpx", left: "470rpx" }, 
-          { height: "790rpx", top: "274rpx", left: "256rpx" }, 
-          { height: "940rpx", top: "140rpx", left: "388rpx" }, 
+          { height: "0rpx", top: "1050rpx", left: "390rpx" },
+          { height: "150rpx", top: "910rpx", left: "447rpx" },
+          { height: "238rpx", top: "830rpx", left: "306rpx" },
+          { height: "320rpx", top: "740rpx", left: "418rpx" },
+          { height: "410rpx", top: "652rpx", left: "302rpx" },
+          { height: "508rpx", top: "554rpx", left: "408rpx" },
+          { height: "604rpx", top: "454rpx", left: "250rpx" },
+          { height: "730rpx", top: "330rpx", left: "470rpx" },
+          { height: "790rpx", top: "274rpx", left: "256rpx" },
+          { height: "940rpx", top: "140rpx", left: "388rpx" },
         ],
         dongbeiOption: [
           { height: "0rpx", top: "1060rpx", left: "424rpx" },
@@ -83,7 +83,7 @@ Page({
           { height: "570rpx", top: "494rpx", left: "436rpx" },
           { height: "680rpx", top: "390rpx", left: "240rpx" },
           { height: "760rpx", top: "308rpx", left: "352rpx" },
-          { height: "940rpx", top: "210rpx", left: "240rpx" }, 
+          { height: "940rpx", top: "210rpx", left: "240rpx" },
         ],
         huadongOption: [
           { height: "0rpx", top: "1088rpx", left: "230rpx" },
@@ -95,7 +95,7 @@ Page({
           { height: "612rpx", top: "480rpx", left: "254rpx" },
           { height: "710rpx", top: "390rpx", left: "412rpx" },
           { height: "834rpx", top: "260rpx", left: "208rpx" },
-          { height: "940rpx", top: "160rpx", left: "340rpx" }, 
+          { height: "940rpx", top: "160rpx", left: "340rpx" },
         ],
         huananOption: [
           { height: "0rpx", top: "1088rpx", left: "260rpx" },
@@ -107,7 +107,7 @@ Page({
           { height: "710rpx", top: "390rpx", left: "340rpx" },
           { height: "840rpx", top: "260rpx", left: "420rpx" },
           { height: "916rpx", top: "192rpx", left: "262rpx" },
-          { height: "1000rpx", top: "114rpx", left: "340rpx" }, 
+          { height: "1000rpx", top: "114rpx", left: "340rpx" },
         ],
         xinanOption: [
           { height: "0rpx", top: "1070rpx", left: "520rpx" },
@@ -119,7 +119,7 @@ Page({
           { height: "680rpx", top: "414rpx", left: "472rpx" },
           { height: "776rpx", top: "316rpx", left: "278rpx" },
           { height: "840rpx", top: "252rpx", left: "364rpx" },
-          { height: "1000rpx", top: "130rpx", left: "170rpx" }, 
+          { height: "1000rpx", top: "130rpx", left: "170rpx" },
         ]
       },
       mapSpecial:{
@@ -147,9 +147,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(app.globalData)
+    console.log(app.globalData);
+    // app.globalData.allData.is_last_day=1
     this.getSimpleInfo();//获取站点数  用户今天是否走了站
-    this.judgeCalorieFuction();//判断卡路里是否达标
+    this.judgeCalorieFuction();//判断步数是否达标
     this.judgeTime();//判断今天是否第一次进入
     this.getUserWayDetail();//获取在线信息
     this.setData({
@@ -167,9 +168,8 @@ Page({
         isFirstplay:false
       })
     }
-
     // app.globalData.q_type=1;
-    // app.globalData.allData.site=11;
+    // app.globalData.allData.site=4;
     /*判断是不是未到目标答题后返回*/
     if(app.globalData.q_type){
       app.globalData.allData.answer_status = '1';
@@ -232,12 +232,22 @@ Page({
       });
       /*最后一站  如果有inEnd值，说明是从终点页返回的，*/
       if (!app.globalData.inEnd){
+        /*活动最后一天关闭所有弹窗*/
+        console.log('关闭所有弹窗');
+        this.setData({
+          isShowDialog:false,
+          isUserAcc:false,
+          isReturn:false,
+          dialogisShow:false,
+          isLastSecond:false,
+          isShowAccDialog:false,
+          istips:false
+        });
         wx.navigateTo({
           url: '/pages/destination/destination'
         })
       }
     }
-
       /*判断加速卡弹窗是否弹出*/
     if (app.globalData.allData){
       this.setData({
@@ -254,7 +264,6 @@ Page({
         })
       }
     }
-
     const wd = app.globalData.systemInfo.screenWidth / 375;
     this.setData({
       wd:wd,
@@ -266,7 +275,7 @@ Page({
       app.globalData.currSite=this.data.currSite;
     });
 
-
+    console.log(app.globalData.allData.notice_card,'加速卡信息');
     /*判断当前弹窗是否关闭*/
     const value = wx.getStorageSync('dialogisShow');
     console.log(value,'弹窗状态');
@@ -288,6 +297,25 @@ Page({
       this.setData({
         dialogisShow:false
       })
+    }
+    if (app.globalData.allData.site>=10){
+      this.setData({
+        isShowDialog:false,
+        isUserAcc:false,
+        isReturn:false,
+        dialogisShow:false
+      });
+    }
+    if(app.globalData.allData.is_last_day/1===1){
+      this.setData({
+        isShowDialog:false,
+        isUserAcc:false,
+        isReturn:false,
+        dialogisShow:false,
+        isLastSecond:false,
+        isShowAccDialog:false,
+        istips:false
+      });
     }
   },
   /**
@@ -325,93 +353,14 @@ Page({
 
   /*刷新页面*/
   renovatePage:function(){
+    wx.showLoading({
+      title: '加载中...'
+    });
     console.log('点击刷新按钮');
     this.onShow();
-    // wx.login({
-    //   timeout: 10000,
-    //   success: (result) => {
-    //     wx.getUserInfo({
-    //       success: (res) => {
-    //         const signature = res.signature
-    //           app.globalData.userInfo = res.userInfo
-    //           this.getRunData(api.main_home, result.code, signature, true)
-    //       }
-    //     })
-    //   },
-    //   fail: () => {},
-    //   complete: () => {}
-    // });
-  },
-  getRunData(url, code, signature, isFont) {
-    //isSet是否获取步数
-    let that = this;
-    wx.getWeRunData({
-      success: (res) => {
-        if (!app.globalData.hasGetRunData) {
-          wx.showLoading({
-            title: '加载数据中',
-            mask: true,
-          });
-        }
-        const encryptedData = res.encryptedData
-        const iv = res.iv
-        wx.request({
-          url: url,
-          data: {
-            code: code,
-            encryptedData: encryptedData,
-            iv: iv,
-            wx_sign: signature
-          },
-          header: {
-            'content-type': 'application/x-www-form-urlencoded',
-            'auth-token': wx.getStorageSync('loginSessionKey')
-          },
-          method: 'POST',
-          success: (re) => {
-            if (isFont) {
-              this.setData({
-                showCover: 'none'
-              })
-              wx.hideLoading();
-              app.globalData.steps = re.data.data || ''
-              app.globalData.allData = re.data.count || ''
-              app.globalData.map_id = parseInt(wx.getStorageSync('route'));
-              that.onShow()
-              if (!app.globalData.map_id) {
-                wx.setStorageSync('route', re.data.count.user_way_id || 0);
-              }
-              if (app.globalData.allData) {
-                    app.globalData.hasGetRunData = true
-              } else {
-                wx.showToast({
-                  title: '刷新数据失败！请重新授权！',
-                  icon: 'none',
-                  duration: 1500,
-                  mask: true,
-                });
-                wx.removeStorageSync('loginSessionKey')
-              }
-            } else {
-              console.log('发送后端步数请求成功!')
-            }
-          },
-          fail: () => {
-            wx.showToast({
-              title: '刷新数据失败！请重新授权或重启小程序！',
-              icon: 'none',
-              duration: 1500,
-              mask: true,
-            });
-            wx.removeStorageSync('loginSessionKey')
-          },
-          complete: () => {}
-        });
-      },
-      fail: (res) => {
-        console.log('用户拒绝获取步数')
-      }
-    })
+    setTimeout(function () {
+      wx.hideLoading()
+    },1000)
   },
   /*地图页获取当前用户进度，用户今天是否前进*/
   getSimpleInfo:function(){
@@ -421,8 +370,17 @@ Page({
         'content-type':'application/x-www-form-urlencoded',
         'auth-token': wx.getStorageSync('loginSessionKey')
       },
+
       success:(res)=>{
+        console.log('重置allData值')
         app.globalData.allData.site=res.data.data.site;
+        app.globalData.allData.today_is_move=res.data.data.today_is_move;
+        app.globalData.allData.notice_card=res.data.data.notice_card;
+        app.globalData.allData.card=res.data.data.card;
+        app.globalData.allData.answer_status=res.data.data.answer_status;
+        app.globalData.allData.dati_site=res.data.data.dati_site;
+        app.globalData.allData.is_last_day=res.data.data.is_last_day;
+        app.globalData.allData.is_need_share=res.data.data.is_need_share;
         app.globalData.allData.today_is_move=res.data.data.today_is_move;
         if (res.data.data.today_is_move/1===1){
           this.setData({
@@ -439,41 +397,56 @@ Page({
       }
     })
   },
-  /*判断用户昨日卡路里是否达标*/
+  /*判断用户昨日步数是否达标*/
   judgeCalorieFuction:function(){
-    console.log('进入判断')
-    if (app.globalData.allData.site>=10){
+    /*活动最后一天关闭所有弹窗*/
+    if(app.globalData.allData.is_last_day/1===1 || app.globalData.allData.site>=10){
+      console.log('活动最后一天')
       this.setData({
-        isArrive:true
-      })
+        isShowDialog:false,
+        isUserAcc:false,
+        isReturn:false,
+        dialogisShow:false,
+        isLastSecond:false,
+        isShowAccDialog:false,
+        istips:false
+      });
     }else {
-      wx.request({
-        url:api.yesterdayCalorieJudge,
-        header:{
-          'content-type':'application/x-www-form-urlencoded',
-          'auth-token': wx.getStorageSync('loginSessionKey')
-        },
-        success:(res)=>{
-          console.log(res.data.data.cha)
-          if (res.data.data){
-            if (res.data.data.cha/1===0){
-              this.setData({
-                chaCalorie:res.data.data.cha,
-                isArrive:true
-              })
-            } else {
-              app.globalData.chaCalorie=res.data.data.cha;
-              this.setData({
-                chaCalorie:res.data.data.cha,
-                isArrive:false
-              })
-            }
-          } else{
+      console.log('进入判断')
+      if (app.globalData.allData.site>=10){
+        this.setData({
+          isArrive:true
+        })
+      }else {
+        wx.request({
+          url:api.yesterdayCalorieJudge,
+          header:{
+            'content-type':'application/x-www-form-urlencoded',
+            'auth-token': wx.getStorageSync('loginSessionKey')
+          },
+          success:(res)=>{
+            console.log(res.data.data.cha)
+            if (res.data.data){
+              if (res.data.data.cha/1===0){
+                this.setData({
+                  chaCalorie:res.data.data.cha,
+                  isArrive:true
+                })
+              } else {
+                app.globalData.chaCalorie=res.data.data.cha;
+                this.setData({
+                  chaCalorie:res.data.data.cha,
+                  isArrive:false
+                })
+              }
+            } else{
 
+            }
           }
-        }
-      })
+        })
+      }
     }
+
   },
   /*设置当前时间*/
   setCurrDate:function(){
@@ -486,40 +459,86 @@ Page({
   },
   //判断当前时间是不是当天第一次进入
   judgeTime:function(){
-    try {
-      const res = app.globalData.allData.answer_status;
-      console.log(res)
-      if (res/1===1){
-        console.log(111)
-        this.setData({
-          isanswer:true,
-        })
-      }else {
-        this.setData({
-          isanswer:false,
-        })
-      }
-    } catch (e) {
-      // Do something when catch error
-    }
-    wx.getStorage({
-      key: 'lastLoginDate',
-      success: res => {
-        // console.log(res.data);
-        let lastDate = res.data;
-        let currTime  = new Date();
-        let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
-        if (lastDate===cuurDate){
+    if(app.globalData.allData.is_last_day/1===1 || app.globalData.allData.site>=10){
+      console.log('活动最后一天')
+      this.setData({
+        isShowDialog:false,
+        isUserAcc:false,
+        isReturn:false,
+        dialogisShow:false,
+        isLastSecond:false,
+        isShowAccDialog:false,
+        istips:false
+      });
+    }else {
+      try {
+        const res = app.globalData.allData.answer_status;
+        console.log(res)
+        if (res/1===1){
+          console.log(111)
           this.setData({
-            isFirstIn:false,
-            istips:false
-          });
-        } else {
+            isanswer:true,
+          })
+        }else {
+          this.setData({
+            isanswer:false,
+          })
+        }
+      } catch (e) {
+        // Do something when catch error
+      }
+      wx.getStorage({
+        key: 'lastLoginDate',
+        success: res => {
+          // console.log(res.data);
+          let lastDate = res.data;
+          let currTime  = new Date();
+          let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
+          if (lastDate===cuurDate){
+            this.setData({
+              isFirstIn:false,
+              istips:false
+            });
+          } else {
+            this.haveaward();
+            this.setData({
+              isFirstIn:true,
+            });
+            /*判断是否需要分享*/
+            if (app.globalData.allData.today>=10){
+              this.setData({
+                istips:false,
+              });
+            } else {
+              if (app.globalData.allData.is_need_share/1===1){
+                this.setData({
+                  istips:true,
+                });
+              } else {
+                this.setData({
+                  istips:false,
+                });
+              }
+            }
+
+            /*判断当前是第几天*/
+            if(app.globalData.allData.site<10){
+              wx.setStorageSync('dialogisShow', 'true')
+              this.setData({
+                dialogisShow:true
+              })
+            }
+            wx.setStorage({
+              key:"lastLoginDate",
+              data:cuurDate
+            });
+          }
+        },
+        fail:res=>{
           this.haveaward();
           this.setData({
             isFirstIn:true,
           });
-          /*判断是否需要分享*/
           if (app.globalData.allData.is_need_share/1===1){
             this.setData({
               istips:true,
@@ -529,40 +548,15 @@ Page({
               istips:false,
             });
           }
-          /*判断当前是第几天*/
-          if(app.globalData.allData.site<10){
-            wx.setStorageSync('dialogisShow', 'true')
-            this.setData({
-              dialogisShow:true
-            })
-          }
-          wx.setStorage({
-            key:"lastLoginDate",
-            data:cuurDate
-          });
+          this.setCurrDate()
+          // console.log(res,'没有获取')
+          // if (res.errMsg==='getStorage:fail:data not found') {
+          //
+          // }
         }
-      },
-      fail:res=>{
-        this.haveaward();
-        this.setData({
-          isFirstIn:true,
-        });
-        if (app.globalData.allData.is_need_share/1===1){
-          this.setData({
-            istips:true,
-          });
-        } else {
-          this.setData({
-            istips:false,
-          });
-        }
-        this.setCurrDate()
-        // console.log(res,'没有获取')
-        // if (res.errMsg==='getStorage:fail:data not found') {
-        //
-        // }
-      }
-    });
+      });
+    }
+
   },
 
   /*获取用户信息*/
@@ -677,7 +671,7 @@ Page({
         marskTop: mapOption.xibeiOption[newlevel].top,
         marskLeft: mapOption.xibeiOption[newlevel].left,
         currSite: mapStation.xibei[newlevel],
-        arriveSoon:mapStation.xibei[level<0?0:newLevel]||'',
+        arriveSoon:mapStation.xibei[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         /*需要判断是不是要显示*/
@@ -692,7 +686,7 @@ Page({
         marskTop: mapOption.huabeiOption[newlevel].top,
         marskLeft: mapOption.huabeiOption[newlevel].left,
         currSite: mapStation.huabei[newlevel],
-        arriveSoon:mapStation.huabei[level<0?0:newLevel]||'',
+        arriveSoon:mapStation.huabei[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -706,7 +700,7 @@ Page({
         marskTop: mapOption.dongbeiOption[newlevel].top,
         marskLeft: mapOption.dongbeiOption[newlevel].left,
         currSite: mapStation.dongbei[newlevel],
-        arriveSoon:mapStation.dongbei[level<0?0:newLevel]||'',
+        arriveSoon:mapStation.dongbei[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -720,7 +714,7 @@ Page({
         marskTop: mapOption.huadongOption[newlevel].top,
         marskLeft: mapOption.huadongOption[newlevel].left,
         currSite: mapStation.huadong[newlevel],
-        arriveSoon:mapStation.huadong[level<0?0:newLevel]||'',
+        arriveSoon:mapStation.huadong[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -734,7 +728,7 @@ Page({
         marskTop: mapOption.huananOption[newlevel].top,
         marskLeft: mapOption.huananOption[newlevel].left,
         currSite: mapStation.huanan[newlevel],
-        arriveSoon:mapStation.huanan[level<0?0:newLevel]||'',
+        arriveSoon:mapStation.huanan[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -748,7 +742,7 @@ Page({
         marskTop: mapOption.xinanOption[newlevel].top,
         marskLeft: mapOption.xinanOption[newlevel].left,
         currSite: mapStation.xinan[newlevel],
-        arriveSoon:mapStation.xinan[level<0?0:newLevel]||'',
+        arriveSoon:mapStation.xinan[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
         this.setData({
@@ -911,7 +905,7 @@ Page({
   /*关闭弹窗*/
   closePopup:function(){
     wx.setStorageSync('dialogisShow', 'false');
-    app.globalData.allData.notice_card=0;
+    // app.globalData.allData.notice_card=0;
     wx.hideLoading()
     this.setData({
       isShowDialog:false,
@@ -919,7 +913,7 @@ Page({
       isUserAcc:false,
       dialogisShow:false
     })
-    this.onShow();
+    // this.onShow();
   },
   /*关闭加速卡弹窗*/
   closeAccPopup:function(){
@@ -932,7 +926,7 @@ Page({
       },
       method: 'POST',
       success:res=>{
-        app.globalData.allData.notice_card=0;
+        // app.globalData.allData.notice_card=0;
       }
     });
     this.setData({
@@ -1043,7 +1037,7 @@ Page({
           fail : ()=> {
             wx.showModal({
               title: '提示',
-              content: '燃烧卡路里 申请获得保存图片到相册的权限',
+              content: '步数步数 申请获得保存图片到相册的权限',
               success(res) {
                 if (res.confirm) {
                   wx.openSetting({})

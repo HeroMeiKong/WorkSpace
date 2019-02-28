@@ -319,7 +319,7 @@ Page({
             },
             fail: (res) => {
                 console.log('用户拒绝获取步数')
-                if (!isFont) {
+                if (isFont) {
                     this.showModal()
                 }
             }

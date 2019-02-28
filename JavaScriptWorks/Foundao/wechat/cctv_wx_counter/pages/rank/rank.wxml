@@ -7,7 +7,7 @@
         </view>
         <image src="{{userHead}}" class="user_head" mode="aspectFill"/>
         <view class="rank_right">
-            <text class="calorie">卡路里</text>
+            <text class="calorie">步数</text>
             <text class="calorie_num">{{user_rank.calorie}}</text>
         </view>
         <view class="clear"></view>
@@ -52,7 +52,7 @@
                 <view class="poster_rank">名次</view>
                 <view class="poster_rank_num">{{user_rank.rank}}</view>
                 <view class="clear"></view>
-                <view class="poster_calorie">卡路里</view>
+                <view class="poster_calorie">步数</view>
                 <view class="poster_calorie_num">{{user_rank.calorie}}</view>
                 <image class="chengxuma"
                        src="{{chengxuma}}"

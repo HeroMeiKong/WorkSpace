@@ -210,7 +210,7 @@ Page({
           fail: () => {
             wx.showModal({
               title: '提示',
-              content: '燃烧卡路里 申请获得保存图片到相册的权限',
+              content: '前进步数 申请获得保存图片到相册的权限',
               success(res) {
                 if (res.confirm) {
                   wx.openSetting({})

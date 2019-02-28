@@ -429,6 +429,6 @@
   left: 50rpx;
   width: 44rpx;
   height: 44rpx;
-  background: url(https://s-js.sports.cctv.com/host/resource/map/renovate-btn.png);
+  background: url(https://s-js.sports.cctv.com/host/resource/map/renovate-btn.png) no-repeat center / 100% 100%;
   z-index: 1001;
 }
