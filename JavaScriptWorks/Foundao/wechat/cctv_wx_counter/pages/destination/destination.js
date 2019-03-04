@@ -84,8 +84,27 @@ Page({
     if (!app.globalData.currSite || app.globalData.currSite===''){
       app.globalData.currSite='人民大会堂';
     }
-    this.setData({
-      isNewsList:true
+    let _this = this;
+    let nowTime = new Date();
+    let nowDate = nowTime.getFullYear()+'-'+(nowTime.getMonth()+1)+'-'+
+      nowTime.getDate()+' '+nowTime.getHours()+':'+nowTime.getMinutes()+':'+nowTime.getSeconds()
+    wx.request({
+      url : api.add_calorie,
+      method:'post',
+      header:{
+        'content-type':'application/x-www-form-urlencoded',
+        'auth-token': wx.getStorageSync('loginSessionKey')
+      },
+      data:{
+        type:3,
+        date:nowDate,
+        value:'{"qid":1}'
+      },
+      success:res=>{
+        this.setData({
+          isNewsList:true
+        })
+      }
     })
   },
   /*关闭新闻资讯*/

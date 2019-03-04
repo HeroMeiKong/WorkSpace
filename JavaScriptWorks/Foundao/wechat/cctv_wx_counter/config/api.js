@@ -1,6 +1,6 @@
 // const host = 'https://a-js.sports.cctv.com/calorie/api/';          //正式环境
 const host = 'https://a-js.sports.cctv.com/calorie_test/api/';   //测试环境
-// const host = 'http://39.98.45.204/calorie_test/api/';  //开发环境
+// const host = 'http://62.234.180.229/calorie_test/api/';  //开发环境
 
 export default {
     //登录
@@ -17,4 +17,5 @@ export default {
     updateUserNameAndAvatar: host + 'user_select_way/update_user_name_pic.php',//更新用户头像和呢称
     simpleInfo : host + 'user_select_way/simple_user_map_info.php',//用户简单信息【地图详情】
     main_home: host + 'main/home.php',//全部数据
+    getfwqtime: host + 'time.php',//获取服务器时间
 }

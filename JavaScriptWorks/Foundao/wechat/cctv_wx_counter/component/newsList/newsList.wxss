@@ -54,7 +54,6 @@
     margin-left: 9rpx;
     box-sizing: border-box;
     font-size:20rpx;
-    font-family:PingFangSC-Medium;
     color:rgba(80,128,36,1);
     line-height:27rpx;
     display: -webkit-box;
@@ -68,10 +67,12 @@
 
 .class-big-title{
     position: absolute;
-    bottom: 10rpx;
-    left: 17rpx;
-    right: 17rpx;
+    bottom: 0rpx;
+    padding: 10rpx 17rpx;
+    left: 0rpx;
+    right: 0rpx;
     color: white;
     font-size: 22rpx;
     line-height: 30rpx;
+    background: url(https://s-js.sports.cctv.com/host/resource/map/newsList_titleBg.png) no-repeat bottom center/ 100% 100% ;
 }

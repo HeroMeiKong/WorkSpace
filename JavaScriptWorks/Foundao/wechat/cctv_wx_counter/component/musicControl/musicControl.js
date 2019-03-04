@@ -15,6 +15,16 @@ Component({
     pageLifetimes: {
         show() {
             // 页面被展示
+            if (app.globalData.music_state) {
+                //正在播放
+                this.setData({
+                    isPlay: true
+                })
+            } else {
+                this.setData({
+                    isPlay: false
+                })
+            }
         },
         hide() {
             // 页面被隐藏

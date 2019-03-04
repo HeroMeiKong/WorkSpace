@@ -111,12 +111,15 @@ Page({
                                             showActivity: 'flex'
                                         })
                                     } else {
-                                        wx.showToast({
-                                            title: '活动未开始……请静候佳音！',
-                                            icon: 'none',
-                                            duration: 1500,
-                                            mask: true,
-                                        });
+                                        let time = setTimeout(()=>{
+                                            wx.showToast({
+                                                title: '活动未开始……请静候佳音！',
+                                                icon: 'none',
+                                                duration: 3000,
+                                                mask: true,
+                                            });
+                                            clearTimeout(time)
+                                        },300)
                                     }
                                     try {
                                         wx.removeStorageSync('key')

@@ -71,13 +71,13 @@ Page({
                 console.log('已初始化')
             }
             this.isFisrt()
+            if (!this.data.hasGetRunData) {
+                console.log('还没有获取用户步数')
+                this.getLogin(true)
+            } else {
+                console.log('已经获取用户步数')
+            }
         })
-        if (!this.data.hasGetRunData) {
-            console.log('还没有获取用户步数')
-            this.getLogin(true)
-        } else {
-            console.log('已经获取用户步数')
-        }
     },
 
     /**
@@ -334,7 +334,7 @@ Page({
                     hasShowModal = true
                     wx.showModal({
                         title: '警告',
-                        content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
+                        content: '您还未授权步数,请点击确定重新获取步数授权！',
                         showCancel: true,
                         cancelText: '取消',
                         cancelColor: '#000000',

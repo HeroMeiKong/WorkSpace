@@ -5,54 +5,58 @@
     <image
     class='map-img'
     mode='widthFix'
-    src='https://s-js.sports.cctv.com/host/resource/map/map_xibei.png'></image>
+    src='https://s-js.sports.cctv.com/host/resource/map/map_xibei1.png'></image>
     <view class='progress-box' style='height:{{mapHeight}}'></view>
-    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+    <view class='map_mark' catchtap="gotoSeeNews" style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--华北区地图-->
   <view class='map_huabei' wx:elif="{{ mapType === 3}}">
     <image
     class='map-img'
     mode='widthFix'
-    src='https://s-js.sports.cctv.com/host/resource/map/map_huabei.png'></image>
+    src='https://s-js.sports.cctv.com/host/resource/map/map_huabei1.png'></image>
     <view class='progress-box' style='height:{{mapHeight}}'></view>
-    <view class='map_mark'  style='top:{{marskTop}};left:{{marskLeft}}'></view>
+    <view class='map_mark' catchtap="gotoSeeNews" style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--东北区地图-->
   <view class='map_dongbei' wx:elif="{{ mapType === 1}}">
     <image
     class='map-img'
     mode='widthFix'
-    src='https://s-js.sports.cctv.com/host/resource/map/map_dongbei.png'></image>
+    src='https://s-js.sports.cctv.com/host/resource/map/map_dongbei1.png'></image>
     <view class='progress-box' style='height:{{mapHeight}}'></view>
-    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+    <view class='map_mark' catchtap="gotoSeeNews" style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--华东区地图-->
   <view class='map_huadong' wx:elif="{{ mapType === 4}}">
     <image
     class='map-img'
     mode='widthFix'
-    src='https://s-js.sports.cctv.com/host/resource/map/map_huadong.png'></image>
+    src='https://s-js.sports.cctv.com/host/resource/map/map_huadong1.png'></image>
     <view class='progress-box' style='height:{{mapHeight}}'></view>
-    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+    <view class='map_mark' catchtap="gotoSeeNews" style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--华南区地图-->
   <view class='map_huanan' wx:elif="{{ mapType === 6}}">
     <image
     class='map-img'
     mode='widthFix'
-    src='https://s-js.sports.cctv.com/host/resource/map/map_huanan.png'></image>
+    src='https://s-js.sports.cctv.com/host/resource/map/map_huanan1.png'></image>
     <view class='progress-box' style='height:{{mapHeight}}'></view>
-    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+    <view class='map_mark' catchtap="gotoSeeNews" style='top:{{marskTop}};left:{{marskLeft}}'></view>
   </view>
   <!--西南区地图-->
   <view class='map_xinan' wx:elif="{{ mapType === 5}}">
     <image
     class='map-img'
     mode='widthFix'
-    src='https://s-js.sports.cctv.com/host/resource/map/map_xinan.png'></image>
+    src='https://s-js.sports.cctv.com/host/resource/map/map_xinan1.png'></image>
     <view class='progress-box' style='height:{{mapHeight}}'></view>
-    <view class='map_mark' style='top:{{marskTop}};left:{{marskLeft}}'></view>
+    <view class='map_mark' catchtap="gotoSeeNews" style='top:{{marskTop}};left:{{marskLeft}}'></view>
+  </view>
+  <!--人民大会堂-->
+  <view class="last-pic {{lastOpacity}}">
+    <image class="rmdht-pic" src="https://s-js.sports.cctv.com/host/resource/map/rmdht_pic.png"></image>
   </view>
 </scroll-view>
 <!--用户信息-->
@@ -76,6 +80,8 @@
 </view>
 <!--向部长留言-->
 <view class="questionsToMinister" catchtap="askForMinister"></view>
+<!--游戏规则-->
+<view class="game_rule" catchtap="openRule"></view>
 <!--加速卡-->
 <view class='maskLayer acceleratorMask' catchtap="closeAccPopup"  wx:if="{{ isShowAccDialog === true }}">
   <view class='accelerator'>
@@ -84,7 +90,9 @@
   </view>
 </view>
 <!--还差多少未到-->
-<view class='maskLayer notArrivedMask'  catchtap="closePopup" wx:if="{{ isShowDialog === true && isArrive===false}}">
+<view class='maskLayer notArrivedMask'  catchtap="closePopup"
+      da1="{{isShowDialog}}" da2="{{isArrive}}"
+      wx:if="{{ isShowDialog === true && isArrive===false}}">
   <view class='notArrived'>
     <view class='notArrived-view-first'>还差{{chaCalorie}}步数</view>
     <view>就能到达“{{arriveSoon}}”站啦！</view>
@@ -95,7 +103,10 @@
   </view>
 </view>
 <!--到达某地-->
-<view class='maskLayer arrivedWhereMask' catchtap="closePopup" wx:if="{{ dialogisShow===true &&  isSpecialSite === false && isArrive===true ||isUserAcc===true && isSpecialSite === false && isArrive===true || isReturn===true && isSpecialSite === false || isSpecialSite === false && isShowDialog === true && isFirstIn===true && isArrive===true}}">
+<view class='maskLayer arrivedWhereMask' catchtap="closePopup"
+      data-av="{{dialogisShow===true && isSpecialSite === false && isArrive===true}}"
+      data-av3="{{isSpecialSite === false && isShowDialog === true && isFirstIn===true && isArrive===true}}"
+      wx:if="{{ (dialogisShow===true && isSpecialSite === false && isArrive===true) ||(isUserAcc===true && isSpecialSite === false && isArrive===true) || (isReturn===true && isSpecialSite === false) || (isSpecialSite === false && isShowDialog === true && isFirstIn===true && isArrive===true)}}">
   <view class='arrivedWhere'>
     <view class='arrivedWhere-first-view'>恭喜你</view>
     <view>到达“{{currSite}}”站</view>
@@ -117,7 +128,7 @@
   </view>
 </view>
 <!--特殊站点-->
-<view class='maskLayer specialMask' catchtap="closePopup"  wx:if="{{ dialogisShow===true &&  isSpecialSite === true && isArrive===true || isUserAcc===true && isSpecialSite === true && isArrive===true || isReturn===true && isSpecialSite === true || isSpecialSite === true && isShowDialog === true && isFirstIn===true && isArrive===true}}">
+<view class='maskLayer specialMask' catchtap="closePopup"  wx:if="{{ (dialogisShow===true &&  isSpecialSite === true && isArrive===true)|| (isUserAcc===true && isSpecialSite === true && isArrive===true)|| (isReturn===true && isSpecialSite === true) || (isSpecialSite === true && isShowDialog === true && isFirstIn===true && isArrive===true)}}">
   <view class='special'>
     <canvas canvas-id='specialCanvas' class="canvascss"></canvas>
     <image  class='specialCanvas' src="{{poster_url}}"></image>
@@ -144,4 +155,18 @@
 </view>
 <!--刷新-->
 <view class="renovate" catchtap="renovatePage"></view>
+<!--游戏规则-->
+<view class="rule-outBox" wx:if="{{gamerule===true}}">
+  <view class="rule-innerBox">
+    <view class="rule-title"></view>
+    <view class="rule-text">
+      <view class ='rule-text-item'>1、以活动结束前一天晚上24点的总步数进行排名，top3的用户均可获得大奖一份： 第一名：VIVO子品牌IQOO新上市手机一部；第二名及第三名：小米9手机1000元代金券。</view>
+      <view class ='rule-text-item'>2、任意选择一条路线均可在第10天到达终点，参加幸运大转盘抽奖活动，奖品如下： 腾讯大王卡及摩拜折扣券不限量；小米9手机300元代金券、VR眼镜、百度网盘月卡、喜马拉雅月卡、掌阅电子数30天vip券等~ </view>
+      <view class ='rule-text-item'>3、每日开启一个站点，3000步即可到达当天站点参与答题、观看两会最新资讯。</view>
+      <view class ='rule-text-item'>4、随时“给部长留言”，优质留言提问有机会在《中国新闻》节目中展示，并得到部长的回答。</view>
+      <view class ='rule-text-item'>5、晚到的用户也不用担心，加速卡将为您加速前进，带你到达终点。</view>
+    </view>
+    <view class="close-rule-btn" catchtap="closeRule">我知道啦</view>
+  </view>
+</view>
 <musicControl/>

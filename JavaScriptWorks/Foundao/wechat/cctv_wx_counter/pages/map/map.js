@@ -24,7 +24,7 @@ Page({
       isFirstplay:true,//用户是否是第一次进入游戏
       hasAccNum:1,//有几张加速卡
       currSite:'',//当前站点名字
-      arriveSoon:'',//即将到达站点
+      arriveSoon:'',//即将到达站点,
       isSpecialSite:false,//是否是特殊站点
       istips:false,//是否弹出提示用户分享
       isArrive:true,//是否到达
@@ -33,93 +33,95 @@ Page({
       isUserAcc:false,//是否使用加速卡
       isShowAccDialog:false,//是否显示加速卡
       mapType:1,//地图ID
+      lastOpacity:'transparency0',//人民大会堂的透明度
       isLastSecond:false,//倒数第二站
       poster_url:'',
       isReturn:false,//是否是未达目标返回
       activityLevel:5,//当前活动进行的天数
       isanswer:false,//用户今天是否答题
       ismove:true,//用户今天是否前进了
+      gamerule:false,
       dialogisShow:false,//当前弹窗是否关闭
       mapStation:{//地图站点名字
-        xibei:['乌鲁木齐', '吐鲁番', '银川', '西宁', '兰州', '嘉峪关', '西安', '宝鸡', '咸阳', '人民大会堂'],
-        huabei:['呼和浩特', '鄂尔多斯市', '乌兰察布', '太原', '大同', '长治', '石家庄', '秦皇岛', '天津', '人民大会堂'],
-        dongbei:['呼伦贝尔', '赤峰', '哈尔滨', '齐齐哈尔', '佳木斯', '长春', '松原', '沈阳', '大连', '人民大会堂'],
-        huadong: ['福州', '厦门', '南昌', '宜春', '杭州', '合肥', '上海', '南京', '济南', '人民大会堂'],
-        huanan: ['海口', '三亚', '香港', '澳门', '桂林', '南宁', '广州', '珠海', '湛江', '人民大会堂'],
-        xinan: ['拉萨', '昆明', '大理', '丽江', '贵阳', '遵义', '重庆', '成都', '攀枝花', '人民大会堂']
+        xibei:['乌鲁木齐', '喀什', '酒泉', '西宁', '兰州', '银川', '嘉峪关', '咸阳','西安', '人民大会堂'],
+        huabei:['呼和浩特', '包头', '大同', '太原', '郑州', '石家庄', '唐山', '天津', '北京', '人民大会堂'],
+        dongbei:['吉林', '齐齐哈尔', '大庆', '哈尔滨', '长春', '抚顺', '沈阳', '鞍山', '大连', '人民大会堂'],
+        huadong: ['台北', '福州', '南昌', '杭州', '宁波', '合肥', '上海', '南京', '济南', '人民大会堂'],
+        huanan: ['海口', '香港', '澳门', '深圳', '珠海', '汕头', '广州', '长沙', '武汉', '人民大会堂'],
+        xinan: ['拉萨', '丽江', '昆明', '贵阳', '南宁', '桂林', '重庆', '成都', '绵阳', '人民大会堂']
       },
       mapOption:{
         xibeiOption: [
-          { height: '0rpx', top: "1040rpx", left: "440rpx" },
-          { height: '130rpx', top: "930rpx", left: "297rpx" },
-          { height: '240rpx', top: "820rpx", left: "405rpx" },
-          { height: '340rpx', top: "720rpx", left: "278rpx" },
-          { height: '440rpx', top: "620rpx", left: "408rpx" },
-          { height: '540rpx', top: "520rpx", left: "278rpx" },
-          { height: '650rpx', top: "410rpx", left: "418rpx" },
-          { height: '740rpx', top: "320rpx", left: "299rpx" },
-          { height: '820rpx', top: "240rpx", left: "418rpx" },
-          { height: '940rpx', top: "128rpx", left: "314rpx" },
+          { height: '0rpx', top: "968rpx", left: "440rpx" },
+          { height: '130rpx', top: "858rpx", left: "297rpx" },
+          { height: '240rpx', top: "748rpx", left: "405rpx" },
+          { height: '340rpx', top: "648rpx", left: "278rpx" },
+          { height: '440rpx', top: "548rpx", left: "408rpx" },
+          { height: '540rpx', top: "448rpx", left: "278rpx" },
+          { height: '650rpx', top: "338rpx", left: "418rpx" },
+          { height: '740rpx', top: "248rpx", left: "299rpx" },
+          { height: '820rpx', top: "168rpx", left: "418rpx" },
+          { height: '940rpx', top: "56rpx", left: "314rpx" },
           ],
         huabeiOption: [
-          { height: "0rpx", top: "1050rpx", left: "390rpx" },
-          { height: "150rpx", top: "910rpx", left: "447rpx" },
-          { height: "238rpx", top: "830rpx", left: "306rpx" },
-          { height: "320rpx", top: "740rpx", left: "418rpx" },
-          { height: "410rpx", top: "652rpx", left: "302rpx" },
-          { height: "508rpx", top: "554rpx", left: "408rpx" },
-          { height: "604rpx", top: "454rpx", left: "250rpx" },
-          { height: "730rpx", top: "330rpx", left: "470rpx" },
-          { height: "790rpx", top: "274rpx", left: "256rpx" },
-          { height: "940rpx", top: "140rpx", left: "388rpx" },
+          { height: "0rpx", top: "978rpx", left: "390rpx" },
+          { height: "150rpx", top: "838rpx", left: "447rpx" },
+          { height: "238rpx", top: "758rpx", left: "306rpx" },
+          { height: "320rpx", top: "668rpx", left: "418rpx" },
+          { height: "410rpx", top: "580rpx", left: "302rpx" },
+          { height: "508rpx", top: "482rpx", left: "408rpx" },
+          { height: "604rpx", top: "382rpx", left: "250rpx" },
+          { height: "730rpx", top: "258rpx", left: "470rpx" },
+          { height: "790rpx", top: "202rpx", left: "256rpx" },
+          { height: "940rpx", top: "68rpx", left: "388rpx" },
         ],
         dongbeiOption: [
-          { height: "0rpx", top: "1060rpx", left: "424rpx" },
-          { height: "86rpx", top: "996rpx", left: "306rpx" },
-          { height: "204rpx", top: "860rpx", left: "434rpx" },
-          { height: "310rpx", top: "756rpx", left: "336rpx" },
-          { height: "420rpx", top: "648rpx", left: "468rpx" },
-          { height: "500rpx", top: "566rpx", left: "284rpx" },
-          { height: "570rpx", top: "494rpx", left: "436rpx" },
-          { height: "680rpx", top: "390rpx", left: "240rpx" },
-          { height: "760rpx", top: "308rpx", left: "352rpx" },
-          { height: "940rpx", top: "210rpx", left: "240rpx" },
+          { height: "0rpx", top: "988rpx", left: "424rpx" },
+          { height: "86rpx", top: "924rpx", left: "306rpx" },
+          { height: "204rpx", top: "788rpx", left: "434rpx" },
+          { height: "310rpx", top: "684rpx", left: "336rpx" },
+          { height: "420rpx", top: "576rpx", left: "468rpx" },
+          { height: "500rpx", top: "494rpx", left: "284rpx" },
+          { height: "570rpx", top: "422rpx", left: "436rpx" },
+          { height: "680rpx", top: "318rpx", left: "240rpx" },
+          { height: "760rpx", top: "236rpx", left: "352rpx" },
+          { height: "940rpx", top: "138rpx", left: "240rpx" },
         ],
         huadongOption: [
-          { height: "0rpx", top: "1088rpx", left: "230rpx" },
-          { height: "114rpx", top: "980rpx", left: "440rpx" },
-          { height: "250rpx", top: "852rpx", left: "312rpx" },
-          { height: "356rpx", top: "740rpx", left: "400rpx" },
-          { height: "440rpx", top: "654rpx", left: "282rpx" },
-          { height: "524rpx", top: "566rpx", left: "468rpx" },
-          { height: "612rpx", top: "480rpx", left: "254rpx" },
-          { height: "710rpx", top: "390rpx", left: "412rpx" },
-          { height: "834rpx", top: "260rpx", left: "208rpx" },
-          { height: "940rpx", top: "160rpx", left: "340rpx" },
+          { height: "0rpx", top: "1016rpx", left: "230rpx" },
+          { height: "114rpx", top: "908rpx", left: "440rpx" },
+          { height: "250rpx", top: "780rpx", left: "312rpx" },
+          { height: "356rpx", top: "668rpx", left: "400rpx" },
+          { height: "440rpx", top: "582rpx", left: "282rpx" },
+          { height: "524rpx", top: "494rpx", left: "468rpx" },
+          { height: "612rpx", top: "408rpx", left: "254rpx" },
+          { height: "710rpx", top: "318rpx", left: "412rpx" },
+          { height: "834rpx", top: "188rpx", left: "208rpx" },
+          { height: "940rpx", top: "88rpx", left: "340rpx" },
         ],
         huananOption: [
-          { height: "0rpx", top: "1088rpx", left: "260rpx" },
-          { height: "86rpx", top: "1016rpx", left: "436rpx" },
-          { height: "268rpx", top: "834rpx", left: "310rpx" },
-          { height: "410rpx", top: "694rpx", left: "484rpx" },
-          { height: "500rpx", top: "600rpx", left: "272rpx" },
-          { height: "650rpx", top: "450rpx", left: "460rpx" },
-          { height: "710rpx", top: "390rpx", left: "340rpx" },
-          { height: "840rpx", top: "260rpx", left: "420rpx" },
-          { height: "916rpx", top: "192rpx", left: "262rpx" },
-          { height: "1000rpx", top: "114rpx", left: "340rpx" },
+          { height: "0rpx", top: "1016rpx", left: "260rpx" },
+          { height: "86rpx", top: "944rpx", left: "436rpx" },
+          { height: "268rpx", top: "762rpx", left: "310rpx" },
+          { height: "410rpx", top: "622rpx", left: "484rpx" },
+          { height: "500rpx", top: "528rpx", left: "272rpx" },
+          { height: "650rpx", top: "378rpx", left: "460rpx" },
+          { height: "710rpx", top: "318rpx", left: "340rpx" },
+          { height: "840rpx", top: "188rpx", left: "420rpx" },
+          { height: "916rpx", top: "120rpx", left: "262rpx" },
+          { height: "1000rpx", top: "42rpx", left: "340rpx" },
         ],
         xinanOption: [
-          { height: "0rpx", top: "1070rpx", left: "520rpx" },
-          { height: "144rpx", top: "950rpx", left: "276rpx" },
-          { height: "268rpx", top: "828rpx", left: "440rpx" },
-          { height: "404rpx", top: "688rpx", left: "270rpx" },
-          { height: "494rpx", top: "600rpx", left: "416rpx" },
-          { height: "566rpx", top: "530rpx", left: "260rpx" },
-          { height: "680rpx", top: "414rpx", left: "472rpx" },
-          { height: "776rpx", top: "316rpx", left: "278rpx" },
-          { height: "840rpx", top: "252rpx", left: "364rpx" },
-          { height: "1000rpx", top: "130rpx", left: "170rpx" },
+          { height: "0rpx", top: "998rpx", left: "520rpx" },
+          { height: "144rpx", top: "878rpx", left: "276rpx" },
+          { height: "268rpx", top: "756rpx", left: "440rpx" },
+          { height: "404rpx", top: "616rpx", left: "270rpx" },
+          { height: "494rpx", top: "528rpx", left: "416rpx" },
+          { height: "566rpx", top: "458rpx", left: "260rpx" },
+          { height: "680rpx", top: "342rpx", left: "472rpx" },
+          { height: "776rpx", top: "244rpx", left: "278rpx" },
+          { height: "840rpx", top: "180rpx", left: "364rpx" },
+          { height: "1000rpx", top: "58rpx", left: "170rpx" },
         ]
       },
       mapSpecial:{
@@ -147,182 +149,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(app.globalData);
-    // app.globalData.allData.is_last_day=1
+    this.judgeIsnextDay();
     this.getSimpleInfo();//获取站点数  用户今天是否走了站
-    this.judgeCalorieFuction();//判断步数是否达标
-    this.judgeTime();//判断今天是否第一次进入
     this.getUserWayDetail();//获取在线信息
-    this.setData({
-      userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
-      avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
-      mapType:app.globalData.map_id*1,
-    });
-    /*判断用户是否是第一次进入小程序*/
-    if (app.globalData.allData.site<1){
-      this.setData({
-        isFirstplay:true
-      })
-    } else {
-      this.setData({
-        isFirstplay:false
-      })
-    }
-    // app.globalData.q_type=1;
-    // app.globalData.allData.site=4;
-    /*判断是不是未到目标答题后返回*/
-    if(app.globalData.q_type){
-      app.globalData.allData.answer_status = '1';
-      if (app.globalData.q_type/1===1){/*未完成答题返回q_type 1 */
-        this.setData({
-          isReturn:true,
-          isArrive:true
-        });
-        app.globalData.q_type=4;
-        if (app.globalData.allData.site/1>=10){/*如果用户站点达到10，去终点页*/
-          app.globalData.allData.site=10;
-          // if (!app.globalData.inEnd){
-          //   wx.navigateTo({
-          //     url: '/pages/destination/destination'
-          //   })
-          // }
-          // return
-        }
-      }else if (app.globalData.q_type/1===3) {/* q_type 1 最后一天答题*/
-        this.setData({
-          isReturn:false
-        });
-        /*最后一站*/
-        // if (!app.globalData.inEnd){
-        //   wx.navigateTo({
-        //     url: '/pages/destination/destination'
-        //   })
-        // }
-      }else {
-        this.setData({
-          isReturn:false
-        });
-      }
-    }else {
-      this.setData({
-        isReturn:false
-      })
-    }
-    /*判断用户今天是否移动*/
-    if (app.globalData.allData.today_is_move/1===1){
-      this.setData({
-        ismove:true
-      })
-    } else{
-      this.setData({
-        ismove:false
-      })
-    }
-    /*判断倒数第二站*/
-    if (app.globalData.allData.site===9){
-      this.setData({
-        isLastSecond:true,
-        isShowDialog:false
-      })
-    }else if(app.globalData.allData.site/1>=10){/*判断是否到达终点页*/
-      app.globalData.allData.site=10;
-      this.setData({
-        isLastSecond:false,
-        isShowDialog:false
-      });
-      /*最后一站  如果有inEnd值，说明是从终点页返回的，*/
-      if (!app.globalData.inEnd){
-        /*活动最后一天关闭所有弹窗*/
-        console.log('关闭所有弹窗');
-        this.setData({
-          isShowDialog:false,
-          isUserAcc:false,
-          isReturn:false,
-          dialogisShow:false,
-          isLastSecond:false,
-          isShowAccDialog:false,
-          istips:false
-        });
-        wx.navigateTo({
-          url: '/pages/destination/destination'
-        })
-      }
-    }
-      /*判断加速卡弹窗是否弹出*/
-    if (app.globalData.allData){
-      this.setData({
-        hasAccNum:app.globalData.allData.card
-      });
-      if (app.globalData.allData.notice_card/1===1){
-        this.setData({
-          isShowAccDialog:true,
-          isUserAcc:true
-        })
-      }else {
-        this.setData({
-          isShowAccDialog:false,
-        })
-      }
-    }
-    const wd = app.globalData.systemInfo.screenWidth / 375;
-    this.setData({
-      wd:wd,
-      userLevel:app.globalData.allData ? app.globalData.allData.site - 1 : 0
-    },function () {
-      const {userLevel} = this.data;
-      // console.log(userLevel,'user')
-      this.setMapData(userLevel);//生成地图数据
-      app.globalData.currSite=this.data.currSite;
-    });
-
-    console.log(app.globalData.allData.notice_card,'加速卡信息');
-    /*判断当前弹窗是否关闭*/
-    const value = wx.getStorageSync('dialogisShow');
-    console.log(value,'弹窗状态');
-    console.log(value==='true','判断')
-    if (!value||value==='true'){
-      if (app.globalData.allData.site<10){
-        wx.setStorageSync('dialogisShow', 'true');
-        this.setData({
-          dialogisShow:true
-        })
-      } else {
-        wx.setStorageSync('dialogisShow', 'false');
-        this.setData({
-          dialogisShow:false
-        })
-      }
-    }else{
-      wx.setStorageSync('dialogisShow', 'false');
-      this.setData({
-        dialogisShow:false
-      })
-    }
-    if (app.globalData.allData.site>=10){
-      this.setData({
-        isShowDialog:false,
-        isUserAcc:false,
-        isReturn:false,
-        dialogisShow:false
-      });
-    }
-    if(app.globalData.allData.is_last_day/1===1){
-      this.setData({
-        isShowDialog:false,
-        isUserAcc:false,
-        isReturn:false,
-        dialogisShow:false,
-        isLastSecond:false,
-        isShowAccDialog:false,
-        istips:false
-      });
-    }
+    // this.initMap();
   },
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    app.globalData.ischange = ''
+    app.globalData.ischange = '';
+    let nd = new Date();
+    const oldDate = nd.getFullYear()+'-'+(nd.getMonth()+1)+'-'+nd.getDate();
+    app.globalData.oldDate= oldDate;
   },
   /**
    * 生命周期函数--监听页面卸载
@@ -350,17 +189,293 @@ Page({
       }
     }
   },
+  /*判断是否跨天*/
+  judgeIsnextDay:function(){
+    let oldDate = app.globalData.oldDate;
+    console.log(oldDate,'oldDate');
+    if (oldDate){
+      wx.request({
+        url:api.getfwqtime,
+        success:res=>{
+          console.log(res.data.data.date,'时间');
+          let newdate = res.data.data.date;
+          let jg = new Date(oldDate+' 00:00:00').getTime()===new Date(newdate+' 00:00:00').getTime();
+          if (jg===false){
+            wx.redirectTo({
+              url: '/pages/index/index',
+            });
+          }else {
+            return
+          }
+        }
+      })
+    }
+  },
+  /*初始化地图*/
+  initMap:function() {
+    this.setData({
+      userName:app.globalData.userInfo?app.globalData.userInfo.nickName:"",
+      avatarUrl:app.globalData.userInfo.avatarUrl||app.globalData.default_avatarUrl,
+      mapType:app.globalData.map_id*1,
+      // wd:wd,
+      userLevel:app.globalData.allData ? app.globalData.allData.site - 1 : 0
+    },function () {
+      let {userLevel} = this.data;
+      console.log(userLevel,'userLevel');
+      if (userLevel>9){
+        userLevel=9
+      }
+      this.setMapData(userLevel);//生成地图数据
+      setTimeout(function () {
+        wx.pageScrollTo({
+          scrollTop: 180
+        });
+      },500)
 
-  /*刷新页面*/
-  renovatePage:function(){
-    wx.showLoading({
-      title: '加载中...'
+      this.init();//初始化判断
     });
-    console.log('点击刷新按钮');
-    this.onShow();
-    setTimeout(function () {
-      wx.hideLoading()
-    },1000)
+  },
+  /*进入判断*/
+  init:function(){
+    // if (app.globalData.allData.site>=10){
+    //   wx.setStorageSync('dialogisShow', 'false');
+    // }
+    const {dialogisShow,isSpecialSite,isArrive ,isShowDialog, isUserAcc ,isReturn }=this.data;
+    console.log(app.globalData);
+    this.judgeCalorieFuction();//判断步数是否达标
+    this.isCloseDialog();/*判断当前弹窗是否关闭*/
+    this.judgeTime();//判断今天是否第一次进入
+    this.transparency();/*人民大会堂透明度显示*/
+    this.isFirst();/*判断用户是否是第一次进入小程序*/
+    this.todayIsMove();/*判断用户今天是否移动*/
+    this.jskfunctin();/*判断加速卡弹窗是否弹出*/
+    this.siteIsWhere(); /*判断倒数第二站*/
+    console.log(app.globalData.allData.notice_card,'加速卡信息');
+    this.isAnswerReturn(); /*判断是不是未到目标答题后返回*/
+    /*判断当前是否已经到达终点页或者活动最后一天*/
+    if(app.globalData.allData.is_last_day/1===1||app.globalData.allData.site>=10){
+      console.log('最后');
+      // wx.setStorageSync('dialogisShow', 'false');
+      this.setData({
+        isShowDialog:false,
+        isUserAcc:false,
+        isReturn:false,
+        dialogisShow:false,
+        isLastSecond:false,
+        isShowAccDialog:false,
+        istips:false,
+        isFirstIn:false
+      });
+    }
+    if (app.globalData.isSeeNews/1===1){
+      this.setData({
+        isShowDialog:false,
+        isUserAcc:false,
+        isReturn:false,
+        isShowAccDialog:false,
+      });
+    }
+    app.globalData.currSite=this.data.currSite;
+  },
+  /*人民大会堂透明度显示*/
+  transparency:function(){
+    if (app.globalData.allData.site&&app.globalData.allData.site/1===8){
+      this.setData({
+        lastOpacity:'transparency1'
+      })
+    } else if (app.globalData.allData.site&&app.globalData.allData.site/1===9){
+      this.setData({
+        lastOpacity:'transparency2'
+      })
+    }else if (app.globalData.allData.site&&app.globalData.allData.site/1>=10){
+      this.setData({
+        lastOpacity:'transparency3'
+      })
+    }  else {
+      this.setData({
+        lastOpacity:'transparency0'
+      })
+    }
+  },
+  /*判断用户是否是第一次进入小程序*/
+  isFirst:function(){
+    if (app.globalData.allData.site<1){
+      this.setData({
+        isFirstplay:true
+      })
+    } else {
+      this.setData({
+        isFirstplay:false
+      })
+    }
+  },
+  /*判断当前弹窗是否关闭*/
+  isCloseDialog:function(){
+    if (app.globalData.allData.site===9&&app.globalData.allData.dati_site>=1){
+      wx.setStorageSync('dialogisShow', 'false');
+      this.setData({
+        dialogisShow:false,
+        isShowDialog:false
+      })
+    }else {
+      const value = wx.getStorageSync('dialogisShow');
+      console.log(value==='true','判断弹窗状态')
+      if (!value||value==='true'){
+        if (app.globalData.allData.site<10){
+          wx.setStorageSync('dialogisShow', 'true');
+          this.setData({
+            dialogisShow:true
+          })
+        } else {
+          wx.setStorageSync('dialogisShow', 'false');
+          this.setData({
+            dialogisShow:false
+          })
+        }
+      }else{
+        wx.setStorageSync('dialogisShow', 'false');
+        this.setData({
+          dialogisShow:false
+        })
+      }
+    }
+
+  },
+  /*判断倒数第二站和最后一站*/
+  siteIsWhere:function(){
+    if (app.globalData.allData.site===9){
+      this.setData({
+        isLastSecond:true,
+        isShowDialog:false,
+        dialogisShow:false,
+        isFirstIn:false
+      })
+    }else if(app.globalData.allData.site/1>=10){/*判断是否到达终点页*/
+      app.globalData.allData.site=10;
+      this.setData({
+        isLastSecond:false,
+        isShowDialog:false,
+        dialogisShow:false,
+        isFirstIn:false
+      });
+      /*最后一站  如果有inEnd值，说明是从终点页返回的，*/
+      if (!app.globalData.inEnd){
+        /*活动最后一天关闭所有弹窗*/
+        console.log('关闭所有弹窗');
+        this.setData({
+          isShowDialog:false,
+          isUserAcc:false,
+          isReturn:false,
+          dialogisShow:false,
+          isLastSecond:false,
+          isShowAccDialog:false,
+          istips:false
+        });
+        wx.navigateTo({
+          url: '/pages/destination/destination'
+        })
+      }
+    }
+  },
+  /*判断是不是未到目标答题后返回*/
+  isAnswerReturn:function(){
+    // const {dialogisShow,isSpecialSite,isArrive , isUserAcc ,isReturn }=this.data;
+    if (app.globalData.allData.site>=10){
+      if (app.globalData.allData.site/1>=10){/*如果用户站点达到10，去终点页*/
+        app.globalData.allData.site=10;
+        this.setData({
+          isShowDialog:false,
+          isUserAcc:false,
+          isReturn:false,
+          dialogisShow:false,
+          isLastSecond:false,
+          isShowAccDialog:false,
+          istips:false,
+          isFirstIn:false,
+          isArrive:true
+        });
+      }
+    } else {
+      if(app.globalData.q_type){
+        app.globalData.allData.answer_status = '1';
+        if (app.globalData.q_type/1===1){/*未完成答题返回q_type 1 */
+          this.setData({
+            isReturn:true,
+            isArrive:true
+          });
+          app.globalData.q_type=4;
+          if (app.globalData.allData.site/1>=10){/*如果用户站点达到10，去终点页*/
+            app.globalData.allData.site=10;
+            this.setData({
+              isShowDialog:false,
+              isUserAcc:false,
+              isReturn:false,
+              dialogisShow:false,
+              isLastSecond:false,
+              isShowAccDialog:false,
+              istips:false
+            });
+          }
+        }else if (app.globalData.q_type/1===3) {/* q_type 1 最后一天答题*/
+          this.setData({
+            isShowDialog:false,
+            isUserAcc:false,
+            isReturn:false,
+            dialogisShow:false,
+            isLastSecond:false,
+            isShowAccDialog:false,
+            istips:false
+          });
+
+        }else {
+          this.setData({
+            isReturn:false
+          });
+        }
+      }else {
+        this.setData({
+          isReturn:false
+        })
+      }
+    }
+  },
+  /*判断今天是否移动*/
+  todayIsMove:function(){
+    if (app.globalData.allData.today_is_move/1===1){
+      if (app.globalData.allData.site/1===9&&app.globalData.allData.dati_site/1>=1){
+        this.setData({
+          ismove:false,
+          isShowDialog:false
+        })
+      }else {
+        this.setData({
+          ismove:true
+        })
+      }
+    } else{
+      this.setData({
+        ismove:false,
+        isShowDialog:false
+      })
+    }
+  },
+  /*判断加速卡弹窗是否弹出*/
+  jskfunctin:function(){
+    if (app.globalData.allData){
+      this.setData({
+        hasAccNum:app.globalData.allData.card
+      });
+      if (app.globalData.allData.notice_card/1===1){
+        this.setData({
+          isShowAccDialog:true,
+          isUserAcc:true
+        })
+      }else {
+        this.setData({
+          isShowAccDialog:false,
+        })
+      }
+    }
   },
   /*地图页获取当前用户进度，用户今天是否前进*/
   getSimpleInfo:function(){
@@ -370,11 +485,10 @@ Page({
         'content-type':'application/x-www-form-urlencoded',
         'auth-token': wx.getStorageSync('loginSessionKey')
       },
-
       success:(res)=>{
-        console.log('重置allData值')
-        app.globalData.allData.site=res.data.data.site;
-        app.globalData.allData.today_is_move=res.data.data.today_is_move;
+        console.log(res,'重置allData值')
+        app.globalData.allData.site=res.data.data.site>10?10:res.data.data.site;
+        app.globalData.allData.today=res.data.data.today;
         app.globalData.allData.notice_card=res.data.data.notice_card;
         app.globalData.allData.card=res.data.data.card;
         app.globalData.allData.answer_status=res.data.data.answer_status;
@@ -386,12 +500,12 @@ Page({
           this.setData({
             ismove:true,
             userLevel:res.data.data.site-1
-          })
+          },this.initMap())
         } else {
           this.setData({
             ismove:false,
             userLevel:res.data.data.site-1
-          })
+          },this.initMap())
         }
 
       }
@@ -409,7 +523,8 @@ Page({
         dialogisShow:false,
         isLastSecond:false,
         isShowAccDialog:false,
-        istips:false
+        istips:false,
+        isArrive:true
       });
     }else {
       console.log('进入判断')
@@ -425,7 +540,7 @@ Page({
             'auth-token': wx.getStorageSync('loginSessionKey')
           },
           success:(res)=>{
-            console.log(res.data.data.cha)
+            console.log(res,'差多少卡路里');
             if (res.data.data){
               if (res.data.data.cha/1===0){
                 this.setData({
@@ -439,9 +554,7 @@ Page({
                   isArrive:false
                 })
               }
-            } else{
-
-            }
+            } else{}
           }
         })
       }
@@ -457,10 +570,9 @@ Page({
       data:cuurDate
     });
   },
-  //判断当前时间是不是当天第一次进入
+  //判断当前时间是不是当天第一次进入o
   judgeTime:function(){
     if(app.globalData.allData.is_last_day/1===1 || app.globalData.allData.site>=10){
-      console.log('活动最后一天')
       this.setData({
         isShowDialog:false,
         isUserAcc:false,
@@ -468,97 +580,141 @@ Page({
         dialogisShow:false,
         isLastSecond:false,
         isShowAccDialog:false,
-        istips:false
+        istips:false,
+        isArrive:true,
+        isFirstIn:false
       });
     }else {
-      try {
-        const res = app.globalData.allData.answer_status;
-        console.log(res)
-        if (res/1===1){
-          console.log(111)
+      console.log('进入6')
+      if (app.globalData.q_type&&app.globalData.q_type===3){
+        console.log('进入2')
+        this.setData({
+          isShowDialog:false,
+          isUserAcc:false,
+          isReturn:false,
+          dialogisShow:false,
+          isLastSecond:false,
+          isShowAccDialog:false,
+          istips:false,
+          isArrive:true,
+          isFirstIn:false
+        });
+      } else {
+        console.log('进入5')
+        try {
+          const res = app.globalData.allData.answer_status;
+          console.log(res)
+          if (res/1===1){
+            console.log(111)
+            this.setData({
+              isanswer:true,
+            })
+          }else {
+            this.setData({
+              isanswer:false,
+            })
+          }
+        } catch (e) {}
+        if (app.globalData.allData.site===9&&app.globalData.allData.dati_site>=1){
+          console.log('进入7');
+          wx.setStorageSync('dialogisShow', 'false');
           this.setData({
-            isanswer:true,
-          })
-        }else {
-          this.setData({
-            isanswer:false,
+            dialogisShow:false,
+            isShowDialog:false
           })
         }
-      } catch (e) {
-        // Do something when catch error
-      }
-      wx.getStorage({
-        key: 'lastLoginDate',
-        success: res => {
-          // console.log(res.data);
-          let lastDate = res.data;
-          let currTime  = new Date();
-          let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
-          if (lastDate===cuurDate){
-            this.setData({
-              isFirstIn:false,
-              istips:false
-            });
-          } else {
-            this.haveaward();
-            this.setData({
-              isFirstIn:true,
-            });
-            /*判断是否需要分享*/
-            if (app.globalData.allData.today>=10){
+        wx.getStorage({
+          key: 'lastLoginDate',
+          success: res => {
+            console.log('进入');
+            if (app.globalData.allData.site===9&&app.globalData.allData.dati_site>=1){
+              console.log('进入4');
+              wx.setStorageSync('dialogisShow', 'false')
               this.setData({
-                istips:false,
-              });
+                dialogisShow:false,
+                isFirstIn:false
+              })
             } else {
-              if (app.globalData.allData.is_need_share/1===1){
+              let lastDate = res.data;
+              let currTime  = new Date();
+              let cuurDate = currTime.getFullYear()+'-'+(currTime.getMonth()+1)+'-'+currTime.getDate();
+              if (lastDate===cuurDate){
                 this.setData({
-                  istips:true,
+                  isFirstIn:false,
+                  istips:false
                 });
               } else {
+                this.haveaward();
                 this.setData({
-                  istips:false,
+                  isFirstIn:true,
+                });
+                /*判断是否需要分享*/
+                if (app.globalData.allData.today>=10){
+                  this.setData({
+                    istips:false,
+                  });
+                } else {
+                  if (app.globalData.allData.is_need_share/1===1){
+                    this.setData({
+                      istips:true,
+                    });
+                  } else {
+                    this.setData({
+                      istips:false,
+                    });
+                  }
+                }
+
+                /*判断当前是第几天*/
+                if(app.globalData.allData.site<10){
+                  wx.setStorageSync('dialogisShow', 'true')
+                  this.setData({
+                    dialogisShow:true
+                  })
+                }
+                wx.setStorage({
+                  key:"lastLoginDate",
+                  data:cuurDate
                 });
               }
             }
 
-            /*判断当前是第几天*/
-            if(app.globalData.allData.site<10){
-              wx.setStorageSync('dialogisShow', 'true')
+          },
+          fail:res=>{
+            this.haveaward();
+            this.setData({
+              isFirstIn:true,
+            });
+            if (app.globalData.allData.is_need_share/1===1){
               this.setData({
-                dialogisShow:true
-              })
+                istips:true,
+              });
+            } else {
+              this.setData({
+                istips:false,
+              });
             }
-            wx.setStorage({
-              key:"lastLoginDate",
-              data:cuurDate
-            });
+            this.setCurrDate()
+            // console.log(res,'没有获取')
+            // if (res.errMsg==='getStorage:fail:data not found') {
+            //
+            // }
           }
-        },
-        fail:res=>{
-          this.haveaward();
-          this.setData({
-            isFirstIn:true,
-          });
-          if (app.globalData.allData.is_need_share/1===1){
-            this.setData({
-              istips:true,
-            });
-          } else {
-            this.setData({
-              istips:false,
-            });
-          }
-          this.setCurrDate()
-          // console.log(res,'没有获取')
-          // if (res.errMsg==='getStorage:fail:data not found') {
-          //
-          // }
-        }
-      });
+        });
+      }
     }
-
   },
-
+  /*刷新页面*/
+  renovatePage:function(){
+    wx.showLoading({
+      title: '加载中...'
+    });
+    console.log('点击刷新按钮');
+    this.onShow();
+    setTimeout(function () {
+      wx.hideLoading()
+    },1000)
+  },
   /*获取用户信息*/
   getUserWayDetail:function(){
     wx.request({
@@ -598,6 +754,9 @@ Page({
       answerID = answerIds[userLevel>9?9:userLevel]
     }else {
       answerID = answerIds[userLevel+1>9?9:userLevel+1]
+    }
+    if (app.globalData.allData.site*1 + app.globalData.allData.dati_site*1 ===9){
+      answerID = answerIds[8]
     }
     this.setData({
       isShowDialog:false,
@@ -658,6 +817,18 @@ Page({
       url: '/pages/suggest/suggest',
     });
   },
+  /*打开游戏规则*/
+  openRule:function(){
+    this.setData({
+      gamerule:true
+    })
+  },
+  /*关闭游戏规则*/
+  closeRule:function(){
+    this.setData({
+      gamerule:false
+    })
+  },
   /* 地图数据生成 */
   setMapData:function(level){
     const { mapType, mapOption ,mapStation} = this.data;//获取当前地图ID
@@ -675,9 +846,15 @@ Page({
       },function () {
         this.setSpecialSite(newlevel);
         /*需要判断是不是要显示*/
-        this.setData({
-          isShowDialog:true
-        });
+        if (app.globalData.allData.site/1===9&&app.globalData.allData.dati_site/1>=1){
+          this.setData({
+            isShowDialog:false
+          });
+        }else {
+          this.setData({
+            isShowDialog:true
+          });
+        }
       })
     }else if(mapType === 3){
       /* 华北区 */
@@ -689,9 +866,15 @@ Page({
         arriveSoon:mapStation.huabei[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
-        this.setData({
-          isShowDialog:true
-        });
+        if (app.globalData.allData.site/1===9&&app.globalData.allData.dati_site/1>=1){
+          this.setData({
+            isShowDialog:false
+          });
+        }else {
+          this.setData({
+            isShowDialog:true
+          });
+        }
       })
     }else if(mapType === 1){
       /* 东北区 */
@@ -703,9 +886,15 @@ Page({
         arriveSoon:mapStation.dongbei[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
-        this.setData({
-          isShowDialog:true
-        });
+        if (app.globalData.allData.site/1===9&&app.globalData.allData.dati_site/1>=1){
+          this.setData({
+            isShowDialog:false
+          });
+        }else {
+          this.setData({
+            isShowDialog:true
+          });
+        }
       })
     }else if(mapType === 4){
       /* 华东区 */
@@ -717,9 +906,15 @@ Page({
         arriveSoon:mapStation.huadong[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
-        this.setData({
-          isShowDialog:true
-        });
+        if (app.globalData.allData.site/1===9&&app.globalData.allData.dati_site/1>=1){
+          this.setData({
+            isShowDialog:false
+          });
+        }else {
+          this.setData({
+            isShowDialog:true
+          });
+        }
       })
     }else if(mapType === 6){
       /*华南区 */
@@ -731,9 +926,15 @@ Page({
         arriveSoon:mapStation.huanan[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
-        this.setData({
-          isShowDialog:true
-        });
+        if (app.globalData.allData.site/1===9&&app.globalData.allData.dati_site/1>=1){
+          this.setData({
+            isShowDialog:false
+          });
+        }else {
+          this.setData({
+            isShowDialog:true
+          });
+        }
       })
     }else if(mapType === 5){
       /* 西南区 */
@@ -745,13 +946,18 @@ Page({
         arriveSoon:mapStation.xinan[newLevel<0?0:newLevel]||'',
       },function () {
         this.setSpecialSite(newlevel);
-        this.setData({
-          isShowDialog:true
-        });
+        if (app.globalData.allData.site/1===9&&app.globalData.allData.dati_site/1>=1){
+          this.setData({
+            isShowDialog:false
+          });
+        }else {
+          this.setData({
+            isShowDialog:true
+          });
+        }
       })
     }
   },
-
   /*特殊站点海报*/
   setSpecialSite:function(level){
     const { mapType, mapSpecial ,currSite} = this.data;//获取当前地图ID
@@ -788,35 +994,14 @@ Page({
         },function () {
           this.createSpecialSite();
         })
-      } else if (level/1===7) {
-        this.setData({
-          currSpecail:mapSpecial.huabeiSpecial[1],
-          isSpecialSite:true
-        },function () {
-          this.createSpecialSite();
-        })
-      }else {
+      } else {
         this.setData({
           isSpecialSite:false
         })
       }
     }else if(mapType === 1){
       /* 东北区 */
-      if (level/1===1){
-        this.setData({
-          currSpecail:mapSpecial.dongbeiSpecial[0],
-          isSpecialSite:true
-        },function () {
-          this.createSpecialSite();
-        })
-      } else if (level/1===6) {
-        this.setData({
-          currSpecail:mapSpecial.dongbeiSpecial[1],
-          isSpecialSite:true
-        },function () {
-          this.createSpecialSite();
-        })
-      }else if (level/1===8) {
+      if (level/1===8) {
         this.setData({
           currSpecail:mapSpecial.dongbeiSpecial[2],
           isSpecialSite:true
@@ -830,14 +1015,7 @@ Page({
       }
     }else if(mapType === 4){
       /* 华东区 */
-      if (level/1===1){
-        this.setData({
-          currSpecail:mapSpecial.huadongSpecial[0],
-          isSpecialSite:true
-        },function () {
-          this.createSpecialSite();
-        })
-      } else if (level/1===4) {
+      if (level/1===3) {
         this.setData({
           currSpecail:mapSpecial.huadongSpecial[1],
           isSpecialSite:true
@@ -851,7 +1029,7 @@ Page({
       }
     }else if(mapType === 6){
       /*华南区 */
-      if (level/1===2){
+      if (level/1===1){
         this.setData({
           currSpecail:mapSpecial.huananSpecial[0],
           isSpecialSite:true
@@ -880,14 +1058,7 @@ Page({
         },function () {
           this.createSpecialSite();
         })
-      } else if (level/1===2) {
-        this.setData({
-          currSpecail:mapSpecial.xinanSpecial[1],
-          isSpecialSite:true
-        },function () {
-          this.createSpecialSite();
-        })
-      } else if (level/1===7) {
+      }else if (level/1===7) {
         this.setData({
           currSpecail:mapSpecial.xinanSpecial[2],
           isSpecialSite:true
@@ -901,7 +1072,6 @@ Page({
       }
     }
   },
-
   /*关闭弹窗*/
   closePopup:function(){
     wx.setStorageSync('dialogisShow', 'false');

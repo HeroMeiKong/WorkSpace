@@ -1,4 +1,5 @@
 // pages/webview/webview.js
+const app = getApp();
 Page({
 
     /**
@@ -9,6 +10,8 @@ Page({
     },
 
     onShow: function () {
+        app.globalData.isSeeNews='1';
+
         let listUrl = this.options.listUrl;
         if (listUrl) {
             this.setData({

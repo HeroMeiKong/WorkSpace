@@ -52,7 +52,7 @@ App({
         shareImg: 'https://www.newscctv.net/dw/resource/future/share_normal.png',   //默认分享图片
         shareText: '两会，走起来',   //默认分享文字
         default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',//默认头像路径
-        musicSrc: 'https://s-js.sports.cctv.com/host/resource/map/bgMusic.mp3',
+        musicSrc: 'https://s-js.sports.cctv.com/host/resource/map/bg1.mp3',
         music_state: false,
         backgroundAudioManager: null,
     },
