@@ -134,6 +134,7 @@ export default {
     music_type: host + 'video/music_type.php', //音效分类
     music: host + 'video/music.php',          //音效查询
     topic_sub: host + 'video/type_sub.php',   //话题选择
+    new_topic_sub: host + 'video/user_check_type_sub.php',   //新版话题选择
     photoframe: host + 'video/get_video_photo_no_edit.php', //获取相框模板
 
     //春节活动

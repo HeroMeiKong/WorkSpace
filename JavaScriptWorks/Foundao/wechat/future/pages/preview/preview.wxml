@@ -175,13 +175,13 @@
 
       </view>
       <view class="topictype" style="display:{{showtopictype}}">
-        <view class="topictype_top">
+        <view class="topictype_top" catch:tap="hiddenTopic">
           <cover-view class="topictype_line"></cover-view>
         </view>
-        <view class="topictype_bottom">
-          <swiper display-multiple-items='9' vertical="true" duration="1000">
+        <view class="topictype_bottom" style="height: {{topicHeight*10}}%;">
+          <swiper display-multiple-items='{{topicHeight}}' vertical="true" duration="1000" current="0">
             <block wx:for="{{topics}}" wx:key="*this">
-              <swiper-item>
+              <swiper-item class="ssss">
                 <view class="topictype_box" id="{{item.id}}" catch:tap="choseThisTopic">
                   <image class="topictype_pic" src="{{item.pic}}"></image>
                   <view class="topictype_text">{{item.sub_title}}</view>

@@ -37,7 +37,7 @@ let topiclock = false  //话题是否选择
 let nowmusicname = '' //当前音乐名称
 let nowfiltername = '' //当前滤镜名称
 let pasterswipervalue = 0 //拖拉贴纸swiper的距离
-const topicpic = {yes: '../../assets/images/4duigou@2x.png',no: '../../assets/images/4huati2@2x.png'}
+const topicpic = {yes: '../../assets/images/4xuanze.png',no: '../../assets/images/4huati.png'}
 const innerAudioContext = wx.createInnerAudioContext()//试听歌曲
 innerAudioContext.obeyMuteSwitch = false
 innerAudioContext.autoplay = false
@@ -126,10 +126,11 @@ Page({
     showovercover: 'none',
     //videomuted: false, //是否静音视频
     compose_success: true,
-    showsubmission: 'flex',
+    showsubmission: 'none',
     wrappers_width: '100%',
     wrappers_height: '100%',
     isShowTopic: true,//是否提示默认话题
+    topicHeight: 9,//话题最多显示9个
   },
 
   /**
@@ -796,7 +797,7 @@ Page({
     }
     if(this.data.topics.length === 0){
       wx.request({
-        url: api.topic_sub,
+        url: api.new_topic_sub,
         method: 'POST',
         header: {
             'content-type': 'application/x-www-form-urlencoded',
@@ -804,9 +805,9 @@ Page({
         },
         success: (res) => {
           console.log(res)
-          const length = res.data.data.length
+          let length = res.data.data.length
           for(let i=0;i<length;i++){
-            if('原创' === res.data.data[i].sub_title){
+            if(res.data.count.sub_title === res.data.data[i].sub_title){
               res.data.data[i].pic = topicpic.yes
               this.data.topic = res.data.data[i].sub_title
               this.data.uploadContent.join_sub_id = res.data.data[i].sub_type
@@ -816,8 +817,10 @@ Page({
               res.data.data[i].pic = topicpic.no
             }
           }
+          length >= 9 ? length = 9: false
           this.setData({
-            topics: res.data.data
+            topics: res.data.data,
+            topicHeight: length
           })
           console.log(this.data.topics)
         },
@@ -2068,5 +2071,16 @@ Page({
             delta: 1
         })
     }
+  },
+  hiddenTopic (e) {
+    console.log('hiddenTopic')
+    this.setData({
+      showVideosPic: 'flex',
+      showtextcontent: 'block',
+      showtopictype: 'none',
+      showsure: 'flex',
+      showpause: 'flex',
+      isShowTopic: false
+    })
   },
 })
