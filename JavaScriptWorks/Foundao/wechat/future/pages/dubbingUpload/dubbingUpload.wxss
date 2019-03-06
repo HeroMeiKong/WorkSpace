@@ -129,5 +129,5 @@
   background-repeat: no-repeat;
   background-size: 100%;
   /* background-color: #C10420; */
-  margin-bottom: 30rpx;
+  margin: 34rpx 0 30rpx 0;
 }

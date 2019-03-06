@@ -121,6 +121,16 @@ Page({
                                 if (code === 0) {
                                     console.log(data.token, 'data.token');
                                     wx.setStorageSync('loginSessionKey', data.token)
+                                    //更新用户新
+                                    const {nick_name, nick_pic} = data
+                                    if (nick_name != app.globalData.userInfo.nickName || nick_pic != app.globalData.userInfo.avatarUrl) {
+                                        _this.refreshUserInfo({
+                                            token: data.token,
+                                            code: res.code,
+                                            name: app.globalData.userInfo.nickName,
+                                            pic: app.globalData.userInfo.avatarUrl,
+                                        })
+                                    }
                                     //返回上一层页面
                                     app.globalData.auth_again = true
                                     wx.navigateBack();
@@ -151,4 +161,20 @@ Page({
             }
         });
     },
+
+    refreshUserInfo(data) {
+        wx.request({
+            url: api.replace_user_info,
+            method: 'POST',
+            header: {
+                "content-type": "application/x-www-form-urlencoded",
+                "auth-token": data.token
+            },
+            data: {
+                code: data.code,
+                nick_name: data.name,
+                nick_pic: data.pic,
+            },
+        })
+    }
 })

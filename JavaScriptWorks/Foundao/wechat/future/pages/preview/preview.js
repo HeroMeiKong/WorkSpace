@@ -130,7 +130,7 @@ Page({
     wrappers_width: '100%',
     wrappers_height: '100%',
     isShowTopic: true,//是否提示默认话题
-    topicHeight: 9,//话题最多显示9个
+    topicHeight: 7,//话题最多显示7个
   },
 
   /**
@@ -790,7 +790,7 @@ Page({
     //默认选择原创话题 && 没有选过话题
     if(this.data.isShowTopic){
       wx.showToast({
-        title: '默认选择原创话题！',
+        title: '已选择默认话题！',
         icon: 'none',
         duration: 3000
       })
@@ -809,18 +809,21 @@ Page({
           for(let i=0;i<length;i++){
             if(res.data.count.sub_title === res.data.data[i].sub_title){
               res.data.data[i].pic = topicpic.yes
+              res.data.data[i].class = 'thisTopic'
               this.data.topic = res.data.data[i].sub_title
               this.data.uploadContent.join_sub_id = res.data.data[i].sub_type
               this.data.uploadContent.join_sub = res.data.data[i].id
               topiclock = true
             } else {
               res.data.data[i].pic = topicpic.no
+              res.data.data[i].class = 'notTopic'
             }
           }
-          length >= 9 ? length = 9: false
+          length >= 7 ? length = 7 : false
           this.setData({
             topics: res.data.data,
-            topicHeight: length
+            topicHeight: length,
+            topic: res.data.count.sub_title
           })
           console.log(this.data.topics)
         },
@@ -1704,7 +1707,7 @@ Page({
                       compose_success: true
                     })
                     that.data.uploadContent = {video_url: '',filter: 'none',video_desc: '',join_sub_id: -1,
-                                               join_sub: -1,audio_url: '',audio_id: '',tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}],xiangkuan_arr: []}
+                                              join_sub: -1,audio_url: '',audio_id: '',tiezhi_arr: [{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0},{img_url: '',width: 0,height: 0,x: 0,y: 0}],xiangkuan_arr: []}
                     preInnerAudioContext.src = 'https://nomusic.mp3'
                     innerAudioContext.src = 'https://nomusic.mp3'
                   } else if (res.data.code === -2){
@@ -1829,6 +1832,7 @@ Page({
       if(topiclock){
         if(this.data.topics[i].pic === topicpic.yes){
           this.data.topics[i].pic = topicpic.no
+          this.data.topics[i].class = 'notTopic'
           break
         }
       }
@@ -1836,6 +1840,7 @@ Page({
     for(let i=0;i<length;i++){
       if(e.currentTarget.id === this.data.topics[i].id){
         this.data.topics[i].pic = topicpic.yes
+        this.data.topics[i].class = 'thisTopic'
         this.data.topic = this.data.topics[i].sub_title
         this.data.uploadContent.join_sub_id = this.data.topics[i].sub_type
         this.data.uploadContent.join_sub = this.data.topics[i].id

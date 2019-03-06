@@ -369,7 +369,10 @@ Page({
         })
         var pages = getCurrentPages();
         if (pages[pages.length - 1].route != 'pages/index/index') {
+            console.log('不在一个页面，停止视频')
             this.pauseVideo()
+        }else{
+            console.log("同一个页面")
         }
         this.vv()
     },

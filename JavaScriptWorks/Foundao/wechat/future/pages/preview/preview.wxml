@@ -174,17 +174,19 @@
         </view>
 
       </view>
+      <cover-view class="topictype_cover" style="display:{{showtopictype}}" catch:tap="hiddenTopic"></cover-view>
       <view class="topictype" style="display:{{showtopictype}}">
-        <view class="topictype_top" catch:tap="hiddenTopic">
-          <cover-view class="topictype_line"></cover-view>
+        <view class="topictype_top">
+          <cover-view class="topictype_left"  catch:tap="hiddenTopic">取消</cover-view>
+          <cover-view class="topictype_center">选择话题</cover-view>
         </view>
-        <view class="topictype_bottom" style="height: {{topicHeight*10}}%;">
-          <swiper display-multiple-items='{{topicHeight}}' vertical="true" duration="1000" current="0">
+        <view class="topictype_bottom" style="height: {{topicHeight*12}}%;">
+          <swiper display-multiple-items='{{topicHeight}}' vertical="true" duration="1000">
             <block wx:for="{{topics}}" wx:key="*this">
-              <swiper-item class="ssss">
+              <swiper-item>
                 <view class="topictype_box" id="{{item.id}}" catch:tap="choseThisTopic">
                   <image class="topictype_pic" src="{{item.pic}}"></image>
-                  <view class="topictype_text">{{item.sub_title}}</view>
+                  <view class="topictype_text {{item.class}}">{{item.sub_title}}</view>
                 </view>
               </swiper-item>
             </block>
