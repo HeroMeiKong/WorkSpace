@@ -19,7 +19,8 @@
     "pages/testVideo/testVideo",
     "pages/ppp/ppp",
     "pages/newYear/newYear",
-    "pages/myTest/myTest"
+    "pages/myTest/myTest",
+    "pages/videoSwiper/videoSwiper"
   ],
   "window": {
     "backgroundTextStyle": "light",

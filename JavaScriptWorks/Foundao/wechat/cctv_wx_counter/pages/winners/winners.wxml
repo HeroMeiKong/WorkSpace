@@ -1,0 +1,5 @@
+<!--pages/winners/winners.wxml-->
+<view class="wrapper">
+  <image class="winners" mode="widthFix" src="https://s-js.sports.cctv.com/host/resource/map/winners.png"></image>
+</view>
+<musicControl/>

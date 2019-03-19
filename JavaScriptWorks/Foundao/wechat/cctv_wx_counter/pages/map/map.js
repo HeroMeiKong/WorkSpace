@@ -159,9 +159,6 @@ Page({
    */
   onHide: function () {
     app.globalData.ischange = '';
-    let nd = new Date();
-    const oldDate = nd.getFullYear()+'-'+(nd.getMonth()+1)+'-'+nd.getDate();
-    app.globalData.oldDate= oldDate;
   },
   /**
    * 生命周期函数--监听页面卸载
@@ -199,8 +196,13 @@ Page({
         success:res=>{
           console.log(res.data.data.date,'时间');
           let newdate = res.data.data.date;
-          let jg = new Date(oldDate+' 00:00:00').getTime()===new Date(newdate+' 00:00:00').getTime();
+          let newd = new Date(newdate).getFullYear()+'-'+(new Date(newdate).getMonth()+1)+'-'+new Date(newdate).getDate();
+          // console.log(newd)
+          // console.log(oldDate)
+          let jg = newd===oldDate
+          console.log(jg,'是否跨天')
           if (jg===false){
+            app.globalData.oldDate= newd;
             wx.redirectTo({
               url: '/pages/index/index',
             });
@@ -209,6 +211,21 @@ Page({
           }
         }
       })
+    }else {
+      wx.request({
+        url:api.getfwqtime,
+        success:res=>{
+          let newdate = res.data.data.date;
+          let oldDate = new Date(newdate).getFullYear()+'-'+(new Date(newdate).getMonth()+1)+'-'+new Date(newdate).getDate();
+          app.globalData.oldDate= oldDate;
+        },
+        fail:res=>{
+          let nd = new Date();
+          let oldDate = nd.getFullYear()+'-'+(nd.getMonth()+1)+'-'+nd.getDate();
+          app.globalData.oldDate= oldDate;
+        }
+      })
+
     }
   },
   /*初始化地图*/
@@ -226,11 +243,11 @@ Page({
         userLevel=9
       }
       this.setMapData(userLevel);//生成地图数据
-      setTimeout(function () {
-        wx.pageScrollTo({
-          scrollTop: 180
-        });
-      },500)
+      // setTimeout(function () {
+      //   wx.pageScrollTo({
+      //     scrollTop: 180
+      //   });
+      // },500)
 
       this.init();//初始化判断
     });
@@ -745,6 +762,16 @@ Page({
       url: '/pages/index/index?inMap='+true,
     });
   },
+  /*去抽奖*/
+  gotolucyDraw:function(){
+      // wx.setStorageSync('listUrl', 'https://itv.cctv.com/html/2019wwlhrskll/prize.html');
+      // wx.navigateTo({
+      //     url: '/pages/webview/webview'
+      // })
+      wx.navigateTo({
+        url: '/pages/winners/winners'
+    })
+  },
   /*去答题*/
   gotoQuestion:function(){
     wx.setStorageSync('dialogisShow', 'false');
@@ -776,6 +803,10 @@ Page({
       })
     }
     return false;
+  },
+  /*阻止冒泡*/
+  stopMp:function(){
+    return false
   },
   /*看资讯*/
   gotoSeeNews:function(){

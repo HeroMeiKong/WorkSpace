@@ -81,12 +81,16 @@ Component({
         // 前往资讯页
         goDetail(event) {
             let Url = event.currentTarget.dataset.id;
-            let listUrl = Url.replace('http:','https:')
+            let listUrl = Url.replace('http:','https:');
+            wx.setStorageSync('listUrl', listUrl);
             // console.log(listUrl)
             // wx.setStorageSync('webview_src', listUrl);
             wx.navigateTo({
-                url: '/pages/webview/webview?listUrl='+listUrl
+                url: '/pages/webview/webview'
             })
+        },
+        stopmp:function () {
+            return false
         }
     },
 

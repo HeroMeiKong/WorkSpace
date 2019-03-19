@@ -19,7 +19,10 @@ export default {
     view_share_sucai: host + 'view_share_sucai.php',
     view_share_luyin: host + 'view_share_luyin.php',
     types: host + 'topic/types.php',        //分类查询
+    home_pindao: host + 'home/home_pindao.php',        //频道查询
     type_video: host + 'topic/type_video.php',  //首页分类视频
+    home_pindao_list: host + 'home/home_pindao_list.php',  //首页频道视频
+    video_slide_list: host + 'topic/video_slide_list.php',  //专题视频数组
 
     // 话题
     topic_recommend: host + 'topic/topic_recommend.php',    //轮播图
@@ -57,7 +60,7 @@ export default {
     other_home: host + 'person/other_home.php',       //他人主页
     other_material: host + 'person/other_material.php',       //他人作品
     del_person_material: host + 'person/del_person_material.php',
-    replace_user_info: host + 'person/replace_user_info.php',       //更新用户信息
+    update_user_name_pic: host + 'person/update_user_name_pic.php',       //更新用户信息
 
 
     //统计

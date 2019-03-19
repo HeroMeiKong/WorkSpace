@@ -131,6 +131,7 @@ Page({
     wrappers_height: '100%',
     isShowTopic: true,//是否提示默认话题
     topicHeight: 7,//话题最多显示7个
+    timespace: 19,//18*5分钟的超时判断
   },
 
   /**
@@ -213,7 +214,7 @@ Page({
     let that = this
     wx.chooseVideo({
       sourceType: [usermethod],
-      maxDuration: 30,
+      maxDuration: 60,
       camera: 'back',
       success: function (res) {
         console.log('选取视频')
@@ -273,9 +274,9 @@ Page({
               }
             })
           }
-          if (that.data.size > 100) {
+          if (that.data.size > 300) {
             wx.showToast({
-              title: '上传的视频大小不能超过100M！',
+              title: '上传的视频大小不能超过300M！',
               icon: 'none',
               duration: 1500,
               mask: true
@@ -292,9 +293,9 @@ Page({
               clearTimeout(timers)
             },1500)
           } else {
-            if (that.data.duration > 30) {
+            if (that.data.duration > 90) {
               wx.showToast({
-                title: '上传的视频拍摄时间不能大于30秒！',
+                title: '上传的视频拍摄时间不能大于90秒！',
                 icon: 'none',
                 duration: 3500,
                 mask: true
@@ -331,6 +332,14 @@ Page({
             } else {
               //上传视频， 取得视频服务器地址
               console.log('发送上传视频请求')
+              if(that.data.duration <= 30) { that.data.timespace = 19 }
+              else if (30 < that.data.duration <= 60) { that.data.timespace = 37 }
+              else { that.data.timespace = 61 }
+              that.setData({
+                timespace: that.data.timespace
+              })
+              console.log('说的就是我啊！！！！')
+              console.log(that.data.timespace)
               wx.uploadFile({
                 url: api.upload_cover,
                 filePath: that.data.tempFilePath,
@@ -389,9 +398,6 @@ Page({
           chooseVideo: 2
         })
       },
-      complete: function (e) {
-        console.log('我的错我的错我的错')
-      }
     })
   },
 
@@ -1632,7 +1638,7 @@ Page({
             const {data} = resp
             console.log(data.data)
             console.log(data.code)
-            if(requestTimes > 13){
+            if(requestTimes > that.data.timespace){
               wx.hideLoading()
               clearInterval(timer)
               wx.showToast({
@@ -1650,20 +1656,6 @@ Page({
               console.log('sss')
               wx.hideLoading()
               clearInterval(timer)
-              // wx.showToast({
-              //   title: '视频上传成功',
-              //   icon: 'success',
-              //   duration: 1500,
-              //   mask: true,
-              //   success: (result)=>{
-              //     const timers = setTimeout(()=>{
-              //       wx.navigateBack({
-              //         delta: 1
-              //       });
-              //       clearTimeout(timers)
-              //     },1500)
-              //   },
-              // });
               that.setData({
                 showsubmission: 'flex',
                 compose_success: true
@@ -1688,20 +1680,6 @@ Page({
                     console.log(res)
                     wx.hideLoading()
                     clearInterval(timer)
-                    // wx.showToast({
-                    //   title: '视频合成成功！',
-                    //   icon: 'success',
-                    //   duration: 1500,
-                    //   mask: true,
-                    //   success: (result)=>{
-                    //     const timers = setTimeout(()=>{
-                    //       wx.navigateBack({
-                    //         delta: 1
-                    //       });
-                    //       clearTimeout(timers)
-                    //     },1500)
-                    //   },
-                    // });
                     that.setData({
                       showsubmission: 'flex',
                       compose_success: true
@@ -1712,25 +1690,19 @@ Page({
                     innerAudioContext.src = 'https://nomusic.mp3'
                   } else if (res.data.code === -2){
                     clearInterval(timer)
-                    // wx.showToast({
-                    //   title: '视频合成失败！请重新上传！',
-                    //   icon: 'none',
-                    //   duration: 1500,
-                    //   mask: true,
-                    //   success: (result)=>{
-                    //     const timers = setTimeout(()=>{
-                    //       wx.navigateBack({
-                    //         delta: 1
-                    //       });
-                    //       clearTimeout(timers)
-                    //     },1500)
-                    //   },
-                    // });
                     that.setData({
                       showsubmission: 'flex',
                       compose_success: false
                     })
                   }
+                },
+                fail: () => {
+                  wx.hideLoading()
+                  clearInterval(timer)
+                  that.setData({
+                    showsubmission: 'flex',
+                    compose_success: false
+                  })
                 },
                 complete: () => {
                   console.log('我又发了一次')
@@ -1745,12 +1717,10 @@ Page({
                 compose_success: false
               })
             }
-            console.log(innerAudioContext.src)
-            console.log(preInnerAudioContext.src)
             that.setData({
               uploadContent: that.data.uploadContent,
             })
-          },3000)
+          },5000)
         },
       })
     }

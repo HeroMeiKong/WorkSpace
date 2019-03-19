@@ -164,7 +164,7 @@ Page({
 
     refreshUserInfo(data) {
         wx.request({
-            url: api.replace_user_info,
+            url: api.update_user_name_pic,
             method: 'POST',
             header: {
                 "content-type": "application/x-www-form-urlencoded",

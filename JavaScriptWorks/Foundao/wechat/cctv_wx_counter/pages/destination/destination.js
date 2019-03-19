@@ -281,8 +281,12 @@ Page({
   },
   //领奖
   acceptBtn() {
+    // wx.setStorageSync('listUrl', 'https://itv.cctv.com/html/2019wwlhrskll/prize.html');
+    // wx.navigateTo({
+    //   url: '/pages/webview/webview'
+    // })
     wx.navigateTo({
-      url: '/pages/webview/webview?listUrl=https://itv.cctv.com/html/2019wwlhrskll/prize.html'
+      url: '/pages/winners/winners'
     })
   },
 

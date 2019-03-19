@@ -144,10 +144,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        // console.log('onShow')
+        console.log('onShow')
         this.hideTabBar()
         app.isAuth(() => {
-            //统计
             if (!this.data.hasInit) {
                 console.log('未初始化')
                 this.data.hasInit = true
@@ -633,7 +632,7 @@ Page({
         this.data.loading_num++;
 
         wx.request({
-            url: api.type_video,
+            url: api.home_pindao_list,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',
@@ -641,7 +640,8 @@ Page({
             },
             data: {
                 'page': temp_data.page,
-                'type_id': type_id,
+                // 'type_id': type_id,
+                'pindao_id': type_id,
             },
             success: (res) => {
                 // console.log(this)
@@ -692,7 +692,7 @@ Page({
         this.data.loading_num++;
 
         wx.request({
-            url: api.types,
+            url: api.home_pindao,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',

@@ -1,0 +1,2 @@
+<!--pages/messageTest/messageTest.wxml-->
+<button class="cover" catch:tap="send">发送</button>

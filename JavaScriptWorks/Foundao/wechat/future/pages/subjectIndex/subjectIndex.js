@@ -396,8 +396,11 @@ Page({
     //前往视频页
     goVideo(e) {
         var data = e.currentTarget.dataset.data;
+        // wx.navigateTo({
+        //     url: '/pages/video/video?video_uuid=' + data.video_uuid + '&id=' + data.id
+        // })
         wx.navigateTo({
-            url: '/pages/video/video?video_uuid=' + data.video_uuid + '&id=' + data.id
+            url: '/pages/videoSwiper/videoSwiper?huati_id=' + data.join_type_sub + '&video_id=' + data.id,
         })
     },
 

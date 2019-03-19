@@ -12,7 +12,9 @@ Page({
     onShow: function () {
         app.globalData.isSeeNews='1';
 
-        let listUrl = this.options.listUrl;
+        // let listUrl = this.options.listUrl;
+        let listUrl = wx.getStorageSync('listUrl');
+        console.log(listUrl)
         if (listUrl) {
             this.setData({
                 src: listUrl

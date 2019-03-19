@@ -13,7 +13,8 @@ Page({
         showDiyTabBar: false,
         showOrHidden: ["none", "none", "none"],
         pics: ['', '', ''],
-        showNothing: 'none'
+        showNothing: 'none',
+        shotPic: 'https://s-js.sports.cctv.com/host/resource/future/new_shot1@2x.png'
     },
     /**
      * 生命周期函数--监听页面加载
@@ -36,10 +37,14 @@ Page({
                 } else if (res.model.indexOf("MI 8") > -1) {
                     //xiaomi8
                     that.data.models = 'xiaomi8'
-                } else {
+                } else if (res.system.indexOf("Android") > -1){
+                    that.data.shotPic = 'https://s-js.sports.cctv.com/host/resource/future/new_shot1@2x.png'
+                } else if (res.system.indexOf("iOS") > -1){
+                    that.data.shotPic = 'https://s-js.sports.cctv.com/host/resource/future/new_shot@2x.png'
                 }
                 that.setData({
                     models: that.data.models,
+                    shotPic: that.data.shotPic
                 })
             }
         })

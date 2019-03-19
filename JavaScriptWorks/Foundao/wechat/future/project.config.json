@@ -163,7 +163,7 @@
 					"id": 20,
 					"name": "分享视频（新）",
 					"pathName": "pages/video/video",
-					"query": "scene=sucai_1197",
+					"query": "scene=sucai_40534",
 					"scene": null
 				},
 				{
@@ -184,6 +184,13 @@
 					"name": "功能页面",
 					"pathName": "pages/dubbingUpload/dubbingUpload",
 					"query": ""
+				},
+				{
+					"id": 24,
+					"name": "视频轮播",
+					"pathName": "pages/videoSwiper/videoSwiper",
+					"query": "huati_id=48&video_id=40473",
+					"scene": null
 				}
 			]
 		}

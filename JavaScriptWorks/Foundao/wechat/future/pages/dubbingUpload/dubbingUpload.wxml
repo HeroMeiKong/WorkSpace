@@ -43,12 +43,12 @@
     <!-- 拍摄 -->
     <view id='shoting' class='box' catch:tap="shotingVideo">
       <!-- <image src='https://s-js.sports.cctv.com/host/image/2019/01/12/15472789997044.png'></image> -->
-      <image src='https://s-js.sports.cctv.com/host/resource/future/new_shot@2x.png'></image>
+      <image src='{{shotPic}}'></image>
     </view>
     <!-- 本地上传 -->
     <view id='upload' class='box' catch:tap="uploadLocalVideo">
       <!-- <image src='https://s-js.sports.cctv.com/host/image/2019/01/12/15472789765074.png'></image> -->
-      <image src='https://s-js.sports.cctv.com/host/resource/future/new_upload@2x.png'></image>
+      <image src='https://s-js.sports.cctv.com/host/resource/future/new_upload1@2x.png'></image>
     </view>
     <image class="special" src="{{pics[0]}}"  catch:tap="newYear" style="display:{{showOrHidden[0]}};" mode="widthFix"></image>
     <view class="bigActivity">

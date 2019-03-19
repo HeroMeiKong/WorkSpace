@@ -53,7 +53,8 @@ App({
         shareText: '两会，走起来',   //默认分享文字
         default_avatarUrl: 'https://s-js.sports.cctv.com/host/resource/future/3mrtx.png',//默认头像路径
         musicSrc: 'https://s-js.sports.cctv.com/host/resource/map/bg1.mp3',
-        music_state: false,
+        music_state: true,
+        before_music_state: true,
         backgroundAudioManager: null,
     },
     /*创建背景音乐*/
@@ -81,18 +82,20 @@ App({
     },
     onShow() {
         console.log('onpageshow');
-        console.log('before_music_state:' + this.before_music_state);
-        if (this.before_music_state) {
+        console.log('before_music_state:' + this.globalData.before_music_state);
+        if (this.globalData.before_music_state) {
+            this.globalData.music_state = true;
             this.globalData.backgroundAudioManager.play();
         } else {
+            this.globalData.music_state = false;
             this.globalData.backgroundAudioManager.pause();
         }
 
     },
     onHide() {
         console.log('onpagehide')
-        console.log('before_music_state:' + this.before_music_state);
-        this.before_music_state = this.globalData.music_state
+        console.log('before_music_state:' + this.globalData.before_music_state);
+        this.globalData.before_music_state = this.globalData.music_state
         this.globalData.backgroundAudioManager.pause();
     }
 })

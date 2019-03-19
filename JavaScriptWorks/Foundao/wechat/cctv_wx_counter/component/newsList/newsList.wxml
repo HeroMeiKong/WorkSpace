@@ -1,5 +1,5 @@
 <view class="newsList-layer">
-    <view class="newsList-box">
+    <view class="newsList-box" catchtap="stopmp">
         <view class="news-big-box" style="background-image: url({{newList[0].bigImgUrl||newList[0].imgUrl}})" data-id="{{newList[0].Url}}" catchtap="goDetail">
             <view class="class-big-title">{{newList[0].Title}}</view>
         </view>

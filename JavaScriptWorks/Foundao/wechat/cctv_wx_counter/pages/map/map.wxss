@@ -92,8 +92,8 @@
   z-index: 10;
   left: -100rpx;
   transition-delay: 1s;
-  /*animation:animal 1.5s infinite ease;*/
-  /*-webkit-animation:animal 1.5s infinite ease;*/
+  animation:animal 1.5s infinite ease;
+  -webkit-animation:animal 1.5s infinite ease;
 }
 @keyframes animal
 {
@@ -105,11 +105,11 @@
     transform: scale(1);
   }
   50% {
-    -webkit-transform: scale(1.8);
-    -moz-transform: scale(1.8);
-    -ms-transform: scale(1.8);
-    -o-transform: scale(1.8);
-    transform: scale(1.8);
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    transform: scale(1.3);
   }
   100% {
     -webkit-transform: scale(1);
@@ -507,4 +507,13 @@
   font-size: 32rpx;
   background-image: url("https://s-js.sports.cctv.com/host/resource/map/rule-layer-ok.png");
   background-size: cover;
+}
+.lucyDraw{
+  position: fixed;
+  background: url("https://s-js.sports.cctv.com/host/resource/map/winners1.png") no-repeat right center / auto 100%;
+  width: 76rpx;
+  height: 141rpx;
+  z-index: 999;
+  right: 0;
+  top: 93rpx;
 }

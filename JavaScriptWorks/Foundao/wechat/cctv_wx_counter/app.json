@@ -2,13 +2,15 @@
   "pages": [
     "pages/index/index",
     "pages/auth/auth",
-    "pages/map/map",    
+    "pages/map/map",
     "pages/question/question",
     "pages/destination/destination",
     "pages/rank/rank",
     "pages/webview/webview",
     "pages/suggest/suggest",
-    "pages/message/message"
+    "pages/message/message",
+    "pages/winners/winners",
+    "pages/contact/contact"
   ],
   "window": {
     "backgroundTextStyle": "light",
