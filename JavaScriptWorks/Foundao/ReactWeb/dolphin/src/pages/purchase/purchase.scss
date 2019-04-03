@@ -1,0 +1,37 @@
+.purchase {
+  background-color: rgba(244, 248, 255, 1);
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+
+  .purchase_content {
+    width: 960px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    h1 {
+      font-size: 40px;
+      font-weight: 500;
+      color: rgba(60, 66, 185, 1);
+      padding: 50px 0 36px 0;
+      line-height: 55px;
+    }
+
+    .purchase_tip {
+      padding: 6px 39px;
+      background: rgba(45, 50, 160, 1);
+      border-radius: 4px 4px 0px 0px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      letter-spacing: 1px;
+    }
+
+    .purchase_notes {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(74, 74, 74, 1);
+    }
+  }
+}

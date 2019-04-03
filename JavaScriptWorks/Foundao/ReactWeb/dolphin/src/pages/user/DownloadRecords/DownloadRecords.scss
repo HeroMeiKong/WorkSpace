@@ -1,0 +1,25 @@
+.download_records{
+  width: 664px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 22px;
+  & .record_date{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 8px 6px 8px 6px;
+    font-size: 12px;
+    font-weight: 300;
+    img{
+      width: 17px;
+      height: 10px;
+      padding-right: 6px;
+    }
+  }
+  & .record_file{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

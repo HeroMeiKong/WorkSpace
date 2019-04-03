@@ -1,0 +1,63 @@
+.version {
+  width: 190px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(244, 248, 255, 1);
+  font-weight: 500;
+  color: rgba(155, 155, 155, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &:hover{
+    transform: scale(1.05);
+    box-shadow: 1px 1px 2px 2px rgba(60, 66, 185, .2);
+    border: 1px solid blue;
+  }
+
+  .purchase_version {
+    padding-top: 24px;
+    font-size: 20px;
+  }
+
+  .purchase_price {
+    padding-top: 36px;
+    position: relative;
+    display: flex;
+    font-size: 60px;
+    color: rgba(0, 0, 0, 1);
+
+    div {
+      font-size: 15px;
+      position: absolute;
+      left: 110%;
+      bottom: 5px;
+    }
+  }
+
+  .purchase_text {
+    font-size: 15px;
+    padding: 25px 0 10px 0;
+  }
+
+  .purchase_capacity {
+    color: rgba(60, 66, 185, 1);
+    font-size: 25px;
+  }
+
+  .purchase_duration {
+    color: rgba(60, 66, 185, 1);
+    font-size: 25px;
+    padding-bottom: 35px;
+  }
+
+  .purchase_apply {
+    padding: 5px 35px;
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, rgba(89, 97, 206, 1) 0%, rgba(45, 50, 160, 1) 100%);
+    border-radius: 4px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 1);
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+.listStyleOne-box{
+  font-size: 0;
+  padding:0 .18rem .4rem;
+  li{
+    margin-bottom: .22rem;
+    position: relative;
+    a{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9;
+    }
+  }
+  .list-pic{
+    width: 2.9rem;
+    height: 1.63rem;
+    display: inline-block;
+    vertical-align: top;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .list-info{
+    font-size: .24rem;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 1.63rem;
+    width: 4.24rem;
+    padding: .08rem .16rem .14rem;
+    box-sizing: border-box;
+    h2{
+      line-height: 1.5;
+      color: #333333;
+      font-size: .3rem;
+    }
+    .video-brief{
+      position: absolute;
+      left: .16rem;
+      bottom: 0;
+      color: #999999;
+      font-size: .24rem;
+    }
+  }
+}

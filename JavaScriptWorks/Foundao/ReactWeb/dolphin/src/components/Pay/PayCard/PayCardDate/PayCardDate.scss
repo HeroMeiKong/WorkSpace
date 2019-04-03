@@ -1,0 +1,35 @@
+.paycard_date {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
+
+  .paycard_date_left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .paycard_date_contents {
+    display: flex;
+  }
+  .paycard_date_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    border: 1px solid rgba(74, 74, 74, 1);
+    padding: 0 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    font-family: STHeitiTC-Light;
+    font-weight: 300;
+    color: rgba(74, 74, 74, 1);
+  }
+
+  img {
+    width: 11px;
+    height: 6px;
+  }
+}

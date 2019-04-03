@@ -1,0 +1,20 @@
+.lookNav{
+  overflow-x: scroll;
+  padding: .1rem .18rem 0;
+  white-space: nowrap;
+  li{
+    display: inline-block;
+    vertical-align: top;
+    padding: .3rem 0;
+    font-size: .28rem;
+    color: #666666;
+    margin-right: .6rem;
+    &.active{
+      color: #3091F2;
+      font-weight: bold;
+    }
+  }
+}
+.lookStyle_1-box{
+  //padding-top: 3.84rem;
+}

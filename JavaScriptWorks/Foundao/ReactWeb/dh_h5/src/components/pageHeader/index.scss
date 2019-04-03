@@ -1,0 +1,97 @@
+.page-header{
+  background: #000;
+}
+.page-info{
+  height: 3.84rem;
+  box-sizing: border-box;
+  padding:.8rem .18rem .08rem;
+  position: relative ;
+  //background: #f2f2f2 url(../../assets/home_huawen.png) no-repeat right .46rem / 3.9rem;
+  //background-image:url(../../assets/home_huawen.png) ;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: white;
+  background-size: cover;
+  h1{
+    font-size:.6rem;
+    font-weight:bold;
+    color:#fff;
+    //display: inline-block;
+    padding-left: 2.28rem;
+  }
+  >h2{
+    font-size:.24rem;
+    font-weight:normal;
+    color:#fff;
+    line-height:.31rem;
+    margin-top: .24rem;
+    //width: 66%;
+  }
+  .fellow-box{
+    margin-top: .5rem;
+    padding-left: 2.3rem;
+    p{
+      display: inline-block;
+      vertical-align: middle;
+      font-size:.24rem;
+      font-weight:normal;
+      color:#ffffff;
+      line-height:.29rem;
+      margin-right: .26rem;
+      span{
+        font-size: .4rem;
+        font-weight: 600;
+        margin-right: .05rem;
+      }
+    }
+    a{
+      display: inline-block;
+      vertical-align: middle;
+      text-align: center;
+      text-decoration: none;
+      float: right;
+      width: 1.32rem;
+      height: .6rem;
+      font-size: .28rem;
+      line-height: .6rem;
+      background: #3091F2;
+      color: white;
+      border-radius: .05rem;
+      margin-top: -.15rem;
+    }
+  }
+  .palywhere{
+    margin-top: .15rem;
+    p{
+      &:nth-of-type(1){
+        margin-bottom: .08rem;
+        display: none;
+      }
+      display: block;
+      //vertical-align: top;
+      font-size:.22rem;
+      font-weight:normal;
+      color:#FFF;
+      line-height:.29rem;
+      margin-right: .38rem;
+    }
+  }
+  .logobox{
+    position: absolute;
+    top: .76rem;
+    left: .28rem;
+    width: 1.6rem;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+    background: #f7f7f7;
+    height: 1.6rem;
+    box-sizing: border-box;
+    //padding: .15rem;
+    overflow: hidden;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}

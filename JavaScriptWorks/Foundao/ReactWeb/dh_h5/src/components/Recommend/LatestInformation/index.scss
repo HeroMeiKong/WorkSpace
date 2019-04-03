@@ -1,0 +1,154 @@
+.Latest-box{
+  box-sizing: border-box;
+  //height: 7.06rem;
+  position: relative;
+  background: white;
+  >div{
+    //background: #231F20 url(../../../assets/home_bg_line.png) no-repeat center / 100% 100%;
+    background:linear-gradient(360deg,rgba(29,47,80,1) 0%,rgba(4,7,30,1) 100%);
+    padding: .36rem .27rem .24rem;
+    position: relative;
+    .videoSY{
+      position: absolute;
+      bottom: 1.13rem;
+      right: .27rem;
+      width: .38rem;
+      font-size: 0;
+      height: .42rem;
+      background: url(../../../assets/home_icon_voice.png) no-repeat center / 100% 100%;
+      &.active{
+        background: url(../../../assets/sound-open.png) no-repeat center / 100% 100%;
+      }
+    }
+    h2{
+      font-size: .36rem;
+      color: white;
+      position: relative;
+      display: inline-block;
+      padding-right: .32rem;
+      a{
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        font-size: 0;
+        background: url(../../../assets/home_icon_kandian_back.png) no-repeat right center /.12rem .24rem;
+      }
+    }
+    .seewhole{
+      float: right;
+      text-decoration: none;
+      color: white;
+      padding: .08rem .15rem;
+      border:1px solid #fff;
+      border-radius: 1rem;
+      font-size: .24rem;
+    }
+    #html5VideoBack{
+      width: 7.02rem !important;
+      height: 3.94rem !important;
+    }
+    #videoBox{
+      width: 7.02rem !important;
+      height: 3.94rem !important;
+      margin: .2rem auto 0;
+      box-sizing: border-box;
+      video{
+        width: 7.02rem !important;
+        height: 3.94rem !important;
+      }
+      #playbtn_img_videoBox{
+        background-size: 1rem 1rem !important;
+        width:1rem !important;
+        height: 1rem !important;
+        left: 50% !important;
+        top: 50% !important;
+        -webkit-transform: translate(-50%,-50%);
+        -moz-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+      }
+      #video_content_is_loading{
+        width: 2.4rem !important;
+        height: .84rem !important;
+        left: 50% !important;
+        top: 50% !important;
+        -webkit-transform: translate(-50%,-50%);
+        -moz-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+      }
+    }
+  }
+  .LatestVideoList{
+    white-space: nowrap;
+    position: relative;
+    padding: .16rem 0;
+    //bottom: .3rem;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    li{
+      display: inline-block;
+      width: 2.4rem;
+      margin-left: .22rem;
+      position: relative;
+      &.active{
+        p{
+          display: none;
+        }
+        div:after{
+          content: '正在播放';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0,0,0,0.6);
+          z-index: 99;
+          font-size: .24rem;
+          color: white;
+          line-height: 1.36rem;
+          text-align: center;
+        }
+        h3{
+          color: #3091F2;
+        }
+      }
+      >div{
+        height: 1.36rem;
+        position: relative;
+        p{
+          content: '';
+          position: absolute;
+          z-index: 9;
+          right: 0;
+          bottom: 0;
+          //background-color: rgba(0,0,0,.7);
+          border-radius: .1rem 0 0 0 ;
+          color: white;
+          font-size: .20rem;
+          padding: .05rem .1rem;
+        }
+      }
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      h3{
+        white-space: normal;
+        line-height: 1.5;
+        color: #666;
+        font-size: .28rem;
+        height: .82rem;
+        overflow: hidden;
+        margin-top: .15rem;
+      }
+    }
+  }
+}

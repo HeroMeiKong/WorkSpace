@@ -1,0 +1,113 @@
+.sol_content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 52px;
+
+  .sol_content_title {
+    width: 220px;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    padding-bottom: 7px;
+  }
+
+  .sol_content_box {
+    .sol_content_inner {
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+      border-radius: 2px;
+      border: 1px solid rgba(255, 255, 255, 1);
+      height: 30px;
+      width: 220px;
+      display: flex;
+      justify-content: space-between;
+
+      .sol_content_img {
+        width: 16px;
+        height: 16px;
+        margin: 6px 10px;
+      }
+
+      .sol_content_input {
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 180px;
+        font-size: 12px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 1);
+        letter-spacing: 1px;
+      }
+    }
+
+    .sol_content_tip {
+      font-size: 10px;
+      font-weight: 300;
+      color: rgba(242, 95, 93, 1);
+      letter-spacing: 1px;
+      padding: 2px 0 8px 0;
+    }
+  }
+
+  .sol_content_other {
+    width: 220px;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(216, 216, 216, 1);
+    letter-spacing: 1px;
+    text-decoration: underline;
+    padding-bottom: 20px;
+
+    .sol_content_other_inner {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .sol_content_other_signup {
+    justify-content: space-between;
+  }
+
+  .sol_content_other_login {
+    justify-content: flex-end;
+  }
+
+  .sol_content_button {
+    width: 220px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(22, 155, 217, 1);
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+    letter-spacing: 1px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .sol_content_create {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    padding: 28px 0 6px 0;
+    P{
+      color: rgba(22, 155, 217, 1);
+      text-decoration: underline;
+      &:hover{cursor: pointer;}
+    }
+  }
+}

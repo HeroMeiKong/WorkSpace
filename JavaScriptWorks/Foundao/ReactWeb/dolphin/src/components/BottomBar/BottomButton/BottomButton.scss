@@ -1,0 +1,10 @@
+.BottomButton {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  padding: 0 10px;
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline yellow;
+  }
+}
