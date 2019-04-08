@@ -66,7 +66,14 @@ class Upload extends Component {
             case "md5":
               g_filemd5 = jsonobj["data"];
               break;
+            // 后端进度
             case "uploaded":
+              // console.log("file uploaded size:" + jsonobj["data"]["writed"] + ", progress:" + jsonobj["data"]["progress"]);
+              // showStatus("file size:" + file.size + ", uploaded:" + jsonobj["data"]["writed"] + ", percent:" + jsonobj["data"]["progress"] + "%");
+              // showProgress(jsonobj["data"]["progress"]);
+              break;
+            // 前端进度
+            case "progress":
               // console.log("file uploaded size:" + jsonobj["data"]["writed"] + ", progress:" + jsonobj["data"]["progress"]);
               showStatus("file size:" + file.size + ", uploaded:" + jsonobj["data"]["writed"] + ", percent:" + jsonobj["data"]["progress"] + "%");
               showProgress(jsonobj["data"]["progress"]);
@@ -85,9 +92,9 @@ class Upload extends Component {
       workers[i] = worker;
     }
   };
-
+  // 上传各种提示
   showStatus = (msg) => {
-    console.log('uploadStatus --->', msg);
+    // console.log('uploadStatus --->', msg);
   };
   showProgress = (percent) => {
     // console.log(percent);
@@ -124,7 +131,7 @@ class Upload extends Component {
     const {isUploading} = this.state;
     if (isUploading) {
       return false;
-    }else {
+    } else {
 
     }
     const {onChange} = this.props;

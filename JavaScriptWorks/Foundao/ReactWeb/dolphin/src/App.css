@@ -42,6 +42,7 @@
 }
 *{
   box-sizing: border-box;
+  font-family: 'STHeiti Light [STXihei]','SimHei' !important;
 }
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
   -webkit-appearance: none !important; 

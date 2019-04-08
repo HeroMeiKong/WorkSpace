@@ -32,10 +32,13 @@ class DownloadLists extends Component {
               </div>
             :
               <div className='download_lists_inner'>
-                {uploadSuccessList.map((item, index) => {
+                {/* {uploadSuccessList.map((item, index) => {
+                  return <DownloadList key={item.fileMd5} data={item} videoInfo={videoInfo} />
+                })} */}
+                {uploadSuccessList.filter((curr,index) => index<5).map((item, index) => {
                   return <DownloadList key={item.fileMd5} data={item} videoInfo={videoInfo} />
                 })}
-                <div className='download_lists_button'>MY FILES</div>
+                {uploadSuccessList.length > 5 ? <div className='download_lists_button'>MY FILES</div> : ''}
               </div>
           }
         </div>

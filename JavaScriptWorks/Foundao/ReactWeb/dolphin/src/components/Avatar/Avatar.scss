@@ -1,0 +1,130 @@
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+
+  .avatar_top {
+    height: 85px;
+    margin: 0 0 5px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    .avatar_inner {
+      width: 80px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .1);
+        cursor: pointer;
+      }
+
+      img:first-child {
+        width: 30px;
+        height: 30px;
+      }
+
+      img:last-child {
+        width: 10px;
+        height: 2px;
+      }
+    }
+  }
+
+  .avatar_bottom {
+    transform: translate(-60%, 0);
+
+    div {
+      background: rgba(38, 42, 136, 1);
+    }
+
+    .avatar_bottom_box {
+      padding: 12px 8px;
+      display: flex;
+      margin-bottom: 5px;
+
+      .big_avatar {
+        margin-right: 10px;
+
+        img {
+          width: 42px;
+          height: 42px;
+        }
+      }
+
+      .avatar_bottom_introduce {
+        p:first-child {
+          font-size: 12px;
+          font-weight: 500;
+          padding-top: 6px;
+        }
+
+        p:last-child {
+          font-size: 10px;
+          font-weight: 500;
+          padding-top: 6px;
+        }
+      }
+    }
+
+    .avatar_bottom_Membership {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(219, 183, 137, 1);
+      padding: 12px 10px 0 10px;
+      margin-bottom: 5px;
+      border: 1px solid;
+      border-image: linear-gradient(135deg, rgba(247, 217, 173, 1), rgba(177, 131, 83, 1)) 1 1;
+
+      .avatar_bottom_Capacity {
+        padding-top: 26px;
+        width: 100%;
+        text-align: center;
+
+        p {
+          padding-bottom: 4px;
+        }
+
+        .avatar_bottom_line {
+          width: 100%;
+          background: rgba(29, 32, 113, 1);
+          border-radius: 5px;
+          margin-bottom: 10px;
+
+          div {
+            width: 76%;
+            height: 8px;
+            background: linear-gradient(90deg, rgba(239, 220, 190, 1) 0%, rgba(219, 183, 137, 1) 100%);
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+
+    .sign_up {
+      padding: 5px 18px;
+      display: flex;
+
+      .sign_up_img {
+        width: 22px;
+        height: 22px;
+        background: url('../../assets/images/Signout_icon@2x.png') center/100% no-repeat;
+      }
+
+      .sign_out {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 20px;
+      }
+    }
+  }
+}

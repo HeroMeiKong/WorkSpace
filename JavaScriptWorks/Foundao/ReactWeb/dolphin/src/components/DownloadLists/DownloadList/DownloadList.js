@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './DownloadList.scss'
 import transCode from '@/utils/transCode'
 import classNames from 'classnames'
@@ -10,8 +10,8 @@ class DownloadList extends Component {
     this.state = {
       isTransing: false, // 是否开始转码
       progress: 0,
-      videoWidth: 720,
-      videoHeight: 480,
+      videoWidth: 0,
+      videoHeight: 0,
       outoption_options: [{name:'4K', width: 3840,height: 2160},
                           {name:'1080P', width: 1920,height: 1080},
                           {name:'720P', width: 1280,height: 720},
@@ -100,53 +100,59 @@ class DownloadList extends Component {
       window.open('about:blank').location.href=video_url
     }
   }
-
-  render () {
-    const { fileName, fileSize, fileMd5 } = this.props.data;
+  convertSuccess = () => {
+    const {progress} = this.state
+    return <Fragment>
+            <div className="download_list_line">{progress >= 100 ? '' : <div className='progress_bar'><div style={{width: progress+'%'}} className='progress_bar_inner'></div></div>}</div>
+                {progress >= 100 ? <div className="download_list_download" onClick={this.downloadVideo}></div> : <div className="download_list_progress">{progress}%</div>}
+            <div className="download_list_delete"></div>
+          </Fragment>
+  }
+  isCovertVideo = () => {
     const { width, height } = this.props.videoInfo
-    const { isTransing, progress, videoWidth, videoHeight, outoption_options, active_outoption, customize, useProps } = this.state
-    if(isTransing){
-      return (
-        <div className='download_list'>
-          <div className='download_list_title'>{fileName}</div>
-          <div className="download_list_line">{progress >= 100 ? '' : <div className='progress_bar'><div style={{width: progress+'%'}} className='progress_bar_inner'></div></div>}</div>
-          {progress >= 100 ? <div className="download_list_download" onClick={this.downloadVideo}></div> : <div className="download_list_progress">{progress}%</div>}
-          <div className="download_list_delete"></div>
-        </div>
-      )
-    } else {
-      return (
-        <div className='download_list'>
-          <div className='download_list_title'>{fileName}</div>
-          <div className="download_list_outoptions">
-            <div className="download_list_outoption">
-              <div className="download_list_outoption_box outoption_topbox">
-                {outoption_options.map( (value,i) => 
-                ((value.width<=width) || (value.height<=height) ?
-                  <div key={i}
-                  className={classNames('outoption_customize',{active: active_outoption === i})}
-                  onClick={this.changeDPI.bind(this,value,i)}>{value.name}</div> : '')
-                )}
+    const { videoWidth, videoHeight, outoption_options, active_outoption, customize, useProps } = this.state
+    return  <Fragment>
+              <div className="download_list_outoptions">
+                <div className="download_list_outoption">
+                  <div className="download_list_outoption_box outoption_topbox">
+                    {outoption_options.map( (value,i) => 
+                    ((value.width<=width) && (value.height<=height) ?
+                      <div key={i}
+                      className={classNames('outoption_customize',{active: active_outoption === i})}
+                      onClick={this.changeDPI.bind(this,value,i)}>{value.name}</div> : '')
+                    )}
+                  </div>
+                  <div className="download_list_outoption_box outoption_bottombox">
+                    <div className={classNames('outoption_customize',{active: customize})}
+                    onClick={this.changeCustomize}>Customize</div>
+                    {customize ?
+                      <div className='outoption_bottombox_input'>
+                        <div>
+                          <label>W:</label><input type='number' value={useProps ? width : videoWidth} onChange={this.handleChange.bind(this,'videoWidth')} />
+                        </div>
+                        <div>
+                          <label>H:</label><input type='number' value={useProps ? height : videoHeight} onChange={this.handleChange.bind(this,'videoHeight')} />
+                        </div>
+                      </div> : ''}
+                  </div>
+                </div>
+                <div className="start_outoption" onClick={this.startTransCode}>START</div>
               </div>
-              <div className="download_list_outoption_box outoption_bottombox">
-                <div className={classNames('outoption_customize',{active: customize})}
-                onClick={this.changeCustomize}>Customize</div>
-                {customize ?
-                  <div className='outoption_bottombox_input'>
-                    <div>
-                      <label>W:</label><input type='number' value={useProps ? width : videoWidth} onChange={this.handleChange.bind(this,'videoWidth')} />
-                    </div>
-                    <div>
-                      <label>H:</label><input type='number' value={useProps ? height : videoHeight} onChange={this.handleChange.bind(this,'videoHeight')} />
-                    </div>
-                  </div> : ''}
-              </div>
-            </div>
-            <div className="start_outoption" onClick={this.startTransCode}>START</div>
-          </div>
-        </div>
-      )
+            </Fragment>
+  }
+  render () {
+    const { fileName } = this.props.data;
+    const { isTransing } = this.state
+    let shortFileName = fileName
+    if(fileName.length > 9){
+      shortFileName = fileName.substring(0,3)+'…'+fileName.substring(fileName.length-6)
     }
+    return (
+      <div className='download_list'>
+        <div className='download_list_title'>{shortFileName}</div>
+        {isTransing ? this.convertSuccess() : this.isCovertVideo()}
+      </div>
+    )
   }
 }
 

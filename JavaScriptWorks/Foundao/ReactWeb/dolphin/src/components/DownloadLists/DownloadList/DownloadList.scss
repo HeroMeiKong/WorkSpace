@@ -98,7 +98,7 @@
       width: 100%;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-start;
       padding-top: 8px;
 
       .outoption_customize {
@@ -110,6 +110,7 @@
         border: 1px solid rgba(255, 255, 255, .5);
         font-size: 14px;
         font-weight: 500;
+        margin-right: 5px;
 
         &:hover {
           cursor: pointer;
@@ -117,7 +118,7 @@
         }
       }
       .active {
-        background: rgba(0, 0, 0, 0.15);
+        background: rgba(0, 0, 0, 0.2);
         border: 1px solid rgba(255, 255, 255, 1);
       }
 

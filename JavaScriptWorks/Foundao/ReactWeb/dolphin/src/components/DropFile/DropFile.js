@@ -21,7 +21,7 @@ class DropFile extends Component {
           <div className='dolpin'></div>
           <div className='file'></div>
           <div className='droptips'>
-            <p className='drop_waiting'>Uploading… {progress}%</p>
+            {progress/1 === 100 ? <p className='drop_waiting'>upload successfully！</p> : <p className='drop_waiting'>Uploading… {(progress/1).toFixed(1)}%</p>}
           </div>
         </div>
       )

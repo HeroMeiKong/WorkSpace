@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import HeaderOption from '@/components/HeaderOption/HeaderOption'
 import './Header.scss'
 import SignUpOrLogin from '@/components/SignUpOrLogin/SignUpOrLogin'
+import Avatar from '@/components/Avatar/Avatar'
 
 class Header extends Component {
   constructor () {
     super()
     this.state = {
-      showSignUpOrLogin: false
+      showSignUpOrLogin: false,
+      isLogin: false
     }
   }
   purchase = () => {
@@ -28,14 +30,14 @@ class Header extends Component {
     }
   }
   render () {
-    const { showSignUpOrLogin } = this.state
+    const { showSignUpOrLogin, isLogin } = this.state
     return(
       <div className='header'>
         <div className='content'>
           <div className='logo'></div>
           <div className='header_menu'>
             <HeaderOption title={'PRICING'} callBack={this.purchase} />
-            <HeaderOption title={'SIGN IN'} callBack={this.showLogin} />
+            {isLogin ? <div><HeaderOption /> <Avatar /></div> : <HeaderOption title={'SIGN IN'} callBack={this.showLogin} />}
           </div>
         </div>
         <SignUpOrLogin show={showSignUpOrLogin} callBack={this.hiddenLogin} />

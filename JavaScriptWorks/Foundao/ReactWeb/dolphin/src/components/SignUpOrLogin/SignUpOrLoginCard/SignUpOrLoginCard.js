@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './SignUpOrLoginCard.scss'
-const facebook = require('@/assets/images/MP4_icon@2x.png')
+const email_img = require('@/assets/images/youxiang_icon@2x.png')
+const password_img = require('@/assets/images/suo_icon@2x.png')
 
 class SignUpOrLoginCard extends Component {
   constructor () {
@@ -15,6 +16,7 @@ class SignUpOrLoginCard extends Component {
     }
   }
   changeCreateAccount = () => {
+    console.log('ssss')
     this.setState({
       SignUpOrLogin: true
     })
@@ -35,28 +37,28 @@ class SignUpOrLoginCard extends Component {
         <div className="sol_content_title">Create an account</div>
         <div className="sol_content_box">
           <div className="sol_content_inner">
-            <img alt='email' src={facebook} className="sol_content_img"></img>
+            <img alt='email' src={email_img} className="sol_content_img"></img>
             <input className="sol_content_input" placeholder='Your e-mail' value={newEmail} onChange={this.handleChange.bind(this,'newEmail')} />
           </div>
           <div className="sol_content_tip">Enter the correct email</div>
         </div>
         <div className="sol_content_box">
           <div className="sol_content_inner">
-            <img alt='email' src={facebook} className="sol_content_img"></img>
+            <img alt='password' src={password_img} className="sol_content_img"></img>
             <input className="sol_content_input" placeholder='Password' value={newPassword} onChange={this.handleChange.bind(this,'newPassword')} />
           </div>
           <div className="sol_content_tip">Enter the correct Password</div>
         </div>
         <div className="sol_content_box">
           <div className="sol_content_inner">
-            <img alt='email' src={facebook} className="sol_content_img"></img>
+            <img alt='password' src={password_img} className="sol_content_img"></img>
             <input className="sol_content_input" placeholder='Password confirmation' value={newConfirmation} onChange={this.handleChange.bind(this,'newConfirmation')} />
           </div>
           <div className="sol_content_tip">Not same as Password</div>
         </div>
         <div className="sol_content_other sol_content_other_signup">
           <div className='sol_content_other_inner'>Forgot password?</div>
-          <div className='sol_content_other_inner' onClick={this.changeLogin}>Login</div>
+          <div className='sol_content_other_inner' onClick={this.changeCreateAccount}>Login</div>
         </div>
         <div className="sol_content_button">Create</div>
       </div>
@@ -68,14 +70,14 @@ class SignUpOrLoginCard extends Component {
         <div className="sol_content_title">login in your ID</div>
         <div className="sol_content_box">
           <div className="sol_content_inner">
-            <img alt='email' src={facebook} className="sol_content_img"></img>
+            <img alt='email' src={email_img} className="sol_content_img"></img>
             <input className="sol_content_input" placeholder='Your e-mail' value={email} onChange={this.handleChange.bind(this,'email')} />
           </div>
           <div className="sol_content_tip">Enter the correct email</div>
         </div>
         <div className="sol_content_box">
           <div className="sol_content_inner">
-            <img alt='email' src={facebook} className="sol_content_img"></img>
+            <img alt='password' src={password_img} className="sol_content_img"></img>
             <input className="sol_content_input" placeholder='Password' value={password} onChange={this.handleChange.bind(this,'password')} />
           </div>
           <div className="sol_content_tip">Enter the correct Password</div>
@@ -84,7 +86,7 @@ class SignUpOrLoginCard extends Component {
           <div className='sol_content_other_inner'>Forgot password?</div>
         </div>
         <div className="sol_content_button">LOG IN</div>
-        <div className="sol_content_create" onClick={this.changeCreateAccount}>Not a member?<p>Create an account</p></div>
+        <div className="sol_content_create" onClick={this.changeLogin}>Not a member?<p>Create an account</p></div>
       </div>
     )
   }

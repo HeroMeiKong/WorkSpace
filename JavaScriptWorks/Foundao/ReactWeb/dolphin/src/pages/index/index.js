@@ -25,12 +25,12 @@ class Index extends Component {
     httpRequest({
       url: api.qureyMeidiaInfo,
       data: {
-        inFileName: fileName,
-        md5: fileMd5
+        // inFileName: fileName,
+        MD5: fileMd5
       },
     }).done(response => {
       this.setState({
-        videoInfo: response || {}
+        videoInfo: response || {width: 0,height: 0}
       })
     })
     this.state.uploadSuccessList.unshift({

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './SignUpOrLogin.scss'
 import SignUpOrLoginCard from './SignUpOrLoginCard/SignUpOrLoginCard'
-const facebook = require('@/assets/images/MP4_icon@2x.png')
-const twitter = require('@/assets/images/MP4_icon@2x.png')
+const facebook = require('@/assets/images/facebook_icon@2x.png')
+const twitter = require('@/assets/images/twitter_icon@2x.png')
 
 class SignUpOrLogin extends Component {
   triggerFather = (e) => {
@@ -22,7 +22,7 @@ class SignUpOrLogin extends Component {
             <div className="sol_bottom">
               <div className="sol_bottom_title">Or login with:</div>
               <img alt='facebook' src={facebook} className="sol_bottom_img"></img>
-              <img alt='twitter' src={facebook} className="sol_bottom_img"></img>
+              <img alt='twitter' src={twitter} className="sol_bottom_img"></img>
             </div>
           </div>
         </div>

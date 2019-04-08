@@ -240,11 +240,11 @@ Uploader.prototype = (function () {
   function readBlob() {
     //console.log("readBlob, g_start:" + g_start + ", g_step:" + g_step + ", g_partend:" + g_partend);
     var blob;
-    if (g_start + g_step < g_partend) {
-      blob = g_file.slice(g_start, g_start + g_step);
-    } else {
-      blob = g_file.slice(g_start, g_partend);
+    var read_end = g_partend;
+    if (g_start + g_step < g_partend) { // 读取到指定位置
+      read_end  = g_start + g_step;
     }
+    blob = g_file.slice(g_start, read_end);
     g_reader.readAsArrayBuffer(blob);
   }
 
@@ -272,9 +272,20 @@ Uploader.prototype = (function () {
       g_ws.send(blob, {binary: true});
       g_loaded += loaded;
       g_start += loaded;
+      sendProgress();
       if (g_loaded < g_partsize)
         readBlob();
     }
+  }
+  // 发送上传进度
+  function sendProgress() {
+    var sended = g_start - g_ws.bufferedAmount;
+    var sendSuccessPercent = sended / g_total; // 发送成功比例
+    // var sendPercent = g_start / g_total;       //  发送比例
+    var progress = (sendSuccessPercent * 100).toFixed(2);
+    var message  = {"msg":"progress","data":{"writed":sended,"progress": progress}};
+    // 通知显示上传进度
+    postMessage(message);
   }
 
   function openWebSocket() {
