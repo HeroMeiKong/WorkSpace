@@ -72,8 +72,7 @@ class Test extends Component {
     // const result = this.filterKeyword(stringArticle);
     return (
       <div>
-        <a href="http://foundao.f3322.net:18080/dst/6bd5662aaf5e5c794e9f3a9fa209db50_400x400.mp4"
-           target="_blank"
+        <a href="http://foundao.f3322.net:18080/dst/6bd5662aaf5e5c794e9f3a9fa209db50_400x400.mp4" rel="noopener noreferrer" target="_blank"
            download='download'>http://foundao.f3322.net:18080/dst/6bd5662aaf5e5c794e9f3a9fa209db50_400x400.mp4</a>
         <br/>
         <Upload disabled={false}

@@ -19,8 +19,11 @@ class DownloadLists extends Component {
       })
     this.state.downloadList.push(this.props.file)
   }
+  deleteDownloadRecord (el) {
+    this.props.callBack(el)
+  }
   render () {
-    const { uploadSuccessList, videoInfo } = this.props
+    const { uploadSuccessList } = this.props
     // const { downloadList, showOutOption } = this.state
     // if(!start){
       return (
@@ -36,7 +39,7 @@ class DownloadLists extends Component {
                   return <DownloadList key={item.fileMd5} data={item} videoInfo={videoInfo} />
                 })} */}
                 {uploadSuccessList.filter((curr,index) => index<5).map((item, index) => {
-                  return <DownloadList key={item.fileMd5} data={item} videoInfo={videoInfo} />
+                  return <DownloadList key={item.fileMd5} data={item} videoInfo={item.videoInfo} callBack={this.deleteDownloadRecord.bind(this,item.fileMd5)} />
                 })}
                 {uploadSuccessList.length > 5 ? <div className='download_lists_button'>MY FILES</div> : ''}
               </div>

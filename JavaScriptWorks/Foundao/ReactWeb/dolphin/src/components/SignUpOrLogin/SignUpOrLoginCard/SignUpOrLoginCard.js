@@ -85,7 +85,7 @@ class SignUpOrLoginCard extends Component {
         <div className="sol_content_other sol_content_other_login">
           <div className='sol_content_other_inner'>Forgot password?</div>
         </div>
-        <div className="sol_content_button">LOG IN</div>
+        <div className="sol_content_button">LOGIN</div>
         <div className="sol_content_create" onClick={this.changeLogin}>Not a member?<p>Create an account</p></div>
       </div>
     )

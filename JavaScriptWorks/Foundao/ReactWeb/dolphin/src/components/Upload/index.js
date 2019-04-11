@@ -195,7 +195,7 @@ class Upload extends Component {
 
   render() {
     const {accept, disabled} = this.props;
-    const fileAccept = accept || 'image/*'; // 默认只能上传图片
+    const fileAccept = accept || 'video/*'; // 默认只能上传视频
     return (
       <div className="upload-box"
            ref='upload-box'

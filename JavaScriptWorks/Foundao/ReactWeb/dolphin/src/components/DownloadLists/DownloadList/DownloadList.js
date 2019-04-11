@@ -100,12 +100,15 @@ class DownloadList extends Component {
       window.open('about:blank').location.href=video_url
     }
   }
+  deleteMe = () => {
+    this.props.callBack()
+  }
   convertSuccess = () => {
     const {progress} = this.state
     return <Fragment>
             <div className="download_list_line">{progress >= 100 ? '' : <div className='progress_bar'><div style={{width: progress+'%'}} className='progress_bar_inner'></div></div>}</div>
                 {progress >= 100 ? <div className="download_list_download" onClick={this.downloadVideo}></div> : <div className="download_list_progress">{progress}%</div>}
-            <div className="download_list_delete"></div>
+            {progress >= 100 ? <div className="download_list_delete" onClick={this.deleteMe}></div> : ''}
           </Fragment>
   }
   isCovertVideo = () => {

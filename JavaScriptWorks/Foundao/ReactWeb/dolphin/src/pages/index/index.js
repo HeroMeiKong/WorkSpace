@@ -16,46 +16,69 @@ class Index extends Component {
     this.state = {
       percent: 0,
       uploadStart: false,
+      isType: false,
       uploadSuccessList: [],
-      videoInfo: {}
     }
   }
   uploadSuccess = (fileName, fileSize, fileMd5)=> {
-    console.log('文件上传成功！')
-    httpRequest({
-      url: api.qureyMeidiaInfo,
-      data: {
-        // inFileName: fileName,
-        MD5: fileMd5
-      },
-    }).done(response => {
-      this.setState({
-        videoInfo: response || {width: 0,height: 0}
+    if(this.state.isType){
+      console.log('文件上传成功！')
+      httpRequest({
+        url: api.qureyMeidiaInfo,
+        data: {
+          // inFileName: fileName,
+          MD5: fileMd5
+        },
+      }).done(response => {
+        this.state.uploadSuccessList.unshift({
+          fileName,
+          fileSize,
+          fileMd5,
+          videoInfo: response || {width: 0,height: 0},
+        })
+        this.setState({
+          uploadSuccessList: this.state.uploadSuccessList
+        })
       })
-    })
-    this.state.uploadSuccessList.unshift({
-      fileName,
-      fileSize,
-      fileMd5,
-    })
-    this.setState({
-      uploadSuccessList: this.state.uploadSuccessList
-    })
+    } else {
+      console.log('文件未上传！')
+    }
   }
-  uploadChange = () => {
+  uploadChange = (e) => {
     console.log('选择文件！')
-    this.setState({
-      uploadStart: true
-    })
+    const arr = e.name.split('.')
+    const type = arr[arr.length-1]
+    if(type === 'MP4' || type === 'mp4' || type === 'ts' || type === 'avi' || type === 'mkv' || type === 'rmvb' || type === 'mov' || type === 'flv' || type === '3gp' || type === 'asf' || type === 'wmv'){
+      this.setState({
+        uploadStart: true,
+        isType: true,
+      })
+    } else {
+      alert('目前支持的视频格式为：mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv、MP4，请上传知道格式的视频文件！')
+      this.setState({
+        isType: false,
+      })
+    }
   }
   uploadProgress = (percent) => {
-    console.log(percent)
     this.setState({
       percent
     })
   }
+  deleteDownloadRecord = (el) => {
+    const arr = this.state.uploadSuccessList
+    for(let i=0;i<this.state.uploadSuccessList.length;i++){
+      console.log(i)
+      if(arr[i].fileMd5 === el){
+        arr.splice(i,1)
+        this.setState({
+          uploadSuccessList: arr,
+        })
+      }
+    }
+  }
   render () {
-    const { percent, uploadStart, uploadSuccessList, videoInfo } = this.state;
+    const { percent, uploadStart, uploadSuccessList } = this.state;
     return(
       <div className='wrapper'>
       <div className='backcolor' />
@@ -67,13 +90,13 @@ class Index extends Component {
               <p className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</p>
               {/* <DropFile start='ssss' /> */}
               <Upload disabled={false}
-                      accept='*'
+                      accept='video/*'
                       onChange={this.uploadChange}
                       onProgress={this.uploadProgress}
                       onSuccess={this.uploadSuccess}>
                 <DropFile start={uploadStart} progress={percent} />
               </Upload>
-              <DownloadLists uploadSuccessList={uploadSuccessList} videoInfo={videoInfo} />
+              <DownloadLists uploadSuccessList={uploadSuccessList} callBack={this.deleteDownloadRecord} />
             </div>
           </div>
           <BottomFold />
