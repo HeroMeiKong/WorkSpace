@@ -1,4 +1,4 @@
-.header{
+.header {
   width: 100%;
   height: 85px;
   background-color: rgba(45, 50, 160, 1);
@@ -8,14 +8,16 @@
   position: fixed;
   top: 0;
   z-index: 10;
-  & .content{
+
+  & .content {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #ffffff;
-    .logo{
+
+    .logo {
       background: url('../../assets/images/LOGO1@2x.png') center/100% no-repeat;
       display: flex;
       justify-content: center;
@@ -24,7 +26,24 @@
       height: 33px;
       margin-left: 10px
     }
-    .header_menu{
+
+    .header_web {
+      height: 100%;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 300;
+      letter-spacing: 1px;
+      padding: 0 10px;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, .1);
+        cursor: pointer;
+      }
+    }
+
+    .header_menu {
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -33,5 +52,6 @@
       position: relative;
     }
   }
-  border-bottom: 1px solid rgba(255,255,255,.2);
+
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
 }

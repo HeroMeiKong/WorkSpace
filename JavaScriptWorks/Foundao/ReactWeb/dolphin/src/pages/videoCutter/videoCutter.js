@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import './index.scss'
+import './videoCutter.scss'
 import Header from '@/components/Header/Header'
 import DropFile from '@/components/DropFile/DropFile'
+import ControllerVideo from '@/components/ControllerVideo/ControllerVideo'
 import DownloadLists from '@/components/DownloadLists/DownloadLists'
-import BottomFold from '@/components/BottomFold/BottomFold'
-import BottomContents from '@/components/BottomContents/BottomContents'
-import BottomBar from '@/components/BottomBar/BottomBar'
 import Upload from '@/components/Upload'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
@@ -19,6 +17,9 @@ class Index extends Component {
       uploadStart: false,
       isType: false,
       uploadSuccessList: [],
+      size: 0,
+      cutterVideo: false,
+      src: 'https://s-js.sports.cctv.com/host/transCodeV5/2019/03/20/15530650994946.mp4'
     }
   }
   uploadSuccess = (fileName, fileSize, fileMd5)=> {
@@ -39,7 +40,8 @@ class Index extends Component {
         })
         this.setState({
           index: this.state.index+1,
-          uploadSuccessList: this.state.uploadSuccessList
+          uploadSuccessList: this.state.uploadSuccessList,
+          cutterVideo: true,
         })
         console.log('arr',this.state.uploadSuccessList)
       })
@@ -49,13 +51,14 @@ class Index extends Component {
   }
   uploadChange = (e) => {
     console.log('选择文件！')
-    console.log(e)
+    const size = (e.size/(1024*1024)).toFixed(2)
     const arr = e.name.split('.')
     const type = arr[arr.length-1]
     if(type === 'MP4' || type === 'mp4' || type === 'ts' || type === 'avi' || type === 'mkv' || type === 'rmvb' || type === 'mov' || type === 'flv' || type === '3gp' || type === 'asf' || type === 'ASF' || type === 'wmv'){
       this.setState({
         uploadStart: true,
         isType: true,
+        size
       })
     } else {
       alert('目前支持的视频格式为：mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv、MP4，请上传知道格式的视频文件！')
@@ -70,10 +73,8 @@ class Index extends Component {
     })
   }
   deleteDownloadRecord = (el) => {
-    console.log(el)
     const arr = this.state.uploadSuccessList
     for(let i=0;i<this.state.uploadSuccessList.length;i++){
-      console.log(i)
       if(arr[i].fileMd5 === el){
         arr.splice(i,1)
         this.setState({
@@ -82,31 +83,49 @@ class Index extends Component {
       }
     }
   }
+  reupload = () => {
+    console.log('reupload')
+    this.setState({
+      cutterVideo: false,
+    })
+  }
   render () {
-    const { percent, uploadStart, uploadSuccessList } = this.state;
+    const { percent, uploadStart, uploadSuccessList, size, cutterVideo, src } = this.state;
     return(
       <div className='wrapper'>
       <div className='backcolor' />
         <Header />
         <div className='wrapper_content'>
           <div className='content index_div'>
+          {cutterVideo ? <div className='content_inner'><ControllerVideo src={src} uploadSuccessList={uploadSuccessList} reupload={this.reupload} /></div> : 
             <div className='content_inner'>
-              <p className='content_header'>DOLPHIN MP4 CONVERTOR</p>
+              <p className='content_header'>DOLPHIN VIEDEO CUTTER</p>
               <p className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</p>
-              {/* <DropFile start='ssss' /> */}
-              <Upload disabled={false}
-                      accept='video/*'
-                      onChange={this.uploadChange}
-                      onProgress={this.uploadProgress}
-                      onSuccess={this.uploadSuccess}>
-                <DropFile start={uploadStart} progress={percent} />
-              </Upload>
-              <DownloadLists uploadSuccessList={uploadSuccessList} callBack={this.deleteDownloadRecord} />
-            </div>
+                <Upload disabled={false}
+                        accept='video/*'
+                        onChange={this.uploadChange}
+                        onProgress={this.uploadProgress}
+                        onSuccess={this.uploadSuccess}>
+                  <DropFile start={uploadStart} progress={percent} />
+                </Upload>
+                {uploadStart ? 
+                <div className='videoCutter_bottom'>
+                  <div className="videoCutter_bottom_notice">The video you uploaded is 1:00:00,{size}MB, After uploading, you can cut your video.</div>
+                  <div className="videoCutter_bottom_recommand">
+                    <div className="recommand_top">
+                      <div className="recommand_top_text">RECOMMAND</div>
+                      <div className="recommand_top_line"></div>
+                    </div>
+                    <div className="recommand_bottom">
+                      <div className="recommand_img"></div>
+                      <div className="recommand_text">The video you uploaded is 1:00:00,30MB, After uploading, you can cut your video.</div>
+                    </div>
+                  </div>
+                </div>
+                : ''}
+              {/* <DownloadLists uploadSuccessList={uploadSuccessList} callBack={this.deleteDownloadRecord} /> */}
+            </div>}
           </div>
-          <BottomFold />
-          <BottomContents />
-          <BottomBar />
         </div>
       </div>
     )

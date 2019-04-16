@@ -1,0 +1,73 @@
+.player{
+  width: 800px;
+  height: 100%;
+  position: relative;
+  color: #ffffff;
+  video{
+    width: 100%;
+  }
+  .controls{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: url('../../assets/images/player_images/5mengbanxia.png') center/100% no-repeat;
+    .play{
+      width: 40px;
+      height: 40px;
+      background: url('../../assets/images/player_images/5bofang.png') center/100% no-repeat;
+      &:hover{cursor: pointer;}
+      transition: all .3s;
+    }
+    .pause{
+      width: 40px;
+      height: 40px;
+      background: url('../../assets/images/player_images/5zanting.png') center/100% no-repeat;
+      &:hover{cursor: pointer;}
+      transition: all .3s;
+    }
+    .current_time{
+      width: 20px;
+    }
+    .progressbar{
+      width: 50%;
+      position: relative;
+      display: flex;
+      align-self: center;
+      .progress{
+        width: 100%;
+        background-color: #ffffff;
+        height: 4px;
+        border-radius: 2px;
+      }
+      .line{
+        width: 50%;
+        background-color: #ffb400;
+        height: 4px;
+        border-radius: 2px;
+        // transition: all .1s;
+      }
+      .control{
+        position: absolute;
+        // transform: translateY(-8px);
+        width: 20px;
+        height: 20px;
+        // transition: all .1s;
+        background: url('../../assets/images/player_images/5huakuai.png') center/100% no-repeat;
+        &:hover{cursor: pointer;}
+      }
+    }
+    .total_time{
+      width: 20px;
+    }
+    .fullscreen{
+      width: 40px;
+      height: 40px;
+      background: url('../../assets/images/player_images/5quanping.png') 100% no-repeat;
+      &:hover{cursor: pointer;}
+    }
+  }
+}

@@ -35,7 +35,7 @@ class DownloadList extends Component {
       transCode({
         fileName: fileName,  // 文件名
         fileSize: fileSize,  // 文件大小
-        fileMd5: fileMd5,    // 文件md5
+        fileMd5: fileMd5.substring(0,32),    // 文件md5
         outWidth: (useProps ? width : videoWidth),     // 导出视频宽度
         outHeight: (useProps ? height : videoHeight),    // 导出视频高度
         transSuccess: this.transSuccess,    // 转码成功 回调
@@ -57,6 +57,7 @@ class DownloadList extends Component {
 
   transFail = (msg) => {
     console.log('转码失败:-->', msg);
+    alert('转码失败！请待会儿重试！')
     this.setState({
       isTransing: false
     })

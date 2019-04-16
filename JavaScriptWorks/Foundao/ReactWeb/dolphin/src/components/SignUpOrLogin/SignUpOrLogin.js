@@ -15,9 +15,8 @@ class SignUpOrLogin extends Component {
     let that = this
 				gapi.load('auth2', function(){
 				auth2 = gapi.auth2.init({
-          apiKey: 'VU9rt21PAbsJOtxy1JfO7-hW',
-          client_id: '810469267911-5uopscl1krv0v6sdjk2a031s6fkqs1k3.apps.googleusercontent.com',//本地
-          // client_id: '810469267911-sdhbjh5h7n4hnsbj1d77s6c18emo6t8q.apps.googleusercontent.com',//线上
+          // client_id: '1020121596969-fs820cldgmpbmalampuh8skkri0dehb8.apps.googleusercontent.com',//本地
+          client_id: '1020121596969-fr04mgi91l2fa0ksoe39a236cbfe3ne6.apps.googleusercontent.com',//线上
 					cookiepolicy: 'single_host_origin',
 				})
 				that.attachSignin(document.getElementById('login_google'));

@@ -35,6 +35,9 @@ class Header extends Component {
       <div className='header'>
         <div className='content'>
           <div className='logo'></div>
+          <div className='header_web'>MP4 CONVERTOR</div>
+          <div className='header_web'>VIDEO CUTTER</div>
+          <div className='header_web'>WATERMARK</div>
           <div className='header_menu'>
             <HeaderOption title={'PRICING'} callBack={this.purchase} />
             {isLogin ? <div><HeaderOption /> <Avatar /></div> : <HeaderOption title={'SIGN IN'} callBack={this.showLogin} />}

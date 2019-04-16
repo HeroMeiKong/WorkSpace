@@ -58,8 +58,8 @@
             loginType: 'FACEBOOK'
           }
           console.log('Successful login for UserInfo: ' + JSON.stringify(data));
-          document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
+          // document.getElementById('status').innerHTML =
+          //   'Thanks for logging in, ' + response.name + '!';
         });
       }
     </script>
@@ -67,7 +67,7 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-    <div id="status"></div>
+    <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+    <div id="status"></div> -->
   </body>
 </html>
