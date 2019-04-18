@@ -106,7 +106,7 @@ class Index extends Component {
                         onChange={this.uploadChange}
                         onProgress={this.uploadProgress}
                         onSuccess={this.uploadSuccess}>
-                  <DropFile start={uploadStart} progress={percent} />
+                  <DropFile start={uploadStart} progress={percent} src={'path2'} />
                 </Upload>
                 {uploadStart ? 
                 <div className='videoCutter_bottom'>

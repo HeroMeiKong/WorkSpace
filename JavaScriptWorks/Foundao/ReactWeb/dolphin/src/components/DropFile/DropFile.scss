@@ -1,16 +1,15 @@
 .dropfile {
   width: 396px;
-  // border: 2px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  border: 2px solid rgba(255, 255, 255, 1);
+  border: 2px dashed rgba(255, 255, 255, 1);
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
 
   & .drop_tip {
     font-weight: 500;
-    padding-top: 53px;
     font-size: 16px;
   }
 
@@ -22,8 +21,9 @@
 
   & .drop_waiting {
     font-weight: 500;
-    padding-top: 55px;
     font-size: 16px;
+    position: absolute;
+    bottom: 0;
   }
 }
 
@@ -32,23 +32,11 @@
   margin-top: 77px;
 
   &>.dolpin {
-    width: 292px;
-    height: 284px;
-    background-image: url('../../assets/images/LOGO@2x.png');
+    width: 396px;
+    height: 217px;
     background-repeat: no-repeat;
     background-size: 100%;
-    position: absolute;
-    transform: translate(55px, -65px);
-  }
-
-  &>.file {
-    margin-top: 58px;
-    width: 65px;
-    height: 63px;
-    background-image: url('../../assets/images/file_icon@2x.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    z-index: 1;
+    transform: translate(0, -60px);
   }
 
   &>.droptips {
@@ -56,6 +44,8 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: absolute;
+    bottom: 12px;
   }
 }
 
@@ -64,26 +54,21 @@
   margin-top: 52px;
 
   &>.dolpin {
-    width: 146px;
-    height: 142px;
-    background-image: url('../../assets/images/LOGO1_small_icon@2x.png');
+    width: 100%;
+    height: 100%;
     background-repeat: no-repeat;
     background-size: 100%;
     position: absolute;
-    transform: translate(30px, -39px);
-  }
-
-  &>.file {
-    margin-top: 16px;
-    width: 33px;
-    height: 32px;
-    background-image: url('../../assets/images/file_small_icon@2x.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    z-index: 1;
+    transform: translate(0, -39px);
   }
 
   &>.droptips {
     z-index: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    bottom: 12px;
   }
 }

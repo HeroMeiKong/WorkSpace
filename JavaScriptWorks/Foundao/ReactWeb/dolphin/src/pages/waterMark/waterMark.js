@@ -18,7 +18,7 @@ class Index extends Component {
       isType: false,
       uploadSuccessList: [],
       size: 0,
-      cutterVideo: false,
+      waterMark: false,
       src: 'https://s-js.sports.cctv.com/host/transCodeV5/2019/03/20/15530650994946.mp4',
       screen: {}
     }
@@ -61,7 +61,7 @@ class Index extends Component {
         this.setState({
           index: this.state.index+1,
           uploadSuccessList: this.state.uploadSuccessList,
-          cutterVideo: true,
+          waterMark: true,
           src: 'http://192.168.100.3/org/%E6%97%A0%E8%80%BB%E5%AE%B6%E5%BA%AD.Shameless.US.S09E13.720p-%E5%A4%A9%E5%A4%A9%E7%BE%8E%E5%89%A7%E5%AD%97%E5%B9%95%E7%BB%84.mp4',
         })
         console.log('arr',this.state.uploadSuccessList)
@@ -107,27 +107,27 @@ class Index extends Component {
   reupload = () => {
     console.log('reupload')
     this.setState({
-      cutterVideo: false,
+      waterMark: false,
     })
   }
   render () {
-    const { percent, uploadStart, uploadSuccessList, screen, cutterVideo, src } = this.state;
+    const { percent, uploadStart, uploadSuccessList, screen, waterMark, src } = this.state;
     return(
       <div className='wrapper'>
       <div className='backcolor' />
         <Header />
         <div className='wrapper_content'>
           <div className='content index_div'>
-          {cutterVideo ? <div className='content_inner'><WaterMark src={src} uploadSuccessList={uploadSuccessList} reupload={this.reupload} screen={screen} /></div> : 
+          {waterMark ? <div className='content_inner'><WaterMark src={src} uploadSuccessList={uploadSuccessList} reupload={this.reupload} screen={screen} /></div> : 
             <div className='content_inner'>
-              <p className='content_header'>DOLPHIN VIEDEO CUTTER</p>
+              <p className='content_header'>DOLPHIN WATERMARK</p>
               <p className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</p>
                 <Upload disabled={false}
                         accept='video/*'
                         onChange={this.uploadChange}
                         onProgress={this.uploadProgress}
                         onSuccess={this.uploadSuccess}>
-                  <DropFile start={uploadStart} progress={percent} />
+                  <DropFile start={uploadStart} progress={percent} src={'path3'} />
                 </Upload>
               {/* <DownloadLists uploadSuccessList={uploadSuccessList} callBack={this.deleteDownloadRecord} /> */}
             </div>}

@@ -99,7 +99,7 @@ class Index extends Component {
                       onChange={this.uploadChange}
                       onProgress={this.uploadProgress}
                       onSuccess={this.uploadSuccess}>
-                <DropFile start={uploadStart} progress={percent} />
+                <DropFile start={uploadStart} progress={percent} src={'path1'} />
               </Upload>
               <DownloadLists uploadSuccessList={uploadSuccessList} callBack={this.deleteDownloadRecord} />
             </div>

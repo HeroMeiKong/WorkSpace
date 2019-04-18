@@ -20,30 +20,27 @@
       .markpic{
         position: absolute;
         top: 0;
-        left: 0;
-        border: 1px solid #fff;
-        width: 80px;
-        height: 70px;
         border: 2px dashed #F25F5D;
         background-size: 100%;
         background-repeat: no-repeat;
         background-position: center;
+        &:hover{cursor: pointer;}
       }
       .removepic{
         position: absolute;
-        top: 100px;
+        top: 0;
         border: 2px dashed #F25F5D;
-        width: 80px;
-        height: 70px;
         background-color: rgba(0, 0, 0, 0.5);
+        &:hover{cursor: pointer;}
       }
       .scalepic{
         position: absolute;
-        top: -7px;
+        bottom: -7px;
         right: -7px;
-        border: 1px solid #fff;
         width: 14px;
         height: 14px;
+        &:hover{cursor: pointer;}
+        background: url('../../assets/images/fangda_icon@2x.png') center/100% no-repeat;
       }
     }
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Avatar.scss'
-const avatar = require('@/assets/images/file_icon@2x.png')
+const avatar = require('@/assets/images/LOGO1_small.png')
 const avatar_arrow = require('@/assets/images/down_yellow_icon@2x.png')
 
 class Avatar extends Component {
