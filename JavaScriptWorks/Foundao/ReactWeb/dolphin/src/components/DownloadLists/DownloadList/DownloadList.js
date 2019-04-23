@@ -32,12 +32,15 @@ class DownloadList extends Component {
     if(videoWidth > width || videoHeight > height){
       alert(width+'是最大宽度！'+height+'是最大高度！')
     } else {
-      transCode({
-        fileName: fileName,  // 文件名
-        fileSize: fileSize,  // 文件大小
-        fileMd5: fileMd5.substring(0,32),    // 文件md5
+      const transOptions = {
+        inFileName: fileName,  // 文件名
+        inFileSize: fileSize,  // 文件大小
+        inFileMd5: fileMd5.substring(0,32),    // 文件md5
         outWidth: (useProps ? width : videoWidth),     // 导出视频宽度
         outHeight: (useProps ? height : videoHeight),    // 导出视频高度
+      }
+      transCode({
+        transOptions,
         transSuccess: this.transSuccess,    // 转码成功 回调
         transFail: this.transFail,       // 转码失败 回调
         transProgress: this.transProgress,    // 转码中 回调
@@ -69,11 +72,13 @@ class DownloadList extends Component {
       progress: parseInt(msg)
     })
   };
+
   handleChange = (key,e) => {
     this.setState({
       [key]: e.target.value
     })
   }
+
   changeDPI ({width,height},i,e) {
     console.log(e.target.className)
     this.setState({
@@ -84,6 +89,7 @@ class DownloadList extends Component {
       useProps: false
     })
   }
+
   changeCustomize = () => {
     const { width, height } = this.props.videoInfo
     this.setState({
@@ -94,6 +100,7 @@ class DownloadList extends Component {
       videoHeight: height,
     })
   }
+
   downloadVideo = () => {
     const {video_url} = this.state
     console.log(video_url,'111')
@@ -101,9 +108,11 @@ class DownloadList extends Component {
       window.open('about:blank').location.href=video_url
     }
   }
+
   deleteMe = () => {
     this.props.callBack()
   }
+
   convertSuccess = () => {
     const {progress} = this.state
     return <Fragment>
@@ -112,6 +121,7 @@ class DownloadList extends Component {
             {progress >= 100 ? <div className="download_list_delete" onClick={this.deleteMe}></div> : ''}
           </Fragment>
   }
+
   isCovertVideo = () => {
     const { width, height } = this.props.videoInfo
     const { videoWidth, videoHeight, outoption_options, active_outoption, customize, useProps } = this.state
@@ -144,6 +154,7 @@ class DownloadList extends Component {
               </div>
             </Fragment>
   }
+  
   render () {
     const { fileName } = this.props.data;
     const { isTransing } = this.state

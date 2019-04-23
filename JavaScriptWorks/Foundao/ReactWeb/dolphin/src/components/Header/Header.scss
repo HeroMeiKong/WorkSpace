@@ -29,17 +29,22 @@
 
     .header_web {
       height: 100%;
-      font-size: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: 300;
-      letter-spacing: 1px;
-      padding: 0 10px;
-      
-      &:hover {
-        background-color: rgba(0, 0, 0, .1);
-        cursor: pointer;
+      a{
+        height: 100%;
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 300;
+        letter-spacing: 1px;
+        padding: 0 10px;
+        color: rgba(255,255,255,.8);
+        text-decoration: none;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, .1);
+          cursor: pointer;
+        }
       }
     }
 
@@ -50,6 +55,7 @@
       align-items: center;
       height: 100%;
       position: relative;
+      a{ height: 100%; }
     }
   }
 

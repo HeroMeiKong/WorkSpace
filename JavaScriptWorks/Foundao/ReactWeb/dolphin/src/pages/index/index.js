@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './index.scss'
+//pc端组件
 import Header from '@/components/Header/Header'
 import DropFile from '@/components/DropFile/DropFile'
 import DownloadLists from '@/components/DownloadLists/DownloadLists'
@@ -9,6 +10,9 @@ import BottomBar from '@/components/BottomBar/BottomBar'
 import Upload from '@/components/Upload'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
+//app端组件
+import Menu from '@/components/App/Menu/Menu'
+import AppDownloadLists from '@/components/App/DownloadLists/DownloadLists'
 
 class Index extends Component {
   constructor () {
@@ -51,14 +55,15 @@ class Index extends Component {
     console.log('选择文件！')
     console.log(e)
     const arr = e.name.split('.')
-    const type = arr[arr.length-1]
-    if(type === 'MP4' || type === 'mp4' || type === 'ts' || type === 'avi' || type === 'mkv' || type === 'rmvb' || type === 'mov' || type === 'flv' || type === '3gp' || type === 'asf' || type === 'ASF' || type === 'wmv'){
+    const type = arr[arr.length-1].toLowerCase()
+    console.log(type)
+    if(type === 'mp4' || type === 'ts' || type === 'avi' || type === 'mkv' || type === 'rmvb' || type === 'mov' || type === 'flv' || type === '3gp' || type === 'asf' || type === 'wmv'){
       this.setState({
         uploadStart: true,
         isType: true,
       })
     } else {
-      alert('目前支持的视频格式为：mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv、MP4，请上传知道格式的视频文件！')
+      alert('目前支持的视频格式为：mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv，请上传知道格式的视频文件！')
       this.setState({
         isType: false,
       })
@@ -85,15 +90,15 @@ class Index extends Component {
   render () {
     const { percent, uploadStart, uploadSuccessList } = this.state;
     return(
-      <div className='wrapper'>
-      <div className='backcolor' />
+      <div id='wrapper' className='wrapper'>
+        <div className='backcolor' />
         <Header />
+        <Menu />
         <div className='wrapper_content'>
           <div className='content index_div'>
             <div className='content_inner'>
               <p className='content_header'>DOLPHIN MP4 CONVERTOR</p>
               <p className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</p>
-              {/* <DropFile start='ssss' /> */}
               <Upload disabled={false}
                       accept='video/*'
                       onChange={this.uploadChange}
@@ -102,6 +107,7 @@ class Index extends Component {
                 <DropFile start={uploadStart} progress={percent} src={'path1'} />
               </Upload>
               <DownloadLists uploadSuccessList={uploadSuccessList} callBack={this.deleteDownloadRecord} />
+              <AppDownloadLists uploadSuccessList={uploadSuccessList} callBack={this.deleteDownloadRecord} />
             </div>
           </div>
           <BottomFold />

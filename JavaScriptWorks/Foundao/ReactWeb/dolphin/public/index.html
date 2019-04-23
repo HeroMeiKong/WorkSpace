@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1, maximum-scale=1"/>
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, minimum-scale=1, maximum-scale=1"/>
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>DOLPHIN MP4 CONVERTOR</title>
@@ -25,20 +25,20 @@
           statusChangeCallback(response);
         });
       }
-    
+
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '576325909555576',
-          cookie     : true,  // enable cookies to allow the server to access 
+          cookie     : true,  // enable cookies to allow the server to access
                               // the session
           xfbml      : true,  // parse social plugins on this page
           version    : 'v3.2' // The Graph API version to use for the call
         });
-    
+
         FB.getLoginStatus(function(response) {
           statusChangeCallback(response);
         });
-    
+
       };
       (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -47,7 +47,7 @@
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-    
+
       function testAPI() {
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {

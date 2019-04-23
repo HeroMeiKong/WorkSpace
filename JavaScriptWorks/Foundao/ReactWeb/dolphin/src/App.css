@@ -40,60 +40,98 @@
   width: 100%;
   margin-top: 85px;
 }
+.wrapper .content{
+  max-width: 1024px;
+}
 *{
   box-sizing: border-box;
   font-family: 'STHeiti Light [STXihei]','SimHei' !important;
 }
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
-  -webkit-appearance: none !important; 
+  -webkit-appearance: none !important;
 }
-@media screen and (max-width: 825px) {
-  #index_bottom_content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+@media screen and (max-width: 675px) {
+  #header{
+    display: none;
   }
-  #index_bottom_content .index_bottom_content_left{
-    padding-right: 0;
+  #wrapper .content_header{
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    padding-top: 0;
   }
-  #index_bottom_content .index_bottom_content_left img{
-    width: 187.5px;
-    height: 146px;
+  #wrapper .content_title{
+    font-size: .875rem;
+    font-weight: 200;
+    line-height: .875rem;
+    width: 80%;
   }
-  #index_bottom_content .index_bottom_content_right{
-    padding-left: 0;
+  #wrapper .dropfile_big{
+    width: 18.9375rem;
+    height: 10.375rem;
   }
-  #index_bottom_content .index_bottom_content_right img{
-    width: 187.5px;
-    height: 150px;
-    padding-top: 20px;
+  #wrapper .dropfile_small{
+    width: 18.9375rem;
+    height: 7.0625rem;
   }
-  #dropfile{
+  #wrapper .drop_tip{
+    display: none;
+  }
+  #wrapper .download_lists{
+    display: none;
+  }
+  #wrapper .download_lists_tip{
+    line-height:22px;
+    width: 90%;
+  }
+  #wrapper .bottom_fold,
+  #wrapper .index_content,
+  #wrapper .bottombar{
+    display: none;
+  }
+  #wrapper .content{
     width: 100%;
   }
-  #dropfile .dolpin {
-    width: 162px;
-    height: 157px;
-    transform: translate(30px, 10px);
+  #wrapper .myplan .line{
+    width: 80%;
   }
-  #dropfile .file {
-    margin-top: 75px;
-    width: 36px;
-    height: 35px;
+  #wrapper .myplan h1{
+    padding: 0 0 1rem 0;
+    font-size: 30px;
+    letter-spacing: 2px;
+  }
+  #wrapper .myplan h2{
+    padding: 1rem 0 1rem 0;
+    font-size: 20px;
+    font-weight: 200;
+  }
+  #wrapper .myplan p{
+    padding: .625rem 0;
+  }
+  #wrapper .myplan .upgrade{
+    padding: .375rem 1.75rem;
+  }
+  #wrapper .myplan .download_records{
+    width: 80%;
+    align-items: center;
+  }
+  #wrapper .myplan .download_record{
+    width: 100%;
   }
 }
-@media screen and (min-width: 826px) {
-  #index_bottom_content{
-    display: flex;
-    flex-direction: row;
+@media screen and (min-width: 676px) {
+  #app_menu{
+    display: none;
+  }
+  #wrapper .app_drop_tip{
+    display: none;
+  }
+  #wrapper .app_download_lists{
+    display: none;
   }
 }
 @media screen and (min-width: 768px) {
   
 }
 @media screen and (min-width: 992px) {
-  .content {
-    max-width: 960px;
-  }
+  
 }

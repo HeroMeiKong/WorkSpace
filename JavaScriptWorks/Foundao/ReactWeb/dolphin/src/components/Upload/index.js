@@ -3,6 +3,8 @@
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
+import httpRequest from '@/utils/httpRequest';
+import tools from '@/utils/tools';
 import './upload.scss';
 import _api from '@/config/api';
 /* eslint-disable */
@@ -65,6 +67,7 @@ class Upload extends Component {
               break;
             case "md5":
               g_filemd5 = jsonobj["data"];
+              _this.getToken(g_filemd5);
               break;
             // 后端进度
             case "uploaded":
@@ -90,6 +93,38 @@ class Upload extends Component {
         // console.log(error.filename, error.lineno, error.message);
       }
       workers[i] = worker;
+    }
+  };
+  // 获取上传文件token
+  getToken = (g_filemd5) => {
+    const userInfo = tools.getUserData_storage();
+    httpRequest({
+      url: 'http://cd.foundao.com:10080/foundao_api/cgi/upload/get_token',
+      type: 'post',
+      data: {
+        token: userInfo.token || 'a5422c67e4443b5a47833689013270881655cb9ad348',
+        file_md5: g_filemd5,
+        file_size: file.size,
+      },
+    }).done(resp => {
+      if (resp.code === '0') {
+        const {up_token} = resp.data;
+        this.start_upload(up_token);
+      } else {
+        alert(resp.msg);
+      }
+    })
+  };
+  // 开始上传
+  start_upload = (up_token) => {
+    for (let i = 0; i < workersLength; i++) {
+      const worker = workers[i];
+      worker.postMessage(
+        {
+          cmd: 'start',
+          data: up_token
+        }
+      );
     }
   };
   // 上传各种提示
@@ -158,11 +193,11 @@ class Upload extends Component {
           url: _api.webSorket,
           f: fileItem
         });
-      worker.postMessage(
-        {
-          cmd: 'start'
-        }
-      );
+      // worker.postMessage(
+      //   {
+      //     cmd: 'start'
+      //   }
+      // );
     }
   };
   // 文件上传input框发生改变

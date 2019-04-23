@@ -1,37 +1,45 @@
 import React, {Component} from 'react'
 import './SignUpOrLogin.scss'
+import tools from '@/utils/tools'
 import SignUpOrLoginCard from './SignUpOrLoginCard/SignUpOrLoginCard'
 import $ from 'jquery'
 
 // import { generateKeyPair } from 'crypto';
 const facebook = require('@/assets/images/facebook_icon@2x.png')
 const twitter = require('@/assets/images/twitter_icon@2x.png')
-const gapi = window.gapi
-let auth2 = {}
 let authWin = ''
 
 class SignUpOrLogin extends Component {
   constructor(props){
     super(props);
-    this.state = {}
+    this.state = {
+      protocol : '',
+      type : ''
+    }
+  }
+
+  componentWillMount() {
+    this.setState({
+      protocol : window.location.protocol, //http还是https
+    })
   }
 
   componentDidMount(){
+    const {protocol,type} = this.state
     window.getUserInfo = function (code) {
       authWin.close()
-      console.log(code)
       $.ajax({
-        url : '//cd.foundao.com:10081/foundao_api/login/dologin',
+        url : protocol === 'https:'? '//cd.foundao.com:10081/foundao_api/login/dologin' : '//cd.foundao.com:10080/foundao_api/login/dologin',
         dataType: 'json',
         type : 'POST',
         data : {
-          user_from : 6,
+          user_from : type,
           code  : code,
           redirect_url : 'https://cd.foundao.com:10081/foundao/dolphin/return.html'
         }
       }).done((res)=>{
         if(res.code /1 === 0){
-          localStorage.setItem('userInfo', JSON.stringify(res.data.data));
+          tools.setUserData_storage(res.data.data);
         }else {
           console.log(res.msg)
         }
@@ -41,29 +49,39 @@ class SignUpOrLogin extends Component {
     }
   }
 
-  triggerFather = (e) => {
-    this.props.callBack(e)
+  triggerFather = (el) => {
+    //登录成功触发父类方法
+    this.props.callBack(el)
   }
 
-  glogin = () => {
-    //获取地址
-    $.ajax({
-      url: '//cd.foundao.com:10081/foundao_api/login/get_auth_url',
-      type: 'POST',
-      dataType: 'json',
-      data: {
-        user_from: 6, //4邮箱 5facebook 6google
-        redirect_url: 'https://cd.foundao.com:10081/foundao/dolphin/return.html'   //回调地址，目前google只能是http://cd.foundao.com
-      }
-    }).done((res) => {
-      if (res.code / 1 === 0) {
-        const url = res.data  //呼起的授权地址
-        authWin = window.open(url, 'newWindow', "height=500, width=650, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=nom,left=100px,top=200px")
-      } else {
-        console.log(res.msg)
-      }
-    }).fail(() => {
-      console.log('内部服务器错误！')
+  loginSuccess = () => {
+    this.props.isLoginSuccess()
+  }
+
+  glogin = (type) => {
+    const {protocol} = this.state
+    this.setState({
+      type : type
+    },()=>{
+      //获取地址
+      $.ajax({
+        url: protocol === 'https:' ? '//cd.foundao.com:10081/foundao_api/login/get_auth_url':'//cd.foundao.com:10080/foundao_api/login/get_auth_url',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          user_from: type ? type : '', //4邮箱 5facebook 6google
+          redirect_url: 'https://cd.foundao.com:10081/foundao/dolphin/return.html'   //回调地址，目前google只能是http://cd.foundao.com
+        }
+      }).done((res) => {
+        if (res.code / 1 === 0) {
+          const url = res.data  //呼起的授权地址
+          authWin = window.open(url, 'newWindow', "height=500, width=650, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=nom,left=100px,top=200px")
+        } else {
+          console.log(res.msg)
+        }
+      }).fail(() => {
+        console.log('内部服务器错误！')
+      })
     })
   }
   // glogin = () => {
@@ -122,12 +140,12 @@ class SignUpOrLogin extends Component {
               <div className="sol_top_img"></div>
               <div className="sol_top_title">MP4·DOLPHIN</div>
             </div>
-            <SignUpOrLoginCard sol={show}/>
+            <SignUpOrLoginCard sol={show} callBack={this.loginSuccess} />
             <div className="sol_bottom">
               <div className="sol_bottom_title">Or login with:</div>
-              <img alt='facebook' src={facebook} className="sol_bottom_img"></img>
+              <img alt='facebook' src={facebook} className="sol_bottom_img" onClick={this.glogin.bind(this,5)}></img>
               <img alt='twitter' src={twitter} className="sol_bottom_img"></img>
-              <div id='login_google' data-onsuccess="onSignIn" onClick={this.glogin}>google</div>
+              <div id='login_google' data-onsuccess="onSignIn" onClick={this.glogin.bind(this,6)}>google</div>
               {/* <button onlogin="checkLoginState();">Facebook</button> */}
             </div>
           </div>

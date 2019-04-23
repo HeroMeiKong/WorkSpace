@@ -109,11 +109,12 @@
       }
     }
 
-    .sign_up {
+    .sign_out_box {
       padding: 5px 18px;
       display: flex;
+      &:hover{cursor: pointer;}
 
-      .sign_up_img {
+      .sign_out_img {
         width: 22px;
         height: 22px;
         background: url('../../assets/images/Signout_icon@2x.png') center/100% no-repeat;

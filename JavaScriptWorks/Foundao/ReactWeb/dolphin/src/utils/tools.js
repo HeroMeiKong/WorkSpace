@@ -1,19 +1,6 @@
 /**
  * Created by DELL on 2017/12/7.
  */
-
-// 获取用户本地信息
-const getUserData_storage = function () {
-  const userInfo_string_escape = localStorage.getItem('xinhua_userInfo');
-
-  let userInfo = {};
-  if (userInfo_string_escape) {
-    // 进行过编码处理 需要解密
-    let userInfo_string = window.decodeURIComponent(userInfo_string_escape);
-    userInfo = JSON.parse(userInfo_string);
-  }
-  return userInfo;
-};
 const tools = {
   addEventHandler: (target, type, fn) => {
     if (target.addEventListener) {
@@ -180,54 +167,25 @@ const tools = {
       content_loading.style.display = 'none';
     }
   },
+  // 设置本地用户信息
+  setUserData_storage: function (userInfo = {}) {
+    console.log('userInfo',userInfo)
+    localStorage.setItem('dolphin_userInfo', window.encodeURIComponent(JSON.stringify(userInfo)));
+  },
   // 获取storage 的用户信息
-  getUserData_storage: getUserData_storage,
+  getUserData_storage: function () {
+    const userInfo_string_escape = localStorage.getItem('dolphin_userInfo');
+    let userInfo = {};
+    if (userInfo_string_escape) {
+      // 进行过编码处理 需要解密
+      let userInfo_string = window.decodeURIComponent(userInfo_string_escape);
+      userInfo = JSON.parse(userInfo_string);
+    }
+    return userInfo;
+  },
   // 移除 storage 的用户信息
   removeUserData_storage: function () {
-    localStorage.removeItem('xinhua_userInfo');
-    localStorage.removeItem('xinhua_lastOperation');
-  },
-  /*
-   * 权限验证， 判断用户是否有该按钮权限
-   * @btn_name 按钮名称
-   * @scope 组件内部this  // 通过scope.props.location.pathname 获取当前路由信息
-   * */
-  validatePower(btn_name, scope) {
-    let path = '';
-    if (scope && scope.props && scope.props.location) {
-      path = scope.props.location.pathname;
-    }
-    const userInfo = getUserData_storage();
-
-    const nodes = userInfo.nodes;
-
-    // 是否有权限
-    let hasPower = false;
-
-    if (nodes) {
-      nodes.forEach((item) => {  // 一级菜单
-        if (item.child) {
-          item.child.forEach((secondItem) => {  // 二级菜单
-            if (path === secondItem.webRoute && secondItem.child) {
-              secondItem.child.forEach((thirdItem) => {        // 按钮
-                // if (thirdItem.child) {
-                //   thirdItem.child.forEach((btnItem) => {
-                //     if (btn_name === btnItem.btn) {
-                //       hasPower = true
-                //     }
-                //   })
-                // }
-
-                if (thirdItem.webButton === btn_name) {
-                  hasPower = true
-                }
-              })
-            }
-          })
-        }
-      })
-    }
-    return hasPower
+    localStorage.removeItem('dolphin_userInfo');
   },
 };
 

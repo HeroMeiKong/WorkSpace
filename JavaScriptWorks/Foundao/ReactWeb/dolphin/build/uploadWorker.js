@@ -122,6 +122,7 @@
   }))
 }();
 var g_uploader = null;
+var g_up_token = ''; // 上传文件token
 self.addEventListener('message', function (e) {
   var json = e.data;
   switch (json.cmd) {
@@ -133,6 +134,8 @@ self.addEventListener('message', function (e) {
       break;
     case 'start':
       if (g_uploader != null) {
+        g_up_token = json.data;
+
         g_uploader.start();
       }
       break;
@@ -147,6 +150,7 @@ function Uploader(id, usr, ps, url, file) {
   g_id = id;
   g_user = usr;
   g_pass = ps;
+
   g_url = url;
   g_file = file;
   g_reader = new FileReader();
@@ -206,8 +210,10 @@ Uploader.prototype = (function () {
   function requestCheck() {
     if (!g_checked) {
       var seconds = parseInt(new Date().getTime() / 1000);
-      var checkstr = md5(seconds + g_pass);
-      var info = '{"id":"' + g_id + '","msg":"check","data":{"user":"' + g_user + '","salt":"' + seconds + '","check":"' + checkstr + '","md5":"' + g_md5 + '","name":"' + g_filename + '","size":"' + g_total + '"}}';
+      // var checkstr = md5(seconds + g_pass);
+      var checkstr = md5(seconds + g_up_token);
+      // console.log(g_up_token, '3');
+      var info = '{"id":"' + g_id + '","msg":"check","data":{"user":"' + g_user + '","token":"' + g_up_token + '","salt":"' + seconds + '","check":"' + checkstr + '","md5":"' + g_md5 + '","name":"' + g_filename + '","size":"' + g_total + '"}}';
       //console.log("send:" + info);
       if (g_ws != null) {
         if (g_ws.readyState === 1) { // 1 - 表示连接已建立，可以进行通信。
@@ -242,7 +248,7 @@ Uploader.prototype = (function () {
     var blob;
     var read_end = g_partend;
     if (g_start + g_step < g_partend) { // 读取到指定位置
-      read_end  = g_start + g_step;
+      read_end = g_start + g_step;
     }
     blob = g_file.slice(g_start, read_end);
     g_reader.readAsArrayBuffer(blob);
@@ -277,13 +283,14 @@ Uploader.prototype = (function () {
         readBlob();
     }
   }
+
   // 发送上传进度
   function sendProgress() {
     var sended = g_start - g_ws.bufferedAmount;
     var sendSuccessPercent = sended / g_total; // 发送成功比例
     // var sendPercent = g_start / g_total;       //  发送比例
     var progress = (sendSuccessPercent * 100).toFixed(2);
-    var message  = {"msg":"progress","data":{"writed":sended,"progress": progress}};
+    var message = {"msg": "progress", "data": {"writed": sended, "progress": progress}};
     // 通知显示上传进度
     postMessage(message);
   }

@@ -26,9 +26,16 @@ class WaterMark extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     document.onmousemove = this.startMove;
     document.onmouseup = this.overMove;
+    // document.addEventListener('onmousemove',this.startMove)
+    // document.addEventListener('onmouseup',this.overMove)
+  }
+
+  componentWillUnmount() {
+    // document.removeEventListener('onmousemove',this.startMove)
+    // document.removeEventListener('onmouseup',this.overMove)
   }
 
   startMove = () => {

@@ -14,8 +14,12 @@ export default {
   // =============所有api在此处管理============
 
   // 系统管理
-  login: host + 'systemUser/login',                 // 用户登录
-  webSorket: 'ws://foundao.f3322.net:5001/',       // ws
+  // login: host + 'systemUser/login',                 // 用户登录
+  login: 'http://cd.foundao.com:10080/foundao_api/login/dologin',                 // 用户登录
+  signup: 'http://cd.foundao.com:10080/foundao_api/register/email',//邮箱注册
+  getToken: 'http://cd.foundao.com:10080/foundao_api/user/upload/get_token',//获取上传令牌
+  // webSorket: 'ws://foundao.f3322.net:5001/',       // ws
+  webSorket: 'ws://foundao.f3322.net:15001/',       // ws
   startTransCode: host + 'Transcode',              // 开始转码
   transCodeStatus: host + 'TranscodeStatus',       // 转码状态
   downloadVideo: host + 'DownloadVideo',           // 下载

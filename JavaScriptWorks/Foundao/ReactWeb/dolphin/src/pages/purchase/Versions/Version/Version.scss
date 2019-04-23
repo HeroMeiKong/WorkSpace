@@ -2,7 +2,6 @@
   width: 190px;
   background-color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(244, 248, 255, 1);
-  font-weight: 500;
   color: rgba(155, 155, 155, 1);
   display: flex;
   flex-direction: column;
@@ -22,20 +21,30 @@
     padding-top: 36px;
     position: relative;
     display: flex;
-    font-size: 60px;
+    align-items: center;
+    font-size: 30px;
     color: rgba(0, 0, 0, 1);
+    transform: translate(-20px,0);
 
+    strong{
+      font-size: 60px;
+      margin-left: 10px;
+    }
     div {
       font-size: 15px;
       position: absolute;
       left: 110%;
-      bottom: 5px;
+      top: 40%;
     }
   }
 
   .purchase_text {
     font-size: 15px;
     padding: 25px 0 10px 0;
+    text-align: center;
+    strong{
+      color: rgba(0, 0, 0, 1);
+    }
   }
 
   .purchase_capacity {

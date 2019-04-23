@@ -130,7 +130,7 @@ class ControllerVideo extends Component {
     this.props.reupload()
   }
   render () {
-    const { src, uploadSuccessList } = this.props
+    const { src } = this.props
     const { startTime, endTime, leftWidth, rightWidth } = this.state
     return (
       <div className='controller_video'>

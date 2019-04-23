@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import './user.scss'
+//pc端组件
 import Header from '@/components/Header/Header'
 import BottomBar from '@/components/BottomBar/BottomBar'
 import DownloadRecords from './DownloadRecords/DownloadRecords'
+//app端组件
+import Menu from '@/components/App/Menu/Menu'
 
 class User extends Component {
   render () {
     return(
-      <div className='wrapper'>
+      <div id='wrapper' className='wrapper'>
+        <div className='backcolor' />
         <Header />
+        <Menu />
         <div className='wrapper_content'>
           <div className='content'>
             <div className='myplan'>

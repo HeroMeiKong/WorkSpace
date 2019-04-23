@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import './videoCutter.scss'
+//pc端组件
 import Header from '@/components/Header/Header'
 import DropFile from '@/components/DropFile/DropFile'
 import ControllerVideo from '@/components/ControllerVideo/ControllerVideo'
-import DownloadLists from '@/components/DownloadLists/DownloadLists'
+// import DownloadLists from '@/components/DownloadLists/DownloadLists'
 import Upload from '@/components/Upload'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
+//app端组件
+import Menu from '@/components/App/Menu/Menu'
 
 class Index extends Component {
   constructor () {
@@ -53,8 +56,8 @@ class Index extends Component {
     console.log('选择文件！')
     const size = (e.size/(1024*1024)).toFixed(2)
     const arr = e.name.split('.')
-    const type = arr[arr.length-1]
-    if(type === 'MP4' || type === 'mp4' || type === 'ts' || type === 'avi' || type === 'mkv' || type === 'rmvb' || type === 'mov' || type === 'flv' || type === '3gp' || type === 'asf' || type === 'ASF' || type === 'wmv'){
+    const type = arr[arr.length-1].toLowerCase()
+    if(type === 'mp4' || type === 'ts' || type === 'avi' || type === 'mkv' || type === 'rmvb' || type === 'mov' || type === 'flv' || type === '3gp' || type === 'asf' || type === 'wmv'){
       this.setState({
         uploadStart: true,
         isType: true,
@@ -92,9 +95,10 @@ class Index extends Component {
   render () {
     const { percent, uploadStart, uploadSuccessList, size, cutterVideo, src } = this.state;
     return(
-      <div className='wrapper'>
+      <div id='wrapper' className='wrapper'>
       <div className='backcolor' />
         <Header />
+        <Menu />
         <div className='wrapper_content'>
           <div className='content index_div'>
           {cutterVideo ? <div className='content_inner'><ControllerVideo src={src} uploadSuccessList={uploadSuccessList} reupload={this.reupload} /></div> : 

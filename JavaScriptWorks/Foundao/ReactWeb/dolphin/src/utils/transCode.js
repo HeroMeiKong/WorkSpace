@@ -32,7 +32,7 @@ function ajax(url, fnSucc, fnFailed) {
 
 export default
 function startTransCode(options) {
-  const {fileName, fileSize, fileMd5, outWidth, outHeight, transSuccess, transFail, transProgress} = options;
+  const {transSuccess, transFail, transProgress, transOptions = {}} = options;
   let g_total_time = 0;      // 转码时间
   let g_trans_progress = 0; // 转码进度
   let g_trans_md5 = ''; // 转码md5
@@ -140,6 +140,7 @@ function startTransCode(options) {
     }
     // console.log('转码进度：--> ',msg)
   };
-  const url = _api.startTransCode + '?t_json={"inFileName":"' + fileName + '","inFileSize":"' + fileSize + '","inFileMd5":"' + fileMd5 + '","outWidth":"' + outWidth + '","outHeight":"' + outHeight + '"}';
+  const optionsJson = JSON.stringify(transOptions);
+  const url = `${_api.startTransCode }?t_json=${optionsJson}`;
   ajax(url, trans_begin, trans_fail);
 }
