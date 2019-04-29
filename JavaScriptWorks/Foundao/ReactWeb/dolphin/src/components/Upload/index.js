@@ -24,6 +24,7 @@ class Upload extends Component {
       fileUrl: '',        // 上传文件返回的地址
       isUploading: false, // 是否文件上传中
       percent: 0,         // 上传进度
+      token: '',//上传文件token
     }
   }
 
@@ -56,10 +57,8 @@ class Upload extends Component {
               showStatus(jsonobj["data"]);
               break;
             case "partfinish":
-              // console.log("part upload finished");
               break;
             case "finish":
-              // console.log("file upload finished");
               _this.uploadSuccess();
               showStatus("file size:" + file.size + ", uploaded:" + file.size + ", 100%");
               showProgress("100");
@@ -110,6 +109,9 @@ class Upload extends Component {
       if (resp.code === '0') {
         const {up_token} = resp.data;
         this.start_upload(up_token);
+        this.setState({
+          token: resp.data.up_token
+        })
       } else {
         this.uploadFail(resp.msg)
       }
@@ -222,7 +224,7 @@ class Upload extends Component {
     if (isUploading) {
       const {onSuccess} = this.props;
       if (onSuccess && typeof onSuccess === 'function') {
-        onSuccess(file.name, file.size, g_filemd5);
+        onSuccess(file.name, file.size, g_filemd5, this.state.token);
       }
     }
     this.setState({

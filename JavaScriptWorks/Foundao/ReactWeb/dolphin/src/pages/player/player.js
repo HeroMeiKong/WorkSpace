@@ -63,7 +63,6 @@ class Player extends Component {
   }
   currentTime = () => {
     if(!this.state.startMove){
-      console.log('currentTime')
       const myVideo = document.getElementById('myVideo');
       const progress = document.getElementById('progress');
       const width = progress.clientWidth
@@ -77,7 +76,6 @@ class Player extends Component {
   }
   gotoHere = (el) => {
     if(!this.state.startMove && el.target.className !== 'control'){
-      console.log('gotoHere')
       const myVideo = document.getElementById('myVideo');
       const progress = document.getElementById('progress');
       const width = progress.clientWidth
@@ -98,7 +96,6 @@ class Player extends Component {
     }
   }
   startWork = (el) => {
-    console.log('startWork')
     let e = window.event
     let x = e.pageX || e.clientX
     this.setState({
@@ -109,7 +106,6 @@ class Player extends Component {
   }
   startMove = (el) => {
     if(this.state.startMove){
-      console.log('startMove')
       const myVideo = document.getElementById('myVideo');
       const progress = document.getElementById('progress');
       const width = progress.clientWidth
@@ -137,7 +133,6 @@ class Player extends Component {
   }
   overMove = () => {
     if(this.state.startMove){
-      console.log('overMove')
       this.setState({
         startMove: false
       })
@@ -146,10 +141,8 @@ class Player extends Component {
   smallOrFull = (e) => {
     const myVideo = document.getElementById('myVideo');
     if(e.target.className === 'smallscreen'){
-      console.log('small')
       myVideo.webkitCancelFullScreen()
     } else {
-      console.log('full')
       myVideo.webkitRequestFullScreen()
     }
   }

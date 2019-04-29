@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import './DownloadList.scss'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
+import tools from '@/utils/tools'
 import transCode from '@/utils/transCode'
 import classNames from 'classnames'
 
@@ -25,11 +26,9 @@ class DownloadList extends Component {
   }
 
   startTransCode = () => {
-    const { fileName, fileSize, fileMd5 } = this.props.data;
+    const { fileName, fileSize, fileMd5, token } = this.props.data;
     const { width, height } = this.props.videoInfo
     const { videoWidth, videoHeight, useProps } = this.state;
-    console.log((useProps ? width : videoWidth),'原视频宽度')
-    console.log((useProps ? height : videoHeight),'原视频高度')
     if((videoWidth-0) > (width-0) || (videoHeight-0) > (height-0)){
       alert(width+'是最大宽度！'+height+'是最大高度！')
     } else {
@@ -39,6 +38,7 @@ class DownloadList extends Component {
         inFileMd5: fileMd5.substring(0,32),    // 文件md5
         outWidth: (useProps ? width : videoWidth),     // 导出视频宽度
         outHeight: (useProps ? height : videoHeight),    // 导出视频高度
+        token,
       }
       transCode({
         transOptions,
@@ -89,8 +89,6 @@ class DownloadList extends Component {
 
   changeCustomize = () => {
     const { width, height } = this.props.videoInfo
-    console.log('width123:',width)
-    console.log('height123:',height)
     this.setState({
       customize: true,
       active_outoption: '',

@@ -69,7 +69,6 @@ class SignUpOrLoginCard extends Component {
           user_passwd: that.state.newPassword
         }
       }).done( res => {
-        console.log('注册信息：',res)
         if(res.code === '0'){
           alert('注册成功！')
           this.setState({
@@ -97,7 +96,6 @@ class SignUpOrLoginCard extends Component {
         user_passwd: sha512(that.state.password)
       }
     }).done( res => {
-      console.log('登录信息',res)
       if(res.code === '0'){
         that.triggerFather()
         tools.setUserData_storage(res.data)
@@ -119,16 +117,13 @@ class SignUpOrLoginCard extends Component {
     // let reg = new RegExp("/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/"); //正则表达式
     let reg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/
     let obj = e.target.value
-    console.log(obj)
     if(obj === ""){ //输入不能为空
-    　　alert("输入不能为空!");
+    　　
     }else if(!reg.test(obj)){ //正则验证不通过，格式不对
-      console.log('fail')
     　　this.setState({
           isRightEmail: false
         })
     }else{
-      console.log('success')
       this.setState({
         isRightEmail: true
       })
@@ -137,7 +132,6 @@ class SignUpOrLoginCard extends Component {
 
   checkPassword = (e) => {
     if(this.state.newPassword === this.state.newConfirmation){
-      console.log('两次密码不一样！')
       this.setState({
         isRightNewPassword: false,
         samePassword: false

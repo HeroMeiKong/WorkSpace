@@ -27,13 +27,11 @@ class Index extends Component {
       uploadSuccessList: [],
     }
   }
-  uploadSuccess = (fileName, fileSize, fileMd5)=> {
+  uploadSuccess = (fileName, fileSize, fileMd5, token)=> {
     if(this.state.isType){
-      console.log('文件上传成功！')
       httpRequest({
         url: api.qureyMeidiaInfo,
         data: {
-          // inFileName: fileName,
           MD5: fileMd5
         },
       }).done(response => {
@@ -41,6 +39,7 @@ class Index extends Component {
           fileName,
           fileSize,
           fileMd5: fileMd5+this.state.index,
+          token,
           videoInfo: response || {width: 0,height: 0},
           isTransing: -1,//100:转码成功,0等待转码，-1初始，-2失败
         })
@@ -48,7 +47,6 @@ class Index extends Component {
           index: this.state.index+1,
           uploadSuccessList: this.state.uploadSuccessList
         })
-        console.log('arr',this.state.uploadSuccessList)
       }).fail(res => {
         console.log('connect server fail, please try to upload again!')
         this.setState({
@@ -61,7 +59,6 @@ class Index extends Component {
     }
   }
   uploadChange = (e) => {
-    console.log('选择文件！')
     const arr = e.name.split('.')
     const type = arr[arr.length-1].toLowerCase()
     if(type === 'mp4' || type === 'ts' || type === 'avi' || type === 'mkv' || type === 'rmvb' || type === 'mov' || type === 'flv' || type === '3gp' || type === 'asf' || type === 'wmv'){
@@ -92,7 +89,6 @@ class Index extends Component {
   deleteDownloadRecord = (el) => {
     const arr = this.state.uploadSuccessList
     for(let i=0;i<this.state.uploadSuccessList.length;i++){
-      console.log(i)
       if(arr[i].fileMd5 === el){
         arr.splice(i,1)
         this.setState({

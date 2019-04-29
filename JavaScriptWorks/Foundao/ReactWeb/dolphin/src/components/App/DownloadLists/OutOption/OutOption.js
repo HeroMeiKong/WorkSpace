@@ -10,7 +10,6 @@ class OutOption extends Component {
     }
   }
   covertVideo = () => {
-    console.log('开始转码视频！1')
     this.props.callBack()
   }
   render () {

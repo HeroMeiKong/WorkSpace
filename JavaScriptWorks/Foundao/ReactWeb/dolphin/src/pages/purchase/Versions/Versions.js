@@ -22,7 +22,6 @@ class Versions extends Component {
       url: api.getGoods,
     }).done(res => {
       if(res.code === '0'){
-        console.log(res)
         this.setState({
           versions: res.data,
           reset_versions: this.resetValue(res.data)
@@ -36,7 +35,6 @@ class Versions extends Component {
   }
 
   resetValue = (arr) => {
-    console.log('arr',arr)
     const length = arr.length
     let newArr = arr
     for(let i=0;i<length;i++){

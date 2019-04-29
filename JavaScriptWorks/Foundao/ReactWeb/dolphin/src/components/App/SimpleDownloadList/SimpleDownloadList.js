@@ -21,7 +21,6 @@ class DownloadList extends Component {
   }
 
   changeDPI ({width,height},i,e) {
-    console.log(e.target.className)
     this.setState({
       videoWidth: width,
       videoHeight: height,
@@ -33,7 +32,6 @@ class DownloadList extends Component {
 
   downloadVideo = () => {
     const {video_url} = this.state
-    console.log(video_url,'111')
     if(video_url){
       window.open('about:blank').location.href=video_url
     }

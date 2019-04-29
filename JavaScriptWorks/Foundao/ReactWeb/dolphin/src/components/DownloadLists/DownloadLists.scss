@@ -43,24 +43,21 @@
     }
   }
   .download_lists_button {
+    text-decoration: none;
     width: 100%;
-    a{
-      text-decoration: none;
-      width: 100%;
-      font-size: 16px;
-      font-weight: 300;
-      background: rgba(0, 0, 0, .1);
-      border-radius: 2px;
-      border: 1px solid rgba(255, 255, 255,.1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 6px 0;
-      margin-top: 10px;
-      &:hover{
-        cursor: pointer;
-        background:rgba(255,255,255,.1);
-      }
+    font-size: 16px;
+    font-weight: 300;
+    background: rgba(0, 0, 0, .1);
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255,.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0;
+    margin-top: 10px;
+    &:hover{
+      cursor: pointer;
+      background:rgba(255,255,255,.1);
     }
   }
 }

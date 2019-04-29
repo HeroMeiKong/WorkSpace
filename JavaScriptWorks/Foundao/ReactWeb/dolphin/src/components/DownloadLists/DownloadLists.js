@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './DownloadLists.scss'
+import tools from '@/utils/tools'
+import api from '@/config/api'
 import { Link } from 'react-router-dom'
 // import OutOption from './OutOption/OutOption'
 import DownloadList from './DownloadList/DownloadList'
@@ -12,15 +14,26 @@ class DownloadLists extends Component {
       // showOutOption: true
     }
   }
+
   startCovert (el,state) {
     //el表示当前视频md5，state表示转码成功还失败
-    console.log('开始转码视频！')
     this.props.startCovert(el,state)
-    // this.props.callBack(el)
   }
+
   deleteDownloadRecord (el) {
     this.props.callBack(el)
   }
+
+  moreFile = () => {
+    if(tools.getCapacity_storage().capacity > 0){
+      window.location.href = api.return_url+'#/user'
+    } else {
+      if (window.confirm('非会员用户不能查看记录，请充值查看！') === true) {
+        window.location.href = api.return_url+'#/purchase'
+      }
+    }
+  }
+
   render () {
     const { uploadSuccessList } = this.props
     // const { downloadList, showOutOption } = this.state
@@ -43,7 +56,7 @@ class DownloadLists extends Component {
                   startCovert={this.startCovert.bind(this,item.fileMd5)}
                   isTransing={item.isTransing} />
                 })}
-                {uploadSuccessList.length > 5 ? <div className='download_lists_button'><Link to='/user'>MY FILES</Link></div> : ''}
+                {uploadSuccessList.length > 5 ? <div className='download_lists_button' onClick={this.moreFile}>MY FILES</div> : ''}
               </div>
           }
         </div>

@@ -43,7 +43,6 @@ class ControllerVideo extends Component {
     }
   }
   startWork = (el) => {
-    console.log('startWork')
     let e = window.event
     let x = e.pageX || e.clientX
     this.setState({

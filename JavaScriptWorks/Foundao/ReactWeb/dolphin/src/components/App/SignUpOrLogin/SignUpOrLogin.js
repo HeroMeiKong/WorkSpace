@@ -25,28 +25,7 @@ class SignUpOrLogin extends Component {
   }
 
   componentDidMount(){
-    // const {protocol,type} = this.state
-    // window.getUserInfo = function (code) {
-    //   authWin.close()
-    //   $.ajax({
-    //     url : protocol === 'https:'? '//cd.foundao.com:10081/foundao_api/login/dologin' : '//cd.foundao.com:10080/foundao_api/login/dologin',
-    //     dataType: 'json',
-    //     type : 'POST',
-    //     data : {
-    //       user_from : type,
-    //       code  : code,
-    //       redirect_url : 'https://cd.foundao.com:10081/foundao/dolphin/return.html'
-    //     }
-    //   }).done((res)=>{
-    //     if(res.code /1 === 0){
-    //       localStorage.setItem('userInfo', JSON.stringify(res.data.data));
-    //     }else {
-    //       console.log(res.msg)
-    //     }
-    //   }).fail(()=>{
-    //     console.log('内部服务器错误！')
-    //   })
-    // }
+
   }
 
   triggerFather = (e) => {

@@ -169,7 +169,6 @@ const tools = {
   },
   // 设置本地用户信息
   setUserData_storage: function (userInfo = {}) {
-    console.log('userInfo',userInfo)
     localStorage.setItem('dolphin_userInfo', window.encodeURIComponent(JSON.stringify(userInfo)));
   },
   // 获取storage 的用户信息
@@ -189,7 +188,6 @@ const tools = {
   },
   // 设置本地用户信息
   setCapacity_storage: function (userInfo = {}) {
-    console.log('userInfo',userInfo)
     localStorage.setItem('dolphin_capacity', window.encodeURIComponent(JSON.stringify(userInfo)));
   },
   // 获取storage 的用户信息

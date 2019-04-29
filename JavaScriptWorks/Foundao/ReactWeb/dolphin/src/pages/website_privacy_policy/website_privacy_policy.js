@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './website_privacy_policy.scss'
 //pc端组件
 import Header from '@/components/Header/Header'
 import BottomBar from '@/components/BottomBar/BottomBar'

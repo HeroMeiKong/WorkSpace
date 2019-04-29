@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './BottomBar.scss'
-import BottomButton from './BottomButton/BottomButton'
 
 class BottomBar extends Component {
+  sendEmail = () => {
+    var who = 'kefu@foundao.com'
+    // var what = prompt("输入主题: ", "none");
+    if (window.confirm("您确定要向" + who + "发送邮件么?") === true) {
+        window.location.href = 'mailto:' + who + '?subject='
+    }
+  }
   render () {
     return (
       <div className='bottombar'>
-        <BottomButton content='About Us' />
-        <BottomButton content='Terms of Service' />
-        <Link to='./website_privacy_policy'><BottomButton content='Privacy Policy' /></Link>
-        <BottomButton content='Contact Us' />
-        <BottomButton content='Forum' />
+        <Link to='./about_us'><div className='BottomButton'>About Us</div></Link>
+        <Link to='./users_terms_and_conditions'><div className='BottomButton'>Terms of Service</div></Link>
+        <Link to='./website_privacy_policy'><div className='BottomButton'>Privacy Policy</div></Link>
+        <div className='BottomButton' onClick={this.sendEmail}>Contact Us</div>
+        <div className='BottomButton'>Forum</div>
       </div>
     )
   }

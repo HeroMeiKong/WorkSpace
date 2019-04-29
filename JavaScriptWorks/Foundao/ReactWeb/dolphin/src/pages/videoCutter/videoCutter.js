@@ -101,7 +101,6 @@ class Index extends Component {
     }
   }
   reupload = () => {
-    console.log('reupload')
     this.setState({
       cutterVideo: false,
     })

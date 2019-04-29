@@ -27,8 +27,6 @@ class DownloadList extends Component {
     const { fileName, fileSize, fileMd5 } = this.props.data;
     const { width, height } = this.props.videoInfo
     const { videoWidth, videoHeight, useProps } = this.state;
-    console.log((useProps ? width : videoWidth),'原视频宽度')
-    console.log((useProps ? width : videoWidth),'原视频高度')
     if(videoWidth > width || videoHeight > height){
       alert(width+'是最大宽度！'+height+'是最大高度！')
     } else {
@@ -77,7 +75,6 @@ class DownloadList extends Component {
   }
 
   changeDPI ({width,height},i,e) {
-    console.log(e.target.className)
     this.setState({
       videoWidth: width,
       videoHeight: height,
@@ -100,7 +97,6 @@ class DownloadList extends Component {
 
   downloadVideo = () => {
     const {video_url} = this.state
-    console.log(video_url,'111')
     if(video_url){
       window.open('about:blank').location.href=video_url
     }

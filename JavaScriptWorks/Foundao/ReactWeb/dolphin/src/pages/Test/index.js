@@ -30,9 +30,6 @@ class Test extends Component {
   }
 
   uploadSuccess = (fileName, fileSize, fileMd5) => {
-    console.timeEnd('upload');
-    // console.log(fileName, fileSize, fileMd5);
-    console.log('uploadSuccess');
     const {uploadSuccessList} = this.state;
     uploadSuccessList.unshift({
       fileName,
@@ -45,7 +42,6 @@ class Test extends Component {
   };
 
   uploadProgress = (percent) => {
-    console.log(percent);
     this.setState({
       percent
     })
@@ -53,9 +49,6 @@ class Test extends Component {
 
 
   uploadChange = (file, files) => {
-    // console.log(file, 'file');
-    // console.log(files, 'files');
-    console.time('upload')
   };
 
   filterKeyword = (article) => {

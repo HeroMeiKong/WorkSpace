@@ -21,7 +21,6 @@ class TransItem extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.data.fileName, 'fileName');
   }
 
   startTransCode = () => {

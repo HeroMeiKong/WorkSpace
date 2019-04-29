@@ -35,6 +35,7 @@ export default {
   get_storage_size: hosts + 'resource/transcode/get_storage_size',//用户套餐量及使用量
   downloadFile: hosts + 'cgi/resource/get_download',//转码文件下载
   resetPassword: hosts + 'login/get_back_pwd',//重制邮箱密码
+  get_lists: hosts + 'resource/transcode/get_lists',//转码的文件列表
   // webSorket: 'ws://foundao.f3322.net:5001/',       // ws
   // webSorket: 'ws://foundao.f3322.net:15001/',       // ws
   webSorket: 'wss://cd.foundao.com:10081/sock/', //wss

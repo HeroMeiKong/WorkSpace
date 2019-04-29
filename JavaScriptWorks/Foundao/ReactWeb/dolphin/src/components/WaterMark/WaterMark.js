@@ -64,7 +64,6 @@ class WaterMark extends Component {
   }
 
   overMove = () => {
-    console.log('overMove')
     this.setState({
       markpic: false,
       removepic: false,
@@ -73,7 +72,6 @@ class WaterMark extends Component {
   }
 
   clickMarkPic = () => {
-    console.log('clickMarkPic')
     const e = window.event
     const x = e.pageX || e.clientX
     const y = e.pageY || e.clientY
@@ -85,7 +83,6 @@ class WaterMark extends Component {
   }
 
   clickRemovePic = () => {
-    console.log('clickRemovePic')
     const e = window.event
     const x = e.pageX || e.clientX
     const y = e.pageY || e.clientY
@@ -97,7 +94,6 @@ class WaterMark extends Component {
   }
 
   clickScaleMarkPic = () => {
-    console.log('clickScaleMarkPic')
     const e = window.event
     const x = e.pageX || e.clientX
     const y = e.pageY || e.clientY
@@ -110,7 +106,6 @@ class WaterMark extends Component {
   }
 
   clickScaleRemovePic = () => {
-    console.log('clickScaleRemovePic')
     const e = window.event
     const x = e.pageX || e.clientX
     const y = e.pageY || e.clientY
@@ -223,51 +218,42 @@ class WaterMark extends Component {
     const screenHeight = strH.substring(strH.length-2,-strH.length)
     if(width >= minSize.width && width <= screenWidth - this.state[name].x){
       if(height >= minSize.height && height <= screenHeight - this.state[name].y){
-        console.log('1')
         this.setState({
           [name]: {width, height, x: this.state[name].x, y: this.state[name].y},
         })
       } else if(height < minSize.height){
-        console.log('2')
         this.setState({
           [name]: {width, height: minSize.height, x: this.state[name].x, y: this.state[name].y},
         })
       } else {
-        console.log('3')
         this.setState({
           [name]: {width, height: screenHeight - this.state[name].y, x: this.state[name].x, y: this.state[name].y},
         })
       }
     } else if(width < minSize.width){
       if(height >= minSize.height && height <= screenHeight - this.state[name].y){
-        console.log('4')
         this.setState({
           [name]: {width: minSize.width, height, x: this.state[name].x, y: this.state[name].y},
         })
       } else if(height < minSize.height){
-        console.log('5')
         this.setState({
           [name]: {width: minSize.width, height: minSize.height, x: this.state[name].x, y: this.state[name].y},
         })
       } else {
-        console.log('6')
         this.setState({
           [name]: {width: minSize.width, height: screenHeight - this.state[name].y, x: this.state[name].x, y: this.state[name].y},
         })
       }
     } else {
       if(height >= minSize.height && height <= screenHeight - this.state[name].y){
-        console.log('7')
         this.setState({
           [name]: {width: screenWidth - this.state[name].x, height, x: this.state[name].x, y: this.state[name].y},
         })
       } else if(height < minSize.height){
-        console.log('8')
         this.setState({
           [name]: {width: screenWidth - this.state[name].x, height: minSize.height, x: this.state[name].x, y: this.state[name].y},
         })
       } else {
-        console.log('9')
         this.setState({
           [name]: {width: screenWidth - this.state[name].x, height: screenHeight - this.state[name].y, x: this.state[name].x, y: this.state[name].y},
         })
@@ -326,7 +312,6 @@ class WaterMark extends Component {
   }
 
   startCovert = (start) => {
-    console.log('开始转码视频！2')
       this.setState({
         showOutOption: false
       })
@@ -339,7 +324,6 @@ class WaterMark extends Component {
 
   startTransCode (inFileMd5) {
     const { watermark, removewater, img_url } = this.state
-    console.log('img_url:',img_url)
     const waterPic = {
       img_url,
       width: '' + watermark.width,
@@ -358,7 +342,6 @@ class WaterMark extends Component {
       layer: [waterPic],
       delogo
     }
-    console.log('transOptions1234:',transOptions)
     transCode({
       transOptions,
       transSuccess: this.transSuccess,    // 转码成功 回调
@@ -397,7 +380,6 @@ class WaterMark extends Component {
 
   downloadVideo = () => {
     const {video_url} = this.state
-    console.log(video_url,'111')
     if(video_url){
       window.open('about:blank').location.href=video_url
     }

@@ -27,7 +27,6 @@ class Menu extends Component {
   }
 
   showLogin = () => {
-    console.log('showLogin')
     this.setState({
       showSignUpOrLogin: true
     })

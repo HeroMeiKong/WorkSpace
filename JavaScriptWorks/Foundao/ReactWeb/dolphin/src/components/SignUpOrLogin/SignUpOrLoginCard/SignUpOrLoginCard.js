@@ -76,7 +76,6 @@ class SignUpOrLoginCard extends Component {
           user_passwd: that.state.newPassword
         }
       }).done( res => {
-        console.log('注册信息：',res)
         if(res.code === '0'){
           this.props.loading(false)//隐藏loading
           this.setState({
@@ -107,7 +106,6 @@ class SignUpOrLoginCard extends Component {
         user_passwd: sha512(that.state.password)
       }
     }).done( res => {
-      console.log('登录信息',res)
       if(res.code === '0'){
         that.triggerFather()
         let data = res.data
@@ -150,7 +148,6 @@ class SignUpOrLoginCard extends Component {
 
   checkPassword = (e) => {
     if(this.state.newPassword === this.state.newConfirmation){
-      console.log('两次密码不一样！')
       this.setState({
         isRightNewPassword: false,
         samePassword: false

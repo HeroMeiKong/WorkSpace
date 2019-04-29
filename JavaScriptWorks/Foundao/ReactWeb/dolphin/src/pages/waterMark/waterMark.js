@@ -48,7 +48,6 @@ class Index extends Component {
             MD5: fileMd5
           },
         }).done(response => {
-          console.log('response:',response)
           this.state.uploadSuccessList.unshift({
             fileName,
             fileSize,
@@ -91,7 +90,6 @@ class Index extends Component {
     }
   }
   uploadChange = (e) => {
-    console.log('选择文件！')
     const size = (e.size/(1024*1024)).toFixed(2)
     const arr = e.name.split('.')
     const type = arr[arr.length-1].toLowerCase()
@@ -125,7 +123,6 @@ class Index extends Component {
     }
   }
   reupload = () => {
-    console.log('reupload')
     this.setState({
       waterMark: false,
     })

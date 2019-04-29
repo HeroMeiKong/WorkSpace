@@ -22,7 +22,6 @@ class Header extends Component {
   }
 
   showLogin = (el) => {
-    console.log('showLogin')
     this.setState({
       showSignUpOrLogin: true
     })

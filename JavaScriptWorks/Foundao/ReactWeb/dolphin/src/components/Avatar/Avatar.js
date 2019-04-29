@@ -40,7 +40,6 @@ class Avatar extends Component {
   }
 
   showUserInfo = (e) => {
-    console.log('showUserInfo')
     if(e.target.alt === 'avatar' || e.target.className === 'avatar_inner'){
       this.props.updateUserInfo({
         userInfo: tools.getUserData_storage(),
@@ -57,7 +56,6 @@ class Avatar extends Component {
   }
 
   getUserStorage = () => {
-    console.log('getUserStorage',tools.getUserData_storage())
     if(!tools.getUserData_storage().token){
       console.log('no user')
     } else {
@@ -68,7 +66,6 @@ class Avatar extends Component {
           token: tools.getUserData_storage().token,
         }
       }).done(res => {
-        console.log(res)
         if(res.code === '0'){
           tools.setCapacity_storage(res.data)
         } else {
@@ -105,8 +102,6 @@ class Avatar extends Component {
         break;
     }
     if(isZero === 0) {used_capacity = '0G'}
-    console.log('used_capacity123:',used_capacity)
-    console.log('capacity:',capacity)
     return {capacity ,used_capacity, percent}
   }
 
@@ -127,8 +122,6 @@ class Avatar extends Component {
     const { showUserInfo } = this.state
     const {capacity ,used_capacity, percent} = this.updateCapacity()
     const userInfo = tools.getUserData_storage()
-    console.log('userInfo123:',userInfo)
-    console.log('capacity123:',this.props.userInfos)
     return (
       <div className='avatar'>
         <div className="avatar_top" onClick={this.showUserInfo}>

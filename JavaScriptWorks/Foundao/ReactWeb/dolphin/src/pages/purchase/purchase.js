@@ -21,7 +21,6 @@ class Purchase extends Component {
   componentDidMount () {
     const parameter = this.props.location.search
     if(parameter){
-      console.log('支付成功，开始扣钱')
       const arr = this.changeToObject(parameter)
       httpRequest({
         type: 'POST',
@@ -33,7 +32,6 @@ class Purchase extends Component {
           PayerID: arr[3]
         }
       }).done(res => {
-        console.log(res)
         alert('支付成功，欢迎您的使用！')
         setTimeout(() => {
           // window.location.href = 'http://localhost:3000/#/'
@@ -53,12 +51,10 @@ class Purchase extends Component {
     for(let i=0;i<length;i++){
       newArr[i] = arr[i].split('=')[1]
     }
-    // console.log(newArr)
     return newArr
   }
 
   showPay = (el) => {
-    console.log('showLogin')
     this.setState({
       showPay: true,
       version: el
@@ -76,8 +72,6 @@ class Purchase extends Component {
   }
   
   submitOrder = (version) => {
-    console.log('submitOrder')
-    console.log('version',version)
     this.setState({
       isLoading: true
     })
@@ -89,7 +83,6 @@ class Purchase extends Component {
         token: tools.getUserData_storage().token
       }
     }).done(res => {
-      console.log(res)
       if(res.code === '0'){
         httpRequest({
           type: 'POST',

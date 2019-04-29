@@ -6,6 +6,7 @@ import Purchase from './pages/purchase/purchase'
 import User from './pages/user/user'
 // import VideoCutter from './pages/videoCutter/videoCutter'
 // import WaterMark from './pages/waterMark/waterMark'
+import AboutUs from './pages/about_us/about_us'
 import UsersTermsAndConditions from './pages/users_terms_and_conditions/users_terms_and_conditions'
 import WebsitePrivacyPolicy from './pages/website_privacy_policy/website_privacy_policy'
 
@@ -25,6 +26,7 @@ class App extends Component {
             <Route path='/user' component={User}/>
             {/* <Route path='/videoCutter' component={VideoCutter}/>
             <Route path='/waterMark' component={WaterMark}/> */}
+            <Route path='/about_us' component={AboutUs}/>
             <Route path='/users_terms_and_conditions' component={UsersTermsAndConditions}/>
             <Route path='/website_privacy_policy' component={WebsitePrivacyPolicy}/>
             <Route path='/test' component={Test}/>

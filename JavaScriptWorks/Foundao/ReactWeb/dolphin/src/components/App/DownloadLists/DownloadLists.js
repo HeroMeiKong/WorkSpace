@@ -13,7 +13,6 @@ class DownloadLists extends Component {
     }
   }
   startCovert = (start) => {
-    console.log('开始转码视频！2')
       this.setState({
         showOutOption: false
       })

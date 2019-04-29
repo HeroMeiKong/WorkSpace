@@ -44,7 +44,6 @@ function startTransCode(options) {
     trans_wait();
   };
   const trans_fail = (msg) => {
-    // console.log(msg);
     if (transFail) {
       transFail(msg)
     }
@@ -138,7 +137,6 @@ function startTransCode(options) {
     if (transProgress) {
       transProgress(msg)
     }
-    // console.log('转码进度：--> ',msg)
   };
   const optionsJson = JSON.stringify(transOptions);
   const url = `${_api.startTransCode }?t_json=${optionsJson}`;
