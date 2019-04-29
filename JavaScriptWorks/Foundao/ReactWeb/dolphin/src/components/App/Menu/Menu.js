@@ -84,7 +84,7 @@ class Menu extends Component {
           <div className="menu_cover" onClick={this.showMenu} style={{display: showMenu?'flex':'none'}}>
             <div className="menu_content">
               {info ? <div className="user_info">
-                          <div className="user_avatar" style={{backgroundImage: 'url('+ info.user_avatar +')'}}></div>
+                          <div className="user_avatar user_avatar_border" style={{backgroundImage: 'url('+ info.user_avatar +')'}}></div>
                           <div className="username">{info.user_nickname}</div>
                           <div className="email">{info.user_nickname}</div>
                         </div>
@@ -93,9 +93,9 @@ class Menu extends Component {
                   <div className="user_login" onClick={this.showLogin} >LOGIN</div>
                 </div>}
               <div className="more_info">
-                <div className="app_web"><Link to='/'>MP4 CONVERTOR</Link></div>
+                {/* <div className="app_web"><Link to='/'>MP4 CONVERTOR</Link></div>
                 <div className="app_web"><Link to='/videoCutter'>VIEDEO CUTTER</Link></div>
-                <div className="app_web"><Link to='/waterMark'>WATERMARK</Link></div>
+                <div className="app_web"><Link to='/waterMark'>WATERMARK</Link></div> */}
                 <div className="app_web"><Link to='/purchase' target='_blank'>PRICING</Link></div>
                 <div className="app_web"><Link to='/user'>My FILES</Link></div>
                 <div className="app_web" onClick={this.logOut}>LOGOUT</div>

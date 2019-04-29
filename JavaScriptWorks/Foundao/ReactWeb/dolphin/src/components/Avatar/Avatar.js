@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './Avatar.scss'
+import httpRequest from '@/utils/httpRequest'
+import api from '@/config/api'
 import tools from '@/utils/tools'
+import { connect } from 'react-redux';
+import { updateUserInfo } from '@/redux/models/admin'
 const avatar = require('@/assets/images/touxiang_icon@2x.png')
 const avatar_arrow = require('@/assets/images/down_yellow_icon@2x.png')
-let userInfo = {}
 
 class Avatar extends Component {
   constructor () {
@@ -14,11 +17,16 @@ class Avatar extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     document.addEventListener('click',this.hiddenAvatar)
+    this.getUserStorage()
   }
 
-  componentWillUnmount () {
+  componentDidUpdate() {
+    this.getUserStorage()
+  }
+
+  componentWillUnmount() {
     document.removeEventListener('click',this.hiddenAvatar)
   }
 
@@ -34,6 +42,10 @@ class Avatar extends Component {
   showUserInfo = (e) => {
     console.log('showUserInfo')
     if(e.target.alt === 'avatar' || e.target.className === 'avatar_inner'){
+      this.props.updateUserInfo({
+        userInfo: tools.getUserData_storage(),
+        version: tools.getCapacity_storage()
+      })
       this.setState({
         showUserInfo: !this.state.showUserInfo
       })
@@ -43,10 +55,80 @@ class Avatar extends Component {
   signOut = () => {
     this.props.callBack()
   }
+
+  getUserStorage = () => {
+    console.log('getUserStorage',tools.getUserData_storage())
+    if(!tools.getUserData_storage().token){
+      console.log('no user')
+    } else {
+      httpRequest({
+        type: 'POST',
+        url: api.get_storage_size,
+        data: {
+          token: tools.getUserData_storage().token,
+        }
+      }).done(res => {
+        console.log(res)
+        if(res.code === '0'){
+          tools.setCapacity_storage(res.data)
+        } else {
+          this.props.callBack()
+        }
+      })
+    }
+  }
+
+  updateCapacity = () => {
+    let capacity = tools.getCapacity_storage().capacity/(1024*1024) || 0
+    let used_capacity = tools.getCapacity_storage().used_capacity/(1024*1024) || 0
+    const isZero = used_capacity
+    let percent = 0
+    if(used_capacity === 0){
+      percent = 0
+    } else {
+      percent = used_capacity/capacity
+    }
+    switch (capacity>=1000) {
+      case true:
+        capacity = (capacity/1000).toFixed(1) + 'T'
+        break;
+      default:
+        capacity = capacity.toFixed(1) + 'G'
+        break;
+    }
+    switch (used_capacity>=1000) {
+      case true:
+      used_capacity = (used_capacity/1000).toFixed(1) + 'T'
+        break;
+      default:
+      used_capacity = used_capacity.toFixed(1) + 'G'
+        break;
+    }
+    if(isZero === 0) {used_capacity = '0G'}
+    console.log('used_capacity123:',used_capacity)
+    console.log('capacity:',capacity)
+    return {capacity ,used_capacity, percent}
+  }
+
+  limitString = (str) => {
+    if(str){
+      const length = str.length
+      if(length > 10){
+        return str.substring(0,10)+'…'
+      } else {
+        return str
+      }
+    } else {
+      return 'illegal user'
+    }
+  }
   
   render () {
     const { showUserInfo } = this.state
-    userInfo = tools.getUserData_storage()
+    const {capacity ,used_capacity, percent} = this.updateCapacity()
+    const userInfo = tools.getUserData_storage()
+    console.log('userInfo123:',userInfo)
+    console.log('capacity123:',this.props.userInfos)
     return (
       <div className='avatar'>
         <div className="avatar_top" onClick={this.showUserInfo}>
@@ -61,21 +143,21 @@ class Avatar extends Component {
                 <img alt='avatar' src={userInfo.user_avatar || avatar} data-avatar='avatar'></img>
               </div>
               <div className="avatar_bottom_introduce" data-avatar='avatar'>
-                <p data-avatar='avatar'>{userInfo.user_nickname}</p>
-                <p data-avatar='avatar'>{userInfo.user_nickname}</p>
+                <p data-avatar='avatar'>{this.limitString(userInfo.user_nickname)}</p>
+                <p data-avatar='avatar'>{this.limitString(userInfo.user_nickname)}</p>
               </div>
             </div>
-            <Link to='./user'>
+            {capacity !== '0.0G' ? <Link to='./user'>
               <div className="avatar_bottom_Membership" data-avatar='avatar'>
                 <div data-avatar='avatar'>Membership Capacity</div>
                 <div className="avatar_bottom_Capacity" data-avatar='avatar'>
-                  <p data-avatar='avatar'>38 / 50G</p>
+                  <p data-avatar='avatar'>{used_capacity} / {capacity}</p>
                   <div className="avatar_bottom_line" data-avatar='avatar'>
-                    <div data-avatar='avatar'></div>
+                    <div data-avatar='avatar' style={{width: percent+'%'}}></div>
                   </div>
                 </div>
               </div>
-            </Link>
+            </Link> : ''}
             <div className="sign_out_box" data-avatar='avatar'>
               <div className="sign_out_img" data-avatar='avatar'></div>
               <div className="sign_out" onClick={this.signOut} data-avatar='avatar'>Sign out</div>
@@ -86,4 +168,8 @@ class Avatar extends Component {
   }
 }
 
-export default Avatar
+export default connect(state => ({
+  userInfos: state.admin
+}),{
+  updateUserInfo
+})(Avatar);

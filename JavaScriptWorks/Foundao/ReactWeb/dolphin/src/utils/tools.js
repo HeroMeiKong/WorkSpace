@@ -187,6 +187,26 @@ const tools = {
   removeUserData_storage: function () {
     localStorage.removeItem('dolphin_userInfo');
   },
+  // 设置本地用户信息
+  setCapacity_storage: function (userInfo = {}) {
+    console.log('userInfo',userInfo)
+    localStorage.setItem('dolphin_capacity', window.encodeURIComponent(JSON.stringify(userInfo)));
+  },
+  // 获取storage 的用户信息
+  getCapacity_storage: function () {
+    const userInfo_string_escape = localStorage.getItem('dolphin_capacity');
+    let userInfo = {};
+    if (userInfo_string_escape) {
+      // 进行过编码处理 需要解密
+      let userInfo_string = window.decodeURIComponent(userInfo_string_escape);
+      userInfo = JSON.parse(userInfo_string);
+    }
+    return userInfo;
+  },
+  // 移除 storage 的用户信息
+  removeCapacity_storage: function () {
+    localStorage.removeItem('dolphin_capacity');
+  },
 };
 
 export default tools;

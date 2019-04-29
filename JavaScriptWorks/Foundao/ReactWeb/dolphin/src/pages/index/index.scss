@@ -11,20 +11,20 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  & .index_div {
+  .index_div {
     width: 100%;
     .content_inner{
       display: flex;
       align-items: center;
       flex-direction: column;
       color: #ffffff;
-      & .content_header{
+      .content_header{
         font-size: 41px;
         letter-spacing: 4px;
         padding-top: 39px;
         text-align: center;
       }
-      & .content_title{
+      .content_title{
         font-size: 20px;
         padding-top: 13px;
         font-weight: 300;

@@ -27,11 +27,14 @@
       img:first-child {
         width: 30px;
         height: 30px;
+        border:1px solid rgba(255,255,255,1);
+        border-radius: 50%;
       }
 
       img:last-child {
-        width: 10px;
-        height: 2px;
+        margin-top: 2px;
+        width: 12px;
+        height: 4px;
       }
     }
   }
@@ -54,6 +57,8 @@
         img {
           width: 42px;
           height: 42px;
+          border:1px solid rgba(255,255,255,1);
+          border-radius: 50%;
         }
       }
 
@@ -62,12 +67,14 @@
           font-size: 12px;
           font-weight: 500;
           padding-top: 6px;
+          width: 96px;
         }
 
         p:last-child {
           font-size: 10px;
           font-weight: 500;
           padding-top: 6px;
+          width: 96px;
         }
       }
     }
@@ -100,7 +107,6 @@
           margin-bottom: 10px;
 
           div {
-            width: 76%;
             height: 8px;
             background: linear-gradient(90deg, rgba(239, 220, 190, 1) 0%, rgba(219, 183, 137, 1) 100%);
             border-radius: 5px;

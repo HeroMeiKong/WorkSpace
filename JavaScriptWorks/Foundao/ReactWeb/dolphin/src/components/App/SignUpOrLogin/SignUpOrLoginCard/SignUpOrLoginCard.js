@@ -164,14 +164,14 @@ class SignUpOrLoginCard extends Component {
         <div className="sol_content_box">
           <div className="sol_content_inner">
             <img alt='password' src={password_img} className="sol_content_img"></img>
-            <input className="sol_content_input" placeholder='Password' value={newPassword} onChange={this.handleChange.bind(this,'newPassword')} />
+            <input type='password' className="sol_content_input" placeholder='Password' value={newPassword} onChange={this.handleChange.bind(this,'newPassword')} />
           </div>
           <div className="sol_content_tip">{this.state.isRightNewPassword ? '' : 'Enter the correct Password'}</div>
         </div>
         <div className="sol_content_box">
           <div className="sol_content_inner">
             <img alt='password' src={password_img} className="sol_content_img"></img>
-            <input id='password' className="sol_content_input" placeholder='Password confirmation' value={newConfirmation} onChange={this.handleChange.bind(this,'newConfirmation')} />
+            <input type='password' id='password' className="sol_content_input" placeholder='Password confirmation' value={newConfirmation} onChange={this.handleChange.bind(this,'newConfirmation')} />
           </div>
           <div className="sol_content_tip">{this.state.samePassword ? '' : 'Not same as Password'}</div>
         </div>
@@ -197,7 +197,7 @@ class SignUpOrLoginCard extends Component {
         <div className="sol_content_box">
           <div className="sol_content_inner">
             <img alt='password' src={password_img} className="sol_content_img"></img>
-            <input className="sol_content_input" placeholder='Password' value={password} onChange={this.handleChange.bind(this,'password')} />
+            <input type='password' className="sol_content_input" placeholder='Password' value={password} onChange={this.handleChange.bind(this,'password')} />
           </div>
           <div className="sol_content_tip">{this.state.isRightPassword ? '' : 'Enter the correct Password'}</div>
         </div>

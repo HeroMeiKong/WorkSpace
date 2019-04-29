@@ -5,7 +5,8 @@ import $ from 'jquery'
 
 // import { generateKeyPair } from 'crypto';
 const facebook = require('@/assets/images/facebook_icon@2x.png')
-const twitter = require('@/assets/images/twitter_icon@2x.png')
+// const twitter = require('@/assets/images/twitter_icon@2x.png')
+const google = require('@/assets/images/google_small_icon@2x.png')
 let authWin = ''
 
 class SignUpOrLogin extends Component {
@@ -24,28 +25,28 @@ class SignUpOrLogin extends Component {
   }
 
   componentDidMount(){
-    const {protocol,type} = this.state
-    window.getUserInfo = function (code) {
-      authWin.close()
-      $.ajax({
-        url : protocol === 'https:'? '//cd.foundao.com:10081/foundao_api/login/dologin' : '//cd.foundao.com:10080/foundao_api/login/dologin',
-        dataType: 'json',
-        type : 'POST',
-        data : {
-          user_from : type,
-          code  : code,
-          redirect_url : 'https://cd.foundao.com:10081/foundao/dolphin/return.html'
-        }
-      }).done((res)=>{
-        if(res.code /1 === 0){
-          localStorage.setItem('userInfo', JSON.stringify(res.data.data));
-        }else {
-          console.log(res.msg)
-        }
-      }).fail(()=>{
-        console.log('内部服务器错误！')
-      })
-    }
+    // const {protocol,type} = this.state
+    // window.getUserInfo = function (code) {
+    //   authWin.close()
+    //   $.ajax({
+    //     url : protocol === 'https:'? '//cd.foundao.com:10081/foundao_api/login/dologin' : '//cd.foundao.com:10080/foundao_api/login/dologin',
+    //     dataType: 'json',
+    //     type : 'POST',
+    //     data : {
+    //       user_from : type,
+    //       code  : code,
+    //       redirect_url : 'https://cd.foundao.com:10081/foundao/dolphin/return.html'
+    //     }
+    //   }).done((res)=>{
+    //     if(res.code /1 === 0){
+    //       localStorage.setItem('userInfo', JSON.stringify(res.data.data));
+    //     }else {
+    //       console.log(res.msg)
+    //     }
+    //   }).fail(()=>{
+    //     console.log('内部服务器错误！')
+    //   })
+    // }
   }
 
   triggerFather = (e) => {
@@ -142,8 +143,9 @@ class SignUpOrLogin extends Component {
             <div className="sol_bottom">
               <div className="sol_bottom_title">Or login with:</div>
               <img alt='facebook' src={facebook} className="sol_bottom_img" onClick={this.glogin.bind(this,5)}></img>
-              <img alt='twitter' src={twitter} className="sol_bottom_img"></img>
-              <div id='login_google' data-onsuccess="onSignIn" onClick={this.glogin.bind(this,6)}>google</div>
+              {/* <img alt='twitter' src={twitter} className="sol_bottom_img"></img> */}
+              <img alt='google' src={google} className="sol_bottom_img" onClick={this.glogin.bind(this,6)}></img>
+              {/* <div id='login_google' data-onsuccess="onSignIn" onClick={this.glogin.bind(this,6)}>google</div> */}
               {/* <button onlogin="checkLoginState();">Facebook</button> */}
             </div>
           </div>

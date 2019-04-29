@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import './DownloadList.scss'
+import httpRequest from '@/utils/httpRequest'
+import api from '@/config/api'
 import transCode from '@/utils/transCode'
 import classNames from 'classnames'
 
@@ -8,7 +10,6 @@ class DownloadList extends Component {
   constructor () {
     super()
     this.state = {
-      isTransing: false, // 是否开始转码
       progress: 0,
       videoWidth: 0,
       videoHeight: 0,
@@ -28,8 +29,8 @@ class DownloadList extends Component {
     const { width, height } = this.props.videoInfo
     const { videoWidth, videoHeight, useProps } = this.state;
     console.log((useProps ? width : videoWidth),'原视频宽度')
-    console.log((useProps ? width : videoWidth),'原视频高度')
-    if(videoWidth > width || videoHeight > height){
+    console.log((useProps ? height : videoHeight),'原视频高度')
+    if((videoWidth-0) > (width-0) || (videoHeight-0) > (height-0)){
       alert(width+'是最大宽度！'+height+'是最大高度！')
     } else {
       const transOptions = {
@@ -45,14 +46,13 @@ class DownloadList extends Component {
         transFail: this.transFail,       // 转码失败 回调
         transProgress: this.transProgress,    // 转码中 回调
       });
-      this.setState({
-        isTransing: true
-      })
+      this.props.startCovert(0)//转码开始
     }
   };
 
   transSuccess = (url) => {
     console.log('transSuccess');
+    this.props.startCovert(100)//转码成功
     this.setState({
       video_url: url || ''
     })
@@ -61,9 +61,7 @@ class DownloadList extends Component {
   transFail = (msg) => {
     console.log('转码失败:-->', msg);
     alert('转码失败！请待会儿重试！')
-    this.setState({
-      isTransing: false
-    })
+    this.props.startCovert(-2)//转码失败
   };
 
   transProgress = (msg) => {
@@ -80,7 +78,6 @@ class DownloadList extends Component {
   }
 
   changeDPI ({width,height},i,e) {
-    console.log(e.target.className)
     this.setState({
       videoWidth: width,
       videoHeight: height,
@@ -92,6 +89,8 @@ class DownloadList extends Component {
 
   changeCustomize = () => {
     const { width, height } = this.props.videoInfo
+    console.log('width123:',width)
+    console.log('height123:',height)
     this.setState({
       customize: true,
       active_outoption: '',
@@ -103,9 +102,20 @@ class DownloadList extends Component {
 
   downloadVideo = () => {
     const {video_url} = this.state
-    console.log(video_url,'111')
     if(video_url){
-      window.open('about:blank').location.href=video_url
+      // window.open('about:blank').location.href=video_url
+      let openedWindow = window.open('','_self')
+      httpRequest({
+        type: 'POST',
+        url: api.downloadFile,
+        data: {
+          path: video_url
+        }
+      }).done(res => {
+        if(res.code === '0'){
+          openedWindow.location.href=res.data
+        }
+      })
     }
   }
 
@@ -113,13 +123,19 @@ class DownloadList extends Component {
     this.props.callBack()
   }
 
-  convertSuccess = () => {
+  convertSuccess = (isTransing) => {
     const {progress} = this.state
-    return <Fragment>
-            <div className="download_list_line">{progress >= 100 ? '' : <div className='progress_bar'><div style={{width: progress+'%'}} className='progress_bar_inner'></div></div>}</div>
-                {progress >= 100 ? <div className="download_list_download" onClick={this.downloadVideo}></div> : <div className="download_list_progress">{progress}%</div>}
-            {progress >= 100 ? <div className="download_list_delete" onClick={this.deleteMe}></div> : ''}
-          </Fragment>
+    if(isTransing === -2){
+      return <Fragment>
+                <div className="download_list_download" onClick={this.deleteMe}></div>
+            </Fragment>
+    } else {
+      return <Fragment>
+              <div className="download_list_line">{isTransing === 100 ? '' : <div className='progress_bar'><div style={{width: progress+'%'}} className='progress_bar_inner'></div></div>}</div>
+                  {isTransing === 100 ? <div className="download_list_download" onClick={this.downloadVideo}></div> : <div className="download_list_progress">{progress}%</div>}
+              {isTransing === 100 ? <div className="download_list_delete" onClick={this.deleteMe}></div> : ''}
+            </Fragment>
+    }
   }
 
   isCovertVideo = () => {
@@ -156,8 +172,7 @@ class DownloadList extends Component {
   }
   
   render () {
-    const { fileName } = this.props.data;
-    const { isTransing } = this.state
+    const { fileName,isTransing } = this.props.data;
     let shortFileName = fileName
     if(fileName.length > 9){
       shortFileName = fileName.substring(0,3)+'…'+fileName.substring(fileName.length-6)
@@ -165,7 +180,7 @@ class DownloadList extends Component {
     return (
       <div className='download_list'>
         <div className='download_list_title'>{shortFileName}</div>
-        {isTransing ? this.convertSuccess() : this.isCovertVideo()}
+        {isTransing >=0 ? this.convertSuccess(isTransing) : this.isCovertVideo()}
       </div>
     )
   }

@@ -99,7 +99,7 @@ class Upload extends Component {
   getToken = (g_filemd5) => {
     const userInfo = tools.getUserData_storage();
     httpRequest({
-      url: 'http://cd.foundao.com:10080/foundao_api/cgi/upload/get_token',
+      url: _api.getUploadToken,
       type: 'post',
       data: {
         token: userInfo.token || 'a5422c67e4443b5a47833689013270881655cb9ad348',
@@ -111,8 +111,10 @@ class Upload extends Component {
         const {up_token} = resp.data;
         this.start_upload(up_token);
       } else {
-        alert(resp.msg);
+        this.uploadFail(resp.msg)
       }
+    }).fail((err) => {
+      this.uploadFail('内部服务器错误: ' + err.status);
     })
   };
   // 开始上传
@@ -222,6 +224,16 @@ class Upload extends Component {
       if (onSuccess && typeof onSuccess === 'function') {
         onSuccess(file.name, file.size, g_filemd5);
       }
+    }
+    this.setState({
+      isUploading: false
+    })
+  };
+  // 文件上传失败
+  uploadFail = (msg) => {
+    const {onError} = this.props;
+    if (onError && typeof onError === 'function') {
+      onError(msg);
     }
     this.setState({
       isUploading: false

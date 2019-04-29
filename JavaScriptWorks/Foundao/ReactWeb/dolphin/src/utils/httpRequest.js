@@ -19,12 +19,11 @@ export default function httpRequest(obj) {
   }
 
   const data = obj.data || {};
-
   return $.ajax({
     url: obj.url,
     type: obj.type || 'GET',
     async: async,
-    dataType: 'json',
+    dataType: obj.dataType || 'json',
     data: data,
   }).done(resp=> {
   }).fail(err => {

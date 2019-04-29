@@ -115,7 +115,7 @@ function startTransCode(options) {
       //200, 转码完成
       showTransProgress("100");
       showTransStatus('转码:' + g_total_time + '秒完成, 恭喜您, 可以访问转码后文件啦！！');
-      var url = 'http://foundao.f3322.net:10032/DownloadVideo?transMD5=' + g_trans_md5;
+      var url = _api.downloadVideo + g_trans_md5;
       ajax(url, trans_result, trans_fail);
     } else {
       alert("trans_status:" + s);

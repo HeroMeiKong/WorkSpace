@@ -12,12 +12,11 @@ class DownloadLists extends Component {
       // showOutOption: true
     }
   }
-  startCovert = (start) => {
-    console.log('开始转码视频！2')
-      this.setState({
-        showOutOption: false
-      })
-    this.state.downloadList.push(this.props.file)
+  startCovert (el,state) {
+    //el表示当前视频md5，state表示转码成功还失败
+    console.log('开始转码视频！')
+    this.props.startCovert(el,state)
+    // this.props.callBack(el)
   }
   deleteDownloadRecord (el) {
     this.props.callBack(el)
@@ -39,9 +38,12 @@ class DownloadLists extends Component {
                   return <DownloadList key={item.fileMd5} data={item} videoInfo={videoInfo} />
                 })} */}
                 {uploadSuccessList.filter((curr,index) => index<5).map((item, index) => {
-                  return <DownloadList key={item.fileMd5} data={item} videoInfo={item.videoInfo} callBack={this.deleteDownloadRecord.bind(this,item.fileMd5)} />
+                  return <DownloadList key={item.fileMd5} data={item} videoInfo={item.videoInfo} 
+                  callBack={this.deleteDownloadRecord.bind(this,item.fileMd5)}
+                  startCovert={this.startCovert.bind(this,item.fileMd5)}
+                  isTransing={item.isTransing} />
                 })}
-                {uploadSuccessList.length > 5 ? <div className='download_lists_button'>MY FILES</div> : ''}
+                {uploadSuccessList.length > 5 ? <div className='download_lists_button'><Link to='/user'>MY FILES</Link></div> : ''}
               </div>
           }
         </div>

@@ -45,6 +45,7 @@ class Header extends Component {
 
   signOut = () => {
     tools.removeUserData_storage()//删除用户信息
+    tools.removeCapacity_storage()//删除用户存储信息
     //删除用户上传记录
     this.props.signOut()
     this.setState({
@@ -54,8 +55,8 @@ class Header extends Component {
 
   getUserInfo = () => {
     let info
-    if(this.props.userInfos.token){
-      info = this.props.userInfos || tools.getUserData_storage()
+    if(this.props.userInfos.userInfo){
+      info = this.props.userInfos.userInfo || tools.getUserData_storage()
       return info
     } else {
       if(tools.getUserData_storage().token) {
@@ -74,11 +75,11 @@ class Header extends Component {
       <div id='header' className='header'>
         <div className='content'>
           <div className='logo'></div>
-          <div className='header_web'><Link to='/'>MP4 CONVERTOR</Link></div>
+          {/* <div className='header_web'><Link to='/'>MP4 CONVERTOR</Link></div>
           <div className='header_web'><Link to='/videoCutter'>VIDEO CUTTER</Link></div>
-          <div className='header_web'><Link to='/waterMark'>WATERMARK</Link></div>
+          <div className='header_web'><Link to='/waterMark'>WATERMARK</Link></div> */}
           <div className='header_menu'>
-            <Link to='/purchase' target='_blank'><HeaderOption title={'PRICING'} callBack={this.purchase} /></Link>
+            <Link to='/purchase'><HeaderOption title={'PRICING'} callBack={this.purchase} /></Link>
             {info ? <div><HeaderOption /> <Avatar callBack={this.signOut} /></div> : <HeaderOption title={'SIGN IN'} callBack={this.showLogin} />}
           </div>
         </div>

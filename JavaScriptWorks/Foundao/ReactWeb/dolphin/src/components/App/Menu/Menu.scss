@@ -64,6 +64,10 @@
             background-repeat: no-repeat;
             // background-image: url('../../../assets/images/touxiang_icon@2x.png')
           }
+          .user_avatar_border{
+            border: 1px solid #ffffff;
+            border-radius: 50%;
+          }
 
           .username {
             font-size: 1.25rem;

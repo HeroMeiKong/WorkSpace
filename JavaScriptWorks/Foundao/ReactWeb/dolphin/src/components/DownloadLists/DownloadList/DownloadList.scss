@@ -27,7 +27,8 @@
 }
 
 .download_lists{
-  .download_list_download {
+  .download_list_download,
+  .download_list_download_fail {
     width: 14px;
     height: 15px;
     position: absolute;
@@ -40,6 +41,10 @@
       transform: translate(0, -5px);
       animation: 1s downloadList infinite;
     }
+  }
+
+  .download_list_download_fail {
+    background: url('../../../assets/images/close_icon@2x.png') center/100% no-repeat;
   }
 
   .download_list_line {

@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import './videoCutter.scss'
+import httpRequest from '@/utils/httpRequest'
+import api from '@/config/api'
+import $ from 'jquery'
 //pc端组件
 import Header from '@/components/Header/Header'
 import DropFile from '@/components/DropFile/DropFile'
 import ControllerVideo from '@/components/ControllerVideo/ControllerVideo'
 // import DownloadLists from '@/components/DownloadLists/DownloadLists'
 import Upload from '@/components/Upload'
-import httpRequest from '@/utils/httpRequest'
-import api from '@/config/api'
+import Loading from '@/components/Loading/Loading'
 //app端组件
 import Menu from '@/components/App/Menu/Menu'
 
@@ -15,6 +17,7 @@ class Index extends Component {
   constructor () {
     super()
     this.state = {
+      isLoading: false,
       index: 0,
       percent: 0,
       uploadStart: false,
@@ -22,38 +25,49 @@ class Index extends Component {
       uploadSuccessList: [],
       size: 0,
       cutterVideo: false,
-      src: 'https://s-js.sports.cctv.com/host/transCodeV5/2019/03/20/15530650994946.mp4'
+      src: ''
     }
   }
   uploadSuccess = (fileName, fileSize, fileMd5)=> {
     if(this.state.isType){
-      console.log('文件上传成功！')
       httpRequest({
-        url: api.qureyMeidiaInfo,
+        url: api.GetInFilePath,
+        dataType: 'text',
         data: {
-          // inFileName: fileName,
           MD5: fileMd5
         },
-      }).done(response => {
-        this.state.uploadSuccessList.unshift({
-          fileName,
-          fileSize,
-          fileMd5: fileMd5+this.state.index,
-          videoInfo: response || {width: 0,height: 0},
-        })
+      }).done(res => {
         this.setState({
-          index: this.state.index+1,
-          uploadSuccessList: this.state.uploadSuccessList,
-          cutterVideo: true,
+          src: res
         })
-        console.log('arr',this.state.uploadSuccessList)
+        httpRequest({
+          url: api.qureyMeidiaInfo,
+          data: {
+            MD5: fileMd5
+          },
+        }).done(response => {
+          this.state.uploadSuccessList.unshift({
+            fileName,
+            fileSize,
+            fileMd5: fileMd5+this.state.index,
+            videoInfo: response || {width: 0,height: 0},
+          })
+          if(this.state.src === ''){
+            alert('上传视频是吧！请重新上传！')
+          } else {
+            this.setState({
+              index: this.state.index+1,
+              uploadSuccessList: this.state.uploadSuccessList,
+              cutterVideo: true,
+            })
+          }
+        })
       })
     } else {
       console.log('文件未上传！')
     }
   }
   uploadChange = (e) => {
-    console.log('选择文件！')
     const size = (e.size/(1024*1024)).toFixed(2)
     const arr = e.name.split('.')
     const type = arr[arr.length-1].toLowerCase()
@@ -93,10 +107,11 @@ class Index extends Component {
     })
   }
   render () {
-    const { percent, uploadStart, uploadSuccessList, size, cutterVideo, src } = this.state;
+    const { percent, uploadStart, uploadSuccessList, size, cutterVideo, src, isLoading } = this.state;
     return(
       <div id='wrapper' className='wrapper'>
       <div className='backcolor' />
+        {isLoading ? <Loading /> : ''}
         <Header />
         <Menu />
         <div className='wrapper_content'>

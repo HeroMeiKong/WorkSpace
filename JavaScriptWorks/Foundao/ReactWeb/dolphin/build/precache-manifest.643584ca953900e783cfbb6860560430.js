@@ -4,16 +4,16 @@ self.__precacheManifest = [
     "url": "./static/media/LOGO1_small_icon.fabbf916.png"
   },
   {
-    "revision": "19accd72a2b98800a429",
-    "url": "./static/css/main.8034b2c0.chunk.css"
+    "revision": "f04f9b7942aef5b20ea8",
+    "url": "./static/css/main.217a35cf.chunk.css"
   },
   {
     "revision": "8c97409f0ee389fe75da",
     "url": "./static/js/runtime~main.d653cc00.js"
   },
   {
-    "revision": "1582fae2513f05b01678",
-    "url": "./static/js/2.5a446a3c.chunk.js"
+    "revision": "515f494301edffba4bc0",
+    "url": "./static/js/2.351d1946.chunk.js"
   },
   {
     "revision": "a57b6f31fa77c50f14d756711dea4158",
@@ -28,8 +28,8 @@ self.__precacheManifest = [
     "url": "./static/media/LOGO1.c913c0cb.png"
   },
   {
-    "revision": "19accd72a2b98800a429",
-    "url": "./static/js/main.9ae144b5.chunk.js"
+    "revision": "f04f9b7942aef5b20ea8",
+    "url": "./static/js/main.d53b8e98.chunk.js"
   },
   {
     "revision": "c330de34070f54e5a91ef7fb5e176709",
@@ -52,11 +52,7 @@ self.__precacheManifest = [
     "url": "./static/media/Speed_image@2x.1fdc8a14.png"
   },
   {
-    "revision": "77659c99d58c08c9f925248836967073",
-    "url": "./static/media/card_image@2x.77659c99.png"
-  },
-  {
-    "revision": "2542f081cba892a7dbcddb02efb23ebb",
+    "revision": "3fd76d24ebc10eee10b6df47f03015f1",
     "url": "./index.html"
   }
 ];

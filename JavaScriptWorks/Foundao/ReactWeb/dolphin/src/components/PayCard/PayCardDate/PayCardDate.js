@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './PayCardDate.scss'
+const mouth = require('@/assets/images/xia_icon@2x.png')
+const year = require('@/assets/images/xia_icon@2x.png')
 
 class PayCardDate extends Component {
   render () {
@@ -10,11 +12,11 @@ class PayCardDate extends Component {
           <div className='paycard_date_contents'>
             <div className='paycard_date_content'>
               <div>December</div>
-              <img alt='mouth' src={require(`../../../../assets/images/xia_icon@2x.png`)}></img>
+              <img alt='mouth' src={mouth}></img>
             </div>
             <div className='paycard_date_content'>
               <div>2017</div>
-              <img alt='year' src={require(`../../../../assets/images/xia_icon@2x.png`)}></img>
+              <img alt='year' src={year}></img>
             </div>
           </div>
         </div>

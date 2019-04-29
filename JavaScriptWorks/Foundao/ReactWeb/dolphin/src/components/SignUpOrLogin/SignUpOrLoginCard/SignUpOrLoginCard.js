@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './SignUpOrLoginCard.scss'
 import api from '@/config/api';
 import httpRequest from '@/utils/httpRequest';
@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { login } from '@/redux/models/admin'
 const email_img = require('@/assets/images/youxiang_icon@2x.png')
 const password_img = require('@/assets/images/suo_icon@2x.png')
+const defaultAvatar = require('@/assets/images/touxiang_icon@2x.png')
 
 class SignUpOrLoginCard extends Component {
   constructor () {
@@ -25,6 +26,11 @@ class SignUpOrLoginCard extends Component {
       isRightNewPassword: true,//password格式是否正确
       samePassword: true,//密码是否一样
       isRightPassword: true,//password是否正确
+      forgot: false,//忘记密码
+      state: 0,//忘记密码第一步
+      code: '',//验证码
+      resetPassword: '',//重制密码
+      resetConfirmation: '',//
     }
   }
 
@@ -45,7 +51,7 @@ class SignUpOrLoginCard extends Component {
   handleChange = (key,e) => {
     if(e.target.id === 'email' || e.target.id === 'newEmail'){
       this.checkEmail(e)
-    } else if(e.target.id === 'password'){
+    } else if(e.target.id === 'password' || e.target.id === 'resetpassword'){
       this.checkPassword(e)
     }
     this.setState({
@@ -61,6 +67,7 @@ class SignUpOrLoginCard extends Component {
   create = () => {
     const that = this
     if(this.state.newPassword === this.state.newConfirmation){
+      this.props.loading(true)//显示loading
       httpRequest({
         type: 'POST',
         url: api.signup,
@@ -71,23 +78,26 @@ class SignUpOrLoginCard extends Component {
       }).done( res => {
         console.log('注册信息：',res)
         if(res.code === '0'){
-          alert('注册成功！')
+          this.props.loading(false)//隐藏loading
           this.setState({
             SignUpOrLogin: true,
           })
         } else {
           alert(res.msg)
+          this.props.loading(false)//隐藏loading
         }
       }).fail( err => {
         console.log(err)
+        this.props.loading(false)//隐藏loading
       })
     } else {
-      alert('两次密码不一样！')
+      alert('The password is different twice.')
     }
   }
 
   login = (e) => {
     const that = this
+    this.props.loading(true)//显示loading
     httpRequest({
       type: 'POST',
       url: api.login,
@@ -100,12 +110,18 @@ class SignUpOrLoginCard extends Component {
       console.log('登录信息',res)
       if(res.code === '0'){
         that.triggerFather()
-        tools.setUserData_storage(res.data)
-        this.props.login(res.data)
+        let data = res.data
+        if(!res.data.user_avatar){
+          data.user_avatar = defaultAvatar
+        }
+        tools.setUserData_storage(data)
+        this.props.getUserStorage(data)
         this.setState({
           userInfo: res.data
         })
       } else {
+        this.props.loading(false)//隐藏loading
+        alert("check your password or email，and ensure that's right!")
         that.setState({
           isRightPassword: false
         })
@@ -119,16 +135,13 @@ class SignUpOrLoginCard extends Component {
     // let reg = new RegExp("/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/"); //正则表达式
     let reg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/
     let obj = e.target.value
-    console.log(obj)
     if(obj === ""){ //输入不能为空
     　　alert("输入不能为空!");
     }else if(!reg.test(obj)){ //正则验证不通过，格式不对
-      console.log('fail')
     　　this.setState({
           isRightEmail: false
         })
     }else{
-      console.log('success')
       this.setState({
         isRightEmail: true
       })
@@ -150,69 +163,227 @@ class SignUpOrLoginCard extends Component {
     }
   }
 
-  renderSignUp = (newEmail,newPassword,newConfirmation) => {
+  forgot (value) {
+    this.setState({
+      forgot: value
+    })
+    if(!value){
+      this.setState({
+        state: 0
+      })
+    }
+  }
+
+  nextStep (value) {
+    if(value === 1 && this.state.email === ''){
+      alert('email not allow null!')
+    } else if(value === 2 && this.state.code === ''){
+      alert('code not allow null!')
+    } else if(value === 3 && this.state.resetConfirmation === ''){
+      alert('password not allow null!')
+    } else {
+      if(this.state.isRightEmail){
+        if(value === 3){
+          httpRequest({
+            type: 'POST',
+            url: api.resetPassword,
+            data: {
+              user_account: this.state.email,
+              step: value,
+              code: this.state.code,
+              user_passwd: this.state.resetConfirmation
+            }
+          }).done(res => {
+            if(res.code === '0'){
+              alert('设置成功，请重新登录！')
+              console.log(res)
+              this.setState({
+                state: 0,
+                forgot: false
+              })
+            } else {
+              alert(res.msg)
+            }
+          }).fail(res => {
+            alert(res.msg)
+          })
+        } else {
+          if(value === 1){
+            httpRequest({
+              type: 'POST',
+              url: api.resetPassword,
+              data: {
+                user_account: this.state.email,
+                step: value,
+              }
+            }).done(res => {
+              if(res.code === '0'){
+                alert('发送验证码成功，请注意查收！')
+                this.setState({
+                  state: value
+                })
+              } else {
+                alert(res.msg)
+              }
+            }).fail(res => {
+              alert(res.msg)
+            })
+          } else if(value === 2){
+            httpRequest({
+              type: 'POST',
+              url: api.resetPassword,
+              data: {
+                user_account: this.state.email,
+                step: value,
+                code: this.state.code
+              }
+            }).done(res => {
+              if(res.code === '0'){
+                alert('验证成功，请设置新的密码！')
+                this.setState({
+                  state: value
+                })
+              } else {
+                alert(res.msg)
+              }
+            }).fail(res => {
+              alert(res.msg)
+            })
+          }
+        }
+      } else {
+        alert("email is't right")
+      }
+    }
+  }
+
+  renderSignUp = () => {
+    const {newEmail, newPassword, newConfirmation} = this.state
     return (
-      <div className="sol_content">
-        <div className="sol_content_title">Create an account</div>
-        <div className="sol_content_box">
-          <div className="sol_content_inner">
-            <img alt='email' src={email_img} className="sol_content_img"></img>
-            <input id='newEmail' className="sol_content_input" placeholder='Your e-mail' value={newEmail} onChange={this.handleChange.bind(this,'newEmail')} />
+      <Fragment>
+        {this.state.forgot ? this.renderForgot() : 
+        <div className="sol_content">
+          <div className="sol_content_title">Create an account</div>
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='email' src={email_img} className="sol_content_img"></img>
+              <input id='newEmail' className="sol_content_input" placeholder='Your e-mail' value={newEmail} onChange={this.handleChange.bind(this,'newEmail')} />
+            </div>
+            <div className="sol_content_tip">{this.state.isRightEmail ? '' : 'Enter the correct email'}</div>
           </div>
-          <div className="sol_content_tip">{this.state.isRightEmail ? '' : 'Enter the correct email'}</div>
-        </div>
-        <div className="sol_content_box">
-          <div className="sol_content_inner">
-            <img alt='password' src={password_img} className="sol_content_img"></img>
-            <input className="sol_content_input" placeholder='Password' value={newPassword} onChange={this.handleChange.bind(this,'newPassword')} />
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='password' src={password_img} className="sol_content_img"></img>
+              <input type='password' className="sol_content_input" placeholder='Password' value={newPassword} onChange={this.handleChange.bind(this,'newPassword')} />
+            </div>
+            <div className="sol_content_tip">{this.state.isRightNewPassword ? '' : 'Enter the correct Password'}</div>
           </div>
-          <div className="sol_content_tip">{this.state.isRightNewPassword ? '' : 'Enter the correct Password'}</div>
-        </div>
-        <div className="sol_content_box">
-          <div className="sol_content_inner">
-            <img alt='password' src={password_img} className="sol_content_img"></img>
-            <input id='password' className="sol_content_input" placeholder='Password confirmation' value={newConfirmation} onChange={this.handleChange.bind(this,'newConfirmation')} />
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='password' src={password_img} className="sol_content_img"></img>
+              <input type='password' id='password' className="sol_content_input" placeholder='Password confirmation' value={newConfirmation} onChange={this.handleChange.bind(this,'newConfirmation')} />
+            </div>
+            <div className="sol_content_tip">{this.state.samePassword ? '' : 'Not same as Password'}</div>
           </div>
-          <div className="sol_content_tip">{this.state.samePassword ? '' : 'Not same as Password'}</div>
-        </div>
-        <div className="sol_content_other sol_content_other_signup">
-          <div className='sol_content_other_inner'>Forgot password?</div>
-          <div className='sol_content_other_inner' onClick={this.changeCreateAccount}>Login</div>
-        </div>
-        <div className="sol_content_button" onClick={this.create}>Create</div>
-      </div>
+          <div className="sol_content_other sol_content_other_signup">
+            <div className='sol_content_other_inner' onClick={this.forgot.bind(this,true)}>Forgot password?</div>
+            <div className='sol_content_other_inner' onClick={this.changeCreateAccount}>Login</div>
+          </div>
+          <div className="sol_content_button" onClick={this.create}>Create</div>
+        </div>}
+      </Fragment>
     )
   }
-  renderLogin = (email, password) => {
+  renderLogin = () => {
+    const {email, password} = this.state
     return (
-      <div className="sol_content">
-        <div className="sol_content_title">login in your ID</div>
-        <div className="sol_content_box">
-          <div className="sol_content_inner">
-            <img alt='email' src={email_img} className="sol_content_img"></img>
-            <input id='email' type='email' className="sol_content_input" placeholder='Your e-mail' value={email} onChange={this.handleChange.bind(this,'email')} />
+      <Fragment>
+        {this.state.forgot ? this.renderForgot() : 
+        <div className="sol_content">
+          <div className="sol_content_title">login in your ID</div>
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='email' src={email_img} className="sol_content_img"></img>
+              <input id='email' type='email' className="sol_content_input" placeholder='Your e-mail' value={email} onChange={this.handleChange.bind(this,'email')} />
+            </div>
+            <div className="sol_content_tip">{this.state.isRightEmail ? '' : 'Enter the correct email'}</div>
           </div>
-          <div className="sol_content_tip">{this.state.isRightEmail ? '' : 'Enter the correct email'}</div>
-        </div>
-        <div className="sol_content_box">
-          <div className="sol_content_inner">
-            <img alt='password' src={password_img} className="sol_content_img"></img>
-            <input className="sol_content_input" placeholder='Password' value={password} onChange={this.handleChange.bind(this,'password')} />
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='password' src={password_img} className="sol_content_img"></img>
+              <input type='password' className="sol_content_input" placeholder='Password' value={password} onChange={this.handleChange.bind(this,'password')} />
+            </div>
+            <div className="sol_content_tip">{this.state.isRightPassword ? '' : 'Enter the correct Password'}</div>
           </div>
-          <div className="sol_content_tip">{this.state.isRightPassword ? '' : 'Enter the correct Password'}</div>
-        </div>
-        <div className="sol_content_other sol_content_other_login">
-          <div className='sol_content_other_inner'>Forgot password?</div>
-        </div>
-        <div className="sol_content_button" onClick={this.login}>LOGIN</div>
-        <div className="sol_content_create" onClick={this.changeLogin}>Not a member?<p>Create an account</p></div>
-      </div>
+          <div className="sol_content_other sol_content_other_login">
+            <div className='sol_content_other_inner' onClick={this.forgot.bind(this,true)}>Forgot password?</div>
+          </div>
+          <div className="sol_content_button" onClick={this.login}>LOGIN</div>
+          <div className="sol_content_create" onClick={this.changeLogin}>Not a member?<p>Create an account</p></div>
+        </div>}
+      </Fragment>
     )
+  }
+  renderForgot = () => {
+    const {email, code, resetPassword, resetConfirmation} = this.state
+    if(this.state.state === 0){
+      return (
+        <div className="sol_content">
+          <div className="sol_content_title">Forgot your Password?<br/>Enter your email address：</div>
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='email' src={email_img} className="sol_content_img"></img>
+              <input id='email' type='email' className="sol_content_input" placeholder='Your e-mail' value={email} onChange={this.handleChange.bind(this,'email')} />
+            </div>
+            <div className="sol_content_tip">{this.state.isRightEmail ? '' : 'Enter the correct email'}</div>
+          </div>
+          <div className="sol_content_button" onClick={this.nextStep.bind(this,1)}>NEXT STEP</div>
+          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to login</p>
+        </div>
+      )
+    } else if(this.state.state === 1){
+      return (
+        <div className="sol_content">
+          <div className="sol_content_title">Your verification code was sent to: <br/>{email}</div>
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='email' src={email_img} className="sol_content_img"></img>
+              <input className="sol_content_input" placeholder='Enter verification code' value={code} onChange={this.handleChange.bind(this,'code')} />
+            </div>
+            <div className="sol_content_tip">{this.state.isRightEmail ? '' : 'Enter the correct email'}</div>
+          </div>
+          <div className="sol_content_button" onClick={this.nextStep.bind(this,2)}>NEXT STEP</div>
+          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to login</p>
+        </div>
+      )
+    } else {
+      return (
+        <div className="sol_content">
+          <div className="sol_content_title">Reset password</div>
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='password' src={password_img} className="sol_content_img"></img>
+              <input type='password' className="sol_content_input" placeholder='Password' value={resetPassword} onChange={this.handleChange.bind(this,'resetPassword')} />
+            </div>
+            <div className="sol_content_tip">{this.state.isRightNewPassword ? '' : 'Enter the correct Password'}</div>
+          </div>
+          <div className="sol_content_box">
+            <div className="sol_content_inner">
+              <img alt='password' src={password_img} className="sol_content_img"></img>
+              <input type='password' id='resetpassword' className="sol_content_input" placeholder='Password confirmation' value={resetConfirmation} onChange={this.handleChange.bind(this,'resetConfirmation')} />
+            </div>
+            <div className="sol_content_tip">{this.state.samePassword ? '' : 'Not same as Password'}</div>
+          </div>
+          <div className="sol_content_button" onClick={this.nextStep.bind(this,3)}>NEXT STEP</div>
+          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to login</p>
+        </div>
+      )
+    }
   }
   render () {
     // const { sol } = this.props
-    const { SignUpOrLogin, newEmail, newPassword, newConfirmation, email, password } = this.state;
-    return <div>{SignUpOrLogin ? this.renderLogin(email, password) : this.renderSignUp(newEmail,newPassword,newConfirmation) }</div>
+    const { SignUpOrLogin} = this.state;
+    return <div>{SignUpOrLogin ? this.renderLogin() : this.renderSignUp() }</div>
   }
 }
 

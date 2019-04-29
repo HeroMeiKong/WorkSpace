@@ -1,5 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './WaterMark.scss'
+import transCode from '@/utils/transCode'
+import api from '@/config/api'
+import $ from 'jquery'
+// import classNames from 'classnames'
 
 class WaterMark extends Component {
   static defaultProps = {
@@ -9,7 +13,7 @@ class WaterMark extends Component {
   constructor () {
     super()
     this.state = {
-      picUrl: '',
+      picUrl: '',//本地图片
       upload: false,//是否上传水印图片
       marquee: false,//是否点击去去水印
       markpic: false,//激活水印
@@ -22,7 +26,12 @@ class WaterMark extends Component {
       markpic_pos: {x: 0, y: 0},//开始点击水印都位置
       removepic_pos: {x: 0, y: 0},//开始点击去水印都位置
       watermark: {width: 40, height: 40, x: 0, y: 0},//水印图片最终信息
+      img_url: '',//水印图片
       removewater: {width: 40, height: 40, x: 0, y: 0},//去水印图片最终信息
+      isSuccess: false,//是否开始视频制作
+      isTransing: false, // 是否开始转码
+      progress: 0,//视频进度
+      video_url: '',//视频地址
     }
   }
 
@@ -270,8 +279,8 @@ class WaterMark extends Component {
     this.refs.input.click()
   }
 
-  inputChange = (e) => {
-    const files = e.target.files;
+  inputChange = (el) => {
+    const files = el.target.files;
     let reader = new FileReader()
     reader.readAsDataURL(files[0])
     reader.onload = (e) => {
@@ -280,6 +289,30 @@ class WaterMark extends Component {
         picUrl: e.target.result
       })
     }
+    this.getImgUrl(el)
+  }
+
+  getImgUrl = (el) => {
+    const that = this
+    let formData = new FormData()
+    formData.append('file',el.target.files[0])
+    $.ajax({
+      type: 'POST',
+      url: api.uploadPic,
+      data: formData,
+      contentType: false,
+      processData: false,
+      mimeType: "multipart/form-data",
+      success: (response) => {
+        const {data} = JSON.parse(response)
+        that.setState({
+          img_url: data.file_url
+        })
+      },
+      fail: (e) => {
+        alert('上传图片失败！请重新上传图片！')
+      }
+    })
   }
 
   addMarquee = () => {
@@ -288,12 +321,124 @@ class WaterMark extends Component {
     })
   }
 
-
   reupload = () => {
     this.props.reupload()
   }
 
-  render () {
+  startCovert = (start) => {
+    console.log('开始转码视频！2')
+      this.setState({
+        showOutOption: false
+      })
+    this.state.downloadList.push(this.props.file)
+  }
+
+  deleteDownloadRecord (el) {
+    this.props.callBack(el)
+  }
+
+  startTransCode (inFileMd5) {
+    const { watermark, removewater, img_url } = this.state
+    console.log('img_url:',img_url)
+    const waterPic = {
+      img_url,
+      width: '' + watermark.width,
+      height: '' + watermark.height,
+      x: '' + watermark.x,
+      y: '' + watermark.y
+    }
+    const delogo = {
+      left: '' + removewater.x,
+      right: '' + removewater.x + removewater.width,
+      top: '' + removewater.y,
+      bottom: '' + removewater.y + removewater.height
+    }
+    const transOptions = {
+      inFileMd5: inFileMd5.substring(0,32),    // 文件md5
+      layer: [waterPic],
+      delogo
+    }
+    console.log('transOptions1234:',transOptions)
+    transCode({
+      transOptions,
+      transSuccess: this.transSuccess,    // 转码成功 回调
+      transFail: this.transFail,       // 转码失败 回调
+      transProgress: this.transProgress,    // 转码中 回调
+    });
+    this.props.isSuccess()
+    this.setState({
+      isTransing: true,
+      waterMark: false,
+      isSuccess: true
+    })
+  };
+
+  transSuccess = (url) => {
+    console.log('transSuccess');
+    this.setState({
+      video_url: url || ''
+    })
+  };
+
+  transFail = (msg) => {
+    console.log('转码失败:-->', msg);
+    alert('转码失败！请待会儿重试！')
+    this.setState({
+      isTransing: false
+    })
+  };
+
+  transProgress = (msg) => {
+    console.log('转码中--》' + msg);
+    this.setState({
+      progress: parseInt(msg)
+    })
+  };
+
+  downloadVideo = () => {
+    const {video_url} = this.state
+    console.log(video_url,'111')
+    if(video_url){
+      window.open('about:blank').location.href=video_url
+    }
+  }
+
+  deleteMe = () => {
+    this.props.callBack()
+  }
+
+  convertSuccess = () => {
+    const {progress} = this.state
+    return <Fragment>
+            <div className="download_list_line">{progress >= 100 ? '' : <div className='progress_bar'><div style={{width: progress+'%'}} className='progress_bar_inner'></div></div>}</div>
+                {progress >= 100 ? <div className="download_list_download" onClick={this.downloadVideo}></div> : <div className="download_list_progress">{progress}%</div>}
+            {progress >= 100 ? <div className="download_list_delete" onClick={this.deleteMe}></div> : ''}
+          </Fragment>
+  }
+
+  resizeName = (fileName) => {
+    let shortFileName = fileName
+    if(fileName.length > 9){
+      shortFileName = fileName.substring(0,3)+'…'+fileName.substring(fileName.length-6)
+    }
+    return shortFileName
+  }
+
+  renderLists = (fileName) => {
+    const { isTransing } = this.state
+    let shortFileName = fileName
+    if(fileName.length > 9){
+      shortFileName = fileName.substring(0,3)+'…'+fileName.substring(fileName.length-6)
+    }
+    return (
+      <div className='download_list'>
+        <div className='download_list_title'>{shortFileName}</div>
+        {isTransing ? this.convertSuccess() : ''}
+      </div>
+    )
+  }
+
+  renderWaterMark = (startTransCode) => {
     const { src, screen } = this.props
     const { picUrl, upload, marquee, watermark, removewater } = this.state
     return (
@@ -334,11 +479,21 @@ class WaterMark extends Component {
             </div>
           </div>
           <div className="watermark_box">
-            <div className="watermark_button">START</div>
+            <div className="watermark_button" onClick={this.startTransCode.bind(this,startTransCode)}>START</div>
             <div className="watermark_button" onClick={this.reupload}>REUPLOAD</div>
           </div>
         </div>
       </div>
+    )
+  }
+
+  render () {
+    const { isSuccess } = this.state
+    const { fileMd5, fileName } = this.props.data
+    return (
+      <Fragment>
+        {isSuccess ? this.renderLists(fileName) : this.renderWaterMark(fileMd5)}
+      </Fragment>
     )
   }
 }
