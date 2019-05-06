@@ -10,14 +10,15 @@ import ControllerVideo from '@/components/ControllerVideo/ControllerVideo'
 // import DownloadLists from '@/components/DownloadLists/DownloadLists'
 import Upload from '@/components/Upload'
 import Loading from '@/components/Loading/Loading'
-//app端组件
-import Menu from '@/components/App/Menu/Menu'
+import Toast from '@/components/Toast/Toast'
 
 class Index extends Component {
   constructor () {
     super()
     this.state = {
       isLoading: false,
+      isToast: false,
+      toast_text: 'Error!',
       index: 0,
       percent: 0,
       uploadStart: false,
@@ -28,6 +29,7 @@ class Index extends Component {
       src: ''
     }
   }
+
   uploadSuccess = (fileName, fileSize, fileMd5)=> {
     if(this.state.isType){
       httpRequest({
@@ -53,7 +55,7 @@ class Index extends Component {
             videoInfo: response || {width: 0,height: 0},
           })
           if(this.state.src === ''){
-            alert('上传视频是吧！请重新上传！')
+            this.showToast('Upload failure,please try again!')
           } else {
             this.setState({
               index: this.state.index+1,
@@ -61,12 +63,17 @@ class Index extends Component {
               cutterVideo: true,
             })
           }
+        }).fail(resp => {
+          this.showToast(resp)
         })
+      }).fail(resp => {
+        this.showToast(resp)
       })
     } else {
-      console.log('文件未上传！')
+      this.showToast('文件未上传！')
     }
   }
+
   uploadChange = (e) => {
     const size = (e.size/(1024*1024)).toFixed(2)
     const arr = e.name.split('.')
@@ -78,17 +85,19 @@ class Index extends Component {
         size
       })
     } else {
-      alert('目前支持的视频格式为：mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv、MP4，请上传知道格式的视频文件！')
+      this.showToast('This media format is not supported!Yon can use mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv!')
       this.setState({
         isType: false,
       })
     }
   }
+
   uploadProgress = (percent) => {
     this.setState({
       percent
     })
   }
+
   deleteDownloadRecord = (el) => {
     const arr = this.state.uploadSuccessList
     for(let i=0;i<this.state.uploadSuccessList.length;i++){
@@ -100,25 +109,42 @@ class Index extends Component {
       }
     }
   }
+
   reupload = () => {
     this.setState({
       cutterVideo: false,
     })
   }
+
+  showToast = (toast_text) => {
+    console.log('showToast')
+    this.setState({
+      isToast: true,
+      toast_text
+    })
+  }
+
+  hiddenToast = () => {
+    console.log('hiddenToast')
+    this.setState({
+      isToast: false
+    })
+  }
+
   render () {
-    const { percent, uploadStart, uploadSuccessList, size, cutterVideo, src, isLoading } = this.state;
+    const { percent, uploadStart, uploadSuccessList, size, cutterVideo, src, isLoading, isToast, toast_text } = this.state;
     return(
       <div id='wrapper' className='wrapper'>
       <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
+        {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
         <Header />
-        <Menu />
         <div className='wrapper_content'>
           <div className='content index_div'>
           {cutterVideo ? <div className='content_inner'><ControllerVideo src={src} uploadSuccessList={uploadSuccessList} reupload={this.reupload} /></div> : 
             <div className='content_inner'>
-              <p className='content_header'>DOLPHIN VIEDEO CUTTER</p>
-              <p className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</p>
+              <h1 className='content_header'>DOLPHIN VIEDEO CUTTER</h1>
+              <h2 className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</h2>
                 <Upload disabled={false}
                         accept='video/*'
                         onChange={this.uploadChange}

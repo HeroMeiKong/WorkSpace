@@ -1,63 +1,121 @@
-.download_lists,
-.download_lists_inner {
-  padding-top: 22px;
-  width: 100%;
-  max-width: 396px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  color: #ffffff;
-
-  & .download_lists_tip {
-    font-size: 14px;
-    text-align: center;
-  }
-
-  & div > a {
-    text-align: center;
-    padding-top: 10px;
-    color: #ffffff;
-  }
-
-  .download_list {
-    width: 100%;
+@media screen and (max-width: 675px) {
+  .download_lists,
+  .download_lists_inner {
+    padding-top: 1.375rem;
+    width: 18.9375rem;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 8px 0 8px;
-    background: rgba(0, 0, 0, .1);
-    border-radius: 2px;
-    border: 1px solid rgba(255, 255, 255, .1);
-    margin-top: 11px;
-    position: relative;
-    // &:hover{
-    //   transition: all .3s ease-in-out;
-    //   transform: translate(20px,0);
-    // }
+    color: #ffffff;
+    a{color: #ffffff;}
 
-    .download_list_title {
-      font-size: 16px;
-      font-family: STHeitiTC-Light;
+    .download_lists_tip {
+      font-size: .875rem;
+      text-align: center;
+    }
+
+    div > a {
+      text-align: center;
+      padding-top: .625rem;
+      color: #ffffff;
+    }
+
+    .download_list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: .5rem .5rem 0 .5rem;
+      background: rgba(0, 0, 0, .1);
+      border-radius: 2px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      margin-top: .75rem;
+      position: relative;
+
+      .download_list_title {
+        font-size: 1rem;
+        font-family: STHeitiTC-Light;
+        font-weight: 300;
+        height: 1.25rem;
+      }
+    }
+    .download_lists_button {
+      width: 100%;
+      font-size: 1rem;
       font-weight: 300;
-      height: 20px;
+      background: rgba(0, 0, 0, .1);
+      border-radius: 2px;
+      border: 1px solid rgba(255, 255, 255,.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: .375rem 0;
+      margin-top: .625rem;
     }
   }
-  .download_lists_button {
-    text-decoration: none;
+}
+@media screen and (min-width: 676px) {
+  .download_lists,
+  .download_lists_inner {
+    padding-top: 22px;
     width: 100%;
-    font-size: 16px;
-    font-weight: 300;
-    background: rgba(0, 0, 0, .1);
-    border-radius: 2px;
-    border: 1px solid rgba(255, 255, 255,.1);
+    max-width: 396px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 6px 0;
-    margin-top: 10px;
-    &:hover{
-      cursor: pointer;
-      background:rgba(255,255,255,.1);
+    flex-direction: column;
+    color: #ffffff;
+
+    .download_lists_tip {
+      font-size: 14px;
+      text-align: center;
+    }
+
+    div > a {
+      text-align: center;
+      padding-top: 10px;
+      color: #ffffff;
+    }
+
+    .download_list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 8px 8px 0 8px;
+      background: rgba(0, 0, 0, .1);
+      border-radius: 2px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      margin-top: 11px;
+      position: relative;
+      // &:hover{
+      //   transition: all .3s ease-in-out;
+      //   transform: translate(20px,0);
+      // }
+
+      .download_list_title {
+        font-size: 16px;
+        font-family: STHeitiTC-Light;
+        font-weight: 300;
+        height: 20px;
+      }
+    }
+    .download_lists_button {
+      text-decoration: none;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 300;
+      background: rgba(0, 0, 0, .1);
+      border-radius: 2px;
+      border: 1px solid rgba(255, 255, 255,.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 0;
+      margin-top: 10px;
+      &:hover{
+        cursor: pointer;
+        background:rgba(255,255,255,.1);
+      }
     }
   }
 }

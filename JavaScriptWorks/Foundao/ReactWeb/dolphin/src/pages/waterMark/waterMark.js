@@ -9,14 +9,15 @@ import DropFile from '@/components/DropFile/DropFile'
 import WaterMark from '@/components/WaterMark/WaterMark'
 import Upload from '@/components/Upload'
 import Loading from '@/components/Loading/Loading'
-//app端组件
-import Menu from '@/components/App/Menu/Menu'
+import Toast from '@/components/Toast/Toast'
 
 class Index extends Component {
   constructor () {
     super()
     this.state = {
       isLoading: false,
+      isToast: false,
+      toast_text: 'Error!',
       index: 0,
       percent: 0,
       uploadStart: false,
@@ -29,6 +30,7 @@ class Index extends Component {
       screen: {},
     }
   }
+
   uploadSuccess = (fileName, fileSize, fileMd5)=> {
     if(this.state.isType){
       console.log('文件上传成功！')
@@ -74,7 +76,7 @@ class Index extends Component {
             })
           }
           if(this.state.src === ''){
-            alert('上传视频是吧！请重新上传！')
+            this.showToast('Upload failure,please try again!')
           } else {
             this.setState({
               index: this.state.index+1,
@@ -83,12 +85,17 @@ class Index extends Component {
               fileMd5
             })
           }
+        }).fail(resp => {
+          this.showToast(resp)
         })
+      }).fail(resp => {
+        this.showToast(resp)
       })
     } else {
-      console.log('文件未上传！')
+      this.showToast('文件未上传！')
     }
   }
+
   uploadChange = (e) => {
     const size = (e.size/(1024*1024)).toFixed(2)
     const arr = e.name.split('.')
@@ -100,17 +107,19 @@ class Index extends Component {
         size
       })
     } else {
-      alert('目前支持的视频格式为：mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv、MP4，请上传知道格式的视频文件！')
+      this.showToast('This media format is not supported!Yon can use mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv!')
       this.setState({
         isType: false,
       })
     }
   }
+
   uploadProgress = (percent) => {
     this.setState({
       percent
     })
   }
+
   deleteDownloadRecord = (el) => {
     const arr = this.state.uploadSuccessList
     for(let i=0;i<this.state.uploadSuccessList.length;i++){
@@ -122,30 +131,47 @@ class Index extends Component {
       }
     }
   }
+
   reupload = () => {
     this.setState({
       waterMark: false,
     })
   }
+
   showWaterMark = () => {
     this.setState({
       waterMark: false
     })
   }
 
+  showToast = (toast_text) => {
+    console.log('showToast')
+    this.setState({
+      isToast: true,
+      toast_text
+    })
+  }
+
+  hiddenToast = () => {
+    console.log('hiddenToast')
+    this.setState({
+      isToast: false
+    })
+  }
+
   render () {
-    const { percent, uploadStart, uploadSuccessList, screen, waterMark, src, isLoading } = this.state;
+    const { percent, uploadStart, uploadSuccessList, screen, waterMark, src, isLoading, isToast, toast_text } = this.state;
     return(
       <div id='wrapper' className='wrapper'>
       <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
+        {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
         <Header />
-        <Menu />
         <div className='wrapper_content'>
           <div className='content index_div'>
             <div className='content_inner' style={{display: waterMark?'none':'flex'}}>
-              <p className='content_header'>DOLPHIN WATERMARK</p>
-              <p className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</p>
+              <h1 className='content_header'>DOLPHIN WATERMARK</h1>
+              <h2 className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</h2>
                 <Upload disabled={false}
                         accept='video/*'
                         onChange={this.uploadChange}
@@ -168,7 +194,8 @@ class Index extends Component {
                         // return <DownloadList key={item.fileMd5} data={item} videoInfo={item.videoInfo} callBack={this.deleteDownloadRecord.bind(this,item.fileMd5)} />
                         return <WaterMark key={item.fileMd5} data={item} videoInfo={item.videoInfo} 
                         callBack={this.deleteDownloadRecord.bind(this,item.fileMd5)} src={src} 
-                        reupload={this.reupload} screen={screen} isSuccess={this.showWaterMark} />
+                        reupload={this.reupload} screen={screen} isSuccess={this.showWaterMark}
+                        showToast={this.showToast} />
                       })}
                       {uploadSuccessList.length > 5 ? <div className='download_lists_button'>MY FILES</div> : ''}
                     </div>

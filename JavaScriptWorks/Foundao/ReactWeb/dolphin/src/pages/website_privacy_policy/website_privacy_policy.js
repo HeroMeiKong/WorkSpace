@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Header from '@/components/Header/Header'
 import BottomBar from '@/components/BottomBar/BottomBar'
 import Loading from '@/components/Loading/Loading'
-//app端组件
-import Menu from '@/components/App/Menu/Menu'
 
 class WebsitePrivacyPolicy extends Component{
   constructor () {
@@ -20,7 +18,6 @@ class WebsitePrivacyPolicy extends Component{
         <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
         <Header />
-        <Menu />
         <div className='wrapper_content'>
           <div className='content index_div'>
             <article>

@@ -76,8 +76,8 @@ class Avatar extends Component {
   }
 
   updateCapacity = () => {
-    let capacity = tools.getCapacity_storage().capacity/(1024*1024) || 0
-    let used_capacity = tools.getCapacity_storage().used_capacity/(1024*1024) || 0
+    let capacity = tools.getCapacity_storage().capacity/(1024*1024*1024) || 0
+    let used_capacity = tools.getCapacity_storage().used_capacity/(1024*1024*1024) || 0
     const isZero = used_capacity
     let percent = 0
     if(used_capacity === 0){
@@ -85,17 +85,17 @@ class Avatar extends Component {
     } else {
       percent = used_capacity/capacity
     }
-    switch (capacity>=1000) {
+    switch (capacity>=1024) {
       case true:
-        capacity = (capacity/1000).toFixed(1) + 'T'
+        capacity = (capacity/1024).toFixed(1) + 'T'
         break;
       default:
         capacity = capacity.toFixed(1) + 'G'
         break;
     }
-    switch (used_capacity>=1000) {
+    switch (used_capacity>=1024) {
       case true:
-      used_capacity = (used_capacity/1000).toFixed(1) + 'T'
+      used_capacity = (used_capacity/1024).toFixed(1) + 'T'
         break;
       default:
       used_capacity = used_capacity.toFixed(1) + 'G'

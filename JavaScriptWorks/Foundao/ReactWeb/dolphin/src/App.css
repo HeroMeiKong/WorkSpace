@@ -50,10 +50,18 @@
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
   -webkit-appearance: none !important;
 }
+input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
+  -webkit-text-fill-color: #ededed !important;
+  box-shadow: 0 0 0px 1000px transparent  inset !important;
+  background-color: transparent;
+  background-image: none;
+  transition: background-color 50000s ease-in-out 0s;
+ }
+ input {
+   background-color:transparent;
+ }
 @media screen and (max-width: 675px) {
-  #header{
-    display: none;
-  }
+  
   #wrapper .content_header{
     font-size: 1.25rem;
     letter-spacing: 1px;
@@ -76,9 +84,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
   #wrapper .drop_tip{
     display: none;
   }
-  #wrapper .download_lists{
-    display: none;
-  }
+  
   #wrapper .download_lists_tip{
     line-height:22px;
     width: 90%;
@@ -119,9 +125,6 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
   }
 }
 @media screen and (min-width: 676px) {
-  #app_menu{
-    display: none;
-  }
   #wrapper .app_drop_tip{
     display: none;
   }

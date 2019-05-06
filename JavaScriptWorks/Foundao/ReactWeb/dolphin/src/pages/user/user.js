@@ -6,17 +6,18 @@ import api from '@/config/api'
 import tools from '@/utils/tools'
 //pc端组件
 import Header from '@/components/Header/Header'
-import BottomBar from '@/components/BottomBar/BottomBar'
+// import BottomBar from '@/components/BottomBar/BottomBar'
 import DownloadRecords from './DownloadRecords/DownloadRecords'
 import Loading from '@/components/Loading/Loading'
-//app端组件
-import Menu from '@/components/App/Menu/Menu'
+import Toast from '@/components/Toast/Toast'
 
 class User extends Component {
   constructor () {
     super()
     this.state = {
       isLoading: false,
+      isToast: false,
+      toast_text: 'Error!',
       newRecords: [],
       records: [],
     }
@@ -37,13 +38,13 @@ class User extends Component {
             records: this.updateData(res.data.rows)
           })
         } else {
-          alert(res.msg)
+          this.showToast(res.msg)
         }
       }).fail(res => {
-        alert('网络异常请刷新页面')
+        this.showToast('Something wrong with your connection, please refresh this page!')
       })
     } else {
-      alert('未登录')
+      this.showToast('Please login!')
     }
   }
 
@@ -52,35 +53,53 @@ class User extends Component {
   }
 
   updateData = (arr) => {
-    const length = arr.length
-    let newArr = [{date: arr[0].startime*1000, rows: [arr[0]]}]
-    let j = 0
-    for(let i=1;i<length;i++){
-      if(Math.abs(arr[i].startime - arr[i-1].startime) > 3600){
-        newArr.push({date: '', rows: []})
-        j++
-        newArr[j].date = arr[i].startime*1000
-        newArr[j].rows.push(arr[i])
+    if(arr){
+      const length = arr.length
+      if(length === 0){
+        return 0
       } else {
-        newArr[j].rows.push(arr[i])
+        let newArr = [{date: arr[0].startime*1000, rows: [arr[0]]}]
+        let j = 0
+        for(let i=1;i<length;i++){
+          if(Math.abs(arr[i].startime - arr[i-1].startime) > 3600){
+            newArr.push({date: '', rows: []})
+            j++
+            newArr[j].date = arr[i].startime*1000
+            newArr[j].rows.push(arr[i])
+          } else {
+            newArr[j].rows.push(arr[i])
+          }
+        }
+        return newArr
       }
+    } else {
+      this.showToast('Something wrong with your connection, please try again later!')
     }
-    return newArr
   }
   updateRecords = (arr) => {
     if(arr){
       const length = arr.length
-      for(let i=0;i<length;i++){
-
+      let newArr = [{date: arr[0].startime*1000, rows: [arr[0]]}]
+      let j = 0
+      for(let i=1;i<length;i++){
+        if(Math.abs(arr[i].startime - arr[i-1].startime) > 3600){
+          newArr.push({date: '', rows: []})
+          j++
+          newArr[j].date = arr[i].startime*1000
+          newArr[j].rows.push(arr[i])
+        } else {
+          newArr[j].rows.push(arr[i])
+        }
       }
+      return newArr
     } else {
-      alert('获取数据失败！')
+      this.showToast('Something wrong with your connection, please try again later!')
     }
   }
 
   updateCapacity = () => {
-    let capacity = tools.getCapacity_storage().capacity/(1024*1024) || 0
-    let used_capacity = tools.getCapacity_storage().used_capacity/(1024*1024) || 0
+    let capacity = tools.getCapacity_storage().capacity/(1024*1024*1024) || 0
+    let used_capacity = tools.getCapacity_storage().used_capacity/(1024*1024*1024) || 0
     const isZero = used_capacity
     let percent = 0
     if(used_capacity === 0){
@@ -88,17 +107,17 @@ class User extends Component {
     } else {
       percent = used_capacity/capacity
     }
-    switch (capacity>=1000) {
+    switch (capacity>=1024) {
       case true:
-        capacity = (capacity/1000).toFixed(1) + 'T'
+        capacity = (capacity/1024).toFixed(1) + 'T'
         break;
       default:
         capacity = capacity.toFixed(1) + 'G'
         break;
     }
-    switch (used_capacity>=1000) {
+    switch (used_capacity>=1024) {
       case true:
-      used_capacity = (used_capacity/1000).toFixed(1) + 'T'
+      used_capacity = (used_capacity/1024).toFixed(1) + 'T'
         break;
       default:
       used_capacity = used_capacity.toFixed(1) + 'G'
@@ -108,16 +127,31 @@ class User extends Component {
     return {capacity ,used_capacity, percent}
   }
 
+  showToast = (toast_text) => {
+    console.log('showToast')
+    this.setState({
+      isToast: true,
+      toast_text
+    })
+  }
+
+  hiddenToast = () => {
+    console.log('hiddenToast')
+    this.setState({
+      isToast: false
+    })
+  }
+
   render () {
-    const { isLoading, records } = this.state
+    const { isLoading, records, isToast, toast_text } = this.state
     const {capacity ,used_capacity, percent} = this.updateCapacity()
     if(!tools.getUserData_storage().token){this.backHome()}
     return(
       <div id='wrapper' className='wrapper'>
         <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
+        {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
         <Header />
-        <Menu />
         <div className='wrapper_content'>
           <div className='content'>
             <div className='myplan'>
@@ -134,14 +168,14 @@ class User extends Component {
             <div className='myplan'>
               <h1>MY FILES</h1>
               <div className='line'></div>
-              {records.map((item,index) => {
+              {records !== 0 ? records.map((item,index) => {
                 return <DownloadRecords key={index} data={item} record_date={item.date} />
-              })}
+              }) : ''}
               {/* <DownloadRecords record_date='4PM Friday 22March'/>
               <DownloadRecords record_date='11AM Thursday 21March'/> */}
             </div>
           </div>
-          <BottomBar />
+          {/* <BottomBar /> */}
         </div>
       </div>
     )

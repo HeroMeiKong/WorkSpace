@@ -30,7 +30,8 @@ class SignUpOrLoginCard extends Component {
       state: 0,//忘记密码第一步
       code: '',//验证码
       resetPassword: '',//重制密码
-      resetConfirmation: '',//
+      resetConfirmation: '',
+      resetSamePassword: true,//
     }
   }
 
@@ -49,13 +50,27 @@ class SignUpOrLoginCard extends Component {
   }
 
   handleChange = (key,e) => {
-    if(e.target.id === 'email' || e.target.id === 'newEmail'){
-      this.checkEmail(e)
-    } else if(e.target.id === 'password' || e.target.id === 'resetpassword'){
-      this.checkPassword(e)
-    }
+    let id = e.target.id
+    let value = e.target.value
     this.setState({
       [key]: e.target.value
+    },() => {
+      if(id === 'email' || id === 'newEmail'){
+        this.checkEmail(value)
+      } else if(id === 'password' || id === 'resetpassword'){
+        this.checkPassword(id)
+      } else {
+        if(this.state.newPassword === this.state.newConfirmation){
+          this.setState({
+            isRightNewPassword: true,
+            samePassword: true
+          })
+        } else if(this.state.resetPassword === this.state.resetConfirmation){
+          this.setState({
+            resetSamePassword: true
+          })
+        }
+      }
     })
   }
   
@@ -66,75 +81,81 @@ class SignUpOrLoginCard extends Component {
 
   create = () => {
     const that = this
-    if(this.state.newPassword === this.state.newConfirmation){
-      this.props.loading(true)//显示loading
-      httpRequest({
-        type: 'POST',
-        url: api.signup,
-        data: {
-          user_account: that.state.newEmail,
-          user_passwd: that.state.newPassword
-        }
-      }).done( res => {
-        if(res.code === '0'){
-          this.props.loading(false)//隐藏loading
-          this.setState({
-            SignUpOrLogin: true,
-          })
-        } else {
-          alert(res.msg)
-          this.props.loading(false)//隐藏loading
-        }
-      }).fail( err => {
-        console.log(err)
-        this.props.loading(false)//隐藏loading
-      })
+    if(this.state.newConfirmation === '' || this.state.newEmail === ''){
+      this.props.showToast('please verify your email address or password!')
     } else {
-      alert('The password is different twice.')
+      if(this.state.newPassword === this.state.newConfirmation){
+        this.props.loading(true)//显示loading
+        httpRequest({
+          type: 'POST',
+          url: api.signup,
+          data: {
+            user_account: that.state.newEmail,
+            user_passwd: that.state.newPassword
+          }
+        }).done( res => {
+          if(res.code === '0'){
+            this.props.loading(false)//隐藏loading
+            this.setState({
+              SignUpOrLogin: true,
+            })
+          } else {
+            this.props.showToast(res.msg)
+            this.props.loading(false)//隐藏loading
+          }
+        }).fail( err => {
+          this.props.showToast(err)
+          this.props.loading(false)//隐藏loading
+        })
+      } else {
+        this.props.showToast('The password is different twice.')
+      }
     }
   }
 
   login = (e) => {
     const that = this
-    this.props.loading(true)//显示loading
-    httpRequest({
-      type: 'POST',
-      url: api.login,
-      data: {
-        user_from: that.state.type,
-        user_account: that.state.email,
-        user_passwd: sha512(that.state.password)
-      }
-    }).done( res => {
-      if(res.code === '0'){
-        that.triggerFather()
-        let data = res.data
-        if(!res.data.user_avatar){
-          data.user_avatar = defaultAvatar
+    if(this.state.email !== '' && this.state.password !== ''){
+      this.props.loading(true)//显示loading
+      httpRequest({
+        type: 'POST',
+        url: api.login,
+        data: {
+          user_from: that.state.type,
+          user_account: that.state.email,
+          user_passwd: sha512(that.state.password)
         }
-        tools.setUserData_storage(data)
-        this.props.getUserStorage(data)
-        this.setState({
-          userInfo: res.data
-        })
-      } else {
-        this.props.loading(false)//隐藏loading
-        alert("check your password or email，and ensure that's right!")
-        that.setState({
-          isRightPassword: false
-        })
-      }
-    }).fail( err => {
-      console.log(err)
-    })
+      }).done( res => {
+        if(res.code === '0'){
+          that.triggerFather()
+          let data = res.data
+          if(!res.data.user_avatar){
+            data.user_avatar = defaultAvatar
+          }
+          tools.setUserData_storage(data)
+          this.props.getUserStorage(data)
+          this.setState({
+            userInfo: res.data
+          })
+        } else {
+          this.props.loading(false)//隐藏loading
+          this.props.showToast("please verify your email address or password!")
+          that.setState({
+            isRightPassword: false
+          })
+        }
+      }).fail( err => {
+        this.props.showToast(err)
+      })
+    } else {
+      this.props.showToast('please verify your email address or password!')
+    }
   }
 
-  checkEmail = (e) => {
+  checkEmail = (obj) => {
     // let reg = new RegExp("/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/"); //正则表达式
     let reg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/
-    let obj = e.target.value
     if(obj === ""){ //输入不能为空
-    　　alert("输入不能为空!");
     }else if(!reg.test(obj)){ //正则验证不通过，格式不对
     　　this.setState({
           isRightEmail: false
@@ -146,17 +167,29 @@ class SignUpOrLoginCard extends Component {
     }
   }
 
-  checkPassword = (e) => {
-    if(this.state.newPassword === this.state.newConfirmation){
-      this.setState({
-        isRightNewPassword: false,
-        samePassword: false
-      })
+  checkPassword = (id) => {
+    if(id === 'password'){
+      if(this.state.newPassword === this.state.newConfirmation){
+        this.setState({
+          isRightNewPassword: true,
+          samePassword: true
+        })
+      } else {
+        this.setState({
+          isRightNewPassword: false,
+          samePassword: false,
+        })
+      }
     } else {
-      this.setState({
-        isRightNewPassword: true,
-        samePassword: true
-      })
+      if(this.state.resetPassword === this.state.resetConfirmation){
+        this.setState({
+          resetSamePassword: true
+        })
+      } else {
+        this.setState({
+          resetSamePassword: false,
+        })
+      }
     }
   }
 
@@ -173,11 +206,11 @@ class SignUpOrLoginCard extends Component {
 
   nextStep (value) {
     if(value === 1 && this.state.email === ''){
-      alert('email not allow null!')
+      this.props.showToast('Please enter an email address!')
     } else if(value === 2 && this.state.code === ''){
-      alert('code not allow null!')
+      this.props.showToast('Please enter your code!')
     } else if(value === 3 && this.state.resetConfirmation === ''){
-      alert('password not allow null!')
+      this.props.showToast('Please enter your password!')
     } else {
       if(this.state.isRightEmail){
         if(value === 3){
@@ -192,17 +225,16 @@ class SignUpOrLoginCard extends Component {
             }
           }).done(res => {
             if(res.code === '0'){
-              alert('设置成功，请重新登录！')
-              console.log(res)
+              this.props.showToast('Setup successfully!Please login！')
               this.setState({
                 state: 0,
                 forgot: false
               })
             } else {
-              alert(res.msg)
+              this.props.showToast(res.msg)
             }
           }).fail(res => {
-            alert(res.msg)
+            this.props.showToast(res.msg)
           })
         } else {
           if(value === 1){
@@ -215,15 +247,15 @@ class SignUpOrLoginCard extends Component {
               }
             }).done(res => {
               if(res.code === '0'){
-                alert('发送验证码成功，请注意查收！')
+                this.props.showToast('Please enter the vertification code that you can find in your email!')
                 this.setState({
                   state: value
                 })
               } else {
-                alert(res.msg)
+                this.props.showToast(res.msg)
               }
             }).fail(res => {
-              alert(res.msg)
+              this.props.showToast(res.msg)
             })
           } else if(value === 2){
             httpRequest({
@@ -236,20 +268,20 @@ class SignUpOrLoginCard extends Component {
               }
             }).done(res => {
               if(res.code === '0'){
-                alert('验证成功，请设置新的密码！')
+                this.props.showToast('Please setup a new password！')
                 this.setState({
                   state: value
                 })
               } else {
-                alert(res.msg)
+                this.props.showToast(res.msg)
               }
             }).fail(res => {
-              alert(res.msg)
+              this.props.showToast(res.msg)
             })
           }
         }
       } else {
-        alert("email is't right")
+        this.props.showToast("Invalid email address!")
       }
     }
   }
@@ -284,9 +316,9 @@ class SignUpOrLoginCard extends Component {
           </div>
           <div className="sol_content_other sol_content_other_signup">
             <div className='sol_content_other_inner' onClick={this.forgot.bind(this,true)}>Forgot password?</div>
-            <div className='sol_content_other_inner' onClick={this.changeCreateAccount}>Login</div>
+            <div className='sol_content_other_inner' onClick={this.changeCreateAccount}>Sign in</div>
           </div>
-          <div className="sol_content_button" onClick={this.create}>Create</div>
+          <div className="sol_content_button" onClick={this.create}>SIGN UP</div>
         </div>}
       </Fragment>
     )
@@ -315,7 +347,7 @@ class SignUpOrLoginCard extends Component {
           <div className="sol_content_other sol_content_other_login">
             <div className='sol_content_other_inner' onClick={this.forgot.bind(this,true)}>Forgot password?</div>
           </div>
-          <div className="sol_content_button" onClick={this.login}>LOGIN</div>
+          <div className="sol_content_button" onClick={this.login}>SIGN IN</div>
           <div className="sol_content_create" onClick={this.changeLogin}>Not a member?<p>Create an account</p></div>
         </div>}
       </Fragment>
@@ -335,7 +367,7 @@ class SignUpOrLoginCard extends Component {
             <div className="sol_content_tip">{this.state.isRightEmail ? '' : 'Enter the correct email'}</div>
           </div>
           <div className="sol_content_button" onClick={this.nextStep.bind(this,1)}>NEXT STEP</div>
-          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to login</p>
+          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to signin</p>
         </div>
       )
     } else if(this.state.state === 1){
@@ -350,7 +382,7 @@ class SignUpOrLoginCard extends Component {
             <div className="sol_content_tip">{this.state.isRightEmail ? '' : 'Enter the correct email'}</div>
           </div>
           <div className="sol_content_button" onClick={this.nextStep.bind(this,2)}>NEXT STEP</div>
-          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to login</p>
+          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to signin</p>
         </div>
       )
     } else {
@@ -362,17 +394,17 @@ class SignUpOrLoginCard extends Component {
               <img alt='password' src={password_img} className="sol_content_img"></img>
               <input type='password' className="sol_content_input" placeholder='Password' value={resetPassword} onChange={this.handleChange.bind(this,'resetPassword')} />
             </div>
-            <div className="sol_content_tip">{this.state.isRightNewPassword ? '' : 'Enter the correct Password'}</div>
+            <div className="sol_content_tip">{this.state.resetSamePassword ? '' : 'Enter the correct Password'}</div>
           </div>
           <div className="sol_content_box">
             <div className="sol_content_inner">
               <img alt='password' src={password_img} className="sol_content_img"></img>
               <input type='password' id='resetpassword' className="sol_content_input" placeholder='Password confirmation' value={resetConfirmation} onChange={this.handleChange.bind(this,'resetConfirmation')} />
             </div>
-            <div className="sol_content_tip">{this.state.samePassword ? '' : 'Not same as Password'}</div>
+            <div className="sol_content_tip">{this.state.resetSamePassword ? '' : 'Not same as Password'}</div>
           </div>
           <div className="sol_content_button" onClick={this.nextStep.bind(this,3)}>NEXT STEP</div>
-          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to login</p>
+          <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to signin</p>
         </div>
       )
     }

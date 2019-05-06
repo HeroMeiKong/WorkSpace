@@ -28,7 +28,7 @@ class DropFile extends Component {
           <div className='dolpin' style={{backgroundImage: 'url('+path+')'}}></div>
           {/* <div className='file'></div> */}
           <div className='droptips'>
-            <p className='drop_tip'>Drop a file or click here to upload</p>
+            <p className='drop_tip'>Drag your file here or click here to upload</p>
             <p className='app_drop_tip'> click here to upload</p>
             <p className='drop_note'>convert 1 video file with max 50MB at once</p>
           </div>

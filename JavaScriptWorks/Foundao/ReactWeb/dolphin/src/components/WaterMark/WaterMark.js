@@ -296,7 +296,7 @@ class WaterMark extends Component {
         })
       },
       fail: (e) => {
-        alert('上传图片失败！请重新上传图片！')
+        this.showToast('Upload failure,Please try again!')
       }
     })
   }
@@ -365,7 +365,7 @@ class WaterMark extends Component {
 
   transFail = (msg) => {
     console.log('转码失败:-->', msg);
-    alert('转码失败！请待会儿重试！')
+    this.showToast('Oops!encoding failure...Please try again sometime later!')
     this.setState({
       isTransing: false
     })
@@ -404,6 +404,10 @@ class WaterMark extends Component {
       shortFileName = fileName.substring(0,3)+'…'+fileName.substring(fileName.length-6)
     }
     return shortFileName
+  }
+
+  showToast = (text) => {
+    this.props.showToast(text)
   }
 
   renderLists = (fileName) => {

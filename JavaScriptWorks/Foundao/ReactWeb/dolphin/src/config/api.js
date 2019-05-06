@@ -1,12 +1,14 @@
 /**
  * Created by DELL on 2018/10/8.
  */
-import {API_HOST} from './baseConfig';
+// import {API_HOST} from './baseConfig';
 
-const host = API_HOST;
+// const host = API_HOST;
 const https = 'https://cd.foundao.com:10081/' //转码服务器
+
 // const hosts = 'http://cd.foundao.com:10080/foundao_api/' //本地
-const hosts = 'https://cd.foundao.com:10081/foundao_api/'//线上
+const hosts = 'https://cd.foundao.com:10081/foundao_api/'//预上线
+// const hosts = 'https://www.convert-mp4.com/api/'//线上
 
 /*
  * package 配置代理

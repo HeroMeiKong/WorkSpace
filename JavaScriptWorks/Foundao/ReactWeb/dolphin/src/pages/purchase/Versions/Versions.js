@@ -9,7 +9,11 @@ class Versions extends Component {
     super()
     this.state = {
       versions: [],
-      reset_versions: []
+      reset_versions: [{capacity: "1G",currency: "USD",id: "1",price: 1,time: "",title: "STARTER"},
+      {capacity: "50G",currency: "USD",id: "1",price: 2,time: "",title: "STARTER"},
+      {capacity: "200G",currency: "USD",id: "1",price: 3,time: "",title: "STARTER"},
+      {capacity: "800G",currency: "USD",id: "1",price: 4,time: "",title: "STARTER"},
+      {capacity: "2T",currency: "USD",id: "1",price: 5,time: "",title: "STARTER"}]
     }
   }
 
@@ -27,10 +31,10 @@ class Versions extends Component {
           reset_versions: this.resetValue(res.data)
         })
       } else {
-        alert(res.msg)
+        this.showToast(res.msg)
       }
     }).fail(res => {
-      alert(res.msg)
+      this.showToast(res.msg)
     })
   }
 
@@ -60,15 +64,30 @@ class Versions extends Component {
     return newArr
   }
 
-  triggerFather (el) {
-    this.props.callBack(el)
+  triggerFatherIsLogin (el) {
+    this.props.callBack(el,'isLogin')
   }
+
+  triggerFatherNoLogin (el) {
+    this.props.callBack(el,'noLogin')
+  }
+
+  showToast = (text) => {
+    this.props.showToast(text)
+  }
+
+  showSigin = () => {
+    this.props.showSigin()
+  }
+
   render () {
     const { reset_versions } = this.state
     return (
       <div className='versions'>
         {reset_versions.map((item,index) => {
-          return <Version key={index} version={item.title} price={item.price} capacity={item.capacity} duration='1 week'  callBack={this.triggerFather.bind(this,item.id)} />
+          return <Version key={index} version={item.title} price={item.price} capacity={item.capacity} duration='1 week' 
+          callBack={this.triggerFatherIsLogin.bind(this,item.id)} showToast={this.showToast} showSigin={this.showSigin} 
+          callBackWay={this.triggerFatherNoLogin.bind(this,item.id)} />
         })}
         {/* <Version version='START' price='0' capacity='1G' duration='1 week'  callBack={this.triggerFather.bind(this,1)} />
         <Version version='PRO' price='4' capacity='50G' duration='1 week'  callBack={this.triggerFather.bind(this,2)} />

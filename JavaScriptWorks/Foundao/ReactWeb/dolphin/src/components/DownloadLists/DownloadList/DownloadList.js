@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import './DownloadList.scss'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
-import tools from '@/utils/tools'
+// import tools from '@/utils/tools'
 import transCode from '@/utils/transCode'
 import classNames from 'classnames'
 
@@ -30,7 +30,9 @@ class DownloadList extends Component {
     const { width, height } = this.props.videoInfo
     const { videoWidth, videoHeight, useProps } = this.state;
     if((videoWidth-0) > (width-0) || (videoHeight-0) > (height-0)){
-      alert(width+'是最大宽度！'+height+'是最大高度！')
+      this.showToast('out of the width:'+width+'/height:'+height+' limit, please enter again!')
+    } else if((videoWidth-0)%2 === 1  || (videoHeight-0)%2 === 1){
+      this.showToast('out of the width or height limit even, please enter again!')
     } else {
       const transOptions = {
         inFileName: fileName,  // 文件名
@@ -60,7 +62,7 @@ class DownloadList extends Component {
 
   transFail = (msg) => {
     console.log('转码失败:-->', msg);
-    alert('转码失败！请待会儿重试！')
+    this.showToast('Oops!encoding failure...please try again sometime later!')
     this.props.startCovert(-2)//转码失败
   };
 
@@ -113,6 +115,8 @@ class DownloadList extends Component {
         if(res.code === '0'){
           openedWindow.location.href=res.data
         }
+      }).fail(resp => {
+        this.showToast(resp)
       })
     }
   }
@@ -134,6 +138,16 @@ class DownloadList extends Component {
               {isTransing === 100 ? <div className="download_list_delete" onClick={this.deleteMe}></div> : ''}
             </Fragment>
     }
+  }
+
+  cancel = () => {
+    this.setState({
+      customize: false,
+    })
+  }
+
+  showToast = (text) => {
+    this.props.showToast(text)
   }
 
   isCovertVideo = () => {
@@ -164,6 +178,38 @@ class DownloadList extends Component {
                       </div> : ''}
                   </div>
                 </div>
+                <div className="start_outoption" onClick={this.startTransCode}>START</div>
+              </div>
+              <div className="app_download_list_outoptions">
+                {customize ? <div className='outoption_bottombox_input'>
+                              <div>
+                                <label>Width:</label>
+                                <input type='number' value={useProps ? width : videoWidth} onChange={this.handleChange.bind(this,'videoWidth')} />
+                              </div>
+                              <div>
+                                <label>Height:</label>
+                                <input type='number' value={useProps ? height : videoHeight} onChange={this.handleChange.bind(this,'videoHeight')} />
+                              </div>
+                              <div>
+                                <label>Bitrate:</label>
+                                <input type='number' value={useProps ? height : videoHeight} onChange={this.handleChange.bind(this,'videoHeight')} />
+                              </div>
+                              <div className='cancel' onClick={this.cancel}>Cancel</div>
+                            </div>
+                :<div className="download_list_outoption">
+                  <div className="download_list_outoption_box outoption_topbox">
+                    {outoption_options.map( (value,i) => 
+                    ((value.width<=width) && (value.height<=height) ?
+                      <div key={i}
+                      className={classNames('outoption_customize',{active: active_outoption === i})}
+                      onClick={this.changeDPI.bind(this,value,i)}>{value.name}</div> : '')
+                    )}
+                  </div>
+                  <div className="download_list_outoption_box outoption_bottombox">
+                    <div className={classNames('outoption_customize',{active: customize})}
+                    onClick={this.changeCustomize}>Customize</div>
+                  </div>
+                </div>}
                 <div className="start_outoption" onClick={this.startTransCode}>START</div>
               </div>
             </Fragment>

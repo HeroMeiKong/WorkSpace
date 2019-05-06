@@ -117,7 +117,7 @@ function startTransCode(options) {
       var url = _api.downloadVideo + g_trans_md5;
       ajax(url, trans_result, trans_fail);
     } else {
-      alert("trans_status:" + s);
+      // alert("trans_status:" + s);
     }
   };
   // 转码完毕

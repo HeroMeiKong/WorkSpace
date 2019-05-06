@@ -9,9 +9,10 @@
     <script>
       // window.open("javascript:;", window.opener.name);
       var code = this.getParams(window.location.href).code
+      var type = this.getParams(window.location.href).state
       setTimeout(() => {
         if (window.opener.getUserInfo) {
-          window.opener.getUserInfo(code)
+          window.opener.getUserInfo(code,type)
         }
       }, 0);
 

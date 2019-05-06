@@ -8,6 +8,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux';
 import { login } from '@/redux/models/admin'
 import Loading from '@/components/Loading/Loading'
+import Toast from '@/components/Toast/Toast'
 
 // import { generateKeyPair } from 'crypto';
 const facebook = require('@/assets/images/facebook_icon@2x.png')
@@ -20,32 +21,26 @@ class SignUpOrLogin extends Component {
     super(props);
     this.state = {
       isLoading: false,
-      protocol: '',
+      isToast: false,
+      toast_text: 'Error!',
       type: ''
     }
   }
 
-  componentWillMount() {
-    this.setState({
-      protocol: window.location.protocol, //http还是https
-    })
-  }
-
   componentDidMount() {
     var _this = this
-    window.getUserInfo = function (code) {
-      const {protocol, type} = _this.state
+    window.getUserInfo = function (code,type) {
       if (authWin) {
         authWin.close()
       }
       $.ajax({
-        url: protocol === 'https:' ? '//cd.foundao.com:10081/foundao_api/login/dologin' : '//cd.foundao.com:10080/foundao_api/login/dologin',
+        url: api.login,
         dataType: 'json',
         type: 'POST',
         data: {
           user_from: type,
           code: code,
-          redirect_url: 'https://cd.foundao.com:10081/foundao/dolphin/return.html'
+          redirect_url: api.return_url+'return.html'
         }
       }).done((res) => {
         if (res.code / 1 === 0) {
@@ -53,16 +48,15 @@ class SignUpOrLogin extends Component {
           tools.setUserData_storage(res.data);
           _this.getUserStorage(res.data)
         } else {
-          console.log(res.msg)
+          _this.showToast(res.msg)
         }
       }).fail(() => {
-        console.log('内部服务器错误！')
+        _this.showToast('内部服务器错误！')
       })
     }
   }
 
   getUserStorage = (data) => {
-    console.log('getUserStorage',tools.getUserData_storage())
     if(!tools.getUserData_storage().token){
       console.log('no user')
     } else {
@@ -83,6 +77,8 @@ class SignUpOrLogin extends Component {
         } else {
           this.props.callBack()
         }
+      }).fail(resp => {
+        this.showToast(resp)
       })
     }
   }
@@ -100,76 +96,31 @@ class SignUpOrLogin extends Component {
   }
 
   glogin = (type) => {
-    const {protocol} = this.state
     this.setState({
       type: type,
     },() => {
       authWin = window.open('', 'newWindow', "height=500, width=650, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=nom,left=100px,top=200px")
       //获取地址
       $.ajax({
-        url: protocol === 'https:' ? '//cd.foundao.com:10081/foundao_api/login/get_auth_url' : '//cd.foundao.com:10080/foundao_api/login/get_auth_url',
+        url: api.get_auth_url,
         type: 'POST',
         dataType: 'json',
         data: {
           user_from: type ? type : '', //4邮箱 5facebook 6google
-          redirect_url: 'https://cd.foundao.com:10081/foundao/dolphin/return.html'   //回调地址，目前google只能是http://cd.foundao.com
+          redirect_url: api.return_url+'return.html'
         }
       }).done((res) => {
         if (res.code / 1 === 0) {
           const url = res.data  //呼起的授权地址
           authWin.location = url
         } else {
-          console.log(res.msg)
+          this.showToast(res.msg)
         }
       }).fail(() => {
-        console.log('内部服务器错误！')
+        this.showToast('内部服务器错误！')
       })
     })
   }
-  // glogin = () => {
-  //   let that = this
-  // 			gapi.load('auth2', function(){
-  // 			auth2 = gapi.auth2.init({
-  //         client_id: '1020121596969-fs820cldgmpbmalampuh8skkri0dehb8.apps.googleusercontent.com',//本地
-  //         // client_id: '1020121596969-fr04mgi91l2fa0ksoe39a236cbfe3ne6.apps.googleusercontent.com',//线上
-  // 				cookiepolicy: 'single_host_origin',
-  // 			})
-  // 			that.attachSignin(document.getElementById('login_google'));
-  // 			});
-  // }
-  // attachSignin(element) {
-  //   auth2.attachClickHandler(element, {},
-  //     function onSignIn(googleUser) {
-  //       //获取用户信息
-  //       var profile = googleUser.getBasicProfile();
-  //       console.log(profile);
-  //     }, function (error) {
-  //       console.log(JSON.stringify(error, undefined, 2));
-  //     }
-  //   );
-  // }
-
-  // checkLoginState = () => {
-  //   window.FB.getLoginStatus(function(response) {
-  //     this.statusChangeCallback(response);
-  //   });
-  // }
-  // statusChangeCallback (response) {
-  //   if (response.status === 'connected') {  //登陆状态已连接
-  //     window.fbToken = response.authResponse.accessToken;
-  //     this.getUserInfo();
-  //   } else if (response.status === 'not_authorized') { //未经授权
-  //     console.log('facebook未经授权');
-  //   } else {
-  //     console.log('不是登陆到Facebook;不知道是否授权');
-  //   }
-  // }
-  // getUserInfo() {
-  //   window.FB.api('/me', function(response) {
-  //     console.log('Successful login for: ' + response.name);
-  //     window.self.location= '/home/login.fbLogin.do?accessToken='+window.fbToken;
-  //   });
-  // }
   changeLoading = (el) => {
     console.log(el)
     this.setState({
@@ -177,21 +128,38 @@ class SignUpOrLogin extends Component {
     })
   }
 
+  showToast = (toast_text) => {
+    console.log('showToast')
+    this.setState({
+      isToast: true,
+      toast_text
+    })
+  }
+
+  hiddenToast = () => {
+    console.log('hiddenToast')
+    this.setState({
+      isToast: false
+    })
+  }
+
   render() {
-    const {show} = this.props
-    const {isLoading} = this.state
+    const { show } = this.props
+    const { isLoading, isToast, toast_text } = this.state
     if (show) {
       return (
         <div className='sol_wrapper' onClick={this.triggerFather}>
           {isLoading ? <Loading/> : ''}
+          {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
           <div className='sol_inner'>
             <div className="sol_top">
               <div className="sol_top_img"></div>
               <div className="sol_top_title">MP4·DOLPHIN</div>
             </div>
-            <SignUpOrLoginCard sol={show} callBack={this.loginSuccess} loading={this.changeLoading} getUserStorage={this.getUserStorage}/>
+            <SignUpOrLoginCard sol={show} callBack={this.loginSuccess} loading={this.changeLoading} 
+            getUserStorage={this.getUserStorage} showToast={this.showToast} />
             <div className="sol_bottom">
-              <div className="sol_bottom_title">Or login with:</div>
+              <div className="sol_bottom_title">Or signin with:</div>
               <img alt='facebook' src={facebook} className="sol_bottom_img" onClick={this.glogin.bind(this, 5)}></img>
               {/* <img alt='twitter' src={twitter} className="sol_bottom_img"></img> */}
               <img alt='google' src={google} className="sol_bottom_img" onClick={this.glogin.bind(this, 6)}></img>

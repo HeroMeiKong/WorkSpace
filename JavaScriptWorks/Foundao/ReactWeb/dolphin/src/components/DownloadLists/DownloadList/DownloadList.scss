@@ -26,167 +26,350 @@
   }
 }
 
-.download_lists{
-  .download_list_download,
-  .download_list_download_fail {
-    width: 14px;
-    height: 15px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background: url('../../../assets/images/download_icon@2x.png') center/100% no-repeat;
-
-    &:hover {
-      cursor: pointer;
-      transform: translate(0, -5px);
-      animation: 1s downloadList infinite;
-    }
-  }
-
-  .download_list_download_fail {
-    background: url('../../../assets/images/close_icon@2x.png') center/100% no-repeat;
-  }
-
-  .download_list_line {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    .progress_bar {
-      width: 100%;
-      background: linear-gradient(270deg, rgba(54, 60, 162, 1) 0%, rgba(47, 52, 146, 1) 100%);
-      border-radius: 4px;
-      .progress_bar_inner{
-        height: 2px;
-        width: 70%;
-        background-color: #ffffff;
+@media screen and (max-width: 675px) {
+  .download_lists{
+    .download_list_download {
+      width: .875rem;
+      height: .9375rem;
+      position: absolute;
+      right: .625rem;
+      top: .625rem;
+      background: url('../../../assets/images/download_icon@2x.png') center/100% no-repeat;
+  
+      &:hover {
+        cursor: pointer;
+        transform: translate(0, -5px);
+        animation: 1s downloadList infinite;
       }
     }
-  }
-
-
-  .download_list_progress {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 10px;
-    font-weight: 300;
-  }
-
-  .download_list_delete {
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    right: -5px;
-    top: -5px;
-    background: url('../../../assets/images/close_icon@2x.png') center/100% no-repeat;
-
-    &:hover {
-      cursor: pointer;
-      animation: 1s deleteList infinite;
+  
+    .download_list_line {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+  
+      .progress_bar {
+        width: 100%;
+        background: linear-gradient(270deg, rgba(54, 60, 162, 1) 0%, rgba(47, 52, 146, 1) 100%);
+        border-radius: .25rem;
+  
+        .progress_bar_inner {
+          height: .125rem;
+          width: 70%;
+          background-color: #ffffff;
+        }
+      }
     }
-  }
+  
+  
+    .download_list_progress {
+      position: absolute;
+      right: .625rem;
+      top: .625rem;
+      font-size: .625rem;
+      font-weight: 300;
+    }
+  
+    .download_list_delete {
+      width: .625rem;
+      height: .625rem;
+      position: absolute;
+      right: -.3125rem;
+      top: -.3125rem;
+      background: url('../../../assets/images/close_icon@2x.png') center/100% no-repeat;
+  
+      &:hover {
+        cursor: pointer;
+        animation: 1s deleteList infinite;
+      }
+    }
 
-  .download_list_outoptions {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding-bottom: 8px;
-
-    .download_list_outoption {
-      width: 77%;
-      padding-right: 8px;
+    .download_list_outoptions {
+      display: none;
+    }
+    .app_download_list_outoptions {
       display: flex;
       flex-direction: column;
-
-      .download_list_outoption_box {
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: .5rem;
+  
+      .download_list_outoption {
         width: 100%;
         display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        padding-top: 8px;
-
-        .outoption_customize {
+        flex-direction: column;
+  
+        .download_list_outoption_box {
+          width: 100%;
           display: flex;
+          flex-direction: column;
           justify-content: center;
-          align-items: center;
-          background: rgba(0, 0, 0, 0.01);
-          border-radius: 2px;
-          border: 1px solid rgba(255, 255, 255, .5);
-          font-size: 14px;
-          font-weight: 500;
-          margin-right: 5px;
-
-          &:hover {
-            cursor: pointer;
-            background: rgba(255, 255, 255, .1);
+          padding-top: 0;
+  
+          .outoption_customize {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.01);
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, .5);
+            font-size: .875rem;
+            font-weight: 500;
+            margin-right: .3125rem;
+          }
+  
+          .active {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 1);
           }
         }
-        .active {
-          background: rgba(0, 0, 0, 0.2);
-          border: 1px solid rgba(255, 255, 255, 1);
+  
+        .outoption_topbox {
+          div {
+            width: 100%;
+            height: 1.625rem;
+            margin-bottom: .75rem;
+          }
         }
-
-        input {
-          width: 80%;
-          outline: none;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background: rgba(0, 0, 0, 0.15);
-          border-radius: 2px;
-          border: 1px solid rgba(255, 255, 255, 1);
-          font-size: 14px;
-          font-weight: 500;
-          text-align: center;
-          color: #ffffff;
-          margin-left: 2px;
-        }
-
-        label {
-          width: 25%;
-          text-align: center;
+  
+        .outoption_bottombox {
+          width: 100%;
+  
+          div {
+            width: 100%;
+            height: 1.625rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
         }
       }
-
-      .outoption_topbox {
-        div {
-          width: 64px;
-          height: 24px;
-        }
-      }
-
-      .outoption_bottombox {
+  
+      .start_outoption {
         width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: .625rem 1.25rem;
+        background-color: rgba(65, 73, 197, 1);
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+        border-radius: .5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-top: 1.5rem;
+      }
+  
+      .outoption_bottombox_input {
+        display: flex;
+        flex-direction: column;
+  
         div {
-          width: 90px;
-          height: 24px;
+          display: flex;
+          margin-top: .75rem;
+  
+          input {
+            width: 80%;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.01);
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 1);
+            font-size: .875rem;
+            font-weight: 500;
+            text-align: center;
+            color: #ffffff;
+            margin-left: 2px;
+          }
+  
+          label {
+            width: 20%;
+            text-align: center;
+            line-height: 1.4375rem;
+          }
+        }
+  
+        .cancel {
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-        .outoption_bottombox_input{
-          width: 60%;
+          padding: .375rem 0;
+          border-radius: 2px;
+          border: 1px solid rgba(255, 255, 255, .5);
         }
       }
     }
+  }
+}
 
-    .start_outoption {
-      width: 23%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 20px;
-      background-color: rgba(65, 73, 197, 1);
-      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 500;
+@media screen and (min-width: 676px) {
+  .download_lists{
+    .download_list_download,
+    .download_list_download_fail {
+      width: 14px;
+      height: 15px;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: url('../../../assets/images/download_icon@2x.png') center/100% no-repeat;
 
       &:hover {
         cursor: pointer;
-        background: rgba(0, 0, 0, .1);
+        transform: translate(0, -5px);
+        animation: 1s downloadList infinite;
+      }
+    }
+
+    .download_list_download_fail {
+      background: url('../../../assets/images/close_icon@2x.png') center/100% no-repeat;
+    }
+
+    .download_list_line {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      .progress_bar {
+        width: 100%;
+        background: linear-gradient(270deg, rgba(54, 60, 162, 1) 0%, rgba(47, 52, 146, 1) 100%);
+        border-radius: 4px;
+        .progress_bar_inner{
+          height: 2px;
+          width: 70%;
+          background-color: #ffffff;
+        }
+      }
+    }
+
+
+    .download_list_progress {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 10px;
+      font-weight: 300;
+    }
+
+    .download_list_delete {
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      right: -5px;
+      top: -5px;
+      background: url('../../../assets/images/close_icon@2x.png') center/100% no-repeat;
+
+      &:hover {
+        cursor: pointer;
+        animation: 1s deleteList infinite;
+      }
+    }
+
+    .app_download_list_outoptions {
+      display: none;
+    }
+    .download_list_outoptions {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: 8px;
+
+      .download_list_outoption {
+        width: 77%;
+        padding-right: 8px;
+        display: flex;
+        flex-direction: column;
+
+        .download_list_outoption_box {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          padding-top: 8px;
+
+          .outoption_customize {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.01);
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, .5);
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 5px;
+
+            &:hover {
+              cursor: pointer;
+              background: rgba(255, 255, 255, .1);
+            }
+          }
+          .active {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 1);
+          }
+
+          input {
+            width: 80%;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 1);
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            color: #ffffff;
+            margin-left: 2px;
+          }
+
+          label {
+            width: 25%;
+            text-align: center;
+          }
+        }
+
+        .outoption_topbox {
+          div {
+            width: 64px;
+            height: 24px;
+          }
+        }
+
+        .outoption_bottombox {
+          width: 100%;
+          div {
+            width: 90px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .outoption_bottombox_input{
+            width: 60%;
+          }
+        }
+      }
+
+      .start_outoption {
+        width: 23%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: rgba(65, 73, 197, 1);
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 500;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(0, 0, 0, .1);
+        }
       }
     }
   }

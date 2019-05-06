@@ -4,8 +4,6 @@ import './users_terms_and_conditions.scss'
 import Header from '@/components/Header/Header'
 import BottomBar from '@/components/BottomBar/BottomBar'
 import Loading from '@/components/Loading/Loading'
-//app端组件
-import Menu from '@/components/App/Menu/Menu'
 
 class UsersTermsAndConditions extends Component{
   constructor () {
@@ -21,7 +19,6 @@ class UsersTermsAndConditions extends Component{
         <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
         <Header />
-        <Menu />
         <div className='wrapper_content'>
           <div className='content index_div'>
             <article>
