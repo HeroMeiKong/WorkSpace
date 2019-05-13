@@ -4,21 +4,41 @@ import './users_terms_and_conditions.scss'
 import Header from '@/components/Header/Header'
 import BottomBar from '@/components/BottomBar/BottomBar'
 import Loading from '@/components/Loading/Loading'
+import Toast from '@/components/Toast/Toast'
 
 class UsersTermsAndConditions extends Component{
   constructor () {
     super()
     this.state = {
       isLoading: false,
+      isToast: false,
+      toast_text: 'Error!',
     }
   }
+
+  showToast = (toast_text) => {
+    console.log('showToast')
+    this.setState({
+      isToast: true,
+      toast_text
+    })
+  }
+
+  hiddenToast = () => {
+    console.log('hiddenToast')
+    this.setState({
+      isToast: false
+    })
+  }
+
   render () {
-    const { isLoading } = this.state
+    const { isLoading, isToast, toast_text } = this.state
     return (
       <div id='wrapper' className='wrapper'>
         <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
-        <Header />
+        {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
+        <Header showToast={this.showToast} isLevel2={true} />
         <div className='wrapper_content'>
           <div className='content index_div'>
             <article>

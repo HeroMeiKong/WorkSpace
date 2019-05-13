@@ -6,10 +6,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  &:hover{
+
+  &:hover {
     transform: scale(1.05);
     box-shadow: 1px 1px 2px 2px rgba(60, 66, 185, .2);
     border: 1px solid blue;
+    cursor: pointer;
   }
 
   .purchase_version {
@@ -24,12 +26,13 @@
     align-items: center;
     font-size: 30px;
     color: rgba(0, 0, 0, 1);
-    transform: translate(-20px,0);
+    transform: translate(-20px, 0);
 
-    strong{
+    strong {
       font-size: 60px;
       margin-left: 10px;
     }
+
     div {
       font-size: 15px;
       position: absolute;
@@ -65,8 +68,80 @@
     border-radius: 4px;
     font-size: 18px;
     color: rgba(255, 255, 255, 1);
-    &:hover{
-      cursor: pointer;
+  }
+}
+
+.best_version {
+  position: relative;
+  background: linear-gradient(136deg, rgba(89, 97, 206, 1) 0%, rgba(45, 50, 160, 1) 100%);
+  border: 1px solid rgba(244, 248, 255, 1);
+
+  .best_value{
+    position: absolute;
+    right: 2px;
+    top: -34px;
+    background: url('../../../../assets/images/bestvalue_icon@2x.png') center/100% no-repeat;
+    width: 63px;
+    height: 91px;
+  }
+
+  .purchase_version {
+    color:rgba(138,143,221,1);
+  }
+
+  .purchase_price {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .purchase_text {
+    color: #8A8FDD;
+  }
+
+  .purchase_capacity {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .purchase_duration {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+@media screen and (max-width: 675px) {
+  .version {
+    width: 90%;
+    margin-bottom: 20px;
+  
+    .purchase_version {
+      padding: 24px 0;
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid rgba(238, 238, 238, 1);
     }
+
+    .purchase_price{
+      padding-top: 20px;
+      div{
+        font-size: 20px;
+      }
+    }
+
+    .purchase_text{
+      padding: 20px 0 16px 0;
+    }
+
+    .purchase_duration {
+      padding-bottom: 20px;
+    }
+
+    .purchase_apply {
+      padding: 9px 35px;
+      margin-bottom: 12px;
+      background: linear-gradient(180deg, rgba(89, 97, 206, 1) 0%, rgba(45, 50, 160, 1) 100%);
+      border-radius: 4px;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+  .best_version {
+    margin-top: 30px;
   }
 }

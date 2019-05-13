@@ -70,7 +70,11 @@ class Avatar extends Component {
           tools.setCapacity_storage(res.data)
         } else {
           this.props.callBack()
+          this.props.showToast(res.msg)
         }
+      }).fail(resp => {
+        this.props.showToast(resp)
+        this.props.callBack()
       })
     }
   }
@@ -137,20 +141,27 @@ class Avatar extends Component {
               </div>
               <div className="avatar_bottom_introduce" data-avatar='avatar'>
                 <p data-avatar='avatar'>{this.limitString(userInfo.user_nickname)}</p>
-                <p data-avatar='avatar'>{this.limitString(userInfo.user_nickname)}</p>
+                <p data-avatar='avatar'>{this.limitString(userInfo.user_email || userInfo.user_nickname)}</p>
               </div>
             </div>
-            {capacity !== '0.0G' ? <Link to='./user'>
-              <div className="avatar_bottom_Membership" data-avatar='avatar'>
-                <div data-avatar='avatar'>Membership Capacity</div>
-                <div className="avatar_bottom_Capacity" data-avatar='avatar'>
-                  <p data-avatar='avatar'>{used_capacity} / {capacity}</p>
-                  <div className="avatar_bottom_line" data-avatar='avatar'>
-                    <div data-avatar='avatar' style={{width: percent+'%'}}></div>
+            {capacity !== '0.0G' 
+              ? <Link to='./user'>
+                <div className="avatar_bottom_Membership" data-avatar='avatar'>
+                  <div data-avatar='avatar'>Membership Capacity</div>
+                  <div className="avatar_bottom_Capacity" data-avatar='avatar'>
+                    <p data-avatar='avatar'>{used_capacity} / {capacity}</p>
+                    <div className="avatar_bottom_line" data-avatar='avatar'>
+                      <div data-avatar='avatar' style={{width: percent+'%'}}></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link> : ''}
+              </Link> 
+              : <Link to='./purchase'>
+                <div className="avatar_upgrade">
+                  <div className="avatar_upgrade_img"></div>
+                  <div className="avatar_upgrade_text">Upgrade to PRO</div>
+                </div>
+              </Link>}
             <div className="sign_out_box" data-avatar='avatar'>
               <div className="sign_out_img" data-avatar='avatar'></div>
               <div className="sign_out" onClick={this.signOut} data-avatar='avatar'>Sign out</div>

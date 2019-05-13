@@ -166,7 +166,7 @@ class Index extends Component {
       <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
         {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
-        <Header />
+        <Header showToast={this.showToast} />
         <div className='wrapper_content'>
           <div className='content index_div'>
             <div className='content_inner' style={{display: waterMark?'none':'flex'}}>

@@ -167,8 +167,10 @@ function Uploader(id, usr, ps, url, file) {
   g_checked = false;
   g_finished = false;
   lockReconnect = false;//避免重复连接
+  connectTime = 0 ;//重连时间 超过15秒
   g_md5 = null;
   g_ws = null;
+  t=null;
   this.initMd5();
 }
 
@@ -207,23 +209,58 @@ Uploader.prototype = (function () {
     g_reader.readAsArrayBuffer(blob); // 开始读取指定的 Blob中的内容, 一旦完成, result 属性中保存的将是被读取文件的 ArrayBuffer 数据对象.
   }
 
+  // /**获取服务器时间**/
+  // function getServerTime() {
+  //   var ajax = new XMLHttpRequest();
+  //   ajax.open('get','http://cd.foundao.com:10080/foundao_api_zh/cgi/sys/get_server_time');
+  //   ajax.send();
+  //   ajax.onreadystatechange = function () {
+  //     if (ajax.readyState==4 &&ajax.status==200) {
+  //       let res =JSON.parse(ajax.responseText);
+  //       console.log(res.data)
+  //     }
+  //   }
+  // }
   function requestCheck() {
     if (!g_checked) {
-      var seconds = parseInt(new Date().getTime() / 1000);
-      // var checkstr = md5(seconds + g_pass);
-      var checkstr = md5(seconds + g_up_token);
-      // console.log(g_up_token, '3');
-      var info = '{"id":"' + g_id + '","msg":"check","data":{"user":"' + g_user + '","token":"' + g_up_token + '","salt":"' + seconds + '","check":"' + checkstr + '","md5":"' + g_md5 + '","name":"' + g_filename + '","size":"' + g_total + '"}}';
-      //console.log("send:" + info);
-      if (g_ws != null) {
-        if (g_ws.readyState === 1) { // 1 - 表示连接已建立，可以进行通信。
-          //连接成功
-          g_ws.send(info, {binary: false});
-        } else {
-          setTimeout(requestCheck, 1000);
+      var ajax = new XMLHttpRequest();
+      ajax.open('get','https://www.convert-mp4.com/api/cgi/sys/get_server_time');
+      // ajax.open('get','https://cd.foundao.com:10081/foundao_api/cgi/sys/get_server_time');
+      ajax.send();
+      ajax.onreadystatechange = function () {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+          let res =JSON.parse(ajax.responseText);
+          var seconds = res.data|| parseInt(new Date().getTime() / 1000);
+          // var checkstr = md5(seconds + g_pass);
+          var checkstr = md5(seconds + g_up_token);
+          // console.log(g_up_token, '3');
+          var info = '{"id":"' + g_id + '","msg":"check","data":{"user":"' + g_user + '","token":"' + g_up_token + '","salt":"' + seconds + '","check":"' + checkstr + '","md5":"' + g_md5 + '","name":"' + g_filename + '","size":"' + g_total + '"}}';
+          //console.log("send:" + info);
+          if (g_ws != null) {
+            if (g_ws.readyState === 1) { // 1 - 表示连接已建立，可以进行通信。
+              //连接成功
+              g_ws.send(info, {binary: false});
+            } else {
+              setTimeout(requestCheck, 1000);
+            }
+          }
+        }else {
+          var seconds = parseInt(new Date().getTime() / 1000);
+          // var checkstr = md5(seconds + g_pass);
+          var checkstr = md5(seconds + g_up_token);
+          // console.log(g_up_token, '3');
+          var info = '{"id":"' + g_id + '","msg":"check","data":{"user":"' + g_user + '","token":"' + g_up_token + '","salt":"' + seconds + '","check":"' + checkstr + '","md5":"' + g_md5 + '","name":"' + g_filename + '","size":"' + g_total + '"}}';
+          //console.log("send:" + info);
+          if (g_ws != null) {
+            if (g_ws.readyState === 1) { // 1 - 表示连接已建立，可以进行通信。
+              //连接成功
+              g_ws.send(info, {binary: false});
+            } else {
+              setTimeout(requestCheck, 1000);
+            }
+          }
         }
       }
-
     }
   }
 
@@ -248,6 +285,7 @@ Uploader.prototype = (function () {
     var blob;
     var read_end = g_partend;
     if (g_start + g_step < g_partend) { // 读取到指定位置
+      // console.log(3333)
       read_end = g_start + g_step;
     }
     blob = g_file.slice(g_start, read_end);
@@ -260,12 +298,18 @@ Uploader.prototype = (function () {
         return;
       if (g_ws != null) {
         // 只读属性 bufferedAmount 已被 send() 放入正在队列中等待传输，但是还没有发出的 UTF-8 文本字节数。
-        if (g_ws.bufferedAmount > g_step * 10)
-          setTimeout(function () {
-            loadSuccess(e.loaded);
+        if (g_ws.bufferedAmount > g_step * 1){
+          t = setInterval(function () {
+            if (g_ws.bufferedAmount > g_step * 1) {
+              return
+            }else{
+              loadSuccess(e.loaded);
+              clearInterval(t)
+            }
           }, 100);
-        else
+        }else {
           loadSuccess(e.loaded);
+        }
       }
     }
   }
@@ -273,23 +317,24 @@ Uploader.prototype = (function () {
   function loadSuccess(loaded) {
     var blob = g_reader.result; // 文件的内容。该属性仅在读取操作完成后才有效，数据的格式取决于使用哪个方法来启动读取操作。
     if (g_ws != null) {
-      // console.log("send blob");
-      // console.log(blob);
       g_ws.send(blob, {binary: true});
       g_loaded += loaded;
       g_start += loaded;
+      // g_loaded = g_start - g_ws.bufferedAmount;
       sendProgress();
-      if (g_loaded < g_partsize)
+      if (g_loaded < g_partsize){
         readBlob();
+      }
     }
   }
 
   // 发送上传进度
   function sendProgress() {
+    connectTime = 0;
     var sended = g_start - g_ws.bufferedAmount;
     var sendSuccessPercent = sended / g_total; // 发送成功比例
     // var sendPercent = g_start / g_total;       //  发送比例
-    var progress = (sendSuccessPercent * 100).toFixed(2);
+    var progress = (sendSuccessPercent * 100).toFixed(1);
     var message = {"msg": "progress", "data": {"writed": sended, "progress": progress}};
     // 通知显示上传进度
     postMessage(message);
@@ -339,7 +384,9 @@ Uploader.prototype = (function () {
             g_partsize = parseInt(obj["data"]["size"]);
             g_partend = g_start + g_partsize;
             g_start = g_start + g_loaded;
-            // console.log("found, g_start:" + g_start);
+            console.log("found, g_start:" + g_start);
+            console.log("found, g_loaded:" + g_loaded);
+            console.log("found, g_partsize:" + g_partsize);
             readBlob();
             break;
           case "partfinish":
@@ -403,6 +450,12 @@ Uploader.prototype = (function () {
   function reconnect() {
     console.log("reconnect");
     //如果文件已经上传成功，默认不再自动建立服务器连接
+    console.log(connectTime)
+    if (connectTime>10000){
+      var info = '{"id":"' + g_id + '","msg":"timeout","data":"TIMEOUT"}';
+      postMessage(JSON.parse(info));
+      return
+    }
     if (g_finished) return;
     if (lockReconnect) return;
     lockReconnect = true;
@@ -410,7 +463,8 @@ Uploader.prototype = (function () {
     setTimeout(function () {
       openWebSocket();
       lockReconnect = false;
-    }, 2000);
+      connectTime+=1000;
+    }, 1500);
   }
 
   function privateMethod(param) {

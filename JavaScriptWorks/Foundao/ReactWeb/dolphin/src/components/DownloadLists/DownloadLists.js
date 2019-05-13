@@ -26,10 +26,10 @@ class DownloadLists extends Component {
 
   moreFile = () => {
     if(tools.getCapacity_storage().capacity > 0){
-      window.location.href = api.return_url+'#/user'
+      window.location.href = api.return_url+'user'
     } else {
-      if (window.confirm('非会员用户不能查看记录，请充值查看！') === true) {
-        window.location.href = api.return_url+'#/purchase'
+      if (window.confirm("Non-member users can't view the record, please recharge it!") === true) {
+        window.location.href = api.return_url+'purchase'
       }
     }
   }

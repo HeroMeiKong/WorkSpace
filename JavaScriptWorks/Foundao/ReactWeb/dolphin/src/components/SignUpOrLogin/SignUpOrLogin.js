@@ -170,7 +170,7 @@ class SignUpOrLogin extends Component {
         </div>
       )
     } else {
-      return (<div></div>)
+      return ('')
     }
   }
 }

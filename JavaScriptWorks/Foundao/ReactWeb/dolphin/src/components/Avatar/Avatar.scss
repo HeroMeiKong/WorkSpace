@@ -27,7 +27,7 @@
       img:first-child {
         width: 30px;
         height: 30px;
-        border:1px solid rgba(255,255,255,1);
+        border: 1px solid rgba(255, 255, 255, 1);
         border-radius: 50%;
       }
 
@@ -57,7 +57,7 @@
         img {
           width: 42px;
           height: 42px;
-          border:1px solid rgba(255,255,255,1);
+          border: 1px solid rgba(255, 255, 255, 1);
           border-radius: 50%;
         }
       }
@@ -76,6 +76,28 @@
           padding-top: 6px;
           width: 96px;
         }
+      }
+    }
+
+    .avatar_upgrade {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(38, 42, 136, 1);
+      border: 1px solid;
+      margin-bottom: 5px;
+      border-image: linear-gradient(135deg, rgba(247, 217, 173, 1), rgba(177, 131, 83, 1)) 1 1;
+
+      .avatar_upgrade_img {
+        width: 22px;
+        height: 22px;
+        background: url('../../assets/images/vip_icon@2x.png') center/100% no-repeat;
+      }
+
+      .avatar_upgrade_text {
+        font-size: 12px;
+        color: rgba(233, 177, 94, 1);
+        padding: 10px 0 10px 20px;
       }
     }
 
@@ -118,7 +140,10 @@
     .sign_out_box {
       padding: 5px 18px;
       display: flex;
-      &:hover{cursor: pointer;}
+
+      &:hover {
+        cursor: pointer;
+      }
 
       .sign_out_img {
         width: 22px;

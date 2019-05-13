@@ -1,23 +1,52 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 //pc端组件
 import Header from '@/components/Header/Header'
 import BottomBar from '@/components/BottomBar/BottomBar'
 import Loading from '@/components/Loading/Loading'
+import Toast from '@/components/Toast/Toast'
 
 class WebsitePrivacyPolicy extends Component{
   constructor () {
     super()
     this.state = {
       isLoading: false,
+      isToast: false,
+      toast_text: 'Error!',
     }
   }
+
+  sendEmail = () => {
+    var who = 'kefu@foundao.com'
+    // var what = prompt("输入主题: ", "none");
+    if (window.confirm("您确定要向" + who + "发送邮件么?") === true) {
+        window.location.href = 'mailto:' + who + '?subject='
+    }
+  }
+
+  showToast = (toast_text) => {
+    console.log('showToast')
+    this.setState({
+      isToast: true,
+      toast_text
+    })
+  }
+
+  hiddenToast = () => {
+    console.log('hiddenToast')
+    this.setState({
+      isToast: false
+    })
+  }
+
   render () {
-    const { isLoading } = this.state
+    const { isLoading, isToast, toast_text } = this.state
     return (
       <div id='wrapper' className='wrapper'>
         <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
-        <Header />
+        {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
+        <Header showToast={this.showToast} isLevel2={true} />
         <div className='wrapper_content'>
           <div className='content index_div'>
             <article>
@@ -25,7 +54,7 @@ class WebsitePrivacyPolicy extends Component{
                 <h1>Website Privacy Policy</h1>
               </header>
               <section>
-                <p>This Website is owned and operated by TianMaiTuoDao (also known as “TuoDao ”).In this Privacy Policy, "you" and "your" refers to individual users of the TuoDao Service, as well as to Members and Corporate Members. "Members," "Corporate Members," and other capitalized terms not defined in this privacy policy are defined in the TuoDao Terms of Service currently located at Users Terms and Condition网址,If you do not agree to the terms of this Privacy Policy you must immediately leave the Website and discontinue your use our products and services.</p>
+                <p>This Website is owned and operated by TianMaiTuoDao (also known as “TuoDao ”).In this Privacy Policy, "you" and "your" refers to individual users of the TuoDao Service, as well as to Members and Corporate Members. "Members," "Corporate Members," and other capitalized terms not defined in this privacy policy are defined in the TuoDao Terms of Service currently located at <Link to='users_terms_and_conditions'>Users Terms and Condition</Link>,If you do not agree to the terms of this Privacy Policy you must immediately leave the Website and discontinue your use our products and services.</p>
               </section>
               <section>
                 <h2>Privacy Statement.</h2>
@@ -61,7 +90,7 @@ class WebsitePrivacyPolicy extends Component{
               </section>
               <section>
                 <h2>Contact Us.</h2>
-                <p>If you have any queries, concerns or complaints about the manner in which we have collected, stored, used or disclosed your personal information, please contact the Data Protection Officer at 邮箱地址.</p>
+                <p>If you have any queries, concerns or complaints about the manner in which we have collected, stored, used or disclosed your personal information, please contact the Data Protection Officer at <strong onClick={this.sendEmail}>kefu@foundao.com</strong>.</p>
               </section>
             </article>
           </div>

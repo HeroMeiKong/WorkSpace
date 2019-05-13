@@ -151,7 +151,7 @@ class User extends Component {
         <div className='backcolor' />
         {isLoading ? <Loading /> : ''}
         {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
-        <Header />
+        <Header showToast={this.showToast} isLevel2={true} />
         <div className='wrapper_content'>
           <div className='content'>
             <div className='myplan'>

@@ -17,7 +17,7 @@ class BottomBar extends Component {
         <Link to='./users_terms_and_conditions'><div className='BottomButton'>Terms of Service</div></Link>
         <Link to='./website_privacy_policy'><div className='BottomButton'>Privacy Policy</div></Link>
         <div className='BottomButton' onClick={this.sendEmail}>Contact Us</div>
-        <div className='BottomButton'>Forum</div>
+        {/* <div className='BottomButton'>Forum</div> */}
       </div>
     )
   }

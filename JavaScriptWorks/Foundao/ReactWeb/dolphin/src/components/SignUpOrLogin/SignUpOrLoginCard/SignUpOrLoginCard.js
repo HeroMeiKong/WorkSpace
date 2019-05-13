@@ -154,7 +154,7 @@ class SignUpOrLoginCard extends Component {
 
   checkEmail = (obj) => {
     // let reg = new RegExp("/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/"); //正则表达式
-    let reg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/
+    let reg = /^([a-zA-Z0-9_-]|[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-])+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/
     if(obj === ""){ //输入不能为空
     }else if(!reg.test(obj)){ //正则验证不通过，格式不对
     　　this.setState({

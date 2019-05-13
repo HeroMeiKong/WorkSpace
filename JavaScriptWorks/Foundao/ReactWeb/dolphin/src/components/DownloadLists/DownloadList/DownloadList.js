@@ -12,8 +12,8 @@ class DownloadList extends Component {
     super()
     this.state = {
       progress: 0,
-      videoWidth: 0,
-      videoHeight: 0,
+      videoWidth: 0,//用户设置的视频宽度
+      videoHeight: 0,//用户设置的视频高度
       outoption_options: [{name:'4K', width: 3840,height: 2160},
                           {name:'1080P', width: 1920,height: 1080},
                           {name:'720P', width: 1280,height: 720},
@@ -29,10 +29,14 @@ class DownloadList extends Component {
     const { fileName, fileSize, fileMd5, token } = this.props.data;
     const { width, height } = this.props.videoInfo
     const { videoWidth, videoHeight, useProps } = this.state;
+    const max = (videoWidth-0) > (videoHeight-0) ? (videoWidth-0) : (videoHeight-0)
+    const min = (videoWidth-0) > (videoHeight-0) ? (videoHeight-0) : (videoWidth-0)
     if((videoWidth-0) > (width-0) || (videoHeight-0) > (height-0)){
       this.showToast('out of the width:'+width+'/height:'+height+' limit, please enter again!')
     } else if((videoWidth-0)%2 === 1  || (videoHeight-0)%2 === 1){
-      this.showToast('out of the width or height limit even, please enter again!')
+      this.showToast('out of the width and height limit even, please enter again!')
+    } else if(min < 120  || max < 160){
+      this.showToast('The minimum width/height or height/width of the video is 120/160!')
     } else {
       const transOptions = {
         inFileName: fileName,  // 文件名

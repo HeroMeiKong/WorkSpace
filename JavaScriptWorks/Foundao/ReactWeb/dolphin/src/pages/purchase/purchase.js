@@ -4,6 +4,7 @@ import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
 import tools from '@/utils/tools'
 import { Link } from 'react-router-dom'
+import Header from '@/components/Header/Header'
 import Versions from './Versions/Versions'
 // import PayCard from '@/components/PayCard/PayCard'
 import SignUpOrLogin from '@/components/SignUpOrLogin/SignUpOrLogin'
@@ -39,9 +40,7 @@ class Purchase extends Component {
         if(res.code === '0'){
           this.showToast('Thanks for your purchasing!')
           setTimeout(() => {
-            // window.location.href = 'http://localhost:3000/#/'
-            window.location.href = api.return_url+'#/'
-            // window.location.href = 'https://www.convert-mp4.com/react_prj/#/'
+            window.location.href = api.return_url
           },1000)
         } else {
           this.showToast(res.msg)
@@ -92,9 +91,7 @@ class Purchase extends Component {
           data: {
             order_id: res.data.order_id,
             token: tools.getUserData_storage().token,
-            // return_url: 'http://localhost:3000/#/purchase'
-            return_url: api.return_url + '#/purchase'
-            // return_url: 'https://www.convert-mp4.com/react_prj/#/purchase'
+            return_url: api.return_url + 'purchase'
           }
         }).done(res => {
           if(res.code === '0'){
@@ -170,9 +167,9 @@ class Purchase extends Component {
       <div className='purchase'>
         {isLoading ? <Loading /> : ''}
         {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
+        <Header showToast={this.showToast} />
         <div className='purchase_content'>
           <h1>Want to convert more videos?<br/>Or beyond the 50MB limit?</h1>
-          <div className='purchase_tip'>RECOMMANDED</div>
           <Versions callBack={this.showPay} showToast={this.showToast} showSigin={this.showSignUpOrLogin} />
           <p className='purchase_notes'>Need something custom? <Link to='' >Contact us.</Link></p>
           <p className='purchase_notes'>We also have additional plan providing capacity over 2T.</p>

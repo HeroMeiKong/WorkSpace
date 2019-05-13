@@ -41,23 +41,28 @@ class Versions extends Component {
   resetValue = (arr) => {
     const length = arr.length
     let newArr = arr
+    let priceArr = []
     for(let i=0;i<length;i++){
-      newArr[i].price = parseInt(arr[i].price)
+      priceArr = arr[i].price.split('.')
+      newArr[i].price = priceArr[0]
+      if(priceArr.length > 1) {
+        newArr[i].pricesmall = priceArr[1]
+      }
       if(arr[i].capacity >= 1000){
-        newArr[i].capacity = arr[i].capacity/1000 + 'T'
+        newArr[i].capacity = (arr[i].capacity/1000).toFixed(0) + 'T'
       } else if(arr[i].capacity < 1000){
         newArr[i].capacity = arr[i].capacity + 'G'
       }
     }
     for(let j=0;j<length;j++){
-      const time = arr[j]/86400 //多少天
+      const time = (arr[j].time-0)/86400 //多少天
       if(time < 31){
-        newArr[j].time = time%7 + 'week'
+        newArr[j].time = parseInt(time/7) + time%7 + ' week'
       } else {
         if(time >= 31 && time < 366){
-          newArr[j].time = time%31 + 'mouth'
+          newArr[j].time = parseInt(time/31) + time%31 + ' mouth'
         } else {
-          newArr[j].time = time%366 + 'year'
+          newArr[j].time = parseInt(time/366) + time%366 + ' year'
         }
       }
     }
@@ -85,8 +90,8 @@ class Versions extends Component {
     return (
       <div className='versions'>
         {reset_versions.map((item,index) => {
-          return <Version key={index} version={item.title} price={item.price} capacity={item.capacity} duration='1 week' 
-          callBack={this.triggerFatherIsLogin.bind(this,item.id)} showToast={this.showToast} showSigin={this.showSigin} 
+          return <Version key={index} version={item.title} price={item.price} pricesmall={item.pricesmall} capacity={item.capacity} duration={item.time} 
+          which={index} callBack={this.triggerFatherIsLogin.bind(this,item.id)} showToast={this.showToast} showSigin={this.showSigin} 
           callBackWay={this.triggerFatherNoLogin.bind(this,item.id)} />
         })}
         {/* <Version version='START' price='0' capacity='1G' duration='1 week'  callBack={this.triggerFather.bind(this,1)} />

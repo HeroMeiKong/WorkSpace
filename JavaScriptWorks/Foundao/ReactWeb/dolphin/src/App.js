@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Route, Switch, Redirect, HashRouter} from 'react-router-dom'
+import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'
+// import {Route, Switch, Redirect, HashRouter} from 'react-router-dom'
 import './App.css';
 import Index from './pages/index/index'
 import Purchase from './pages/purchase/purchase'
@@ -19,7 +20,7 @@ export default
 class App extends Component {
   render() {
     return (
-      <HashRouter>
+      <BrowserRouter>
           <Switch>
             <Route exact path='/' component={Index}/>
             <Route path='/purchase' component={Purchase}/>
@@ -35,7 +36,7 @@ class App extends Component {
             <Route exact path="/404" component={NotFound}/>
             <Redirect path="*" to="/404"/>
           </Switch>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
