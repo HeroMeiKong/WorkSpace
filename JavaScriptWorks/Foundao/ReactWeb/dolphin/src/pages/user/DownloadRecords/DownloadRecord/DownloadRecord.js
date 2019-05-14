@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import './DownloadRecord.scss'
+import tools from '@/utils/tools'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
 const mp4 = require('@/assets/images/MP4_icon@2x.png')
 const download = require('@/assets/images/download_icon@2x.png')
 
 class DownloadRecord extends Component {
-
   downloadVideo = () => {
     const video_url = this.props.data.out_file_url
+    const type = tools.deviceType()
     if(video_url){
       let openedWindow = window.open('','_self')
       httpRequest({
@@ -18,8 +19,12 @@ class DownloadRecord extends Component {
           path: video_url
         }
       }).done(res => {
-        if(res.code === '0'){
-          openedWindow.location.href=res.data
+        if(type === 'iphone'){
+          this.props.showToast('Sorry, iOS does not support downloading right now. Please open it on PC',video_url)
+        } else {
+          if(res.code === '0'){
+            openedWindow.location.href=res.data
+          }
         }
       })
     }

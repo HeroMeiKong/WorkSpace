@@ -209,23 +209,11 @@ Uploader.prototype = (function () {
     g_reader.readAsArrayBuffer(blob); // 开始读取指定的 Blob中的内容, 一旦完成, result 属性中保存的将是被读取文件的 ArrayBuffer 数据对象.
   }
 
-  // /**获取服务器时间**/
-  // function getServerTime() {
-  //   var ajax = new XMLHttpRequest();
-  //   ajax.open('get','http://cd.foundao.com:10080/foundao_api_zh/cgi/sys/get_server_time');
-  //   ajax.send();
-  //   ajax.onreadystatechange = function () {
-  //     if (ajax.readyState==4 &&ajax.status==200) {
-  //       let res =JSON.parse(ajax.responseText);
-  //       console.log(res.data)
-  //     }
-  //   }
-  // }
   function requestCheck() {
     if (!g_checked) {
       var ajax = new XMLHttpRequest();
-      ajax.open('get','https://www.convert-mp4.com/api/cgi/sys/get_server_time');
-      // ajax.open('get','https://cd.foundao.com:10081/foundao_api/cgi/sys/get_server_time');
+      ajax.open('get','https://www.convert-mp4.com/api/cgi/sys/get_server_time'); //线上
+      // ajax.open('get','https://cd.foundao.com:10081/foundao_api/cgi/sys/get_server_time'); //预上线
       ajax.send();
       ajax.onreadystatechange = function () {
         if (ajax.readyState == 4 && ajax.status == 200) {
@@ -384,9 +372,6 @@ Uploader.prototype = (function () {
             g_partsize = parseInt(obj["data"]["size"]);
             g_partend = g_start + g_partsize;
             g_start = g_start + g_loaded;
-            console.log("found, g_start:" + g_start);
-            console.log("found, g_loaded:" + g_loaded);
-            console.log("found, g_partsize:" + g_partsize);
             readBlob();
             break;
           case "partfinish":
@@ -448,9 +433,7 @@ Uploader.prototype = (function () {
   }
 
   function reconnect() {
-    console.log("reconnect");
     //如果文件已经上传成功，默认不再自动建立服务器连接
-    console.log(connectTime)
     if (connectTime>10000){
       var info = '{"id":"' + g_id + '","msg":"timeout","data":"TIMEOUT"}';
       postMessage(JSON.parse(info));
@@ -510,9 +493,7 @@ Uploader.prototype = (function () {
     },
 
     publicMethod: function () {
-      console.log("-------public Method-------");
       this._(privateMethod)('param from pubicMethod');
-      console.log("-------end of Public Method-------");
     },
 
     //返回一个函数，该函数的this绑定到当前对象

@@ -26,16 +26,20 @@ class DownloadLists extends Component {
 
   moreFile = () => {
     if(tools.getCapacity_storage().capacity > 0){
-      window.location.href = api.return_url+'user'
+      window.location.href = api.return_url_user
+      // window.location.href = api.return_url+'#/user'//预上线
+      // window.location.href = api.return_url+'user' //线上
     } else {
       if (window.confirm("Non-member users can't view the record, please recharge it!") === true) {
-        window.location.href = api.return_url+'purchase'
+        window.location.href = api.return_url_purchase
+        // window.location.href = api.return_url+'#/purchase' //预上线
+        // window.location.href = api.return_url+'purchase' //线上
       }
     }
   }
 
-  showToast = (text) => {
-    this.props.showToast(text)
+  showToast = (text,openedWindow) => {
+    this.props.showToast(text,openedWindow)
   }
 
   render () {

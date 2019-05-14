@@ -106,6 +106,15 @@ const tools = {
     //   return "360";
     // }
   },
+  deviceType: () => {
+    const userAgent = window.navigator.userAgent.toLowerCase(); //取得浏览器的userAgent字符串
+    const iphone = userAgent.indexOf("iphone") > -1;
+    if (iphone) { //判断是否iphone手机
+      return "iphone";
+    } else {
+      return false
+    }
+  },
   sortBy: function (attr, rev) {
     /*
      * 数组里面的对象根据key值进行排序 attr : 比较的key值 rev 标识 升序 降序 默认升序排列

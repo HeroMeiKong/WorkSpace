@@ -6,16 +6,20 @@ class BottomBar extends Component {
   sendEmail = () => {
     var who = 'kefu@foundao.com'
     // var what = prompt("输入主题: ", "none");
-    if (window.confirm("您确定要向" + who + "发送邮件么?") === true) {
+    if (window.confirm("Do you want to send " + who + " an email?") === true) {
         window.location.href = 'mailto:' + who + '?subject='
     }
   }
+  scrollTop = () => {
+    window.scrollTo(0,0)
+  }
+
   render () {
     return (
       <div className='bottombar'>
-        <Link to='./about_us'><div className='BottomButton'>About Us</div></Link>
-        <Link to='./users_terms_and_conditions'><div className='BottomButton'>Terms of Service</div></Link>
-        <Link to='./website_privacy_policy'><div className='BottomButton'>Privacy Policy</div></Link>
+        <Link to='./about_us'><div className='BottomButton' onClick={this.scrollTop}>About Us</div></Link>
+        <Link to='./users_terms_and_conditions'><div className='BottomButton' onClick={this.scrollTop}>Terms of Service</div></Link>
+        <Link to='./website_privacy_policy'><div className='BottomButton' onClick={this.scrollTop}>Privacy Policy</div></Link>
         <div className='BottomButton' onClick={this.sendEmail}>Contact Us</div>
         {/* <div className='BottomButton'>Forum</div> */}
       </div>

@@ -117,7 +117,6 @@ class Index extends Component {
   }
 
   showToast = (toast_text) => {
-    console.log('showToast')
     this.setState({
       isToast: true,
       toast_text
@@ -125,7 +124,6 @@ class Index extends Component {
   }
 
   hiddenToast = () => {
-    console.log('hiddenToast')
     this.setState({
       isToast: false
     })

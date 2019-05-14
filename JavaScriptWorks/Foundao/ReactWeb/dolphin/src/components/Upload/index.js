@@ -136,7 +136,6 @@ class Upload extends Component {
     // console.log('uploadStatus --->', msg);
   };
   showProgress = (percent) => {
-    // console.log(percent);
     const {onProgress} = this.props;
     if (onProgress && typeof onProgress === 'function') {
       onProgress(percent);
@@ -168,40 +167,44 @@ class Upload extends Component {
   };
   initFileItem = (fileItem, files) => {
     const {isUploading} = this.state;
+    let isType = true
     if (isUploading) {
       return false;
     } else {
 
     }
-    const {onChange} = this.props;
+    const {onChange,onError} = this.props;
     this.setState({
       isUploading: true
     });
     if (onChange && typeof onChange === 'function') {
-      onChange(fileItem, files);
+      isType = onChange(fileItem, files);
     }
-    file = fileItem;
-    for (let i = 0; i < workersLength; i++) {
-      const worker = workers[i];
-      worker.postMessage(
-        {
-          cmd: 'stop'
-        }
-      );
-      worker.postMessage(
-        {
-          cmd: 'init',
-          id: 0,
-          usr: 'user',
-          ps: 'Foundao.com',
-          url: _api.webSorket,
-          f: fileItem
-        });
-      // worker.postMessage(
-      //   {
-      //     cmd: 'start'
-      //   }
-      // );
+    if(isType){
+      file = fileItem;
+      for (let i = 0; i < workersLength; i++) {
+        const worker = workers[i];
+        worker.postMessage(
+          {
+            cmd: 'stop'
+          }
+        );
+        worker.postMessage(
+          {
+            cmd: 'init',
+            id: 0,
+            usr: 'user',
+            ps: 'Foundao.com',
+            url: _api.webSorket,
+            f: fileItem
+          }
+        );
+      }
+    } else {
+      this.setState({
+        isUploading: false
+      });
+      onError('This media format is not supported!Yon can use mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv!')
     }
   };
   // 文件上传input框发生改变

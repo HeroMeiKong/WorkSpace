@@ -1,5 +1,6 @@
 .wrapper_content {
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -48,19 +49,19 @@
           border-radius: 10px;
         }
       }
-      .upgrade{
-        padding: 10px 30px;
-        background: linear-gradient(180deg,rgba(89,97,206,1) 0%,rgba(45,50,160,1) 100%);
-        border-radius: 4px;
-        &:hover{ 
-          cursor: pointer;
-          box-shadow: 1px 1px 1px 1px rgba(0,0,0,.3);
+      a{
+        color: #fff;
+        text-decoration: none;
+        .upgrade{
+          padding: 10px 30px;
+          background: linear-gradient(180deg,rgba(89,97,206,1) 0%,rgba(45,50,160,1) 100%);
+          border-radius: 4px;
+          &:hover{ 
+            cursor: pointer;
+            box-shadow: 1px 1px 1px 1px rgba(0,0,0,.3);
+          }
+          margin-bottom: 41px;
         }
-        a{
-          color: #fff;
-          text-decoration: none;
-        }
-        margin-bottom: 41px;
       }
     }
   }

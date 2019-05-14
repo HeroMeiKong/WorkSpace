@@ -67,7 +67,6 @@ class SignUpOrLogin extends Component {
           token: tools.getUserData_storage().token,
         }
       }).done(res => {
-        console.log(res)
         if(res.code === '0'){
           tools.setCapacity_storage(res.data)
           this.props.login({
@@ -122,14 +121,12 @@ class SignUpOrLogin extends Component {
     })
   }
   changeLoading = (el) => {
-    console.log(el)
     this.setState({
       isLoading: el
     })
   }
 
   showToast = (toast_text) => {
-    console.log('showToast')
     this.setState({
       isToast: true,
       toast_text
@@ -137,7 +134,6 @@ class SignUpOrLogin extends Component {
   }
 
   hiddenToast = () => {
-    console.log('hiddenToast')
     this.setState({
       isToast: false
     })

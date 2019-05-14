@@ -109,11 +109,11 @@ class Avatar extends Component {
     return {capacity ,used_capacity, percent}
   }
 
-  limitString = (str) => {
+  limitString = (str,bit) => {
     if(str){
       const length = str.length
-      if(length > 10){
-        return str.substring(0,10)+'…'
+      if(length > bit){
+        return str.substring(0,bit)+'…'
       } else {
         return str
       }
@@ -140,8 +140,8 @@ class Avatar extends Component {
                 <img alt='avatar' src={userInfo.user_avatar || avatar} data-avatar='avatar'></img>
               </div>
               <div className="avatar_bottom_introduce" data-avatar='avatar'>
-                <p data-avatar='avatar'>{this.limitString(userInfo.user_nickname)}</p>
-                <p data-avatar='avatar'>{this.limitString(userInfo.user_email || userInfo.user_nickname)}</p>
+                <p data-avatar='avatar'>{this.limitString((userInfo.user_nickname === userInfo.user_email ? 'User' : userInfo.user_nickname),15)}</p>
+                <p data-avatar='avatar'>{this.limitString((userInfo.user_email || userInfo.user_nickname),30)}</p>
               </div>
             </div>
             {capacity !== '0.0G' 

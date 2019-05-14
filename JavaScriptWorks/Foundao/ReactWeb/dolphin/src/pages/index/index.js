@@ -6,7 +6,7 @@ import api from '@/config/api'
 import Header from '@/components/Header/Header'
 import DropFile from '@/components/DropFile/DropFile'
 import DownloadLists from '@/components/DownloadLists/DownloadLists'
-import BottomFold from '@/components/BottomFold/BottomFold'
+// import BottomFold from '@/components/BottomFold/BottomFold'
 import BottomContents from '@/components/BottomContents/BottomContents'
 import BottomBar from '@/components/BottomBar/BottomBar'
 import Upload from '@/components/Upload'
@@ -25,6 +25,7 @@ class Index extends Component {
       uploadStart: false,
       isType: false,
       uploadSuccessList: [],
+      openedWindow: null
     }
   }
 
@@ -72,12 +73,14 @@ class Index extends Component {
         uploadStart: true,
         isType: true,
       })
+      return true
     } else {
-      this.showToast('This media format is not supported!Yon can use mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv!')
+      // this.showToast('This media format is not supported!Yon can use mp4、ts、avi、mkv、rmvb、mov、flv、3gp、asf、wmv!')
       this.setState({
         uploadStart: false,
         isType: false,
       })
+      return false
     }
   }
 
@@ -93,6 +96,14 @@ class Index extends Component {
     this.setState({
       percent
     })
+    if(percent/1 === 100){
+      let time = setTimeout(() => {
+        this.setState({
+          uploadStart: false
+        })
+        clearTimeout(time)
+      },5000)
+    }
   }
 
   deleteDownloadRecord = (el) => {
@@ -119,19 +130,22 @@ class Index extends Component {
     }
   }
 
-  showToast = (toast_text) => {
-    console.log('showToast')
+  showToast = (toast_text,openedWindow) => {
     this.setState({
       isToast: true,
-      toast_text
+      toast_text,
+      openedWindow
     })
   }
 
   hiddenToast = () => {
-    console.log('hiddenToast')
     this.setState({
-      isToast: false
+      isToast: false,
+      openedWindow: null
     })
+    if(this.state.openedWindow){
+      window.open('about:blank').location.href = this.state.openedWindow
+    }
   }
 
   render () {
@@ -143,10 +157,10 @@ class Index extends Component {
         {isToast ? <Toast callBack={this.hiddenToast} text={toast_text} /> : ''}
         <Header showToast={this.showToast} />
         <div className='wrapper_content'>
-          <div className='content index_div'>
+          <div className='content index_div padding_inner'>
             <div className='content_inner'>
               <h1 className='content_header'>DOLPHIN MP4 CONVERTOR</h1>
-              <h2 className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</h2>
+              <h2 className='content_title'>Convert ANYTHING to Mp4 seamlessly,<br/>smoothly and speedily!</h2>
               <Upload disabled={false}
                       accept='video/*'
                       onChange={this.uploadChange}
@@ -160,7 +174,7 @@ class Index extends Component {
               {/* <AppDownloadLists uploadSuccessList={uploadSuccessList} callBack={this.deleteDownloadRecord} /> */}
             </div>
           </div>
-          <BottomFold />
+          {/* <BottomFold /> */}
           <BottomContents />
           <BottomBar />
         </div>

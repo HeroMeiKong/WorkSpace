@@ -40,7 +40,8 @@
   }
 
   .avatar_bottom {
-    transform: translate(-60%, 0);
+    transform: translate(-68%, 0);
+    width: 191px;
 
     div {
       background: rgba(38, 42, 136, 1);
@@ -63,18 +64,18 @@
       }
 
       .avatar_bottom_introduce {
-        p:first-child {
-          font-size: 12px;
+        p{
           font-weight: 500;
           padding-top: 6px;
-          width: 96px;
+          width: 124px;
+        }
+        p:first-child {
+          font-size: 12px;
         }
 
         p:last-child {
           font-size: 10px;
-          font-weight: 500;
-          padding-top: 6px;
-          width: 96px;
+          word-wrap: break-word;
         }
       }
     }
@@ -138,8 +139,9 @@
     }
 
     .sign_out_box {
-      padding: 5px 18px;
+      padding: 5px 0;
       display: flex;
+      justify-content: center;
 
       &:hover {
         cursor: pointer;

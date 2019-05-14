@@ -11,6 +11,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  min-height: 100vh;
+  position: relative;
   .index_div {
     width: 100%;
     .content_inner{
@@ -31,5 +33,13 @@
         text-align: center;
       }
     }
+  }
+  .padding_inner{
+    padding-bottom: 100px;
+  }
+}
+@media screen and (max-width: 675px) {
+  .backcolor{
+    height: 90%;
   }
 }

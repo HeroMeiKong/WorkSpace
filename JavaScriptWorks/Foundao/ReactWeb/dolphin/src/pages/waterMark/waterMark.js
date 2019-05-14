@@ -33,7 +33,6 @@ class Index extends Component {
 
   uploadSuccess = (fileName, fileSize, fileMd5)=> {
     if(this.state.isType){
-      console.log('文件上传成功！')
       httpRequest({
         url: api.GetInFilePath,
         dataType: 'text',
@@ -145,7 +144,6 @@ class Index extends Component {
   }
 
   showToast = (toast_text) => {
-    console.log('showToast')
     this.setState({
       isToast: true,
       toast_text
@@ -153,7 +151,6 @@ class Index extends Component {
   }
 
   hiddenToast = () => {
-    console.log('hiddenToast')
     this.setState({
       isToast: false
     })

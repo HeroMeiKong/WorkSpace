@@ -6,7 +6,7 @@ class BottomContents extends Component {
   render () {
     return (
       <div className='index_content'>
-        <div className='content index_div'>
+        <div className='content index_div inner_conetnt'>
           {/* <div className='index_bottom_content'>
             <div className='index_bottom_content_img index_bottom_content_left'>
               <img alt='capacity' src={require('../../assets/images/UP_image@2x.png')}></img>

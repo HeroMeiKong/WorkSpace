@@ -155,13 +155,20 @@
     //   height: 33px;
     //   margin-left: 10px
     // }
+    a {
+      height: 100%;
+    }
     .backToHome {
       // background: url('../../assets/images/LOGO1@2x.png') center/100% no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100%;
-      &:hover{cursor: pointer;}
+      padding: 0 19px;
+      &:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, .1);
+      }
 
       img{
         width: 25px;

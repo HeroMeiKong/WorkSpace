@@ -20,6 +20,7 @@ class User extends Component {
       toast_text: 'Error!',
       newRecords: [],
       records: [],
+      openedWindow: null
     }
   }
 
@@ -127,19 +128,22 @@ class User extends Component {
     return {capacity ,used_capacity, percent}
   }
 
-  showToast = (toast_text) => {
-    console.log('showToast')
+  showToast = (toast_text,openedWindow) => {
     this.setState({
       isToast: true,
-      toast_text
+      toast_text,
+      openedWindow
     })
   }
 
   hiddenToast = () => {
-    console.log('hiddenToast')
     this.setState({
-      isToast: false
+      isToast: false,
+      openedWindow: null
     })
+    if(this.state.openedWindow){
+      window.open('about:blank').location.href = this.state.openedWindow
+    }
   }
 
   render () {
@@ -163,13 +167,13 @@ class User extends Component {
                 <div className='used' style={{width: percent+'%'}}></div>
               </div>
               <p>{used_capacity} / {capacity}</p>
-              <div className='upgrade'><Link to='./purchase'>Upgrade</Link></div>
+              <Link to='./purchase'><div className='upgrade'>Upgrade</div></Link>
             </div>
             <div className='myplan'>
               <h1>MY FILES</h1>
               <div className='line'></div>
               {records !== 0 ? records.map((item,index) => {
-                return <DownloadRecords key={index} data={item} record_date={item.date} />
+                return <DownloadRecords key={index} data={item} record_date={item.date}  showToast={this.showToast} />
               }) : ''}
               {/* <DownloadRecords record_date='4PM Friday 22March'/>
               <DownloadRecords record_date='11AM Thursday 21March'/> */}

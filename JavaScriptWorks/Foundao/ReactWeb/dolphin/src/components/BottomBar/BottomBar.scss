@@ -1,11 +1,12 @@
 .bottombar{
   background-color: rgba(45,50,160,1);
-  height: 44px;
+  padding: 16px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  // position: absolute;
-  // bottom: 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
   .BottomButton {
     font-size: 10px;
     font-weight: 500;

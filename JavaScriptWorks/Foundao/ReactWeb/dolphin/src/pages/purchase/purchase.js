@@ -3,7 +3,7 @@ import './purchase.scss'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
 import tools from '@/utils/tools'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import Header from '@/components/Header/Header'
 import Versions from './Versions/Versions'
 // import PayCard from '@/components/PayCard/PayCard'
@@ -39,8 +39,9 @@ class Purchase extends Component {
       }).done(res => {
         if(res.code === '0'){
           this.showToast('Thanks for your purchasing!')
-          setTimeout(() => {
+          let time = setTimeout(() => {
             window.location.href = api.return_url
+            clearTimeout(time)
           },1000)
         } else {
           this.showToast(res.msg)
@@ -91,7 +92,9 @@ class Purchase extends Component {
           data: {
             order_id: res.data.order_id,
             token: tools.getUserData_storage().token,
-            return_url: api.return_url + 'purchase'
+            return_url: api.return_url_purchase
+            // return_url: api.return_url + '#/purchase' //预上线
+            // return_url: api.return_url + 'purchase' //线上
           }
         }).done(res => {
           if(res.code === '0'){
@@ -120,7 +123,6 @@ class Purchase extends Component {
   }
 
   showToast = (toast_text) => {
-    console.log('showToast')
     this.setState({
       isToast: true,
       toast_text
@@ -128,7 +130,6 @@ class Purchase extends Component {
   }
 
   hiddenToast = () => {
-    console.log('hiddenToast')
     this.setState({
       isToast: false
     })
@@ -147,7 +148,6 @@ class Purchase extends Component {
     this.setState({
       showSignUpOrLogin: false,
     })
-    console.log('this.state.version:',this.state.version)
     let time = setTimeout(() => {
       this.submitOrder(this.state.version)
       clearTimeout(time)
@@ -161,6 +161,14 @@ class Purchase extends Component {
     })
   }
 
+  sendEmail = () => {
+    var who = 'kefu@foundao.com'
+    // var what = prompt("输入主题: ", "none");
+    if (window.confirm("Do you want to send " + who + " an email?") === true) {
+        window.location.href = 'mailto:' + who + '?subject='
+    }
+  }
+
   render () {
     const { isLoading, isToast, toast_text, showSignUpOrLogin } = this.state
     return(
@@ -171,7 +179,7 @@ class Purchase extends Component {
         <div className='purchase_content'>
           <h1>Want to convert more videos?<br/>Or beyond the 50MB limit?</h1>
           <Versions callBack={this.showPay} showToast={this.showToast} showSigin={this.showSignUpOrLogin} />
-          <p className='purchase_notes'>Need something custom? <Link to='' >Contact us.</Link></p>
+          <p className='purchase_notes'>Need something custom? <strong  onClick={this.sendEmail}>Contact us.</strong></p>
           <p className='purchase_notes'>We also have additional plan providing capacity over 2T.</p>
         </div>
         <SignUpOrLogin show={showSignUpOrLogin} callBack={this.hiddenLogin} isLoginSuccess={this.loginSuccess} />

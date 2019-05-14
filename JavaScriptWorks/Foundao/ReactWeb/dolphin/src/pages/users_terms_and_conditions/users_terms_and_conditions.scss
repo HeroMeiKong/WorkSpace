@@ -1,11 +1,12 @@
 .wrapper{
   .wrapper_content{
+    .text_inner{
+      max-width: 908px;
+    }
     .index_div{
       article{
-        background-color: rgba(255,255,255,1);
         color:rgba(49,49,49,1);
-        margin-top: 2.125rem;
-        padding: 1.875rem 1.625rem;
+        padding: 1.875rem 0;
         h1{
           font-size: 1.5rem;
           padding-bottom: 1.625rem;
@@ -21,6 +22,7 @@
           line-height: 1.125rem;
           padding-bottom: 1.875rem;
           strong{
+            color: blue;
             text-decoration: underline;
             &:hover{cursor: pointer;}
           }
@@ -30,9 +32,27 @@
           padding: 0 1.625rem 1.375rem 1.625rem;
           font-weight: 200;
           font-size: .75rem;
+          line-height: 1.125rem;
           color:rgba(49,49,49,1);
         }
       }
+    }
+  }
+  .text_backcolor{
+    background-color: rgba(244,248,255,1);
+  }
+}
+@media screen and (max-width: 675px) {
+  .wrapper{
+    .wrapper_content{
+      .index_div{
+        article{
+          padding: 0 1.625rem;
+        }
+      }
+    }
+    .text_backcolor{
+      margin-top: -35px;
     }
   }
 }

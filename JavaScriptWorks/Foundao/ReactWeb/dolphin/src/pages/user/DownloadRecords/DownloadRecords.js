@@ -33,6 +33,10 @@ class DownloadRecords extends Component {
     return hour+PM_AM+' '+day+' '+arr[2]+mounth//4PM Friday 22March
   }
 
+  showToast = (text,openedWindow) => {
+    this.props.showToast(text,openedWindow)
+  }
+
   render () {
     const { data,record_date } = this.props
     return (
@@ -43,7 +47,7 @@ class DownloadRecords extends Component {
         </div>
         <div className='record_file'>
           {data.rows.map((item,index) => {
-            return <DownloadRecord key={index} data={item} />
+            return <DownloadRecord key={index} data={item} showToast={this.showToast} />
           })}
           {/* <DownloadRecord fileName='VIDEO345' />
           <DownloadRecord fileName='family video' />

@@ -29,6 +29,11 @@
       font-weight: 500;
       color: rgba(74, 74, 74, 1);
       text-align: center;
+      strong{
+        text-decoration: underline;
+        color: rgba(45, 50, 160, 1);
+        &:hover{cursor: pointer;}
+      }
     }
   }
 }

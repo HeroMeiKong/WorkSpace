@@ -21,7 +21,6 @@ class Header extends Component {
     }
   }
 
-
   purchase = () => {
     //待使用
   }
@@ -56,6 +55,10 @@ class Header extends Component {
   }
 
   signOut = () => {
+    const hash = window.location.hash
+    if(hash.indexOf('user')>-1){
+      window.location.href = api.return_url
+    }
     if(tools.getUserData_storage().token){
       tools.removeUserData_storage()//删除用户信息
       tools.removeCapacity_storage()//删除用户存储信息

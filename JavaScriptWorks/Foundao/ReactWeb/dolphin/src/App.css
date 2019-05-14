@@ -39,9 +39,10 @@
   align-items: center;
   width: 100%;
   margin-top: 85px;
+  /* height: 100vh; */
 }
 .wrapper .content{
-  max-width: 1024px;
+  max-width: 980px;
 }
 *{
   box-sizing: border-box;

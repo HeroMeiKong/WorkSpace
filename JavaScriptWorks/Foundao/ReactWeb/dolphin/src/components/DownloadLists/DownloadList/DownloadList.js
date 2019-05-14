@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import './DownloadList.scss'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
-// import tools from '@/utils/tools'
+import tools from '@/utils/tools'
 import transCode from '@/utils/transCode'
 import classNames from 'classnames'
 
@@ -35,7 +35,7 @@ class DownloadList extends Component {
       this.showToast('out of the width:'+width+'/height:'+height+' limit, please enter again!')
     } else if((videoWidth-0)%2 === 1  || (videoHeight-0)%2 === 1){
       this.showToast('out of the width and height limit even, please enter again!')
-    } else if(min < 120  || max < 160){
+    } else if(!useProps && (min < 120  || max < 160)){
       this.showToast('The minimum width/height or height/width of the video is 120/160!')
     } else {
       const transOptions = {
@@ -106,6 +106,7 @@ class DownloadList extends Component {
 
   downloadVideo = () => {
     const {video_url} = this.state
+    const type = tools.deviceType()
     if(video_url){
       // window.open('about:blank').location.href=video_url
       let openedWindow = window.open('','_self')
@@ -116,8 +117,12 @@ class DownloadList extends Component {
           path: video_url
         }
       }).done(res => {
-        if(res.code === '0'){
-          openedWindow.location.href=res.data
+        if(type === 'iphone'){
+          this.showToast('Sorry, iOS does not support downloading right now. Please open it on PC',video_url)
+        } else {
+          if(res.code === '0'){
+            openedWindow.location.href=res.data
+          }
         }
       }).fail(resp => {
         this.showToast(resp)
@@ -150,8 +155,8 @@ class DownloadList extends Component {
     })
   }
 
-  showToast = (text) => {
-    this.props.showToast(text)
+  showToast = (text,openedWindow) => {
+    this.props.showToast(text,openedWindow)
   }
 
   isCovertVideo = () => {

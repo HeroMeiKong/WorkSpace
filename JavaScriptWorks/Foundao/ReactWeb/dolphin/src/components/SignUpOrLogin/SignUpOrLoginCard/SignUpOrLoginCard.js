@@ -213,7 +213,7 @@ class SignUpOrLoginCard extends Component {
       this.props.showToast('Please enter your password!')
     } else {
       if(this.state.isRightEmail){
-        if(value === 3){
+        if(value === 3 && this.state.resetSamePassword){
           httpRequest({
             type: 'POST',
             url: api.resetPassword,
