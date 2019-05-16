@@ -8,13 +8,14 @@
   position: absolute;
   bottom: 0;
   .BottomButton {
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 14px;
+    // font-weight: 500;
     color: rgba(255, 255, 255, 1);
-    padding: 0 10px;
+    padding: 0 45px;
     cursor: pointer;
     &:hover{
       text-decoration: underline yellow;
     }
   }
+  a{text-decoration: none;}
 }

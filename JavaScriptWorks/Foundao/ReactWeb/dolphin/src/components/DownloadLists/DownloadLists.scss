@@ -1,7 +1,7 @@
 @media screen and (max-width: 675px) {
   .download_lists,
   .download_lists_inner {
-    padding-top: 1.375rem;
+    padding-top: .625rem;
     width: 18.9375rem;
     display: flex;
     align-items: center;
@@ -57,7 +57,7 @@
 @media screen and (min-width: 676px) {
   .download_lists,
   .download_lists_inner {
-    padding-top: 22px;
+    padding-top: 10px;
     width: 100%;
     max-width: 396px;
     display: flex;
@@ -66,14 +66,15 @@
     color: #ffffff;
 
     .download_lists_tip {
-      font-size: 14px;
+      font-size: 16px;
       text-align: center;
+      width: 432px;
     }
 
     div > a {
       text-align: center;
       padding-top: 10px;
-      color: #ffffff;
+      color: rgba(233, 177, 94, 1);
     }
 
     .download_list {

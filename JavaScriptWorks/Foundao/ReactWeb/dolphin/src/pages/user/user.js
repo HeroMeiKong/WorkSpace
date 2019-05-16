@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './user.scss'
 import httpRequest from '@/utils/httpRequest'
+import $ from 'jquery'
 import api from '@/config/api'
 import tools from '@/utils/tools'
 //pc端组件
@@ -25,6 +26,7 @@ class User extends Component {
   }
 
   componentDidMount(){
+    this.appendChildScript()
     if(tools.getUserData_storage().token){
       httpRequest({
         type: 'POST',
@@ -47,6 +49,16 @@ class User extends Component {
     } else {
       this.showToast('Please login!')
     }
+  }
+
+  appendChildScript = () => {
+    const pv = document.getElementById('pv')
+    if(pv){
+      pv.parentNode.removeChild(pv)
+    }
+    const api_url = api.statistics
+    const script_dom = '<script id="pv" src="' + api_url + '" type="text/javascript"></script>'
+    $('body').append(script_dom)
   }
 
   backHome = () => {
@@ -77,6 +89,7 @@ class User extends Component {
       this.showToast('Something wrong with your connection, please try again later!')
     }
   }
+
   updateRecords = (arr) => {
     if(arr){
       const length = arr.length

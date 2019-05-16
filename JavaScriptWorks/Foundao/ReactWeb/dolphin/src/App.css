@@ -74,17 +74,6 @@ input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
     line-height: .875rem;
     width: 80%;
   }
-  #wrapper .dropfile_big{
-    width: 18.9375rem;
-    height: 10.375rem;
-  }
-  #wrapper .dropfile_small{
-    width: 18.9375rem;
-    height: 7.0625rem;
-  }
-  #wrapper .drop_tip{
-    display: none;
-  }
   
   #wrapper .download_lists_tip{
     line-height:22px;
@@ -126,9 +115,7 @@ input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
   }
 }
 @media screen and (min-width: 676px) {
-  #wrapper .app_drop_tip{
-    display: none;
-  }
+  
   #wrapper .app_download_lists{
     display: none;
   }

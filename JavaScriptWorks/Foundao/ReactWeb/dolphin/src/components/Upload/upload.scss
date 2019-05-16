@@ -1,10 +1,13 @@
 .upload-box{
   //width: 200px;
-  //height: 200px;
+  margin-top: 77px;
+  max-height: 220px;
   //border: 1px solid red;
   cursor: pointer;
   display: inline-block;
 }
 .upload-box-inner{
-
+  &:hover{
+    background-color: rgba(0,0,0,.05);
+  }
 }

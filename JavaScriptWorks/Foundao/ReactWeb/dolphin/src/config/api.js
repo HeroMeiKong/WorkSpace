@@ -75,6 +75,7 @@ export default {
   downloadFile: hosts + 'cgi/resource/get_download',//转码文件下载
   resetPassword: hosts + 'login/get_back_pwd',//重制邮箱密码
   get_lists: hosts + 'resource/transcode/get_lists',//转码的文件列表
+  statistics: hosts + 'cgi/stats/h?sid=4791957956777099048',
   // webSorket: 'wss://cd.foundao.com:10081/sock/', //预上线wss
   // webSorket: 'wss://www.convert-mp4.com/sock/', //线上wss
   webSorket,

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './index.scss'
 import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
+import $ from 'jquery'
 //pc端组件
 import Header from '@/components/Header/Header'
 import DropFile from '@/components/DropFile/DropFile'
@@ -27,6 +28,20 @@ class Index extends Component {
       uploadSuccessList: [],
       openedWindow: null
     }
+  }
+
+  componentDidMount() {
+    this.appendChildScript()
+  }
+
+  appendChildScript = () => {
+    const pv = document.getElementById('pv')
+    if(pv){
+      pv.parentNode.removeChild(pv)
+    }
+    const api_url = api.statistics
+    const script_dom = '<script id="pv" src="' + api_url + '" type="text/javascript"></script>'
+    $('body').append(script_dom)
   }
 
   uploadSuccess = (fileName, fileSize, fileMd5, token)=> {
@@ -160,9 +175,9 @@ class Index extends Component {
           <div className='content index_div padding_inner'>
             <div className='content_inner'>
               <h1 className='content_header'>DOLPHIN MP4 CONVERTOR</h1>
-              <h2 className='content_title'>Convert ANYTHING to Mp4 seamlessly,<br/>smoothly and speedily!</h2>
+              <h2 className='content_title'>Convert ANYTHING to Mp4 seamlessly, smoothly and speedily!</h2>
               <Upload disabled={false}
-                      accept='video/*'
+                      accept='video/mp4,video/x-m4v,video/*'
                       onChange={this.uploadChange}
                       onProgress={this.uploadProgress}
                       onSuccess={this.uploadSuccess}

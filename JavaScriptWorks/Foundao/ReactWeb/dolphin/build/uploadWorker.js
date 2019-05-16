@@ -212,8 +212,8 @@ Uploader.prototype = (function () {
   function requestCheck() {
     if (!g_checked) {
       var ajax = new XMLHttpRequest();
-      ajax.open('get','https://www.convert-mp4.com/api/cgi/sys/get_server_time'); //线上
-      // ajax.open('get','https://cd.foundao.com:10081/foundao_api/cgi/sys/get_server_time'); //预上线
+      // ajax.open('get','https://www.convert-mp4.com/api/cgi/sys/get_server_time'); //线上
+      ajax.open('get','https://cd.foundao.com:10081/foundao_api/cgi/sys/get_server_time'); //预上线
       ajax.send();
       ajax.onreadystatechange = function () {
         if (ajax.readyState == 4 && ajax.status == 200) {

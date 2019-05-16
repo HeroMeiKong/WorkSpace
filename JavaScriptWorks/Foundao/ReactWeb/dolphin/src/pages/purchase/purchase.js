@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './purchase.scss'
 import httpRequest from '@/utils/httpRequest'
+import $ from 'jquery'
 import api from '@/config/api'
 import tools from '@/utils/tools'
 // import { Link } from 'react-router-dom'
@@ -24,6 +25,8 @@ class Purchase extends Component {
   }
 
   componentDidMount () {
+    console.log('purchase')
+    this.appendChildScript()
     const parameter = this.props.location.search
     if(parameter){
       const arr = this.changeToObject(parameter)
@@ -52,6 +55,16 @@ class Purchase extends Component {
     } else {
       // console.log('还未支付！')
     }
+  }
+
+  appendChildScript = () => {
+    const pv = document.getElementById('pv')
+    if(pv){
+      pv.parentNode.removeChild(pv)
+    }
+    const api_url = api.statistics
+    const script_dom = '<script id="pv" src="' + api_url + '" type="text/javascript"></script>'
+    $('body').append(script_dom)
   }
 
   changeToObject = (str) => {
