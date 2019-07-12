@@ -1,0 +1,393 @@
+
+.h5_package_intro {
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .banner {
+    height: 630px;
+    background: url('./images/banner.png') no-repeat;
+    background-size: 1920px 630px;
+    background-position: center center;
+    overflow: hidden;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    .btn_primary {
+      margin-right: 30px;
+    }
+  }
+  h1 {
+    font-size: 48px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    line-height: 70px;
+    margin-top: 160px;
+  }
+  .merit {
+    font-size: 24px;
+    margin: 30px 0 70px;
+    font-family: PingFangSC-Light;
+    font-weight: 300;
+  }
+  button {
+    cursor: pointer;
+  }
+  .btn_primary {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #3176FD;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .btn_line {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    background-color: transparent;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  section {
+    text-align: center;
+    padding: 50px 0;
+    h2 {
+      font-size: 24px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      color: rgba(39, 39, 39, 1);
+      line-height: 26px;
+      margin-bottom: 10px;
+    }
+    .section_desc {
+      font-size: 16px;
+      font-family: PingFangSC-Regular;
+      font-weight: 400;
+      color: rgba(102, 102, 102, 1);
+      line-height: 32px;
+      //margin-bottom: 40px;
+      max-width: 1042px;
+      margin: 0 auto 30px;
+    }
+  }
+  .block_content {
+    position: relative;
+  }
+  .tools_wrapper {
+    width: 420px;
+    float: left;
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    .tool_item {
+      width: 50%;
+      height: 40px;
+      line-height: 40px;
+      float: left;
+      text-align: left;
+      font-size: 18px;
+      color: #272727;
+      cursor: pointer;
+      position: relative;
+      padding-left: 46px;
+      box-sizing: border-box;
+      margin-bottom: 50px;
+      &:hover {
+        color: #3176FD;
+      }
+      &:before {
+        content: '';
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-size: cover;
+        background-position: center center;
+
+      }
+      &.sjtl:before {
+        background-image: url('./images/sjtl.png');
+      }
+      &.wlll:before {
+        background-image: url('./images/wlll.png');
+      }
+      &.zysb:before {
+        background-image: url('./images/zysb.png');
+      }
+      &.wrj:before {
+        background-image: url('./images/wrj.png');
+      }
+
+      &.sjtl:hover {
+        &:before {
+          background-image: url('./images/sjtl_blue.png');
+        }
+      }
+      &.wlll:hover {
+        &:before {
+          background-image: url('./images/wlll_blue.png');
+        }
+      }
+      &.zysb:hover {
+        &:before {
+          background-image: url('./images/zysb_blue.png');
+        }
+      }
+      &.wrj:hover {
+        &:before {
+          background-image: url('./images/wrj_blue.png');
+        }
+      }
+    }
+  }
+  .pc_img {
+    float: right;
+    margin-right: 40px;
+    width: 500px;
+    img {
+      width: 100%;
+    }
+  }
+
+  .module_block {
+    background: url('./images/bg2.png');
+    background-size: 1920px 726px;
+    background-position: center center;
+  }
+  .swiper-slide {
+    width: 252px;
+    //height: 527px;
+    font-size: 18px;
+    transition: 300ms;
+    cursor: pointer;
+    transform: scale(0.7);
+  }
+  .swiper-slide img {
+    width: 100%;
+  }
+  .swiper-slide-prev,.swiper-slide-next{
+    transform: scale(0.8);
+  }
+  .swiper-slide-active{
+    transform: scale(1);
+  }
+
+  /*系统功能*/
+  .function_wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .function_item {
+    width: 560px;
+    height: 150px;
+    box-sizing: border-box;
+    padding: 25px 10px 25px 30px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 14px 0px rgba(18, 44, 96, 0.1);
+    margin-bottom: 30px;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 0px 14px 0px rgba(18, 44, 96, 0.2);
+    }
+    .function_info {
+      width: 60px;
+      float: left;
+      margin-top: 20px;
+      .fun_icon {
+        width: 28px;
+        height: 28px;
+        background-size: contain;
+        margin: 0 auto;
+      }
+      .fun_name {
+        font-size: 14px;
+        font-family: PingFangSC-Semibold;
+        font-weight: 600;
+        color: rgba(39, 39, 39, 1);
+        line-height: 28px;
+      }
+    }
+    .fun_detail {
+      margin-left: 80px;
+      height: 90px;
+      border-left: 1px solid #272727;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      span {
+        width: 33.33%;
+        text-align: left;
+        padding-left: 30px;
+        display: inline-block;
+        line-height: 45px;
+        font-size: 14px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(39, 39, 39, 1);
+        box-sizing: border-box;
+      }
+    }
+  }
+  /*平台优势*/
+  .advantage_block {
+    background-color: #F9FBFF;
+  }
+  .scene_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    .scene_item {
+      width: 392px;
+      height: 220px;
+      background-color: #f7f7f7;
+      margin: 10px;
+      box-sizing: border-box;
+      border: 2px solid transparent;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative;
+      cursor: pointer;
+      border-radius: 4px;
+      overflow: hidden;
+      .item_name {
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        color: #ffffff;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+        transition: all 0.3s linear;
+        overflow: hidden;
+      }
+      .item_name:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background-color: rgba(0, 0, 0, 0.5);
+        filter: blur(1px);
+        border-radius: 4px;
+      }
+    }
+
+    .scene_item:hover {
+      .item_name {
+        height: 100%;
+        line-height: 220px;
+      }
+    }
+  }
+
+  .partner_img {
+    display: block;
+    margin: 0 auto;
+  }
+  .join_block {
+    background: url('./images/joinbg.png') no-repeat;
+    background-size: 1920px 200px;
+    background-position: center center;
+    margin: 20px 0 70px;
+    p {
+      font-size: 22px;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 30px;
+      margin-bottom: 28px;
+    }
+    .free_tips{
+      margin: 10px 0;
+      //font-size: 16px;
+    }
+  }
+  /*咨询弹框*/
+  .dialog_wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    .dialog_inner {
+      width: 600px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      text-align: center;
+      border-radius:4px;
+    }
+    .dialog_title {
+      height: 76px;
+      line-height: 76px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #272727;
+      border-bottom: 1px solid #EEEEEE;
+    }
+    .dialog_body{
+      font-size: 14px;
+      color: #272727;
+      padding: 30px 0;
+    }
+    .connect_item{
+      font-size: 20px;
+      text-align: left;
+      margin: 20px 0 20px 180px;
+      display: flex;
+      align-items: center;
+      height: 24px;
+      line-height: 24px;
+      //justify-content: flex-start;
+      a{
+        color: #3176FD;
+      }
+      i{
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        background-size: contain;
+        margin-right: 10px;
+      }
+      .icon_phone{
+        background-image: url('./images/phone.png');
+      }
+      .icon_email{
+        background-image: url('./images/email.png');
+      }
+    }
+    .dialog_footer {
+      padding: 0 0 40px;
+      .btn_primary {
+        width: 100px;
+        height: 36px;
+        line-height: 36px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1920px) {
+  .h5_package_intro {
+    .fullbg {
+      background-size: cover;
+    }
+  }
+}

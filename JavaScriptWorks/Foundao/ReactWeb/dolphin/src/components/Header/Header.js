@@ -25,6 +25,7 @@ class Header extends Component {
     //待使用
   }
 
+  //显示手机端的菜单
   showMenu = (e) => {
     if(e.target.className === 'menu_cover' || e.target.className === 'menu'){
       this.setState({
@@ -33,12 +34,14 @@ class Header extends Component {
     }
   }
 
+  //显示登录
   showLogin = (el) => {
     this.setState({
       showSignUpOrLogin: true
     })
   }
 
+  //隐藏登录
   hiddenLogin = (e) => {
     if(e.target && e.target.className && (e.target.className === 'sol_wrapper' || e.target.className === 'sol_content_create')){
       //如果点击外面或者登录成功就隐藏
@@ -48,12 +51,15 @@ class Header extends Component {
     }
   }
 
+  //登录成功
   loginSuccess = () => {
     this.setState({
       showSignUpOrLogin: false,
     })
+    window.location.reload()
   }
 
+  //登出
   signOut = () => {
     const hash = window.location.hash
     if(hash.indexOf('user')>-1){
@@ -71,7 +77,7 @@ class Header extends Component {
           token: tools.getUserData_storage().token,
         }
       }).done(res => {
-        console.log('sign out')
+
       })
       this.setState({
         showMenu: false,
@@ -80,6 +86,7 @@ class Header extends Component {
     }
   }
 
+  //获取用户信息
   getUserInfo = () => {
     let info
     if(this.props.userInfos.userInfo){
@@ -105,20 +112,33 @@ class Header extends Component {
     let info = this.getUserInfo()
     return(
       <div className='header'>
+        {/* PC端样式 */}
         <div id='header' className='content'>
           {isLevel2 ? <Link to='/'><div className='backToHome'>
                     <img alt='home' src={home}></img>
                     <div>Back to Home</div>
                   </div></Link>
                 : <div className='logo'></div>}
-          {/* <div className='header_web'><Link to='/'>MP4 CONVERTOR</Link></div>
+          {/* <div className='header_web'><Link to='/'>MP4 CONVERTER</Link></div>
           <div className='header_web'><Link to='/videoCutter'>VIDEO CUTTER</Link></div>
           <div className='header_web'><Link to='/waterMark'>WATERMARK</Link></div> */}
           <div className='header_menu'>
-            <Link to='/purchase'><HeaderOption title={'PRICING'} callBack={this.purchase} /></Link>
-            {info ? <div><HeaderOption /> <Avatar callBack={this.signOut} showToast={this.showToast} /></div> : <HeaderOption title={'SIGN IN'} callBack={this.showLogin} />}
+            <Link target='_blank' to='/purchase'><HeaderOption title={'PRICING'} callBack={this.purchase} /></Link>
+            {info ? <div className='header_option'><Avatar callBack={this.signOut} showToast={this.showToast} records={this.props.records} /></div> : <HeaderOption title={'SIGN IN'} callBack={this.showLogin} />}
+            <div className='header_option_pic'>
+              <a target='_blank' rel="noopener noreferrer" alt='facebook' href='https://www.facebook.com/Dolphin-Convertor-396537190943667/?modal=admin_todo_tour'>
+                <div className='facebook header_pic'></div>
+              </a>
+              <a target='_blank' rel="noopener noreferrer" alt='twitter' href='https://twitter.com/tuodao1'>
+                <div className='twitter header_pic'></div>
+              </a>
+              <a target='_blank' rel="noopener noreferrer" alt='youtube' href='https://www.youtube.com/channel/UCJJXtknTB_6Ik_5l-QSBU2Q?view_as=subscriber'>
+                <div className='youtube header_pic'></div>
+              </a>
+            </div>
           </div>
         </div>
+        {/* 手机端样式 */}
         <div id='app_menu' className='content'>
           <div className='logo'></div>
           <div className="menu"  onClick={this.showMenu}></div>
@@ -134,7 +154,7 @@ class Header extends Component {
                   <div className="user_login" onClick={this.showLogin} >SIGN IN</div>
                 </div>}
               <div className="more_info">
-                <div className="app_web"><Link to='/'>MP4 CONVERTOR</Link></div>
+                <div className="app_web"><Link to='/'>MP4 CONVERTER</Link></div>
                 {/* <div className="app_web"><Link to='/videoCutter'>VIEDEO CUTTER</Link></div>
                 <div className="app_web"><Link to='/waterMark'>WATERMARK</Link></div> */}
                 <div className="app_web"><Link to='/purchase'>PRICING</Link></div>

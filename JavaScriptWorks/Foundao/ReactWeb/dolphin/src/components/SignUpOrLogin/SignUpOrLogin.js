@@ -11,7 +11,7 @@ import Loading from '@/components/Loading/Loading'
 import Toast from '@/components/Toast/Toast'
 
 // import { generateKeyPair } from 'crypto';
-const facebook = require('@/assets/images/facebook_icon@2x.png')
+const facebook = require('@/assets/images/facebook_icon@3x.png')
 // const twitter = require('@/assets/images/twitter_icon@2x.png')
 const google = require('@/assets/images/google@2x.png')
 let authWin = ''
@@ -51,11 +51,12 @@ class SignUpOrLogin extends Component {
           _this.showToast(res.msg)
         }
       }).fail(() => {
-        _this.showToast('内部服务器错误！')
+        _this.showToast('Internal server error!')
       })
     }
   }
 
+  //获取用户存贮信息
   getUserStorage = (data) => {
     if(!tools.getUserData_storage().token){
       console.log('no user')
@@ -94,6 +95,7 @@ class SignUpOrLogin extends Component {
     })
   }
 
+  //「第三方」邮箱登录
   glogin = (type) => {
     this.setState({
       type: type,
@@ -116,10 +118,12 @@ class SignUpOrLogin extends Component {
           this.showToast(res.msg)
         }
       }).fail(() => {
-        this.showToast('内部服务器错误！')
+        this.showToast('Internal server error!')
       })
     })
   }
+
+  //改变loading状态
   changeLoading = (el) => {
     this.setState({
       isLoading: el

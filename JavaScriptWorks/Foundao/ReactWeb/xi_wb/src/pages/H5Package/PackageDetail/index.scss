@@ -1,0 +1,57 @@
+.package_detail {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  .package_content{
+    margin-left: 200px;
+    padding: 0 15px;
+    height: 100%;
+    overflow: auto;
+    //min-height: 100%;
+    position: relative;
+    .content_header{
+      padding: 30px 25px 20px;
+      border-bottom: 1px solid #E9E9E9;
+      margin-bottom: 30px;
+      h2{
+        color: #333333;
+        font-size: 20px;
+        font-weight: 500;
+        span{
+          color: #666666;
+          font-size: 16px;
+        }
+      }
+      .mobile_tips{
+        //width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: right;
+        margin-left: 70px;
+        cursor: pointer;
+      }
+      .icon_mobile{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: url('../../../assets/images/h5/icon_phone@2x.png') no-repeat;
+        background-size: contain;
+      }
+    }
+  }
+  .el-popover{
+    min-width: 100px;
+  }
+  #qrcode_phone{
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+}
+
+

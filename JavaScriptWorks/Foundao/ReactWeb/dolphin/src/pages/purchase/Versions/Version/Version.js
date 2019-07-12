@@ -5,6 +5,7 @@ import tools from '@/utils/tools'
 class Version extends Component {
 
   triggerFather = () => {
+    window.gtag && window.gtag('event', 'click', {'event_category': 'pay', 'event_label': 'video'}) //统计购买
     if(tools.getUserData_storage().token){
       this.props.callBack('islogin')
     } else {

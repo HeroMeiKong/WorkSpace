@@ -1,0 +1,146 @@
+.remove_muli{
+  background-color: white;
+  padding: 0 30px;
+  .remove_muli_inner{
+    height:832px;
+    background:rgba(249,249,249,1);
+    border-radius:22px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 20px 0;
+  }
+  //.main-inner{
+  //  width: 820px;
+  //  margin: 0 auto;
+  //}
+  .inner-header{
+    width: 820px;
+    height: 40px;
+    margin: 0 auto 20px;
+    button{
+      float: right;
+      padding: 10px 25px;
+      background:rgba(104,97,253,1);
+      border-radius:5px;
+      font-size:14px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      color:rgba(255,255,255,1);
+      line-height:20px;
+      cursor: pointer;
+    }
+  }
+  .inner-body{
+    ul{
+      height: 586px;
+      overflow: scroll;
+    }
+    li{
+      width:802px;
+      height:104px;
+      background:rgba(255,255,255,1);
+      box-shadow:0px 10px 20px 0px rgba(0,0,0,0.05);
+      border-radius:10px;
+      margin: 0 auto 32px;
+      .removeWater{
+        display: none;
+      }
+      .fileItem{
+        padding: 18px 38px;
+        box-sizing: border-box;
+        .file_index{
+          display: inline-block;
+          vertical-align: middle;
+          font-size:16px;
+          font-family:PingFangSC-Regular;
+          font-weight:400;
+          color:rgba(39,39,39,1);
+          line-height:22px;
+        }
+        .file_img{
+          display: inline-block;
+          vertical-align: middle;
+          width: 120px;
+          height: 68px;
+          margin: 0 28px 0 38px;
+          position: relative;
+          img{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+          }
+          video{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+          }
+          p{
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #6861FD;
+            opacity: .65;
+            bottom: 0;
+            z-index: 0;
+          }
+        }
+        .fileName{
+          display: inline-block;
+          vertical-align: middle;
+          width: 316px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          margin-right: 20px;
+        }
+        .fileProgress{
+          width: 88px;
+          display: inline-block;
+          vertical-align: middle;
+          font-size:14px;
+          font-family:PingFangSC-Regular;
+          font-weight:400;
+          text-align: center;
+          color:rgba(104,97,253,1);
+          line-height:20px;
+        }
+        .closeIcon{
+          display: inline-block;
+          vertical-align: middle;
+          width:16px;
+          height:16px;
+          margin-left: 80px;
+          cursor: pointer;
+          background: url(../../../assets/removewatermark/close-icon.png) no-repeat center / cover;
+        }
+      }
+    }
+  }
+  .inner-footer{
+    width: 802px;
+    margin: 0 auto;
+    padding-top: 60px;
+    text-align: center;
+    button{
+      width:210px;
+      height:68px;
+      border-radius:5px;
+      font-size:24px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      cursor: pointer;
+      &.cancel{
+        border:2px solid rgba(181,178,255,1);
+        color:rgba(104,97,253,1);
+        background: none;
+        margin-right: 54px;
+      }
+      &.start{
+        background-color: #6861FD;
+        color: white;
+      }
+    }
+  }
+}

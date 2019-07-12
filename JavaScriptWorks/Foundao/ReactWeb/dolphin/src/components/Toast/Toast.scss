@@ -28,15 +28,16 @@
 
     p {
       text-align: center;
-      font-size: .75rem;
-      font-weight: 300;
+      font-size: .875rem;
+      font-weight: 200;
       padding-bottom: 2.5rem;
+      max-width: 300px;
     }
 
     .toast_button {
       padding: .625rem 1.25rem;
       font-size: .75rem;
-      font-weight: 300;
+      font-weight: 200;
       background: linear-gradient(180deg, rgba(89, 97, 206, 1) 0%, rgba(45, 50, 160, 1) 100%);
       border-radius: 4px;
       &:hover{cursor: pointer;}

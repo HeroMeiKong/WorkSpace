@@ -1,0 +1,40 @@
+.main {
+  min-width: 1280px; }
+  .main .Message_box_bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4999);
+    z-index: 99999;
+    display: none; }
+    .main .Message_box_bg .Message_box {
+      position: absolute;
+      top: 130px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      padding: 0 55px 0 109px;
+      box-sizing: border-box;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      line-height: 27px;
+      min-height: 75px;
+      font-size: 19px;
+      font-family: "PingFang SC";
+      font-weight: 500;
+      color: #060606; }
+    .main .Message_box_bg .Message_box::before {
+      content: '';
+      position: absolute;
+      background-image: url("../images/cuowu_2_icon@1x.png");
+      background-size: 100% 100%;
+      width: 30px;
+      height: 30px;
+      top: 50%;
+      transform: translate(0, -50%);
+      left: 55px; }
+  .main .app_content {
+    min-height: calc(100vh - 90px);
+    width: 100%; }

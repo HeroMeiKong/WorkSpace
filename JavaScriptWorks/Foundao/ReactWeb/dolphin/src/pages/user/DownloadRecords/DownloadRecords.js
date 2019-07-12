@@ -9,12 +9,12 @@ class DownloadRecords extends Component {
     let date = new Date(millinSeconds)
     let hour = '0'
     let PM_AM = 'PM'
-    let day = 'Monday'
+    let day = 'Tuesday'
     let mounth = 'January'
     let shortMounthArr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
     let mounthArr = ['January','February','March','April','May','June','July','August','September','October','November','December']
     let week = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-    let shortWeek = ['Mon','Tues','Wed','Thu','Fri','Sat','Sun']
+    let shortWeek = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
     let arr = date.toString().split(' ');
     let time = arr[4].split(':')
     for(let i=0;i<12;i++){

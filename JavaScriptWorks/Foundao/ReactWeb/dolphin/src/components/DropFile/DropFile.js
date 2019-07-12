@@ -2,35 +2,34 @@ import React, { Component } from 'react'
 import './DropFile.scss'
 let path = ''
 let pathsmall = ''
-let fileupload = ''
+// let fileupload = ''
 // let fileuploadsmall = ''
-const path1 = require('@/assets/images/convertor_small@2x.png')
-const path1s = require('@/assets/images/LOGO1_small_icon.png')
-const file1 = require('@/assets/images/fileupload.png')
-// const file1s = require('@/assets/images/fileuploadsmall.png')
-const path2 = require('@/assets/images/LOGO2.png')
-const path2s = require('@/assets/images/LOGO2_small_icon.png')
-const path3 = require('@/assets/images/LOGO3.png')
-const path3s = require('@/assets/images/LOGO3_small_icon.png')
+const path1 = require('@/assets/images/convert_icon@2x.png')
+const path1s = require('@/assets/images/convertor_small_icon@2x.png')
+const fileupload = require('@/assets/images/fileupload.png')
+const path2 = require('@/assets/images/cutter_icon@2x.png')
+const path2s = require('@/assets/images/cutter_small_icon@2x.png')
+const path3 = require('@/assets/images/watermark_icon@2x.png')
+const path3s = require('@/assets/images/watermark_small_icon@2x.png')
 
 class DropFile extends Component {
 
   componentDidMount() {
+    //让海豚转圈
     const dolpin = document.getElementById('dolphin')
     dolpin.setAttribute('class','dolpin active_dolpin')
     let time = setTimeout(() => {
-      dolpin.setAttribute('class','dolpin')
+      dolpin.setAttribute('class','dolpin deactive_dolpin')
       clearTimeout(time)
-    },2000)
+    },1000)
   }
 
   render () {
     const { start, progress } = this.props
+    //根据src判断海豚的图片是哪一个
     if(this.props.src === 'path1'){
       path = path1
       pathsmall = path1s
-      fileupload = file1
-      // fileuploadsmall = file1s
     } else if(this.props.src === 'path2'){
       path = path2
       pathsmall = path2s

@@ -212,8 +212,8 @@ Uploader.prototype = (function () {
   function requestCheck() {
     if (!g_checked) {
       var ajax = new XMLHttpRequest();
-      // ajax.open('get','https://www.convert-mp4.com/api/cgi/sys/get_server_time'); //线上
-      ajax.open('get','https://cd.foundao.com:10081/foundao_api/cgi/sys/get_server_time'); //预上线
+      ajax.open('get','https://www.convert-mp4.com/api/cgi/sys/get_server_time'); //线上
+      // ajax.open('get','https://cd.foundao.com:10081/foundao_api/cgi/sys/get_server_time'); //预上线
       ajax.send();
       ajax.onreadystatechange = function () {
         if (ajax.readyState == 4 && ajax.status == 200) {
@@ -288,10 +288,14 @@ Uploader.prototype = (function () {
         // 只读属性 bufferedAmount 已被 send() 放入正在队列中等待传输，但是还没有发出的 UTF-8 文本字节数。
         if (g_ws.bufferedAmount > g_step * 1){
           t = setInterval(function () {
-            if (g_ws.bufferedAmount > g_step * 1) {
-              return
-            }else{
-              loadSuccess(e.loaded);
+            if (g_ws != null) {
+              if (g_ws.bufferedAmount > g_step * 1) {
+                return
+              }else{
+                loadSuccess(e.loaded);
+                clearInterval(t)
+              }
+            } else {
               clearInterval(t)
             }
           }, 100);
@@ -305,7 +309,9 @@ Uploader.prototype = (function () {
   function loadSuccess(loaded) {
     var blob = g_reader.result; // 文件的内容。该属性仅在读取操作完成后才有效，数据的格式取决于使用哪个方法来启动读取操作。
     if (g_ws != null) {
-      g_ws.send(blob, {binary: true});
+      if (g_ws.readyState === 1){
+        g_ws.send(blob, {binary: true});
+      }
       g_loaded += loaded;
       g_start += loaded;
       // g_loaded = g_start - g_ws.bufferedAmount;

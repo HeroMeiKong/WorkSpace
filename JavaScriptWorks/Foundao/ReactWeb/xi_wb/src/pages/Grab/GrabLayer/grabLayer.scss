@@ -1,0 +1,165 @@
+@import '../../../style/public';
+
+.grabLayer {
+  position: fixed;
+  z-index: 8;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  @extend .flex-row-center-center;
+
+  .grabLayer-box {
+    width: 772px;
+    //height:490px;
+    background: rgba(255, 255, 255, 1);
+    padding-bottom: 57px;
+    position: relative;
+    @extend .flex-col-start-center;
+
+    .close-btn {
+      position: absolute;
+      cursor: pointer;
+      top: 20px;
+      right: 20px;
+      width: 16px;
+      height: 16px;
+      background-image: url("./../../../assets/grab/close-btn@2x.png");
+      background-size: cover;
+    }
+    .grabLayer-prgress-tips {
+      margin-top: 20px;
+      font-size: 16px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      color: rgba(39, 39, 39, 1);
+      line-height: 22px;
+      text-align: center;
+    }
+    .grabLayer-progress-box {
+      margin-top: 66px;
+      @extend .flex-col-start-center;
+
+      .grabLayer-progress-out {
+        width: 510px;
+        height: 6px;
+        border-radius: 3px 0px 0px 3px;
+        overflow: hidden;
+        position: relative;
+        background-image: url("./../../../assets/grab/loading@2x@2x.png");
+        background-size: cover;
+
+        .grabLayer-prgress {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          background: rgba(255, 73, 94, 1);
+          border-radius: 3px 0px 0px 3px;
+          transition: all .5s;
+        }
+      }
+
+      .grabLayer-prgress-tips {
+        margin-top: 20px;
+        font-size: 16px;
+        font-family: PingFangSC-Semibold;
+        font-weight: 600;
+        color: rgba(39, 39, 39, 1);
+        line-height: 22px;
+        text-align: center;
+      }
+    }
+
+    .download-box {
+      margin-top: 76px;
+      cursor: pointer;
+      width: 140px;
+      height: 50px;
+      background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+      border-radius: 0px 2px 2px 0px;
+      font-size: 18px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 1);
+      line-height: 50px;
+      box-sizing: border-box;
+      padding-left: 37px;
+      position: relative;
+      a{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 16px;
+        width: 16px;
+        height: 16px;
+        background-image: url("./../../../assets/grab/icon_download@2x.png");
+        background-size: cover;
+        cursor: pointer;
+      }
+    }
+
+    .ad-box {
+      margin-top: 20px;
+      @extend .flex-row-center-center;
+
+      .ad-item {
+        width: 201px;
+        height: 113px;
+        position: relative;
+        margin-right: 60px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        .ad-title {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 40px;
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+          @extend .flex-row-start-center;
+          padding: 0 7px;
+          box-sizing: border-box;
+          font-size: 12px;
+          font-family: PingFangSC-Regular;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 1);
+          line-height: 20px;
+          overflow: hidden;
+          @extend .shenglv-2;
+        }
+      }
+    }
+
+    .gra-t-0 {
+      margin-top: 30px;
+      font-size: 14px;
+      font-family: PingFangSC-Regular;
+      font-weight: 400;
+      color: rgba(39, 39, 39, 1);
+      line-height: 20px;
+    }
+
+    .gra-t-1 {
+      margin-top: 34px;
+      font-size: 14px;
+      font-family: PingFangSC-Regular;
+      font-weight: 400;
+      color: rgba(39, 39, 39, 1);
+      line-height: 20px;
+    }
+  }
+}

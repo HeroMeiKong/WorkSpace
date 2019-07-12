@@ -1,0 +1,73 @@
+.messageboard {
+  width: 100%;
+  //height: 100%;
+  box-sizing: border-box;
+
+  div {
+    box-sizing: border-box;
+  }
+
+  .messageboard_top {
+    width: 100%;
+    height: 240px;
+    background: url('../images/payPage/MessageBoard_bg.png') center/100% no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    h1 {
+      font-size: 40px;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+      padding-bottom: 10px;
+    }
+
+    .messageboard_line {
+      width: 48px;
+      height: 4px;
+      background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+    }
+  }
+
+  .messageboard_bottom {
+    width: 100%;
+    background: url('../images/payPage/bg1@2x.png') center/100% no-repeat;
+
+    .messageboard_inner {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 24px 0 80px;
+
+      .masternote_wrapper {
+        width: 100%;
+        max-width: 1200px;
+        // padding-left: 10px;
+        font-size: 22px;
+        font-family: PingFangSC-Semibold;
+        font-weight: 600;
+        color: rgba(39, 39, 39, 1);
+
+        :last-child {
+          .masternote_line{
+            display: none;
+          }
+        }
+      }
+
+      .usermessage {
+        font-size: 22px;
+        font-family: PingFangSC-Semibold;
+        font-weight: 600;
+        color: rgba(39, 39, 39, 1);
+        width: 100%;
+        max-width: 1200px;
+        padding: 40px 0 20px;
+      }
+    }
+  }
+}

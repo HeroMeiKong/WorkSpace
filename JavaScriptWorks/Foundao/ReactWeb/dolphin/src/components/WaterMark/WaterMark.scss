@@ -20,7 +20,7 @@
       .markpic{
         position: absolute;
         top: 0;
-        border: 2px dashed #F25F5D;
+        // border: 2px dashed #F25F5D;
         background-size: 100% 100%;
         background-repeat: no-repeat;
         &:hover{cursor: pointer;}
@@ -28,7 +28,7 @@
       .removepic{
         position: absolute;
         top: 0;
-        border: 2px dashed #F25F5D;
+        // border: 2px dashed #F25F5D;
         background-color: rgba(0, 0, 0, 0.5);
         &:hover{cursor: pointer;}
       }

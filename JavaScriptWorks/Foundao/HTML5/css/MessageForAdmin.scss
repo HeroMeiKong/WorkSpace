@@ -1,0 +1,87 @@
+.messageforadmin {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 1200px;
+  width: 100%;
+
+  .messageforadmin_title {
+    font-size: 22px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    color: rgba(39, 39, 39, 1);
+  }
+
+  .messageforadmin_latertime {
+    padding: 8px 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .messageforadmin_clock {
+      background: url('../images/payPage/clock.png') center/100% no-repeat;
+      width: 20px;
+      height: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      font-family: PingFangSC-Regular;
+      color: rgba(255, 84, 82, 1);
+      padding-left: 8px;
+    }
+  }
+
+  .messageforadmin_inner {
+    position: relative;
+    background-color: #FFFAFB;
+    margin-top: 32px;
+    width: 100%;
+
+    .icon1{
+      background: url('../images/payPage/icon1.png') center/100% no-repeat;
+      width: 34px;
+      height: 28px;
+      position: absolute;
+      top: 10px;
+      left: 30px;
+    }
+
+    .icon2{
+      background: url('../images/payPage/icon2.png') center/100% no-repeat;
+      width: 40px;
+      height: 46px;
+      position: absolute;
+      top: -16px;
+      left: -14px;
+    }
+
+    .messageforadmin_text {
+      font-size: 18px;
+      font-family: PingFangSC-Regular;
+      color: rgba(39, 39, 39, 1);
+      line-height: 30px;
+      // width: 100%;
+      height: 192px;
+      padding: 28px 60px 0 84px;
+    }
+
+    .messageforadmin_button {
+      position: absolute;
+      font-size: 20px;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+      border-radius: 4px;
+      padding: 8px 20px;
+      right: 20px;
+      bottom: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -7,7 +7,9 @@ const mp4 = require('@/assets/images/MP4_icon@2x.png')
 const download = require('@/assets/images/download_icon@2x.png')
 
 class DownloadRecord extends Component {
+
   downloadVideo = () => {
+    window.gtag && window.gtag('event', 'click', {'event_category': 'download','event_label': 'video'}) //统计下载
     const video_url = this.props.data.out_file_url
     const type = tools.deviceType()
     if(video_url){

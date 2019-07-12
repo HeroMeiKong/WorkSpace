@@ -15,11 +15,11 @@ class SignUpOrLoginCard extends Component {
     super()
     this.state = {
       SignUpOrLogin: true,
-      newEmail: '',
-      newPassword: '',
-      newConfirmation: '',
-      email: '',
-      password: '',
+      newEmail: '',//注册用户邮箱
+      newPassword: '',//注册用户密码
+      newConfirmation: '',//注册用户确认密码
+      email: '',//登录邮箱
+      password: '',//登录密码
       type: 4,//用户邮箱类型
       userInfo: {},//用户信息
       isRightEmail: true,//Email格式是否正确
@@ -30,11 +30,12 @@ class SignUpOrLoginCard extends Component {
       state: 0,//忘记密码第一步
       code: '',//验证码
       resetPassword: '',//重制密码
-      resetConfirmation: '',
-      resetSamePassword: true,//
+      resetConfirmation: '',//重置密码确认
+      resetSamePassword: true,//重置时两次密码是否相同
     }
   }
 
+  //切换注册
   changeCreateAccount = () => {
     this.setState({
       SignUpOrLogin: true,
@@ -42,6 +43,7 @@ class SignUpOrLoginCard extends Component {
     })
   }
 
+  //切换登录
   changeLogin = () => {
     this.setState({
       SignUpOrLogin: false,
@@ -49,6 +51,7 @@ class SignUpOrLoginCard extends Component {
     })
   }
 
+  //修改文本内容
   handleChange = (key,e) => {
     let id = e.target.id
     let value = e.target.value
@@ -79,6 +82,7 @@ class SignUpOrLoginCard extends Component {
     this.props.callBack()
   }
 
+  //注册新用户
   create = () => {
     const that = this
     if(this.state.newConfirmation === '' || this.state.newEmail === ''){
@@ -95,9 +99,40 @@ class SignUpOrLoginCard extends Component {
           }
         }).done( res => {
           if(res.code === '0'){
-            this.props.loading(false)//隐藏loading
-            this.setState({
-              SignUpOrLogin: true,
+            // this.props.loading(false)//隐藏loading
+            // this.setState({
+            //   SignUpOrLogin: true,
+            // })
+            window.gtag && window.gtag('event', 'click', {'event_category': 'register','event_label': 'video'})//用户注册统计
+            httpRequest({
+              type: 'POST',
+              url: api.login,
+              data: {
+                user_from: that.state.type,
+                user_account: that.state.newEmail,
+                user_passwd: sha512(that.state.newPassword)
+              }
+            }).done( res => {
+              if(res.code === '0'){
+                that.triggerFather()
+                let data = res.data
+                if(!res.data.user_avatar){
+                  data.user_avatar = defaultAvatar
+                }
+                tools.setUserData_storage(data)
+                this.props.getUserStorage(data)
+                this.setState({
+                  userInfo: res.data
+                })
+              } else {
+                this.props.loading(false)//隐藏loading
+                this.props.showToast("please verify your email address or password!")
+                that.setState({
+                  isRightPassword: false
+                })
+              }
+            }).fail( err => {
+              this.props.showToast(err)
             })
           } else {
             this.props.showToast(res.msg)
@@ -113,6 +148,7 @@ class SignUpOrLoginCard extends Component {
     }
   }
 
+  //用户登录
   login = (e) => {
     const that = this
     if(this.state.email !== '' && this.state.password !== ''){
@@ -152,6 +188,7 @@ class SignUpOrLoginCard extends Component {
     }
   }
 
+  //检测邮箱格式是否正确
   checkEmail = (obj) => {
     // let reg = new RegExp("/^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/"); //正则表达式
     let reg = /^([a-zA-Z0-9_-]|[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-])+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/
@@ -167,6 +204,7 @@ class SignUpOrLoginCard extends Component {
     }
   }
 
+  // 检测密码是否一致
   checkPassword = (id) => {
     if(id === 'password'){
       if(this.state.newPassword === this.state.newConfirmation){
@@ -193,6 +231,7 @@ class SignUpOrLoginCard extends Component {
     }
   }
 
+  // 忘记密码
   forgot (value) {
     this.setState({
       forgot: value
@@ -204,6 +243,7 @@ class SignUpOrLoginCard extends Component {
     }
   }
 
+  // 忘记密码中的下一步
   nextStep (value) {
     if(value === 1 && this.state.email === ''){
       this.props.showToast('Please enter an email address!')
@@ -213,6 +253,7 @@ class SignUpOrLoginCard extends Component {
       this.props.showToast('Please enter your password!')
     } else {
       if(this.state.isRightEmail){
+        // 判断是不是最后一步
         if(value === 3 && this.state.resetSamePassword){
           httpRequest({
             type: 'POST',
@@ -237,6 +278,7 @@ class SignUpOrLoginCard extends Component {
             this.props.showToast(res.msg)
           })
         } else {
+          //第一步做什么
           if(value === 1){
             httpRequest({
               type: 'POST',
@@ -257,7 +299,7 @@ class SignUpOrLoginCard extends Component {
             }).fail(res => {
               this.props.showToast(res.msg)
             })
-          } else if(value === 2){
+          } else if(value === 2){//第二步做什么
             httpRequest({
               type: 'POST',
               url: api.resetPassword,
@@ -286,6 +328,7 @@ class SignUpOrLoginCard extends Component {
     }
   }
 
+  // 渲染注册
   renderSignUp = () => {
     const {newEmail, newPassword, newConfirmation} = this.state
     return (
@@ -323,6 +366,8 @@ class SignUpOrLoginCard extends Component {
       </Fragment>
     )
   }
+
+  //渲染登录
   renderLogin = () => {
     const {email, password} = this.state
     return (
@@ -353,8 +398,11 @@ class SignUpOrLoginCard extends Component {
       </Fragment>
     )
   }
+
+  //渲染重置密码
   renderForgot = () => {
     const {email, code, resetPassword, resetConfirmation} = this.state
+    //第一步
     if(this.state.state === 0){
       return (
         <div className="sol_content">
@@ -370,7 +418,7 @@ class SignUpOrLoginCard extends Component {
           <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to signin</p>
         </div>
       )
-    } else if(this.state.state === 1){
+    } else if(this.state.state === 1){//第二步
       return (
         <div className="sol_content">
           <div className="sol_content_title">Your verification code was sent to: <br/>{email}</div>
@@ -385,7 +433,7 @@ class SignUpOrLoginCard extends Component {
           <p className='backto_login' onClick={this.forgot.bind(this,false)}>Back to signin</p>
         </div>
       )
-    } else {
+    } else {//第三步
       return (
         <div className="sol_content">
           <div className="sol_content_title">Reset password</div>

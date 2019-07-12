@@ -1,0 +1,50 @@
+.messageboard {
+  width: 100%;
+  box-sizing: border-box; }
+  .messageboard div {
+    box-sizing: border-box; }
+  .messageboard .messageboard_top {
+    width: 100%;
+    height: 240px;
+    background: url("../images/payPage/MessageBoard_bg.png") center/100% no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; }
+    .messageboard .messageboard_top h1 {
+      font-size: 40px;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
+      color: #333333;
+      padding-bottom: 10px; }
+    .messageboard .messageboard_top .messageboard_line {
+      width: 48px;
+      height: 4px;
+      background: linear-gradient(135deg, #ff6245 0%, #ff3373 100%); }
+  .messageboard .messageboard_bottom {
+    width: 100%;
+    background: url("../images/payPage/bg1@2x.png") center/100% no-repeat; }
+    .messageboard .messageboard_bottom .messageboard_inner {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 24px 0 80px; }
+      .messageboard .messageboard_bottom .messageboard_inner .masternote_wrapper {
+        width: 100%;
+        max-width: 1200px;
+        font-size: 22px;
+        font-family: PingFangSC-Semibold;
+        font-weight: 600;
+        color: #272727; }
+        .messageboard .messageboard_bottom .messageboard_inner .masternote_wrapper :last-child .masternote_line {
+          display: none; }
+      .messageboard .messageboard_bottom .messageboard_inner .usermessage {
+        font-size: 22px;
+        font-family: PingFangSC-Semibold;
+        font-weight: 600;
+        color: #272727;
+        width: 100%;
+        max-width: 1200px;
+        padding: 40px 0 20px; }

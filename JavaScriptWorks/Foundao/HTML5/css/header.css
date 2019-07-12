@@ -1,0 +1,240 @@
+.header-box::after {
+  content: '';
+  width: 100%;
+  height: 3px;
+  clear: both;
+  display: block;
+  background: linear-gradient(90deg, #3023ae 0%, #53a0fd 48%, #ec5151 100%);
+  -webkit-animation: hue 6s infinite linear;
+  position: absolute;
+  bottom: 0; }
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg); }
+  to {
+    -webkit-filter: hue-rotate(-360deg); } }
+
+.header-box {
+  box-sizing: border-box;
+  height: 50px;
+  position: relative; }
+  .header-box .logo-box {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 30px; }
+    .header-box .logo-box img {
+      width: 100px;
+      height: 31px;
+      cursor: pointer; }
+  .header-box .header-nav {
+    float: right;
+    font-size: 15px; }
+    .header-box .header-nav a {
+      display: block;
+      color: #272727;
+      text-decoration: none; }
+    .header-box .header-nav > ul > li {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      line-height: 50px;
+      font-size: 16px;
+      margin-right: 40px; }
+      .header-box .header-nav > ul > li::after {
+        content: '';
+        position: absolute;
+        top: 54px;
+        height: 2px;
+        width: 0;
+        left: 50%;
+        background-color: #FF3A6D;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        -ms-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s; }
+      .header-box .header-nav > ul > li:hover:after {
+        width: 100%;
+        left: 0; }
+    .header-box .header-nav > ul .project-nav {
+      margin-right: 58px; }
+      .header-box .header-nav > ul .project-nav .project_head {
+        padding-right: 20px;
+        box-sizing: border-box;
+        background: url(../images/nav_icon.png) no-repeat right 23px/8px 8px;
+        cursor: pointer; }
+    .header-box .header-nav > ul .project-nav:hover .project_head {
+      color: #000;
+      opacity: .5; }
+    .header-box .header-nav > ul .project-nav:hover .header-projects {
+      display: block; }
+    .header-box .header-nav .header-projects {
+      display: none;
+      position: absolute;
+      width: 139px;
+      background: #FFFFFF;
+      left: -67px;
+      top: 47px;
+      z-index: 9999;
+      box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.15); }
+      .header-box .header-nav .header-projects .snd-nav::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -8px;
+        right: 10px;
+        background-image: url("../images/jiantou_top.png");
+        background-size: 100% 100%;
+        width: 18px;
+        height: 10px; }
+      .header-box .header-nav .header-projects .snd-nav {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: #FFFFFF;
+        border-radius: 4%; }
+        .header-box .header-nav .header-projects .snd-nav .snd-detail:hover .snd-detail-name {
+          color: #FF4363; }
+        .header-box .header-nav .header-projects .snd-nav .snd-detail {
+          width: 100%;
+          height: 41px;
+          line-height: 41px;
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid #F7F7F7;
+          padding: 0 22px;
+          box-sizing: border-box; }
+          .header-box .header-nav .header-projects .snd-nav .snd-detail img {
+            width: 23px;
+            height: 23px;
+            margin-right: 11px; }
+          .header-box .header-nav .header-projects .snd-nav .snd-detail .snd-detail-name {
+            cursor: pointer;
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: #272727;
+            line-height: 32px; }
+          .header-box .header-nav .header-projects .snd-nav .snd-detail .snd-not-name {
+            cursor: not-allowed;
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: gray;
+            line-height: 32px; }
+  .header-box .user-box {
+    float: right;
+    padding-right: 40px;
+    box-sizing: border-box; }
+    .header-box .user-box ul {
+      display: inline-block;
+      vertical-align: top; }
+      .header-box .user-box ul a {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 20px;
+        vertical-align: top;
+        line-height: 35px;
+        margin-top: 8px;
+        color: #272727;
+        font-size: 15px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400; }
+        .header-box .user-box ul a.register-btn {
+          color: #FF495E; }
+  .header-box .user-Image {
+    float: right;
+    width: 222px;
+    height: 100%;
+    background: #F7F7F7;
+    display: flex;
+    align-items: center;
+    padding: 0 53px;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer; }
+    .header-box .user-Image .user_headBg {
+      background-image: url("../images/tuoyuan_bg.png");
+      background-size: 100% 100%;
+      width: 30px;
+      height: 30px; }
+      .header-box .user-Image .user_headBg .user_headImg {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        margin: 2px auto; }
+    .header-box .user-Image .user_nickName {
+      margin: 0 11px;
+      width: 45px;
+      height: 21px;
+      font-size: 15px;
+      font-family: "PingFang SC";
+      font-weight: 400;
+      color: #272727;
+      line-height: 21px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .header-box .user-Image .user_img_xiala {
+      background-image: url("../images/xiala_xia_icon@1x.png");
+      background-size: 100% 100%;
+      width: 7px;
+      height: 5px; }
+    .header-box .user-Image .xiala_box::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -8px;
+      right: 75px;
+      background-image: url("../images/jiantou_top.png");
+      background-size: 100% 100%;
+      width: 18px;
+      height: 10px; }
+    .header-box .user-Image .xiala_box {
+      display: none;
+      position: absolute;
+      top: 47px;
+      right: 9px;
+      width: 173px;
+      background: white;
+      box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      padding-left: 21px;
+      box-sizing: border-box;
+      z-index: 9999; }
+      .header-box .user-Image .xiala_box .xiala_detail:hover {
+        color: #F44B53; }
+      .header-box .user-Image .xiala_box .xiala_detail {
+        width: 100%;
+        height: 38px;
+        border-bottom: 1px solid #F7F7F7;
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        font-size: 14px;
+        font-family: "PingFang SC";
+        font-weight: 400;
+        color: #666666;
+        line-height: 38px; }
+        .header-box .user-Image .xiala_box .xiala_detail .xiala_detail_icon {
+          width: 17px;
+          height: 17px;
+          background-size: 100% 100%;
+          margin-right: 11px; }
+      .header-box .user-Image .xiala_box .xiala_detail.time .xiala_detail_icon {
+        background-image: url("../images/shijian_icon@2x.png"); }
+      .header-box .user-Image .xiala_box .xiala_detail.setting .xiala_detail_icon {
+        background-image: url("../images/sheji_icon@2x.png"); }
+      .header-box .user-Image .xiala_box .xiala_detail.vip .xiala_detail_icon {
+        background-image: url("../images/vip_icon@2x.png"); }
+      .header-box .user-Image .xiala_box .xiala_detail.login-out .xiala_detail_icon {
+        background-image: url("../images/tuichu_cion@2x.png"); }
+      .header-box .user-Image .xiala_box .muliVip .xiala_detail_icon {
+        background-image: url("../images/vip_icon@2x.png") !important; }
+  .header-box .user-Image:hover .user_img_xiala {
+    background-image: url("../images/xiala_shang_icon@1x.png"); }
+  .header-box .user-Image:hover .xiala_box {
+    display: block;
+    cursor: pointer; }

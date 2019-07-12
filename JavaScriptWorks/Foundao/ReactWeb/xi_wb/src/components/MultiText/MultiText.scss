@@ -1,0 +1,54 @@
+.multiText {
+  box-sizing: border-box;
+  padding-right: 10px; 
+
+  div {
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  .multiText_inner {
+    position: relative;
+
+    .multiText_top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .multiText_name {
+        padding: 5px 0 5px 10px;
+      }
+
+      .multiText_img {
+        margin-left: 15px;
+        width: 6px;
+        height: 5px;
+        background: url('../../assets/editor_more.png') center/100% no-repeat;
+      }
+    }
+
+    .multiText_bottom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      color: rgba(0,0,0,1);
+      width: 100%;
+      position: absolute;
+      top: 100%;
+      background-color: rgba(255, 255, 255, 1);
+      border-radius: 2px;
+      border: 1px solid rgba(255, 184, 180, 1);
+      min-width: 125px;
+
+      .active{
+        color: rgba(255, 73, 94, 1);
+      }
+
+      div {
+        padding: 5px 10px;
+      }
+    }
+  }
+}

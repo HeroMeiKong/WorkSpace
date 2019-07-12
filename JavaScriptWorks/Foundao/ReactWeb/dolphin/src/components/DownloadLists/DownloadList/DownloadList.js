@@ -25,6 +25,7 @@ class DownloadList extends Component {
     }
   }
 
+  //开始转码
   startTransCode = () => {
     const { fileName, fileSize, fileMd5, token } = this.props.data;
     const { width, height } = this.props.videoInfo
@@ -56,6 +57,7 @@ class DownloadList extends Component {
     }
   };
 
+  //转码成功
   transSuccess = (url) => {
     console.log('transSuccess');
     this.props.startCovert(100)//转码成功
@@ -64,12 +66,14 @@ class DownloadList extends Component {
     })
   };
 
+  //转码失败
   transFail = (msg) => {
     console.log('转码失败:-->', msg);
     this.showToast('Oops!encoding failure...please try again sometime later!')
     this.props.startCovert(-2)//转码失败
   };
 
+  //转码过程中
   transProgress = (msg) => {
     console.log('转码中--》' + msg);
     this.setState({
@@ -77,12 +81,14 @@ class DownloadList extends Component {
     })
   };
 
+  //手动改变分辨率
   handleChange = (key,e) => {
     this.setState({
       [key]: e.target.value
     })
   }
 
+  //选项改变分辨率
   changeDPI ({width,height},i,e) {
     this.setState({
       videoWidth: width,
@@ -93,6 +99,7 @@ class DownloadList extends Component {
     })
   }
 
+  //点开自定义模式，设置初始值
   changeCustomize = () => {
     const { width, height } = this.props.videoInfo
     this.setState({
@@ -104,7 +111,9 @@ class DownloadList extends Component {
     })
   }
 
+  //下载视频
   downloadVideo = () => {
+    window.gtag && window.gtag('event', 'click', {'event_category': 'download','event_label': 'video'}) //统计下载
     const {video_url} = this.state
     const type = tools.deviceType()
     if(video_url){
@@ -130,10 +139,12 @@ class DownloadList extends Component {
     }
   }
 
+  //删除视频
   deleteMe = () => {
     this.props.callBack()
   }
 
+  //转码成功渲染
   convertSuccess = (isTransing) => {
     const {progress} = this.state
     if(isTransing === -2){
@@ -149,6 +160,7 @@ class DownloadList extends Component {
     }
   }
 
+  //取消自定义
   cancel = () => {
     this.setState({
       customize: false,
@@ -159,10 +171,12 @@ class DownloadList extends Component {
     this.props.showToast(text,openedWindow)
   }
 
+  //渲染转码视频
   isCovertVideo = () => {
     const { width, height } = this.props.videoInfo
     const { videoWidth, videoHeight, outoption_options, active_outoption, customize, useProps } = this.state
     return  <Fragment>
+              {/* PC端样式 */}
               <div className="download_list_outoptions">
                 <div className="download_list_outoption">
                   <div className="download_list_outoption_box outoption_topbox">
@@ -176,6 +190,7 @@ class DownloadList extends Component {
                   <div className="download_list_outoption_box outoption_bottombox">
                     <div className={classNames('outoption_customize',{active: customize})}
                     onClick={this.changeCustomize}>Customize</div>
+                    {/* 是否自定义 */}
                     {customize ?
                       <div className='outoption_bottombox_input'>
                         <div>
@@ -189,7 +204,9 @@ class DownloadList extends Component {
                 </div>
                 <div className="start_outoption" onClick={this.startTransCode}>START</div>
               </div>
+              {/* 手机端样式 */}
               <div className="app_download_list_outoptions">
+                {/* 是否自定义 */}
                 {customize ? <div className='outoption_bottombox_input'>
                               <div>
                                 <label>Width:</label>
@@ -225,7 +242,7 @@ class DownloadList extends Component {
   }
   
   render () {
-    const { fileName,isTransing } = this.props.data;
+    const { fileName,isTransing } = this.props.data
     let shortFileName = fileName
     if(fileName.length > 9){
       shortFileName = fileName.substring(0,3)+'…'+fileName.substring(fileName.length-6)

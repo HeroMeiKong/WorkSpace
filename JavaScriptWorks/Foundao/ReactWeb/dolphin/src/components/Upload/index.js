@@ -28,10 +28,6 @@ class Upload extends Component {
     }
   }
 
-  componentWillMount() {
-
-  }
-
   componentDidMount() {
     const dropbox = this.refs['upload-box'];
     dropbox.addEventListener("dragenter", this.dragenter, false);
@@ -101,9 +97,10 @@ class Upload extends Component {
       url: _api.getUploadToken,
       type: 'post',
       data: {
-        token: userInfo.token || 'a5422c67e4443b5a47833689013270881655cb9ad348',
+        token: userInfo.token || '',
         file_md5: g_filemd5,
         file_size: file.size,
+        file_name: file.name,
       },
     }).done(resp => {
       if (resp.code === '0') {
@@ -116,7 +113,7 @@ class Upload extends Component {
         this.uploadFail(resp.msg)
       }
     }).fail((err) => {
-      this.uploadFail('内部服务器错误: ' + err.status);
+      this.uploadFail('Internal Server Error:' + err.status);
     })
   };
   // 开始上传
@@ -213,6 +210,7 @@ class Upload extends Component {
     this.handleFiles(files)
   };
   uploadClick = () => {
+    window.gtag && window.gtag('event', 'click', {'event_category': 'upload','event_label': 'video'}) //统计上传
     const {isUploading} = this.state;
     if (!isUploading) {
       // 重置input框 否则选择相同的文件不会触发change 事件

@@ -17,7 +17,15 @@
     transform: translate(0, -0px);
   }
 
+  25% {
+    transform: translate(0, -5px);
+  }
+
   50% {
+    transform: translate(0, -0px);
+  }
+
+  75% {
     transform: translate(0, -5px);
   }
 
@@ -38,8 +46,8 @@
   
       &:hover {
         cursor: pointer;
-        transform: translate(0, -5px);
-        animation: 1s downloadList infinite;
+        // transform: translate(0, -5px);
+        animation: 2s downloadList;
       }
     }
   
@@ -217,8 +225,8 @@
 
       &:hover {
         cursor: pointer;
-        transform: translate(0, -5px);
-        animation: 1s downloadList infinite;
+        // transform: translate(0, -5px);
+        animation: 2s downloadList;
       }
     }
 

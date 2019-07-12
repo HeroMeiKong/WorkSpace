@@ -1,0 +1,21 @@
+@keyframes showAndHidden{
+  0%{
+    visibility: visible;
+  }
+  100%{
+    visibility: visible;
+  }
+}
+#showAndHidden{
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: showAndHidden ease-in-out;
+  // z-index: -1;
+  // visibility: hidden;
+  overflow: hidden;
+  background-color: #fddd46;
+  word-break: break-all;
+  position: absolute;
+}

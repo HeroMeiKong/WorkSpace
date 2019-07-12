@@ -25,8 +25,7 @@ class Purchase extends Component {
   }
 
   componentDidMount () {
-    console.log('purchase')
-    this.appendChildScript()
+    this.appendChildScript() // 添加统计srcipt
     const parameter = this.props.location.search
     if(parameter){
       const arr = this.changeToObject(parameter)
@@ -42,6 +41,10 @@ class Purchase extends Component {
       }).done(res => {
         if(res.code === '0'){
           this.showToast('Thanks for your purchasing!')
+          const order = JSON.parse(localStorage.getItem('order'))
+          // const id = order ? order.order_id : 0
+          const price = order ? order.price : 0
+          window.gtag && window.gtag('event', 'click', {'event_category': 'pay_succeed','event_label': 'video','value': price})
           let time = setTimeout(() => {
             window.location.href = api.return_url
             clearTimeout(time)
@@ -57,6 +60,7 @@ class Purchase extends Component {
     }
   }
 
+  // 添加统计srcipt
   appendChildScript = () => {
     const pv = document.getElementById('pv')
     if(pv){
@@ -67,6 +71,7 @@ class Purchase extends Component {
     $('body').append(script_dom)
   }
 
+  // 规范化字符
   changeToObject = (str) => {
     const arr = str.split('&')
     const length = arr.length
@@ -77,6 +82,7 @@ class Purchase extends Component {
     return newArr
   }
 
+  // 提交订单
   showPay = (el,text) => {
     this.setState({
       version: el
@@ -86,6 +92,7 @@ class Purchase extends Component {
     }
   }
   
+  // 提交订单
   submitOrder = (version) => {
     this.setState({
       isLoading: true
@@ -99,6 +106,7 @@ class Purchase extends Component {
       }
     }).done(res => {
       if(res.code === '0'){
+        localStorage.setItem('order',JSON.stringify(res.data))
         httpRequest({
           type: 'POST',
           url: api.payment,
@@ -168,12 +176,14 @@ class Purchase extends Component {
     
   }
 
+  // 切换登录注册
   showSignUpOrLogin = () => {
     this.setState({
       showSignUpOrLogin: true,
     })
   }
 
+  // 发送邮件
   sendEmail = () => {
     var who = 'kefu@foundao.com'
     // var what = prompt("输入主题: ", "none");

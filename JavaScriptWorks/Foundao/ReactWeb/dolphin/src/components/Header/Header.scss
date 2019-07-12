@@ -8,17 +8,21 @@
   top: 0;
   z-index: 10;
   border-bottom: 1px solid rgba(255, 255, 255, .2);
+
   a {
     text-decoration: none;
   }
 }
+
 @media screen and (max-width: 675px) {
   .header {
     height: 3.125rem;
   }
-  #header{
+
+  #header {
     display: none;
   }
+
   #app_menu {
     height: 100%;
     width: 100%;
@@ -83,7 +87,8 @@
             background-repeat: no-repeat;
             // background-image: url('../../assets/images/touxiang_icon@2x.png')
           }
-          .user_avatar_border{
+
+          .user_avatar_border {
             border: 1px solid #ffffff;
             border-radius: 50%;
           }
@@ -132,12 +137,14 @@
 }
 
 @media screen and (min-width: 676px) {
-  #app_menu{
+  #app_menu {
     display: none;
   }
-  .header{
+
+  .header {
     height: 85px;
   }
+
   #header {
     height: 100%;
     width: 100%;
@@ -158,6 +165,7 @@
     a {
       height: 100%;
     }
+
     .backToHome {
       // background: url('../../assets/images/LOGO1@2x.png') center/100% no-repeat;
       display: flex;
@@ -165,26 +173,29 @@
       align-items: center;
       height: 100%;
       padding: 0 19px;
-      &:hover{
+
+      &:hover {
         cursor: pointer;
         background-color: rgba(0, 0, 0, .1);
       }
 
-      img{
+      img {
         width: 25px;
         height: 25px;
       }
-      div{
+
+      div {
         font-size: 18px;
         font-weight: 200;
-        padding-left: 12px;
-        color:rgba(79,85,194,1);
+        // padding-left: 12px;
+        color: rgba(79, 85, 194, 1);
       }
     }
 
     .header_web {
       height: 100%;
-      a{
+
+      a {
         height: 100%;
         font-size: 12px;
         display: flex;
@@ -193,9 +204,9 @@
         font-weight: 300;
         letter-spacing: 1px;
         padding: 0 10px;
-        color: rgba(255,255,255,.8);
+        color: rgba(255, 255, 255, .8);
         text-decoration: none;
-        
+
         &:hover {
           background-color: rgba(0, 0, 0, .1);
           cursor: pointer;
@@ -210,10 +221,40 @@
       align-items: center;
       height: 100%;
       position: relative;
-      a{ 
+
+      a {
         height: 100%;
         text-decoration: none;
-       }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .header_pic{
+        width: 28px;
+        height: 28px;
+        margin: 0 7px;
+        &:hover{cursor: pointer;}
+      }
+      .facebook{
+        background: url('../../assets/images/facebook_icon@2x.png') center/100% no-repeat;
+        &:hover{
+          background: url('../../assets/images/facebook_hovey_icon@2x.png') center/100% no-repeat;
+        }
+      }
+      .twitter{
+        background: url('../../assets/images/twitter_icon@2x.png') center/100% no-repeat;
+        &:hover{
+          background: url('../../assets/images/twitter_hovey_icon@2x.png') center/100% no-repeat;
+        }
+      }
+      .youtube{
+        background: url('../../assets/images/youtube_icon@2x.png') center/100% no-repeat;
+        margin-right: 10px;
+        &:hover{
+          background: url('../../assets/images/youtube_hovey_icon@2x.png') center/100% no-repeat;
+        }
+      }
     }
   }
 }

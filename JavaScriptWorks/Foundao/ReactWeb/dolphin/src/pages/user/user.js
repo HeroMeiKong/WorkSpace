@@ -171,17 +171,26 @@ class User extends Component {
         <Header showToast={this.showToast} isLevel2={true} />
         <div className='wrapper_content'>
           <div className='content'>
-            <div className='myplan'>
-              <h1>MY PLAN</h1>
-              <div className='line'></div>
-              <h2>Correct Plan：{capacity}</h2>
-              <p>Membership Capacity</p>
-              <div className='progress'>
-                <div className='used' style={{width: percent+'%'}}></div>
+            {capacity !== '0.0G' 
+            ? <div className='myplan'>
+                <h1>MY PLAN</h1>
+                <div className='line'></div>
+                <h2>Correct Plan：{capacity}</h2>
+                <p>Membership Capacity</p>
+                <div className='progress'>
+                  <div className='used' style={{width: percent+'%'}}></div>
+                </div>
+                <p>{used_capacity} / {capacity}</p>
+                <Link target='_blank' to='./purchase'><div className='upgrade'>Upgrade</div></Link>
               </div>
-              <p>{used_capacity} / {capacity}</p>
-              <Link to='./purchase'><div className='upgrade'>Upgrade</div></Link>
-            </div>
+            : <div className='myplan_no'>
+                <h1>MY PLAN</h1>
+                <div className='line'></div>
+                <h2>No Plan right now</h2>
+                <h3>Want to convent more videos? Or beyond the 50MB limit?</h3>
+                <Link target='_blank' to='./purchase'><div className='go_pro'>GO PRO</div></Link>
+              </div>
+            }
             <div className='myplan'>
               <h1>MY FILES</h1>
               <div className='line'></div>

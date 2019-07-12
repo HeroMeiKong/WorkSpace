@@ -1,0 +1,68 @@
+.GradeDefault{
+  width:326px;
+  height:152px;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 8px 10px 0px rgba(0,0,0,0.5);
+  position: fixed;
+  bottom: 0;
+  right: 2px;
+  padding-top: 22px;
+  z-index: 99;
+  .close-icon{
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    background: url(../../assets/close_nor_icon.png) no-repeat center /cover;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    &:hover{
+      background: url(../../assets/close_hover_icon.png) no-repeat center /cover;
+    }
+  }
+  >p{
+    text-align: center;
+    font-size:24px;
+    font-family:PingFangSC-Medium;
+    font-weight:500;
+    color:rgba(39,39,39,1);
+    line-height:33px;
+  }
+  ul{
+    text-align: center;
+    margin-top: 36px;
+    li{
+      background: url(../../assets/star_nor_icon.png) no-repeat center / cover;
+      width: 26px;
+      height: 26px;
+      display: inline-block;
+      vertical-align: top;
+      margin: 0 9px;
+      position: relative;
+      cursor: pointer;
+      transition: all .2s;
+      &.active{
+        background: url(../../assets/star_hover_icon.png) no-repeat center / cover;
+      }
+      &:hover p{
+        display: block;
+      }
+      p{
+        position: absolute;
+        background: url(../../assets/tipsstart.png) no-repeat center / cover;
+        width: 85px;
+        height: 35px;
+        bottom: 100%;
+        text-align: center;
+        font-size:12px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+        line-height:26px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+      }
+    }
+  }
+}

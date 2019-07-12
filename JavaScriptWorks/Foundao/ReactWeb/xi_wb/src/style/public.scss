@@ -1,0 +1,222 @@
+.flex-row-center-center {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row-start-center {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flex-row-end-center {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.flex-row-btw-center {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-col-center-start {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.flex-col-center-end {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.flex-col-start-center {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flex-col-center-center {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-col-center-start {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.flex-col-around-start {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.flex-col-start-end {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.flex-row-center-start {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.flex-row-start-start {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.flex-col-start-start {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.flex-col-end-start {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.flex-row-btw-start {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.flex-row-center-end {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.flex-col-btw-center {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shenglv-1 {
+  //overflow: hidden;
+  //text-overflow: ellipsis;
+  //display: -webkit-box;
+  //-webkit-line-clamp: 1;
+  //-webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shenglv-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bg-center {
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.shadow-home {
+  background-color: #f9f9fb;
+  box-shadow: 0px 0px 20px 0px rgba(31, 32, 33, 0.05);
+}
+
+@keyframes r {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+//弹窗垫底
+.xi-layer {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-width: 1334px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, .7);
+  @extend .flex-row-center-center;
+
+  > div {
+    box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    position: relative;
+    background: rgba(255, 255, 255, 1);
+  }
+}
+
+//弹窗样式（宽高自定义）
+.xi-layer-box {
+  @extend .center-absolute;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 12px;
+  box-shadow: 4px 0px 20px rgba(24, 25, 27, 0.5);
+}
+
+.clear-both {
+  clear: both;
+}
+

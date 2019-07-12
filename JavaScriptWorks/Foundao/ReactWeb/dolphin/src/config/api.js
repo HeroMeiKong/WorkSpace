@@ -20,9 +20,9 @@ const _hostname = window.location.hostname;
 // let _environment = 'test'; // 环境变量 online/pre/test -> 正式/预上线/测试
 
 const test_config = {  // 测试环境配置
-  API_TRANS: 'https://cd.foundao.com:10081/',
-  API_BASE: 'https://cd.foundao.com:10081/foundao_api/',
-  WSS: 'wss://cd.foundao.com:10081/sock/',
+  API_TRANS: '//cd.foundao.com:10080/Trans/api/',
+  API_BASE: '//cd.foundao.com:10080/foundao_api_zh/',
+  WSS: 'ws://cd.foundao.com:10080/sock/',
   return_url: 'https://cd.foundao.com:10081/foundao/dolphin/',
   return_url_user: 'https://cd.foundao.com:10081/foundao/dolphin/#/user',
   return_url_purchase: 'https://cd.foundao.com:10081/foundao/dolphin/#/purchase'

@@ -1,0 +1,37 @@
+.myfile_record{
+  width: 100%;
+  margin-bottom: 8px;
+  background-color:rgba(0,0,0,.1);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 300;
+  
+  &:hover{ 
+    cursor: pointer;
+    box-shadow: 0 2px 2px 1px rgba(0,0,0,.1);
+    background:rgba(0,0,0,.2);
+  }
+  & .download_record_inner{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 2px;
+
+    & .download_record_content{
+      display: flex;
+      align-items: center;
+    }
+    & .download_record_download{
+      display: flex;
+      justify-content: center;
+      img{
+        width: 14px;
+        height: 15px;
+      }
+    }
+  }
+}

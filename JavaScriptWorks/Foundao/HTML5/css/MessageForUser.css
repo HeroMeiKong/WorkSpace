@@ -1,0 +1,73 @@
+.messageforuser {
+  background: white;
+  box-shadow: 0px 0px 13px 0px rgba(58, 89, 123, 0.1);
+  border-radius: 3px 3px 0px 0px;
+  max-width: 1200px;
+  padding: 20px 30px;
+  width: 100%;
+  margin-bottom: 30px; }
+  .messageforuser .messageforuser_top {
+    font-size: 14px;
+    font-family: PingFangSC-Regular;
+    color: #8a8a8a;
+    border-radius: 3px;
+    padding: 10px; }
+    .messageforuser .messageforuser_top .messageforuser_username {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center; }
+    .messageforuser .messageforuser_top .messageforuser_question {
+      font-size: 20px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      color: #272727;
+      line-height: 30px;
+      padding-top: 8px; }
+  .messageforuser .messageforuser_bottom {
+    width: 100%;
+    padding: 20px 10px 10px 10px;
+    background: #fbfbfb; }
+    .messageforuser .messageforuser_bottom .messageforuser_tips {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-bottom: 8px; }
+      .messageforuser .messageforuser_bottom .messageforuser_tips div {
+        background: url("../images/payPage/tips.png") center/100% no-repeat;
+        width: 18px;
+        height: 18px; }
+      .messageforuser .messageforuser_bottom .messageforuser_tips p {
+        font-size: 14px;
+        font-family: PingFangSC-Regular;
+        color: #8a8a8a;
+        padding-left: 4px; }
+    .messageforuser .messageforuser_bottom .messageforuser_answer {
+      width: 100%;
+      font-size: 20px;
+      font-family: PingFangSC-Regular;
+      color: #666666;
+      line-height: 30px; }
+
+.messageforuser_nodeal {
+  background: white;
+  box-shadow: 0px 0px 13px 0px rgba(58, 89, 123, 0.1);
+  border-radius: 3px 3px 0px 0px;
+  max-width: 1200px;
+  padding: 20px 20px 30px 40px;
+  width: 100%;
+  margin-bottom: 30px; }
+  .messageforuser_nodeal .messageforuser_top {
+    font-size: 14px;
+    font-family: PingFangSC-Regular;
+    color: #8a8a8a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+  .messageforuser_nodeal .messageforuser_question {
+    font-size: 20px;
+    font-family: PingFangSC-Regular;
+    font-weight: 600;
+    color: #272727;
+    line-height: 30px;
+    padding-top: 8px; }

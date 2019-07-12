@@ -6,6 +6,14 @@
     transform: rotate(360deg)
   }
 }
+@keyframes scoleDolpin {
+  0% {
+    transform: scale(0)
+  }
+  100% {
+    transform: scale(1)
+  }
+}
 .dropfile {
   width: 396px;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
@@ -17,9 +25,12 @@
   position: relative;
 
   .active_dolpin{
-    animation: 2s infinite rotateDolpin;
+    animation: 1s scoleDolpin;
     transition: all .3s;
-    top: -60px;
+  }
+
+  .deactive_dolpin{
+    animation: 2s rotateDolpin;
   }
 
   .drop_tip ,.app_drop_tip{
@@ -42,16 +53,18 @@
 
 .dropfile_big {
   height: 220px;
+  transition: all 1s ease-out;
 
   &>.dolpin {
-    // width: 396px;
-    // height: 217px;
-    width: 104px;
-    height: 60%;
+    // width: 104px;
+    // height: 130px;
+    width: 150px;
+    height: 150px;
     background-repeat: no-repeat;
     background-size: 100%;
-    transform: translate(0, -60px);
     position: absolute;
+    top: -76px;
+    z-index: 5;
   }
   &>.file {
     width: 100%;
@@ -59,7 +72,6 @@
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
-    transform: translate(0, 0px);
   }
 
   &>.droptips {
@@ -74,15 +86,15 @@
 
 .dropfile_small {
   height: 130px;
-  // margin-top: 52px;
+  transition: all .3s ease-out;
 
   &>.dolpin {
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
     background-repeat: no-repeat;
     background-size: 100%;
     position: absolute;
-    transform: translate(0, -39px);
+    top: -65px;
   }
   &>.file {
     width: 100%;
@@ -90,7 +102,6 @@
     background-repeat: no-repeat;
     background-size: 100%;
     position: absolute;
-    transform: translate(0, -39px);
   }
 
   &>.droptips {
@@ -116,13 +127,14 @@
     display: none;
   }
   .dropfile_big {
+    transition: all 1s ease-out;
     &>.dolpin {
-      width: 64px;
-      height: 60%;
+      width: 100px;
+      height: 100px;
       background-repeat: no-repeat;
       background-size: 100%;
       position: absolute;
-      transform: translate(0, -39px);
+      top: -48px;
     }
     &>.file {
       width: 100%;
@@ -130,17 +142,17 @@
       background-repeat: no-repeat;
       background-size: 100%;
       background-position: center;
-      transform: translate(0, 0px);
     }
   }
   .dropfile_small {
+    transition: all .3s ease-out;
     &>.dolpin {
-      width: 100%;
-      height: 100%;
+      width: 100px;
+      height: 100px;
       background-repeat: no-repeat;
       background-size: 100%;
       position: absolute;
-      transform: translate(0, -39px);
+      top: -38px;
     }
     &>.file {
       width: 100%;
@@ -148,14 +160,15 @@
       background-repeat: no-repeat;
       background-size: 100%;
       background-position: center;
-      transform: translate(0, 0px);
     }
   }
   .dropfile{
     .active_dolpin{
-      animation: 2s infinite rotateDolpin;
+      animation: 1s scoleDolpin;
       transition: all .3s;
-      top: -39px;
+    }
+    .deactive_dolpin{
+      animation: 2s rotateDolpin;
     }
     .drop_waiting {
       font-weight: 500;

@@ -7,6 +7,13 @@ import './player.scss'
 // const play_img1 = require('@/assets/images/player_images/play.png')
 // var myVideo = ''
 
+//测试页面
+//测试页面
+//测试页面
+//测试页面
+//测试页面
+//测试页面
+
 class Player extends Component {
   constructor () {
     super()

@@ -1,0 +1,61 @@
+.masternote {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 30px; }
+  .masternote .masternote_line {
+    width: 1px;
+    height: 100%;
+    background: #cccccc;
+    position: absolute;
+    top: 42px;
+    left: -30px; }
+  .masternote .masternote_latertime {
+    padding-top: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: -40px;
+    font-weight: 400; }
+    .masternote .masternote_latertime .masternote_clock {
+      background: url("../images/payPage/clock1.png") center/100% no-repeat;
+      width: 20px;
+      height: 20px; }
+    .masternote .masternote_latertime p {
+      font-size: 18px;
+      font-family: PingFangSC-Regular;
+      color: #8a8a8a;
+      padding-left: 20px; }
+  .masternote .masternote_inner {
+    position: relative;
+    background-color: #FFFAFB;
+    width: 100%;
+    margin-top: 66px; }
+    .masternote .masternote_inner .masternote_text {
+      font-size: 18px;
+      font-family: PingFangSC-Regular;
+      color: #272727;
+      line-height: 30px;
+      padding: 26px 30px 26px 84px;
+      min-height: 90px;
+      font-weight: 400; }
+      .masternote .masternote_inner .masternote_text .icon1 {
+        background: url("../images/payPage/icon1.png") center/100% no-repeat;
+        width: 34px;
+        height: 26px;
+        position: absolute;
+        top: 10px;
+        left: 30px; }
+      .masternote .masternote_inner .masternote_text .icon2 {
+        background: url("../images/payPage/icon2.png") center/100% no-repeat;
+        width: 28px;
+        height: 34px;
+        position: absolute;
+        top: -12px;
+        left: -12px; }

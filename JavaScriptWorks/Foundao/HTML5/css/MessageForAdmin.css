@@ -1,0 +1,65 @@
+.messageforadmin {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 1200px;
+  width: 100%; }
+  .messageforadmin .messageforadmin_title {
+    font-size: 22px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    color: #272727; }
+  .messageforadmin .messageforadmin_latertime {
+    padding: 8px 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .messageforadmin .messageforadmin_latertime .messageforadmin_clock {
+      background: url("../images/payPage/clock.png") center/100% no-repeat;
+      width: 20px;
+      height: 20px; }
+    .messageforadmin .messageforadmin_latertime p {
+      font-size: 18px;
+      font-family: PingFangSC-Regular;
+      color: #ff5452;
+      padding-left: 8px; }
+  .messageforadmin .messageforadmin_inner {
+    position: relative;
+    background-color: #FFFAFB;
+    margin-top: 32px;
+    width: 100%; }
+    .messageforadmin .messageforadmin_inner .icon1 {
+      background: url("../images/payPage/icon1.png") center/100% no-repeat;
+      width: 34px;
+      height: 28px;
+      position: absolute;
+      top: 10px;
+      left: 30px; }
+    .messageforadmin .messageforadmin_inner .icon2 {
+      background: url("../images/payPage/icon2.png") center/100% no-repeat;
+      width: 40px;
+      height: 46px;
+      position: absolute;
+      top: -16px;
+      left: -14px; }
+    .messageforadmin .messageforadmin_inner .messageforadmin_text {
+      font-size: 18px;
+      font-family: PingFangSC-Regular;
+      color: #272727;
+      line-height: 30px;
+      height: 192px;
+      padding: 28px 60px 0 84px; }
+    .messageforadmin .messageforadmin_inner .messageforadmin_button {
+      position: absolute;
+      font-size: 20px;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
+      color: white;
+      background: linear-gradient(135deg, #ff6245 0%, #ff3373 100%);
+      border-radius: 4px;
+      padding: 8px 20px;
+      right: 20px;
+      bottom: 20px; }
+      .messageforadmin .messageforadmin_inner .messageforadmin_button:hover {
+        cursor: pointer; }

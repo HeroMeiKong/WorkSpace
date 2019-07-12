@@ -21,6 +21,7 @@ class Versions extends Component {
     this.getVersions()
   }
 
+  // 获取套餐详情
   getVersions = () => {
     httpRequest({
       url: api.getGoods,
@@ -38,6 +39,7 @@ class Versions extends Component {
     })
   }
 
+  // 规范化套餐
   resetValue = (arr) => {
     const length = arr.length
     let newArr = arr

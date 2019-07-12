@@ -1,0 +1,163 @@
+.audioInfo{
+  .section-box{
+    position: relative;
+    height:664px;
+    box-sizing: border-box;
+    .zs{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 80px;
+      z-index: 9;
+      overflow: hidden;
+      &::after{
+        position: absolute;
+        content: '';
+        height: 80px;
+        width: 102%;
+        top: 45px;
+        left: 0px;
+      }
+    }
+  }
+  .section-one{
+    background:white;
+    padding-top: 136px;
+    text-align: center;
+    .section-one-left{
+      display: inline-block;
+      vertical-align: middle;
+      text-align: left;
+      width: 340px;
+      margin-right: 95px;
+      h3{
+        font-size:34px;
+        font-family:PingFangSC-Semibold;
+        font-weight:600;
+        color:rgba(29,126,230,1);
+        line-height:48px;
+        margin-bottom: 10px;
+      }
+      div{
+        font-size:14px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+        line-height:21px;
+      }
+    }
+    .section-one-right{
+      display: inline-block;
+      vertical-align: middle;
+      width: 494px;
+      height: 333px;
+      background: url(../../../assets/audioTrans/iphone.png) no-repeat center / cover;
+    }
+    .section-one-zs{
+      &::after{
+        transform: rotate(2deg);
+        background-color: #F7FBFF;
+      }
+    }
+  }
+  .section-snd{
+    background-color: #F7FBFF;
+    padding-top: 105px;
+    text-align: center;
+    .section-snd-left{
+      display: inline-block;
+      vertical-align: middle;
+      width: 494px;
+      height: 375px;
+      background: url(../../../assets/audioTrans/speed.png) no-repeat center / cover;
+    }
+    .section-snd-right{
+      display: inline-block;
+      vertical-align: middle;
+      text-align: left;
+      width: 340px;
+      margin-left: 95px;
+      h3{
+        font-size:34px;
+        font-family:PingFangSC-Semibold;
+        font-weight:600;
+        color:rgba(29,126,230,1);
+        line-height:48px;
+        margin-bottom: 10px;
+      }
+      div{
+        font-size:14px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+        line-height:21px;
+      }
+    }
+    .section-snd-zs{
+      &::after{
+        transform: rotate(-2deg);
+        background-color: white;
+      }
+    }
+  }
+  .section-third{
+    height: 584px;
+    box-sizing: border-box;
+    padding-top: 118px;
+    text-align: center;
+    .section-third-left{
+      display: inline-block;
+      vertical-align: middle;
+      text-align: left;
+      width: 340px;
+      margin-right: 95px;
+      h3{
+        font-size:34px;
+        font-family:PingFangSC-Semibold;
+        font-weight:600;
+        color:rgba(29,126,230,1);
+        line-height:48px;
+        margin-bottom: 10px;
+      }
+      div{
+        font-size:14px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+        line-height:21px;
+      }
+    }
+    .section-third-right{
+      display: inline-block;
+      vertical-align: middle;
+      width: 494px;
+      height: 346px;
+      background: url(../../../assets/audioTrans/sametime.png) no-repeat center / cover;
+    }
+  }
+  .section-bottom{
+    height:574px;
+    position: relative;
+    background:linear-gradient(130deg,rgba(35,115,200,1) 0%,rgba(10,87,168,1) 100%);
+    .section-bottom-zs{
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 80px;
+      z-index: 9;
+      overflow: hidden;
+      &::after{
+        position: absolute;
+        content: '';
+        height: 80px;
+        transform: rotate(-178deg);
+        background-color: #fff;
+        width: 102%;
+        top: -41px;
+        left: 0px;
+      }
+    }
+  }
+}

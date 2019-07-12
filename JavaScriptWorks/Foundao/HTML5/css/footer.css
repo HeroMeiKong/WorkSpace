@@ -1,0 +1,79 @@
+.footer-box {
+  background-color: #F0F2F5;
+  height: 45px;
+  font-size: 16px;
+  padding: 0 10px;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden; }
+  .footer-box > div {
+    display: inline-block; }
+  .footer-box .sendmessage_open {
+    font-size: 20px;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    color: white;
+    background: -webkit-linear-gradient(315deg, #ff6245 0%, #ff3373 100%);
+    background: -o-linear-gradient(315deg, #ff6245 0%, #ff3373 100%);
+    background: linear-gradient(135deg, #ff6245 0%, #ff3373 100%);
+    border-radius: 4px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px 8px;
+    -webkit-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+    .footer-box .sendmessage_open .sendmessage_icon {
+      background: url(../images/blog/message.png) center/100% no-repeat;
+      width: 22px;
+      height: 22px;
+      margin-right: 8px; }
+    .footer-box .sendmessage_open p {
+      color: white; }
+    .footer-box .sendmessage_open a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 6; }
+  .footer-box a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.45); }
+  .footer-box p {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 45px;
+    color: rgba(0, 0, 0, 0.45); }
+    .footer-box p.webset-name {
+      margin-right: 45px; }
+  .footer-box .footer-nav {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 75px; }
+    .footer-box .footer-nav li {
+      display: inline-block;
+      margin-right: 66px;
+      line-height: 45px;
+      vertical-align: top; }
+      .footer-box .footer-nav li a {
+        color: rgba(0, 0, 0, 0.45); }
+
+.footer-box {
+  height: 34px;
+  font-size: 14px; }
+  .footer-box p {
+    line-height: 34px; }
+    .footer-box p.webset-name {
+      margin-right: 34px; }
+  .footer-box .footer-nav {
+    margin-left: 25px; }
+    .footer-box .footer-nav li {
+      margin-right: 50px;
+      line-height: 34px; }

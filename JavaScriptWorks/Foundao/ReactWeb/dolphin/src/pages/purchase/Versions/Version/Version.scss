@@ -24,17 +24,20 @@
     position: relative;
     display: flex;
     align-items: center;
-    font-size: 30px;
+    font-size: 40px;
     color: rgba(0, 0, 0, 1);
     transform: translate(-20px, 0);
+    font-weight: 200;
 
     strong {
-      font-size: 60px;
+      font-size: 70px;
       margin-left: 10px;
+      font-weight: 400;
     }
 
     div {
-      font-size: 15px;
+      font-size: 24px;
+      font-weight: 200;
       position: absolute;
       left: 110%;
       top: 40%;
@@ -42,7 +45,7 @@
   }
 
   .purchase_text {
-    font-size: 15px;
+    font-size: 16px;
     padding: 25px 0 10px 0;
     text-align: center;
     // strong{
@@ -52,12 +55,12 @@
 
   .purchase_capacity {
     color: rgba(60, 66, 185, 1);
-    font-size: 25px;
+    font-size: 26px;
   }
 
   .purchase_duration {
     color: rgba(60, 66, 185, 1);
-    font-size: 25px;
+    font-size: 26px;
     padding-bottom: 35px;
   }
 

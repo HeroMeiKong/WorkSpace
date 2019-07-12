@@ -1,0 +1,22 @@
+.Ad-default{
+  background: url(../../assets/ad_nor_icon.png) no-repeat center / contain;
+  width: 577px;
+  height: 116px;
+  position: relative;
+  a{
+    display: block;
+    font-size: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .CloseAd{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: url(../../assets/ad_close_hover_icon.png)no-repeat center / contain;
+    width: 14px;
+    height: 14px;
+    z-index: 10;
+    cursor: pointer;
+  }
+}

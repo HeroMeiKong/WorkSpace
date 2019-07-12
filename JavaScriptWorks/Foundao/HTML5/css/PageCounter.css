@@ -1,0 +1,53 @@
+.pagecounter {
+  width: 100%;
+  padding-top: 60px;
+  font-size: 14px;
+  font-family: HelveticaNeue;
+  color: rgba(0, 0, 0, 0.65); }
+  .pagecounter .pagecounter_inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; }
+    .pagecounter .pagecounter_inner .previous {
+      width: 32px;
+      height: 32px;
+      background: white;
+      border-radius: 6px;
+      border: 1px solid #d9d9d9;
+      margin-right: 5px;
+      background: url("../images/payPage/previous.png") center no-repeat;
+      background-size: 30%; }
+      .pagecounter .pagecounter_inner .previous:hover {
+        cursor: pointer; }
+    .pagecounter .pagecounter_inner .pages {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .pagecounter .pagecounter_inner .pages .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        background: white;
+        border-radius: 6px;
+        border: 1px solid #d9d9d9;
+        margin-right: 5px; }
+        .pagecounter .pagecounter_inner .pages .page:hover {
+          cursor: pointer;
+          background: #ff5452;
+          color: white; }
+      .pagecounter .pagecounter_inner .pages .page.active {
+        background: #ff5452;
+        color: white; }
+    .pagecounter .pagecounter_inner .next {
+      width: 32px;
+      height: 32px;
+      background: white;
+      border-radius: 6px;
+      border: 1px solid #d9d9d9;
+      background: url("../images/payPage/next.png") center no-repeat;
+      background-size: 30%; }
+      .pagecounter .pagecounter_inner .next:hover {
+        cursor: pointer; }

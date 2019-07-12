@@ -37,9 +37,54 @@
   .padding_inner{
     padding-bottom: 100px;
   }
+  .myfiles_box{
+    transform: translateY(-80px);
+    padding-bottom: 100px;
+    .myfiles{
+      // max-width: 396px;
+      width: 396px;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,.1);
+      background:rgba(0,0,0,.1);
+      border-radius: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+  
+      &:hover{
+        cursor: pointer;
+        background:rgba(0,0,0,.2);
+      }
+      .myfiles_text{
+        font-size: 16px;
+        font-weight: 200;
+        padding: 0 8px;
+      }
+      .open_file{
+        background: url('../../assets/images/up_icon.png') center/100% no-repeat;
+      }
+      .close_file{
+        background: url('../../assets/images/down_icon.png') center/100% no-repeat;
+      }
+      .open_file,
+      .close_file{
+        width: 10px;
+        height: 8px;
+      }
+    }
+  }
+  
 }
 @media screen and (max-width: 675px) {
   .backcolor{
     height: 90%;
+  }
+  .wrapper_content{
+    .myfiles_box{
+      .myfiles{
+        width: 300px;
+      }
+    }
   }
 }

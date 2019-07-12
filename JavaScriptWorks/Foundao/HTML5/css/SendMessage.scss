@@ -1,0 +1,157 @@
+.sendmessage_close {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 13px 0px rgba(100, 138, 179, 0.2);
+  border-radius: 4px;
+  transition: all .2s ease-in;
+  box-sizing: border-box;
+
+  div {
+    box-sizing: border-box;
+  }
+
+  .sendmessage_button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: url('../images/payPage/icon_close.png') center/100% no-repeat;
+    width: 22px;
+    height: 22px;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid red;
+    }
+  }
+
+  .sendsuccess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .sendsuccess_img {
+      background: url('../images/payPage/sendSuccess.png') center/100% no-repeat;
+      width: 88px;
+      height: 88px;
+      margin-top: 72px;
+    }
+
+    P {
+      font-size: 20px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      color: rgba(39, 39, 39, 1);
+      padding: 32px 0 60px;
+    }
+  }
+
+  input:-moz-placeholder,
+  textarea:-moz-placeholder {
+    color: #cccccc;
+  }
+
+  input:-ms-input-placeholder,
+  textarea:-ms-input-placeholder {
+    color: #cccccc;
+  }
+
+  input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    color: #cccccc;
+  }
+
+  .sendmessage_address {
+    width: 94%;
+    max-width: 1200px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular;
+    border: 1px solid rgba(204, 204, 204, 1);
+    margin-top: 40px;
+    padding: 10px 20px 12px;
+    box-sizing: border-box;
+    color: #272727;
+  }
+
+  .sendmessage_message {
+    margin-top: 20px;
+    width: 94%;
+    max-width: 1200px;
+    border-radius: 4px;
+    font-size: 14px;
+    border: 1px solid rgba(204, 204, 204, 1);
+    box-sizing: border-box;
+    padding: 10px 20px 12px;
+    min-height: 90px;
+    outline: none;
+    color: #272727;
+  }
+
+  .sendmessage_send {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 94%;
+    max-width: 1200px;
+    margin: 24px 0 30px;
+
+    .send_button {
+      font-size: 20px;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+      border-radius: 4px;
+      padding: 10px 22px 8px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.sendmessage_open {
+  font-size: 20px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+  border-radius: 4px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px 8px;
+  transition: all .2s ease-in;
+  box-sizing: border-box;
+
+  P{
+    color:rgba(255,255,255,1);
+  }
+
+  div {
+    box-sizing: border-box;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .sendmessage_icon {
+    background: url('../images/payPage/icon_feedback.png') center/100% no-repeat;
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+  }
+}

@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-// import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'
-import {Route, Switch, Redirect, HashRouter} from 'react-router-dom'
+// import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom' //正式
+import {Route, Switch, Redirect, HashRouter} from 'react-router-dom' //预上线
 import './App.css';
+import $ from "jquery";
 import Index from './pages/index/index'
 import Purchase from './pages/purchase/purchase'
 import User from './pages/user/user'
-// import VideoCutter from './pages/videoCutter/videoCutter'
-// import WaterMark from './pages/waterMark/waterMark'
+import VideoCutter from './pages/videoCutter/videoCutter'
+import WaterMark from './pages/waterMark/waterMark'
 import AboutUs from './pages/about_us/about_us'
 import UsersTermsAndConditions from './pages/users_terms_and_conditions/users_terms_and_conditions'
 import WebsitePrivacyPolicy from './pages/website_privacy_policy/website_privacy_policy'
@@ -18,6 +19,19 @@ import TakePhoto from './pages/takePhoto/takePhoto'
 
 export default
 class App extends Component {
+
+  componentDidMount() {
+    this.add_googletagmanager();
+  }
+
+  // 添加谷歌搜索
+  add_googletagmanager = () => {
+    if (window.location.hostname.indexOf('enjoycut.com')!==-1) {
+      $('body').append(`<script async src="https://www.googletagmanager.com/gtag/js?id=UA-142861821-1"></script>`)
+      $('body').append(`<script>window.dataLayer = window.dataLayer || [];window.gtag=function(){dataLayer.push(arguments);};gtag('js', new Date());gtag('config', 'UA-142861821-1');</script>`)
+    }
+  }
+
   render() {
     return (
       <HashRouter>
@@ -25,8 +39,8 @@ class App extends Component {
             <Route exact path='/' component={Index}/>
             <Route path='/purchase' component={Purchase}/>
             <Route path='/user' component={User}/>
-            {/* <Route path='/videoCutter' component={VideoCutter}/>
-            <Route path='/waterMark' component={WaterMark}/> */}
+            <Route path='/videoCutter' component={VideoCutter}/>
+            <Route path='/waterMark' component={WaterMark}/>
             <Route path='/about_us' component={AboutUs}/>
             <Route path='/users_terms_and_conditions' component={UsersTermsAndConditions}/>
             <Route path='/website_privacy_policy' component={WebsitePrivacyPolicy}/>

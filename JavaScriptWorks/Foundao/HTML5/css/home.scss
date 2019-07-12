@@ -1,0 +1,483 @@
+@import './public.scss';
+
+.home-page {
+  width: 100%;
+  min-width: 1280px;
+  background-image: url("./../images/home/bg1.png");
+  background-size: 100% auto;
+
+  //视频
+  .home-video {
+    width: 100%;
+    height: auto;
+    background-color: #000000;
+  }
+
+  .home-topBg {
+    width: 100%;
+    height: 625px;
+    background-image: url("../images/home/video1@2x.png");
+    background-size: 2560px 625px;
+    background-position: top center;
+    padding-top: 157px;
+    box-sizing: border-box;
+
+    .home-bg-tit {
+      font-size: 49px;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 69px;
+      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .home-bg-tip {
+      font-size: 21px;
+      font-family: PingFangSC-Regular;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      margin-top: 41px;
+    }
+  }
+
+  //功能列表
+  .home-main-box {
+    width: 100%;
+    @extend .flex-col-start-center;
+
+    .home-list-box {
+      width: 1200px;
+      transform: translateY(-140px);
+
+      .hot-box {
+        width: 100%;
+        height: 280px;
+        padding: 50px 48px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 20px 0px rgba(100, 138, 179, 0.2);
+        position: relative;
+
+        .demo-png {
+          position: absolute;
+          top: 20px;
+          right: 30px;
+          width: 611px;
+          height: 240px;
+        }
+
+        &:before {
+          position: absolute;
+          content: '';
+          width: 90px;
+          height: 42px;
+          top: -10px;
+          left: -11px;
+          background-image: url("./../images/home/label_hot.png");
+          background-size: 100% 100%;
+        }
+
+        .hot-t-0 {
+          font-size: 26px;
+          font-family: PingFangSC-Semibold;
+          font-weight: 600;
+          color: rgba(39, 39, 39, 1);
+          line-height: 37px;
+        }
+
+        .hot-t-1 {
+          margin-top: 11px;
+          font-size: 20px;
+          font-family: PingFangSC-Regular;
+          font-weight: 400;
+          color: rgba(102, 102, 102, 1);
+          line-height: 32px;
+        }
+
+        .hot-list {
+          margin-top: 12px;
+          color: #999999;
+          @extend .flex-row-start-center;
+
+          .hot-item {
+            padding-left: 30px;
+            margin-right: 66px;
+            background-size: 20px 20px;
+            background-repeat: no-repeat;
+
+            &:nth-child(1) {
+              background-image: url("./../images/home/icon_kuaijie.png");
+            }
+
+            &:nth-child(2) {
+              background-image: url("./../images/home/icon_jijian.png");
+            }
+
+            &:nth-child(3) {
+              background-image: url("./../images/home/icon_yijian.png");
+            }
+          }
+        }
+
+        .hot-go-btn:hover {
+          background: linear-gradient(135deg, rgba(255, 140, 125, 1) 0%, rgba(255, 109, 146, 1) 100%);
+          box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.06);
+        }
+
+        .hot-go-btn:active {
+          background: linear-gradient(135deg, rgba(243, 70, 38, 1) 0%, rgba(233, 25, 91, 1) 100%);
+          border-radius: 4px;
+        }
+
+        .hot-go-btn {
+          margin-top: 28px;
+          width: 120px;
+          height: 40px;
+          text-align: center;
+          font-size: 14px;
+          font-family: PingFangSC-Medium;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 1);
+          line-height: 40px;
+          background-image: url("./../images/home/btn_use_normal.png");
+          background-size: 100% 100%;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .t-0 {
+        text-align: center;
+        margin-top: 80px;
+        height: 48px;
+        font-size: 34px;
+        font-family: PingFangSC-Medium;
+        font-weight: 500;
+        color: rgba(39, 39, 39, 1);
+        line-height: 48px;
+        position: relative;
+      }
+
+      .t-0:after {
+        position: absolute;
+        content: '';
+        width: 48px;
+        height: 4px;
+        background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .t-1 {
+        text-align: center;
+        margin-top: 21px;
+        height: 22px;
+        font-size: 16px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(102, 102, 102, 1);
+        line-height: 22px;
+      }
+
+      .home-list {
+        margin-top: 50px;
+        width: 100%;
+        @extend .flex-row-btw-start;
+        flex-flow: wrap;
+
+        .home-item {
+          margin-bottom: 10px;
+          width: 595px;
+          height: 160px;
+          padding: 20px 0 0 158px;
+          box-sizing: border-box;
+          background-color: rgba(255, 255, 255, 1);
+          box-shadow: 0px 0px 20px 0px rgba(100, 138, 179, 0.2);
+          background-size: 88px 88px;
+          background-repeat: no-repeat;
+          background-position: 20px 30px;
+          transition: all .32s ease-in-out;
+
+          &:hover {
+            box-shadow: 0px 0px 20px 0px rgba(100, 138, 179, 0.2);
+            transform: translateY(-3px);
+            transition: all .32s ease-in-out;
+
+            .item-go-btn {
+              box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.06);
+              border: 1px solid rgba(255, 109, 146, 1);
+              color: #FF7C88;
+            }
+          }
+          //
+          &:active {
+            box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.06);
+            border-radius: 4px;
+            border: 1px solid rgba(255, 109, 146, 1);
+          }
+
+          .item-t-0 {
+            font-size: 26px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(39, 39, 39, 1);
+            line-height: 37px;
+          }
+
+          .item-t-1 {
+            margin-top: 5px;
+            font-size: 16px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(153, 153, 153, 1);
+            line-height: 22px;
+          }
+
+          .item-go-btn {
+            width: 100px;
+            height: 30px;
+            margin-top: 26px;
+            box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.06);
+            border: 1px solid rgba(255, 51, 115, 1);
+            cursor: pointer;
+            background-color: white;
+            color: #F44B53;
+            font-size: 14px;
+            font-family: "PingFang SC";
+            font-weight: bold;
+
+            &:hover {
+              box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.06);
+              border: 1px solid rgba(255, 109, 146, 1);
+              color: #FF7C88;
+            }
+
+            &:active {
+              box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.06);
+              border: 1px solid rgba(255, 109, 146, 1);
+            }
+
+          }
+
+          .waiting-btn {
+            width: 100px;
+            height: 30px;
+            margin-top: 26px;
+            text-align: center;
+            line-height: 30px;
+            box-sizing: border-box;
+            box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.02);
+            opacity: 0.2;
+            border: 1px solid rgba(0, 0, 0, 1);
+            color: #000;
+            cursor: not-allowed;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: "PingFang SC";
+          }
+
+        }
+      }
+
+      .advise-box {
+        width: 100%;
+        height: 108px;
+        box-sizing: border-box;
+        padding: 26px 0 0 85px;
+        background-color: rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 20px 0px rgba(100, 138, 179, 0.2);
+        background-image: url("./../images/home/icon_gengduo.png");
+        background-position: 10px 20px;
+        background-repeat: no-repeat;
+        position: relative;
+        transition: all .32s ease-in-out;
+
+        &:hover {
+          box-shadow: 0px 0px 20px 0px rgba(100, 138, 179, 0.2);
+          transform: translateY(-3px);
+          transition: all .32s ease-in-out;
+        }
+
+        .advise-t-0 {
+          font-size: 21px;
+          font-family: PingFangSC-Regular;
+          font-weight: 400;
+          color: rgba(39, 39, 39, 1);
+          line-height: 29px;
+        }
+
+        .advise-t-1 {
+          margin-top: 5px;
+          font-size: 16px;
+          font-family: PingFangSC-Regular;
+          font-weight: 400;
+          color: rgba(153, 153, 153, 1);
+          line-height: 22px;
+        }
+
+        .advise-go-btn {
+          cursor: pointer;
+          position: absolute;
+          right: 42px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 120px;
+          height: 40px;
+          border: 1px solid rgba(255, 51, 115, 1);
+          text-align: center;
+          line-height: 40px;
+          font-size: 14px;
+          font-family: PingFangSC-Medium;
+          font-weight: 500;
+          color: rgba(255, 73, 94, 1);
+
+          &:hover {
+            box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.06);
+            border: 1px solid rgba(255, 109, 146, 1);
+            color: #FF7C88;
+          }
+        }
+      }
+
+      .swiper-box {
+        margin: 53px auto 0;
+        width: 960px;
+        height: 427px;
+        box-shadow: 0px 0px 21px 0px rgba(100, 138, 179, 0.2);
+
+        .swiper-container {
+          width: 100%;
+          height: 427px;
+          position: relative;
+
+          .swiper-wrapper {
+            width: 100%;
+            height: 100%;
+
+            .swiper-slide {
+              width: 960px;
+              margin: 0 auto;
+              background: rgba(255, 255, 255, 1);
+              padding-top: 32px;
+              padding-left: 53px;
+              box-sizing: border-box;
+              position: relative;
+
+              .swiper-left {
+
+                .swiper-icon {
+                  background-size: cover;
+                  width: 109px;
+                  height: 109px;
+                }
+
+                .swiper-jpIcon {
+                  background-image: url("../images/jiaopianApp_icon@2x.png");
+                  background-size: cover;
+                  width: 109px;
+                  height: 109px;
+                }
+
+                .swiper-tit1 {
+                  font-size: 30px;
+                  font-family: PingFangSC-Semibold;
+                  font-weight: 600;
+                  color: rgba(39, 39, 39, 1);
+                  line-height: 43px;
+                  margin-top: 19px;
+                }
+
+                .swiper-tit2 {
+                  font-size: 23px;
+                  font-family: PingFangSC-Regular;
+                  font-weight: 400;
+                  color: rgba(39, 39, 39, 1);
+                  line-height: 32px
+                }
+
+                .swiper-tips {
+                  font-size: 19px;
+                  font-family: PingFangSC-Regular;
+                  font-weight: 400;
+                  color: rgba(102, 102, 102, 1);
+                  line-height: 30px;
+                  margin-top: 14px;
+                }
+
+                .swiper-btn:hover {
+                  background: linear-gradient(135deg, rgba(255, 140, 125, 1) 0%, rgba(255, 109, 146, 1) 100%);
+                  box-shadow: 0px 2px 0px 0px rgba(63, 48, 89, 0.06);
+                }
+
+                .swiper-btn:active {
+                  background: linear-gradient(135deg, rgba(243, 70, 38, 1) 0%, rgba(233, 25, 91, 1) 100%);
+                }
+
+                .swiper-btn {
+                  width: 128px;
+                  height: 43px;
+                  background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+                  font-size: 15px;
+                  font-family: PingFangSC-Medium;
+                  font-weight: 500;
+                  color: rgba(255, 255, 255, 1);
+                  line-height: 43px;
+                  text-align: center;
+                  cursor: pointer;
+                  margin-top: 29px;
+                  display: block;
+                }
+              }
+
+              .swiper-img:nth-child(1) {
+                width: 455px;
+                height: 368px;
+                position: absolute;
+                top: 49px;
+                right: 22px;
+              }
+
+              .swiper-img:nth-child(2) {
+                width: 342px;
+                height: 342px;
+                position: absolute;
+                top: 29px;
+                right: 50px;
+              }
+            }
+          }
+        }
+      }
+
+      .swiper-changeBox {
+        display: flex;
+        justify-content: center;
+        margin-top: 31px;
+        .swiper-btn {
+          width: 9px;
+          height: 9px;
+          background: rgba(216, 216, 216, 1);
+          border-radius: 8px;
+          margin-right: 9px;
+          cursor: pointer;
+        }
+        .swiper-now {
+          background-image: url("../images/Carousel_.png");
+          width: 28px;
+          height: 8px;
+          background-size: 100% 100%;
+        }
+      }
+    }
+  }
+
+}

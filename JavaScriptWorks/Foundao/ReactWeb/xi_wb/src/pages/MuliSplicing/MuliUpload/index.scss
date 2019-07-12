@@ -1,0 +1,295 @@
+.muliUpload-box{
+  height: 425px;
+  position: relative;
+  min-width: 1200px;
+  margin-bottom: 270px;
+  background:url(../../../assets/images/cut_banner.jpg) no-repeat bottom center / cover;
+  &:before{
+    position: absolute;
+    bottom: 0;
+    width: 125px;
+    z-index: 0;
+    height: 202px;
+    left: 0;
+    content: '';
+    background: url("../../../assets/images/b-c.png") no-repeat center / 125px 202px;
+  }
+  &:after{
+    position: absolute;
+    bottom: 92px;
+    width: 128px;
+    height: 135px;
+    z-index: 0;
+    right: 44px;
+    content: '';
+    background: url("../../../assets/images/a-c.png") no-repeat center / 128px 135px;
+  }
+  .upload-tips{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.5) url(../../../assets/images/add_video.gif) no-repeat center 135px / 765px;
+  }
+}
+.muliupload-inner{
+  width: 772px;
+  padding-top: 20px;
+  margin: 0 auto;
+  position: relative;
+  .pagename{
+   display: inline-block;
+    vertical-align: middle;
+    padding-left: 50px;
+    background: url(../../../assets/images/mulisplice.png) no-repeat left center / 45px;
+    h2{
+      font-size:20px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      color:rgba(255,255,255,1);
+      line-height:28px;
+    }
+    h3{
+      //width:233px;
+      height:20px;
+      font-size:14px;
+      font-family:PingFangSC-Regular;
+      font-weight:100;
+      color:rgba(255,255,255,1);
+      line-height:20px;
+    }
+  }
+  .pagegovip{
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    &:hover{
+      .line{
+        transform: translateX(10px);
+      }
+    }
+    p:nth-of-type(1){
+      font-size:15px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      color:rgba(255,255,255,1);
+      line-height:21px;
+    }
+    .line{
+      width:129px;
+      height:1px;
+      background-color: white;
+      position: relative;
+      margin: 2px 0;
+      transition: all .3s;
+      cursor: pointer;
+      &:before{
+        content: '';
+        position: absolute;
+        width: 5px;
+        right: 0;
+        top: -2px;
+        -webkit-transform: rotateZ(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotateZ(45deg);
+        height: 1px;
+        background-color: white;
+      }
+      &:after{
+        content: '';
+        position: absolute;
+        width: 5px;
+        right: 0;
+        top: 2px;
+        -webkit-transform: rotateZ(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotateZ(-45deg);
+        height: 1px;
+        background-color: white;
+      }
+    }
+    p:nth-of-type(2){
+      font-size:12px;
+      font-family:PingFangSC-Regular;
+      font-weight:400;
+      color:rgba(255,208,218,1);
+      line-height:17px;
+    }
+  }
+  .mu-box{
+    width: 772px;
+    height: 540px;
+    background-color: white;
+    box-shadow: 0 0 23px 0 rgba(224,162,168,.34);
+    margin-top: 16px;
+    padding: 17px 0 13px 7px;
+    box-sizing: border-box;
+    ul{
+      height:455px;
+      overflow-y: scroll;
+      li{
+        overflow: hidden;
+        font-size: 0;
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 170px;
+        height: 214px;
+        background-color: #E8E8E8;
+        margin-right: 17px;
+        margin-bottom: 17px;
+        box-shadow:0 2px 9px 0 rgba(0,0,0,0.1);
+        &:nth-of-type(4n){
+          margin-right: 0;
+        }
+        &:nth-of-type(4n+1){
+          margin-left: 10px;
+        }
+        video{
+          width: 100%;
+          height: 163px;
+        }
+        .itemInfo{
+          background-color: white;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 51px;
+          right: 0;
+          padding: 6px 10px 0;
+          box-sizing: border-box;
+          .videoName {
+            display: inline-block;
+            vertical-align: top;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 130px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #272727;
+          }
+          .delVideo{
+            float: right;
+            width: 12px;
+            height: 13px;
+            cursor: pointer;
+            background: url(../../../assets/images/delIcon.png) no-repeat center / contain;
+          }
+          .videotime {
+            font-size: 12px;
+            color: #272727;
+          }
+        }
+      }
+      .lastItem{
+        cursor: pointer;
+        &.over{
+          background:url(../../../assets/images/getVip.jpg) no-repeat center / cover;
+          .addIcon-box{
+            display: none;
+          }
+          p {
+            font-size: 12px;
+            color: white;
+            margin-top: 80px;
+          }
+          .getVip {
+            a {
+              display: block;
+             font-size: 0;
+              margin: 0 auto;
+              width: 19px;
+              height: 19px;
+              background: url(../../../assets/images/enter-icon.png) no-repeat center / 19px 19px;
+            }
+          }
+        }
+        .addIcon-box{
+          width: 34px;
+          height: 34px;
+          margin: 60px auto 15px;
+          background: url(../../../assets/images/addVideoicon.png) no-repeat center / contain;
+        }
+        p {
+          text-align: center;
+          font-size:12px;
+          font-family:PingFangSC-Regular;
+          font-weight:400;
+          color:#272727;
+          line-height:17px;
+        }
+        .getVip {
+          margin-top: 23px;
+          text-align: center;
+          a {
+            font-size:14px;
+            font-family:PingFangSC-Medium;
+            font-weight:500;
+            color:rgba(255,73,94,1);
+            line-height:20px;
+          }
+        }
+      }
+    }
+    .mulisplice-box{
+      text-align: center;
+      padding: 13px 0;
+      overflow: hidden;
+      .number-tips{
+        float: left;
+        font-size:18px;
+        font-family:PingFangSC-Medium;
+        font-weight:500;
+        color:rgba(255,73,94,1);
+        line-height:25px;
+        margin-left: 5px;
+      }
+      button{
+        width:108px;
+        height:34px;
+        background:linear-gradient(135deg,rgba(255,98,69,1) 0%,rgba(255,51,115,1) 100%);
+        border-radius:3px;
+        color: white;
+        cursor: pointer;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        -ms-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s;
+        &:hover{
+          background:linear-gradient(135deg,rgba(255,140,125,0.99) 0%,rgba(255,109,146,1) 100%)
+        }
+      }
+    }
+    .progressNum {
+      font-size: 14px;
+      text-align: center;
+      margin: 60px 0 16px;
+    }
+    .progress-out{
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 3px;
+      position: relative;
+      width: 140px;
+      height: 6px;
+      background: url(../../../assets/images/muli_loading.png) no-repeat center / contain;
+      .progress-inner{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background: #ff495e;
+        left: 0;
+      }
+    }
+    .tips{
+      font-size: 14px;
+      text-align: center;
+      margin: 16px 0 0;
+    }
+  }
+}

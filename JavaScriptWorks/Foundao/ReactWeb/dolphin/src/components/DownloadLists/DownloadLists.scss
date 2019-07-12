@@ -75,6 +75,9 @@
       text-align: center;
       padding-top: 10px;
       color: rgba(233, 177, 94, 1);
+      &:hover{
+        color: #F4D5A8;
+      }
     }
 
     .download_list {

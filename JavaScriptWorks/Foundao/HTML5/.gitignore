@@ -1,0 +1,8 @@
+node_modules
+.tmp
+dist
+build
+rev
+.idea/
+source
+.DS_Store

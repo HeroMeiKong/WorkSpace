@@ -24,6 +24,7 @@ class DownloadLists extends Component {
     this.props.callBack(el)
   }
 
+  //跳转到用户页面
   moreFile = () => {
     if(tools.getCapacity_storage().capacity > 0){
       window.location.href = api.return_url_user
@@ -42,22 +43,24 @@ class DownloadLists extends Component {
     this.props.showToast(text,openedWindow)
   }
 
+  updateCapacity = () => {
+    let capacity = tools.getCapacity_storage().capacity || '0'
+    return {capacity}
+  }
+
   render () {
     const { uploadSuccessList } = this.props
-    // const { downloadList, showOutOption } = this.state
-    // if(!start){
+    const { capacity } = this.updateCapacity()
       return (
         <div className='download_lists'>
           { uploadSuccessList.length < 1 ? 
               <div className='download_lists_inner'>
                 <p className='download_lists_tip'>Want to convert more videos? Or beyond the 50MB limit?</p>
-                <Link to='./purchase'>GO PRO</Link>
+                <Link target='_blank' to='./purchase'>GO PRO</Link>
               </div>
             :
               <div className='download_lists_inner'>
-                {/* {uploadSuccessList.map((item, index) => {
-                  return <DownloadList key={item.fileMd5} data={item} videoInfo={videoInfo} />
-                })} */}
+                {capacity !== '0' ? '' : <Link target='_blank' to='./purchase'>GO PRO</Link>}
                 {uploadSuccessList.filter((curr,index) => index<5).map((item, index) => {
                   return <DownloadList key={item.fileMd5} data={item} videoInfo={item.videoInfo} 
                   callBack={this.deleteDownloadRecord.bind(this,item.fileMd5)}
@@ -69,15 +72,6 @@ class DownloadLists extends Component {
           }
         </div>
       )
-    // } else {
-    //   return (
-    //     <div className='download_lists'>
-    //       {showOutOption ? <OutOption fileName={file.name} callBack={this.startCovert} /> : ''}
-    //       {downloadList.map ( (item,i)=> <DownloadList key={i} file={{name: item.name,size: item.name,md5: item.md5}} />)}
-    //       <div className='download_lists_button'>MY FILES</div>
-    //     </div>
-    //   )
-    // }
   }
 }
 

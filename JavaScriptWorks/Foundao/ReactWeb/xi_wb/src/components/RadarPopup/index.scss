@@ -1,0 +1,52 @@
+.radar_popup {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .radar_popup_inner {
+    width: 482px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 29px 0 23px 0;
+
+    #bm {
+      width: 230px;
+      height: 230px;
+      position: relative;
+    }
+
+    .radar_popup_text {
+      width: 270px;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(6, 6, 6, 1);
+      line-height: 25px;
+      text-align: center;
+      margin: 17px 0;
+    }
+
+    .radar_popup_button {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 1);
+      background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+      border-radius: 2px;
+      padding: 7px 34px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+}

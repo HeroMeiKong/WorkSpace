@@ -1,0 +1,282 @@
+.package_list {
+  padding: 20px 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  h1 {
+    font-size: 28px;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    color: rgba(49, 118, 253, 1);
+    line-height: 40px;
+    text-align: center;
+  }
+  .el-dialog__body {
+    padding: 20px;
+  }
+  .package_list_inner {
+    max-width: 1260px;
+    margin: 0 auto;
+  }
+  h2 {
+    font-size: 20px;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
+  }
+  .list_head {
+
+  }
+  .list_head_icon {
+    width: 204px;
+    height: 40px;
+    background: url('../../../assets/images/h5/h5.png') no-repeat;
+    background-size: contain;
+    float: left;
+  }
+  .package_list_content {
+    padding-top: 20px;
+  }
+  .upgrade_tips {
+    margin-bottom: 20px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 46px;
+    position: relative;
+    background: #F8FBFF;
+    span {
+      color: #3176FD;
+      font-weight: bold;
+    }
+    .close {
+      float: right;
+      width: 30px;
+      height: 30px;
+      background: url('../../../assets/images/h5/icon_guanbi@2x.png') no-repeat;
+      background-size: 16px 16px;
+      //background-color: red;
+      background-position: center center;
+      cursor: pointer;
+      margin: 5px 15px 0 0;
+    }
+  }
+  .upgrade_tips:before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    background: url('../../../assets/images/h5/icon_gantan@2x.png') no-repeat;
+    background-size: contain;
+  }
+  .scene_wrapper {
+    //display: flex;
+    //flex-wrap: wrap;
+    //justify-content: center;
+    //align-items: center;
+    padding: 0 20px;
+    position: relative;
+    .scene_item {
+      width: 146px;
+      //background-color: #f7f7f7;
+      margin: 10px 6px;
+      box-sizing: border-box;
+      border: 2px solid transparent;
+      position: relative;
+      cursor: pointer;
+      border-radius: 4px;
+      float: left;
+      overflow: hidden;
+      .scene_cover_wrapper {
+        border: 2px solid transparent;
+        padding: 1px 0 3px;
+        border-radius: 4px;
+        position: relative;
+      }
+      .scene_cover_wrapper.active {
+        border-color: #3176FD;
+      }
+      .scene_cover_wrapper.active:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        background: #3176FD;
+        opacity: 0.2;
+      }
+      .scene_cover {
+        width: 138px;
+        height: 232px;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        box-sizing: border-box;
+      }
+
+      .item_name {
+        text-align: center;
+        font-size: 14px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(39, 39, 39, 1);
+        line-height: 20px;
+        margin: 6px 0;
+      }
+    }
+    .scene_item.active {
+      border-color: #3176FD;
+    }
+    .scene_item.disabled {
+      cursor: not-allowed;
+      //opacity: 0.5;
+      -webkit-filter: grayscale(1); /* Webkit */
+      filter: grayscale(1); /* W3C */
+    }
+  }
+  .no_data_add {
+    width: 384px;
+    height: 195px;
+    cursor: pointer;
+    background: url('../../../assets/images/h5/add2.png') no-repeat;
+    background-size: cover;
+    margin: 110px auto;
+  }
+  .live_address {
+    text-align: left;
+    h3 {
+      font-weight: bold;
+    }
+    .left_panel {
+      width: 410px;
+      float: left;
+      padding: 0 20px;
+      box-sizing: border-box;
+
+    }
+    .right_panel {
+      border-left: 1px solid #f7f7f7;
+      margin-left: 410px;
+      padding: 0 20px;
+      height: 160px;
+      .address_code {
+        margin: 8px 0;
+        width: 90px;
+        height: 90px;
+        background-color: #f7f7f7;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+    }
+  }
+  .list_wrapper {
+    .add_package {
+      background: url("../../../assets/images/h5/h5add.png") no-repeat;
+      background-size: 100% 100%;
+      background-position: center center;
+    }
+    li {
+      list-style: none;
+      width: 190px;
+      height: 268px;
+      float: left;
+      margin: 20px 10px;
+      //background-color: #f7f7f7;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: all .32s ease-in-out;
+    }
+    .packageItem {
+      box-shadow: 0px 0px 20px 0px rgba(100, 138, 179, 0.1);
+    }
+    li:hover {
+      box-shadow: 0px 0px 20px 0px rgba(100, 138, 179, 0.3);
+      transform: translateY(-3px);
+    }
+    .package_status {
+      font-size: 12px;
+      color: #3176FD;
+      margin: 6px 0;
+      padding: 0 6px;
+    }
+    .package_status.end {
+      color: #CCCCCC;
+    }
+    .package_title {
+      font-size: 16px;
+      font-family: PingFangSC-Regular;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.85);
+      line-height: 22px;
+      padding: 0 6px;
+      word-break: break-all;
+    }
+    .package_cover {
+      width: 190px;
+      height: 190px;
+      //border-radius: 4px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+    }
+  }
+  .tips_box {
+    font-size: 14px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1);
+    line-height: 20px;
+    margin-top: 10px;
+    p {
+      font-size: 14px;
+      font-family: PingFangSC-Regular;
+      font-weight: 400;
+      color: rgba(102, 102, 102, 1);
+      line-height: 16px;
+      padding-left: 30px;
+      margin-top: 6px;
+    }
+  }
+
+  .el-icon-refresh {
+    width: 16px;
+    height: 16px;
+    background: url('../../../assets/images/h5/refresh.png') no-repeat;
+    background-size: contain;
+  }
+  .refresh {
+    display: flex;
+    align-items: center;
+  }
+  .swiper-wrapper {
+    //padding: 0 10px;
+  }
+  .swiper-button-prev {
+    left: 0;
+  }
+  .swiper-button-next {
+    right: 0;
+    transform: rotate(180deg);
+  }
+  .swiper-button-next, .swiper-button-prev {
+    width: 16px;
+    height: 16px;
+  }
+  .swiper-button-prev, .swiper-button-next {
+    background-image: url('../../../assets/images/h5/arrow_left.png');
+    background-size: contain;
+    outline: none;
+  }
+}

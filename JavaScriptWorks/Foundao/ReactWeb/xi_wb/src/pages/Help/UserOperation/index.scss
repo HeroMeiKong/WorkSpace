@@ -1,0 +1,71 @@
+.userOperation-page {
+  width: 100%;
+  height: 100%;
+  background:rgba(248,249,250,1);
+  padding: 32px 0 39px;
+  box-sizing: border-box;
+
+  .userOperation_content {
+    height: 100%;
+
+    .operation_tabs {
+      width: 594px;
+      margin: 0 auto;
+      .product_tab:nth-child(1):before {
+        content: '';
+        position: absolute;
+        background-image: url("../../../assets/icon_Transcoding@2x.png");
+        background-size: cover;
+        width: 34px;
+        height: 34px;
+        left: 62px;
+        top: 7px;
+      }
+
+      .product_tab:nth-child(2):before {
+        content: '';
+        position: absolute;
+        background-image: url("../../../assets/icon_Clip@2x.png");
+        background-size: cover;
+        width: 34px;
+        height: 34px;
+        left: 62px;
+        top: 7px;
+      }
+
+      .product_tab:hover {
+        border-radius:11px;
+        border:1px solid;
+        border-image:linear-gradient(135deg, rgba(255,140,125,1), rgba(255,109,146,1)) 3 3;
+        color: #FF7C88;
+        box-sizing: border-box;
+      }
+
+      .product_tab {
+        position: relative;
+        cursor: pointer;
+        width:253px;
+        height:48px;
+        background:rgba(255,255,255,1);
+        border:1px solid rgba(216,216,216,1);
+        display: inline-block;
+        font-size:21px;
+        font-family:PingFangSC-Medium;
+        font-weight:bold;
+        color:rgba(244,75,83,1);
+        line-height:48px;
+        padding-left: 107px;
+        box-sizing: border-box;
+      }
+
+      .product_tab:nth-child(2) {
+        float: right;
+      }
+
+      .active_tab {
+        border:1px solid;
+        border-image:linear-gradient(135deg, rgba(255,98,69,1), rgba(255,51,115,1)) 1 1;
+      }
+    }
+  }
+}

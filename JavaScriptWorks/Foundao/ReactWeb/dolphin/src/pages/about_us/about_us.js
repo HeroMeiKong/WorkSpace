@@ -41,7 +41,7 @@ class AboutUs extends Component{
           <div className='content index_div text_inner'>
             <article>
               <header>
-                <h1>About us</h1>
+                <h1>About Us</h1>
               </header>
               <section>
                 <h2>Enterprise Spirit.</h2>

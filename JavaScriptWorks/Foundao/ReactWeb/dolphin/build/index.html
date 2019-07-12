@@ -1,1 +1,63 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"/><link rel="shortcut icon" href="./favicon.ico"/><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/><meta name="theme-color" content="#000000"/><link rel="manifest" href="./manifest.json"/><title>DOLPHIN MP4 CONVERTOR</title><link href="./static/css/main.19277b2b.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(l){function e(e){for(var r,t,n=e[0],o=e[1],u=e[2],f=0,i=[];f<n.length;f++)t=n[f],p[t]&&i.push(p[t][0]),p[t]=0;for(r in o)Object.prototype.hasOwnProperty.call(o,r)&&(l[r]=o[r]);for(s&&s(e);i.length;)i.shift()();return c.push.apply(c,u||[]),a()}function a(){for(var e,r=0;r<c.length;r++){for(var t=c[r],n=!0,o=1;o<t.length;o++){var u=t[o];0!==p[u]&&(n=!1)}n&&(c.splice(r--,1),e=f(f.s=t[0]))}return e}var t={},p={1:0},c=[];function f(e){if(t[e])return t[e].exports;var r=t[e]={i:e,l:!1,exports:{}};return l[e].call(r.exports,r,r.exports,f),r.l=!0,r.exports}f.m=l,f.c=t,f.d=function(e,r,t){f.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},f.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},f.t=function(r,e){if(1&e&&(r=f(r)),8&e)return r;if(4&e&&"object"==typeof r&&r&&r.__esModule)return r;var t=Object.create(null);if(f.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:r}),2&e&&"string"!=typeof r)for(var n in r)f.d(t,n,function(e){return r[e]}.bind(null,n));return t},f.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return f.d(r,"a",r),r},f.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},f.p="./";var r=window.webpackJsonp=window.webpackJsonp||[],n=r.push.bind(r);r.push=e,r=r.slice();for(var o=0;o<r.length;o++)e(r[o]);var s=n;a()}([])</script><script src="./static/js/2.baf9e400.chunk.js"></script><script src="./static/js/main.41a48954.chunk.js"></script></body></html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"/><link rel="shortcut icon" href="./favicon.ico"/><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/><meta name="theme-color" content="#000000"/><meta name="keywords" content="converter for youtube,imovie for pc,avi to mp4 converter,best free video converter,converter avi to mp4,converter speed,converter software,converter mp4,converter to mp4,convert video,format,convertidor, video converter, mp4 converter, video converter online, free video converter, video converter free, video converter to mp4, video converter download, video online converter, video file free, file converter to mp4, convert video, convert to mp4, best mp4 converter, mov to mp4, mpeg to mp4, wmv to mp4, rm to mp4, rmvb to mp4, mpeg1 to mp4, mpeg2 to mp4, mpeg4 to mp4, 3gp to mp4, asf to mp4, swf to mp4, vob to mp4, dat to mp4, flv to mpp4, f4v to mp4, mkv to mp4"/><meta name="description" content="Dolphin MP4 Converter is a software you can use to convert any format video files to mp4 online. No download required. "/><link rel="manifest" href="./manifest.json"/><title>Dolphin MP4 Converter - Video Converter, MP4 Free Online File Converter</title><script async src="https://www.googletagmanager.com/gtag/js?id=UA-140732432-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-140732432-1")</script><link href="./static/css/main.65c18c21.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!(function(){
+      let dataform = {
+          u_id: '',
+          from: '',
+          to: '',
+          source: '',
+        }
+      let hostname = window.location.hostname
+      dataform.u_id = getUserInfo()
+      dataform.from = getFrom()
+      dataform.to = window.location.href
+      dataform.source = getSource()
+      // if(window.location.href !== window.location.origin+'/#/'){ //预上线
+      if(window.location.href !== window.location.origin+'/'){ //线上
+        let request = new XMLHttpRequest();
+        let data = 'u_id='+dataform.u_id+'&from='+dataform.from+'&to='+dataform.to+'&source='+dataform.source
+        // request.open('post','https://cd.foundao.com:10081/foundao_api/statistics/pv_uv/index'); //预上线
+        request.open('post','https://www.convert-mp4.com/api/statistics/pv_uv/index'); //线上 
+        request.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
+        request.send(data);
+        request.onreadystatechange = () => {
+          if(request.readyState === 4) {
+            if(request.status >= 200 && request.status < 300){
+              let str = request.responseText
+              let obj = window.JSON.parse(str)
+              console.log('success')
+            }
+          }
+        };
+      } else {
+        console.log('same')
+      };
+      function getUserInfo() {
+        if(getUserData_storage('dolphin_userInfo') && getUserData_storage('dolphin_userInfo').token){
+          return getUserData_storage('dolphin_userInfo').token
+        } else 
+        return ''
+      };
+      function getFrom() {
+          return document.referrer ? document.referrer : ''
+      };
+      function getSource() {
+        if(document.referrer){
+          if(document.referrer.indexOf(hostname) > -1){
+            return 'foundao'
+          } else {
+            return 'link'
+          }
+        } else {
+          return ''
+        }
+      };
+      function getUserData_storage(name) {
+        const userInfo_string_escape = localStorage.getItem(name);
+        let userInfo = {};
+        if (userInfo_string_escape) {
+          // 进行过编码处理 需要解密
+          let userInfo_string = window.decodeURIComponent(userInfo_string_escape);
+          userInfo = JSON.parse(userInfo_string);
+        }
+        return userInfo;
+      };
+    })()</script><script>!function(l){function e(e){for(var r,t,n=e[0],o=e[1],u=e[2],f=0,i=[];f<n.length;f++)t=n[f],p[t]&&i.push(p[t][0]),p[t]=0;for(r in o)Object.prototype.hasOwnProperty.call(o,r)&&(l[r]=o[r]);for(s&&s(e);i.length;)i.shift()();return c.push.apply(c,u||[]),a()}function a(){for(var e,r=0;r<c.length;r++){for(var t=c[r],n=!0,o=1;o<t.length;o++){var u=t[o];0!==p[u]&&(n=!1)}n&&(c.splice(r--,1),e=f(f.s=t[0]))}return e}var t={},p={1:0},c=[];function f(e){if(t[e])return t[e].exports;var r=t[e]={i:e,l:!1,exports:{}};return l[e].call(r.exports,r,r.exports,f),r.l=!0,r.exports}f.m=l,f.c=t,f.d=function(e,r,t){f.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},f.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},f.t=function(r,e){if(1&e&&(r=f(r)),8&e)return r;if(4&e&&"object"==typeof r&&r&&r.__esModule)return r;var t=Object.create(null);if(f.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:r}),2&e&&"string"!=typeof r)for(var n in r)f.d(t,n,function(e){return r[e]}.bind(null,n));return t},f.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return f.d(r,"a",r),r},f.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},f.p="./";var r=window.webpackJsonp=window.webpackJsonp||[],n=r.push.bind(r);r.push=e,r=r.slice();for(var o=0;o<r.length;o++)e(r[o]);var s=n;a()}([])</script><script src="./static/js/2.705e4b8c.chunk.js"></script><script src="./static/js/main.2466777b.chunk.js"></script></body></html>

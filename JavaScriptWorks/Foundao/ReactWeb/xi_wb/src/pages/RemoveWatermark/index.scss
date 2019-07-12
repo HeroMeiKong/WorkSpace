@@ -1,0 +1,79 @@
+.removeWatermark_wrapper{
+  $title_color:#6861FD;
+  //padding: 0 30px;
+  background: #f9f9f9;
+  .header{
+    height: 98px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 0 30px;
+    .leftDiv{
+      display: flex;
+      .logo{
+        width: 44px;
+        height: 44px;
+        background: url('../../assets/removewatermark/removelogo.png') no-repeat;
+        background-size: contain;
+        margin-right: 20px;
+      }
+      .functionName{
+        font-weight:600;
+        font-size: 20px; 
+      }
+      .functionDesc{
+        font-size: 14px;
+      }
+    }
+    .batchProcessBtn{
+      background-color: $title_color;
+      color: #fff;
+      margin-right: 330px;
+      position: relative;
+      &:hover div{
+        display: block;
+      }
+      div{
+        position: absolute;
+        bottom: 100%;
+        width: 300px;
+        height: 43px;
+        z-index: 9;
+        box-sizing: border-box;
+        padding-top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        background: url(../../assets/removewatermark/lock_bg.png) no-repeat center / 100% 100%;
+      }
+    }
+  }
+  .alert-box{
+    button{
+      border:2px solid rgba(181,178,255,1);
+      color: #6861FD;
+      &:hover{
+        background:rgba(104,97,253,1);
+        border:2px solid rgba(104,97,253,1);
+        color: white;
+      }
+    }
+  }
+  .comfirm-box{
+    button{
+      border:2px solid rgba(181,178,255,1);
+      color: #6861FD;
+      &:hover{
+        background:rgba(104,97,253,1);
+        border:2px solid rgba(104,97,253,1);
+        color: white;
+      }
+      &.cancel-btn{
+        background:rgba(104,97,253,1);
+        border:2px solid rgba(104,97,253,1);
+        color: white;
+      }
+    }
+  }
+}

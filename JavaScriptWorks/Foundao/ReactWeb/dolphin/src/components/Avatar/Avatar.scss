@@ -1,7 +1,7 @@
 .avatar {
   position: absolute;
   top: 0;
-  left: 50%;
+  left: 0;
 
   .avatar_top {
     height: 85px;
@@ -40,8 +40,7 @@
   }
 
   .avatar_bottom {
-    transform: translate(-68%, 0);
-    width: 191px;
+    width: 190px;
 
     div {
       background: rgba(38, 42, 136, 1);
@@ -51,6 +50,17 @@
       padding: 12px 8px;
       display: flex;
       margin-bottom: 5px;
+
+      &:hover {
+        cursor: pointer;
+        background: rgba(34, 38, 123, 1);
+        .big_avatar {
+          background: rgba(34, 38, 123, 1);
+        }
+        .avatar_bottom_introduce {
+          background: rgba(34, 38, 123, 1);
+        }
+      }
 
       .big_avatar {
         margin-right: 10px;
@@ -64,11 +74,13 @@
       }
 
       .avatar_bottom_introduce {
-        p{
+        
+        p {
           font-weight: 500;
           padding-top: 6px;
           width: 124px;
         }
+
         p:first-child {
           font-size: 12px;
         }
@@ -81,13 +93,22 @@
     }
 
     .avatar_upgrade {
+      width: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       background: rgba(38, 42, 136, 1);
+      padding-left: 18px;
       border: 1px solid;
       margin-bottom: 5px;
       border-image: linear-gradient(135deg, rgba(247, 217, 173, 1), rgba(177, 131, 83, 1)) 1 1;
+      &:hover {
+        cursor: pointer;
+        background: rgba(34, 38, 123, 1);
+        .avatar_upgrade_text {
+          background: rgba(34, 38, 123, 1);
+        }
+      }
 
       .avatar_upgrade_img {
         width: 22px;
@@ -103,6 +124,7 @@
     }
 
     .avatar_bottom_Membership {
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -113,6 +135,13 @@
       margin-bottom: 5px;
       border: 1px solid;
       border-image: linear-gradient(135deg, rgba(247, 217, 173, 1), rgba(177, 131, 83, 1)) 1 1;
+      &:hover {
+        cursor: pointer;
+        background: rgba(34, 38, 123, 1);
+        .avatar_bottom_Capacity {
+          background: rgba(34, 38, 123, 1);
+        }
+      }
 
       .avatar_bottom_Capacity {
         padding-top: 26px;
@@ -138,13 +167,49 @@
       }
     }
 
-    .sign_out_box {
-      padding: 5px 0;
+    .my_files_box {
+      width: 100%;
+      padding: 5px 0 5px 18px;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
+      margin-bottom: 5px;
+      font-size: 12px;
 
       &:hover {
         cursor: pointer;
+        background: rgba(34, 38, 123, 1);
+        .my_files {
+          background: rgba(34, 38, 123, 1);
+        }
+      }
+
+      .my_files_img {
+        width: 22px;
+        height: 22px;
+        background: url('../../assets/images/wenjian_icon@2x.png') center/100% no-repeat;
+      }
+
+      .my_files {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 20px;
+        color: #ffffff;
+      }
+    }
+
+    .sign_out_box {
+      padding: 5px 0 5px 18px;
+      display: flex;
+      justify-content: flex-start;
+      font-size: 12px;
+
+      &:hover {
+        cursor: pointer;
+        background: rgba(34, 38, 123, 1);
+        .sign_out {
+          background: rgba(34, 38, 123, 1);
+        }
       }
 
       .sign_out_img {

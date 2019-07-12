@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import './WaterMark.scss'
-import transCode from '@/utils/transCode'
+import httpRequest from '@/utils/httpRequest'
 import api from '@/config/api'
+import tools from '@/utils/tools'
+import transCode from '@/utils/transCode'
 import $ from 'jquery'
 // import classNames from 'classnames'
 
@@ -29,15 +31,23 @@ class WaterMark extends Component {
       img_url: '',//水印图片
       removewater: {width: 40, height: 40, x: 0, y: 0},//去水印图片最终信息
       isSuccess: false,//是否开始视频制作
-      isTransing: false, // 是否开始转码
       progress: 0,//视频进度
       video_url: '',//视频地址
+      percent: {x_p: 0,y_p: 0},//视频/实框比例
     }
   }
 
   componentDidMount() {
     document.onmousemove = this.startMove;
     document.onmouseup = this.overMove;
+
+    const  { screen, videoInfo } = this.props
+    const width = screen.width.substring(screen.width.length - 2,-screen.width.length)
+    const height = screen.height.substring(screen.height.length - 2,-screen.height.length)
+    const percent = {x_p: (videoInfo.width-0)/(width-0),y_p: (videoInfo.height-0)/(height-0)}
+    this.setState({
+      percent
+    })
     // document.addEventListener('onmousemove',this.startMove)
     // document.addEventListener('onmouseup',this.overMove)
   }
@@ -47,6 +57,7 @@ class WaterMark extends Component {
     // document.removeEventListener('onmouseup',this.overMove)
   }
 
+  // 开始点击
   startMove = () => {
     if(this.state.scalepic){
       if(this.state.markpic){
@@ -63,6 +74,7 @@ class WaterMark extends Component {
     }
   }
 
+  // 结束点击
   overMove = () => {
     this.setState({
       markpic: false,
@@ -71,6 +83,7 @@ class WaterMark extends Component {
     })
   }
 
+  // 添加水印
   clickMarkPic = () => {
     const e = window.event
     const x = e.pageX || e.clientX
@@ -82,6 +95,7 @@ class WaterMark extends Component {
     })
   }
 
+  // 添加去水印
   clickRemovePic = () => {
     const e = window.event
     const x = e.pageX || e.clientX
@@ -93,6 +107,7 @@ class WaterMark extends Component {
     })
   }
 
+  // 点击水印，记录坐标
   clickScaleMarkPic = () => {
     const e = window.event
     const x = e.pageX || e.clientX
@@ -105,6 +120,7 @@ class WaterMark extends Component {
     })
   }
 
+  // 点击去水印，记录坐标
   clickScaleRemovePic = () => {
     const e = window.event
     const x = e.pageX || e.clientX
@@ -117,6 +133,7 @@ class WaterMark extends Component {
     })
   }
 
+  // 移动图片
   moveMarkPic = (name) => {
     const e = window.event
     const newX = e.pageX || e.clientX
@@ -198,6 +215,7 @@ class WaterMark extends Component {
   //   })
   // }
 
+  // 缩放图片
   ScalePic = (name) => {
     const e = window.event
     const minSize = {width: 40, height: 40}
@@ -265,6 +283,7 @@ class WaterMark extends Component {
     this.refs.input.click()
   }
 
+  // 获取本地图片地址
   inputChange = (el) => {
     const files = el.target.files;
     let reader = new FileReader()
@@ -278,6 +297,7 @@ class WaterMark extends Component {
     this.getImgUrl(el)
   }
 
+  // 获取图片url
   getImgUrl = (el) => {
     const that = this
     let formData = new FormData()
@@ -301,41 +321,33 @@ class WaterMark extends Component {
     })
   }
 
+  // 添加去水印
   addMarquee = () => {
     this.setState({
       marquee: !this.state.marquee,
     })
   }
 
+  // 重新上传
   reupload = () => {
     this.props.reupload()
   }
 
-  startCovert = (start) => {
-      this.setState({
-        showOutOption: false
-      })
-    this.state.downloadList.push(this.props.file)
-  }
-
-  deleteDownloadRecord (el) {
-    this.props.callBack(el)
-  }
-
+  // 开始转码
   startTransCode (inFileMd5) {
-    const { watermark, removewater, img_url } = this.state
+    const { watermark, removewater, img_url, percent } = this.state
     const waterPic = {
       img_url,
-      width: '' + watermark.width,
-      height: '' + watermark.height,
-      x: '' + watermark.x,
-      y: '' + watermark.y
+      width: '' + Math.round(this.state.upload ? watermark.width * percent.x_p : 0),
+      height: '' + Math.round(this.state.upload ? watermark.height * percent.y_p : 0),
+      x: '' + Math.round(watermark.x * percent.x_p),
+      y: '' + Math.round(watermark.y * percent.y_p)
     }
     const delogo = {
-      left: '' + removewater.x,
-      right: '' + removewater.x + removewater.width,
-      top: '' + removewater.y,
-      bottom: '' + removewater.y + removewater.height
+      left: '' + Math.round(removewater.x * percent.x_p),
+      right: '' + Math.round((removewater.x * percent.x_p) + (this.state.marquee ? (removewater.width * percent.x_p) : 0)),
+      top: '' + Math.round(removewater.y * percent.y_p),
+      bottom: '' + Math.round((removewater.y * percent.y_p) + (this.state.marquee ? (removewater.height * percent.y_p) : 0))
     }
     const transOptions = {
       inFileMd5: inFileMd5.substring(0,32),    // 文件md5
@@ -349,28 +361,33 @@ class WaterMark extends Component {
       transProgress: this.transProgress,    // 转码中 回调
     });
     this.props.isSuccess()
+    this.props.startCovert(0)//转码开始
     this.setState({
-      isTransing: true,
+      // isTransing: true,
       waterMark: false,
       isSuccess: true
     })
   };
 
+  // 转码成功
   transSuccess = (url) => {
-    console.log('transSuccess');
+    this.props.startCovert(100)//转码成功
     this.setState({
       video_url: url || ''
     })
   };
 
+  // 转码失败
   transFail = (msg) => {
     console.log('转码失败:-->', msg);
     this.showToast('Oops!encoding failure...Please try again sometime later!')
-    this.setState({
-      isTransing: false
-    })
+    this.props.startCovert(-2)//转码失败
+    // this.setState({
+    //   isTransing: false
+    // })
   };
 
+  // 转码过程
   transProgress = (msg) => {
     console.log('转码中--》' + msg);
     this.setState({
@@ -378,10 +395,31 @@ class WaterMark extends Component {
     })
   };
 
+  // 下载视频
   downloadVideo = () => {
+    window.gtag && window.gtag('event', 'click', {'event_category': 'download','event_label': 'video'}) //统计下载
     const {video_url} = this.state
+    const type = tools.deviceType()
     if(video_url){
-      window.open('about:blank').location.href=video_url
+      // window.open('about:blank').location.href=video_url
+      let openedWindow = window.open('','_self')
+      httpRequest({
+        type: 'POST',
+        url: api.downloadFile,
+        data: {
+          path: video_url
+        }
+      }).done(res => {
+        if(type === 'iphone'){
+          this.showToast('Sorry, iOS does not support downloading right now. Please open it on PC',video_url)
+        } else {
+          if(res.code === '0'){
+            openedWindow.location.href=res.data
+          }
+        }
+      }).fail(resp => {
+        this.showToast(resp)
+      })
     }
   }
 
@@ -389,15 +427,23 @@ class WaterMark extends Component {
     this.props.callBack()
   }
 
-  convertSuccess = () => {
+  // 渲染转码成功页面
+  convertSuccess = (isTransing) => {
     const {progress} = this.state
-    return <Fragment>
-            <div className="download_list_line">{progress >= 100 ? '' : <div className='progress_bar'><div style={{width: progress+'%'}} className='progress_bar_inner'></div></div>}</div>
-                {progress >= 100 ? <div className="download_list_download" onClick={this.downloadVideo}></div> : <div className="download_list_progress">{progress}%</div>}
-            {progress >= 100 ? <div className="download_list_delete" onClick={this.deleteMe}></div> : ''}
-          </Fragment>
+    if(isTransing === -2){
+      return <Fragment>
+                <div className="download_list_download" onClick={this.deleteMe}></div>
+            </Fragment>
+    } else {
+      return <Fragment>
+              <div className="download_list_line">{isTransing === 100 ? '' : <div className='progress_bar'><div style={{width: progress+'%'}} className='progress_bar_inner'></div></div>}</div>
+                  {isTransing === 100 ? <div className="download_list_download" onClick={this.downloadVideo}></div> : <div className="download_list_progress">{progress}%</div>}
+              {isTransing === 100 ? <div className="download_list_delete" onClick={this.deleteMe}></div> : ''}
+            </Fragment>
+    }
   }
 
+  // 规范化命名
   resizeName = (fileName) => {
     let shortFileName = fileName
     if(fileName.length > 9){
@@ -410,8 +456,9 @@ class WaterMark extends Component {
     this.props.showToast(text)
   }
 
+  // 渲染下载列表
   renderLists = (fileName) => {
-    const { isTransing } = this.state
+    const { isTransing } = this.props.data
     let shortFileName = fileName
     if(fileName.length > 9){
       shortFileName = fileName.substring(0,3)+'…'+fileName.substring(fileName.length-6)
@@ -419,11 +466,12 @@ class WaterMark extends Component {
     return (
       <div className='download_list'>
         <div className='download_list_title'>{shortFileName}</div>
-        {isTransing ? this.convertSuccess() : ''}
+        {isTransing >= 0 ? this.convertSuccess(isTransing) : ''}
       </div>
     )
   }
 
+  // 渲染水印操作UI
   renderWaterMark = (startTransCode) => {
     const { src, screen } = this.props
     const { picUrl, upload, marquee, watermark, removewater } = this.state

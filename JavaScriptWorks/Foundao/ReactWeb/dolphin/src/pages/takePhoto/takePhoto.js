@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import './takePhoto.scss'
 
+
+// 测试页面
+// 测试页面
+// 测试页面
+// 测试页面
+
 class TakePhoto extends Component {
   getMedia = () => {
     let constraints = {

@@ -1,0 +1,101 @@
+.package_menu {
+  width: 200px;
+  float: left;
+  height: calc(100vh - 90px);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  .package_menu_inner {
+    overflow: auto;
+    height: 100%;
+    padding: 30px 0 20px;
+    box-sizing: border-box;
+    .current_menu{
+      width: 160px;
+      margin: 0 auto 30px;
+    }
+  }
+  .menu-vertical{
+    background-color: #F9F9F9;
+  }
+  .el-submenu .el-menu{
+    background-color: #ffffff;
+  }
+  .el-submenu__title{
+    padding-left: 40px;
+  }
+  .el-submenu .el-menu-item{
+    position: relative;
+
+  }
+  .el-menu-item{
+    a{
+      color: #48576a;
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding-left: 78px;
+      box-sizing: border-box;
+    }
+    a:before{
+      content: '';
+      width: 1px;
+      height: 100%;
+      top: 0;
+      left: 60px;
+      position: absolute;
+      background: #E9E9E9;
+    }
+    a.active{
+      color: #3176FD;
+    }
+    a.active:before{
+      content: '';
+      width: 4px;
+      height: 4px;
+      top: 50%;
+      left: 57px;
+      position: absolute;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border: 2px solid #3176FD;
+      background: transparent;
+    }
+    a.first_link{
+      padding-left: 40px;
+    }
+    a.first_link:before{
+      display: none;
+    }
+  }
+
+  .menu_back{
+    width: 100%;
+    height: 60px;
+    color: #3176FD;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    background-color: #F9F9F9;
+    //z-index: 3;
+    .back_icon{
+      width: 22px;
+      height: 22px;
+      background: url('../../../../assets/images/h5/icon_fanhui@2x.png') no-repeat;
+      background-size: contain;
+      margin-right: 6px;
+    }
+  }
+}
