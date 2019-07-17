@@ -25,6 +25,8 @@ class SuccessPay extends Component {
         const payPage = localStorage.getItem('pay_page')
         if(payPage === '/convert'){//判断是否是转码页面支付，是的话就统计支付成功
           window.gtag && window.gtag('event', 'click', {'event_category': 'pay_succeed','event_label': 'video','value': order.price})
+        }else if (payPage === '/converter') {
+          window.gtag && window.gtag('event', 'click', {'event_category': 'transcoding_pay_succeed','event_label': 'transcoding','value': order.price})
         }else if(payPage==='/remove'){
           window.gtag && window.gtag('event', 'click', {'event_category': 'remove_pay_succeed','event_label': 'remove','value': order.price})
         }

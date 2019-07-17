@@ -95,6 +95,11 @@ export default class Upload extends Component {
       const {showStatus, showProgress} = this;
       worker.onmessage = function (message) {
         var jsonobj = message.data;
+        if (jsonobj.data==='CONNECTED') {
+          if (_this.props.readyUpload){
+            _this.props.readyUpload();
+          }
+        }
         if (jsonobj != null && jsonobj["msg"] != null) {
           let {file}= _this.state;
           switch (jsonobj["msg"]) {
@@ -119,6 +124,7 @@ export default class Upload extends Component {
               },()=>{
                 const {g_filemd5} = _this.state;
                 _this.getToken(g_filemd5);
+
               });
               break;
             // 后端进度
@@ -155,6 +161,7 @@ export default class Upload extends Component {
     let { file ,currIndex} = this.state;
     const userInfo = tools.getUserData_storage();
     let api = '';
+    let data={}
     if (this.props.project === 'singleCut') {
       api = _api.getClipUploadToken
     }else if(this.props.project === 'muliSplicing'){
@@ -164,15 +171,27 @@ export default class Upload extends Component {
     } else {
       api = _api.getUploadToken
     }
-    httpRequest({
-      url: api,
-      type: 'post',
-      data: {
+    if (this.props.project==='converter') {
+      data =  {
         token: userInfo.token || '',
         // token: 'a5422c67e4443b5a47833689013270881655cb9ad348',
         file_md5: g_filemd5,
         file_size: file.size,
-      },
+        sid:'4791957956777099050',
+        file_name: file.name||''
+      }
+    }else {
+      data =  {
+        token: userInfo.token || '',
+        file_md5: g_filemd5,
+        file_size: file.size,
+        file_name: file.name||''
+      }
+    }
+    httpRequest({
+      url: api,
+      type: 'post',
+      data: data,
     }).done(resp => {
       if (resp.code === '0') {
         const {up_token} = resp.data;

@@ -133,7 +133,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.loadLocales();
-    this.getTransNum()
+    // this.getTransNum() // 中文版使用
     this.initSwiper()
   }
 

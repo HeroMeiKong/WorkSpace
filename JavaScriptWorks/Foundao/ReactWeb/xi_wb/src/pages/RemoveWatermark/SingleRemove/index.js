@@ -98,7 +98,8 @@ export default class SingleRemove extends Component {
         }
       ],
       showRemoveTips:false,//是否展示操作提示
-      isShow:false
+      isShow:false,
+      canplay:false,//视频是否处于可以播放状态
     };
     this.lineLength= 642; //进度条长度
     this.wrapWidth = 778;//容器宽度
@@ -137,6 +138,22 @@ export default class SingleRemove extends Component {
           showRemoveTips:false
         })
       },5000)
+    }
+   this.videoCanplay();
+  }
+  videoCanplay=()=>{
+    let _this = this;
+    let video = this.refs.video;
+    if (video){
+      video.oncanplaythrough = function() {
+        _this.setState({
+          canplay:true
+        })
+      };
+    }else {
+      setTimeout(function () {
+        this.videoCanplay();
+      },200)
     }
   }
   //初始化轮播
@@ -226,7 +243,8 @@ export default class SingleRemove extends Component {
   }
   //播放视频
   playVideo = () => {
-    const {isPlay, duration} = this.state
+    const {isPlay, duration, canplay} = this.state
+    if (!canplay){messageBox(window.intl.get('视频加载中...'));return}
     const video = this.refs.video;
     let _this = this;
     this.setState({
@@ -797,11 +815,14 @@ export default class SingleRemove extends Component {
           videoInfo[currIndex].dealUrl=res
           this.setState({
             handdleStatus:3,
+            canplay:false,
             videoInfo,
             singleDownUrl:res,
             hasClip:false,
             isShow:true,
             showGrade:true
+          },()=>{
+            this.videoCanplay();
           })
           if (!isVip){
             Tool.getTimes()
@@ -1069,7 +1090,7 @@ export default class SingleRemove extends Component {
     const {isPlay,cur_time ,currIndex ,videoInfo,clipStyle ,hasClip ,isdarlog ,uploadState,
       uploadProgress , handdleStatus ,singleTransProgress ,isVip ,comformDialog ,comformMsg,
       uploadMuliTips,upmuliMsg ,isAutoDownload ,isMuliRemove ,muliSuccessCount ,cardList ,showCard,
-      showRemoveTips,isShow,showGrade
+      showRemoveTips,isShow,showGrade,canplay
     } = this.state
     // console.log(videoInfo)
     return (
@@ -1087,6 +1108,9 @@ export default class SingleRemove extends Component {
                 </div>
                 :""
               }
+              {!canplay ?
+                <div className='canpaly'></div>
+                :""}
               <video controls={false} src={videoInfo[currIndex].dealUrl||videoInfo[currIndex].url||''} ref="video"></video>
               <div className='clip-box-out'
                    style={this.clipStyle(1)}

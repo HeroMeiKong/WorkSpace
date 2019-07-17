@@ -1,0 +1,149 @@
+.cutList-box{
+  padding: 35px 0 0;
+  background-color: #F8F9FA;
+  min-width: 1280px;
+  box-sizing: border-box;
+  ul{
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 0;
+    li.sc-item{
+      display: inline-block;
+      vertical-align: top;
+      width: 25%;
+      box-sizing: border-box;
+      margin-bottom: 35px;
+      .list-image{
+        margin-top: -5px;
+        background-size: auto 40px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      &:nth-of-type(1) .list-image{
+        background-image: url(../../assets/images/icon_cut.png);
+      }
+      &:nth-of-type(2) .list-image{
+        background-image: url(../../assets/images/icon_size.png);
+      }
+      &:nth-of-type(3) .list-image{
+        background-image: url(../../assets/images/icon_rotate.png);
+      }
+      &:nth-of-type(4) .list-image{
+        background-image: url(../../assets/images/icon_turn.png);
+      }
+      &:nth-of-type(5) .list-image{
+        background-image: url(../../assets/images/icon_more.png);
+      }
+      &:nth-of-type(6) .list-image{
+        background-image: url(../../assets/images/icon_drag.png);
+      }
+      &:nth-of-type(7) .list-image{
+        background-image: url(../../assets/images/icon_online.png);
+      }
+      &:nth-of-type(8) .list-image{
+        background-image: url(../../assets/images/icon_safety.png);
+      }
+
+      .list-image{
+        width: 40px;
+        height: 40px;
+        float: left;
+      }
+      .list-info{
+        padding-left: 56px;
+      }
+      h2{
+        font-size: 14px;
+        font-weight: bold;
+        color: #272727;
+        margin-bottom: 10px;
+      }
+      p{
+        font-size: 12px;
+        color: #666666;
+        box-sizing: border-box;
+        padding-right: 10%;
+        line-height: 1.5;
+      }
+    }
+    li.muliSpelicing{
+      display: inline-block;
+      vertical-align: top;
+      width: 25%;
+      box-sizing: border-box;
+      margin-bottom: 35px;
+      .list-image{
+        margin-top: -5px;
+        background-size: auto 40px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      &:nth-of-type(1) .list-image{
+        background-image: url(../../assets/images/icon_die.png);
+      }
+      &:nth-of-type(2) .list-image{
+        background-image: url(../../assets/images/icon_format.png);
+      }
+      &:nth-of-type(3) .list-image{
+        background-image: url(../../assets/images/icon_effect.png);
+      }
+      &:nth-of-type(4) .list-image{
+        background-image: url(../../assets/images/icon_order.png);
+      }
+      &:nth-of-type(5) .list-image{
+        background-image: url(../../assets/images/icon_more.png);
+      }
+      &:nth-of-type(6) .list-image{
+        background-image: url(../../assets/images/icon_ss.png);
+      }
+      &:nth-of-type(7) .list-image{
+        background-image: url(../../assets/images/icon_online.png);
+      }
+      &:nth-of-type(8) .list-image{
+        background-image: url(../../assets/images/icon_safety.png);
+      }
+
+      .list-image{
+        width: 40px;
+        height: 40px;
+        float: left;
+      }
+      .list-info{
+        padding-left: 56px;
+      }
+      h2{
+        font-size: 14px;
+        font-weight: bold;
+        color: #272727;
+        margin-bottom: 10px;
+      }
+      p{
+        font-size: 12px;
+        color: #666666;
+        box-sizing: border-box;
+        padding-right: 10%;
+        line-height: 1.5;
+      }
+    }
+  }
+}
+@media (max-width: 1440px) {
+  .cutList-box{
+    padding: 20px 0 22px;
+    ul{
+      li{
+        margin-bottom: 26px;
+        .list-info{
+          padding-left: 50px;
+        }
+        h2{
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+        p{
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

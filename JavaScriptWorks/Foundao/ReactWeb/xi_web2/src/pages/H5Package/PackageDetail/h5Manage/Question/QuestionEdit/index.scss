@@ -1,0 +1,55 @@
+.question_edit {
+  margin-bottom: 20px;
+  .qname_block{
+    padding: 10px 0 20px;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 20px;
+  }
+  .diy_input {
+    .el-form-item {
+      width: 350px;
+      float: left;
+
+    }
+    .el-button {
+      margin: 6px 0 0 20px;
+    }
+  }
+  .right_checkbox{
+    width: 80px;
+    float: left;
+    height: 36px;
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+  }
+  .questionList{
+    margin-bottom: 20px;
+    .question_item{
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 40px;
+      border-bottom: 1px dashed #eeeeee;
+      .item_operate{
+        position: absolute;
+        top: 0;
+        right: 20px;
+      }
+    }
+    .form_item{
+      margin-bottom: 15px;
+    }
+    .item_label{
+      width: 120px;
+    }
+    .item_value{
+      margin: 0 110px 0 130px;
+      .right_checkbox{
+        float: inherit;
+        display: inline-block;
+        margin-left: 30px;
+      }
+    }
+  }
+}

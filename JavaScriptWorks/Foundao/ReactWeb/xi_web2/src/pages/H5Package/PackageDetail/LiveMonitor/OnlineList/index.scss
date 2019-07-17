@@ -1,0 +1,56 @@
+.online_wrapper{
+
+  .current_online{
+    height: 40px;
+    background-color: #F8FBFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333333;
+    .icon_person{
+      width: 22px;
+      height: 22px;
+      background: url('../../../../../assets/images/h5/icon_user.png') no-repeat;
+      background-size: contain;
+    }
+    i{
+      color: #3176FD;
+      font-weight: bold;
+      padding: 0 2px;
+    }
+  }
+  .online_list{
+    padding: 0 20px 20px 20px;
+    height: 480px;
+    overflow: auto;
+    box-sizing: border-box;
+  }
+  .online_item{
+    padding: 16px 0;
+    border-bottom: 1px solid #E8E8E8;
+    .online_operate{
+      height: 30px;
+      line-height: 30px;
+      float: right;
+    }
+    .user_info{
+      height: 30px;
+      .user_avatar{
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        border-radius: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        float: left;
+        background-color: #f7f7f7;
+      }
+      .user_name{
+        font-size: 16px;
+        color: rgba(0,0,0,0.85);
+        line-height: 30px;
+        margin-left: 40px;
+      }
+    }
+  }
+}

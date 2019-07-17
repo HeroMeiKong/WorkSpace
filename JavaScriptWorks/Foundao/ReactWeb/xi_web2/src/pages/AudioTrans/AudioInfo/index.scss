@@ -1,0 +1,68 @@
+.audioInfo{
+  .section-box{
+    position: relative;
+    height:664px;
+    .zs{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 80px;
+      z-index: 9;
+      overflow: hidden;
+      &::after{
+        position: absolute;
+        content: '';
+        height: 80px;
+        width: 102%;
+        top: 45px;
+        left: 0px;
+      }
+    }
+  }
+  .section-one{
+    background:white;
+    .section-one-zs{
+      &::after{
+        transform: rotate(2deg);
+        background-color: #F7FBFF;
+      }
+    }
+  }
+  .section-snd{
+    background-color: #F7FBFF;
+    .section-snd-zs{
+      &::after{
+        transform: rotate(-2deg);
+        background-color: white;
+      }
+    }
+  }
+  .section-third{
+    height: 584px;
+  }
+  .section-bottom{
+    height:574px;
+    position: relative;
+    background:linear-gradient(130deg,rgba(35,115,200,1) 0%,rgba(10,87,168,1) 100%);
+    .section-bottom-zs{
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 80px;
+      z-index: 9;
+      overflow: hidden;
+      &::after{
+        position: absolute;
+        content: '';
+        height: 80px;
+        transform: rotate(-178deg);
+        background-color: #fff;
+        width: 102%;
+        top: -41px;
+        left: 0px;
+      }
+    }
+  }
+}

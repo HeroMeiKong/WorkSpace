@@ -19,11 +19,12 @@ import tools from '../../utils/tool'
 import splice_icon from '../../assets/images/pinjie_icon@2x.png'
 import trans_icon from '../../assets/pop_icon_Transcoding@2x.png'
 import removeIcom from '../../assets/removewatermark/qushuiyin.png'
-import $ from "jquery";
+// import $ from "jquery";
 import intl from 'react-intl-universal';
 import locales from './../../locales/index';
 import CONST from './../../config/const';
 
+const $  = window.jQuery;
 /* eslint-disable */
 
 @connect(
@@ -48,25 +49,25 @@ class Header extends Component {
       project_list: [
         {
           icon: clip_icon,
-          value: '单段剪辑',
+          value: '单段剪辑1',
           url: '/trim',
           onlineRoute: '//trim.enjoycut.com',
         },
         {
           icon: trans_icon,
-          value: '在线转码',
+          value: '在线转码5',
           url: '/convert',
           onlineRoute: '//convert.enjoycut.com',
         },
         {
           icon: water_icon,
-          value: '在线水印',
+          value: '在线水印6',
           url: '/watermark',
           onlineRoute: '//watermark.enjoycut.com',
         },
         {
           icon: splice_icon,
-          value: '多段拼接2',
+          value: '多段拼接3',
           url: '/merge',
           onlineRoute: '//merge.enjoycut.com',
         },
@@ -97,7 +98,7 @@ class Header extends Component {
     else {
       this.setState({isMuliSplice: false,});
     }
-    if (hrefs.indexOf('convert') !== -1 || hrefs.indexOf('/pay') !== -1) {
+    if ((hrefs.indexOf('convert') !== -1)|| hrefs.indexOf('/pay') !== -1||hrefs.indexOf('pay/ct')!==-1) {
       this.setState({isTrans: true,});
     }
     else {
@@ -149,11 +150,15 @@ class Header extends Component {
 
   // pv统计
   handel_pv = () => {
+    let hrefs = window.location.href;
     let api_url = API.pv_tj;
     if (this.check_is_h5package()) { // h5直播包装统计
       api_url = API.pv_tj_h5package;
     }
-    const script_dom = '<script id="tj_id" src="' + api_url + '" type="text/javascript"></script>';
+    if (hrefs.indexOf('converter')!==-1){ //在线转码
+      api_url = API.convertPv_tj;
+    }
+    const script_dom = '<script async id="tj_id" src="' + api_url + '" type="text/javascript"></script>';
     const tj_id = $('#tj_id');
     if (tj_id) {
       tj_id.remove()
@@ -179,7 +184,7 @@ class Header extends Component {
     else {
       this.setState({isMuliSplice: false,});
     }
-    if (hrefs.indexOf('convert') !== -1 || hrefs.indexOf('/pay') !== -1) {
+    if (hrefs.indexOf('convert') !== -1 || hrefs.indexOf('/pay') !== -1||hrefs.indexOf('pay/ct')!==-1) {
       this.setState({isTrans: true,});
     }
     else {
@@ -230,7 +235,7 @@ class Header extends Component {
       return
     }
     let hrefs = window.location.href;
-    if (hrefs.indexOf('convert') !== -1 || window.location.pathname === '/pay') {
+    if (hrefs.indexOf('convert') !== -1 || window.location.pathname === '/pay'||hrefs.indexOf('pay/ct')!==-1) {
     } else {
       return
     }
@@ -492,6 +497,10 @@ class Header extends Component {
     if (isMuliSplice) {
       window.open('/mulipay/muli')
     } else {
+      let href = window.location.href;
+      if (href.indexOf('converter')!==-1){
+        window.open('/pay/c2')
+      }
       window.open('/pay')
     }
   }
@@ -533,7 +542,13 @@ class Header extends Component {
       isMuliSplice, isTrans, isWatermark, isWatermarkVip, watermarkDay,
       isRemovePage, removeVip, isRemoveVip
     } = this.state;
-    var is_ZH = language === CONST.LANGUAGE.ZH ? true : false
+    var is_ZH = language === CONST.LANGUAGE.ZH ? true : false;
+    let hrefs = window.location.href;
+    let isct = false;//判断是否是 converter
+    if (hrefs.indexOf('converter')!==-1||hrefs.indexOf('pay/ct')!==-1){
+      isct = true
+    }
+    let page = sessionStorage.getItem('page');
     return (
       <div className='header-box limit-box clear-float'>
         <div className='logo-box'>
@@ -566,7 +581,11 @@ class Header extends Component {
                   {/*<div>{intl.get("账户设置")}</div>*/}
                   {/*</li>*/}
                   <li className="xiala_detail vip">
-                    <Link to='/pay' target='_blank'/>
+                    {isct ?
+                      <Link to='/pay/ct' target='_blank'/>
+                      :
+                      <Link to='/pay' target='_blank'/>
+                    }
                     <div className="xiala_detail_icon"></div>
                     <div>{intl.get("升级VIP")}</div>
                   </li>
@@ -651,6 +670,9 @@ class Header extends Component {
               <div className="header-projects" style={!is_ZH ? {width: '220px'} : {}}>
                 <ul className='snd-nav'>
                   {project_list.map((item, index) => {
+                    if (item.url==='/convert'&&page==='converter') {
+                      item.url='/converter'
+                    }
                     return <li className="snd-detail"
                                key={index}>
                       <Link to={item.url||''} target='_blank'>{intl.get(item.value)}</Link>

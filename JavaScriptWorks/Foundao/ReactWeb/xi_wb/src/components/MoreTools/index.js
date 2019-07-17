@@ -18,7 +18,7 @@ export default class MoreTools extends Component{
       tools : [
         {
           type : 'singleCut',
-          name : window.intl.get('单段剪辑'),
+          name : window.intl.get('单段剪辑1'),
           content : window.intl.get('轻松快速地完成剪辑和剪切视频到任意长度'),
           route : '/trim',
           onlineRoute : '//trim.enjoycut.com',
@@ -27,7 +27,7 @@ export default class MoreTools extends Component{
         },
         {
           type : 'trans',
-          name : window.intl.get('在线转码'),
+          name : window.intl.get('在线转码5'),
           content : window.intl.get('支持在线将任意格式的视频转换为MP4格式'),
           route : '/convert',
           onlineRoute : '//convert.enjoycut.com',
@@ -36,7 +36,7 @@ export default class MoreTools extends Component{
         },
         {
           type : 'muliSplicing',
-          name : window.intl.get('多段拼接'),
+          name : window.intl.get('多段拼接3'),
           content : window.intl.get('多个视频进行拼接，可加视频专场特效'),
           route : '/merge',
           onlineRoute : '//merge.enjoycut.com',
@@ -45,7 +45,7 @@ export default class MoreTools extends Component{
         },
         {
           type : 'watermark',
-          name : window.intl.get('添加水印'),
+          name : window.intl.get('在线水印6'),
           content : window.intl.get('在线为您的视频添加个性化水印'),
           route : '/watermark',
           onlineRoute : '//watermark.enjoycut.com',

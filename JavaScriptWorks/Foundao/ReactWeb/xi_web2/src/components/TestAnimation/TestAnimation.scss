@@ -1,0 +1,80 @@
+@keyframes growfather {
+  0% {
+    z-index: -1;
+    justify-content: flex-start;
+  }
+
+  50% {
+    z-index: 1;
+    justify-content: flex-start;
+  }
+
+  51% {
+    z-index: 1;
+    justify-content: flex-end;
+  }
+
+  100% {
+    z-index: -1;
+    justify-content: flex-end;
+  }
+}
+
+@keyframes grow {
+  0% {
+    width: 0px;
+    z-index: 1;
+  }
+
+  50% {
+    width: 100%;
+    z-index: 1;
+  }
+
+  100% {
+    width: 0px;
+    z-index: -1;
+  }
+}
+.aaa{
+  background-color: yellow;
+}
+
+#ddd {
+  width: 400px;
+  height: 28px;
+  display: flex;
+  // align-items: center;
+  background-color: transparent;
+  position: relative;
+  animation: growfather 4s ease-in-out;
+  border-radius: 14px;
+  z-index: -1;
+  box-sizing: border-box;
+  div{
+    box-sizing: border-box;
+  }
+
+  .dwrapper {
+    animation: grow 4s ease-in-out;
+    height: 100%;
+    overflow: hidden;
+    color: white;
+    border-radius: 14px;
+    z-index: -1;
+
+    .dinnder {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-radius: 14px;
+      border: 1px solid rgba(151,151,151,1);
+      height: 100%;
+      width: 100%;
+      white-space : nowrap;
+      background-color: rgba(0,0,0,.6);
+      position: absolute;
+      left: 0;
+    }
+  }
+}

@@ -72,7 +72,6 @@ class Home_en extends Component {
   }
 
   componentWillMount() {
-
   }
 
   componentDidMount() {
@@ -81,7 +80,7 @@ class Home_en extends Component {
 
   render() {
     const {productList,toolsList} = this.state ;
-
+    let page = sessionStorage.getItem('page');
     return (
       <div className='home-page-en'>
         <div className='left-box'>
@@ -94,6 +93,9 @@ class Home_en extends Component {
             <ul>
               {
                 productList.map(item=>{
+                  if (item.link==='/convert'&&page==='converter') {
+                    item.link='/converter'
+                  }
                   return <li className='product-item' key={item.title}>
                     <img className='item-pic' src={item.pic} alt={item.title}/>
                     <h3 className='item-name'>{item.title}</h3>

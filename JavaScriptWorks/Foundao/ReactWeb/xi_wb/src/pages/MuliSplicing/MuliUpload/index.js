@@ -365,6 +365,7 @@ class MuliUpload extends Component {
     const { dataList , readyList ,isvip , uploadStatusList ,showUp,count ,alertDialog,alertMsg,
       showTips,comfirmDialog,comfirmMsg
     } = this.state;
+    console.log(readyList)
     return (
       <div className='muliUpload-box'>
         <div className='muliupload-inner'>

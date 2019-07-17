@@ -18,7 +18,7 @@ class MessageForAdmin extends Component {
     this.getMasterNote()
   }
   
-  //或者最新一篇站长笔记
+  //获取最新一篇站长笔记
   getMasterNote = () => {
     httpRequest({
       url: _api.masternote,
@@ -41,7 +41,7 @@ class MessageForAdmin extends Component {
     window.open('/messageBoard/masterNote')
   }
 
-  //最新时间提示
+  //设置时间提示样式
   resetTime = (add_time,server_time) => {
     let value = server_time - add_time
     if(value < 60){
@@ -59,7 +59,7 @@ class MessageForAdmin extends Component {
     }
   }
 
-  //改变时间样式
+  //另一种时间样式
   changeTime = (millinSeconds) => {
     let date = new Date(millinSeconds*1000)
     const year = date.getFullYear()

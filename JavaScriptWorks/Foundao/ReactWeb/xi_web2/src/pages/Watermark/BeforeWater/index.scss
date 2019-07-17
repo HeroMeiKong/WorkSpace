@@ -1,0 +1,154 @@
+.wartermark_content {
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+
+  .wartermark_left {
+    .left_miaoshu {
+      background-image: url("../../../assets/watermark/miaoshu_image@3x.png");
+      background-size: 100% 100%;
+      width: 400px;
+      height: 210px;
+    }
+
+    .left_miaoshu_isForeign {
+      background-image: url("../../../assets/watermark/miaoshu_icon.png");
+      background-size: 100% 100%;
+      width: 400px;
+      height: 230px;
+    }
+
+    .goVip_btn {
+      margin-top: 75px;
+      width:250px;
+      height:41px;
+      background:rgba(255,255,255,1);
+      box-shadow:0px 13px 11px 0px rgba(255,84,82,1);
+      border-radius:7px;
+      line-height: 41px;
+      padding-left: 20px;
+      box-sizing: border-box;
+      font-size:19px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      color:rgba(255,73,94,1);
+      cursor: pointer;
+      position: relative;
+
+      &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        background-image: url("../../../assets/watermark/enter@2x.png");
+        background-size: cover;
+        width: 9px;
+        height: 16px;
+        right: 20px;
+        top: 13px;
+      }
+    }
+  }
+
+  .warter_uploadBox {
+    width: 560px;
+    height: 410px;
+    background-image: url("../../../assets/watermark/bg@2x.png");
+    background-size: cover;
+    box-shadow: 0 0 23px 0 rgba(224, 162, 168, 0.34);
+    position: relative;
+    margin-left: 105px;
+
+    .water_boforeBox {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding-top: 146px;
+      box-sizing: border-box;
+
+      &:hover {
+        .water_beforeIcon {
+          background-image: url("../../../assets/watermark/tianjia_hover_icon@2x.png");
+        }
+      }
+
+      .water_beforeIcon {
+        margin: -5px auto 0;
+        background-image: url("../../../assets/watermark/tianjia_icon@2x.png");
+        background-size: cover;
+        width: 82px;
+        height: 84px;
+      }
+
+      .water_beforeTip {
+        font-size:16px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+        // line-height:26px;
+        text-align: center;
+      }
+    }
+
+    .uploadingBox {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding-top: 139px;
+      box-sizing: border-box;
+
+      .uploading_percent {
+        font-size:14px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(39,39,39,1);
+        line-height:20px;
+        text-align: center;
+      }
+
+      .uploading_perline {
+        margin: 19px auto 62px;
+        width:510px;
+        height:6px;
+        background:rgba(239,239,239,1);
+        box-shadow:0px 1px 3px 0px rgba(172,172,172,0.5);
+        border-radius:3px;
+        position: relative;
+
+        .uploading_perlineing {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          background:rgba(255,73,94,1);
+          border-radius:3px;
+        }
+      }
+
+      .uploading_cancelBtn {
+        cursor: pointer;
+        width:80px;
+        height:34px;
+        border-radius:3px;
+        border:1px solid rgba(255,184,180,1);
+        margin: 0 auto;
+        font-size:14px;
+        font-family:PingFangSC-Medium;
+        font-weight:500;
+        color:rgba(255,170,174,1);
+        line-height:34px;
+        text-align: center;
+
+        &:hover {
+          border:1px solid rgba(255,126,134,1);
+          color:rgba(255,126,134,1);
+        }
+      }
+    }
+  }
+}

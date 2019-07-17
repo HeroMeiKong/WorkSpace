@@ -1,0 +1,25 @@
+.audioBefore{
+  height:382px;
+  background:linear-gradient(90deg,rgba(35,115,200,1) 0%,rgba(10,87,168,1) 100%);
+  position: relative;
+
+  .bottom-zs{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 80px;
+    z-index: 9;
+    overflow: hidden;
+    &::after{
+      position: absolute;
+      content: '';
+      background-color: white;
+      height: 80px;
+      width: 102%;
+      transform: rotate(-2deg);
+      top: 45px;
+      left: 1px;
+    }
+  }
+}

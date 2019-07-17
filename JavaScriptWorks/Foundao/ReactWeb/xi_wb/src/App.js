@@ -18,9 +18,11 @@ import 'element-theme-default';
 import Main from "./pages/main";
 // import fault from "./pages/404/404";
 import tool from "@/utils/tool";
-import $ from "jquery";
+// import $ from "jquery";
 import intl from 'react-intl-universal';
 import locales from './locales/index';
+
+const $  = window.jQuery;
 
 // import {_environment} from '@/API/baseConfig.js'
 const User = loadable(() => import('./pages/User/user'));

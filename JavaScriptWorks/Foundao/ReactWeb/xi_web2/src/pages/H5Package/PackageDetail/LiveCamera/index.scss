@@ -1,0 +1,80 @@
+.live_camera{
+
+  h4{
+    color: rgba(0,0,0,0.85);
+    font-size: 16px;
+    //font-weight: 500;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  .top_block{
+    position: relative;
+    .monitor_box_wrapper{
+      width: 400px;
+      //float: right;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+      .monitor_box{
+        height: 225px;
+        background-color: #000000;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+    }
+    .diy_input{
+
+      .el-form-item{
+        width: 500px;
+        float: left;
+        margin-right: 10px;
+      }
+    }
+    .default_camera{
+
+      .img_cover{
+        width: 140px;
+        height: 80px;
+        border: 1px dashed #f7f7f7;
+        border-radius: 4px;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    .extra{
+      height: 36px;
+      display: flex;
+      align-items: flex-end;
+      color: #CCCCCC;
+      font-size: 12px;
+      .btn_obs{
+        margin-right: 10px;
+      }
+    }
+    .diy_wrapper{
+      width: 500px;
+    }
+  }
+  .content_block{
+    margin-bottom: 40px;
+  }
+
+  .pre_wrapper{
+    position: relative;
+  }
+  .item_operate{
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+  .camera_item{
+    position: relative;
+    border-bottom: 1px solid #f7f7f7;
+    margin-bottom: 20px;
+  }
+}

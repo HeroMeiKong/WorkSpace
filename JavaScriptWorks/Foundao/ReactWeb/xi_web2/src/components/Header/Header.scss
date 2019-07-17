@@ -1,0 +1,434 @@
+.header-box::after {
+  content: '';
+  width: 100%;
+  height: 3px;
+  clear: both;
+  display: block;
+  background: linear-gradient(90deg, rgba(48, 35, 174, 1) 0%, rgba(83, 160, 253, 1) 48%, rgba(236, 81, 81, 1) 100%);
+  -webkit-animation: hue 6s infinite linear;
+  position: absolute;
+  bottom: 0;
+}
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+
+.header-box {
+  //min-width: 1280px;
+  box-sizing: border-box;
+  height: 50px;
+  position: relative;
+
+  .logo-box {
+    //float: left;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    //margin-top: 10px;
+    margin-left: 30px;
+
+    img {
+      width: 100px;
+      height: 31px;
+      cursor: pointer;
+    }
+  }
+
+  .header-nav {
+    float: right;
+    font-size: 15px;
+
+    a {
+      display: block;
+      color: #272727;
+      text-decoration: none;
+    }
+
+    > ul {
+      > li {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        line-height: 50px;
+        font-size: 16px;
+        margin-right: 40px;
+        font-family: PingFangSC-Regular;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 54px;
+          height: 2px;
+          width: 0;
+          left: 50%;
+          background-color: #FF3A6D;
+          -webkit-transition: all .3s;
+          -moz-transition: all .3s;
+          -ms-transition: all .3s;
+          -o-transition: all .3s;
+          transition: all .3s;
+        }
+
+        &:hover {
+          &:after {
+            width: 100%;
+            left: 0;
+          }
+        }
+      }
+
+      .project-nav {
+        margin-right: 58px;
+
+        .project_head {
+          padding-right: 20px;
+          box-sizing: border-box;
+          background: url(../../assets/images/nav_icon.png) no-repeat right 23px / 8px 8px;
+          cursor: pointer;
+        }
+      }
+      .project-nav:hover {
+
+        .project_head {
+          color: #000;
+          opacity: .5;
+        }
+        .header-projects {
+          display: block;
+        }
+      }
+    }
+
+    .header-projects {
+      display: none;
+      position: absolute;
+      width: 139px;
+      background: #FFFFFF;
+      left: -67px;
+      top: 47px;
+      z-index: 9999;
+      box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.15);
+
+      //.projects-bg {
+      //  position: absolute;
+      //  top: 0;
+      //  right: 0;
+      //  bottom: 0;
+      //  left: 0;
+      //  background: rgba(0,0,0,.2);
+      //  filter: blur(16px);
+      //}
+
+      .snd-nav::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -8px;
+        right: 10px;
+        background-image: url("../../assets/jiantou_top.png");
+        background-size: 100% 100%;
+        width: 18px;
+        height: 10px;
+      }
+      .snd-nav {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: #FFFFFF;
+        border-radius: 4%;
+
+        .snd-detail:hover {
+          .snd-detail-name {
+            color: #FF4363;
+          }
+        }
+
+        .snd-detail {
+          width: 100%;
+          height: 41px;
+          line-height: 41px;
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid #F7F7F7;
+          padding: 0 22px;
+          box-sizing: border-box;
+          position: relative;
+          a{
+            position: absolute;
+            font-size: 0;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+          }
+          img {
+            width: 23px;
+            height: 23px;
+            margin-right: 11px;
+          }
+
+          .snd-detail-name {
+            cursor: pointer;
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(39, 39, 39, 1);
+            line-height: 32px;
+          }
+
+          .snd-not-name {
+            cursor: not-allowed;
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: gray;
+            line-height: 32px;
+          }
+        }
+
+        //li {
+        //  border-bottom: 1px solid #f2f2f2;
+        //  padding: 10px 5px;
+        //  position: relative;
+        //
+        //  &::before {
+        //    content: '';
+        //    position: absolute;
+        //    transition: all .4s;
+        //    top: 0;
+        //    left: 0;
+        //    height: 1px;
+        //    background-color: #FF495E;
+        //    width: 0;
+        //  }
+        //
+        //  &::after {
+        //    content: '';
+        //    position: absolute;
+        //    bottom: 0;
+        //    transition: all .4s;
+        //    right: 0;
+        //    height: 1px;
+        //    background-color: #FF495E;
+        //    width: 0;
+        //  }
+        //
+        //  &:hover {
+        //    &:before {
+        //      width: 100%;
+        //    }
+        //
+        //    &:after {
+        //      width: 100%;
+        //    }
+        //
+        //    a {
+        //      color: #FF495E;
+        //
+        //      &:before {
+        //        top: 10px;
+        //        left: 15px;
+        //        background-color: rgba(222, 222, 222, .7);
+        //        bottom: 10px;
+        //        right: 15px;
+        //
+        //      }
+        //    }
+        //  }
+        //
+        //  a {
+        //    padding-left: 15px;
+        //    transition: all .4s;
+        //
+        //    span {
+        //      position: relative;
+        //      z-index: 1;
+        //    }
+        //
+        //    &::before {
+        //      position: absolute;
+        //      content: '';
+        //      top: 0;
+        //      left: 0;
+        //      right: 0;
+        //      bottom: 0;
+        //      background-color: rgba(222, 222, 222, 0);
+        //      z-index: 0;
+        //      transition: all .4s;
+        //    }
+        //  }
+        //}
+      }
+
+    }
+  }
+
+  .user-box {
+    float: right;
+    padding-right: 40px;
+    box-sizing: border-box;
+
+    ul {
+      display: inline-block;
+      vertical-align: top;
+
+      li {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 20px;
+        vertical-align: top;
+        line-height: 35px;
+        margin-top: 8px;
+        color: #272727;
+        font-size: 15px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+
+        //&.register-btn {
+        //  color: #FF495E;
+        //}
+      }
+    }
+  }
+
+  .user-Image {
+    float: right;
+    width: 222px;
+    height: 100%;
+    background: #F7F7F7;
+    display: flex;
+    align-items: center;
+    padding: 0 53px;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    .user_headBg {
+      background-image: url("../../assets/tuoyuan_bg.png");
+      background-size: 100% 100%;
+      width: 30px;
+      height: 30px;
+
+      .user_headImg {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        margin: 2px auto;
+      }
+    }
+
+    .user_nickName {
+      margin: 0 11px;
+      width: 45px;
+      height: 21px;
+      font-size: 15px;
+      font-family: "PingFang SC";
+      font-weight: 400;
+      color: rgba(39, 39, 39, 1);
+      line-height: 21px;
+      white-space: nowrap; // 保证文本内容不会自动换行，如果多余的内容会在水平方向撑破单元格。
+
+      overflow: hidden; // 隐藏超出单元格的部分。
+
+      text-overflow: ellipsis; //将被隐藏的那部分用省略号代替。
+    }
+
+    .user_img_xiala {
+      background-image: url("../../assets/xiala_xia_icon@1x.png");
+      background-size: 100% 100%;
+      width: 7px;
+      height: 5px;
+    }
+
+    .xiala_box::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -8px;
+      right: 75px;
+      background-image: url("../../assets/jiantou_top.png");
+      background-size: 100% 100%;
+      width: 18px;
+      height: 10px;
+    }
+
+    .xiala_box {
+      display: none;
+      position: absolute;
+      top: 47px;
+      right: 9px;
+      width: 173px;
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      padding-left: 21px;
+      box-sizing: border-box;
+      z-index: 9999;
+      .xiala_detail:hover {
+        color: #F44B53;
+      }
+      .xiala_detail {
+        width: 100%;
+        height: 38px;
+        border-bottom: 1px solid #F7F7F7;
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        font-size: 14px;
+        font-family: "PingFang SC";
+        font-weight: 400;
+        color: rgba(102, 102, 102, 1);
+        line-height: 38px;
+        position: relative;
+        a{
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          z-index: 2;
+        }
+        .xiala_detail_icon {
+          width: 17px;
+          height: 17px;
+          background-size: 100% 100%;
+          margin-right: 11px;
+        }
+      }
+      .xiala_detail.time .xiala_detail_icon {
+        background-image: url("../../assets/shijian_icon@2x.png");
+      }
+      .xiala_detail.setting .xiala_detail_icon {
+        background-image: url("../../assets/sheji_icon@2x.png");
+      }
+      .xiala_detail.vip .xiala_detail_icon {
+        background-image: url("../../assets/vip_icon@2x.png");
+      }
+      .xiala_detail.login-out .xiala_detail_icon {
+        background-image: url("../../assets/tuichu_cion@2x.png");
+      }
+      .muliVip .xiala_detail_icon {
+        background-image: url("../../assets/vip_icon@2x.png") !important;
+      }
+    }
+  }
+
+  .user-Image:hover {
+
+    .user_img_xiala {
+      background-image: url("../../assets/xiala_shang_icon@1x.png");
+    }
+
+    .xiala_box {
+      display: block;
+      cursor: pointer;
+    }
+  }
+}
+

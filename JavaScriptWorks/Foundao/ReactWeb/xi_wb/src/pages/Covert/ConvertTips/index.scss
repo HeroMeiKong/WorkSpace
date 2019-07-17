@@ -1,0 +1,86 @@
+.convert-Tips{
+  background:rgba(248,249,250,1);
+  .tipsInner{
+    width: 1280px;
+    margin: 0 auto;
+    ul{
+      height:241px;
+      box-sizing: border-box;
+      padding: 70px 90px 0;
+      li{
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 70px;
+        width: 320px;
+        &:nth-last-of-type(1){
+          margin-right: 0;
+        }
+        .tipsIcon{
+          width: 28px;
+          height: 28px;
+          margin: 0 auto 5px;
+        }
+        h3{
+         text-align: center;
+          font-size:18px;
+          font-family:PingFangSC-Medium;
+          font-weight:500;
+          color:rgba(102,102,102,1);
+          line-height:25px;
+          margin-bottom: 5px;
+        }
+        p{
+          text-align: center;
+          font-size:14px;
+          font-family:PingFangSC-Regular;
+          font-weight:400;
+          color:rgba(102,102,102,1);
+          line-height:20px;
+        }
+        &:nth-of-type(1){
+          .tipsIcon{
+            background: url(../../../assets/Convent/zhuanhuan.png) no-repeat center / contain;
+          }
+        }
+        &:nth-of-type(2) {
+          .tipsIcon {
+            background: url(../../../assets/Convent/anquan_icon.png) no-repeat center / contain;
+          }
+        }
+        &:nth-of-type(3) {
+          .tipsIcon {
+            background: url(../../../assets/Convent/keji_icon.png) no-repeat center / contain;
+          }
+        }
+      }
+    }
+    .uptips{
+      padding: 45px 0 25px;
+      p{
+        width:835px;
+        margin: 0 auto;
+        text-align: center;
+        font-size:30px;
+        font-family:PingFangSC-Medium;
+        font-weight:500;
+        color:rgba(39,39,39,1);
+        line-height:42px;
+      }
+      a{
+        display: block;
+        margin: 16px auto;
+        font-size:16px;
+        width:229px;
+        height:35px;
+        border-radius:2px;
+        border:1px solid rgba(244,75,83,1);
+        font-family:PingFangSC-Semibold;
+        font-weight:600;
+        color:rgba(244,75,83,1);
+        text-align: center;
+        line-height: 35px;
+      }
+
+    }
+  }
+}

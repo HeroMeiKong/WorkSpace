@@ -44,7 +44,7 @@ import MessageBoard from './MessageBoard/MessageBoard'
 
 // import FAQ from './FAQ/FAQ'
 // import AudioTran from './AudioTrans/index'
-
+// import Convert from './Covert/index'
 
 const Home = loadable(() => import('./Home/home'));
 const Trans = loadable(() => import('./Trans'));
@@ -76,8 +76,8 @@ const ArticleDetails = loadable(() => import('./ArticleDetails/ArticleDetails'))
 const PayPage = loadable(() => import('./PayPage/PayPage'));
 
 const FAQ = loadable(() => import('./FAQ/FAQ'));
-const AudioTran = loadable(()=>import('./AudioTrans/index'))
-
+const AudioTran = loadable(()=>import('./AudioTrans/index'));
+const Convent = loadable(()=>import('./Covert/index'));
 @connect(
     state => ({admin: state.admin}),
     {}
@@ -139,6 +139,7 @@ class Main extends Component {
               <Route path="/help/:id?" component={Help} />
               <Route path="/userTerms" component={UserTerms} />
               <Route path="/about" component={About} />
+              <Route path='/converter' component={Convent}/>
 
               {/*h5直播包装代码*/}
               {/*<Route path="/h5Package" component={H5Package} />*/}

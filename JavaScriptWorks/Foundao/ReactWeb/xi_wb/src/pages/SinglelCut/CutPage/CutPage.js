@@ -8,7 +8,7 @@ import httpRequest from  '@/utils/httpRequest';
 import Comfirm from '@/components/Comfirm/index';
 import Alert from '@/components/Alert/index';
 import api from  '@/API/api';
-import {Message} from "element-react";
+import messageBox from '@/utils/messageBox';
 import transCode  from  '@/utils/transCode';
 import API from "@/API/api";
 import {connect} from 'react-redux';
@@ -420,7 +420,7 @@ class CutPage extends Component {
         })
       },
       transFail: (val)=>{
-        Message.error(val)
+        messageBox(val)
       },
       transProgress:(val)=>{
         this.setState({

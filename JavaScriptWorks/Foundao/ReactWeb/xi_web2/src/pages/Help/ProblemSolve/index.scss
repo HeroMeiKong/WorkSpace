@@ -1,0 +1,123 @@
+.problem-page {
+  width: 100%;
+  height: 100%;
+  background:rgba(248,249,250,1);
+  padding: 32px 0 39px;
+  box-sizing: border-box;
+
+  .problem_content {
+    height: 100%;
+
+    .problem_tabs {
+      width: 591px;
+      margin: 0 auto;
+
+      .product_tab:nth-child(1):before {
+        content: '';
+        position: absolute;
+        background-image: url("../../../assets/icon_Transcoding@2x.png");
+        background-size: cover;
+        width: 34px;
+        height: 34px;
+        left: 62px;
+        top: 7px;
+      }
+
+      .product_tab:nth-child(2):before {
+        content: '';
+        position: absolute;
+        background-image: url("../../../assets/icon_Clip@2x.png");
+        background-size: cover;
+        width: 34px;
+        height: 34px;
+        left: 62px;
+        top: 7px;
+      }
+
+      .product_tab:hover {
+        border-radius:11px;
+        border:1px solid;
+        border-image:linear-gradient(135deg, rgba(255,140,125,1), rgba(255,109,146,1)) 3 3;
+        color: #FF7C88;
+        box-sizing: border-box;
+      }
+
+      .product_tab {
+        position: relative;
+        cursor: pointer;
+        width:253px;
+        height:48px;
+        background:rgba(255,255,255,1);
+        border:1px solid rgba(216,216,216,1);
+        display: inline-block;
+        font-size:21px;
+        font-family:PingFangSC-Medium;
+        font-weight:bold;
+        color:rgba(244,75,83,1);
+        line-height:48px;
+        padding-left: 107px;
+        box-sizing: border-box;
+      }
+
+      .product_tab:nth-child(2) {
+        float: right;
+      }
+
+      .active_tab {
+        border:1px solid;
+        border-image:linear-gradient(135deg, rgba(255,98,69,1), rgba(255,51,115,1)) 1 1;
+      }
+    }
+
+    .problem-box {
+      width: 1025px;
+      margin: 64px auto;
+      background: #FFFFFF;
+
+      .el-collapse {
+        width: 100%;
+        height: 100%;
+
+        .el-collapse-item.is-active {
+          .el-collapse-item__header {
+            color: #F44B53;
+          }
+        }
+
+        .el-collapse-item__header {
+          width: 100%;
+          height: 43px;
+          background:rgba(255,255,255,1);
+          border:1px solid rgba(224,227,231,1);
+          font-size:17px;
+          font-family:PingFangSC-Medium;
+          font-weight:bold;
+          color:rgba(3,3,3,1);
+          line-height: 43px;
+          padding-left: 21px;
+          box-sizing: border-box;
+          cursor: pointer;
+
+          .el-collapse-item__header__arrow {
+            display: none;
+          }
+        }
+
+        .el-collapse-item__content {
+          padding: 0!important;
+        }
+
+        .problem_detail {
+          background:rgba(240,240,240,1);
+          padding: 15px 21px;
+          box-sizing: border-box;
+          font-size:17px;
+          font-family:PingFangSC-Medium;
+          font-weight:bold;
+          color:rgba(3,3,3,1);
+          line-height:23px;
+        }
+      }
+    }
+  }
+}

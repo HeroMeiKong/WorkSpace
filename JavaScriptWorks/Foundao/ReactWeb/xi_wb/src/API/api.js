@@ -37,6 +37,7 @@ const apiList = {
   get_download_url: host + 'DownloadVideo', //获取下载所需的视频地址
   trans_num: base + 'cgi/resource/trans_number', //处理业务次数
   pv_tj: base + 'cgi/stats/h?sid=4791957956777099047', //pv统计
+  convertPv_tj: base + 'cgi/stats/h?sid=4791957956777099050', //converter  pv统计
   pv_tj_h5package: base + 'cgi/stats/h?sid=4791957956777099044', // h5直播包装pv统计
   delete_vip: base + 'cgi/sys/del_vip', //删除vip
   upload_img: base + 'cgi/upload/single', //上传单文件图片

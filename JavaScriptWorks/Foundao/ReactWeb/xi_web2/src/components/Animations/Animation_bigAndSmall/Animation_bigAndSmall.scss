@@ -1,0 +1,74 @@
+@keyframes growfather {
+  0% {
+    justify-content: flex-start;
+  }
+
+  50% {
+    justify-content: flex-start;
+  }
+
+  51% {
+    justify-content: flex-end;
+  }
+
+  100% {
+    justify-content: flex-end;
+  }
+}
+
+@keyframes grow {
+  0% {
+    width: 0;
+  }
+
+  50% {
+    width: 100%;
+  }
+
+  99% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+#bigAndSmall {
+  display: flex;
+  background-color: transparent;
+  animation: growfather ease-in-out;
+  border-radius: 14px;
+  box-sizing: border-box;
+  position: absolute;
+
+  div {
+    box-sizing: border-box;
+  }
+
+  .bigAndSmall_wrapper {
+    animation: grow ease-in-out;
+    height: 100%;
+    overflow: hidden;
+    color: white;
+    border-radius: 14px;
+    position: relative;
+    width: 100%;
+
+    .bigAndSmall_innder {
+      display: flex;
+      font-size: 12px;
+      justify-content: flex-start;
+      align-items: center;
+      border-radius: 14px;
+      height: 100%;
+      width: 100%;
+      white-space: nowrap;
+      background-color: rgba(0, 0, 0, .6);
+      position: absolute;
+      left: 0;
+      padding: 0 20px;
+      word-break: break-all;
+    }
+  }
+}

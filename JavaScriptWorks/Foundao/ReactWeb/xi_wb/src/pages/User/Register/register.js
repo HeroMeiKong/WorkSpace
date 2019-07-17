@@ -354,7 +354,11 @@ class Register extends Component {
         // 未登录会重定向到登录页面，携带当前url
         const callback = params.callback;
         if (callback) {
-            window.location.href = decodeURIComponent(callback);
+            if(callback.indexOf('?') > 0){
+                window.location.href = decodeURIComponent(callback) + '&token=' + userInfo.token || tool.getUserData_storage().token
+            } else {
+                window.location.href = decodeURIComponent(callback) + '?token=' + userInfo.token || tool.getUserData_storage().token
+            }
         } else {
             this.props.history.push('/home');
         }

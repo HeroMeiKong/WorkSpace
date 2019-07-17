@@ -1,0 +1,57 @@
+.setBaseInfo {
+    height: 100%;
+    position: relative;
+    h4 {
+        color: rgba(0, 0, 0, 0.85);
+        font-size: 16px;
+        //font-weight: 500;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .diy_input{
+        .el-form-item{
+            width: 500px;
+            float: left;
+            margin-right: 10px;
+        }
+    }
+    .h5Preview{
+        position: absolute;
+        top: 0;
+        right: 10%;
+        img{
+            margin-top: 32px;
+        }
+    }
+    .footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 56px;
+        line-height: 56px;
+        text-align: right;
+        position: absolute;
+        bottom: 0;
+        box-shadow:0px -1px 2px 0px rgba(0,0,0,0.03);
+        filter:blur(0px);
+        box-sizing: border-box;
+    }
+    .h5Icon{
+        .el-upload{
+            width: 140px;
+            height: 80px;
+            border: 1px dashed #E9E9E9;
+            text-align: center;
+            line-height: 80px;
+        }
+    }
+    .backgroundPicture{
+        .el-upload{
+            width: 140px;
+            height: 239px;
+            border: 1px dashed #E9E9E9;
+            text-align: center;
+            line-height: 239px;
+        }
+    }
+}

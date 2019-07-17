@@ -15,7 +15,11 @@ class SupportUrl extends Component {
   //改变页面url
   changeHash = (value) => {
     const newStr = value.replace(/ /g,"_")
-    window.open('/convert?type='+newStr)
+    if (this.props.project){
+      window.open('/converter?type='+newStr)
+    }else {
+      window.open('/convert?type='+newStr)
+    }
   }
 
   //渲染每一行

@@ -75,6 +75,9 @@ export default class WxPay extends Component {
                 } else if(sessionStorage.getItem('remove')){
                   sessionStorage.removeItem('remove')
                   _this.props.history.push('/remove?wxpay&out_trade_no='+order_id)
+                }else if(sessionStorage.getItem('converter')){
+                  sessionStorage.removeItem('converter')
+                  _this.props.history.push('/converter?wxpay&out_trade_no='+order_id)
                 } else {
                   _this.props.history.push('/convert?wxpay&out_trade_no='+order_id)
                 }

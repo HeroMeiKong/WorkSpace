@@ -1,0 +1,138 @@
+.preMuli-box{
+  height: 425px;
+  background: url(../../../assets/images/cut_banner.jpg) no-repeat top center / cover;
+  font-size: 0;
+  box-sizing: border-box;
+  padding-top: 52px;
+  .preMuli-inner{
+    width: 1200px;
+    margin: 0 auto;
+  }
+  .preMuli-left{
+    display: inline-block;
+    vertical-align: top;
+    width: 404px;
+    h2{
+      font-size:28px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      color:rgba(255,255,255,1);
+      line-height:40px;
+      margin-bottom: 18px;
+    }
+    h3{
+      font-size:18px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      color:rgba(255,255,255,1);
+      line-height:25px;
+      margin-bottom: 10px;
+    }
+    p{
+      font-size:14px;
+      font-family:PingFangSC-Regular;
+      font-weight:400;
+      color:white;
+      line-height:22px;
+      &:nth-of-type(2){
+        margin: 16px 0 38px;
+      }
+    }
+    button{
+      width:157px;
+      height:38px;
+      background: white url(../../../assets/images/icon_enter.png) no-repeat 136px center / 10px;
+      box-shadow:0px 12px 10px 0px rgba(255,84,82,1);
+      border-radius:7px;
+      font-size:18px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      cursor: pointer;
+      color:rgba(255,73,94,1);
+      padding-right: 15px;
+    }
+  }
+  .preMuli-right{
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    width: 560px;
+    height: 410px;
+    background-color: white;
+    box-shadow: 0 0 23px 0 rgba(224,162,168,.34);
+    margin-left: 105px;
+    .muliupload{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      .upload-imgBtn{
+        width: 82px;
+        height: 84px;
+        margin: 125px auto 0;
+        background: url(../../../assets/images/add_icon.png) no-repeat center / contain;
+      }
+      .upload-tips {
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+    .progress-box{
+      .quxiaoBtn{
+        font-size: 16px;
+        color: #FF495E;
+        background: none;
+        border: 1px solid #FF495E;
+        border-radius: 5px;
+        padding: 10px 32px;
+        outline: none;
+        cursor: pointer;
+      }
+      .tips{
+        margin-top: 160px;
+        font-size: 14px;
+        color: #272727;
+        text-align: center;
+      }
+      .progress-out{
+        width: 500px;
+        height: 8px;
+        background: url(../../../assets/images/p_loading.png) no-repeat left center / 100% 100% ;
+        border-radius: 8px;
+        margin: 26px auto 90px;
+        border: 1px solid #EFEFEF;
+        position: relative;
+        overflow: hidden;
+        .progress-inner{
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: 0;
+          background-color: #FF495E;
+        }
+      }
+    }
+    .chuli-box{
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgb(255,255,255);
+      font-size: 14px;
+      text-align: center;
+      .chuli{
+        width: 44px;
+        height:44px;
+        padding: 12px;
+        margin: 140px auto 10px;
+        background: url(../../../assets/images/loading.gif) no-repeat center / 480px;
+      }
+    }
+    .muliupload{
+
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.help_content_box {
+  margin: 64px auto;
+  width: 764px;
+
+  .help_content_title {
+    font-size:26px;
+    font-family:PingFangSC-Semibold;
+    font-weight:600;
+    color:rgba(3,3,3,1);
+    line-height:35px;
+    margin-bottom: 21px;
+  }
+
+  .help_content_detail {
+    margin-bottom: 32px;
+
+    .help_content_tit {
+      font-size:21px;
+      font-family:PingFangSC-Medium;
+      font-weight:bold;
+      color:rgba(3,3,3,1);
+      line-height:30px;
+      margin-bottom: 11px;
+    }
+
+    .help_content_tip {
+      font-size:17px;
+      font-family:PingFangSC-Regular;
+      font-weight:400;
+      color:rgba(3,3,3,1);
+      line-height:23px;
+      margin-bottom: 10px;
+
+      .help_content_bold {
+        font-family:PingFangSC-Medium;
+        font-weight:bold;
+      }
+    }
+
+    .help_content_img {
+      width: 764px;
+      height: 478px;
+      margin-bottom: 11px;
+    }
+  }
+}

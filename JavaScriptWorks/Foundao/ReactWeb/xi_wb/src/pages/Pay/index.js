@@ -30,7 +30,17 @@ export default class Pay extends Component {
         cur_package: {}, //用户当前套餐
         discount_price: 0, //折扣价
         goods: [], //商品列表
-      }
+      },
+      isct:false//是否是转码二
+    }
+  }
+  componentWillMount() {
+    let pathName = this.props.location.pathname
+    console.log(this.props.location.pathname)
+    if (pathName==='/pay/ct') {
+      this.setState({
+        isct:true
+      })
     }
   }
 
@@ -70,7 +80,13 @@ export default class Pay extends Component {
 
   //点击购买套餐
   payVip = (item) => {
-    window.gtag && window.gtag('event', 'click', {'event_category': 'pay', 'event_label': 'video'}) //统计购买
+    const {isct} = this.state;
+    console.log(isct)
+    if (isct){
+      window.gtag && window.gtag('event', 'click', {'event_category': 'transcoding_pay', 'event_label': 'transcoding'})
+    } else {
+      window.gtag && window.gtag('event', 'click', {'event_category': 'pay', 'event_label': 'video'}) //统计购买
+    }
     const {packageData} = this.state
     const user_info = this.props.admin
     // if (!user_info.isLogin) { //未登录状态会跳转到登录页面
@@ -119,7 +135,7 @@ export default class Pay extends Component {
 
   //创建订单
   createOrder = (goods_id) => {
-    const {pay_type} = this.state
+    const {pay_type ,isct } = this.state
     const user_info = this.props.admin
     httpRequest({
       url: API.create_order,
@@ -140,10 +156,17 @@ export default class Pay extends Component {
         this.setState({
           order_data: order_data
         }, () => {
-          localStorage.setItem('pay_page','/convert')//记录支付的产品
+          if (isct){
+            localStorage.setItem('pay_page','/converter')//记录支付的产品
+          } else {
+            localStorage.setItem('pay_page','/convert')//记录支付的产品
+          }
           if (pay_type === 'wxpay') {  //微信支付
             // const jump_url = '/#/wxPay?order_id=' + order_data.order_id
             // window.location.href = jump_url
+            if (isct){
+              sessionStorage.setItem('converter','true')
+            }
             this.props.history.push('/wxPay/' + order_data.order_id)
           } else if (pay_type === 'alipay') { //支付宝支付
             this.payJump()
@@ -162,10 +185,15 @@ export default class Pay extends Component {
   //跳转支付宝支付
   /**/
   payJump = () => {
-    const {order_data} = this.state
+    const {order_data,isct} = this.state
     const user_info = this.props.admin
     // const return_url = window.location.href.split('?')[0]
-    const return_url = window.location.origin + '/convert'
+    let return_url=''
+    if (isct){
+      return_url = window.location.origin + '/converter'
+    } else {
+      return_url = window.location.origin + '/convert'
+    }
     httpRequest({
       url: API.payment,
       dataType: 'json',
@@ -196,10 +224,15 @@ export default class Pay extends Component {
   //跳转Paypal支付
   /**/
   paypalJump = () => {
-    const {order_data} = this.state
+    const {order_data ,isct} = this.state
     const user_info = this.props.admin
     // const return_url = window.location.href.split('?')[0]
-    const return_url = window.location.origin + '/convert'
+    let return_url = ''
+    if (isct){
+      return_url = window.location.origin + '/converter'
+    } else {
+      return_url = window.location.origin + '/convert'
+    }
     httpRequest({
       url: API.payment,
       dataType: 'json',

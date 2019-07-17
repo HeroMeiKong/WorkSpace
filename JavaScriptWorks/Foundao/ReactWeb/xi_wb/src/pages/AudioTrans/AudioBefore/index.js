@@ -29,7 +29,9 @@ class AudioBefore extends Component {
           <button><span></span>选择文件</button>
           <p>拖放或者点击添加文件</p>
         </div>
-        <div className='bottom-zs'></div>
+        <div className='cercle-one'></div>
+        <div className='cercle-two'></div>
+        <div className='cercle-third'></div>
       </div>
     );
   }

@@ -1,0 +1,44 @@
+.alert-box{
+  position: fixed;
+  z-index: 99999;
+  background-color: rgba(0,0,0,.4);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .alert-inner{
+    position: absolute;
+    width:482px;
+    min-height:156px;
+    background:rgba(255,255,255,1);
+    text-align: center;
+    border-radius:4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 36px 20px 20px;
+    box-sizing: border-box;
+    .tipsContent{
+      font-size:18px;
+      font-weight:500;
+      color:#060606;
+      line-height:25px;
+      margin-bottom: 38px;
+    }
+    button{
+      width:140px;
+      height:38px;
+      font-size: 14px;
+      border-radius:2px;
+      border:1px solid rgba(255,170,174,1);
+      color: rgba(255,170,174,1);;
+      background: none;
+      cursor: pointer;
+      transition: all .3s;
+      &:hover{
+        background:linear-gradient(135deg,rgba(255,98,69,1) 0%,rgba(255,51,115,1) 100%);
+        color: white;
+      }
+    }
+  }
+}

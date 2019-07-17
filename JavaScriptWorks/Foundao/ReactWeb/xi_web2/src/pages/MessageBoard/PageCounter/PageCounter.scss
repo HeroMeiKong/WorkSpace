@@ -1,0 +1,75 @@
+.pagecounter {
+  width: 100%;
+  padding-top: 60px;
+  font-size: 14px;
+  font-family: HelveticaNeue;
+  color: rgba(0, 0, 0, 0.65);
+
+  .pagecounter_inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .previous {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 6px;
+      border: 1px solid rgba(217, 217, 217, 1);
+      margin-right: 5px;
+      background: url('../../../assets/payPage/previous.png') center no-repeat;
+      background-size: 30%;
+
+      &:hover {
+        cursor: pointer;
+        // color: rgba(255, 255, 255, 1);
+        // background: rgba(255, 84, 82, 1);
+      }
+    }
+
+    .pages {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 6px;
+        border: 1px solid rgba(217, 217, 217, 1);
+        margin-right: 5px;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(255, 84, 82, 1);
+          color: rgba(255, 255, 255, 1);
+        }
+      }
+
+      .page.active {
+        background: rgba(255, 84, 82, 1);
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+
+    .next {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 6px;
+      border: 1px solid rgba(217, 217, 217, 1);
+      background: url('../../../assets/payPage/next.png') center no-repeat;
+      background-size: 30%;
+
+      &:hover {
+        cursor: pointer;
+        // background: rgba(255, 84, 82, 1);
+      }
+    }
+  }
+}

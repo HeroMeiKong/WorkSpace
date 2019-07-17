@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="renderer" content="webkit">
+    <title>enjoycut.com</title>
+    <style>
+        html, body {
+            font-family: PingFangSC-Semibold;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            max-width: 640px;
+            background-color: #f7f7f7;
+            margin: 0 auto;
+            background: url('./images/bg.png') no-repeat;
+            background-size: 100% auto;
+            background-position: top center;
+
+        }
+        .content{
+            overflow: hidden;
+            display: none;
+        }
+        h2 {
+            font-size: 15px;
+            text-align: center;
+            color: rgba(7, 7, 7, 1);
+            margin: 25px 30px 30px 30px;
+            line-height: 27px;
+        }
+
+        .product_list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            list-style: none;
+        }
+
+        .product_list li {
+            width: 45%;
+            /*height: 190px;*/
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0px 0px 10px 0px rgba(100, 138, 179, 0.2);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .item_img {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+        }
+
+        .item_img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item_name {
+            font-size: 14px;
+            font-family: PingFangSC-Semibold;
+            font-weight: 600;
+            color: rgba(7, 7, 7, 1);
+            line-height: 26px;
+        }
+
+        .item_desc {
+            font-size: 10px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(153, 153, 153, 1);
+            line-height: 16px;
+            padding: 0 10px;
+        }
+
+        .product_list button {
+            /*width: 50px;*/
+            height: 24px;
+            margin-top: 10px;
+            line-height: 24px;
+            background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+            border-radius: 2px;
+            font-family: PingFangSC-Medium;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 1);
+            padding: 0 15px;
+            outline: none;
+            border: none;
+        }
+        button.disabled{
+            background: #cccccc;
+        }
+
+        .continue {
+            /*width: 100px;*/
+            height: 30px;
+            padding: 0 13px;
+            border-radius: 2px;
+            border: 1px solid;
+            outline: none;
+            color: #FF5452;
+            background-color: #ffffff;
+            border-image: linear-gradient(135deg, rgba(255, 98, 69, 1), rgba(255, 51, 115, 1)) 1 1;
+            display: block;
+            margin: 30px auto;
+        }
+        .content.en .item_desc{
+            padding: 0 6px;
+            min-height: 64px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="content zh">
+        <h2>手机访问喜视频网站将无法获得全部服务内容， 您可以尝试下载我们的App产品～ </h2>
+        <ul class="product_list">
+            <li>
+                <div class="item_img"><img src="./images/jper.png" alt=""></div>
+                <div class="item_name">蕉片</div>
+                <div class="item_desc">专业移动端视频剪辑，高质量短视频社区互动</div>
+                <button onclick="go_jper()">下载</button>
+            </li>
+            <li class="enjoycut">
+                <div class="item_img"><img src="./images/xi.png" alt=""></div>
+                <div class="item_name">喜视频</div>
+                <div class="item_desc">极简vlog制作利器，移动生活视频生活必备助手</div>
+                <button onclick="go_enjoycut()">下载</button>
+            </li>
+            <li>
+                <div class="item_img"><img src="./images/weclip.png" alt=""></div>
+                <div class="item_name">weclip</div>
+                <div class="item_desc">weclip - 电商品牌推广的短视频制作神器</div>
+                <button class="disabled" onclick="go_weclip()">下载</button>
+            </li>
+            <li>
+                <div class="item_img"><img src="./images/more.png" alt=""></div>
+                <div class="item_name">其他</div>
+                <div class="item_desc">正在开发更多精彩视频编辑软件，敬请期待···</div>
+            </li>
+        </ul>
+        <button class="continue" onclick="goBack()">继续访问</button>
+    </div>
+
+    <!--英文版-->
+    <div class="content en">
+        <h2>To acces all service, please visit our site on your desktop computer. <br/>
+            meanwhile, you can download and use our mobile App.</h2>
+        <ul class="product_list">
+            <li>
+                <div class="item_img"><img src="./images/jper.png" alt=""></div>
+                <div class="item_name">JPER</div>
+                <div class="item_desc">Professional video clip tool for PMD, contains short-video-based community of high quality</div>
+                <button onclick="go_jper()">Download</button>
+            </li>
+            <li class="enjoycut">
+                <div class="item_img"><img src="./images/xi.png" alt=""></div>
+                <div class="item_name">Enjoy Cut</div>
+                <div class="item_desc">Excellent tool to make perfect vlog, an essential assistant for mobile life</div>
+                <button onclick="go_enjoycut()">Download</button>
+            </li>
+            <li>
+                <div class="item_img"><img src="./images/weclip.png" alt=""></div>
+                <div class="item_name">weclip</div>
+                <div class="item_desc">weclip - Electronic commodities brand promotion of short video production artifact</div>
+                <button class="disabled" onclick="go_weclip()">Download</button>
+            </li>
+            <li>
+                <div class="item_img"><img src="./images/more.png" alt=""></div>
+                <div class="item_name">Other</div>
+                <div class="item_desc">More exciting video editing software is being developed, please look forward to it.</div>
+            </li>
+        </ul>
+        <button class="continue" onclick="goBack()">continue with mobile device</button>
+    </div>
+</div>
+<script src="./jquery.js"></script>
+<script>
+  var tools = {
+    is_iOS: function () {
+      return /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent);
+    },
+    is_android: function () {
+      return /android/i.test(navigator.userAgent);
+    },
+    getRequest: function () {
+      var url = decodeURIComponent(window.location.href);
+      var theRequest = {};
+      var start = url.lastIndexOf("?");//ios现在是两个问号
+      if (start != -1) {
+        var str = url.substr(start + 1);
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          var e = strs[i].indexOf('=');
+          theRequest[strs[i].substring(0, e)] = unescape(strs[i].substring(e + 1));
+        }
+      }
+      return theRequest;
+    },
+    showTips: function (text, time) {
+      var dom = document.createElement('div');
+      if (typeof text !== 'string') {
+        text = JSON.stringify(text);
+      }
+      dom.innerHTML = text;
+      // $(dom).html('<span style="padding: ">'+text+'</span>')
+      $('._tip_').hide();
+      $(dom).addClass('_tip_');
+      $(dom).css({
+        position: 'fixed',
+        maxWidth: '95%',
+        textAlign: 'center',
+        top: '60%',
+        left: '50%',
+        zIndex: '1000',
+        boxSizing: 'border-box',
+        transform: 'translate(-50%,-50%)',
+        display: 'none',
+        fontSize: '14px',
+        color: '#ffffff',
+        background: 'rgba(0,0,0, 0.5)',
+        padding: '6px 10px',
+        borderRadius: '4px',
+        // 'word-wrap': 'break-word',
+        'word-break': 'keep-all',
+        'white-space': 'nowrap',
+        'overflow': 'hidden',
+        'text-overflow': 'ellipsis',
+      });
+      $('body').append($(dom));
+      $(dom).fadeIn();
+      setTimeout(function () {
+        $(dom).remove();
+      }, time || 2000)
+    }
+  };
+  if (tools.is_android()) {
+    $('.enjoycut button').addClass('disabled')
+  }
+  var weclip_url = {
+    iOS: '',
+    android: '',
+  };
+  var jper_url = {
+    iOS: 'https://apps.apple.com/cn/app/id1235972800',
+    android: 'https://a.app.qq.com/o/simple.jsp?pkgname=com.foundao.jper',
+  };
+  var enjoyCut_url = {
+    iOS: 'https://apps.apple.com/cn/app/id1369648773',
+    android: '',
+  };
+  if (tools.getRequest()['lang'] === 'en') {
+    document.querySelector('.content.en').style.display = 'block';
+  } else {
+    document.querySelector('.content.zh').style.display = 'block';
+  }
+  function go_weclip() {
+    var tipsText = '即将上线';
+    if (tools.getRequest()['lang'] === 'en') {
+      tipsText = 'coming soon';
+    }
+    tools.showTips(tipsText);
+  }
+  function go_jper() {
+    var url = jper_url.android;
+    if (tools.is_iOS()) {
+      url = jper_url.iOS;
+    }
+    window.location.href = url;
+  }
+  function go_enjoycut() {
+    if (tools.is_iOS()) {
+      var url = enjoyCut_url.iOS;
+      window.location.href = url;
+    }else {
+      var tipsText = '暂时不支持安卓平台';
+      if (tools.getRequest()['lang'] === 'en') {
+        tipsText = 'Android version will coming soon';
+      }
+      tools.showTips(tipsText);
+    }
+
+  }
+  // 继续浏览
+  function goBack() {
+    sessionStorage.setItem('continueSee', '1');
+    var backurl = tools.getRequest()['back'] || '/';
+    window.location.href =  backurl
+  }
+</script>
+</body>
+</html>

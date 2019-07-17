@@ -307,7 +307,7 @@ var Tool = {
     this.setCookie(name, ' ', -1);
   },
   isForeign: function () {
-    return true //TODO:测试用
+    // return true //TODO:测试用
     var do_str = document.domain;
     if (do_str.indexOf('zh.enjoycut.com') >= 0) { // 中文
       return false;

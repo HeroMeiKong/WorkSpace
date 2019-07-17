@@ -1,163 +1,200 @@
 .audioInfo{
-  .section-box{
-    position: relative;
-    height:664px;
-    box-sizing: border-box;
-    .zs{
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      height: 80px;
-      z-index: 9;
-      overflow: hidden;
-      &::after{
-        position: absolute;
-        content: '';
-        height: 80px;
-        width: 102%;
-        top: 45px;
-        left: 0px;
-      }
-    }
-  }
   .section-one{
-    background:white;
-    padding-top: 136px;
-    text-align: center;
-    .section-one-left{
-      display: inline-block;
-      vertical-align: middle;
-      text-align: left;
-      width: 340px;
-      margin-right: 95px;
-      h3{
-        font-size:34px;
-        font-family:PingFangSC-Semibold;
-        font-weight:600;
-        color:rgba(29,126,230,1);
-        line-height:48px;
-        margin-bottom: 10px;
-      }
-      div{
-        font-size:14px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(102,102,102,1);
-        line-height:21px;
-      }
-    }
-    .section-one-right{
-      display: inline-block;
-      vertical-align: middle;
-      width: 494px;
-      height: 333px;
-      background: url(../../../assets/audioTrans/iphone.png) no-repeat center / cover;
-    }
-    .section-one-zs{
-      &::after{
-        transform: rotate(2deg);
-        background-color: #F7FBFF;
-      }
-    }
-  }
-  .section-snd{
-    background-color: #F7FBFF;
-    padding-top: 105px;
-    text-align: center;
-    .section-snd-left{
-      display: inline-block;
-      vertical-align: middle;
-      width: 494px;
-      height: 375px;
-      background: url(../../../assets/audioTrans/speed.png) no-repeat center / cover;
-    }
-    .section-snd-right{
-      display: inline-block;
-      vertical-align: middle;
-      text-align: left;
-      width: 340px;
-      margin-left: 95px;
-      h3{
-        font-size:34px;
-        font-family:PingFangSC-Semibold;
-        font-weight:600;
-        color:rgba(29,126,230,1);
-        line-height:48px;
-        margin-bottom: 10px;
-      }
-      div{
-        font-size:14px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(102,102,102,1);
-        line-height:21px;
-      }
-    }
-    .section-snd-zs{
-      &::after{
-        transform: rotate(-2deg);
-        background-color: white;
-      }
-    }
-  }
-  .section-third{
-    height: 584px;
+    height: 356px;
     box-sizing: border-box;
-    padding-top: 118px;
-    text-align: center;
-    .section-third-left{
-      display: inline-block;
-      vertical-align: middle;
-      text-align: left;
-      width: 340px;
-      margin-right: 95px;
-      h3{
-        font-size:34px;
-        font-family:PingFangSC-Semibold;
-        font-weight:600;
-        color:rgba(29,126,230,1);
-        line-height:48px;
-        margin-bottom: 10px;
-      }
-      div{
-        font-size:14px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(102,102,102,1);
-        line-height:21px;
-      }
+    padding-top: 120px;
+    h2{
+      font-size:22px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      color:#272727;
+      line-height:30px;
+      margin-bottom: 12px;
+      text-align: center;
     }
-    .section-third-right{
-      display: inline-block;
-      vertical-align: middle;
-      width: 494px;
-      height: 346px;
-      background: url(../../../assets/audioTrans/sametime.png) no-repeat center / cover;
+    p{
+      width:416px;
+      font-size:14px;
+      font-family:PingFangSC-Regular;
+      font-weight:400;
+      color:rgba(102,102,102,1);
+      line-height:21px;
+      text-align: center;
+      margin: 0 auto 36px;
+    }
+    a{
+      display: block;
+      margin: 0 auto;
+      width:176px;
+      height:46px;
+      border-radius:5px;
+      border:2px solid rgba(116,184,255,1);
+      font-size:16px;
+      font-family:PingFangSC-Medium;
+      font-weight:500;
+      color:rgba(17,94,176,1);
+      line-height: 46px;
+      text-align: center;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -ms-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s;
+      position: relative;
+      &:hover{
+        background-color: rgba(116,184,255,1);
+        color: white;
+      }
+      i{
+        position: absolute;
+        width: 45px;
+        height: 19px;
+        top:2px;
+        right: 2px;
+        color: white;
+        font-size: 12px;
+        line-height: 19px;
+        text-align: center;
+        padding-left: 10px;
+        box-sizing: border-box;
+        background: url(../../../assets/audioTrans/tuijian-bg.png) no-repeat center / contain;
+      }
     }
   }
-  .section-bottom{
-    height:574px;
-    position: relative;
-    background:linear-gradient(130deg,rgba(35,115,200,1) 0%,rgba(10,87,168,1) 100%);
-    .section-bottom-zs{
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      height: 80px;
-      z-index: 9;
-      overflow: hidden;
-      &::after{
-        position: absolute;
-        content: '';
-        height: 80px;
-        transform: rotate(-178deg);
-        background-color: #fff;
-        width: 102%;
-        top: -41px;
-        left: 0px;
+  .section-two{
+    height: 270px;
+    background-color: #F8F9FA;
+    ul{
+      font-size: 0;
+      text-align: center;
+      box-sizing: border-box;
+      padding-top: 70px;
+      li{
+        display: inline-block;
+        vertical-align: top;
+        width: 240px;
+        margin-right: 105px;
+        &:nth-last-of-type(1){
+          margin-right: 0;
+        }
+        .item-icon{
+          width: 24px;
+          height: 24px;
+          margin: 0 auto 12px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          &.phone{
+            background-image: url(../../../assets/audioTrans/iphone.png);
+          }
+          &.highspeed{
+            background-image: url(../../../assets/audioTrans/same.png);
+          }
+          &.simultaneously{
+            background-image: url(../../../assets/audioTrans/change.png);
+          }
+        }
+        .item-title{
+          font-size:16px;
+          font-family:PingFangSC-Semibold;
+          font-weight:600;
+          color:rgba(0,0,0,1);
+          line-height:22px;
+        }
+        .item-desc{
+          font-size:14px;
+          font-family:PingFangSC-Regular;
+          font-weight:400;
+          color:rgba(102,102,102,1);
+          line-height:21px;
+          margin-top: 10px;
+        }
       }
+    }
+  }
+}
+.more-tools{
+  padding: 70px 0;
+  box-sizing: border-box;
+  .tool-title{
+   text-align: center;
+    font-size:22px;
+    font-family:PingFangSC-Medium;
+    font-weight:500;
+    color:rgba(39,39,39,1);
+    line-height:30px;
+  }
+  .tool-desc{
+    width:416px;
+    text-align: center;
+    font-size:14px;
+    margin: 12px auto 0;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:#666666;
+    line-height:21px;
+  }
+  .tool-list{
+    margin-top: 50px;
+    text-align: center;
+    li{
+      display: inline-block;
+      vertical-align: top;
+      width:216px;
+      height:200px;
+      background:rgba(255,255,255,1);
+      box-sizing: border-box;
+      margin-right: 24px;
+      padding: 28px 26px 0;
+      box-shadow: 0 0 25px 0 rgba(222,222,222,.5);
+      position: relative;
+      &:nth-last-of-type(1){
+        margin-right: 0;
+      }
+    }
+    .tool-item-icon{
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 12px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      &.converter{
+        background-image: url(../../../assets/audioTrans/converter.png);
+      }
+      &.cut{
+        background-image: url(../../../assets/audioTrans/cut.png);
+      }
+      &.watermark{
+        background-image: url(../../../assets/audioTrans/watermark.png);
+      }
+      &.remove{
+        background-image: url(../../../assets/audioTrans/removeWater.png);
+      }
+    }
+    .tool-item-title{
+      text-align: center;
+      font-size:16px;
+      font-family:PingFangSC-Semibold;
+      font-weight:600;
+      color:rgba(39,39,39,1);
+      line-height:22px;
+    }
+    .tool-item-desc{
+      font-size:14px;
+      font-family:PingFangSC-Regular;
+      font-weight:400;
+      color:rgba(102,102,102,1);
+      line-height:20px;
+    }
+    a{
+      font-size: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9;
     }
   }
 }

@@ -12,7 +12,8 @@ import singleWord from '@/assets/images/singleWord.png';
 import singleWord_en from '@/assets/images/singleCut_en.png';
 import {connect} from 'react-redux';
 import CONST from "../../../config/const";
-import $ from "jquery";
+// import $ from "jquery";
+
 @connect(
   state => ({admin: state.admin}),
 )

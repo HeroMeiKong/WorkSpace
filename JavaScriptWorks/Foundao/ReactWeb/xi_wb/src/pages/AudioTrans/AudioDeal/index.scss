@@ -1,0 +1,76 @@
+.audioDeal{
+  min-height: 730px;
+  display: table;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 60px;
+  .audioDeal-inner{
+    width: 1096px;
+    box-sizing: border-box;
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    .audio-header{
+      height: 40px;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+      span{
+        font-size:20px;
+        font-family:PingFangSC-Semibold;
+        font-weight:600;
+        color:rgba(39,39,39,1);
+        line-height:40px;
+      }
+      a{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width:145px;
+        height:40px;
+        background:rgba(11,184,216,1);
+        border-radius:5px;
+        line-height: 40px;
+        color: white;
+      }
+    }
+    .audio-body{
+      min-height: 72px;
+      background:rgba(255,255,255,1);
+      box-shadow:0px 4px 8px 0px rgba(0,0,0,0.03);
+      padding-bottom: 72px;
+      box-sizing: border-box;
+      position: relative;
+      .voiceList{
+        .voice-item{
+          height:62px;
+          background:rgba(255,255,255,1);
+          box-sizing: border-box;
+          padding: 15px 38px 15px 66px;
+          box-shadow:0px 4px 8px 0px rgba(0,0,0,0.03);
+          position: relative;
+          text-align: left;
+          line-height: 32px;
+          &:before{
+            position: absolute;
+            content: '';
+            width: 16px;
+            height: 19px;
+            left: 38px;
+            top: 23px;
+            background: url(../../../assets/audioTrans/icon_voice.png) no-repeat center / cover;
+          }
+        }
+      }
+      .audio-deal-all{
+
+      }
+    }
+    .audio-footer{
+      height: 72px;
+      background: #282828 url(../../../assets/audioTrans/ge.png) repeat left top / 13px 13px;
+
+    }
+  }
+}

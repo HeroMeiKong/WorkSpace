@@ -131,7 +131,11 @@ class Login extends Component {
                 // this.props.history.push(localStorage.getItem('pay_page'))
                 window.location.href = localStorage.getItem('pay_page')
             }  else {
-                window.location.href = decodeURIComponent(callback)
+                if(callback.indexOf('?') > 0){
+                    window.location.href = decodeURIComponent(callback) + '&token=' + userInfo.token || tool.getUserData_storage().token
+                } else {
+                    window.location.href = decodeURIComponent(callback) + '?token=' + userInfo.token || tool.getUserData_storage().token
+                }
             }
         } else {
             if(localStorage.getItem('pay_page')){

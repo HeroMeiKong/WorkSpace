@@ -1,0 +1,182 @@
+.wx_pay_bg {
+  width: 100%;
+  min-width: 1280px;
+  min-height: calc(100vh - 120px);
+  background: #F8F9FB;
+  padding-top: 43px;
+  padding-bottom: 89px;
+  box-sizing: border-box;
+
+  .wx_pay_box {
+    width: 1067px;
+    height: 634px;
+    background: #FFFFFF;
+    margin: 0 auto;
+    padding-top: 42px;
+    box-sizing: border-box;
+
+    .wx_pay_head {
+      margin-left: 132px;
+      display: flex;
+
+      .wx_pay_icon {
+        background-image: url("../../assets/weixinzhifu_icon@1x.png");
+        background-size: 100% 100%;
+        width: 24px;
+        height: 22px;
+      }
+
+      .wx_pay_tit {
+        margin-left: 5px;
+        font-size:17px;
+        font-family:"PingFang SC";
+        font-weight:400;
+        color:rgba(0,0,0,1);
+        line-height:23px;
+      }
+    }
+
+    .wx_pay_content {
+      padding-left: 210px;
+      margin-top: 88px;
+      box-sizing: border-box;
+      display: flex;
+
+      .wx_pay_QR {
+
+        .wx_pay_time {
+          font-size:15px;
+          font-family:"PingFang SC";
+          font-weight:400;
+          color:rgba(0,0,0,1);
+          line-height:21px;
+        }
+
+        .qrcode {
+          margin-top: 26px;
+          margin-left: 10px;
+        }
+
+        .qrcode_tip {
+          font-size:15px;
+          font-family:"PingFang SC";
+          font-weight:400;
+          color:rgba(91,91,91,1);
+          line-height:21px;
+          margin-top: 25px;
+          margin-left: 22px;
+        }
+      }
+
+      .qrcode_line {
+        margin-left: 117px;
+        width: 0px;
+        height: 274px;
+        border: 1px dashed #9B9B9B;
+        margin-top: 21px;
+      }
+
+      .wx_pay_main {
+        margin-left: 128px;
+
+        .pay_main_tit {
+          font-size:15px;
+          font-family:"PingFang SC";
+          font-weight:400;
+          color:rgba(0,0,0,1);
+          line-height:21px;
+        }
+
+        .pay_main_price {
+          margin-top: 26px;
+          font-size:53px;
+          font-family:"PingFang SC";
+          font-weight:500;
+          color:rgba(0,0,0,1);
+          line-height:75px;
+          height: 75px;
+          padding-left: 31px;
+          box-sizing: border-box;
+          position: relative;
+          margin-bottom: 36px;
+        }
+
+        .pay_main_price::before {
+          content: '';
+          position: absolute;
+          background-image: url("../../assets/¥_pay@1x.png");
+          background-size: cover;
+          width: 18px;
+          height: 22px;
+          top: 22px;
+          left: 3px;
+        }
+
+        .pay_main_detail {
+          font-size:15px;
+          font-family:"PingFang SC";
+          font-weight:400;
+          color:rgba(0,0,0,1);
+          line-height:21px;
+          margin-bottom: 13px;
+
+          .pay_detail_left {
+            display: inline-block;
+            width: 87px;
+            text-align: left;
+            color:rgba(91,91,91,1);
+          }
+        }
+      }
+    }
+
+    .wx_pay_error {
+      margin-top: 157px;
+
+      .order_success_icon {
+        margin: 0 auto;
+        background-image: url("../../assets/chenggong_icon@1x.png");
+        background-size: 100% 100%;
+        width: 98px;
+        height: 98px;
+      }
+      .order_error_icon {
+        margin: 0 auto;
+        background-image: url("../../assets/cuowu_icon@1x.png");
+        background-size: 100% 100%;
+        width: 102px;
+        height: 102px;
+      }
+
+      .order_error_tip {
+        margin-top: 21px;
+        font-size:21px;
+        font-family:"PingFang SC";
+        font-weight:400;
+        color:rgba(0,0,0,1);
+        line-height:30px;
+        text-align: center;
+      }
+
+      .order_error_id {
+        margin-top: 11px;
+        font-size:15px;
+        font-family:"PingFang SC";
+        font-weight:400;
+        color:rgba(0,0,0,1);
+        line-height:21px;
+        text-align: center;
+      }
+
+      .order_daojishi {
+        margin-top: 21px;
+        text-align: center;
+        font-size:15px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(155,155,155,1);
+        line-height:21px;
+      }
+    }
+  }
+}

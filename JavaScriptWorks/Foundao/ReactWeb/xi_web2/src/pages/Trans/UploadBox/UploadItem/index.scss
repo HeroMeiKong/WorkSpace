@@ -1,0 +1,428 @@
+@keyframes waiting {
+  0%{
+    background-color: #fc5855;
+  }
+  30%{
+    background-color: #fc5855;
+  }
+  60%{
+    background-color: #ffffff;
+  }
+  90%{
+    background-color: #ffffff;
+  }
+  100%{
+    background-color: #fc5855;
+  }
+}
+.upload_controller_detail {
+  width: 100%;
+  height: 46px;
+  border-bottom: 2px solid #EEEEEE;
+  padding: 0 15px;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  //justify-content: center;
+  align-items: center;
+
+  .detail_video_icon {
+    background-image: url("../../../../assets/shipin_icon@2x.png");
+    background-size: 100% 100%;
+    width: 12px;
+    height: 14px;
+  }
+
+  .detail_video_title {
+    font-size: 11px;
+    font-family: "PingFang SC";
+    font-weight: 400;
+    color: #060606;
+    margin-left: 4px;
+    line-height: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 200px;
+  }
+
+  .detail_video_size {
+    font-size: 11px;
+    font-family: "PingFang SC";
+    font-weight: 400;
+    color: #8A8A8A;
+    line-height: 15px;
+    width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .detail_fenbianlv:hover {
+    color: #FFFFFF;
+    background-color: #313131;
+    .fenbianlv_icon {
+      background-image: url("../../../../assets/xia_write_icon.png");
+    }
+  }
+
+  .detail_fenbianlv {
+    width: 92px;
+    height: 22px;
+    border-radius: 2px;
+    border: 1px solid #313131;
+    box-sizing: border-box;
+    font-size: 11px;
+    font-family: "PingFang SC";
+    font-weight: 400;
+    color: #313131;
+    line-height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .fenbianlv_bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 50;
+    }
+
+    .fenbianlv_icon {
+      background-image: url("../../../../assets/xia_icon@2x.png");
+      background-size: 100% 100%;
+      width: 7px;
+      height: 4px;
+    }
+
+    .resolve_box {
+      position: absolute;
+      top: 24px;
+      left: 0;
+      width: 152px;
+      background: rgba(232, 236, 239, 1);
+      border-radius: 2px;
+      border: 1px solid #9B9B9B;
+      z-index: 999;
+
+      .resolve_box_head {
+        width: 100%;
+        // height: 26px;
+        background: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 4px 6px;
+
+        .resolve_moren {
+          width: 50%;
+          height: 19px;
+          background: #FFFFFF;
+          color: #000;
+          font-size: 11px;
+          font-family: "PingFang SC";
+          font-weight: 400;
+          line-height: 19px;
+          border: 1px solid rgba(44, 44, 44, 1);
+          text-align: center;
+          cursor: pointer;
+        }
+
+        .resolve_zdy {
+          width: 50%;
+          height: 19px;
+          background: #FFFFFF;
+          color: #000;
+          font-size: 11px;
+          font-family: "PingFang SC";
+          font-weight: 400;
+          line-height: 19px;
+          border: 1px solid rgba(44, 44, 44, 1);
+          text-align: center;
+          cursor: pointer;
+        }
+      }
+
+      .resolve_content {
+        width: 100%;
+        background: rgba(232, 236, 239, 1);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+
+        .cantSelect {
+          color: rgba(173, 173, 173, 1) !important;
+          cursor: not-allowed !important;
+          border: 1px solid transparent !important;
+        }
+
+        .resolve_detail:hover {
+          border: 1px solid rgba(44, 44, 44, 1);
+        }
+
+        .resolve_detail {
+          float: left;
+          // min-width: 60px;
+          width: 64px;
+          margin: 9px 0px;
+          text-align: center;
+          font-size: 11px;
+          font-family: "PingFang SC";
+          font-weight: 400;
+          color: #4A4A4A;
+          line-height: 15px;
+          cursor: pointer;
+          box-sizing: border-box;
+          position: relative;
+          border: 1px solid transparent;
+
+          .yuanshi_box {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0px;
+            width: 64px;
+            height: 15px;
+            background: #2C2C2C;
+            text-align: center;
+            font-size: 11px;
+            font-family: "PingFang SC";
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 15px;
+          }
+        }
+
+        .resolve_detail:nth-of-type(1) {
+          .yuanshi_icon {
+            display: inline-block;
+            background-image: url("../../../../assets/xinxi_icon@2x.png");
+            background-size: cover;
+            width: 8px;
+            height: 8px;
+            margin-left: 3px;
+          }
+
+          .yuanshi_not_icon {
+            background-image: url("../../../../assets/xinxi_black_icon@2x.png");
+          }
+        }
+
+        .resolve_detail:nth-of-type(1):hover {
+          .yuanshi_box {
+            display: block;
+          }
+        }
+
+        .resolve_diy {
+          padding-top: 9px;
+          padding-left: 6px;
+          box-sizing: border-box;
+          font-size: 11px;
+          font-family: "PingFang SC";
+          font-weight: 400;
+          color: #4A4A4A;
+          line-height: 15px;
+
+          .resolve_input {
+            width: 34px;
+            margin-right: 15px;
+            border-bottom: 2px solid #4A4A4A;
+            font-size: 11px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(74, 74, 74, 1);
+            line-height: 15px;
+            background: #E8ECEF;
+            text-align: center;
+          }
+
+          .confirm_resolve_btn {
+            margin: 16px 0 11px;
+            width: 139px;
+            height: 19px;
+            background: #2C2C2C;
+            border-radius: 2px;
+            font-size: 11px;
+            font-family: "PingFang SC";
+            font-weight: 600;
+            color: #FFFFFF;
+            line-height: 19px;
+            text-align: center;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .successTrans_box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 92px;
+    //left: -16px;
+
+    .successTrans_fbl {
+      width: 53px;
+      font-size: 11px;
+      font-family: "PingFang SC";
+      font-weight: 400;
+      color: rgba(44, 44, 44, 1);
+      line-height: 15px;
+      text-align: center;
+    }
+
+    .download_btn {
+      background-image: url("../../../../assets/xiazai_icon.png");
+      background-size: 100% 100%;
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      float: right;
+    }
+
+    .download_btn:hover {
+      background-image: url("../../../../assets/xiazai_mouseover_icon.png");
+    }
+  }
+
+  .retry_box:hover {
+    color: #FF7E86;
+    border-radius: 7px;
+    border: 1px solid;
+    border-image: linear-gradient(135deg, rgba(255, 140, 125, 1), rgba(255, 109, 146, 1)) 4 4;
+
+    .retry_icon {
+      background-image: url("../../../../assets/retry_hilight_icon.png");
+    }
+  }
+
+  .retry_box {
+    width: 92px;
+    height: 22px;
+    border-radius: 2px;
+    border: 1px solid;
+    border-image: linear-gradient(135deg, rgba(255, 98, 69, 1), rgba(255, 51, 115, 1)) 1 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(244, 75, 83, 1);
+    box-sizing: border-box;
+    cursor: pointer;
+
+    p{
+      font-size: 11px;
+      font-family: PingFangSC-Regular;
+      font-weight: 400;
+      line-height: 20px;
+    }
+
+    .retry_icon {
+      background-image: url("../../../../assets/retry_icon.png");
+      background-size: 100% 100%;
+      width: 10px;
+      height: 10px;
+      margin-left: 4px;
+    }
+  }
+
+  .uploading_box {
+    width: 92px;
+    height: 22px;
+    border-radius: 2px;
+    border: 1px solid;
+    border-image: linear-gradient(135deg, rgba(255, 98, 69, 1), rgba(255, 51, 115, 1)) 1 1;
+    position: relative;
+    font-size: 11px;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+
+    .uploading_bg {
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      z-index: 1;
+      color: #FFFFFF;
+      background: linear-gradient(135deg, rgba(255, 98, 69, 1) 0%, rgba(255, 51, 115, 1) 100%);
+    }
+
+    .uploading_tip {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      background: #FFFFFF;
+      color: rgba(244, 75, 83, 1);
+    }
+
+    .uploading_waiting{
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 2px;
+      z-index: 2;
+      animation: 3s ease-in 2s waiting infinite;
+      position: absolute;
+      bottom: 8px;
+    }
+
+    .uploading_waiting:before,
+    .uploading_waiting:after{
+      content: '';
+      box-sizing: border-box;
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 2px;
+    }
+
+    .uploading_waiting:before{
+      position: absolute;
+      right: 10px;
+      animation: 3s ease-in waiting infinite;
+    }
+
+    .uploading_waiting:after{
+      position: absolute;
+      right: 5px;
+      animation: 3s ease-in 1s waiting infinite;
+    }
+  }
+
+  .fbl_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    z-index: 99;
+  }
+
+  .detail_close_btn {
+    background-image: url("../../../../assets/guanbi_icon@1x.png");
+    background-size: 100% 100%;
+    width: 9px;
+    height: 10px;
+    margin-left: 54px;
+    cursor: pointer;
+  }
+
+  .detail_close_btn:hover {
+    background-image: url("../../../../assets/ganbi_mouseover_icon@1x.png");
+  }
+}
