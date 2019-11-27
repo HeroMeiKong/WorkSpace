@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "backTitle": "/component/backTitle/backTitle",
-    "tabbar": "/component/tabbar/tabbar"
-  },
-  "disableScroll": false,
-  "backgroundColor": "#000000"
-}

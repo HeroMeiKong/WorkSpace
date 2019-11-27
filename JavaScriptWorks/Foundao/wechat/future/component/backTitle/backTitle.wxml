@@ -1,7 +1,0 @@
-<!--component/backTitle/backTitle.wxml-->
-<!--title-->
-<view class="head-title {{isIpx?'iphoneX-title':''}}">{{title}}</view>
-<!--返回按钮-->
-<view class="back-btn {{isIpx?'iphoneX-title':''}}" bindtap="goBack" hidden="{{noBack}}">
-    <view class="image"></view>
-</view>

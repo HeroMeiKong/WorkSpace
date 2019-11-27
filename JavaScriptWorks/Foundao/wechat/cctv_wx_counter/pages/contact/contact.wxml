@@ -1,9 +1,0 @@
-<!--pages/contact/contact.wxml-->
-<view class="wrapper">
-  <view class="contactBack">
-    <view class="inner">
-      <input class="contact" type="number" maxlength="11" focus="{{true}}" adjust-position="{{false}}" confirm-type="done" bindblur="getContact"></input>
-      <view class="contact_send" catch:tap="sendContact"></view>
-    </view>
-  </view>
-</view>

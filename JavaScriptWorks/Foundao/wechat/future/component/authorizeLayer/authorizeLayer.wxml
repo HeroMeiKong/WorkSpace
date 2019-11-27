@@ -1,9 +1,0 @@
-<!--component/authorizeLayer/authorizeLayer.wxml-->
-<view class="authorize-layer">
-    <view class="authorize-box">
-        <view class="title">微信授权</view>
-        <image class="logo" src="../../assets/images/logo.png"></image>
-        <view class="text">请先授权登录</view>
-        <button class="btn" open-type="getUserInfo" wx:if="{{canIUse}}" bindgetuserinfo="bindgetuserinfo">授权</button>
-    </view>
-</view>

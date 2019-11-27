@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "authorizeLayer": "/component/authorizeLayer/authorizeLayer"
-  },
-  "disableScroll": true,
-  "backgroundColor": "#000000",
-  "navigationStyle":"custom"
-}
