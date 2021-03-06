@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .wrapper {width: 100%;height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;}
+    .wrapper div {margin: 1rem;padding: 1rem; border: 1px solid blue;text-align: center;max-width: 20rem;overflow-wrap: break-word;}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>测试按钮</h1>
+    <button onclick="getInfo()">点击获取硬件信息</button>
+  </div>
+  <script>
+    // 获取 IOS 硬件信息
+    function getIOSInfo() {
+      console.log('getIOSInfo')
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.getHardwareParameter) {
+        window.webkit.messageHandlers.getHardwareParameter.postMessage(getVersion());
+      }
+      // iOS 这里是没得返回值的, 返回值在下面的方法里参数
+    }
+    // 获取 IOS 硬件信息回调(方法名字固定的不要改)
+    function getHardwareParameterCallback(param) {
+      // 这里是 iOS 给前端的数据
+      render(param)
+    }
+    // 获取 Android 硬件信息
+    function getAndroidInfo() {
+      console.log('getAndroidInfo')
+      if (window.android) return android.getHardwareParameter(getVersion())
+      return 'Get Android Hardware info fail!'
+    }
+    // 获取 PC 硬件信息
+    function getPCInfo() {
+      console.log('getPCInfo')
+      return 'getPCInfo success!' + getVersion()
+    }
+    // 监听获取按钮
+    function getInfo() {
+      var text = 'nothing'
+      //判断访问终端
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+        text = getIOSInfo()
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        text = getAndroidInfo()
+      } else { //pc
+        text = getPCInfo()
+      }
+      if (text) render(text)
+    }
+    // 获取版本号
+    function getVersion() {
+      return 'V0.0.1'
+    }
+    // 渲染硬件信息
+    function render(text) {
+      var wrapper = document.querySelector('.wrapper')
+      var child = document.createElement('div')
+      child.innerText = text
+      wrapper.appendChild(child)
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .wrapper {width: 100%;height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;}
+    .wrapper div {margin: 1rem;padding: 1rem; border: 1px solid blue;text-align: center;max-width: 20rem;overflow-wrap: break-word;}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>测试按钮</h1>
+    <button onclick="getInfo()">点击获取硬件信息</button>
+  </div>
+  <script>
+    // 获取 IOS 硬件信息
+    function getIOSInfo() {
+      console.log('getIOSInfo')
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.getHardwareParameter) {
+        window.webkit.messageHandlers.getHardwareParameter.postMessage(getBigQuantVersion);
+        return window.webkit.messageHandlers.getBigQuantVersion.postMessage(getBigQuantVersion);
+      }
+      return 'getIOSInfo fail!'
+    }
+    // 获取 Android 硬件信息
+    function getAndroidInfo() {
+      console.log('getAndroidInfo')
+      var text = 'Get Android Hardware info fail!'
+      if (window.android) text = android.getHardwareParameter(getBigQuantVersion())
+      // render(text)
+    }
+    // 获取 PC 硬件信息
+    function getPCInfo() {
+      console.log('getPCInfo')
+      var text = 'getPCInfo success!' + getBigQuantVersion()
+      // render(text)
+    }
+    // 监听获取按钮
+    function getInfo() {
+      var text = 'nothing'
+      //判断访问终端
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+        getIOSInfo()
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        text = getAndroidInfo()
+      } else { //pc
+        text = getPCInfo()
+      }
+      render(text)
+    }
+    // 获取版本号
+    function getBigQuantVersion(value) {
+      return ''
+    }
+    // 渲染硬件信息
+    function render(text) {
+      var wrapper = document.querySelector('.wrapper')
+      var child = document.createElement('div')
+      child.innerText = text
+      wrapper.appendChild(child)
+    }
+  </script>
+</body>
+</html>
