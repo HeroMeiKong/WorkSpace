@@ -163,11 +163,14 @@ def ahr999(year, month, day, force):
   global times
 
   try:
+    print("request ahr999")
     response = requests.get(host + "/index/ahr999", timeout=10, verify=False)
     data = response.json()
+    print("request ahr999 success")
     target = data.get("data")[-1]
 
     if str(year) + "/" + str(month) + "/" + str(day) == target.get("date"):
+      print("fill ahr999 success")
       indexs["ahr999"] = target
       ahr999 = indexs["ahr999"]["ahr999"]
       advise = ""
@@ -183,6 +186,7 @@ def ahr999(year, month, day, force):
       status = 1
       times = 0
     else:
+      print("fill ahr999 fail")
       if times >= LIMITTIMES or force:
         indexs["ahr999"] = ""
         status = 1
@@ -192,6 +196,7 @@ def ahr999(year, month, day, force):
         times += 1
         time.sleep(DELAY)
   except:
+    print("requset ahr999 error")
     if times >= LIMITTIMES or force:
       indexs["ahr999"] = ""
       status = 1
@@ -207,11 +212,14 @@ def BTCmarketCap(year, month, day, force):
   global times
 
   try:
+    print("request BTCmarketCap")
     response = requests.get(host + "/marketCapRank/history", timeout=10, verify=False, params={ "symbol": "BTC" })
     data = response.json()
+    print("request BTCmarketCap success")
 
     date = time.strftime("%Y/%m/%d", time.localtime(data.get("data").get("dateList")[-1] / 1000))
     if str(year) + "/" + str(month) + "/" + str(day) == date:
+      print("fill BTCmarketCap success")
       indexs["BTCmarketCap"] = {
         "value": marketCap(data.get("data").get("marketCapList")[-1]),
         "rate": data.get("data").get("marketCapRateList")[-1] * 100
@@ -219,6 +227,7 @@ def BTCmarketCap(year, month, day, force):
       status = 2
       times = 0
     else:
+      print("fill BTCmarketCap fail")
       if times >= LIMITTIMES or force:
         indexs["BTCmarketCap"] = ""
         status = 2
@@ -228,6 +237,7 @@ def BTCmarketCap(year, month, day, force):
         times += 1
         time.sleep(DELAY)
   except:
+    print("request BTCmarketCap error")
     if times >= LIMITTIMES or force:
       indexs["BTCmarketCap"] = ""
       status = 1
@@ -243,11 +253,14 @@ def fearGreedIndex(year, month, day, force):
   global times
   
   try:
+    print("request fearGreedIndex")
     response = requests.get(host + "/index/history", timeout=10, verify=False, params={ "size": "" })
     data = response.json()
+    print("request fearGreedIndex success")
 
     date = time.strftime("%Y/%m/%d", time.localtime(data.get("data")[0].get("dates")[-1] / 1000))
     if str(year) + "/" + str(month) + "/" + str(day) == date:
+      print("fill fearGreedIndex success")
       value = data.get("data")[0].get("values")[-1]
       advise = ""
       if value <= 10:
@@ -261,6 +274,7 @@ def fearGreedIndex(year, month, day, force):
       status = 3
       times = 0
     else:
+      print("fill fearGreedIndex fail")
       if times >= LIMITTIMES or force:
         indexs["fearGreedIndex"] = ""
         status = 3
@@ -270,6 +284,7 @@ def fearGreedIndex(year, month, day, force):
         times += 1
         time.sleep(DELAY)
   except:
+    print("request fearGreedIndex error")
     if times >= LIMITTIMES or force:
       indexs["fearGreedIndex"] = ""
       status = 3
@@ -286,11 +301,14 @@ def BTCBubble(year, month, day, force):
   global times
 
   try:
+    print("request BTCBubble")
     response = requests.get(host + "/index/bitcoinBubbleIndex", timeout=10, verify=False)
     data = response.json()
+    print("request BTCBubble success")
     target = data.get("data")[-1]
 
     if str(year) + "-" + str(month) + "-" + str(day) == target.get("time"):
+      print("fill BTCBubble success")
       indexs["BTCBubble"] = target
       BTCBubble = target["index"]
       advise = ""
@@ -302,6 +320,7 @@ def BTCBubble(year, month, day, force):
       status = 4
       times = 0
     else:
+      print("fill BTCBubble fail")
       if times >= LIMITTIMES or force:
         indexs["BTCBubble"] = ""
         status = 4
@@ -311,6 +330,7 @@ def BTCBubble(year, month, day, force):
         times += 1
         time.sleep(DELAY)
   except:
+    print("request BTCBubble error")
     if times >= LIMITTIMES or force:
       indexs["BTCBubble"] = ""
       status = 4
@@ -326,12 +346,15 @@ def towYearMAMultiplier(year, month, day, force):
   global times
 
   try:
+    print("request towYearMAMultiplier")
     response = requests.get(host + "/index/towYearMAMultiplier", timeout=10, verify=False)
     data = response.json()
+    print("request towYearMAMultiplier success")
     target = data.get("data")[-1]
     date = time.strftime("%Y/%m/%d", time.localtime(target.get("createTime") / 1000))
 
     if str(year) + "/" + str(month) + "/" + str(day) == date:
+      print("fill towYearMAMultiplier success")
       indexs["towYearMAMultiplier"] = target
       advise = ""
       if target["price"] < target["mA730"]:
@@ -344,6 +367,7 @@ def towYearMAMultiplier(year, month, day, force):
       status = 5
       times = 0
     else:
+      print("fill towYearMAMultiplier fail")
       if times >= LIMITTIMES or force:
         indexs["towYearMAMultiplier"] = ""
         status = 5
@@ -353,6 +377,7 @@ def towYearMAMultiplier(year, month, day, force):
         times += 1
         time.sleep(DELAY)
   except:
+    print("request towYearMAMultiplier error")
     if times >= LIMITTIMES or force:
       indexs["towYearMAMultiplier"] = ""
       status = 5
